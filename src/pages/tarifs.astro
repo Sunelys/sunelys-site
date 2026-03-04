@@ -1,0 +1,138 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Tarifs | Sunelys"
+  description="Découvrez les offres Sunelys pour la gestion de vos démarches administratives photovoltaïques."
+>
+  <section class="hero">
+    <h1>Tarifs</h1>
+    <p>
+      Nos offres sont modulables selon votre besoin: mission ponctuelle ou
+      accompagnement complet.
+    </p>
+  </section>
+
+  <section class="cards">
+    <article class="card">
+      <h2>Pack Déclaration</h2>
+      <p class="summary">
+        Pour les projets qui nécessitent un dossier mairie clair et conforme.
+      </p>
+      <ul>
+        <li>Analyse du besoin</li>
+        <li>Montage du dossier</li>
+        <li>Suivi de dépôt</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Pack Raccordement</h2>
+      <p class="summary">
+        Pour la coordination de la demande et du suivi Enedis jusqu'à validation.
+      </p>
+      <ul>
+        <li>Préparation administrative</li>
+        <li>Dépôt de la demande</li>
+        <li>Suivi des échanges techniques</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h2>Pack Complet</h2>
+      <p class="summary">
+        Déclaration préalable, raccordement Enedis et accompagnement Consuel.
+      </p>
+      <ul>
+        <li>Pilotage de A à Z</li>
+        <li>Interlocuteur unique</li>
+        <li>Suivi jusqu'à mise en service</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="note">
+    <h2>Devis personnalisé</h2>
+    <p>
+      Les tarifs dépendent du niveau d'accompagnement, du volume et des délais.
+      Contactez-nous pour un chiffrage adapté.
+    </p>
+    <a class="cta" href="/contact">Demander un devis</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero,
+  .card,
+  .note {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
+  }
+
+  h1 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.2rem, 2.9vw, 1.5rem);
+  }
+
+  p,
+  li {
+    color: #4b5563;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .summary {
+    margin: 0.1rem 0 0.5rem;
+  }
+
+  .cards {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  ul {
+    margin: 0.6rem 0 0;
+    padding-left: 1.1rem;
+  }
+
+  .note {
+    margin-top: 1rem;
+    text-align: center;
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #0f766e;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    background: #115e59;
+  }
+
+  @media (max-width: 900px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,222 @@
+---
+const {
+  title = "Sunelys",
+  description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
+} = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = new URL(path, Astro.site ?? "https://sunelys.fr").toString();
+
+const navLinks = [
+  { href: "/", label: "Accueil" },
+  { href: "/services", label: "Services" },
+  { href: "/tarifs", label: "Tarifs" },
+  { href: "/contact", label: "Contact" },
+];
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index,follow" />
+    <meta name="theme-color" content="#0f766e" />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sunelys" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+    <header class="header">
+      <div class="shell nav-wrap">
+        <a class="brand" href="/">Sunelys</a>
+        <nav aria-label="Navigation principale">
+          <ul class="nav-list">
+            {
+              navLinks.map((link) => (
+                <li>
+                  <a
+                    class:list={[
+                      "nav-link",
+                      path === link.href && "active",
+                    ]}
+                    href={link.href}
+                    aria-current={path === link.href ? "page" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenu" class="shell main">
+      <slot />
+    </main>
+
+    <footer class="footer">
+      <div class="shell footer-wrap">
+        <p>Email: <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a></p>
+        <p>Téléphone: <a href="tel:+33600000000">+33 6 00 00 00 00</a></p>
+      </div>
+    </footer>
+  </body>
+</html>
+
+<style>
+  :root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #4b5563;
+    --primary: #0f766e;
+    --primary-dark: #115e59;
+    --border: #d1d5db;
+    --shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    background: linear-gradient(180deg, #ecfeff 0%, var(--bg) 35%, var(--bg) 100%);
+    color: var(--text);
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.5;
+  }
+
+  .shell {
+    width: min(1100px, 92%);
+    margin: 0 auto;
+  }
+
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #ffffff;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+  }
+
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    z-index: 10;
+  }
+
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: rgba(245, 247, 250, 0.92);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(8px);
+  }
+
+  .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 0;
+  }
+
+  .brand {
+    text-decoration: none;
+    color: var(--text);
+    font-weight: 800;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-list {
+    list-style: none;
+    display: flex;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-link {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 0.45rem 0.7rem;
+    border-radius: 8px;
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    background: #e5e7eb;
+    color: var(--text);
+  }
+
+  .nav-link.active {
+    background: #ccfbf1;
+    color: var(--primary-dark);
+  }
+
+  .main {
+    padding: 2.4rem 0 3rem;
+  }
+
+  .footer {
+    border-top: 1px solid var(--border);
+    padding: 1.25rem 0 2rem;
+  }
+
+  .footer-wrap {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    color: var(--muted);
+  }
+
+  .footer p {
+    margin: 0;
+  }
+
+  .footer a {
+    color: var(--primary-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer a:hover,
+  .footer a:focus-visible {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 740px) {
+    .nav-wrap {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .nav-list {
+      flex-wrap: wrap;
+    }
+  }
+</style>

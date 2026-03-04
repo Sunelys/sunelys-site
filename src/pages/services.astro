@@ -1,0 +1,100 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+
+<BaseLayout
+  title="Services photovoltaïques | Sunelys"
+  description="Sunelys gère vos démarches administratives photovoltaïques: déclaration préalable, raccordement Enedis et Consuel."
+>
+  <section class="hero">
+    <h1>Services Sunelys</h1>
+    <p>
+      Nous prenons en charge les démarches administratives liées à votre installation
+      photovoltaïque, du premier dossier à la mise en service.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Déclaration préalable</h2>
+    <p>
+      Nous préparons votre dossier mairie avec les pièces attendues et assurons le
+      suivi jusqu'à l'obtention de l'accord administratif.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Raccordement Enedis</h2>
+    <p>
+      Sunelys gère la demande de raccordement, les échanges techniques et le suivi
+      opérationnel jusqu'à validation par Enedis.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Consuel</h2>
+    <p>
+      Nous vous accompagnons sur la phase de contrôle Consuel afin de sécuriser
+      l'attestation nécessaire à la mise en service.
+    </p>
+  </section>
+
+  <section class="section box">
+    <h2>Besoin d'un accompagnement complet ?</h2>
+    <p>
+      Nous adaptons notre intervention selon votre niveau d'avancement et votre zone
+      de projet.
+    </p>
+    <a class="cta" href="/contact">Demander un échange</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .hero,
+  .section {
+    background: #ffffff;
+    border: 1px solid #d1d5db;
+    border-radius: 14px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
+  }
+
+  .section {
+    margin-top: 1rem;
+  }
+
+  h1 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.2rem, 3vw, 1.7rem);
+  }
+
+  p {
+    margin: 0;
+    color: #4b5563;
+  }
+
+  .box {
+    text-align: center;
+  }
+
+  .cta {
+    display: inline-block;
+    margin-top: 1rem;
+    background: #0f766e;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.7rem 1.2rem;
+    border-radius: 10px;
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    background: #115e59;
+  }
+</style>
