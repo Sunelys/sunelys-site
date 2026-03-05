@@ -2,17 +2,59 @@
 const {
   title = "Sunelys",
   description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
+  structuredData = [],
 } = Astro.props;
 
 const path = Astro.url.pathname;
-const canonical = new URL(path, Astro.site ?? "https://sunelys.fr").toString();
+const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
+const canonical = new URL(path, `${siteUrl}/`).toString();
+const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
+const SHAPE_VARIANT: "A" | "B" = "A";
+const shapeTokens =
+  SHAPE_VARIANT === "A"
+    ? "--shape-opacity:0.16; --shape-size:66vmin; --shape-pos-x:117%; --shape-pos-y:8vh;"
+    : "--shape-opacity:0.34; --shape-size:86vmin; --shape-pos-x:105%; --shape-pos-y:3vh;";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
+  { href: "/parcours", label: "Parcours" },
   { href: "/services", label: "Services" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "/contact", label: "Contact" },
 ];
+
+const footerLinks = [
+  { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+  { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel photovoltaïque" },
+  { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis photovoltaïque" },
+];
+
+const baseSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Sunelys",
+    url: siteUrl,
+    logo: ogImage,
+    email: "contact@sunelys.fr",
+    telephone: "+33 6 95 90 79 19",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "49, impasse des lauriers",
+      postalCode: "83600",
+      addressLocality: "Les Adrets de l'Esterel",
+      addressCountry: "FR",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Sunelys",
+    url: siteUrl,
+  },
+];
+
+const allSchemas = [...baseSchemas, ...structuredData];
 ---
 
 <!doctype html>
@@ -23,25 +65,41 @@ const navLinks = [
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#0f766e" />
+    <meta name="theme-color" content="#cbae8d" />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sunelys" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {
+      allSchemas.map((schema) => (
+        <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+      ))
+    }
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
   </head>
-  <body>
+  <body style={shapeTokens} data-shape-variant={SHAPE_VARIANT}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <header class="header">
       <div class="shell nav-wrap">
-        <a class="brand" href="/">Sunelys</a>
+        <a class="brand" href="/" aria-label="Sunelys">
+          <img
+            src="/brand/wordmark.svg"
+            alt="Sunelys"
+            width="210"
+            height="120"
+            loading="eager"
+            decoding="async"
+          />
+        </a>
         <nav aria-label="Navigation principale">
           <ul class="nav-list">
             {
@@ -71,23 +129,57 @@ const navLinks = [
 
     <footer class="footer">
       <div class="shell footer-wrap">
-        <p>Email: <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a></p>
-        <p>Téléphone: <a href="tel:+33600000000">+33 6 00 00 00 00</a></p>
+        <div class="footer-main">
+          <p>Email: <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a></p>
+          <p>Téléphone: <a href="tel:+33695907919">06 95 90 79 19</a></p>
+        </div>
+        <nav class="footer-seo" aria-label="Pages SEO">
+          {
+            footerLinks.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))
+          }
+        </nav>
       </div>
     </footer>
+
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      window.trackEvent = (eventName, params = {}) => {
+        window.dataLayer.push({
+          event: eventName,
+          page_path: window.location.pathname,
+          page_title: document.title,
+          timestamp: Date.now(),
+          ...params,
+        });
+      };
+
+      document.addEventListener("click", (event) => {
+        if (!(event.target instanceof Element)) return;
+        const element = event.target.closest("[data-track]");
+        if (!element || !window.trackEvent) return;
+        window.trackEvent(element.dataset.track, {
+          label: element.dataset.trackLabel || (element.textContent || "").trim(),
+          href: element.getAttribute("href") || "",
+        });
+      });
+    </script>
   </body>
 </html>
 
 <style>
   :root {
-    --bg: #f5f7fa;
-    --surface: #ffffff;
-    --text: #111827;
-    --muted: #4b5563;
-    --primary: #0f766e;
-    --primary-dark: #115e59;
-    --border: #d1d5db;
-    --shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
+    --bg: #eceae4;
+    --surface: #f4f1ec;
+    --text: #111111;
+    --muted: #4f4f4f;
+    --primary: #111111;
+    --primary-dark: #000000;
+    --accent: #fde9a4;
+    --accent-dark: #cbae8d;
+    --border: #cbae8d;
+    --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
   }
 
   * {
@@ -96,10 +188,32 @@ const navLinks = [
 
   body {
     margin: 0;
-    background: linear-gradient(180deg, #ecfeff 0%, var(--bg) 35%, var(--bg) 100%);
+    background: var(--bg);
     color: var(--text);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
     line-height: 1.5;
+    position: relative;
+    min-height: 100vh;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("/brand/shape-clean.svg");
+    background-repeat: no-repeat;
+    background-position: var(--shape-pos-x) var(--shape-pos-y);
+    background-size: var(--shape-size);
+    opacity: var(--shape-opacity);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Didot", "Bodoni MT", "Times New Roman", serif;
+    letter-spacing: 0.01em;
   }
 
   .shell {
@@ -111,7 +225,7 @@ const navLinks = [
     position: absolute;
     left: -9999px;
     top: 0;
-    background: #ffffff;
+    background: var(--surface);
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -127,7 +241,7 @@ const navLinks = [
     position: sticky;
     top: 0;
     z-index: 5;
-    background: rgba(245, 247, 250, 0.92);
+    background: rgba(236, 234, 228, 0.88);
     border-bottom: 1px solid var(--border);
     backdrop-filter: blur(8px);
   }
@@ -141,11 +255,26 @@ const navLinks = [
   }
 
   .brand {
+    display: inline-flex;
+    align-items: center;
     text-decoration: none;
-    color: var(--text);
-    font-weight: 800;
-    font-size: 1.1rem;
-    letter-spacing: 0.02em;
+  }
+
+  .brand img {
+    display: block;
+    height: 2.4rem;
+    width: auto;
+    border-radius: 0;
+  }
+
+  .brand:hover img,
+  .brand:focus-visible img {
+    filter: contrast(1.04);
+  }
+
+  .brand {
+    text-decoration: none;
+    color: inherit;
   }
 
   .nav-list {
@@ -168,12 +297,12 @@ const navLinks = [
 
   .nav-link:hover,
   .nav-link:focus-visible {
-    background: #e5e7eb;
+    background: #ddd4bc;
     color: var(--text);
   }
 
   .nav-link.active {
-    background: #ccfbf1;
+    background: var(--accent);
     color: var(--primary-dark);
   }
 
@@ -188,10 +317,17 @@ const navLinks = [
 
   .footer-wrap {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
     gap: 1.5rem;
     color: var(--muted);
+  }
+
+  .footer-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
   }
 
   .footer p {
@@ -199,14 +335,34 @@ const navLinks = [
   }
 
   .footer a {
-    color: var(--primary-dark);
+    color: var(--primary);
     text-decoration: none;
     font-weight: 600;
+  }
+
+  .footer-seo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .footer-seo a {
+    font-weight: 500;
+    font-size: 0.92rem;
   }
 
   .footer a:hover,
   .footer a:focus-visible {
     text-decoration: underline;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--primary-dark);
+    outline-offset: 2px;
   }
 
   @media (max-width: 740px) {
@@ -217,6 +373,11 @@ const navLinks = [
 
     .nav-list {
       flex-wrap: wrap;
+    }
+
+    .footer-wrap {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 </style>

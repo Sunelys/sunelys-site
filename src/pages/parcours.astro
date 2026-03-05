@@ -1,0 +1,145 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const steps = [
+  {
+    title: "Audit d'entree",
+    description:
+      "Nous cadrons votre typologie de dossiers et les points de vigilance administratifs avant depot.",
+  },
+  {
+    title: "Structuration documentaire",
+    description:
+      "Nous standardisons les pieces et check-lists pour limiter les erreurs et les retours.",
+  },
+  {
+    title: "Pilotage multi-acteurs",
+    description:
+      "Nous suivons les interactions avec mairie, Consuel et Enedis avec un reporting clair.",
+  },
+  {
+    title: "Validation et passage en production",
+    description:
+      "Nous consolidons les validations et vous transmettons un suivi exploitable en continu.",
+  },
+];
+---
+
+<BaseLayout
+  title="Parcours Sunelys | Structuration administrative ENR"
+  description="Decouvrez le parcours Sunelys pour fiabiliser et accelerer le traitement administratif de vos dossiers photovoltaïques."
+>
+  <section class="card hero">
+    <h1>Parcours Sunelys</h1>
+    <p>
+      Une methode operationnelle pour absorber les volumes, reduire les frictions
+      administratives et garder vos equipes concentrees sur la vente et le suivi client.
+    </p>
+  </section>
+
+  <section class="section">
+    <h2>Notre methode en 4 phases</h2>
+    <div class="steps-grid">
+      {
+        steps.map((step, index) => (
+          <article class="card step-card">
+            <p class="step-number">Phase {index + 1}</p>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="card cta-box section">
+    <h2>Objectif: un flux administratif previsible</h2>
+    <p>
+      Nous mettons en place un cadre reproductible qui facilite votre croissance sans
+      degrader la qualite des dossiers.
+    </p>
+    <a class="cta" href="/contact" data-track="cta_parcours_contact">Planifier un appel</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    margin-top: 1.8rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  h1 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+    line-height: 1.14;
+  }
+
+  h2 {
+    margin: 0 0 0.9rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  h3 {
+    margin: 0.2rem 0 0.4rem;
+    font-size: 1.2rem;
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .hero {
+    text-align: center;
+  }
+
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .step-number {
+    font-weight: 700;
+    color: #6f6046;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+
+  .cta-box {
+    text-align: center;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .cta {
+    justify-self: center;
+    display: inline-block;
+    padding: 0.75rem 1.3rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #f4f1e8;
+    background: var(--primary);
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    color: var(--primary-dark);
+    background: var(--accent-dark);
+  }
+
+  @media (max-width: 820px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

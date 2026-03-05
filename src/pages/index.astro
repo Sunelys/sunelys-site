@@ -1,11 +1,738 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import {
+  CONTENT_MODE,
+  caseStudies,
+  painPoints,
+  quizOptions,
+  testimonials,
+  trustLogos,
+  trustMetrics,
+  videoPresentation,
+} from "../data/home";
+
+const zones = [
+  "Ile-de-France",
+  "Hauts-de-France",
+  "Normandie",
+  "Bretagne",
+  "Pays de la Loire",
+  "Nouvelle-Aquitaine",
+  "Occitanie",
+  "Provence-Alpes-Cote d'Azur",
+];
+
+const faqItems = [
+  {
+    question: "Intervenez-vous partout en France ?",
+    answer:
+      "Oui. Sunelys accompagne les projets dans plusieurs regions et peut traiter les demarches administratives a distance.",
+  },
+  {
+    question: "Quand lancer les demarches administratives photovoltaïques ?",
+    answer:
+      "Le plus tot possible, idealement avant l'installation, afin d'anticiper les delais de mairie, de raccordement Enedis et de controle Consuel.",
+  },
+  {
+    question: "Pouvez-vous gerer uniquement une partie des demarches ?",
+    answer:
+      "Oui. Vous pouvez nous confier une mission ciblee, comme la declaration prealable, le raccordement Enedis ou le Consuel.",
+  },
+  {
+    question: "Sous quel delai obtenons-nous un premier retour ?",
+    answer:
+      "Apres reception des elements de base de votre projet, un premier cadrage est generalement transmis rapidement avec les prochaines etapes.",
+  },
+];
+
+const quizMessages = Object.fromEntries(
+  quizOptions.map((option) => [option.value, option.message]),
+);
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Structuration administrative photovoltaïque",
+    provider: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    areaServed: zones,
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Services administratifs photovoltaïques",
+      itemListElement: [
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Declaration prealable" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Raccordement Enedis" } },
+        { "@type": "Offer", itemOffered: { "@type": "Service", name: "Dossier Consuel" } },
+      ],
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
 ---
 
 <BaseLayout
-  title="Sunelys | Démarches photovoltaïques simplifiées"
-  description="Sunelys accompagne installateurs et porteurs de projet sur la déclaration préalable, le raccordement Enedis et le Consuel."
+  title="Sunelys | Structuration administrative photovoltaïque"
+  description="Sunelys prend en charge l'administratif photovoltaïque de A a Z: declaration prealable, dossier Consuel et raccordement Enedis."
+  structuredData={structuredData}
 >
-  <section class="hero">
+  <section class="hero card">
     <p class="badge">Sunelys</p>
-    <h1>Vos d�
+    <h1>Transformez l'administratif photovoltaïque en avantage operationnel.</h1>
+    <p class="positioning">Cabinet de structuration administrative ENR</p>
+    <p class="subtitle">
+      Sunelys pilote votre administratif PV de A a Z: declaration prealable, dossier
+      Consuel et raccordement Enedis.
+    </p>
+    <div class="hero-actions">
+      <a class="cta" href="/contact" data-track="cta_hero_primary">Planifier un appel</a>
+      <a class="cta cta-secondary" href="/services" data-track="cta_hero_secondary">Voir les offres</a>
+    </div>
+    <p class="hero-helper">
+      Vous gardez la relation commerciale. Nous fiabilisons la mecanique administrative.
+    </p>
+  </section>
+
+  <section class="section card problems">
+    <h2>Ce qui vous ralentit</h2>
+    <ul>
+      {painPoints.map((pain) => <li>{pain}</li>)}
+    </ul>
+    <p class="transition-line">
+      Sunelys prend en charge la mecanique administrative. Vous gardez la relation
+      commerciale.
+    </p>
+  </section>
+
+  <section class="section card">
+    <h2>Parcours en 4 etapes</h2>
+    <ol class="steps">
+      <li class="step">
+        <span class="step-number">01</span>
+        <p>Cadrage des pre-requis administratifs par dossier.</p>
+      </li>
+      <li class="step">
+        <span class="step-number">02</span>
+        <p>Montage et controle qualite des pieces.</p>
+      </li>
+      <li class="step">
+        <span class="step-number">03</span>
+        <p>Pilotage des depots et des echanges avec les organismes.</p>
+      </li>
+      <li class="step">
+        <span class="step-number">04</span>
+        <p>Suivi jusqu'a validation finale et mise en service.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section class="section card trust">
+    <h2>Ils nous font confiance</h2>
+
+    {
+      CONTENT_MODE.showLogos ? (
+        <div class="logo-row" aria-label="Logos partenaires">
+          {
+            trustLogos.map((logo) => (
+              <div class="logo-pill" role="img" aria-label={logo.name}>
+                {logo.src ? <img src={logo.src} alt={logo.name} loading="lazy" /> : logo.name}
+              </div>
+            ))
+          }
+        </div>
+      ) : null
+    }
+
+    <div class="metrics-grid">
+      {
+        trustMetrics.map((metric) => (
+          <article class="metric-card">
+            <p class="metric-value">{metric.value}</p>
+            <p class="metric-label">{metric.label}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="testimonials-grid">
+      {
+        testimonials.map((item) => (
+          <blockquote class="testimonial">
+            <p>"{item.quote}"</p>
+            <cite>{item.author} - {item.company}, {item.region}</cite>
+          </blockquote>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section card quiz" id="estimation-gain">
+    <h2>Recevez une estimation de gain</h2>
+    <p class="quiz-subtitle">Combien de dossiers gerez-vous par mois ?</p>
+    <div class="quiz-options" role="radiogroup" aria-label="Volume de dossiers">
+      {
+        quizOptions.map((option) => (
+          <button
+            type="button"
+            class="quiz-option"
+            data-volume={option.value}
+            data-track="quiz_option_click"
+            data-track-label={option.label}
+            aria-label={`Volume ${option.label} dossiers par mois`}
+            aria-pressed="false"
+          >
+            {option.label}
+          </button>
+        ))
+      }
+    </div>
+    <div id="quiz-result" class="quiz-result" hidden>
+      <p id="quiz-message"></p>
+      <a id="quiz-cta" class="cta" href="/contact" data-track="cta_quiz_estimation"
+        >Recevoir une estimation de gain</a
+      >
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>Cas client</h2>
+    <div class="case-grid">
+      {
+        caseStudies.map((study) => (
+          <article class="card case-card">
+            <h3>{study.title}</h3>
+            <p class="case-context">{study.context}</p>
+            <ul>
+              {study.results.map((result) => <li>{result}</li>)}
+            </ul>
+            <a
+              class="cta cta-secondary"
+              href={study.ctaHref}
+              data-track="cta_case_study"
+              data-track-label={study.title}
+            >
+              {study.ctaLabel}
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section card video">
+    <h2>{videoPresentation.title}</h2>
+    <p>{videoPresentation.description}</p>
+    <div class="video-frame" data-video-container>
+      {
+        CONTENT_MODE.showVideoEmbed && videoPresentation.embedUrl ? (
+          <button type="button" class="video-play" data-video-trigger data-track="video_play_click">
+            Lancer la video
+          </button>
+        ) : (
+          <div class="video-fallback">
+            <img
+              src={videoPresentation.posterImage}
+              alt={videoPresentation.posterAlt}
+              loading="lazy"
+              width="520"
+              height="320"
+            />
+            <a class="cta" href={videoPresentation.fallbackCtaHref} data-track="cta_video_fallback">
+              {videoPresentation.fallbackCtaLabel}
+            </a>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section card local">
+    <h2>Zones desservies</h2>
+    <p class="local-text">
+      Sunelys accompagne les professionnels et porteurs de projet sur plusieurs zones
+      en France, avec une gestion administrative a distance.
+    </p>
+    <ul class="zones">
+      {zones.map((zone) => <li>{zone}</li>)}
+    </ul>
+  </section>
+
+  <section class="section card faq">
+    <h2>FAQ</h2>
+    <div class="faq-grid">
+      {
+        faqItems.map((item) => (
+          <article class="faq-item">
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ quizMessages, videoPresentation }}>
+  const quizButtons = document.querySelectorAll("[data-volume]");
+  const quizResult = document.querySelector("#quiz-result");
+  const quizMessage = document.querySelector("#quiz-message");
+  const quizCta = document.querySelector("#quiz-cta");
+
+  const setQuizValue = (value) => {
+    const message = quizMessages[value];
+    if (!message || !quizResult || !quizMessage || !quizCta) return;
+
+    quizButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", button.dataset.volume === value ? "true" : "false");
+    });
+    localStorage.setItem("sunelys_volume_range", value);
+    quizMessage.textContent = message;
+    quizCta.setAttribute("href", `/contact?volume=${encodeURIComponent(value)}`);
+    quizResult.hidden = false;
+
+    if (window.trackEvent) {
+      window.trackEvent("quiz_volume_selected", { volume: value });
+    }
+  };
+
+  quizButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setQuizValue(button.dataset.volume);
+    });
+  });
+
+  const videoContainer = document.querySelector("[data-video-container]");
+  const videoTrigger = document.querySelector("[data-video-trigger]");
+
+  if (videoContainer && videoTrigger && videoPresentation.embedUrl) {
+    videoTrigger.addEventListener("click", () => {
+      const iframe = document.createElement("iframe");
+      iframe.src = `${videoPresentation.embedUrl}?autoplay=1`;
+      iframe.title = videoPresentation.title;
+      iframe.loading = "lazy";
+      iframe.allow =
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      iframe.allowFullscreen = true;
+      videoContainer.innerHTML = "";
+      videoContainer.appendChild(iframe);
+    });
+  }
+</script>
+
+<style>
+  .section {
+    margin-top: 2rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 1.3rem;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 2.7rem 1.35rem;
+  }
+
+  .badge {
+    display: inline-block;
+    margin: 0;
+    padding: 0.26rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    background: var(--accent);
+  }
+
+  h1 {
+    margin: 1rem auto 0.8rem;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    max-width: 22ch;
+    line-height: 1.12;
+  }
+
+  .positioning {
+    margin: 0;
+    color: #6f6046;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+    font-weight: 600;
+  }
+
+  .subtitle {
+    margin: 0.7rem auto 0;
+    max-width: 62ch;
+    color: var(--muted);
+    font-size: clamp(1rem, 2.3vw, 1.16rem);
+  }
+
+  .hero-actions {
+    margin-top: 1.35rem;
+    display: flex;
+    justify-content: center;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+
+  .cta {
+    display: inline-block;
+    padding: 0.75rem 1.35rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #f4f1e8;
+    background: var(--primary);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    color: var(--primary-dark);
+    background: var(--accent-dark);
+  }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--primary);
+    border-color: var(--primary);
+  }
+
+  .cta-secondary:hover,
+  .cta-secondary:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent-dark);
+  }
+
+  .hero-helper {
+    margin: 1rem 0 0;
+    color: var(--muted);
+    font-size: 0.94rem;
+  }
+
+  h2 {
+    margin: 0 0 0.95rem;
+    font-size: clamp(1.38rem, 3vw, 2rem);
+  }
+
+  h3 {
+    margin: 0 0 0.4rem;
+    font-size: 1.14rem;
+  }
+
+  p,
+  li {
+    color: var(--muted);
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .problems ul {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .transition-line {
+    margin-top: 0.95rem;
+    font-weight: 600;
+    color: var(--primary);
+  }
+
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    align-items: start;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.8rem;
+  }
+
+  .step-number {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: var(--accent);
+    color: var(--primary-dark);
+    flex-shrink: 0;
+  }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .logo-pill {
+    border: 1px dashed var(--accent-dark);
+    border-radius: 12px;
+    text-align: center;
+    padding: 0.8rem 0.5rem;
+    color: #6f6046;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .logo-pill img {
+    max-width: 100%;
+    max-height: 26px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .metrics-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .metric-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.8rem;
+    background: rgba(255, 255, 255, 0.25);
+  }
+
+  .metric-value {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+  }
+
+  .metric-label {
+    margin-top: 0.1rem;
+    font-size: 0.88rem;
+  }
+
+  .testimonials-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .testimonial {
+    margin: 0;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem;
+  }
+
+  .testimonial p {
+    margin: 0;
+    font-style: italic;
+  }
+
+  .testimonial cite {
+    display: inline-block;
+    margin-top: 0.55rem;
+    font-size: 0.88rem;
+    color: #6f6046;
+  }
+
+  .quiz-subtitle {
+    margin-bottom: 0.85rem;
+  }
+
+  .quiz-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .quiz-option {
+    border: 1px solid var(--accent-dark);
+    background: var(--accent);
+    color: var(--primary-dark);
+    border-radius: 10px;
+    padding: 0.62rem 1rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  .quiz-option:hover,
+  .quiz-option:focus-visible {
+    background: var(--accent-dark);
+    color: var(--primary-dark);
+  }
+
+  .quiz-result {
+    margin-top: 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .case-grid {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  .case-context {
+    color: #6f6046;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .case-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .case-card .cta {
+    margin-top: 0.85rem;
+  }
+
+  .video-frame {
+    margin-top: 0.8rem;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    min-height: 300px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    background: linear-gradient(145deg, #e8dfbd 0%, #c8ab89 100%);
+  }
+
+  .video-play {
+    border: 1px solid var(--primary-dark);
+    background: var(--primary-dark);
+    color: #f4f1e8;
+    border-radius: 999px;
+    padding: 0.7rem 1.2rem;
+    cursor: pointer;
+    font-weight: 700;
+  }
+
+  .video-play:hover,
+  .video-play:focus-visible {
+    background: #2a2a2a;
+  }
+
+  .video-frame iframe {
+    width: 100%;
+    min-height: 300px;
+    border: 0;
+  }
+
+  .video-fallback {
+    display: grid;
+    place-items: center;
+    gap: 0.9rem;
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .video-fallback img {
+    width: min(100%, 520px);
+    height: auto;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    background: #f4f1ec;
+  }
+
+  .zones {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin: 0.85rem 0 0;
+    padding: 0;
+  }
+
+  .zones li {
+    background: var(--accent);
+    border: 1px solid var(--border);
+    color: var(--primary-dark);
+    border-radius: 999px;
+    padding: 0.34rem 0.75rem;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem;
+  }
+
+  .faq-item h3 {
+    font-size: 1rem;
+  }
+
+  @media (max-width: 920px) {
+    .logo-row,
+    .metrics-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .testimonials-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .hero {
+      padding: 2rem 1rem;
+    }
+
+    .logo-row,
+    .metrics-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .video-frame,
+    .video-frame iframe {
+      min-height: 220px;
+    }
+  }
+</style>

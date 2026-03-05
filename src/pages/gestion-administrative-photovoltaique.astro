@@ -1,0 +1,186 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const processSteps = [
+  "Audit initial de vos flux et de vos obligations administratives",
+  "Preparation des dossiers et verification documentaire",
+  "Depots, relances et coordination avec les organismes",
+  "Suivi des validations et reporting operationnel",
+];
+
+const scopeItems = [
+  "Declaration prealable et suivi d'instruction",
+  "Preparation des dossiers Consuel",
+  "Pilotage du raccordement Enedis",
+  "Organisation des pieces techniques et administratives",
+  "Reporting d'avancement pour vos equipes",
+];
+
+const faqItems = [
+  {
+    question: "A qui s'adresse la gestion administrative photovoltaïque ?",
+    answer:
+      "Aux installateurs, reseaux d'agences et porteurs de projet qui veulent fiabiliser leurs dossiers et reduire la charge administrative interne.",
+  },
+  {
+    question: "Quels types de dossiers pouvez-vous traiter ?",
+    answer:
+      "Nous intervenons sur les dossiers residentiels et professionnels, selon le cadrage defini au demarrage.",
+  },
+  {
+    question: "Comment se deroule le suivi ?",
+    answer:
+      "Un pilotage structure est mis en place avec points d'etape et visibilite sur les prochaines actions prioritaires.",
+  },
+  {
+    question: "Puis-je confier uniquement une partie du parcours ?",
+    answer:
+      "Oui. Vous pouvez deleguer un bloc cible ou un parcours complet selon votre organisation.",
+  },
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Gestion administrative photovoltaïque | Sunelys"
+  description="Externalisez la gestion administrative photovoltaïque avec Sunelys: declaration prealable, Consuel, raccordement Enedis et suivi operationnel."
+  structuredData={structuredData}
+>
+  <section class="card hero">
+    <h1>Gestion administrative photovoltaïque</h1>
+    <p>
+      Sunelys structure et pilote vos obligations administratives pour fiabiliser vos
+      depots et accelerer votre mise en production.
+    </p>
+  </section>
+
+  <section class="section card">
+    <h2>Ce que nous prenons en charge</h2>
+    <ul>
+      {scopeItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="section card">
+    <h2>Process</h2>
+    <ol>
+      {processSteps.map((step) => <li>{step}</li>)}
+    </ol>
+  </section>
+
+  <section class="section card faq">
+    <h2>FAQ</h2>
+    <div class="faq-grid">
+      {
+        faqItems.map((item) => (
+          <article class="faq-item">
+            <h3>{item.question}</h3>
+            <p>{item.answer}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section card cta-box">
+    <h2>Besoin d'un audit de votre organisation ?</h2>
+    <a class="cta" href="/contact" data-track="cta_seo_gestion_audit">Demander un audit</a>
+  </section>
+</BaseLayout>
+
+<style>
+  .section {
+    margin-top: 1.8rem;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+  }
+
+  h1 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
+    line-height: 1.14;
+  }
+
+  h2 {
+    margin: 0 0 0.85rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.07rem;
+  }
+
+  p,
+  li {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  ul,
+  ol {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 0.85rem;
+  }
+
+  .cta-box {
+    text-align: center;
+  }
+
+  .cta {
+    margin-top: 0.5rem;
+    display: inline-block;
+    padding: 0.75rem 1.3rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 700;
+    color: #f4f1e8;
+    background: var(--primary);
+  }
+
+  .cta:hover,
+  .cta:focus-visible {
+    color: var(--primary-dark);
+    background: var(--accent-dark);
+  }
+
+  @media (max-width: 820px) {
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

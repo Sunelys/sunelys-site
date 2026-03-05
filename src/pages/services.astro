@@ -1,100 +1,158 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const services = [
+  {
+    title: "Gestion administrative photovoltaïque",
+    description:
+      "Pilotage global du flux administratif pour structurer vos dossiers et soulager vos equipes.",
+    href: "/gestion-administrative-photovoltaique",
+  },
+  {
+    title: "Dossier Consuel photovoltaïque",
+    description:
+      "Preparation, controle et suivi des elements Consuel jusqu'a validation.",
+    href: "/dossier-consuel-photovoltaique",
+  },
+  {
+    title: "Raccordement Enedis photovoltaïque",
+    description:
+      "Gestion du dossier de raccordement et coordination administrative jusqu'a la mise en service.",
+    href: "/raccordement-enedis-photovoltaique",
+  },
+];
 ---
 
 <BaseLayout
   title="Services photovoltaïques | Sunelys"
-  description="Sunelys gère vos démarches administratives photovoltaïques: déclaration préalable, raccordement Enedis et Consuel."
+  description="Sunelys gère vos démarches administratives photovoltaïques: declaration prealable, raccordement Enedis et dossier Consuel."
 >
-  <section class="hero">
+  <section class="hero card">
     <h1>Services Sunelys</h1>
     <p>
-      Nous prenons en charge les démarches administratives liées à votre installation
-      photovoltaïque, du premier dossier à la mise en service.
+      Nous prenons en charge les démarches administratives liees a votre installation
+      photovoltaïque, du premier dossier a la mise en service.
     </p>
   </section>
 
   <section class="section">
-    <h2>Déclaration préalable</h2>
-    <p>
-      Nous préparons votre dossier mairie avec les pièces attendues et assurons le
-      suivi jusqu'à l'obtention de l'accord administratif.
-    </p>
+    <h2>Offres specialisees</h2>
+    <div class="grid">
+      {
+        services.map((service) => (
+          <article class="card service-card">
+            <h3>{service.title}</h3>
+            <p>{service.description}</p>
+            <a
+              class="cta cta-secondary"
+              href={service.href}
+              data-track="cta_services_detail"
+              data-track-label={service.title}
+            >
+              Voir le detail
+            </a>
+          </article>
+        ))
+      }
+    </div>
   </section>
 
-  <section class="section">
-    <h2>Raccordement Enedis</h2>
-    <p>
-      Sunelys gère la demande de raccordement, les échanges techniques et le suivi
-      opérationnel jusqu'à validation par Enedis.
-    </p>
-  </section>
-
-  <section class="section">
-    <h2>Consuel</h2>
-    <p>
-      Nous vous accompagnons sur la phase de contrôle Consuel afin de sécuriser
-      l'attestation nécessaire à la mise en service.
-    </p>
-  </section>
-
-  <section class="section box">
+  <section class="section card box">
     <h2>Besoin d'un accompagnement complet ?</h2>
     <p>
-      Nous adaptons notre intervention selon votre niveau d'avancement et votre zone
-      de projet.
+      Nous adaptons notre intervention selon votre volume de dossiers et votre
+      organisation commerciale.
     </p>
-    <a class="cta" href="/contact">Demander un échange</a>
+    <a class="cta" href="/contact" data-track="cta_services_contact">Demander un audit</a>
   </section>
 </BaseLayout>
 
 <style>
-  .hero,
   .section {
-    background: #ffffff;
-    border: 1px solid #d1d5db;
-    border-radius: 14px;
-    padding: 1.25rem;
-    box-shadow: 0 8px 20px rgba(17, 24, 39, 0.08);
+    margin-top: 1.8rem;
   }
 
-  .section {
-    margin-top: 1rem;
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
   }
 
   h1 {
     margin: 0 0 0.65rem;
-    font-size: clamp(1.75rem, 4.5vw, 2.6rem);
+    font-size: clamp(1.75rem, 4.5vw, 2.8rem);
     line-height: 1.15;
   }
 
   h2 {
-    margin: 0 0 0.5rem;
-    font-size: clamp(1.2rem, 3vw, 1.7rem);
+    margin: 0 0 0.9rem;
+    font-size: clamp(1.35rem, 3vw, 2rem);
+  }
+
+  h3 {
+    margin: 0 0 0.45rem;
+    font-size: 1.15rem;
   }
 
   p {
     margin: 0;
-    color: #4b5563;
+    color: var(--muted);
   }
 
-  .box {
-    text-align: center;
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .service-card {
+    display: grid;
+    gap: 0.75rem;
   }
 
   .cta {
     display: inline-block;
-    margin-top: 1rem;
-    background: #0f766e;
-    color: #ffffff;
+    padding: 0.72rem 1.2rem;
+    border-radius: 10px;
     text-decoration: none;
     font-weight: 700;
-    padding: 0.7rem 1.2rem;
-    border-radius: 10px;
+    color: #f4f1e8;
+    background: var(--primary);
   }
 
   .cta:hover,
   .cta:focus-visible {
-    background: #115e59;
+    color: var(--primary-dark);
+    background: var(--accent-dark);
+  }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+  }
+
+  .cta-secondary:hover,
+  .cta-secondary:focus-visible {
+    background: var(--accent);
+    border-color: var(--accent-dark);
+  }
+
+  .box {
+    text-align: center;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .box .cta {
+    justify-self: center;
+  }
+
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
