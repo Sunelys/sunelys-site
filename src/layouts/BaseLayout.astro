@@ -12,8 +12,8 @@ const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
 const SHAPE_VARIANT: "A" | "B" = "A";
 const shapeTokens =
   SHAPE_VARIANT === "A"
-    ? "--shape-opacity:0.16; --shape-size:66vmin; --shape-pos-x:117%; --shape-pos-y:8vh;"
-    : "--shape-opacity:0.34; --shape-size:86vmin; --shape-pos-x:105%; --shape-pos-y:3vh;";
+    ? "--shape-opacity:0.16; --shape-size:66vmin; --shape-pos-x:117%;"
+    : "--shape-opacity:0.34; --shape-size:86vmin; --shape-pos-x:105%;";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -202,7 +202,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
     inset: 0;
     background-image: url("/brand/shape-clean.svg");
     background-repeat: no-repeat;
-    background-position: var(--shape-pos-x) var(--shape-pos-y);
+    background-position: var(--shape-pos-x) 6vh;
     background-size: var(--shape-size);
     opacity: var(--shape-opacity);
     pointer-events: none;
