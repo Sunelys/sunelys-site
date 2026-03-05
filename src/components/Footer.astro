@@ -1,0 +1,92 @@
+---
+interface LinkItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  links: LinkItem[];
+}
+
+const { links } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-main">
+      <p>contact@sunelys.fr</p>
+      <p>06 95 90 79 19</p>
+      <a href="https://portail.sunelys.fr/login" data-track="cta_footer_portal">Portail client</a>
+    </div>
+
+    <nav class="footer-links" aria-label="Pages SEO">
+      {
+        links.map((link) => (
+          <a href={link.href}>{link.label}</a>
+        ))
+      }
+    </nav>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-top: clamp(3rem, 6vw, 5rem);
+    border-top: 1px solid var(--color-hairline);
+    background: color-mix(in srgb, var(--color-bg) 92%, white);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    padding: 1.15rem 0 2rem;
+    align-items: center;
+  }
+
+  .footer-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem 1.3rem;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+  }
+
+  .footer-main p {
+    margin: 0;
+  }
+
+  .footer-main a,
+  .footer-links a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 160ms ease;
+  }
+
+  .footer-main a:hover,
+  .footer-main a:focus-visible,
+  .footer-links a:hover,
+  .footer-links a:focus-visible {
+    color: var(--color-text-strong);
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+  }
+
+  .footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.65rem 1rem;
+    font-size: var(--step--1);
+  }
+
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+      justify-content: flex-start;
+    }
+  }
+</style>

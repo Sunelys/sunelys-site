@@ -1,19 +1,24 @@
 ---
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
 const {
   title = "Sunelys",
   description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
   structuredData = [],
 } = Astro.props;
 
-const path = Astro.url.pathname;
+const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
 const canonical = new URL(path, `${siteUrl}/`).toString();
 const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
-const SHAPE_VARIANT: "A" | "B" = "A";
+
+const SHAPE_MODE: "subtle" | "visible" = "subtle";
+
 const shapeTokens =
-  SHAPE_VARIANT === "A"
-    ? "--shape-opacity:0.16; --shape-size:66vmin; --shape-pos-x:117%;"
-    : "--shape-opacity:0.34; --shape-size:86vmin; --shape-pos-x:105%;";
+  SHAPE_MODE === "subtle"
+    ? "--shape-opacity:0.11; --shape-blur:7px; --shape-scale:1.04; --shape-x:112%;"
+    : "--shape-opacity:0.22; --shape-blur:2px; --shape-scale:1.16; --shape-x:106%;";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -85,63 +90,16 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
   </head>
-  <body style={shapeTokens} data-shape-variant={SHAPE_VARIANT}>
+  <body style={shapeTokens} data-shape-mode={SHAPE_MODE}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <header class="header">
-      <div class="shell nav-wrap">
-        <a class="brand" href="/" aria-label="Sunelys">
-          <img
-            src="/brand/wordmark-transparent.svg"
-            alt="Sunelys"
-            width="210"
-            height="120"
-            loading="eager"
-            decoding="async"
-          />
-        </a>
-        <nav aria-label="Navigation principale">
-          <ul class="nav-list">
-            {
-              navLinks.map((link) => (
-                <li>
-                  <a
-                    class:list={[
-                      "nav-link",
-                      path === link.href && "active",
-                    ]}
-                    href={link.href}
-                    aria-current={path === link.href ? "page" : undefined}
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
-      </div>
-    </header>
+    <Header path={path} navLinks={navLinks} ctaHref="/contact" ctaLabel="Planifier un échange" />
 
-    <main id="contenu" class="shell main">
+    <main id="contenu" class="container page-content">
       <slot />
     </main>
 
-    <footer class="footer">
-      <div class="shell footer-wrap">
-        <div class="footer-main">
-          <p>Email: <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a></p>
-          <p>Téléphone: <a href="tel:+33695907919">06 95 90 79 19</a></p>
-        </div>
-        <nav class="footer-seo" aria-label="Pages SEO">
-          {
-            footerLinks.map((link) => (
-              <a href={link.href}>{link.label}</a>
-            ))
-          }
-        </nav>
-      </div>
-    </footer>
+    <Footer links={footerLinks} />
 
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -168,216 +126,199 @@ const allSchemas = [...baseSchemas, ...structuredData];
   </body>
 </html>
 
-<style>
+<style is:global>
   :root {
-    --bg: #eceae4;
-    --surface: #f4f1ec;
-    --text: #111111;
-    --muted: #4f4f4f;
-    --primary: #111111;
+    --color-bg: #eceae4;
+    --color-bg-elevated: #f0ede7;
+    --color-surface: #f6f3ee;
+    --color-text: #1d1c1a;
+    --color-text-strong: #111111;
+    --color-muted: #5a5751;
+    --color-accent: #cbae8d;
+    --color-cream: #e8ddbc;
+    --color-hairline: #d5cebf;
+
+    --radius-sm: 10px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+    --radius-pill: 999px;
+
+    --shadow-ultra: 0 1px 2px rgba(18, 17, 15, 0.06);
+    --shadow-soft: 0 12px 34px rgba(18, 17, 15, 0.055);
+    --shadow-hover: 0 18px 42px rgba(18, 17, 15, 0.09);
+
+    --blur-header: 12px;
+
+    --font-display: "Didot", "Bodoni MT", "Times New Roman", serif;
+    --font-sans: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+
+    --step--1: clamp(0.78rem, 0.16vw + 0.74rem, 0.9rem);
+    --step-0: clamp(0.98rem, 0.26vw + 0.92rem, 1.1rem);
+    --step-1: clamp(1.2rem, 0.48vw + 1.08rem, 1.46rem);
+    --step-2: clamp(1.48rem, 0.82vw + 1.28rem, 1.95rem);
+    --step-3: clamp(1.8rem, 1.16vw + 1.52rem, 2.6rem);
+    --step-4: clamp(2.2rem, 2vw + 1.7rem, 3.6rem);
+    --step-5: clamp(2.4rem, 3vw + 1.8rem, 4.7rem);
+
+    /* Backward-compatible aliases for existing pages */
+    --bg: var(--color-bg);
+    --surface: var(--color-surface);
+    --text: var(--color-text);
+    --muted: var(--color-muted);
+    --primary: var(--color-text-strong);
     --primary-dark: #000000;
-    --accent: #fde9a4;
-    --accent-dark: #cbae8d;
-    --border: #cbae8d;
-    --shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+    --accent: var(--color-cream);
+    --accent-dark: var(--color-accent);
+    --border: var(--color-hairline);
+    --shadow: var(--shadow-soft);
   }
 
   * {
     box-sizing: border-box;
   }
 
+  html,
   body {
     margin: 0;
-    background: var(--bg);
-    color: var(--text);
-    font-family: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+    min-height: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-text);
     line-height: 1.5;
+    background:
+      radial-gradient(140% 95% at -10% -30%, color-mix(in srgb, var(--color-cream) 50%, transparent), transparent 62%),
+      radial-gradient(95% 80% at 120% 100%, color-mix(in srgb, var(--color-cream) 40%, transparent), transparent 58%),
+      var(--color-bg);
     position: relative;
-    min-height: 100vh;
   }
 
   body::before {
     content: "";
     position: fixed;
     inset: 0;
-    background-image: url("/brand/shape-clean.svg");
-    background-repeat: no-repeat;
-    background-position: var(--shape-pos-x) 6vh;
-    background-size: var(--shape-size);
+    background: url("/brand/shape-clean.svg") no-repeat var(--shape-x) 8vh / clamp(420px, 54vw, 900px);
     opacity: var(--shape-opacity);
+    transform: scale(var(--shape-scale));
+    filter: blur(var(--shape-blur));
     pointer-events: none;
     z-index: -1;
   }
 
-  h1,
-  h2,
-  h3 {
-    font-family: "Didot", "Bodoni MT", "Times New Roman", serif;
-    letter-spacing: 0.01em;
+  .container {
+    width: min(1120px, 92%);
+    margin-inline: auto;
   }
 
-  .shell {
-    width: min(1100px, 92%);
-    margin: 0 auto;
+  .page-content {
+    padding-top: clamp(0.8rem, 1.2vw, 1.35rem);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+    font-family: var(--font-display);
+    color: var(--color-text-strong);
+    letter-spacing: -0.012em;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    text-decoration: none;
+    font-size: var(--step--1);
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    font-weight: 600;
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+    padding: 0.67rem 1.05rem;
+    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease,
+      border-color 170ms ease, color 170ms ease;
+  }
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-ultra);
+  }
+
+  .btn-primary {
+    background: var(--color-text-strong);
+    color: #ffffff;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    background: #060606;
+  }
+
+  .btn-secondary {
+    border-color: var(--color-hairline);
+    background: color-mix(in srgb, var(--color-surface) 88%, white);
+    color: var(--color-text-strong);
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus-visible {
+    border-color: color-mix(in srgb, var(--color-hairline) 72%, var(--color-accent));
+    background: color-mix(in srgb, var(--color-cream) 68%, white);
   }
 
   .skip-link {
     position: absolute;
     left: -9999px;
     top: 0;
-    background: var(--surface);
+    background: var(--color-surface);
+    color: var(--color-text-strong);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-sm);
     padding: 0.5rem 0.75rem;
-    border: 1px solid var(--border);
-    border-radius: 8px;
+    text-decoration: none;
   }
 
-  .skip-link:focus {
+  .skip-link:focus-visible {
     left: 1rem;
     top: 1rem;
-    z-index: 10;
+    z-index: 100;
   }
 
-  .header {
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background: rgba(236, 234, 228, 0.88);
-    border-bottom: 1px solid var(--border);
-    backdrop-filter: blur(8px);
-  }
-
-  .nav-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.85rem 0;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    text-decoration: none;
-  }
-
-  .brand img {
-    display: block;
-    height: 2.04rem;
-    width: auto;
-    border-radius: 0;
-  }
-
-  .brand:hover img,
-  .brand:focus-visible img {
-    filter: contrast(1.04);
-  }
-
-  .brand {
-    text-decoration: none;
-    color: inherit;
-  }
-
-  .nav-list {
-    list-style: none;
-    display: flex;
-    gap: 0.35rem;
-    margin: 0;
-    padding: 0;
-  }
-
-  .nav-link {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--muted);
-    font-weight: 600;
-    font-size: 0.95rem;
-    padding: 0.45rem 0.7rem;
-    border-radius: 8px;
-  }
-
-  .nav-link:hover,
-  .nav-link:focus-visible {
-    background: #ddd4bc;
-    color: var(--text);
-  }
-
-  .nav-link.active {
-    background: var(--accent);
-    color: var(--primary-dark);
-  }
-
-  .main {
-    padding: 2.4rem 0 3rem;
-  }
-
-  .footer {
-    border-top: 1px solid var(--border);
-    padding: 1.25rem 0 2rem;
-  }
-
-  .footer-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1.5rem;
-    color: var(--muted);
-  }
-
-  .footer-main {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-  }
-
-  .footer p {
-    margin: 0;
-  }
-
-  .footer a {
-    color: var(--primary);
-    text-decoration: none;
-    font-weight: 600;
-  }
-
-  .footer-seo {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.9rem;
-  }
-
-  .footer-seo a {
-    font-weight: 500;
-    font-size: 0.92rem;
-  }
-
-  .footer a:hover,
-  .footer a:focus-visible {
-    text-decoration: underline;
-  }
-
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    outline: 2px solid var(--primary-dark);
+  :focus-visible {
+    outline: 2px solid var(--color-text-strong);
     outline-offset: 2px;
   }
 
-  @media (max-width: 740px) {
-    .nav-wrap {
-      flex-direction: column;
-      align-items: flex-start;
-    }
+  .reveal {
+    animation: reveal-up 420ms ease both;
+  }
 
-    .nav-list {
-      flex-wrap: wrap;
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .reveal,
+    * {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
     }
+  }
 
-    .footer-wrap {
-      flex-direction: column;
-      align-items: flex-start;
+  @keyframes reveal-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
 </style>
