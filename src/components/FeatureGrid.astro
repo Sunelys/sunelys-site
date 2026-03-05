@@ -1,0 +1,126 @@
+---
+interface FeatureItem {
+  title: string;
+  text: string;
+}
+
+interface FeatureData {
+  kicker: string;
+  title: string;
+  items: FeatureItem[];
+  transition: string;
+}
+
+interface Props {
+  data: FeatureData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section block reveal">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+
+  <div class="feature-grid">
+    {
+      data.items.map((item) => (
+        <article class="feature-card">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <p class="transition">{data.transition}</p>
+</section>
+
+<style>
+  .section {
+    margin-top: clamp(1.4rem, 2.8vw, 2.3rem);
+  }
+
+  .block {
+    background: var(--color-surface);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(1.2rem, 2.5vw, 1.9rem);
+  }
+
+  .kicker {
+    margin: 0;
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 28ch;
+    font-size: var(--step-3);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .feature-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .feature-card {
+    background: color-mix(in srgb, var(--color-surface) 92%, white);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    padding: 0.9rem;
+    box-shadow: var(--shadow-soft);
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
+    border-color: color-mix(in srgb, var(--color-hairline) 60%, var(--color-accent));
+  }
+
+  .feature-card h3 {
+    margin: 0;
+    font-size: var(--step-1);
+    line-height: 1.16;
+  }
+
+  .feature-card p {
+    margin: 0.5rem 0 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+    line-height: 1.52;
+  }
+
+  .transition {
+    margin: 0.9rem 0 0;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    padding: 0.74rem 0.82rem;
+    background: color-mix(in srgb, var(--color-cream) 78%, white);
+    color: var(--color-text-strong);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
+  @media (max-width: 1020px) {
+    .feature-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

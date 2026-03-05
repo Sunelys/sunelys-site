@@ -1,0 +1,118 @@
+---
+interface StepItem {
+  title: string;
+  text: string;
+}
+
+interface StepsData {
+  kicker: string;
+  title: string;
+  items: StepItem[];
+}
+
+interface Props {
+  data: StepsData;
+}
+
+const { data } = Astro.props;
+---
+
+<section id="parcours" class="section reveal">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+
+  <ol class="steps-grid">
+    {
+      data.items.map((item, index) => (
+        <li class="step-card">
+          <span class="step-index">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .section {
+    margin-top: clamp(1.5rem, 3vw, 2.6rem);
+  }
+
+  .kicker {
+    margin: 0;
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 30ch;
+    font-size: var(--step-3);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .steps-grid {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .step-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    padding: 0.95rem;
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .step-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    width: fit-content;
+    height: 2rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    background: color-mix(in srgb, var(--color-cream) 80%, white);
+    border: 1px solid var(--color-hairline);
+    color: var(--color-text-strong);
+  }
+
+  .step-card h3 {
+    margin: 0;
+    font-size: var(--step-1);
+    line-height: 1.16;
+  }
+
+  .step-card p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+    line-height: 1.52;
+  }
+
+  @media (max-width: 1050px) {
+    .steps-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 640px) {
+    .steps-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+interface QuizOption {
+  value: string;
+  label: string;
+  message: string;
+}
+
+interface QuizData {
+  kicker: string;
+  title: string;
+  question: string;
+  options: QuizOption[];
+  ctaLabel: string;
+  ctaHref: string;
+}
+
+interface Props {
+  data: QuizData;
+}
+
+const { data } = Astro.props;
+const messages = Object.fromEntries(data.options.map((option) => [option.value, option.message]));
+---
+
+<section class="section quiz reveal" id="estimation-gain">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+  <p class="question">{data.question}</p>
+
+  <div class="options" role="radiogroup" aria-label={data.question}>
+    {
+      data.options.map((option) => (
+        <button
+          type="button"
+          class="option"
+          data-volume={option.value}
+          data-track="quiz_option_click"
+          data-track-label={option.label}
+          aria-pressed="false"
+        >
+          {option.label}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="result" id="quiz-result" hidden>
+    <p id="quiz-message"></p>
+    <a id="quiz-cta" class="btn btn-primary" href={data.ctaHref} data-track="cta_quiz_estimation">
+      {data.ctaLabel}
+    </a>
+  </div>
+</section>
+
+<script define:vars={{ messages, ctaHref: data.ctaHref }}>
+  const quizButtons = document.querySelectorAll("[data-volume]");
+  const quizResult = document.querySelector("#quiz-result");
+  const quizMessage = document.querySelector("#quiz-message");
+  const quizCta = document.querySelector("#quiz-cta");
+
+  const setQuizValue = (value) => {
+    const message = messages[value];
+    if (!message || !quizResult || !quizMessage || !quizCta) return;
+
+    quizButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", button.dataset.volume === value ? "true" : "false");
+    });
+
+    localStorage.setItem("sunelys_volume_range", value);
+    quizMessage.textContent = message;
+    quizCta.setAttribute("href", `${ctaHref}?volume=${encodeURIComponent(value)}`);
+    quizResult.hidden = false;
+
+    if (window.trackEvent) {
+      window.trackEvent("quiz_volume_selected", { volume: value });
+    }
+  };
+
+  quizButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setQuizValue(button.dataset.volume);
+    });
+  });
+</script>
+
+<style>
+  .section {
+    margin-top: clamp(1.4rem, 3vw, 2.5rem);
+  }
+
+  .quiz {
+    background: var(--color-surface);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-soft);
+    padding: clamp(1.1rem, 2.4vw, 1.8rem);
+  }
+
+  .kicker {
+    margin: 0;
+    font-size: var(--step--1);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 600;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    font-size: var(--step-3);
+    line-height: 1.08;
+    max-width: 23ch;
+  }
+
+  .question {
+    margin: 0.9rem 0 0;
+    font-size: var(--step-0);
+    color: var(--color-muted);
+  }
+
+  .options {
+    margin-top: 0.8rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.58rem;
+  }
+
+  .option {
+    border: 1px solid var(--color-hairline);
+    background: color-mix(in srgb, var(--color-surface) 88%, white);
+    color: var(--color-text-strong);
+    border-radius: var(--radius-pill);
+    padding: 0.55rem 0.88rem;
+    font-size: var(--step--1);
+    font-weight: 600;
+    cursor: pointer;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+
+  .option:hover,
+  .option:focus-visible,
+  .option[aria-pressed="true"] {
+    border-color: color-mix(in srgb, var(--color-hairline) 68%, var(--color-accent));
+    background: color-mix(in srgb, var(--color-cream) 72%, white);
+    transform: translateY(-1px);
+  }
+
+  .result {
+    margin-top: 0.85rem;
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-bg-elevated) 84%, white);
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .result p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+    line-height: 1.55;
+  }
+
+  .result .btn {
+    width: fit-content;
+  }
+
+  @media (max-width: 640px) {
+    .result .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
