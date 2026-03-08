@@ -29,6 +29,7 @@ export const heroData = {
     "Cadrage moyen 6 jours",
   ],
   preview: {
+    variant: "full",
     label: "Portail Sunelys",
     title: "Pilotage administratif en temps réel",
     projects: [
