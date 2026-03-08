@@ -1,212 +1,230 @@
 export const homeSeo = {
-  title: "Sunelys | L'infrastructure administrative du photovoltaïque",
+  title: "Sunelys | L'infrastructure administrative des installateurs photovoltaïques",
   description:
-    "Externalisez l'administratif photovoltaïque avec une exécution premium: déclaration préalable, Consuel et raccordement Enedis.",
+    "DP, Consuel et raccordement pilotés de bout en bout pour réduire la charge administrative et accélérer les chantiers.",
 };
 
 export const heroData = {
-  kicker: "Infrastructure administrative",
+  kicker: "Plateforme premium de gestion administrative photovoltaïque",
   title: "L'infrastructure administrative des installateurs photovoltaïques.",
+  titleVariants: [
+    "Externalisez l'administratif. Accélérez vos chantiers.",
+    "Une exécution administrative au niveau de vos installations.",
+  ],
   subtitle:
-    "Sunelys orchestre DP, Consuel et raccordement avec une exécution rigoureuse, lisible et fluide.",
-  proofLine: "+1000 dossiers traités • 50 partenaires • cadrage moyen 6j",
+    "Déclaration préalable, Consuel et raccordement orchestrés dans un flux unique, lisible et rigoureux.",
   primaryCta: {
     label: "Planifier un échange de 15 minutes",
     href: "/contact",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Découvrir le portail",
-    href: "https://portail.sunelys.fr/login",
+    label: "Voir les services",
+    href: "/services",
     track: "cta_hero_secondary",
   },
+  proofs: [
+    "+1000 dossiers traités",
+    "+50 installateurs partenaires",
+    "Cadrage moyen 6 jours",
+  ],
   preview: {
-    label: "Aperçu plateforme",
-    title: "Pilotage continu des dossiers",
-    rows: [
-      { name: "DP - Villa Mimosas", status: "Validé mairie", tone: "ok" },
-      { name: "Consuel - Lot 18", status: "Pièce complémentaire", tone: "warn" },
-      { name: "Raccordement - Résidence Azur", status: "En instruction", tone: "neutral" },
+    label: "Portail Sunelys",
+    title: "Un cockpit administratif en temps réel",
+    columns: [
+      {
+        heading: "Dossiers en cours",
+        items: [
+          { name: "DP - Site Horizon", status: "Déposé" },
+          { name: "Consuel - Lot B12", status: "Pré-contrôle" },
+        ],
+      },
+      {
+        heading: "Alertes",
+        items: [
+          { name: "Pièce manquante", status: "Raccordement C4" },
+          { name: "Validation attendue", status: "Consuel B12" },
+        ],
+      },
+      {
+        heading: "Avancement",
+        items: [
+          { name: "Dossiers clôturés", status: "32 ce mois-ci" },
+          { name: "SLA conformité", status: "97%" },
+        ],
+      },
     ],
-    footer: "Reporting partagé équipe commerciale / production",
+    footer: "Suivi unifié installateur + client, avec traçabilité complète.",
   },
 };
 
-export const proofData = {
-  kicker: "Trusted",
-  title: "Une exécution administrative au niveau de vos chantiers.",
+export const proofSectionData = {
+  kicker: "Crédibilité",
+  title: "Ils nous confient leurs flux administratifs.",
   logos: [
-    { name: "Partenaire Installateur 01", src: "" },
-    { name: "Partenaire Installateur 02", src: "" },
-    { name: "Bureau d'études ENR", src: "" },
-    { name: "Réseau d'intégrateurs", src: "" },
+    { name: "Logo partenaire (placeholder)", src: "" },
+    { name: "Logo partenaire (placeholder)", src: "" },
+    { name: "Logo partenaire (placeholder)", src: "" },
+    { name: "Logo partenaire (placeholder)", src: "" },
   ],
   metrics: [
     { value: "+1000", label: "dossiers photovoltaïques traités" },
     { value: "+50", label: "installateurs partenaires" },
     { value: "6j", label: "cadrage moyen" },
   ],
+  testimonial: {
+    quote:
+      "Placeholder témoignage: à remplacer par un retour client validé, nominatif ou anonymisé.",
+    author: "Installateur photovoltaïque",
+    note: "Bloc éditable dans src/data/home.ts",
+  },
 };
 
-export const frictionData = {
-  kicker: "Friction",
-  title: "Les démarches administratives ralentissent votre croissance.",
-  items: [
+export const frictionSectionData = {
+  kicker: "Frictions terrain",
+  title: "L'administratif devient vite un goulot d'étranglement.",
+  cards: [
     {
-      title: "DP refusées",
-      text: "Des dossiers incomplets ou mal construits déclenchent des retours qui décalent le planning chantier.",
+      title: "DP incomplètes ou refusées",
+      consequence: "Retards de lancement et multiplication des échanges.",
+      solution: "Sunelys structure le dossier en amont pour fiabiliser l'instruction.",
     },
     {
       title: "Délais Consuel",
-      text: "Les pièces transmises tardivement allongent le cycle jusqu'à la mise en service.",
+      consequence: "Mise en service décalée et tension avec le client final.",
+      solution: "Sunelys anticipe les pièces et suit la conformité jusqu'à validation.",
     },
     {
-      title: "Raccordement Enedis",
-      text: "Le manque de coordination documentaire crée des blocages évitables.",
+      title: "Raccordement mal piloté",
+      consequence: "Perte de visibilité sur l'avancement et les dépendances.",
+      solution: "Sunelys centralise les étapes Enedis dans un flux lisible.",
     },
     {
-      title: "Gestion chronophage",
-      text: "Vos équipes passent trop de temps sur l'administratif au lieu de développer l'activité.",
+      title: "Temps perdu par vos équipes",
+      consequence: "Commerciaux et conducteurs détournés de la production utile.",
+      solution: "Sunelys prend la charge administrative pour libérer vos ressources.",
     },
   ],
-  transition:
-    "Sunelys prend en charge la mécanique administrative. Vos équipes restent focalisées sur la relation client et l'exécution terrain.",
+  closing:
+    "Résultat: des dossiers plus robustes, des délais mieux maîtrisés et une expérience client plus fluide.",
 };
 
-export const stepsData = {
-  kicker: "How it works",
-  title: "Visibilité continue, de la DP au raccordement.",
-  items: [
+export const processSectionData = {
+  kicker: "Comment ça marche",
+  title: "Une méthode simple, claire et pilotable.",
+  steps: [
     {
-      title: "Cadrage initial",
-      text: "Brief projet, collecte des prérequis et plan d'exécution administratif.",
+      title: "Vous transmettez le dossier",
+      text: "Données projet et pièces initiales sont consolidées dès l'entrée en flux.",
     },
     {
-      title: "Production des dossiers",
-      text: "Montage, contrôles qualité et consolidation des pièces réglementaires.",
+      title: "Sunelys pilote les démarches",
+      text: "DP, Consuel et raccordement sont orchestrés selon un standard de qualité unique.",
     },
     {
-      title: "Pilotage des échanges",
-      text: "Suivi actif des organismes et coordination des compléments.",
+      title: "Vous suivez l'avancement",
+      text: "Statuts, points de blocage et prochaines actions restent visibles en continu.",
     },
     {
-      title: "Clôture maîtrisée",
-      text: "Validation finale, traçabilité complète et relais opérationnel clair.",
+      title: "Le dossier avance sans friction",
+      text: "Moins d'imprévus administratifs, plus de maîtrise opérationnelle.",
     },
   ],
 };
 
-export const servicesData = {
+export const servicesSectionData = {
   kicker: "Services",
-  title: "Trois blocs, une même exigence d'exécution.",
-  items: [
+  title: "Des blocs de service pensés comme des produits.",
+  cards: [
     {
+      label: "Service 01",
       title: "Déclaration préalable",
-      text: "Constitution, dépôt et suivi mairie jusqu'à retour officiel.",
+      benefit: "Des dossiers mieux cadrés pour limiter les retours.",
+      description:
+        "Constitution, contrôle et suivi mairie pour sécuriser les phases de démarrage chantier.",
+      ctaLabel: "Voir le service",
       href: "/gestion-administrative-photovoltaique",
       track: "cta_service_dp",
     },
     {
-      title: "Dossier Consuel",
-      text: "Préparation des éléments de conformité et pilotage jusqu'à validation.",
+      label: "Service 02",
+      title: "Consuel",
+      benefit: "Une conformité anticipée pour réduire les délais.",
+      description:
+        "Préparation documentaire et pilotage du dossier jusqu'à la validation finale.",
+      ctaLabel: "Voir le service",
       href: "/dossier-consuel-photovoltaique",
       track: "cta_service_consuel",
     },
     {
-      title: "Raccordement Enedis",
-      text: "Structuration et suivi des étapes administratives réseau.",
+      label: "Service 03",
+      title: "Raccordement",
+      benefit: "Un suivi réseau centralisé, plus lisible et plus stable.",
+      description:
+        "Coordination administrative des étapes Enedis avec traçabilité complète.",
+      ctaLabel: "Voir le service",
       href: "/raccordement-enedis-photovoltaique",
       track: "cta_service_enedis",
     },
   ],
 };
 
-export const quizData = {
-  kicker: "Estimator",
-  title: "Recevoir une estimation de gain",
-  question: "Combien de dossiers gérez-vous par mois ?",
-  options: [
-    {
-      value: "1-10",
-      label: "1-10",
-      message:
-        "Vous pouvez standardiser rapidement vos flux et réduire les retours administratifs.",
-    },
-    {
-      value: "10-30",
-      label: "10-30",
-      message:
-        "Un pilotage dédié fluidifie les cycles et soulage vos équipes commerciales.",
-    },
-    {
-      value: "+30",
-      label: "+30",
-      message:
-        "Une organisation administrative structurée devient un levier direct de performance.",
-    },
+export const portalSectionData = {
+  kicker: "Portail Sunelys",
+  title: "Une logique de plateforme, pas seulement une prestation.",
+  text: "Le portail centralise vos dossiers, vos pièces et vos validations pour garder une vision claire à chaque étape.",
+  benefits: [
+    "Suivi des dossiers en temps réel",
+    "Centralisation des pièces administratives",
+    "Traçabilité complète des actions",
   ],
-  ctaLabel: "Recevoir une estimation personnalisée",
-  ctaHref: "/contact",
+  cta: {
+    label: "Découvrir le portail",
+    href: "https://portail.sunelys.fr/login",
+    track: "cta_portal_section",
+  },
 };
 
-export const caseStudyData = {
+export const caseStudySectionData = {
   kicker: "Cas client",
-  title: "Moins d'administratif. Plus d'installations.",
-  client: "Installateur multi-agences (anonymisé)",
-  context: "28 dossiers / mois • Sud-Est",
+  title: "Une étude de cas pensée pour la preuve, pas pour l'effet marketing.",
+  client: "Installateur régional (anonymisé)",
+  context: "Volume: 20+ dossiers / mois",
+  narrative:
+    "Après mise en place d'un pilotage administratif structuré, l'équipe a réduit les blocages récurrents et gagné en visibilité sur l'ensemble du pipeline.",
   results: [
-    { value: "-31%", label: "temps administratif interne" },
-    { value: "x2", label: "visibilité sur les statuts dossiers" },
-    { value: "-45%", label: "allers-retours documentaires" },
+    { value: "Moins de retours", label: "dossiers plus complets à l'envoi" },
+    { value: "Plus de lisibilité", label: "statuts clairs pour les équipes" },
+    { value: "Charge allégée", label: "temps interne mieux utilisé" },
   ],
-  summary:
-    "En 8 semaines, les équipes commerciales ont repris du temps utile pendant que le flux administratif était standardisé et suivi en continu.",
+  note: "Résultats détaillés à compléter avec vos données validées.",
   cta: {
-    label: "Voir comment on opère",
-    href: "/services",
+    label: "Parler de votre contexte",
+    href: "/contact",
     track: "cta_case_study",
   },
 };
 
-export const faqData = {
-  kicker: "FAQ",
-  title: "Questions fréquentes",
-  items: [
-    {
-      question: "Intervenez-vous partout en France ?",
-      answer:
-        "Oui. Le pilotage administratif est opéré à distance avec un suivi structuré dossier par dossier.",
-    },
-    {
-      question: "Pouvez-vous gérer seulement une partie du flux ?",
-      answer:
-        "Oui. Vous pouvez nous confier une mission ciblée (DP, Consuel ou raccordement) ou une exécution complète.",
-    },
-    {
-      question: "Comment démarre l'accompagnement ?",
-      answer:
-        "Un échange de cadrage permet d'aligner volumes, process et priorités avant le lancement opérationnel.",
-    },
-    {
-      question: "Quels délais pour un premier cadrage ?",
-      answer:
-        "Un premier retour est généralement transmis sous quelques jours ouvrés après réception des éléments clés.",
-    },
-  ],
+export const visionSectionData = {
+  kicker: "Vision",
+  title: "L'administratif photovoltaïque ne devrait jamais ralentir un installateur.",
+  text:
+    "Sunelys transforme les démarches en infrastructure fluide: un système clair, fiable et orienté performance opérationnelle.",
 };
 
-export const finalCtaData = {
-  kicker: "Next step",
-  title: "Planifier un échange de 15 minutes",
-  text: "Un échange court pour cadrer votre volume, vos contraintes et les gains opérationnels immédiats.",
+export const finalCtaSectionData = {
+  kicker: "Dernière étape",
+  title: "Faites le point sur vos flux administratifs en 15 minutes.",
+  text:
+    "Un échange rapide pour identifier vos points de friction, estimer les gains possibles et voir si Sunelys est adapté à votre organisation.",
   primaryCta: {
-    label: "Planifier un échange de 15 minutes",
+    label: "Planifier un échange",
     href: "/contact",
     track: "cta_final_primary",
   },
   secondaryCta: {
-    label: "Voir les services",
-    href: "/services",
+    label: "Réserver un échange",
+    href: "/contact",
     track: "cta_final_secondary",
   },
 };

@@ -1,21 +1,25 @@
 ---
-interface HeroPreviewRow {
+interface PreviewItem {
   name: string;
   status: string;
-  tone: "ok" | "warn" | "neutral";
+}
+
+interface PreviewColumn {
+  heading: string;
+  items: PreviewItem[];
 }
 
 interface HeroData {
   kicker: string;
   title: string;
   subtitle: string;
-  proofLine: string;
   primaryCta: { label: string; href: string; track: string };
   secondaryCta: { label: string; href: string; track: string };
+  proofs: string[];
   preview: {
     label: string;
     title: string;
-    rows: HeroPreviewRow[];
+    columns: PreviewColumn[];
     footer: string;
   };
 }
@@ -27,12 +31,11 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="hero">
+<section class="hero section-shell">
   <div class="hero-copy reveal">
     <p class="kicker">{data.kicker}</p>
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
-    <p class="proof-pill">{data.proofLine}</p>
 
     <div class="hero-actions">
       <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
@@ -42,21 +45,35 @@ const { data } = Astro.props;
         {data.secondaryCta.label}
       </a>
     </div>
+
+    <ul class="proofs" aria-label="Preuves clés">
+      {
+        data.proofs.map((proof) => (
+          <li>{proof}</li>
+        ))
+      }
+    </ul>
   </div>
 
-  <aside class="product-preview reveal">
+  <aside class="hero-preview reveal" aria-label="Aperçu produit">
     <p class="preview-kicker">{data.preview.label}</p>
     <h2>{data.preview.title}</h2>
 
-    <div class="preview-frame" aria-label="Aperçu de pilotage Sunelys">
+    <div class="preview-grid">
       {
-        data.preview.rows.map((row) => (
-          <article class="preview-row">
-            <div>
-              <p class="row-name">{row.name}</p>
-              <p class={`row-status ${row.tone}`}>{row.status}</p>
-            </div>
-            <span class={`status-dot ${row.tone}`} aria-hidden="true"></span>
+        data.preview.columns.map((column) => (
+          <article class="preview-column">
+            <h3>{column.heading}</h3>
+            <ul>
+              {
+                column.items.map((item) => (
+                  <li>
+                    <span>{item.name}</span>
+                    <small>{item.status}</small>
+                  </li>
+                ))
+              }
+            </ul>
           </article>
         ))
       }
@@ -69,74 +86,65 @@ const { data } = Astro.props;
 <style>
   .hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
-    gap: clamp(1.5rem, 3vw, 2.5rem);
+    grid-template-columns: minmax(0, 1.03fr) minmax(350px, 0.97fr);
+    gap: clamp(1.2rem, 2.8vw, 2.5rem);
     align-items: stretch;
-    margin-top: clamp(1.2rem, 2vw, 1.9rem);
   }
 
   .hero-copy,
-  .product-preview {
+  .hero-preview {
     position: relative;
-    background: var(--color-surface);
     border-radius: var(--radius-xl);
-    border: 1px solid var(--color-hairline);
-    box-shadow: var(--shadow-soft);
-    padding: clamp(1.2rem, 2.5vw, 2rem);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-md);
     overflow: hidden;
   }
 
-  .hero-copy::before {
+  .hero-copy {
+    padding: clamp(1.5rem, 3.4vw, 2.9rem);
+    background:
+      radial-gradient(85% 120% at 90% 120%, color-mix(in srgb, var(--accent-soft) 70%, transparent), transparent 52%),
+      var(--surface);
+  }
+
+  .hero-copy::after {
     content: "";
     position: absolute;
-    inset: auto -20% -32% auto;
-    width: clamp(230px, 42vw, 460px);
+    right: -14%;
+    bottom: -42%;
+    width: clamp(230px, 45vw, 520px);
     aspect-ratio: 1;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: var(--shape-opacity);
-    filter: blur(var(--shape-blur));
+    opacity: calc(var(--shape-opacity) * 1.25);
+    filter: blur(calc(var(--shape-blur) * 1.4));
     pointer-events: none;
   }
 
   .kicker,
   .preview-kicker {
     margin: 0;
-    font-size: var(--step--1);
-    letter-spacing: 0.13em;
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-muted);
     font-weight: 600;
   }
 
   h1 {
-    margin: 0.8rem 0 0;
+    margin: 0.95rem 0 0;
     max-width: 14ch;
-    font-size: var(--step-5);
-    line-height: 0.97;
+    font-size: clamp(2.2rem, 5vw, 4.5rem);
+    line-height: 0.92;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
   .subtitle {
     margin: 1rem 0 0;
-    max-width: 46ch;
-    color: var(--color-muted);
+    max-width: 47ch;
     font-size: var(--step-0);
-    line-height: 1.55;
-  }
-
-  .proof-pill {
-    margin: 1rem 0 0;
-    display: inline-flex;
-    align-items: center;
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-pill);
-    background: color-mix(in srgb, var(--color-cream) 86%, white);
-    padding: 0.42rem 0.8rem;
-    color: var(--color-text-strong);
-    font-size: var(--step--1);
-    font-weight: 600;
-    line-height: 1.2;
+    color: var(--text-muted);
+    line-height: 1.58;
   }
 
   .hero-actions {
@@ -146,101 +154,129 @@ const { data } = Astro.props;
     gap: 0.7rem;
   }
 
-  .product-preview h2 {
-    margin: 0.7rem 0 0;
-    font-size: var(--step-2);
-    line-height: 1.15;
-    letter-spacing: -0.01em;
-  }
-
-  .preview-frame {
-    margin-top: 1rem;
-    background: var(--color-bg-elevated);
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-lg);
-    padding: 0.75rem;
+  .proofs {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
     display: grid;
-    gap: 0.56rem;
+    gap: 0.55rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .preview-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 1rem;
-    background: color-mix(in srgb, var(--color-surface) 92%, white);
-    border: 1px solid var(--color-hairline);
+  .proofs li {
+    border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
     border-radius: var(--radius-md);
-    padding: 0.62rem 0.7rem;
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    min-height: 3.1rem;
+    display: grid;
+    place-items: center;
+    padding: 0.5rem;
+    text-align: center;
+    color: var(--text);
+    font-size: 0.78rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 600;
+    line-height: 1.24;
   }
 
-  .row-name {
+  .hero-preview {
+    padding: clamp(1.2rem, 2.6vw, 2.1rem);
+    background:
+      linear-gradient(150deg, color-mix(in srgb, var(--surface) 90%, white), var(--surface-elevated));
+  }
+
+  .hero-preview h2 {
+    margin: 0.8rem 0 0;
+    font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+    line-height: 1.08;
+    max-width: 18ch;
+  }
+
+  .preview-grid {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.62rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .preview-column {
+    border: 1px solid color-mix(in srgb, var(--line) 85%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 84%, white);
+    padding: 0.66rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .preview-column h3 {
     margin: 0;
-    color: var(--color-text-strong);
-    font-size: var(--step--1);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-family: var(--font-sans);
     font-weight: 600;
   }
 
-  .row-status {
-    margin: 0.18rem 0 0;
-    color: var(--color-muted);
-    font-size: 0.78rem;
-    letter-spacing: 0.03em;
+  .preview-column ul {
+    margin: 0.62rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .preview-column li {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface);
+    padding: 0.44rem;
+    display: grid;
+    gap: 0.18rem;
+  }
+
+  .preview-column span {
+    font-size: 0.79rem;
+    color: var(--text);
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .preview-column small {
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
     text-transform: uppercase;
-  }
-
-  .row-status.ok {
-    color: #2d5f43;
-  }
-
-  .row-status.warn {
-    color: #7d6430;
-  }
-
-  .status-dot {
-    width: 0.6rem;
-    height: 0.6rem;
-    border-radius: 999px;
-    background: #8f8f8f;
-    flex-shrink: 0;
-  }
-
-  .status-dot.ok {
-    background: #2d5f43;
-  }
-
-  .status-dot.warn {
-    background: #a88331;
-  }
-
-  .status-dot.neutral {
-    background: #797979;
+    color: var(--text-muted);
   }
 
   .preview-footer {
-    margin: 0.75rem 0 0;
-    color: var(--color-muted);
+    margin: 0.78rem 0 0;
     font-size: var(--step--1);
+    color: var(--text-muted);
+    line-height: 1.5;
   }
 
-  @media (max-width: 980px) {
+  @media (max-width: 1080px) {
     .hero {
       grid-template-columns: 1fr;
     }
 
     h1 {
-      max-width: 20ch;
+      max-width: 18ch;
     }
   }
 
-  @media (max-width: 640px) {
-    h1 {
-      font-size: var(--step-4);
+  @media (max-width: 760px) {
+    .proofs {
+      grid-template-columns: 1fr;
+    }
+
+    .preview-grid {
+      grid-template-columns: 1fr;
     }
 
     .hero-actions .btn {
       width: 100%;
-      justify-content: center;
     }
   }
 </style>

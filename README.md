@@ -1,56 +1,73 @@
 # Sunelys Website (Astro 5)
 
-Landing vitrine Sunelys en Astro, orientée conversion B2B et SEO.
+Landing page Sunelys orientée conversion B2B, avec direction artistique premium (luxe minimaliste + SaaS haut de gamme).
 
-## Architecture
+## Structure
 - Layout global: `src/layouts/BaseLayout.astro`
-- Homepage: `src/pages/index.astro`
-- Données éditables homepage: `src/data/home.ts`
-- Composants landing:
+- Home: `src/pages/index.astro`
+- Données éditables: `src/data/home.ts`
+- Composants home:
   - `src/components/Header.astro`
   - `src/components/Hero.astro`
-  - `src/components/ProofBar.astro`
-  - `src/components/FeatureGrid.astro`
-  - `src/components/Steps.astro`
-  - `src/components/ServicesCards.astro`
-  - `src/components/CaseStudy.astro`
-  - `src/components/FAQ.astro`
-  - `src/components/FinalCTA.astro`
+  - `src/components/ProofSection.astro`
+  - `src/components/FrictionSection.astro`
+  - `src/components/ProcessSection.astro`
+  - `src/components/ServicesSection.astro`
+  - `src/components/PortalSection.astro`
+  - `src/components/CaseStudySection.astro`
+  - `src/components/VisionSection.astro`
+  - `src/components/FinalCTASection.astro`
   - `src/components/Footer.astro`
 
-## Design system (tokens)
-Les tokens sont définis globalement dans `src/layouts/BaseLayout.astro` (`<style is:global>`):
-- Couleurs: `--color-bg`, `--color-surface`, `--color-text`, `--color-muted`, `--color-accent`, `--color-cream`, `--color-hairline`
-- Radius: `--radius-sm`, `--radius-md`, `--radius-lg`, `--radius-xl`, `--radius-pill`
-- Ombres: `--shadow-ultra`, `--shadow-soft`, `--shadow-hover`
-- Typo scale: `--step--1` à `--step-5`
-- Shape signature: `--shape-opacity`, `--shape-blur`, `--shape-scale`, `--shape-x`
+## Design tokens (global)
+Définis dans `src/layouts/BaseLayout.astro`:
+- `--bg`
+- `--bg-soft`
+- `--surface`
+- `--surface-elevated`
+- `--text`
+- `--text-muted`
+- `--line`
+- `--accent`
+- `--accent-soft`
+- `--shadow-sm`
+- `--shadow-md`
+- `--radius-sm`
+- `--radius-md`
+- `--radius-xl`
+- `--max-width`
+- `--section-gap`
+- `--container-padding`
 
-## Changer la variante de shape (subtle / visible)
+## Intensité branding (subtle / bold)
 Dans `src/layouts/BaseLayout.astro`:
 ```ts
-const SHAPE_MODE: "subtle" | "visible" = "subtle";
+const BRANDING_INTENSITY: "subtle" | "bold" = "subtle";
 ```
-- `subtle`: opacité faible, blur plus doux
-- `visible`: shape plus présente
+- `subtle`: shape plus discrète, blur plus doux
+- `bold`: shape plus visible, présence marque renforcée
 
-Les valeurs sont appliquées via `shapeTokens`.
+## Zones de contenu à éditer facilement
+Tout est dans `src/data/home.ts`:
+- `heroData`
+- `proofSectionData`
+- `frictionSectionData`
+- `processSectionData`
+- `servicesSectionData`
+- `portalSectionData`
+- `caseStudySectionData`
+- `visionSectionData`
+- `finalCtaSectionData`
 
-## Modifier le contenu sans toucher au markup
-Tout le contenu landing est dans `src/data/home.ts`:
-- Hero (titre, sous-titre, preuve, CTA)
-- Trusted/proof (logos + métriques)
-- Frictions (4 cartes)
-- Process (4 étapes)
-- Services
-- Cas client
-- FAQ
-- CTA final
+## Placeholders à remplacer
+- Logos partenaires: `proofSectionData.logos[]`
+- Témoignage: `proofSectionData.testimonial`
+- Données d'étude de cas: `caseStudySectionData.results` et `caseStudySectionData.note`
 
 ## SEO / Tracking
-- SEO global (title, meta, canonical, OG, Twitter, JSON-LD Organization/WebSite): `BaseLayout`
-- SEO homepage (Service + FAQPage JSON-LD): `src/pages/index.astro`
-- Tracking clics CTA: attributs `data-track` + `window.trackEvent`/`dataLayer` dans `BaseLayout`
+- SEO global: `BaseLayout` (meta, canonical, OG, Twitter, Organization/WebSite JSON-LD)
+- SEO home: `index.astro` (`Service` JSON-LD)
+- Tracking CTA: attributs `data-track` + `window.trackEvent` / `dataLayer`
 
 ## Commandes
 ```bash
@@ -59,8 +76,10 @@ npm run dev
 npm run build
 ```
 
-## Checklist de validation manuelle
-- Responsive: header, hero, preview, cards, FAQ, CTA final
-- Accessibilité: focus visible, skip-link, contrastes
-- SEO: 1 seul H1 sur `/`, metas/canonical/OG présents
-- Tracking: clics CTA poussent des événements `data-track`
+## Checklist review visuelle
+- Hero: lisibilité immédiate (offre, cible, bénéfice, CTA)
+- Header: sticky, CTA visible, navigation claire
+- Contraste: texte/call-to-action lisibles partout
+- Rythme: alternance sections éditoriales / produit / conversion
+- Mobile: CTA en pleine largeur, blocs non tassés
+- Proof: métriques lisibles + placeholders explici

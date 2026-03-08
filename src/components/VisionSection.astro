@@ -1,0 +1,71 @@
+---
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    text: string;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section-shell vision-section reveal">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+  <p>{data.text}</p>
+</section>
+
+<style>
+  .vision-section {
+    position: relative;
+    border-radius: var(--radius-xl);
+    border: 1px solid color-mix(in srgb, var(--line) 62%, var(--accent));
+    background:
+      radial-gradient(80% 160% at 100% 0%, color-mix(in srgb, var(--accent-soft) 40%, transparent), transparent 60%),
+      linear-gradient(160deg, #1a1815, #141210);
+    color: #f6f2e9;
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.6rem, 3vw, 2.6rem);
+    overflow: hidden;
+  }
+
+  .vision-section::after {
+    content: "";
+    position: absolute;
+    right: -14%;
+    bottom: -55%;
+    width: clamp(260px, 34vw, 520px);
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: calc(var(--shape-opacity) * 0.95);
+    filter: blur(calc(var(--shape-blur) * 1.25));
+    pointer-events: none;
+  }
+
+  .kicker {
+    margin: 0;
+    color: color-mix(in srgb, #f6f2e9 76%, var(--accent));
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.55rem 0 0;
+    max-width: 21ch;
+    color: #fffdf8;
+    font-size: clamp(1.7rem, 3.2vw, 3rem);
+    line-height: 1.05;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0.88rem 0 0;
+    max-width: 62ch;
+    color: #d8d2c8;
+    font-size: 0.96rem;
+    line-height: 1.62;
+  }
+</style>

@@ -1,0 +1,136 @@
+---
+interface ServiceCard {
+  label: string;
+  title: string;
+  benefit: string;
+  description: string;
+  ctaLabel: string;
+  href: string;
+  track: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    cards: ServiceCard[];
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section id="services" class="section-shell services-section reveal">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+
+  <div class="services-grid">
+    {
+      data.cards.map((card) => (
+        <article class="service-card">
+          <p class="label">{card.label}</p>
+          <h3>{card.title}</h3>
+          <p class="benefit">{card.benefit}</p>
+          <p class="description">{card.description}</p>
+          <a class="btn btn-secondary" href={card.href} data-track={card.track}>{card.ctaLabel}</a>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .services-section {
+    position: relative;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 29ch;
+    font-size: clamp(1.45rem, 2.5vw, 2.35rem);
+    line-height: 1.08;
+  }
+
+  .services-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .service-card {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
+    display: grid;
+    gap: 0.52rem;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .service-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--line) 68%, var(--accent));
+  }
+
+  .label {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  .service-card h3 {
+    margin: 0;
+    font-size: 1.74rem;
+    line-height: 0.99;
+  }
+
+  .benefit {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.96rem;
+    font-weight: 600;
+    line-height: 1.42;
+  }
+
+  .description {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+    min-height: 4.2rem;
+  }
+
+  .service-card .btn {
+    margin-top: 0.4rem;
+    width: fit-content;
+  }
+
+  @media (max-width: 1000px) {
+    .services-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .description {
+      min-height: 0;
+    }
+
+    .service-card .btn {
+      width: 100%;
+    }
+  }
+</style>

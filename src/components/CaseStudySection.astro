@@ -1,0 +1,149 @@
+---
+interface ResultItem {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    client: string;
+    context: string;
+    narrative: string;
+    results: ResultItem[];
+    note: string;
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section-shell case-section reveal">
+  <div class="case-content">
+    <p class="kicker">{data.kicker}</p>
+    <h2>{data.title}</h2>
+    <p class="client">{data.client}</p>
+    <p class="context">{data.context}</p>
+    <p class="narrative">{data.narrative}</p>
+    <p class="note">{data.note}</p>
+    <a class="btn btn-secondary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
+  </div>
+
+  <div class="case-metrics">
+    {
+      data.results.map((result) => (
+        <article class="metric-box">
+          <p class="value">{result.value}</p>
+          <p class="label">{result.label}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .case-section {
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.6vw, 2rem);
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    gap: 0.82rem;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 26ch;
+    font-size: clamp(1.45rem, 2.4vw, 2.3rem);
+    line-height: 1.08;
+  }
+
+  .client {
+    margin: 0.9rem 0 0;
+    color: var(--text);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .context {
+    margin: 0.24rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+  }
+
+  .narrative {
+    margin: 0.7rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .note {
+    margin: 0.56rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.76rem;
+  }
+
+  .case-content .btn {
+    margin-top: 0.86rem;
+    width: fit-content;
+  }
+
+  .case-metrics {
+    display: grid;
+    gap: 0.62rem;
+    align-content: start;
+  }
+
+  .metric-box {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
+    box-shadow: var(--shadow-sm);
+    padding: 0.85rem;
+  }
+
+  .value {
+    margin: 0;
+    font-size: clamp(1.6rem, 2vw, 2.4rem);
+    line-height: 0.93;
+    font-family: var(--font-display);
+  }
+
+  .label {
+    margin: 0.38rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.83rem;
+    line-height: 1.43;
+  }
+
+  @media (max-width: 980px) {
+    .case-section {
+      grid-template-columns: 1fr;
+    }
+
+    .case-content .btn {
+      width: 100%;
+    }
+  }
+</style>

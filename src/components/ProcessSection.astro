@@ -1,0 +1,142 @@
+---
+interface StepItem {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    steps: StepItem[];
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section id="parcours" class="section-shell process-section reveal">
+  <div class="process-head">
+    <p class="kicker">{data.kicker}</p>
+    <h2>{data.title}</h2>
+  </div>
+
+  <ol class="process-track" aria-label="Parcours Sunelys en quatre étapes">
+    {
+      data.steps.map((step, index) => (
+        <li class="process-step">
+          <span class="index">0{index + 1}</span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </li>
+      ))
+    }
+  </ol>
+</section>
+
+<style>
+  .process-section {
+    position: relative;
+  }
+
+  .process-head {
+    max-width: 34rem;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  .process-track {
+    margin: 1.1rem 0 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .process-track::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 1.3rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--line), transparent);
+    pointer-events: none;
+  }
+
+  .process-step {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: 0.95rem;
+    min-height: 11.2rem;
+  }
+
+  .index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.35rem;
+    height: 2.35rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    background: color-mix(in srgb, var(--accent-soft) 70%, white);
+    color: var(--text);
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    font-weight: 700;
+    font-family: var(--font-sans);
+  }
+
+  .process-step h3 {
+    margin: 0.75rem 0 0;
+    font-size: 1.18rem;
+    line-height: 1.16;
+  }
+
+  .process-step p {
+    margin: 0.52rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 1080px) {
+    .process-track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .process-track::before {
+      display: none;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .process-track {
+      grid-template-columns: 1fr;
+    }
+
+    .process-step {
+      min-height: auto;
+    }
+  }
+</style>

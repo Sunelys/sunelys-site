@@ -1,0 +1,99 @@
+---
+interface ActionItem {
+  label: string;
+  href: string;
+  track: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    text: string;
+    primaryCta: ActionItem;
+    secondaryCta: ActionItem;
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section id="contact" class="section-shell final-section reveal">
+  <p class="kicker">{data.kicker}</p>
+  <h2>{data.title}</h2>
+  <p class="text">{data.text}</p>
+
+  <div class="actions">
+    <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
+      {data.primaryCta.label}
+    </a>
+    <a class="btn btn-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
+      {data.secondaryCta.label}
+    </a>
+  </div>
+</section>
+
+<style>
+  .final-section {
+    position: relative;
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+    background:
+      radial-gradient(90% 110% at 0% 0%, color-mix(in srgb, var(--accent-soft) 80%, white), transparent 56%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 90%, white), var(--surface));
+    overflow: hidden;
+  }
+
+  .final-section::before {
+    content: "";
+    position: absolute;
+    right: -15%;
+    bottom: -63%;
+    width: clamp(240px, 34vw, 520px);
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: calc(var(--shape-opacity) * 1.15);
+    filter: blur(calc(var(--shape-blur) * 1.2));
+    pointer-events: none;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.56rem 0 0;
+    max-width: 22ch;
+    font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+
+  .text {
+    margin: 0.9rem 0 0;
+    max-width: 63ch;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    line-height: 1.58;
+  }
+
+  .actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.66rem;
+  }
+
+  @media (max-width: 760px) {
+    .actions .btn {
+      width: 100%;
+    }
+  }
+</style>

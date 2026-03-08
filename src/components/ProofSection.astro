@@ -1,0 +1,208 @@
+---
+interface LogoItem {
+  name: string;
+  src: string;
+}
+
+interface MetricItem {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    logos: LogoItem[];
+    metrics: MetricItem[];
+    testimonial: {
+      quote: string;
+      author: string;
+      note: string;
+    };
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section-shell proof-section reveal">
+  <div class="proof-head">
+    <p class="kicker">{data.kicker}</p>
+    <h2>{data.title}</h2>
+  </div>
+
+  <div class="proof-layout">
+    <div class="metrics-panel">
+      {
+        data.metrics.map((metric) => (
+          <article class="metric-card">
+            <p class="metric-value">{metric.value}</p>
+            <p class="metric-label">{metric.label}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="cred-panel">
+      <div class="logo-row" aria-label="Partenaires Sunelys">
+        {
+          data.logos.map((logo) => (
+            <article class="logo-slot" aria-label={logo.name}>
+              {logo.src ? <img src={logo.src} alt={logo.name} loading="lazy" /> : <span>{logo.name}</span>}
+            </article>
+          ))
+        }
+      </div>
+
+      <blockquote class="quote-box">
+        <p>"{data.testimonial.quote}"</p>
+        <cite>{data.testimonial.author}</cite>
+        <small>{data.testimonial.note}</small>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<style>
+  .proof-section {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.4vw, 2rem);
+  }
+
+  .proof-head h2 {
+    margin: 0.45rem 0 0;
+    max-width: 24ch;
+    font-size: clamp(1.5rem, 2.6vw, 2.35rem);
+    line-height: 1.08;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  .proof-layout {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0.75rem;
+  }
+
+  .metrics-panel {
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .metric-card {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: var(--radius-md);
+    background: var(--surface-elevated);
+    box-shadow: var(--shadow-sm);
+    padding: 0.86rem;
+  }
+
+  .metric-value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3vw, 3.1rem);
+    line-height: 0.9;
+  }
+
+  .metric-label {
+    margin: 0.4rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+
+  .cred-panel {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: var(--radius-md);
+    background: linear-gradient(160deg, color-mix(in srgb, var(--surface-elevated) 90%, white), var(--surface));
+    padding: 0.82rem;
+  }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .logo-slot {
+    min-height: 3.15rem;
+    border: 1px dashed color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--bg-soft) 84%, white);
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 0.45rem;
+  }
+
+  .logo-slot span {
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    line-height: 1.28;
+  }
+
+  .logo-slot img {
+    max-width: 100%;
+    max-height: 24px;
+    object-fit: contain;
+  }
+
+  .quote-box {
+    margin: 0.65rem 0 0;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--surface-elevated);
+    padding: 0.7rem;
+  }
+
+  .quote-box p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.48;
+  }
+
+  .quote-box cite {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-style: normal;
+  }
+
+  .quote-box small {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  @media (max-width: 960px) {
+    .proof-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .logo-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

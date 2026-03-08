@@ -13,18 +13,16 @@ const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "
 const canonical = new URL(path, `${siteUrl}/`).toString();
 const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
 
-const SHAPE_MODE: "subtle" | "visible" = "subtle";
-
-const shapeTokens =
-  SHAPE_MODE === "subtle"
-    ? "--shape-opacity:0.11; --shape-blur:7px; --shape-scale:1.04; --shape-x:112%;"
-    : "--shape-opacity:0.22; --shape-blur:2px; --shape-scale:1.16; --shape-x:106%;";
+const BRANDING_INTENSITY: "subtle" | "bold" = "subtle";
+const brandingVars =
+  BRANDING_INTENSITY === "subtle"
+    ? "--shape-opacity:0.1; --shape-blur:10px; --shape-scale:1.04; --shape-x:110%; --shape-y:8vh; --shape-secondary-opacity:0.06;"
+    : "--shape-opacity:0.2; --shape-blur:4px; --shape-scale:1.16; --shape-x:104%; --shape-y:5vh; --shape-secondary-opacity:0.12;";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
-  { href: "/parcours", label: "Parcours" },
   { href: "/services", label: "Services" },
-  { href: "/tarifs", label: "Tarifs" },
+  { href: "/parcours", label: "Parcours" },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -70,33 +68,39 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index,follow" />
-    <meta name="theme-color" content="#cbae8d" />
+    <meta name="theme-color" content="#c9ac85" />
     <link rel="canonical" href={canonical} />
+
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Sunelys" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+
     {
       allSchemas.map((schema) => (
         <script type="application/ld+json" set:html={JSON.stringify(schema)} />
       ))
     }
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
   </head>
-  <body style={shapeTokens} data-shape-mode={SHAPE_MODE}>
+  <body style={brandingVars} data-branding-intensity={BRANDING_INTENSITY}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref="/contact" ctaLabel="Planifier un échange" />
+    <Header path={path} navLinks={navLinks} ctaHref="/contact" ctaLabel="Réserver un échange" />
 
-    <main id="contenu" class="container page-content">
-      <slot />
+    <main id="contenu" class="layout-main">
+      <div class="container page-flow">
+        <slot />
+      </div>
     </main>
 
     <Footer links={footerLinks} />
@@ -128,50 +132,59 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
 <style is:global>
   :root {
-    --color-bg: #eceae4;
-    --color-bg-elevated: #f0ede7;
-    --color-surface: #f6f3ee;
-    --color-text: #1d1c1a;
-    --color-text-strong: #111111;
-    --color-muted: #5a5751;
-    --color-accent: #cbae8d;
-    --color-cream: #e8ddbc;
-    --color-hairline: #d5cebf;
+    --bg: #efede7;
+    --bg-soft: #f6f3ed;
+    --surface: #fcfaf6;
+    --surface-elevated: #ffffff;
+    --text: #191713;
+    --text-muted: #656056;
+    --line: #d9d1c2;
+    --accent: #c9ac85;
+    --accent-soft: #e9dcc2;
 
-    --radius-sm: 10px;
-    --radius-md: 14px;
-    --radius-lg: 20px;
-    --radius-xl: 30px;
-    --radius-pill: 999px;
+    --shadow-sm: 0 6px 20px rgba(22, 19, 15, 0.045);
+    --shadow-md: 0 18px 44px rgba(22, 19, 15, 0.075);
 
-    --shadow-ultra: 0 1px 2px rgba(18, 17, 15, 0.06);
-    --shadow-soft: 0 12px 34px rgba(18, 17, 15, 0.055);
-    --shadow-hover: 0 18px 42px rgba(18, 17, 15, 0.09);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-xl: 34px;
 
-    --blur-header: 12px;
+    --max-width: 1180px;
+    --section-gap: clamp(2.8rem, 6vw, 6rem);
+    --container-padding: clamp(1rem, 3vw, 2.2rem);
 
     --font-display: "Didot", "Bodoni MT", "Times New Roman", serif;
     --font-sans: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
 
-    --step--1: clamp(0.78rem, 0.16vw + 0.74rem, 0.9rem);
-    --step-0: clamp(0.98rem, 0.26vw + 0.92rem, 1.1rem);
-    --step-1: clamp(1.2rem, 0.48vw + 1.08rem, 1.46rem);
-    --step-2: clamp(1.48rem, 0.82vw + 1.28rem, 1.95rem);
-    --step-3: clamp(1.8rem, 1.16vw + 1.52rem, 2.6rem);
-    --step-4: clamp(2.2rem, 2vw + 1.7rem, 3.6rem);
-    --step-5: clamp(2.4rem, 3vw + 1.8rem, 4.7rem);
+    --step--1: clamp(0.78rem, 0.14vw + 0.74rem, 0.9rem);
+    --step-0: clamp(0.98rem, 0.24vw + 0.92rem, 1.12rem);
+    --step-1: clamp(1.2rem, 0.5vw + 1.08rem, 1.5rem);
+    --step-2: clamp(1.45rem, 0.86vw + 1.24rem, 2rem);
+    --step-3: clamp(1.82rem, 1.38vw + 1.42rem, 2.8rem);
+    --step-4: clamp(2.2rem, 2.3vw + 1.65rem, 3.95rem);
 
-    /* Backward-compatible aliases for existing pages */
-    --bg: var(--color-bg);
-    --surface: var(--color-surface);
-    --text: var(--color-text);
-    --muted: var(--color-muted);
-    --primary: var(--color-text-strong);
+    /* aliases legacy */
+    --color-bg: var(--bg);
+    --color-bg-elevated: var(--bg-soft);
+    --color-surface: var(--surface);
+    --color-text: var(--text);
+    --color-text-strong: var(--text);
+    --color-muted: var(--text-muted);
+    --color-accent: var(--accent);
+    --color-cream: var(--accent-soft);
+    --color-hairline: var(--line);
+    --radius-lg: var(--radius-md);
+    --radius-pill: 999px;
+    --shadow-ultra: var(--shadow-sm);
+    --shadow-soft: var(--shadow-sm);
+    --shadow-hover: var(--shadow-md);
+    --blur-header: 14px;
+
+    --primary: var(--text);
     --primary-dark: #000000;
-    --accent: var(--color-cream);
-    --accent-dark: var(--color-accent);
-    --border: var(--color-hairline);
-    --shadow: var(--shadow-soft);
+    --muted: var(--text-muted);
+    --border: var(--line);
+    --shadow: var(--shadow-md);
   }
 
   * {
@@ -186,34 +199,54 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
   body {
     font-family: var(--font-sans);
-    color: var(--color-text);
+    color: var(--text);
     line-height: 1.5;
     background:
-      radial-gradient(140% 95% at -10% -30%, color-mix(in srgb, var(--color-cream) 50%, transparent), transparent 62%),
-      radial-gradient(95% 80% at 120% 100%, color-mix(in srgb, var(--color-cream) 40%, transparent), transparent 58%),
-      var(--color-bg);
+      radial-gradient(120% 90% at -20% -35%, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 62%),
+      radial-gradient(100% 84% at 120% 118%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 60%),
+      var(--bg);
     position: relative;
   }
 
-  body::before {
+  body::before,
+  body::after {
     content: "";
     position: fixed;
     inset: 0;
-    background: url("/brand/shape-clean.svg") no-repeat var(--shape-x) 8vh / clamp(420px, 54vw, 900px);
-    opacity: var(--shape-opacity);
-    transform: scale(var(--shape-scale));
-    filter: blur(var(--shape-blur));
     pointer-events: none;
     z-index: -1;
   }
 
+  body::before {
+    background: url("/brand/shape-clean.svg") no-repeat var(--shape-x) var(--shape-y) / clamp(420px, 58vw, 980px);
+    opacity: var(--shape-opacity);
+    transform: scale(var(--shape-scale));
+    filter: blur(var(--shape-blur));
+  }
+
+  body::after {
+    background: url("/brand/shape-clean.svg") no-repeat -14% 84vh / clamp(240px, 34vw, 620px);
+    opacity: var(--shape-secondary-opacity);
+    filter: blur(calc(var(--shape-blur) * 1.1));
+  }
+
   .container {
-    width: min(1120px, 92%);
+    width: min(var(--max-width), calc(100% - 2 * var(--container-padding)));
     margin-inline: auto;
   }
 
-  .page-content {
-    padding-top: clamp(0.8rem, 1.2vw, 1.35rem);
+  .layout-main {
+    padding-top: clamp(0.9rem, 2vw, 1.6rem);
+  }
+
+  .page-flow {
+    display: grid;
+    gap: var(--section-gap);
+    padding-bottom: var(--section-gap);
+  }
+
+  .section-shell {
+    margin: 0;
   }
 
   h1,
@@ -222,8 +255,9 @@ const allSchemas = [...baseSchemas, ...structuredData];
   h4 {
     margin: 0;
     font-family: var(--font-display);
-    color: var(--color-text-strong);
-    letter-spacing: -0.012em;
+    color: var(--text);
+    letter-spacing: -0.014em;
+    text-wrap: balance;
   }
 
   p {
@@ -234,66 +268,67 @@ const allSchemas = [...baseSchemas, ...structuredData];
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.35rem;
-    text-decoration: none;
-    font-size: var(--step--1);
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    font-weight: 600;
-    border-radius: var(--radius-pill);
+    gap: 0.4rem;
+    min-height: 2.45rem;
+    padding: 0.64rem 1.08rem;
+    border-radius: 999px;
     border: 1px solid transparent;
-    padding: 0.67rem 1.05rem;
+    text-decoration: none;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
     transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease,
-      border-color 170ms ease, color 170ms ease;
+      color 170ms ease, border-color 170ms ease;
   }
 
   .btn:hover {
     transform: translateY(-1px);
-    box-shadow: var(--shadow-ultra);
+    box-shadow: var(--shadow-sm);
   }
 
   .btn-primary {
-    background: var(--color-text-strong);
-    color: #ffffff;
+    background: #15130f;
+    color: #fffdfa;
   }
 
   .btn-primary:hover,
   .btn-primary:focus-visible {
-    background: #060606;
+    background: #090806;
   }
 
   .btn-secondary {
-    border-color: var(--color-hairline);
-    background: color-mix(in srgb, var(--color-surface) 88%, white);
-    color: var(--color-text-strong);
+    background: color-mix(in srgb, var(--surface) 90%, white);
+    border-color: var(--line);
+    color: var(--text);
   }
 
   .btn-secondary:hover,
   .btn-secondary:focus-visible {
-    border-color: color-mix(in srgb, var(--color-hairline) 72%, var(--color-accent));
-    background: color-mix(in srgb, var(--color-cream) 68%, white);
+    background: color-mix(in srgb, var(--accent-soft) 55%, white);
+    border-color: color-mix(in srgb, var(--line) 60%, var(--accent));
   }
 
   .skip-link {
     position: absolute;
     left: -9999px;
     top: 0;
-    background: var(--color-surface);
-    color: var(--color-text-strong);
-    border: 1px solid var(--color-hairline);
-    border-radius: var(--radius-sm);
-    padding: 0.5rem 0.75rem;
+    z-index: 120;
     text-decoration: none;
+    background: var(--surface-elevated);
+    color: var(--text);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    padding: 0.48rem 0.72rem;
   }
 
   .skip-link:focus-visible {
     left: 1rem;
     top: 1rem;
-    z-index: 100;
   }
 
   :focus-visible {
-    outline: 2px solid var(--color-text-strong);
+    outline: 2px solid #111111;
     outline-offset: 2px;
   }
 
@@ -302,9 +337,9 @@ const allSchemas = [...baseSchemas, ...structuredData];
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .btn,
+    *,
     .reveal,
-    * {
+    .btn {
       animation: none !important;
       transition: none !important;
       scroll-behavior: auto !important;

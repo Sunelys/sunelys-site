@@ -1,25 +1,25 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
-import ProofBar from "../components/ProofBar.astro";
-import FeatureGrid from "../components/FeatureGrid.astro";
-import Steps from "../components/Steps.astro";
-import ServicesCards from "../components/ServicesCards.astro";
-import CaseStudy from "../components/CaseStudy.astro";
-import FAQ from "../components/FAQ.astro";
-import FinalCTA from "../components/FinalCTA.astro";
-import MiniQuiz from "../components/MiniQuiz.astro";
+import ProofSection from "../components/ProofSection.astro";
+import FrictionSection from "../components/FrictionSection.astro";
+import ProcessSection from "../components/ProcessSection.astro";
+import ServicesSection from "../components/ServicesSection.astro";
+import PortalSection from "../components/PortalSection.astro";
+import CaseStudySection from "../components/CaseStudySection.astro";
+import VisionSection from "../components/VisionSection.astro";
+import FinalCTASection from "../components/FinalCTASection.astro";
 import {
-  caseStudyData,
-  faqData,
-  finalCtaData,
-  frictionData,
+  caseStudySectionData,
+  finalCtaSectionData,
+  frictionSectionData,
   heroData,
   homeSeo,
-  proofData,
-  quizData,
-  servicesData,
-  stepsData,
+  portalSectionData,
+  processSectionData,
+  proofSectionData,
+  servicesSectionData,
+  visionSectionData,
 } from "../data/home";
 
 const structuredData = [
@@ -35,40 +35,28 @@ const structuredData = [
     hasOfferCatalog: {
       "@type": "OfferCatalog",
       name: "Services Sunelys",
-      itemListElement: servicesData.items.map((service) => ({
+      itemListElement: servicesSectionData.cards.map((service) => ({
         "@type": "Offer",
         itemOffered: {
           "@type": "Service",
           name: service.title,
-          description: service.text,
+          description: service.description,
           url: `https://sunelys.fr${service.href}`,
         },
       })),
     },
-  },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: faqData.items.map((item) => ({
-      "@type": "Question",
-      name: item.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: item.answer,
-      },
-    })),
   },
 ];
 ---
 
 <BaseLayout title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
   <Hero data={heroData} />
-  <ProofBar data={proofData} />
-  <FeatureGrid data={frictionData} />
-  <Steps data={stepsData} />
-  <ServicesCards data={servicesData} />
-  <MiniQuiz data={quizData} />
-  <CaseStudy data={caseStudyData} />
-  <FAQ data={faqData} />
-  <FinalCTA data={finalCtaData} />
+  <ProofSection data={proofSectionData} />
+  <FrictionSection data={frictionSectionData} />
+  <ProcessSection data={processSectionData} />
+  <ServicesSection data={servicesSectionData} />
+  <PortalSection data={portalSectionData} />
+  <CaseStudySection data={caseStudySectionData} />
+  <VisionSection data={visionSectionData} />
+  <FinalCTASection data={finalCtaSectionData} />
 </BaseLayout>

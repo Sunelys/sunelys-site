@@ -15,21 +15,14 @@ const {
   path,
   navLinks,
   ctaHref = "/contact",
-  ctaLabel = "Planifier un échange",
+  ctaLabel = "Réserver un échange",
 } = Astro.props;
 ---
 
 <header class="site-header">
-  <div class="container header-grid">
-    <a class="brand-link" href="/" aria-label="Sunelys accueil" data-track="nav_brand_home">
-      <img
-        src="/brand/wordmark.svg"
-        alt="Sunelys"
-        width="158"
-        height="30"
-        loading="eager"
-        decoding="async"
-      />
+  <div class="container header-row">
+    <a class="brand-link" href="/" aria-label="Sunelys" data-track="nav_brand_home">
+      <img src="/brand/wordmark.svg" alt="Sunelys" width="148" height="29" loading="eager" decoding="async" />
     </a>
 
     <nav class="main-nav" aria-label="Navigation principale">
@@ -40,8 +33,8 @@ const {
             return (
               <li>
                 <a
+                  class:list={["nav-link", active && "active"]}
                   href={link.href}
-                  class:list={["nav-item", active && "active"]}
                   aria-current={active ? "page" : undefined}
                 >
                   {link.label}
@@ -53,9 +46,7 @@ const {
       </ul>
     </nav>
 
-    <a class="btn btn-primary header-cta" href={ctaHref} data-track="cta_header_primary">
-      {ctaLabel}
-    </a>
+    <a class="btn btn-primary nav-cta" href={ctaHref} data-track="cta_header_primary">{ctaLabel}</a>
   </div>
 </header>
 
@@ -63,18 +54,18 @@ const {
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 50;
-    border-bottom: 1px solid var(--color-hairline);
-    background: color-mix(in srgb, var(--color-bg) 78%, transparent);
-    backdrop-filter: blur(var(--blur-header));
+    z-index: 100;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
+    background: color-mix(in srgb, var(--bg) 72%, transparent);
+    backdrop-filter: blur(14px) saturate(120%);
   }
 
-  .header-grid {
+  .header-row {
+    min-height: 4.55rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
-    gap: clamp(0.8rem, 2vw, 1.4rem);
     align-items: center;
-    min-height: 4.55rem;
+    gap: 1rem;
   }
 
   .brand-link {
@@ -82,96 +73,98 @@ const {
     align-items: center;
     text-decoration: none;
     position: relative;
+    isolation: isolate;
   }
 
-  .brand-link::after {
+  .brand-link::before {
     content: "";
     position: absolute;
-    inset: -1.1rem -1.3rem;
+    inset: -1rem -1.2rem;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
     opacity: calc(var(--shape-opacity) * 0.28);
+    filter: blur(calc(var(--shape-blur) * 0.25));
     pointer-events: none;
-    filter: blur(calc(var(--shape-blur) * 0.18));
+    z-index: -1;
   }
 
   .brand-link img {
-    display: block;
-    width: clamp(110px, 12vw, 158px);
+    width: clamp(118px, 10.6vw, 148px);
     height: auto;
-    position: relative;
-    z-index: 1;
+    display: block;
   }
 
   .main-nav ul {
     list-style: none;
+    margin: 0;
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: clamp(0.2rem, 0.8vw, 0.6rem);
-    margin: 0;
-    padding: 0;
+    gap: 0.45rem;
   }
 
-  .nav-item {
-    display: inline-block;
-    text-decoration: none;
-    color: var(--color-muted);
-    font-size: var(--step--1);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 500;
-    padding: 0.52rem 0.82rem;
-    border-radius: var(--radius-pill);
+  .nav-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0.42rem 0.82rem;
+    border-radius: var(--radius-sm);
     border: 1px solid transparent;
-    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease;
+    color: var(--text-muted);
+    font-size: 0.79rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
   }
 
-  .nav-item:hover,
-  .nav-item:focus-visible,
-  .nav-item.active {
-    color: var(--color-text);
-    border-color: var(--color-hairline);
-    background: color-mix(in srgb, var(--color-surface) 76%, white);
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link.active {
+    color: var(--text);
+    border-color: var(--line);
+    background: color-mix(in srgb, var(--surface) 84%, white);
   }
 
-  .header-cta {
-    white-space: nowrap;
+  .nav-cta {
+    min-height: 2.2rem;
   }
 
   @media (max-width: 980px) {
-    .header-grid {
+    .header-row {
       grid-template-columns: auto 1fr;
       grid-template-areas:
         "brand cta"
         "nav nav";
-      row-gap: 0.6rem;
+      row-gap: 0.55rem;
+      padding-block: 0.72rem;
       min-height: auto;
-      padding-block: 0.75rem;
     }
 
     .brand-link {
       grid-area: brand;
     }
 
+    .nav-cta {
+      grid-area: cta;
+      justify-self: end;
+    }
+
     .main-nav {
       grid-area: nav;
       overflow-x: auto;
-      padding-bottom: 0.25rem;
+      padding-bottom: 0.2rem;
     }
 
     .main-nav ul {
       justify-content: flex-start;
       min-width: max-content;
     }
-
-    .header-cta {
-      grid-area: cta;
-      justify-self: end;
-    }
   }
 
   @media (max-width: 640px) {
-    .header-grid {
+    .header-row {
       grid-template-columns: 1fr;
       grid-template-areas:
         "brand"
@@ -179,10 +172,10 @@ const {
         "nav";
     }
 
-    .header-cta {
-      justify-self: start;
+    .nav-cta {
       width: 100%;
       justify-content: center;
+      justify-self: stretch;
     }
   }
 </style>
