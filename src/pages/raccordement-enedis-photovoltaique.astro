@@ -1,49 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import SeoLandingPage from "../components/SeoLandingPage.astro";
+import { seoPages } from "../data/seoPages";
 
-const processSteps = [
-  "Cadrage des informations techniques et administratives",
-  "Preparation et depot de la demande de raccordement",
-  "Suivi des echanges et des jalons avec Enedis",
-  "Consolidation du dossier jusqu'a validation",
-];
-
-const scopeItems = [
-  "Preparation de la demande de raccordement Enedis",
-  "Verification des pieces et de la coherence du dossier",
-  "Pilotage des interactions administratives",
-  "Suivi des delais et des points de blocage",
-  "Transmission d'une vision claire pour vos equipes",
-];
-
-const faqItems = [
-  {
-    question: "Pourquoi confier le raccordement Enedis a Sunelys ?",
-    answer:
-      "Parce que la coordination administrative peut mobiliser fortement vos ressources. Nous la structurons pour vous.",
-  },
-  {
-    question: "Pouvez-vous intervenir en cours de dossier ?",
-    answer:
-      "Oui, nous pouvons reprendre un dossier deja engage et remettre le suivi sous controle.",
-  },
-  {
-    question: "Le service inclut-il les relances ?",
-    answer:
-      "Oui, le pilotage inclut les relances administratives et la priorisation des actions a mener.",
-  },
-  {
-    question: "Avez-vous une approche compatible multi-agences ?",
-    answer:
-      "Oui. Notre methode est adaptee aux organisations qui centralisent ou distribuent leurs flux par agence.",
-  },
-];
+const pageData = seoPages.raccordementEnedis;
 
 const structuredData = [
   {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: faqItems.map((item) => ({
+    mainEntity: pageData.faqItems.map((item) => ({
       "@type": "Question",
       name: item.question,
       acceptedAnswer: {
@@ -55,132 +21,6 @@ const structuredData = [
 ];
 ---
 
-<BaseLayout
-  title="Raccordement Enedis photovoltaïque | Sunelys"
-  description="Sunelys gere votre raccordement Enedis photovoltaïque: cadrage du dossier, suivi administratif et pilotage jusqu'a validation."
-  structuredData={structuredData}
->
-  <section class="card hero">
-    <h1>Raccordement Enedis photovoltaïque</h1>
-    <p>
-      Nous pilotons le volet administratif du raccordement Enedis pour fluidifier vos
-      delais et reduire les points de friction.
-    </p>
-  </section>
-
-  <section class="section card">
-    <h2>Ce que nous prenons en charge</h2>
-    <ul>
-      {scopeItems.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
-
-  <section class="section card">
-    <h2>Process</h2>
-    <ol>
-      {processSteps.map((step) => <li>{step}</li>)}
-    </ol>
-  </section>
-
-  <section class="section card faq">
-    <h2>FAQ</h2>
-    <div class="faq-grid">
-      {
-        faqItems.map((item) => (
-          <article class="faq-item">
-            <h3>{item.question}</h3>
-            <p>{item.answer}</p>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="section card cta-box">
-    <h2>Vous voulez accelerer vos raccordements ?</h2>
-    <a class="cta" href="/contact" data-track="cta_seo_enedis_audit">Demander un audit</a>
-  </section>
+<BaseLayout title={pageData.metaTitle} description={pageData.metaDescription} structuredData={structuredData}>
+  <SeoLandingPage data={pageData} />
 </BaseLayout>
-
-<style>
-  .section {
-    margin-top: 1.8rem;
-  }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: var(--shadow);
-  }
-
-  h1 {
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.9rem, 4.5vw, 2.9rem);
-    line-height: 1.14;
-  }
-
-  h2 {
-    margin: 0 0 0.85rem;
-    font-size: clamp(1.35rem, 3vw, 2rem);
-  }
-
-  h3 {
-    margin: 0 0 0.45rem;
-    font-size: 1.07rem;
-  }
-
-  p,
-  li {
-    margin: 0;
-    color: var(--muted);
-  }
-
-  ul,
-  ol {
-    margin: 0;
-    padding-left: 1.2rem;
-    display: grid;
-    gap: 0.45rem;
-  }
-
-  .faq-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
-  }
-
-  .faq-item {
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 0.85rem;
-  }
-
-  .cta-box {
-    text-align: center;
-  }
-
-  .cta {
-    margin-top: 0.5rem;
-    display: inline-block;
-    padding: 0.75rem 1.3rem;
-    border-radius: 10px;
-    text-decoration: none;
-    font-weight: 700;
-    color: #f4f1e8;
-    background: var(--primary);
-  }
-
-  .cta:hover,
-  .cta:focus-visible {
-    color: var(--primary-dark);
-    background: var(--accent-dark);
-  }
-
-  @media (max-width: 820px) {
-    .faq-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

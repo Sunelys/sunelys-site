@@ -127,7 +127,7 @@ export const servicesSectionData = {
       description:
         "Constitution, contrôle qualité et suivi mairie pour sécuriser chaque démarrage chantier.",
       ctaLabel: "Voir le service",
-      href: "/gestion-administrative-photovoltaique",
+      href: "/declaration-prealable-panneaux-solaires",
       track: "cta_service_dp",
     },
     {

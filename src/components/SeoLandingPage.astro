@@ -1,0 +1,358 @@
+---
+interface ProblemItem {
+  title: string;
+  text: string;
+}
+
+interface CaseStudyData {
+  title: string;
+  volume: string;
+  results: string[];
+}
+
+interface FaqItem {
+  question: string;
+  answer: string;
+}
+
+interface InternalLink {
+  href: string;
+  label: string;
+}
+
+interface SeoPageContent {
+  slug: string;
+  heroTitle: string;
+  heroSubtitle: string;
+  problemTitle: string;
+  problemIntro: string;
+  problemItems: ProblemItem[];
+  scopeItems: string[];
+  processSteps: string[];
+  caseStudy: CaseStudyData;
+  faqItems: FaqItem[];
+  finalTitle: string;
+  finalText: string;
+  internalLinks: InternalLink[];
+}
+
+interface Props {
+  data: SeoPageContent;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="seo-section seo-hero section-shell reveal">
+  <div class="hero-copy">
+    <p class="kicker">Service administratif photovoltaïque</p>
+    <h1>{data.heroTitle}</h1>
+    <p>{data.heroSubtitle}</p>
+    <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_hero`}>
+      Planifier un échange
+    </a>
+  </div>
+</section>
+
+<section class="seo-section seo-problem section-shell reveal">
+  <p class="kicker">Le problème</p>
+  <h2>{data.problemTitle}</h2>
+  <p class="problem-intro">{data.problemIntro}</p>
+  <div class="problem-grid">
+    {
+      data.problemItems.map((item) => (
+        <article class="problem-card">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<section class="seo-section seo-scope section-shell reveal">
+  <p class="kicker">Ce que Sunelys prend en charge</p>
+  <h2>Pilotage administratif de bout en bout</h2>
+  <ul>
+    {data.scopeItems.map((item) => <li>{item}</li>)}
+  </ul>
+</section>
+
+<section class="seo-section seo-process section-shell reveal">
+  <p class="kicker">Process</p>
+  <h2>Une exécution claire en 4 étapes</h2>
+  <ol>
+    {data.processSteps.map((step) => <li>{step}</li>)}
+  </ol>
+</section>
+
+<section class="seo-section seo-case section-shell reveal">
+  <p class="kicker">Cas client</p>
+  <h2>{data.caseStudy.title}</h2>
+  <p class="volume">{data.caseStudy.volume}</p>
+  <ul>
+    {data.caseStudy.results.map((result) => <li>{result}</li>)}
+  </ul>
+</section>
+
+<section class="seo-section seo-faq section-shell reveal">
+  <p class="kicker">FAQ</p>
+  <h2>Questions fréquentes</h2>
+  <div class="faq-grid">
+    {
+      data.faqItems.map((item) => (
+        <article class="faq-card">
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<section class="seo-section seo-links section-shell reveal">
+  <p class="kicker">Liens internes</p>
+  <h2>Services associés</h2>
+  <div class="links-grid">
+    {
+      data.internalLinks.map((link) => (
+        <a class="link-pill" href={link.href} data-track={`link_${data.slug}_${link.href}`}>
+          {link.label}
+        </a>
+      ))
+    }
+  </div>
+</section>
+
+<section class="seo-section seo-final section-shell reveal">
+  <h2>{data.finalTitle}</h2>
+  <p>{data.finalText}</p>
+  <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_final`}>
+    Planifier un échange de 15 minutes
+  </a>
+</section>
+
+<style>
+  .seo-section {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--surface-elevated) 92%, white),
+      var(--surface)
+    );
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.2rem, 2.8vw, 2.2rem);
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h1 {
+    margin: 0.62rem 0 0;
+    max-width: 20ch;
+    font-size: clamp(2rem, 4vw, 3.9rem);
+    line-height: 0.95;
+  }
+
+  h2 {
+    margin: 0.62rem 0 0;
+    font-size: clamp(1.45rem, 2.5vw, 2.4rem);
+    line-height: 1.05;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    line-height: 1.2;
+  }
+
+  p,
+  li {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .seo-hero {
+    background:
+      radial-gradient(
+        110% 130% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 60%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(
+        165deg,
+        color-mix(in srgb, var(--surface-elevated) 94%, white),
+        var(--surface)
+      );
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 0.9rem;
+    max-width: 72ch;
+  }
+
+  .hero-copy .btn {
+    width: fit-content;
+  }
+
+  .problem-intro {
+    margin-top: 0.74rem;
+  }
+
+  .problem-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .problem-card,
+  .faq-card {
+    border: 1px solid color-mix(in srgb, var(--line) 84%, white);
+    border-radius: calc(var(--radius-md) - 4px);
+    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
+    padding: 0.85rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .seo-scope ul,
+  .seo-case ul {
+    margin: 0.84rem 0 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .seo-process ol {
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.58rem;
+    counter-reset: process;
+  }
+
+  .seo-process li {
+    counter-increment: process;
+    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.78rem 0.82rem 0.78rem 3rem;
+    position: relative;
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .seo-process li::before {
+    content: counter(process);
+    position: absolute;
+    left: 0.82rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 65%, var(--accent));
+    background: color-mix(in srgb, var(--accent-soft) 70%, white);
+    color: var(--text);
+    display: grid;
+    place-items: center;
+    font-size: 0.72rem;
+    font-weight: 700;
+  }
+
+  .volume {
+    margin-top: 0.74rem;
+    color: var(--text);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+
+  .faq-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .links-grid {
+    margin-top: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.2rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    padding: 0.38rem 0.74rem;
+    font-size: 0.73rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .link-pill:hover,
+  .link-pill:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+  }
+
+  .seo-final {
+    text-align: center;
+    background:
+      radial-gradient(
+        100% 120% at 0% 0%,
+        color-mix(in srgb, var(--accent-soft) 42%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(165deg, #1b1712, #11100d);
+    border-color: color-mix(in srgb, var(--line) 54%, var(--accent));
+  }
+
+  .seo-final h2,
+  .seo-final p {
+    color: #f7f2e8;
+    max-width: 55ch;
+    margin-inline: auto;
+  }
+
+  .seo-final p {
+    margin-top: 0.8rem;
+    color: #d9cfbf;
+  }
+
+  .seo-final .btn {
+    margin-top: 1rem;
+  }
+
+  @media (max-width: 900px) {
+    .problem-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-copy .btn,
+    .seo-final .btn {
+      width: 100%;
+    }
+  }
+</style>
