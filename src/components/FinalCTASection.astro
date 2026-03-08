@@ -36,32 +36,32 @@ const { data } = Astro.props;
 <style>
   .final-section {
     position: relative;
-    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    border: 1px solid color-mix(in srgb, var(--line) 52%, var(--accent));
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
-    padding: clamp(1.4rem, 3vw, 2.4rem);
+    padding: clamp(1.5rem, 3.2vw, 2.8rem);
     background:
-      radial-gradient(90% 110% at 0% 0%, color-mix(in srgb, var(--accent-soft) 80%, white), transparent 56%),
-      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 90%, white), var(--surface));
+      radial-gradient(80% 120% at -6% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      linear-gradient(160deg, #1b1712, #11100d);
     overflow: hidden;
   }
 
   .final-section::before {
     content: "";
     position: absolute;
-    right: -15%;
-    bottom: -63%;
-    width: clamp(240px, 34vw, 520px);
+    right: -18%;
+    bottom: -70%;
+    width: clamp(320px, 42vw, 700px);
     aspect-ratio: 1;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 1.15);
-    filter: blur(calc(var(--shape-blur) * 1.2));
+    opacity: calc(var(--shape-opacity) * 0.82);
+    filter: blur(calc(var(--shape-blur) * 1.4));
     pointer-events: none;
   }
 
   .kicker {
     margin: 0;
-    color: var(--text-muted);
+    color: color-mix(in srgb, #f4ece0 76%, var(--accent));
     font-size: 0.74rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -71,7 +71,8 @@ const { data } = Astro.props;
   h2 {
     margin: 0.56rem 0 0;
     max-width: 22ch;
-    font-size: clamp(1.9rem, 3.4vw, 3.2rem);
+    color: #fffdf7;
+    font-size: clamp(2rem, 3.8vw, 3.7rem);
     line-height: 1.02;
     text-wrap: balance;
   }
@@ -79,8 +80,8 @@ const { data } = Astro.props;
   .text {
     margin: 0.9rem 0 0;
     max-width: 63ch;
-    color: var(--text-muted);
-    font-size: 0.96rem;
+    color: #dbd3c5;
+    font-size: 0.94rem;
     line-height: 1.58;
   }
 
@@ -89,6 +90,14 @@ const { data } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 0.66rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .actions .btn-secondary {
+    background: color-mix(in srgb, #ffffff 88%, transparent);
+    color: #13100c;
+    border-color: color-mix(in srgb, #ffffff 70%, var(--line));
   }
 
   @media (max-width: 760px) {

@@ -20,26 +20,26 @@ const { data } = Astro.props;
   .vision-section {
     position: relative;
     border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--line) 62%, var(--accent));
+    border: 1px solid color-mix(in srgb, var(--line) 52%, var(--accent));
     background:
-      radial-gradient(80% 160% at 100% 0%, color-mix(in srgb, var(--accent-soft) 40%, transparent), transparent 60%),
-      linear-gradient(160deg, #1a1815, #141210);
+      radial-gradient(90% 160% at 100% 0%, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 62%),
+      linear-gradient(160deg, #181510, #0f0d0a);
     color: #f6f2e9;
     box-shadow: var(--shadow-md);
-    padding: clamp(1.6rem, 3vw, 2.6rem);
+    padding: clamp(1.8rem, 3.8vw, 3.4rem);
     overflow: hidden;
   }
 
   .vision-section::after {
     content: "";
     position: absolute;
-    right: -14%;
-    bottom: -55%;
-    width: clamp(260px, 34vw, 520px);
+    right: -16%;
+    bottom: -66%;
+    width: clamp(320px, 40vw, 640px);
     aspect-ratio: 1;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 0.95);
-    filter: blur(calc(var(--shape-blur) * 1.25));
+    opacity: calc(var(--shape-opacity) * 0.75);
+    filter: blur(calc(var(--shape-blur) * 1.35));
     pointer-events: none;
   }
 
@@ -53,19 +53,19 @@ const { data } = Astro.props;
   }
 
   h2 {
-    margin: 0.55rem 0 0;
-    max-width: 21ch;
+    margin: 0.6rem 0 0;
+    max-width: 18ch;
     color: #fffdf8;
-    font-size: clamp(1.7rem, 3.2vw, 3rem);
-    line-height: 1.05;
+    font-size: clamp(2rem, 4.1vw, 4rem);
+    line-height: 0.98;
     text-wrap: balance;
   }
 
   p {
-    margin: 0.88rem 0 0;
-    max-width: 62ch;
+    margin: 0.95rem 0 0;
+    max-width: 65ch;
     color: #d8d2c8;
-    font-size: 0.96rem;
-    line-height: 1.62;
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 </style>

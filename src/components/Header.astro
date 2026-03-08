@@ -22,7 +22,7 @@ const {
 <header class="site-header">
   <div class="container header-row">
     <a class="brand-link" href="/" aria-label="Sunelys" data-track="nav_brand_home">
-      <img src="/brand/wordmark.svg" alt="Sunelys" width="148" height="29" loading="eager" decoding="async" />
+      <img src="/brand/wordmark.svg" alt="Sunelys" width="136" height="27" loading="eager" decoding="async" />
     </a>
 
     <nav class="main-nav" aria-label="Navigation principale">
@@ -46,7 +46,16 @@ const {
       </ul>
     </nav>
 
-    <a class="btn btn-primary nav-cta" href={ctaHref} data-track="cta_header_primary">{ctaLabel}</a>
+    <div class="header-actions">
+      <a
+        class="portal-link"
+        href="https://portail.sunelys.fr/login"
+        data-track="cta_header_portal"
+      >
+        Portail client
+      </a>
+      <a class="btn btn-primary nav-cta" href={ctaHref} data-track="cta_header_primary">{ctaLabel}</a>
+    </div>
   </div>
 </header>
 
@@ -54,18 +63,22 @@ const {
   .site-header {
     position: sticky;
     top: 0;
-    z-index: 100;
-    border-bottom: 1px solid color-mix(in srgb, var(--line) 80%, transparent);
-    background: color-mix(in srgb, var(--bg) 72%, transparent);
-    backdrop-filter: blur(14px) saturate(120%);
+    z-index: 120;
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 64%, transparent);
+    background: linear-gradient(
+      180deg,
+      color-mix(in srgb, var(--bg-soft) 86%, transparent),
+      color-mix(in srgb, var(--bg) 78%, transparent)
+    );
+    backdrop-filter: blur(16px) saturate(125%);
   }
 
   .header-row {
-    min-height: 4.55rem;
+    min-height: 4.8rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
-    gap: 1rem;
+    gap: 1.25rem;
   }
 
   .brand-link {
@@ -79,16 +92,16 @@ const {
   .brand-link::before {
     content: "";
     position: absolute;
-    inset: -1rem -1.2rem;
+    inset: -1.1rem -1.5rem;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 0.28);
-    filter: blur(calc(var(--shape-blur) * 0.25));
+    opacity: calc(var(--shape-opacity) * 0.36);
+    filter: blur(calc(var(--shape-blur) * 0.42));
     pointer-events: none;
     z-index: -1;
   }
 
   .brand-link img {
-    width: clamp(118px, 10.6vw, 148px);
+    width: clamp(110px, 9.6vw, 136px);
     height: auto;
     display: block;
   }
@@ -100,20 +113,20 @@ const {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.5rem;
   }
 
   .nav-link {
     display: inline-flex;
     align-items: center;
-    min-height: 2.1rem;
-    padding: 0.42rem 0.82rem;
+    min-height: 2.15rem;
+    padding: 0.42rem 0.88rem;
     border-radius: var(--radius-sm);
     border: 1px solid transparent;
     color: var(--text-muted);
-    font-size: 0.79rem;
+    font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     text-decoration: none;
     transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
@@ -123,19 +136,54 @@ const {
   .nav-link:focus-visible,
   .nav-link.active {
     color: var(--text);
-    border-color: var(--line);
-    background: color-mix(in srgb, var(--surface) 84%, white);
+    border-color: color-mix(in srgb, var(--line) 82%, white);
+    background: color-mix(in srgb, var(--surface) 88%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .header-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+  }
+
+  .portal-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.35rem;
+    padding: 0.62rem 0.96rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    text-decoration: none;
+    color: var(--text-muted);
+    background: color-mix(in srgb, var(--surface) 90%, white);
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 600;
+    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease,
+      transform 180ms ease;
+  }
+
+  .portal-link:hover,
+  .portal-link:focus-visible {
+    color: var(--text);
+    border-color: color-mix(in srgb, var(--line) 65%, var(--accent));
+    background: color-mix(in srgb, var(--accent-soft) 55%, white);
+    transform: translateY(-1px);
   }
 
   .nav-cta {
-    min-height: 2.2rem;
+    min-height: 2.35rem;
+    white-space: nowrap;
   }
 
   @media (max-width: 980px) {
     .header-row {
       grid-template-columns: auto 1fr;
       grid-template-areas:
-        "brand cta"
+        "brand actions"
         "nav nav";
       row-gap: 0.55rem;
       padding-block: 0.72rem;
@@ -146,8 +194,8 @@ const {
       grid-area: brand;
     }
 
-    .nav-cta {
-      grid-area: cta;
+    .header-actions {
+      grid-area: actions;
       justify-self: end;
     }
 
@@ -168,14 +216,24 @@ const {
       grid-template-columns: 1fr;
       grid-template-areas:
         "brand"
-        "cta"
+        "actions"
         "nav";
+    }
+
+    .header-actions {
+      width: 100%;
+      justify-content: stretch;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
     }
 
     .nav-cta {
       width: 100%;
-      justify-content: center;
-      justify-self: stretch;
+    }
+
+    .portal-link {
+      width: 100%;
     }
   }
 </style>

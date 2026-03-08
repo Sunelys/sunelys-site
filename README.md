@@ -42,10 +42,16 @@ Définis dans `src/layouts/BaseLayout.astro`:
 ## Intensité branding (subtle / bold)
 Dans `src/layouts/BaseLayout.astro`:
 ```ts
-const BRANDING_INTENSITY: "subtle" | "bold" = "subtle";
+const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 ```
 - `subtle`: shape plus discrète, blur plus doux
 - `bold`: shape plus visible, présence marque renforcée
+- Variables shape associées:
+  - `--shape-opacity`
+  - `--shape-blur`
+  - `--shape-scale`
+  - `--shape-x`
+  - `--shape-y`
 
 ## Zones de contenu à éditer facilement
 Tout est dans `src/data/home.ts`:
@@ -71,10 +77,28 @@ Tout est dans `src/data/home.ts`:
 
 ## Commandes
 ```bash
+nvm use
 npm install
 npm run dev
 npm run build
 ```
+
+## Diagnostic build (si `astro build` semble bloqué)
+1. Vérifier la version Node:
+```bash
+node -v
+```
+La version attendue est `v20.20.0` (fichier `.nvmrc`).
+
+2. Recharger Node 20 puis relancer:
+```bash
+nvm use
+npm run build
+```
+
+3. Si blocage local persistant:
+- tuer les anciens process Astro (`pkill -f "astro build"`)
+- valider la build via CI/Vercel (environnement propre)
 
 ## Checklist review visuelle
 - Hero: lisibilité immédiate (offre, cible, bénéfice, CTA)
@@ -82,4 +106,6 @@ npm run build
 - Contraste: texte/call-to-action lisibles partout
 - Rythme: alternance sections éditoriales / produit / conversion
 - Mobile: CTA en pleine largeur, blocs non tassés
-- Proof: métriques lisibles + placeholders explici
+- Proof: métriques lisibles + placeholders explicites
+- Portal: impression claire de plateforme
+- Final CTA: impact visuel + action claire

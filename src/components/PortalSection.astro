@@ -1,8 +1,3 @@
----
-interface PortalBenefit {
-  [key: string]: string;
-}
-
 interface Props {
   data: {
     kicker: string;
@@ -40,7 +35,7 @@ const { data } = Astro.props;
   <div class="portal-mock" aria-label="Aperçu du portail Sunelys">
     <header>
       <span class="chip">Portail Sunelys</span>
-      <span class="status">En ligne</span>
+      <span class="status">Live</span>
     </header>
 
     <div class="mock-body">
@@ -74,15 +69,15 @@ const { data } = Astro.props;
 <style>
   .portal-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-    gap: 0.82rem;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 0.72rem;
     align-items: stretch;
   }
 
   .portal-copy {
-    border: 1px solid var(--line);
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
     border-radius: var(--radius-xl);
-    background: var(--surface);
+    background: linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 90%, white), var(--surface));
     box-shadow: var(--shadow-sm);
     padding: clamp(1.15rem, 2.5vw, 2rem);
   }
@@ -98,33 +93,33 @@ const { data } = Astro.props;
 
   h2 {
     margin: 0.5rem 0 0;
-    font-size: clamp(1.45rem, 2.4vw, 2.3rem);
-    line-height: 1.08;
+    font-size: clamp(1.55rem, 2.8vw, 2.8rem);
+    line-height: 1.04;
     max-width: 23ch;
   }
 
   .text {
-    margin: 0.88rem 0 0;
+    margin: 0.84rem 0 0;
     color: var(--text-muted);
-    font-size: 0.94rem;
-    line-height: 1.56;
+    font-size: 0.9rem;
+    line-height: 1.54;
   }
 
   .benefits {
-    margin: 0.82rem 0 0;
+    margin: 0.78rem 0 0;
     padding: 0;
     list-style: none;
     display: grid;
-    gap: 0.42rem;
+    gap: 0.38rem;
   }
 
   .benefits li {
-    border: 1px solid var(--line);
+    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
     border-radius: var(--radius-sm);
-    background: color-mix(in srgb, var(--bg-soft) 84%, white);
+    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
     padding: 0.55rem 0.68rem;
     color: var(--text);
-    font-size: 0.84rem;
+    font-size: 0.8rem;
     font-weight: 600;
   }
 
@@ -134,14 +129,15 @@ const { data } = Astro.props;
   }
 
   .portal-mock {
-    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
     border-radius: var(--radius-xl);
     background:
-      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface));
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 58%, transparent), transparent 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
     box-shadow: var(--shadow-md);
-    padding: 0.9rem;
+    padding: 0.96rem;
     display: grid;
-    gap: 0.8rem;
+    gap: 0.72rem;
     position: relative;
     overflow: hidden;
   }
@@ -149,13 +145,13 @@ const { data } = Astro.props;
   .portal-mock::after {
     content: "";
     position: absolute;
-    right: -8%;
-    top: -22%;
-    width: clamp(180px, 28vw, 350px);
+    right: -14%;
+    top: -30%;
+    width: clamp(220px, 34vw, 420px);
     aspect-ratio: 1;
     background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 1.1);
-    filter: blur(calc(var(--shape-blur) * 1.1));
+    opacity: calc(var(--shape-opacity) * 0.85);
+    filter: blur(calc(var(--shape-blur) * 1.25));
     pointer-events: none;
   }
 
@@ -170,24 +166,24 @@ const { data } = Astro.props;
 
   .chip,
   .status {
-    border: 1px solid var(--line);
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
     border-radius: var(--radius-pill);
     padding: 0.35rem 0.62rem;
-    font-size: 0.72rem;
-    letter-spacing: 0.08em;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
     background: var(--surface);
   }
 
   .status {
-    color: #2c6a4d;
+    color: #205f42;
   }
 
   .mock-body {
     display: grid;
-    grid-template-columns: minmax(130px, 0.72fr) minmax(0, 1.28fr);
-    gap: 0.66rem;
+    grid-template-columns: minmax(138px, 0.72fr) minmax(0, 1.28fr);
+    gap: 0.6rem;
     position: relative;
     z-index: 1;
   }
@@ -203,8 +199,8 @@ const { data } = Astro.props;
   .mock-body aside p {
     margin: 0;
     color: var(--text-muted);
-    font-size: 0.74rem;
-    letter-spacing: 0.1em;
+    font-size: 0.66rem;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     font-weight: 600;
   }
@@ -222,7 +218,7 @@ const { data } = Astro.props;
     align-items: center;
     gap: 0.45rem;
     color: var(--text);
-    font-size: 0.83rem;
+    font-size: 0.78rem;
     font-weight: 600;
   }
 
@@ -250,8 +246,8 @@ const { data } = Astro.props;
   .mock-body .main h3 {
     margin: 0;
     font-family: var(--font-sans);
-    font-size: 0.74rem;
-    letter-spacing: 0.08em;
+    font-size: 0.64rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     color: var(--text-muted);
     font-weight: 600;
@@ -259,7 +255,7 @@ const { data } = Astro.props;
 
   .mock-body .main p {
     margin: 0.45rem 0 0;
-    font-size: 1.12rem;
+    font-size: 1.05rem;
     color: var(--text);
     font-weight: 700;
   }

@@ -1,26 +1,26 @@
 export const homeSeo = {
-  title: "Sunelys | L'infrastructure administrative des installateurs photovoltaïques",
+  title: "Sunelys | Infrastructure administrative photovoltaïque pour installateurs",
   description:
-    "DP, Consuel et raccordement pilotés de bout en bout pour réduire la charge administrative et accélérer les chantiers.",
+    "Sunelys pilote DP, Consuel et raccordement de bout en bout pour alléger la charge administrative et accélérer les chantiers photovoltaïques.",
 };
 
 export const heroData = {
-  kicker: "Plateforme premium de gestion administrative photovoltaïque",
-  title: "L'infrastructure administrative des installateurs photovoltaïques.",
+  kicker: "Infrastructure administrative photovoltaïque",
+  title: "Externalisez l'administratif. Accélérez vos chantiers.",
   titleVariants: [
-    "Externalisez l'administratif. Accélérez vos chantiers.",
+    "L'infrastructure administrative des installateurs photovoltaïques.",
     "Une exécution administrative au niveau de vos installations.",
   ],
   subtitle:
-    "Déclaration préalable, Consuel et raccordement orchestrés dans un flux unique, lisible et rigoureux.",
+    "Sunelys pilote la Déclaration Préalable, le Consuel et le raccordement Enedis de bout en bout, avec un niveau d'exigence premium.",
   primaryCta: {
     label: "Planifier un échange de 15 minutes",
     href: "/contact",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Voir les services",
-    href: "/services",
+    label: "Découvrir le portail",
+    href: "https://portail.sunelys.fr/login",
     track: "cta_hero_secondary",
   },
   proofs: [
@@ -29,119 +29,119 @@ export const heroData = {
     "Cadrage moyen 6 jours",
   ],
   preview: {
-    label: "Portail Sunelys",
-    title: "Un cockpit administratif en temps réel",
+    label: "Product preview",
+    title: "Un cockpit administratif clair, traçable et actionnable",
     columns: [
       {
-        heading: "Dossiers en cours",
+        heading: "Pipeline actif",
         items: [
-          { name: "DP - Site Horizon", status: "Déposé" },
-          { name: "Consuel - Lot B12", status: "Pré-contrôle" },
+          { name: "DP - Site Horizon", status: "Dépôt validé" },
+          { name: "Consuel - Lot B12", status: "Pièces consolidées" },
         ],
       },
       {
-        heading: "Alertes",
+        heading: "Priorités",
         items: [
-          { name: "Pièce manquante", status: "Raccordement C4" },
-          { name: "Validation attendue", status: "Consuel B12" },
+          { name: "Raccordement C4", status: "Attente pièce ENEDIS" },
+          { name: "Consuel B12", status: "Validation attendue" },
         ],
       },
       {
-        heading: "Avancement",
+        heading: "Performance",
         items: [
-          { name: "Dossiers clôturés", status: "32 ce mois-ci" },
-          { name: "SLA conformité", status: "97%" },
+          { name: "Dossiers clôturés", status: "32 ce mois" },
+          { name: "Conformité documentaire", status: "97%" },
         ],
       },
     ],
-    footer: "Suivi unifié installateur + client, avec traçabilité complète.",
+    footer: "Suivi unifié installateur + client final, avec historique complet des actions.",
   },
 };
 
 export const proofSectionData = {
-  kicker: "Crédibilité",
-  title: "Ils nous confient leurs flux administratifs.",
+  kicker: "Ils nous font confiance",
+  title: "Une exécution administrative robuste, à l'échelle des installateurs exigeants.",
   logos: [
-    { name: "Logo partenaire (placeholder)", src: "" },
-    { name: "Logo partenaire (placeholder)", src: "" },
-    { name: "Logo partenaire (placeholder)", src: "" },
-    { name: "Logo partenaire (placeholder)", src: "" },
+    { name: "Partenaire 01 (logo à remplacer)", src: "" },
+    { name: "Partenaire 02 (logo à remplacer)", src: "" },
+    { name: "Partenaire 03 (logo à remplacer)", src: "" },
+    { name: "Partenaire 04 (logo à remplacer)", src: "" },
   ],
   metrics: [
-    { value: "+1000", label: "dossiers photovoltaïques traités" },
-    { value: "+50", label: "installateurs partenaires" },
-    { value: "6j", label: "cadrage moyen" },
+    { value: "+1000", label: "dossiers photovoltaïques pilotés" },
+    { value: "+50", label: "installateurs partenaires actifs" },
+    { value: "6j", label: "cadrage administratif moyen" },
   ],
   testimonial: {
     quote:
-      "Placeholder témoignage: à remplacer par un retour client validé, nominatif ou anonymisé.",
-    author: "Installateur photovoltaïque",
-    note: "Bloc éditable dans src/data/home.ts",
+      "Sunelys nous a permis de reprendre le contrôle des délais administratifs sans alourdir nos équipes terrain.",
+    author: "Installateur partenaire (anonymisé) - Région Sud",
+    note: "Témoignage à valider/remplacer dans src/data/home.ts",
   },
 };
 
 export const frictionSectionData = {
-  kicker: "Frictions terrain",
-  title: "L'administratif devient vite un goulot d'étranglement.",
+  kicker: "Les points de friction",
+  title: "Les démarches administratives ralentissent votre croissance.",
   cards: [
     {
-      title: "DP incomplètes ou refusées",
-      consequence: "Retards de lancement et multiplication des échanges.",
-      solution: "Sunelys structure le dossier en amont pour fiabiliser l'instruction.",
+      title: "DP refusées",
+      consequence: "Retards de lancement et cycle de validation allongé.",
+      solution: "Sunelys verrouille la qualité documentaire en amont.",
     },
     {
       title: "Délais Consuel",
-      consequence: "Mise en service décalée et tension avec le client final.",
-      solution: "Sunelys anticipe les pièces et suit la conformité jusqu'à validation.",
+      consequence: "Mises en service repoussées et tension client.",
+      solution: "Sunelys anticipe les pièces et pilote les validations.",
     },
     {
-      title: "Raccordement mal piloté",
-      consequence: "Perte de visibilité sur l'avancement et les dépendances.",
-      solution: "Sunelys centralise les étapes Enedis dans un flux lisible.",
+      title: "Raccordement Enedis",
+      consequence: "Dépendances mal visibles et coordination fragile.",
+      solution: "Sunelys centralise chaque étape réseau dans un workflow unique.",
     },
     {
-      title: "Temps perdu par vos équipes",
-      consequence: "Commerciaux et conducteurs détournés de la production utile.",
-      solution: "Sunelys prend la charge administrative pour libérer vos ressources.",
+      title: "Gestion chronophage",
+      consequence: "Vos équipes commerciales et travaux perdent du temps utile.",
+      solution: "Sunelys prend en charge la mécanique administrative.",
     },
   ],
   closing:
-    "Résultat: des dossiers plus robustes, des délais mieux maîtrisés et une expérience client plus fluide.",
+    "Sunelys prend la mécanique administrative en charge. Vous gardez la relation commerciale et la maîtrise de vos chantiers.",
 };
 
 export const processSectionData = {
   kicker: "Comment ça marche",
-  title: "Une méthode simple, claire et pilotable.",
+  title: "Un workflow en 4 étapes, pensé pour rester fluide.",
   steps: [
     {
       title: "Vous transmettez le dossier",
-      text: "Données projet et pièces initiales sont consolidées dès l'entrée en flux.",
+      text: "Informations chantier et pièces initiales sont centralisées dès l'entrée en flux.",
     },
     {
       title: "Sunelys pilote les démarches",
-      text: "DP, Consuel et raccordement sont orchestrés selon un standard de qualité unique.",
+      text: "DP, Consuel et raccordement sont orchestrés selon un standard documentaire unique.",
     },
     {
       title: "Vous suivez l'avancement",
-      text: "Statuts, points de blocage et prochaines actions restent visibles en continu.",
+      text: "Statuts, alertes et prochaines actions restent visibles dans le portail.",
     },
     {
       title: "Le dossier avance sans friction",
-      text: "Moins d'imprévus administratifs, plus de maîtrise opérationnelle.",
+      text: "Moins de retours, moins d'aléas, plus de maîtrise opérationnelle.",
     },
   ],
 };
 
 export const servicesSectionData = {
   kicker: "Services",
-  title: "Des blocs de service pensés comme des produits.",
+  title: "Trois services structurants pour industrialiser vos flux.",
   cards: [
     {
       label: "Service 01",
       title: "Déclaration préalable",
-      benefit: "Des dossiers mieux cadrés pour limiter les retours.",
+      benefit: "Des dossiers complets pour limiter les refus et les retours.",
       description:
-        "Constitution, contrôle et suivi mairie pour sécuriser les phases de démarrage chantier.",
+        "Constitution, contrôle qualité et suivi mairie pour sécuriser chaque démarrage chantier.",
       ctaLabel: "Voir le service",
       href: "/gestion-administrative-photovoltaique",
       track: "cta_service_dp",
@@ -149,9 +149,9 @@ export const servicesSectionData = {
     {
       label: "Service 02",
       title: "Consuel",
-      benefit: "Une conformité anticipée pour réduire les délais.",
+      benefit: "Une conformité anticipée pour accélérer les mises en service.",
       description:
-        "Préparation documentaire et pilotage du dossier jusqu'à la validation finale.",
+        "Préparation des pièces, suivi des retours et pilotage jusqu'à la validation finale.",
       ctaLabel: "Voir le service",
       href: "/dossier-consuel-photovoltaique",
       track: "cta_service_consuel",
@@ -159,9 +159,9 @@ export const servicesSectionData = {
     {
       label: "Service 03",
       title: "Raccordement",
-      benefit: "Un suivi réseau centralisé, plus lisible et plus stable.",
+      benefit: "Un suivi Enedis centralisé pour mieux maîtriser les délais.",
       description:
-        "Coordination administrative des étapes Enedis avec traçabilité complète.",
+        "Coordination administrative de bout en bout avec traçabilité complète de chaque jalon.",
       ctaLabel: "Voir le service",
       href: "/raccordement-enedis-photovoltaique",
       track: "cta_service_enedis",
@@ -171,7 +171,7 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Une logique de plateforme, pas seulement une prestation.",
+  title: "Une plateforme dédiée à la qualité d'exécution administrative.",
   text: "Le portail centralise vos dossiers, vos pièces et vos validations pour garder une vision claire à chaque étape.",
   benefits: [
     "Suivi des dossiers en temps réel",
@@ -187,17 +187,17 @@ export const portalSectionData = {
 
 export const caseStudySectionData = {
   kicker: "Cas client",
-  title: "Une étude de cas pensée pour la preuve, pas pour l'effet marketing.",
-  client: "Installateur régional (anonymisé)",
-  context: "Volume: 20+ dossiers / mois",
+  title: "Industrialiser les dossiers sans dégrader la qualité d'expérience client.",
+  client: "Installateur multi-agences (anonymisé)",
+  context: "Volume moyen: 20+ dossiers/mois",
   narrative:
-    "Après mise en place d'un pilotage administratif structuré, l'équipe a réduit les blocages récurrents et gagné en visibilité sur l'ensemble du pipeline.",
+    "Après déploiement du pilotage Sunelys, l'équipe a réduit les points de blocage administratifs et sécurisé ses délais de mise en service.",
   results: [
-    { value: "Moins de retours", label: "dossiers plus complets à l'envoi" },
-    { value: "Plus de lisibilité", label: "statuts clairs pour les équipes" },
-    { value: "Charge allégée", label: "temps interne mieux utilisé" },
+    { value: "Moins de retours", label: "dossiers plus complets dès l'envoi" },
+    { value: "Plus de visibilité", label: "suivi unifié pour les équipes internes" },
+    { value: "Charge allégée", label: "temps commercial recentré sur la vente" },
   ],
-  note: "Résultats détaillés à compléter avec vos données validées.",
+  note: "Version anonymisée. Remplacez ce bloc par vos résultats validés.",
   cta: {
     label: "Parler de votre contexte",
     href: "/contact",
@@ -209,22 +209,22 @@ export const visionSectionData = {
   kicker: "Vision",
   title: "L'administratif photovoltaïque ne devrait jamais ralentir un installateur.",
   text:
-    "Sunelys transforme les démarches en infrastructure fluide: un système clair, fiable et orienté performance opérationnelle.",
+    "Sunelys transforme les démarches en infrastructure fluide : un système clair, fiable et traçable, aligné avec vos standards de production.",
 };
 
 export const finalCtaSectionData = {
-  kicker: "Dernière étape",
-  title: "Faites le point sur vos flux administratifs en 15 minutes.",
+  kicker: "Plan d'action rapide",
+  title: "Planifier un échange de 15 minutes.",
   text:
-    "Un échange rapide pour identifier vos points de friction, estimer les gains possibles et voir si Sunelys est adapté à votre organisation.",
+    "Un échange court pour cadrer vos points de friction, estimer les gains possibles et valider si Sunelys s'intègre à votre organisation.",
   primaryCta: {
-    label: "Planifier un échange",
+    label: "Planifier un échange de 15 minutes",
     href: "/contact",
     track: "cta_final_primary",
   },
   secondaryCta: {
-    label: "Réserver un échange",
-    href: "/contact",
+    label: "Voir les services",
+    href: "/services",
     track: "cta_final_secondary",
   },
 };

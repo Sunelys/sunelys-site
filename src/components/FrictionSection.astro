@@ -18,8 +18,10 @@ const { data } = Astro.props;
 ---
 
 <section class="section-shell friction-section reveal">
-  <p class="kicker">{data.kicker}</p>
-  <h2>{data.title}</h2>
+  <div class="friction-head">
+    <p class="kicker">{data.kicker}</p>
+    <h2>{data.title}</h2>
+  </div>
 
   <div class="friction-grid">
     {
@@ -38,16 +40,37 @@ const { data } = Astro.props;
 
 <style>
   .friction-section {
-    padding: clamp(1.2rem, 2.6vw, 2.1rem);
+    padding: clamp(1.3rem, 2.8vw, 2.3rem);
     border-radius: var(--radius-xl);
-    border: 1px solid var(--line);
-    background: linear-gradient(180deg, color-mix(in srgb, var(--surface) 90%, white), var(--bg-soft));
-    box-shadow: var(--shadow-sm);
+    border: 1px solid color-mix(in srgb, var(--line) 52%, var(--accent));
+    background:
+      radial-gradient(90% 120% at 100% -4%, color-mix(in srgb, var(--accent-soft) 22%, transparent), transparent 62%),
+      linear-gradient(160deg, #1c1914, #12100d);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+  }
+
+  .friction-section::after {
+    content: "";
+    position: absolute;
+    right: -14%;
+    top: -48%;
+    width: clamp(240px, 30vw, 520px);
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: calc(var(--shape-opacity) * 0.9);
+    filter: blur(calc(var(--shape-blur) * 1.25));
+    pointer-events: none;
+  }
+
+  .friction-head {
+    position: relative;
+    z-index: 1;
   }
 
   .kicker {
     margin: 0;
-    color: var(--text-muted);
+    color: color-mix(in srgb, #f4efe4 70%, var(--accent));
     font-size: 0.74rem;
     font-weight: 600;
     text-transform: uppercase;
@@ -57,31 +80,35 @@ const { data } = Astro.props;
   h2 {
     margin: 0.5rem 0 0;
     max-width: 27ch;
-    font-size: clamp(1.5rem, 2.7vw, 2.55rem);
+    color: #f8f4ec;
+    font-size: clamp(1.7rem, 3vw, 3rem);
     line-height: 1.07;
   }
 
   .friction-grid {
-    margin-top: 1rem;
+    margin-top: 1.05rem;
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.7rem;
+    gap: 0.62rem;
+    position: relative;
+    z-index: 1;
   }
 
   .friction-card {
     border: 1px solid color-mix(in srgb, var(--line) 80%, white);
     border-radius: var(--radius-md);
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-sm);
-    padding: 0.88rem;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: 0 12px 28px rgba(5, 4, 2, 0.2);
+    padding: 0.9rem;
     display: grid;
     gap: 0.46rem;
-    transition: transform 180ms ease, box-shadow 180ms ease;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   }
 
   .friction-card:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(5, 4, 2, 0.28);
+    border-color: color-mix(in srgb, var(--line) 60%, var(--accent));
   }
 
   .friction-card h3 {
@@ -107,15 +134,17 @@ const { data } = Astro.props;
   }
 
   .closing {
-    margin: 0.9rem 0 0;
-    border: 1px solid color-mix(in srgb, var(--line) 84%, var(--accent));
-    background: color-mix(in srgb, var(--accent-soft) 62%, white);
+    margin: 0.95rem 0 0;
+    border: 1px solid color-mix(in srgb, var(--line) 48%, var(--accent));
+    background: color-mix(in srgb, var(--accent-soft) 84%, white);
     border-radius: var(--radius-md);
-    padding: 0.78rem 0.88rem;
+    padding: 0.82rem 0.9rem;
     color: var(--text);
     font-weight: 600;
     line-height: 1.5;
     font-size: 0.9rem;
+    position: relative;
+    z-index: 1;
   }
 
   @media (max-width: 1080px) {

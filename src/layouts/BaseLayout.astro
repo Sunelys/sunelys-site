@@ -13,11 +13,11 @@ const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "
 const canonical = new URL(path, `${siteUrl}/`).toString();
 const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
 
-const BRANDING_INTENSITY: "subtle" | "bold" = "subtle";
+const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
   BRANDING_INTENSITY === "subtle"
-    ? "--shape-opacity:0.1; --shape-blur:10px; --shape-scale:1.04; --shape-x:110%; --shape-y:8vh; --shape-secondary-opacity:0.06;"
-    : "--shape-opacity:0.2; --shape-blur:4px; --shape-scale:1.16; --shape-x:104%; --shape-y:5vh; --shape-secondary-opacity:0.12;";
+    ? "--shape-opacity:0.08; --shape-blur:16px; --shape-scale:1.02; --shape-x:110%; --shape-y:10vh; --shape-secondary-opacity:0.05;"
+    : "--shape-opacity:0.22; --shape-blur:6px; --shape-scale:1.12; --shape-x:102%; --shape-y:4vh; --shape-secondary-opacity:0.13;";
 
 const navLinks = [
   { href: "/", label: "Accueil" },
@@ -132,26 +132,26 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
 <style is:global>
   :root {
-    --bg: #efede7;
-    --bg-soft: #f6f3ed;
-    --surface: #fcfaf6;
+    --bg: #f3f0e8;
+    --bg-soft: #faf6ef;
+    --surface: #fdfbf7;
     --surface-elevated: #ffffff;
-    --text: #191713;
-    --text-muted: #656056;
-    --line: #d9d1c2;
-    --accent: #c9ac85;
-    --accent-soft: #e9dcc2;
+    --text: #181510;
+    --text-muted: #625b4f;
+    --line: #d9d0c1;
+    --accent: #c5a56f;
+    --accent-soft: #efe3c9;
 
-    --shadow-sm: 0 6px 20px rgba(22, 19, 15, 0.045);
-    --shadow-md: 0 18px 44px rgba(22, 19, 15, 0.075);
+    --shadow-sm: 0 10px 28px rgba(20, 16, 10, 0.06);
+    --shadow-md: 0 24px 70px rgba(20, 16, 10, 0.12);
 
-    --radius-sm: 12px;
-    --radius-md: 20px;
-    --radius-xl: 34px;
+    --radius-sm: 14px;
+    --radius-md: 24px;
+    --radius-xl: 40px;
 
     --max-width: 1180px;
-    --section-gap: clamp(2.8rem, 6vw, 6rem);
-    --container-padding: clamp(1rem, 3vw, 2.2rem);
+    --section-gap: clamp(3.2rem, 7vw, 7rem);
+    --container-padding: clamp(1rem, 3.2vw, 2.4rem);
 
     --font-display: "Didot", "Bodoni MT", "Times New Roman", serif;
     --font-sans: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
@@ -202,8 +202,9 @@ const allSchemas = [...baseSchemas, ...structuredData];
     color: var(--text);
     line-height: 1.5;
     background:
-      radial-gradient(120% 90% at -20% -35%, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 62%),
-      radial-gradient(100% 84% at 120% 118%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 60%),
+      radial-gradient(120% 100% at -18% -35%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 58%),
+      radial-gradient(100% 86% at 120% 116%, color-mix(in srgb, var(--accent-soft) 56%, transparent), transparent 58%),
+      linear-gradient(180deg, #f6f3eb, var(--bg) 42%, #f4f0e8),
       var(--bg);
     position: relative;
   }
@@ -236,7 +237,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
   }
 
   .layout-main {
-    padding-top: clamp(0.9rem, 2vw, 1.6rem);
+    padding-top: clamp(1rem, 2.1vw, 1.9rem);
   }
 
   .page-flow {
@@ -247,6 +248,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
   .section-shell {
     margin: 0;
+    position: relative;
   }
 
   h1,
@@ -269,12 +271,12 @@ const allSchemas = [...baseSchemas, ...structuredData];
     align-items: center;
     justify-content: center;
     gap: 0.4rem;
-    min-height: 2.45rem;
-    padding: 0.64rem 1.08rem;
+    min-height: 2.65rem;
+    padding: 0.72rem 1.2rem;
     border-radius: 999px;
     border: 1px solid transparent;
     text-decoration: none;
-    font-size: 0.76rem;
+    font-size: 0.77rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     font-weight: 600;
@@ -283,22 +285,23 @@ const allSchemas = [...baseSchemas, ...structuredData];
   }
 
   .btn:hover {
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
   .btn-primary {
-    background: #15130f;
+    background: linear-gradient(180deg, #12100d, #090806);
     color: #fffdfa;
+    border-color: #0f0c09;
   }
 
   .btn-primary:hover,
   .btn-primary:focus-visible {
-    background: #090806;
+    background: linear-gradient(180deg, #181511, #0c0a08);
   }
 
   .btn-secondary {
-    background: color-mix(in srgb, var(--surface) 90%, white);
+    background: color-mix(in srgb, var(--surface) 92%, white);
     border-color: var(--line);
     color: var(--text);
   }
