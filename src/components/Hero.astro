@@ -1,12 +1,8 @@
 ---
-interface PreviewItem {
+interface PreviewProject {
   name: string;
+  progress: string;
   status: string;
-}
-
-interface PreviewColumn {
-  heading: string;
-  items: PreviewItem[];
 }
 
 interface HeroData {
@@ -19,7 +15,9 @@ interface HeroData {
   preview: {
     label: string;
     title: string;
-    columns: PreviewColumn[];
+    projects: PreviewProject[];
+    timeline: string[];
+    documents: string[];
     footer: string;
   };
 }
@@ -37,317 +35,420 @@ const { data } = Astro.props;
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
 
-    <p class="proof-line">{data.proofs.join(" • ")}</p>
-
-    <div class="hero-actions">
-      <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
-        {data.primaryCta.label}
-      </a>
-      <a class="btn btn-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
-        {data.secondaryCta.label}
-      </a>
-    </div>
-
-    <ul class="proofs" aria-label="Preuves clés">
+    <ul class="proof-bar" aria-label="Preuves clés Sunelys">
       {
         data.proofs.map((proof) => (
           <li>{proof}</li>
         ))
       }
     </ul>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
+        {data.primaryCta.label}
+      </a>
+      <a class="btn btn-secondary hero-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
+        {data.secondaryCta.label}
+      </a>
+    </div>
   </div>
 
-  <aside class="hero-preview reveal" aria-label="Aperçu produit">
-    <div class="preview-head">
-      <p class="preview-kicker">{data.preview.label}</p>
-      <span class="preview-status">Live workflow</span>
-    </div>
-    <h2>{data.preview.title}</h2>
+  <aside class="hero-product reveal" aria-label="Aperçu du portail Sunelys">
+    <div class="product-shell">
+      <header class="product-head">
+        <span class="product-label">{data.preview.label}</span>
+        <span class="product-live">Live</span>
+      </header>
 
-    <div class="preview-grid">
-      {
-        data.preview.columns.map((column) => (
-          <article class="preview-column">
-            <h3>{column.heading}</h3>
-            <ul>
-              {
-                column.items.map((item) => (
-                  <li>
-                    <span>{item.name}</span>
-                    <small>{item.status}</small>
-                  </li>
-                ))
-              }
-            </ul>
-          </article>
-        ))
-      }
-    </div>
+      <h2>{data.preview.title}</h2>
 
-    <div class="preview-timeline" aria-hidden="true">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
+      <div class="product-layout">
+        <section class="panel panel-projects">
+          <p class="panel-label">Liste dossiers</p>
+          <ul>
+            {
+              data.preview.projects.map((project) => (
+                <li>
+                  <strong>{project.name}</strong>
+                  <small>{project.progress}</small>
+                </li>
+              ))
+            }
+          </ul>
+        </section>
 
-    <p class="preview-footer">{data.preview.footer}</p>
+        <section class="panel panel-status">
+          <p class="panel-label">Statuts</p>
+          <ul>
+            {
+              data.preview.projects.map((project) => (
+                <li>{project.status}</li>
+              ))
+            }
+          </ul>
+        </section>
+
+        <section class="panel panel-timeline">
+          <p class="panel-label">Timeline administrative</p>
+          <ol>
+            {
+              data.preview.timeline.map((step) => (
+                <li>{step}</li>
+              ))
+            }
+          </ol>
+        </section>
+
+        <section class="panel panel-docs">
+          <p class="panel-label">Documents attachés</p>
+          <ul>
+            {
+              data.preview.documents.map((document) => (
+                <li>{document}</li>
+              ))
+            }
+          </ul>
+        </section>
+      </div>
+
+      <p class="product-footer">{data.preview.footer}</p>
+    </div>
   </aside>
 </section>
 
 <style>
   .hero {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(360px, 1fr);
-    gap: clamp(1rem, 2.6vw, 2.2rem);
+    grid-template-columns: minmax(0, 0.98fr) minmax(0, 1.02fr);
+    gap: clamp(1rem, 2.8vw, 2.5rem);
     align-items: stretch;
-    margin-top: 0.4rem;
+    padding-top: clamp(1rem, 1.8vw, 2rem);
+    padding-bottom: clamp(1.1rem, 2vw, 2.4rem);
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    right: -14%;
+    top: -42%;
+    width: clamp(460px, 74vw, 980px);
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: calc(var(--shape-opacity) * 0.86);
+    filter: blur(calc(var(--shape-blur) * 1.8));
+    pointer-events: none;
+    z-index: 0;
   }
 
   .hero-copy,
-  .hero-preview {
+  .hero-product {
     position: relative;
-    border-radius: var(--radius-xl);
-    border: 1px solid var(--line);
-    box-shadow: var(--shadow-md);
-    overflow: hidden;
+    z-index: 1;
   }
 
   .hero-copy {
-    padding: clamp(1.45rem, 3.3vw, 3rem);
+    border-radius: var(--radius-xl);
+    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
     background:
-      radial-gradient(90% 120% at 102% 118%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 54%),
-      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 92%, white), var(--surface)),
-      var(--surface);
+      radial-gradient(90% 120% at 100% 120%, color-mix(in srgb, var(--accent-soft) 62%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 92%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.55rem, 3.2vw, 3.1rem);
   }
 
-  .hero-copy::after {
-    content: "";
-    position: absolute;
-    right: -20%;
-    bottom: -50%;
-    width: clamp(260px, 48vw, 620px);
-    aspect-ratio: 1;
-    background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 1.05);
-    filter: blur(calc(var(--shape-blur) * 1.5));
-    pointer-events: none;
-  }
-
-  .kicker,
-  .preview-kicker {
+  .kicker {
     margin: 0;
     color: var(--text-muted);
-    font-size: 0.76rem;
+    font-size: 0.72rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    font-weight: 600;
+    font-weight: 700;
   }
 
   h1 {
-    margin: 0.92rem 0 0;
-    max-width: 12ch;
-    font-size: clamp(2.25rem, 4.7vw, 4.8rem);
-    line-height: 0.89;
-    letter-spacing: -0.022em;
+    margin: 0.9rem 0 0;
+    max-width: 14ch;
+    font-size: clamp(2.35rem, 4.6vw, 5rem);
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+    white-space: pre-line;
     text-wrap: balance;
   }
 
   .subtitle {
-    margin: 1.02rem 0 0;
-    max-width: 52ch;
-    font-size: clamp(1rem, 0.35vw + 0.93rem, 1.16rem);
+    margin: 1rem 0 0;
+    max-width: 60ch;
     color: var(--text-muted);
-    line-height: 1.56;
+    font-size: clamp(1rem, 0.36vw + 0.94rem, 1.15rem);
+    line-height: 1.58;
+    text-wrap: pretty;
   }
 
-  .proof-line {
-    margin: 0.9rem 0 0;
+  .proof-bar {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .proof-bar li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.3rem;
+    padding: 0.46rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
     color: var(--text);
-    font-size: 0.8rem;
-    letter-spacing: 0.07em;
+    font-size: 0.7rem;
+    letter-spacing: 0.09em;
     text-transform: uppercase;
-    font-weight: 600;
-    line-height: 1.4;
+    font-weight: 700;
+    line-height: 1.2;
   }
 
   .hero-actions {
-    margin-top: 1.05rem;
+    margin-top: 1.08rem;
     display: flex;
     flex-wrap: wrap;
     gap: 0.62rem;
   }
 
-  .proofs {
-    margin: 1rem 0 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.48rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .hero-secondary {
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
   }
 
-  .proofs li {
-    border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
-    min-height: 2.25rem;
-    display: grid;
-    place-items: center;
-    padding: 0.35rem 0.6rem;
-    text-align: center;
-    color: var(--text);
-    font-size: 0.7rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 600;
-    line-height: 1.2;
-  }
-
-  .hero-preview {
-    padding: clamp(1.05rem, 2.4vw, 1.85rem);
+  .hero-product {
+    border-radius: var(--radius-xl);
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
     background:
-      radial-gradient(120% 120% at 90% -10%, color-mix(in srgb, var(--accent-soft) 50%, transparent), transparent 52%),
-      linear-gradient(150deg, color-mix(in srgb, var(--surface) 92%, white), var(--surface-elevated));
+      radial-gradient(120% 100% at 92% -8%, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 58%),
+      linear-gradient(160deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1rem, 2.2vw, 1.45rem);
   }
 
-  .preview-head {
+  .product-shell {
+    border: 1px solid color-mix(in srgb, var(--line) 86%, white);
+    border-radius: calc(var(--radius-xl) - 8px);
+    background: color-mix(in srgb, var(--surface-elevated) 95%, white);
+    box-shadow: 0 18px 42px rgba(16, 12, 8, 0.12);
+    padding: 0.9rem;
+  }
+
+  .product-head {
     display: flex;
+    align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
-    align-items: center;
   }
 
-  .preview-status {
+  .product-label,
+  .product-live {
     display: inline-flex;
     align-items: center;
     border-radius: 999px;
     border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
-    background: color-mix(in srgb, var(--accent-soft) 66%, white);
-    padding: 0.32rem 0.55rem;
-    font-size: 0.64rem;
+    background: color-mix(in srgb, var(--surface) 90%, white);
+    min-height: 1.9rem;
+    padding: 0.34rem 0.58rem;
+    font-size: 0.62rem;
+    letter-spacing: 0.11em;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
+    font-weight: 700;
     color: var(--text);
+  }
+
+  .product-live {
+    background: color-mix(in srgb, var(--accent-soft) 66%, white);
+  }
+
+  .hero-product h2 {
+    margin: 0.76rem 0 0;
+    font-family: var(--font-sans);
+    font-size: clamp(1.05rem, 1vw + 0.88rem, 1.4rem);
+    line-height: 1.2;
+    letter-spacing: 0.01em;
+    font-weight: 650;
+    max-width: 28ch;
+  }
+
+  .product-layout {
+    margin-top: 0.8rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 0.5rem;
+  }
+
+  .panel {
+    border: 1px solid color-mix(in srgb, var(--line) 86%, white);
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    box-shadow: var(--shadow-sm);
+    padding: 0.58rem;
+  }
+
+  .panel-label {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
     font-weight: 700;
   }
 
-  .hero-preview h2 {
-    margin: 0.7rem 0 0;
-    font-size: clamp(1.25rem, 2.05vw, 1.95rem);
-    line-height: 1.06;
-    max-width: 18ch;
-  }
-
-  .preview-grid {
-    margin-top: 0.92rem;
-    display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .preview-column {
-    border: 1px solid color-mix(in srgb, var(--line) 85%, white);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--surface-elevated) 84%, white);
-    padding: 0.58rem;
-    box-shadow: 0 6px 18px rgba(20, 16, 10, 0.055);
-  }
-
-  .preview-column h3 {
-    margin: 0;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    font-family: var(--font-sans);
-    font-weight: 600;
-  }
-
-  .preview-column ul {
-    margin: 0.52rem 0 0;
+  .panel ul,
+  .panel ol {
+    margin: 0.48rem 0 0;
     padding: 0;
     list-style: none;
     display: grid;
     gap: 0.34rem;
   }
 
-  .preview-column li {
+  .panel-projects li {
     border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
+    border-radius: calc(var(--radius-sm) - 2px);
     background: var(--surface);
-    padding: 0.4rem;
+    padding: 0.42rem;
     display: grid;
-    gap: 0.18rem;
+    gap: 0.14rem;
   }
 
-  .preview-column span {
+  .panel-projects strong {
     font-size: 0.73rem;
-    color: var(--text);
-    font-weight: 600;
     line-height: 1.2;
+    color: var(--text);
+    font-weight: 650;
   }
 
-  .preview-column small {
+  .panel-projects small {
     font-size: 0.65rem;
-    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
     text-transform: uppercase;
-    color: var(--text-muted);
   }
 
-  .preview-timeline {
-    margin-top: 0.74rem;
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.45rem;
+  .panel-status ul {
+    align-content: start;
   }
 
-  .preview-timeline span {
-    display: block;
-    height: 0.3rem;
+  .panel-status li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.9rem;
     border-radius: 999px;
-    background: color-mix(in srgb, var(--accent-soft) 72%, white);
-    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    border: 1px solid color-mix(in srgb, var(--line) 74%, white);
+    background: color-mix(in srgb, var(--surface) 88%, white);
+    padding: 0.34rem 0.55rem;
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-weight: 700;
+    color: var(--text);
   }
 
-  .preview-footer {
-    margin: 0.72rem 0 0;
-    font-size: var(--step--1);
+  .panel-status li:nth-child(1) {
+    background: color-mix(in srgb, #d9f5e2 60%, white);
+    border-color: color-mix(in srgb, #7ab38d 50%, var(--line));
+  }
+
+  .panel-status li:nth-child(2) {
+    background: color-mix(in srgb, #fef3d7 70%, white);
+    border-color: color-mix(in srgb, #d2b16c 45%, var(--line));
+  }
+
+  .panel-status li:nth-child(3) {
+    background: color-mix(in srgb, #e8f1ff 74%, white);
+    border-color: color-mix(in srgb, #7e9cc8 45%, var(--line));
+  }
+
+  .panel-timeline ol {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.22rem;
+  }
+
+  .panel-timeline li {
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    background: color-mix(in srgb, var(--accent-soft) 66%, white);
+    min-height: 1.65rem;
+    display: grid;
+    place-items: center;
+    padding: 0.2rem 0.3rem;
+    text-align: center;
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 700;
+    line-height: 1.15;
+  }
+
+  .panel-docs ul li {
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 64%, white);
+    padding: 0.24rem 0;
+    font-size: 0.67rem;
     color: var(--text-muted);
-    line-height: 1.48;
+  }
+
+  .panel-docs ul li:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .product-footer {
+    margin: 0.64rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.69rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
   }
 
   @media (max-width: 1080px) {
     .hero {
       grid-template-columns: 1fr;
     }
-
-    h1 {
-      max-width: 15ch;
-    }
   }
 
   @media (max-width: 760px) {
-    .proof-line {
-      font-size: 0.72rem;
+    .hero {
+      padding-top: 0.8rem;
     }
 
-    .proofs {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .hero-copy {
+      text-align: center;
     }
 
-    .preview-grid {
-      grid-template-columns: 1fr;
+    h1 {
+      margin-inline: auto;
+      max-width: 12ch;
+    }
+
+    .subtitle {
+      margin-inline: auto;
+    }
+
+    .proof-bar {
+      justify-content: center;
+    }
+
+    .hero-actions {
+      justify-content: center;
     }
 
     .hero-actions .btn {
       width: 100%;
     }
-  }
 
-  @media (max-width: 520px) {
-    .proofs {
+    .product-layout {
       grid-template-columns: 1fr;
+    }
+
+    .panel-timeline ol {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 </style>

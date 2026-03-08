@@ -5,22 +5,22 @@ export const homeSeo = {
 };
 
 export const heroData = {
-  kicker: "Infrastructure administrative photovoltaïque",
-  title: "Externalisez l'administratif. Accélérez vos chantiers.",
+  kicker: "Plateforme administrative photovoltaïque",
+  title: "L'infrastructure administrative\ndes installateurs photovoltaïques.",
   titleVariants: [
     "L'infrastructure administrative des installateurs photovoltaïques.",
     "Une exécution administrative au niveau de vos installations.",
   ],
   subtitle:
-    "Sunelys pilote la Déclaration Préalable, le Consuel et le raccordement Enedis de bout en bout, avec un niveau d'exigence premium.",
+    "Sunelys orchestre les démarches administratives du solaire : déclarations préalables, Consuel et raccordement Enedis. Vos équipes installent. Nous gérons l'administratif.",
   primaryCta: {
-    label: "Planifier un échange de 15 minutes",
+    label: "Planifier un échange",
     href: "/contact",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Découvrir le portail",
-    href: "https://portail.sunelys.fr/login",
+    label: "Découvrir le fonctionnement",
+    href: "/parcours",
     track: "cta_hero_secondary",
   },
   proofs: [
@@ -29,32 +29,16 @@ export const heroData = {
     "Cadrage moyen 6 jours",
   ],
   preview: {
-    label: "Product preview",
-    title: "Un cockpit administratif clair, traçable et actionnable",
-    columns: [
-      {
-        heading: "Pipeline actif",
-        items: [
-          { name: "DP - Site Horizon", status: "Dépôt validé" },
-          { name: "Consuel - Lot B12", status: "Pièces consolidées" },
-        ],
-      },
-      {
-        heading: "Priorités",
-        items: [
-          { name: "Raccordement C4", status: "Attente pièce ENEDIS" },
-          { name: "Consuel B12", status: "Validation attendue" },
-        ],
-      },
-      {
-        heading: "Performance",
-        items: [
-          { name: "Dossiers clôturés", status: "32 ce mois" },
-          { name: "Conformité documentaire", status: "97%" },
-        ],
-      },
+    label: "Portail Sunelys",
+    title: "Pilotage administratif en temps réel",
+    projects: [
+      { name: "Projet Martin", progress: "DP déposée", status: "DP validée" },
+      { name: "Projet Dubois", progress: "Consuel en attente", status: "Consuel en cours" },
+      { name: "Projet Leroy", progress: "Raccordement Enedis", status: "Raccordement planifié" },
     ],
-    footer: "Suivi unifié installateur + client final, avec historique complet des actions.",
+    timeline: ["Cadrage", "Dépôt DP", "Consuel", "Raccordement", "Mise en service"],
+    documents: ["Plan de masse signé", "Schéma unifilaire", "Attestation installateur", "Photos chantier"],
+    footer: "Timeline administrative, pièces jointes et statuts centralisés dans un seul espace.",
   },
 };
 
