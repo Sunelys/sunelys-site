@@ -6,6 +6,7 @@ const {
   title = "Sunelys",
   description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
   structuredData = [],
+  robots = "index,follow",
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -68,7 +69,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="index,follow" />
+    <meta name="robots" content={robots} />
     <meta name="theme-color" content="#c9ac85" />
     <link rel="canonical" href={canonical} />
 

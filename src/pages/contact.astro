@@ -1,29 +1,45 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const successUrl = "https://sunelys.fr/merci";
 ---
 
 <BaseLayout
-  title="Contact | Sunelys"
-  description="Contactez Sunelys pour un accompagnement sur vos démarches photovoltaïques: declaration prealable, dossier Consuel et raccordement Enedis."
+  title="Contact installateurs photovoltaïques | Sunelys"
+  description="Parlez à Sunelys de vos flux administratifs photovoltaïques. Nous cadrons vos besoins en déclaration préalable, Consuel et raccordement."
 >
   <section class="hero card">
-    <h1>Contact</h1>
+    <p class="eyebrow">Prise de contact</p>
+    <h1>Faites le point sur vos flux administratifs en 15 minutes.</h1>
     <p>
-      Parlez-nous de votre projet photovoltaïque. Nous revenons vers vous avec une
-      proposition adaptee a votre volume et vos contraintes.
+      Déclaration préalable, Consuel, raccordement Enedis : nous regardons votre volume,
+      vos points de friction et la façon la plus simple de soulager vos équipes.
     </p>
+
+    <ul class="hero-points">
+      <li>Réponse rapide sur votre organisation actuelle</li>
+      <li>Vision claire sur les gains opérationnels possibles</li>
+      <li>Échange adapté aux installateurs et aux flux multi-dossiers</li>
+    </ul>
+
+    <div class="hero-actions">
+      <a class="cta" href="tel:+33695907919" data-track="cta_contact_call">Appeler maintenant</a>
+      <a class="cta cta-secondary" href="mailto:contact@sunelys.fr" data-track="cta_contact_email_top">
+        Envoyer un email
+      </a>
+    </div>
   </section>
 
   <section class="section grid">
     <article class="card">
       <h2>Email</h2>
-      <p>Pour une demande detaillee ou l'envoi de pieces.</p>
+      <p>Pour une demande détaillée ou l'envoi de pièces.</p>
       <p><a href="mailto:contact@sunelys.fr" data-track="cta_contact_email">contact@sunelys.fr</a></p>
     </article>
 
     <article class="card">
-      <h2>Telephone</h2>
-      <p>Pour un echange rapide sur votre avancement.</p>
+      <h2>Téléphone</h2>
+      <p>Pour un échange rapide sur votre volume de dossiers ou vos délais.</p>
       <p><a href="tel:+33695907919" data-track="cta_contact_phone">06 95 90 79 19</a></p>
     </article>
 
@@ -35,34 +51,61 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   </section>
 
   <section class="section card form-card">
-    <h2>Demande rapide</h2>
-    <p class="helper">Le volume de dossiers est pre-rempli si vous venez du mini-tunnel.</p>
+    <h2>Recevoir un cadrage initial</h2>
+    <p class="helper">
+      Le volume de dossiers est pré-rempli si vous venez du mini-tunnel. Le formulaire
+      envoie directement votre demande à Sunelys.
+    </p>
 
-    <form id="contact-form" class="form-grid">
+    <form
+      id="contact-form"
+      class="form-grid"
+      action="https://formsubmit.co/contact@sunelys.fr"
+      method="POST"
+    >
+      <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="_next" value={successUrl} />
+
       <label>
         Nom
         <input type="text" name="name" required autocomplete="name" />
+      </label>
+      <label>
+        Société
+        <input type="text" name="company" autocomplete="organization" />
       </label>
       <label>
         Email
         <input type="email" name="email" required autocomplete="email" />
       </label>
       <label>
-        Telephone
+        Téléphone
         <input type="tel" name="phone" autocomplete="tel" />
       </label>
       <label>
         Volume de dossiers / mois
         <select name="volume" id="volume-field">
-          <option value="">Selectionner</option>
+          <option value="">Sélectionner</option>
           <option value="1-10">1-10</option>
           <option value="10-30">10-30</option>
           <option value="+30">+30</option>
         </select>
       </label>
+      <label>
+        Besoin principal
+        <select name="need">
+          <option value="">Sélectionner</option>
+          <option value="Declaration prealable">Déclaration préalable</option>
+          <option value="Consuel">Consuel</option>
+          <option value="Raccordement Enedis">Raccordement Enedis</option>
+          <option value="Pilotage complet">Pilotage complet</option>
+        </select>
+      </label>
       <label class="full-width">
         Message
-        <textarea name="message" rows="5" placeholder="Contexte, zone, delais, type de projet..."></textarea>
+        <textarea name="message" rows="5" placeholder="Contexte, zone, délais, type de projet..."></textarea>
       </label>
       <button class="cta" type="submit" data-track="cta_contact_form_submit">Demander un audit</button>
     </form>
@@ -74,35 +117,19 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   const volumeFromQuery = params.get("volume");
   const volumeFromStorage = localStorage.getItem("sunelys_volume_range");
   const volumeField = document.querySelector("#volume-field");
-  const form = document.querySelector("#contact-form");
 
   const prefillVolume = volumeFromQuery || volumeFromStorage || "";
   if (volumeField && prefillVolume) {
     volumeField.value = prefillVolume;
   }
 
-  if (form) {
-    form.addEventListener("submit", (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const name = data.get("name") || "";
-      const email = data.get("email") || "";
-      const phone = data.get("phone") || "";
-      const volume = data.get("volume") || "";
-      const message = data.get("message") || "";
-
-      const subject = encodeURIComponent("Demande audit Sunelys");
-      const body = encodeURIComponent(
-        `Nom: ${name}\nEmail: ${email}\nTelephone: ${phone}\nVolume: ${volume}\n\nMessage:\n${message}`,
-      );
-
-      if (window.trackEvent) {
-        window.trackEvent("contact_form_mailto", { volume });
-      }
-
-      window.location.href = `mailto:contact@sunelys.fr?subject=${subject}&body=${body}`;
-    });
-  }
+  document.querySelector("#contact-form")?.addEventListener("submit", () => {
+    if (window.trackEvent) {
+      window.trackEvent("contact_form_submit", {
+        volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
+      });
+    }
+  });
 </script>
 
 <style>
@@ -111,17 +138,22 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: var(--shadow);
+    background: linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--surface-elevated) 95%, white),
+      var(--surface)
+    );
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: clamp(1.15rem, 2.6vw, 2rem);
+    box-shadow: var(--shadow-md);
   }
 
   h1 {
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.75rem, 4.5vw, 2.6rem);
-    line-height: 1.15;
+    margin: 0;
+    max-width: 14ch;
+    font-size: clamp(2rem, 4.6vw, 4.2rem);
+    line-height: 0.94;
   }
 
   h2 {
@@ -132,11 +164,56 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   p,
   li,
   label {
-    color: var(--muted);
+    color: var(--text-muted);
   }
 
   p {
     margin: 0;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .hero {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-points {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .hero-points li {
+    position: relative;
+    padding-left: 1rem;
+    color: var(--text);
+  }
+
+  .hero-points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.52rem;
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 999px;
+    background: var(--accent);
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
   }
 
   .grid {
@@ -150,7 +227,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   }
 
   a {
-    color: var(--primary-dark);
+    color: var(--text);
     text-decoration: none;
     font-weight: 700;
   }
@@ -182,12 +259,20 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   select,
   textarea {
     width: 100%;
-    border: 1px solid var(--border);
-    background: #f7f5ee;
+    border: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg-soft) 84%, white);
     color: var(--text);
-    border-radius: 10px;
-    padding: 0.62rem 0.7rem;
+    border-radius: 14px;
+    padding: 0.78rem 0.82rem;
     font: inherit;
+  }
+
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 75%, white);
+    outline-offset: 2px;
+    border-color: color-mix(in srgb, var(--accent) 68%, var(--line));
   }
 
   .full-width {
@@ -197,19 +282,38 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   .cta {
     justify-self: start;
     border: 0;
-    display: inline-block;
-    padding: 0.72rem 1.2rem;
-    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.78rem 1.22rem;
+    border-radius: 999px;
     font-weight: 700;
-    color: #f4f1e8;
-    background: var(--primary);
+    color: #f7f3ec;
+    background: var(--text);
     cursor: pointer;
+    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease,
+      color 170ms ease;
   }
 
   .cta:hover,
   .cta:focus-visible {
-    color: var(--primary-dark);
-    background: var(--accent-dark);
+    color: #fff;
+    background: #0f0d0a;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .cta-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+
+  .cta-secondary:hover,
+  .cta-secondary:focus-visible {
+    color: var(--text);
+    background: color-mix(in srgb, var(--accent-soft) 55%, white);
   }
 
   @media (max-width: 900px) {
@@ -223,6 +327,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 
     .full-width {
       grid-column: auto;
+    }
+
+    .hero-actions {
+      display: grid;
+    }
+
+    .hero-actions .cta {
+      width: 100%;
     }
   }
 </style>
