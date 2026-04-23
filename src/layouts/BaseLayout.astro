@@ -258,8 +258,9 @@ const allSchemas = [...baseSchemas, ...structuredData];
   body::before,
   body::after {
     content: "";
-    position: fixed;
-    inset: 0;
+    position: absolute;
+    inset: 0 0 auto 0;
+    min-height: 100vh;
     pointer-events: none;
     z-index: -1;
   }
@@ -382,7 +383,19 @@ const allSchemas = [...baseSchemas, ...structuredData];
   }
 
   .reveal {
-    animation: reveal-up 420ms ease both;
+    animation: reveal-up 260ms ease both;
+  }
+
+  @media (max-width: 760px) {
+    body::before,
+    body::after {
+      filter: none;
+      opacity: calc(var(--shape-opacity) * 0.45);
+    }
+
+    .reveal {
+      animation: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
