@@ -286,6 +286,10 @@ export const portalSectionData = {
     href: "https://portail.sunelys.fr/login",
     track: "cta_portal_section",
   },
+  image: {
+    src: "/images/site-portal-preview.svg",
+    alt: "Aperçu du portail Sunelys avec dossiers, statuts et suivi administratif.",
+  },
 };
 
 export const caseStudySectionData = {
@@ -305,6 +309,10 @@ export const caseStudySectionData = {
     label: "Parler de votre contexte",
     href: "/contact?source=cas-client",
     track: "cta_case_study",
+  },
+  image: {
+    src: "/images/site-case-study.svg",
+    alt: "Synthèse visuelle d'un cas client Sunelys avec indicateurs et flux administratif.",
   },
 };
 

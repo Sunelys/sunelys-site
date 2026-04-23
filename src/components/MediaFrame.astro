@@ -1,0 +1,92 @@
+---
+interface Props {
+  src?: string;
+  alt?: string;
+  label?: string;
+  variant?: "landscape" | "portrait" | "wide";
+  loading?: "eager" | "lazy";
+}
+
+const {
+  src,
+  alt = "Visuel Sunelys",
+  label = "Visuel premium Sunelys",
+  variant = "landscape",
+  loading = "lazy",
+} = Astro.props;
+---
+
+<figure class:list={["media-frame", variant]}>
+  {
+    src ? (
+      <img src={src} alt={alt} loading={loading} decoding="async" />
+    ) : (
+      <div class="media-placeholder" aria-label={alt}>
+        <span>{label}</span>
+      </div>
+    )
+  }
+</figure>
+
+<style>
+  .media-frame {
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border-radius: calc(var(--radius-xl) - 8px);
+    background:
+      radial-gradient(circle at 80% 18%, color-mix(in srgb, var(--accent-soft) 66%, transparent), transparent 36%),
+      linear-gradient(145deg, color-mix(in srgb, var(--surface-elevated) 96%, white), color-mix(in srgb, var(--surface) 90%, white));
+    box-shadow: var(--shadow-sm);
+    position: relative;
+  }
+
+  .media-frame.landscape {
+    aspect-ratio: 16 / 10;
+  }
+
+  .media-frame.portrait {
+    aspect-ratio: 4 / 5;
+  }
+
+  .media-frame.wide {
+    aspect-ratio: 21 / 9;
+  }
+
+  .media-frame::after {
+    content: "";
+    position: absolute;
+    inset: auto -12% -18% auto;
+    width: 48%;
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: 0.22;
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .media-frame img,
+  .media-placeholder {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .media-frame img {
+    object-fit: cover;
+  }
+
+  .media-placeholder {
+    display: grid;
+    place-items: center;
+    padding: 1rem;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-align: center;
+  }
+</style>

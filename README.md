@@ -78,6 +78,11 @@ Tout est dans `src/data/home.ts`:
 - Chaque article doit inclure `slug`, `title`, `seoTitle`, `description`, `pubDate`, `category`, `readingTime` et `keywords` dans le frontmatter.
 - Les articles sont automatiquement ajoutés au sitemap via `src/pages/sitemap.xml.ts`.
 
+- Images blog: `coverImage` et `coverAlt` dans le frontmatter des articles
+- Composant image réutilisable: `src/components/MediaFrame.astro`
+- Placeholders actuels du site: `public/images/site-portal-preview.svg` et `public/images/site-case-study.svg`
+- Remplacement conseillé: déposer vos vrais visuels dans `public/images/` puis mettre à jour `src/data/home.ts` et le frontmatter des articles
+
 Rythme recommandé: 2 brouillons par semaine, validation humaine avant publication. Priorité aux requêtes proches de l intention client: DP, Consuel, raccordement Enedis, erreurs administratives, volume dossiers, externalisation administrative solaire.
 
 ## SEO / Tracking

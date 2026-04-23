@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import MediaFrame from "../../components/MediaFrame.astro";
 
 export async function getStaticPaths() {
   const posts = Object.values(import.meta.glob("../../content/blog/*.md", { eager: true }));
@@ -42,6 +43,7 @@ const structuredData = [
     },
     mainEntityOfPage: articleUrl,
     keywords: frontmatter.keywords,
+    image: frontmatter.coverImage ? `https://sunelys.fr${frontmatter.coverImage}` : undefined,
   },
   {
     "@context": "https://schema.org",
@@ -69,6 +71,15 @@ const structuredData = [
       <div class="article-actions">
         <a class="btn btn-primary" href="/contact?source=article-header" data-track="cta_article_header_primary" data-track-label={frontmatter.title}>Planifier un échange</a>
         <a class="btn btn-secondary" href="/services" data-track="cta_article_header_services" data-track-label={frontmatter.title}>Voir les services</a>
+      </div>
+      <div class="article-cover">
+        <MediaFrame
+          src={frontmatter.coverImage}
+          alt={frontmatter.coverAlt || frontmatter.title}
+          label="Image article à remplacer"
+          variant="wide"
+          loading="eager"
+        />
       </div>
     </header>
 
@@ -150,6 +161,10 @@ const structuredData = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
+  }
+
+  .article-cover {
+    margin-top: 1.7rem;
   }
 
   .article-layout {
@@ -242,7 +257,11 @@ const structuredData = [
   }
 
   @media (max-width: 980px) {
-    .article-layout {
+    .article-cover {
+    margin-top: 1.7rem;
+  }
+
+  .article-layout {
       grid-template-columns: 1fr;
     }
 

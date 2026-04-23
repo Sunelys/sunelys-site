@@ -10,6 +10,8 @@ const blog = defineCollection({
     category: z.string(),
     readingTime: z.string(),
     keywords: z.string(),
+    coverImage: z.string().optional(),
+    coverAlt: z.string().optional(),
   }),
 });
 

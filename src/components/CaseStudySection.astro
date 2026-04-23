@@ -1,4 +1,6 @@
 ---
+import MediaFrame from "./MediaFrame.astro";
+
 interface ResultItem {
   value: string;
   label: string;
@@ -18,6 +20,10 @@ interface Props {
       href: string;
       track: string;
     };
+    image?: {
+      src: string;
+      alt: string;
+    };
   };
 }
 
@@ -36,6 +42,11 @@ const { data } = Astro.props;
   </div>
 
   <div class="case-metrics">
+    {data.image && (
+      <div class="case-visual">
+        <MediaFrame src={data.image.src} alt={data.image.alt} label="Cas client" variant="landscape" />
+      </div>
+    )}
     {
       data.results.map((result) => (
         <article class="metric-box">
@@ -115,6 +126,10 @@ const { data } = Astro.props;
     display: grid;
     gap: 0.52rem;
     align-content: start;
+  }
+
+  .case-visual {
+    margin-bottom: 0.1rem;
   }
 
   .metric-box {

@@ -1,4 +1,6 @@
 ---
+import MediaFrame from "./MediaFrame.astro";
+
 interface Props {
   data: {
     kicker: string;
@@ -9,6 +11,10 @@ interface Props {
       label: string;
       href: string;
       track: string;
+    };
+    image?: {
+      src: string;
+      alt: string;
     };
   };
 }
@@ -34,6 +40,11 @@ const { data } = Astro.props;
   </div>
 
   <div class="portal-mock" aria-label="Aperçu du portail Sunelys">
+    {data.image && (
+      <div class="portal-media">
+        <MediaFrame src={data.image.src} alt={data.image.alt} label="Aperçu portail" variant="landscape" />
+      </div>
+    )}
     <header>
       <span class="chip">Portail Sunelys</span>
       <span class="status">Live</span>
@@ -154,6 +165,11 @@ const { data } = Astro.props;
     opacity: calc(var(--shape-opacity) * 0.85);
     filter: blur(calc(var(--shape-blur) * 1.25));
     pointer-events: none;
+  }
+
+  .portal-media {
+    position: relative;
+    z-index: 1;
   }
 
   .portal-mock header {

@@ -1,4 +1,6 @@
 ---
+import MediaFrame from "../MediaFrame.astro";
+
 interface Props {
   post: {
     frontmatter: {
@@ -8,6 +10,8 @@ interface Props {
       pubDate: string;
       category: string;
       readingTime: string;
+      coverImage?: string;
+      coverAlt?: string;
     };
   };
 }
@@ -21,6 +25,13 @@ const date = new Intl.DateTimeFormat("fr-FR", {
 ---
 
 <article class="blog-card">
+  <MediaFrame
+    src={post.frontmatter.coverImage}
+    alt={post.frontmatter.coverAlt || post.frontmatter.title}
+    label="Visuel article à remplacer"
+    variant="landscape"
+  />
+
   <div class="blog-card-meta">
     <span>{post.frontmatter.category}</span>
     <span>{date}</span>
