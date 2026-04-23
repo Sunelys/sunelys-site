@@ -172,6 +172,8 @@ const successUrl = "https://sunelys.fr/merci";
   document.querySelector("#contact-form")?.addEventListener("submit", () => {
     if (window.trackEvent) {
       window.trackEvent("contact_form_submit", {
+        category: "form",
+        label: "Contact form",
         source: sourceFromQuery,
         volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
         need: needField instanceof HTMLSelectElement ? needField.value : "",

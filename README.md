@@ -72,8 +72,34 @@ Tout est dans `src/data/home.ts`:
 
 ## SEO / Tracking
 - SEO global: `BaseLayout` (meta, canonical, OG, Twitter, Organization/WebSite JSON-LD)
-- SEO home: `index.astro` (`Service` JSON-LD)
-- Tracking CTA: attributs `data-track` + `window.trackEvent` / `dataLayer`
+- SEO home: `index.astro` (`Service` + `FAQPage` JSON-LD)
+- Tracking centralise: attributs `data-track` + `window.trackEvent`
+- Sorties tracking supportees: `dataLayer` (GTM), GA4 via `gtag`, Matomo via `_paq`
+- Evenements couverts: clics CTA, telephone, email, quiz, clic estimation, soumission formulaire contact
+
+### Activer GA4
+Dans Vercel > Project Settings > Environment Variables, ajouter:
+```bash
+PUBLIC_GA4_ID=G-XXXXXXXXXX
+```
+Puis redeployer. En local, copier `.env.example` vers `.env` et renseigner la valeur.
+
+### Activer Matomo
+Dans Vercel > Project Settings > Environment Variables, ajouter:
+```bash
+PUBLIC_MATOMO_URL=https://votre-matomo.example.com
+PUBLIC_MATOMO_SITE_ID=1
+```
+Puis redeployer. Ne pas mettre de slash final dans l'URL Matomo.
+
+### Nommage des evenements
+Les evenements envoyes reprennent les valeurs `data-track` dans le code, par exemple:
+- `cta_hero_primary`
+- `cta_final_phone`
+- `quiz_volume_selected`
+- `contact_form_submit`
+
+Le payload inclut quand disponible: page, label, href, source, volume, besoin, UTM, referrer et landing page.
 
 ## Commandes
 ```bash

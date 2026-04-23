@@ -74,7 +74,7 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     quizResult.hidden = false;
 
     if (window.trackEvent) {
-      window.trackEvent("quiz_volume_selected", { volume: value });
+      window.trackEvent("quiz_volume_selected", { category: "quiz", volume: value, label: value });
     }
   };
 
