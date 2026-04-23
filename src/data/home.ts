@@ -54,12 +54,20 @@ export const proofSectionData = {
     { value: "+50", label: "partenaires actifs" },
     { value: "2j", label: "pour transmettre une demande complète" },
   ],
-  testimonial: {
-    quote:
-      "Sunelys nous a permis de reprendre le contrôle des délais administratifs sans alourdir nos équipes terrain.",
-    author: "Installateur partenaire (anonymisé) - Région Sud",
-    note: "Témoignage anonymisé en attente de validation nominative.",
-  },
+  testimonials: [
+    {
+      quote:
+        "Sunelys nous a permis de structurer le suivi administratif sans mobiliser nos équipes commerciales sur chaque relance.",
+      author: "Direction commerciale - Partenaire solaire national",
+      note: "Témoignage anonymisé. Référence nominative à remplacer après accord écrit.",
+    },
+    {
+      quote:
+        "Le pilotage des dossiers est devenu plus lisible : les pièces, les statuts et les priorités sont mieux cadrés dès le départ.",
+      author: "Responsable opérations - Groupe régional photovoltaïque",
+      note: "Témoignage anonymisé. Référence nominative à remplacer après accord écrit.",
+    },
+  ],
 };
 
 export const frictionSectionData = {

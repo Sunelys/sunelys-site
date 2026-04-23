@@ -16,11 +16,11 @@ interface Props {
     logos: LogoItem[];
     metrics: MetricItem[];
     trustNote?: string;
-    testimonial: {
+    testimonials: Array<{
       quote: string;
       author: string;
       note: string;
-    };
+    }>;
   };
 }
 
@@ -65,11 +65,15 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     </div>
 
     <div class="cred-panel">
-      <blockquote class="quote-box">
-        <p>"{data.testimonial.quote}"</p>
-        <cite>{data.testimonial.author}</cite>
-        <small>{data.testimonial.note}</small>
-      </blockquote>
+      {
+        data.testimonials.map((testimonial) => (
+          <blockquote class="quote-box">
+            <p>"{testimonial.quote}"</p>
+            <cite>{testimonial.author}</cite>
+            <small>{testimonial.note}</small>
+          </blockquote>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -179,6 +183,8 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     border: 1px solid color-mix(in srgb, var(--line) 84%, white);
     border-radius: calc(var(--radius-md) - 4px);
     background: linear-gradient(160deg, color-mix(in srgb, var(--surface-elevated) 88%, white), var(--surface));
+    display: grid;
+    gap: 0.55rem;
     padding: 0.7rem;
   }
 
