@@ -16,6 +16,10 @@ interface Props {
       src: string;
       alt: string;
     };
+    secondaryImage?: {
+      src: string;
+      alt: string;
+    };
   };
 }
 
@@ -40,41 +44,49 @@ const { data } = Astro.props;
   </div>
 
   <div class="portal-mock" aria-label="Aperçu du portail Sunelys">
-    {data.image && (
-      <div class="portal-media">
-        <MediaFrame src={data.image.src} alt={data.image.alt} label="Aperçu portail" variant="landscape" />
-      </div>
-    )}
     <header>
       <span class="chip">Portail Sunelys</span>
-      <span class="status">Live</span>
+      <span class="status">Vue client</span>
     </header>
 
-    <div class="mock-body">
-      <aside>
-        <p>Pipeline</p>
-        <ul>
-          <li><span></span> DP</li>
-          <li><span></span> Consuel</li>
-          <li><span></span> Raccordement</li>
-        </ul>
-      </aside>
-
-      <div class="main">
-        <article>
-          <h3>Dossiers actifs</h3>
-          <p>42</p>
-        </article>
-        <article>
-          <h3>Pièces en attente</h3>
-          <p>7</p>
-        </article>
-        <article>
-          <h3>Conformité ce mois</h3>
-          <p>97%</p>
-        </article>
+    <div class="portal-intro">
+      <div>
+        <p class="portal-kicker">Aperçu produit</p>
+        <h3>Une interface claire pour visualiser l'avancement et agir sans friction.</h3>
+      </div>
+      <div class="portal-tags" aria-label="Points clés du portail">
+        <span>Dossiers en cours</span>
+        <span>Pièces à transmettre</span>
+        <span>Progression visible</span>
       </div>
     </div>
+
+    {data.image && (
+      <div class="portal-media portal-media-primary">
+        <MediaFrame src={data.image.src} alt={data.image.alt} label="Vue d'ensemble du portail" variant="showcase" />
+      </div>
+    )}
+
+    {data.secondaryImage && (
+      <div class="portal-secondary">
+        <div class="portal-secondary-copy">
+          <p class="portal-kicker">Vue détaillée</p>
+          <h3>Chaque dossier garde sa prochaine étape, son statut et son niveau d'avancement à portée de regard.</h3>
+          <p>
+            Une lecture compacte pour réduire les allers-retours et sécuriser le suivi administratif au quotidien.
+          </p>
+        </div>
+
+        <div class="portal-media portal-media-secondary">
+          <MediaFrame
+            src={data.secondaryImage.src}
+            alt={data.secondaryImage.alt}
+            label="Liste des dossiers du portail"
+            variant="ultrawide"
+          />
+        </div>
+      </div>
+    )}
   </div>
 </section>
 
@@ -172,6 +184,89 @@ const { data } = Astro.props;
     z-index: 1;
   }
 
+  .portal-media :global(.media-frame) {
+    border-color: color-mix(in srgb, var(--line) 64%, var(--accent));
+    box-shadow:
+      0 26px 54px rgba(18, 26, 44, 0.12),
+      0 10px 22px rgba(201, 172, 133, 0.16);
+  }
+
+  .portal-media :global(.media-frame img) {
+    object-fit: contain;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(247, 243, 236, 0.98));
+  }
+
+  .portal-intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.72rem;
+    align-items: end;
+    position: relative;
+    z-index: 1;
+  }
+
+  .portal-kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .portal-intro h3,
+  .portal-secondary h3 {
+    margin: 0.32rem 0 0;
+    font-size: clamp(1.02rem, 1.9vw, 1.42rem);
+    line-height: 1.16;
+    max-width: 24ch;
+  }
+
+  .portal-tags {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.42rem;
+  }
+
+  .portal-tags span {
+    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    border-radius: var(--radius-pill);
+    background: color-mix(in srgb, var(--surface) 92%, white);
+    padding: 0.42rem 0.64rem;
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .portal-media-primary {
+    margin-top: 0.08rem;
+  }
+
+  .portal-secondary {
+    display: grid;
+    grid-template-columns: minmax(0, 0.48fr) minmax(0, 0.52fr);
+    gap: 0.72rem;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+    margin-top: 0.04rem;
+    padding: 0.78rem;
+    border: 1px solid color-mix(in srgb, var(--line) 76%, white);
+    border-radius: calc(var(--radius-xl) - 8px);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(250, 246, 239, 0.92));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  }
+
+  .portal-secondary-copy p:last-child {
+    margin: 0.54rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.5;
+    max-width: 30ch;
+  }
+
   .portal-mock header {
     display: flex;
     justify-content: space-between;
@@ -197,86 +292,6 @@ const { data } = Astro.props;
     color: #205f42;
   }
 
-  .mock-body {
-    display: grid;
-    grid-template-columns: minmax(138px, 0.72fr) minmax(0, 1.28fr);
-    gap: 0.6rem;
-    position: relative;
-    z-index: 1;
-  }
-
-  .mock-body aside,
-  .mock-body .main {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    background: var(--surface-elevated);
-    padding: 0.6rem;
-  }
-
-  .mock-body aside p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.66rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-
-  .mock-body aside ul {
-    margin: 0.5rem 0 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.42rem;
-  }
-
-  .mock-body aside li {
-    display: flex;
-    align-items: center;
-    gap: 0.45rem;
-    color: var(--text);
-    font-size: 0.78rem;
-    font-weight: 600;
-  }
-
-  .mock-body aside li span {
-    width: 0.45rem;
-    height: 0.45rem;
-    border-radius: 999px;
-    background: var(--accent);
-    display: inline-block;
-  }
-
-  .mock-body .main {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem;
-  }
-
-  .mock-body .main article {
-    border: 1px solid var(--line);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-    padding: 0.5rem;
-  }
-
-  .mock-body .main h3 {
-    margin: 0;
-    font-family: var(--font-sans);
-    font-size: 0.64rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    font-weight: 600;
-  }
-
-  .mock-body .main p {
-    margin: 0.45rem 0 0;
-    font-size: 1.05rem;
-    color: var(--text);
-    font-weight: 700;
-  }
-
   @media (max-width: 1080px) {
     .portal-section {
       grid-template-columns: 1fr;
@@ -284,12 +299,13 @@ const { data } = Astro.props;
   }
 
   @media (max-width: 760px) {
-    .mock-body {
+    .portal-intro,
+    .portal-secondary {
       grid-template-columns: 1fr;
     }
 
-    .mock-body .main {
-      grid-template-columns: 1fr;
+    .portal-tags {
+      justify-content: flex-start;
     }
 
     .portal-copy .btn {

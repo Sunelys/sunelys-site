@@ -3,7 +3,7 @@ interface Props {
   src?: string;
   alt?: string;
   label?: string;
-  variant?: "landscape" | "portrait" | "wide";
+  variant?: "landscape" | "portrait" | "wide" | "showcase" | "ultrawide";
   loading?: "eager" | "lazy";
 }
 
@@ -51,6 +51,14 @@ const {
 
   .media-frame.wide {
     aspect-ratio: 21 / 9;
+  }
+
+  .media-frame.showcase {
+    aspect-ratio: 37 / 20;
+  }
+
+  .media-frame.ultrawide {
+    aspect-ratio: 43 / 20;
   }
 
   .media-frame::after {

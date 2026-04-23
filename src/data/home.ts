@@ -287,8 +287,12 @@ export const portalSectionData = {
     track: "cta_portal_section",
   },
   image: {
-    src: "/images/site/portal-preview-placeholder.svg",
-    alt: "Aperçu du portail Sunelys avec dossiers, statuts et suivi administratif.",
+    src: "/images/site/portal-overview-2026-04-23.png",
+    alt: "Vue d'ensemble du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
+  },
+  secondaryImage: {
+    src: "/images/site/portal-dossiers-2026-04-23.png",
+    alt: "Liste des dossiers existants dans le portail Sunelys avec progression et prochaine étape visibles.",
   },
 };
 
