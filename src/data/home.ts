@@ -6,27 +6,27 @@ export const homeSeo = {
 
 export const heroData = {
   kicker: "Plateforme administrative photovoltaïque",
-  title: "L'infrastructure administrative\ndes installateurs photovoltaïques.",
+  title: "Externalisez vos démarches\nadministratives photovoltaïques.",
   titleVariants: [
-    "L'infrastructure administrative des installateurs photovoltaïques.",
-    "Une exécution administrative au niveau de vos installations.",
+    "Externalisez vos démarches administratives photovoltaïques.",
+    "Moins de charge administrative. Plus de chantiers maîtrisés.",
   ],
   subtitle:
-    "Sunelys orchestre les démarches administratives du solaire : déclarations préalables, Consuel et raccordement Enedis. Vos équipes installent. Nous gérons l'administratif.",
+    "Sunelys pilote DP, Consuel et raccordement Enedis pour les installateurs photovoltaïques. Vos équipes gardent la relation client. Nous sécurisons les dossiers, les relances et les délais.",
   primaryCta: {
-    label: "Planifier un échange",
+    label: "Planifier un échange de 15 minutes",
     href: "/contact",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Découvrir le fonctionnement",
-    href: "/parcours",
+    label: "Voir les services",
+    href: "/services",
     track: "cta_hero_secondary",
   },
   proofs: [
-    "+1000 dossiers traités",
-    "+50 installateurs partenaires",
-    "Cadrage moyen 6 jours",
+    "DP · Consuel · Raccordement",
+    "Suivi installateur + client",
+    "Audit de flux en 15 minutes",
   ],
   preview: {
     variant: "full",
@@ -45,10 +45,10 @@ export const heroData = {
 
 export const proofSectionData = {
   kicker: "Ils nous font confiance",
-  title: "Une exécution administrative robuste, à l'échelle des installateurs exigeants.",
+  title: "Des flux administratifs plus lisibles, mieux suivis, plus faciles à absorber.",
   logos: [],
   trustNote:
-    "Références partenaires, volumes accompagnés et cas détaillés communiqués sur demande tant que les autorisations de diffusion ne sont pas validées.",
+    "Références partenaires et cas détaillés disponibles sur demande. Les logos seront affichés uniquement après autorisation de diffusion.",
   metrics: [
     { value: "+1000", label: "dossiers photovoltaïques pilotés" },
     { value: "+50", label: "installateurs partenaires actifs" },
@@ -64,7 +64,7 @@ export const proofSectionData = {
 
 export const frictionSectionData = {
   kicker: "Les points de friction",
-  title: "Les démarches administratives ralentissent votre croissance.",
+  title: "L'administratif devient vite un goulot d'étranglement.",
   cards: [
     {
       title: "DP refusées",
@@ -116,7 +116,7 @@ export const processSectionData = {
 
 export const servicesSectionData = {
   kicker: "Services",
-  title: "Trois services structurants pour industrialiser vos flux.",
+  title: "Les trois blocs qui concentrent le plus de friction administrative.",
   cards: [
     {
       label: "Service 01",
@@ -196,9 +196,9 @@ export const visionSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Plan d'action rapide",
-  title: "Planifier un échange de 15 minutes.",
+  title: "Faites le point sur vos flux administratifs en 15 minutes.",
   text:
-    "Un échange court pour cadrer vos points de friction, estimer les gains possibles et valider si Sunelys s'intègre à votre organisation.",
+    "On identifie vos points de friction, le volume à déléguer et les gains opérationnels possibles. Vous repartez avec une lecture claire de ce qui peut être externalisé.",
   primaryCta: {
     label: "Planifier un échange de 15 minutes",
     href: "/contact",

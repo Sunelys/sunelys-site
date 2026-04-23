@@ -41,6 +41,25 @@ interface Props {
 }
 
 const { data } = Astro.props;
+
+const heroBadges = [
+  "Pour installateurs photovoltaïques",
+  "DP · Consuel · Raccordement",
+  "Audit de flux en 15 minutes",
+];
+
+const outcomeItems = [
+  "Moins de charge administrative pour vos équipes",
+  "Moins de retours liés aux pièces incomplètes",
+  "Plus de visibilité sur les jalons et les blocages",
+  "Une expérience client plus fluide côté installateur",
+];
+
+const delegationSignals = [
+  "Vos commerciaux ou conducteurs de travaux relancent eux-mêmes les dossiers.",
+  "Les retours administratifs repoussent régulièrement les mises en service.",
+  "Votre volume augmente mais votre suivi reste dispersé entre emails, fichiers et portails.",
+];
 ---
 
 <section class="seo-section seo-hero section-shell reveal">
@@ -48,9 +67,19 @@ const { data } = Astro.props;
     <p class="kicker">Service administratif photovoltaïque</p>
     <h1>{data.heroTitle}</h1>
     <p>{data.heroSubtitle}</p>
-    <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_hero`}>
-      Planifier un échange
-    </a>
+
+    <ul class="hero-badges" aria-label="Informations clés Sunelys">
+      {heroBadges.map((badge) => <li>{badge}</li>)}
+    </ul>
+
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_hero`}>
+        Planifier un échange
+      </a>
+      <a class="btn btn-secondary" href="/services" data-track={`cta_${data.slug}_hero_services`}>
+        Voir les services
+      </a>
+    </div>
   </div>
 </section>
 
@@ -71,11 +100,32 @@ const { data } = Astro.props;
 </section>
 
 <section class="seo-section seo-scope section-shell reveal">
-  <p class="kicker">Ce que Sunelys prend en charge</p>
-  <h2>Pilotage administratif de bout en bout</h2>
-  <ul>
-    {data.scopeItems.map((item) => <li>{item}</li>)}
-  </ul>
+  <div class="split-head">
+    <div>
+      <p class="kicker">Ce que Sunelys prend en charge</p>
+      <h2>Pilotage administratif de bout en bout</h2>
+    </div>
+    <p>
+      L'objectif n'est pas seulement de déposer un dossier. C'est de rendre le flux plus fiable,
+      plus lisible et moins consommateur de temps pour vos équipes.
+    </p>
+  </div>
+
+  <div class="scope-layout">
+    <article class="scope-panel">
+      <h3>Prise en charge opérationnelle</h3>
+      <ul>
+        {data.scopeItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+
+    <article class="scope-panel scope-panel-dark">
+      <h3>Résultats attendus</h3>
+      <ul>
+        {outcomeItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+  </div>
 </section>
 
 <section class="seo-section seo-process section-shell reveal">
@@ -86,13 +136,28 @@ const { data } = Astro.props;
   </ol>
 </section>
 
+<section class="seo-section seo-delegation section-shell reveal">
+  <p class="kicker">Quand déléguer</p>
+  <h2>Le bon signal : l'administratif commence à limiter votre capacité de production.</h2>
+  <div class="signal-grid">
+    {delegationSignals.map((signal) => <p>{signal}</p>)}
+  </div>
+  <a class="btn btn-secondary" href="/contact" data-track={`cta_${data.slug}_delegation`}>
+    Faire le point sur mes flux
+  </a>
+</section>
+
 <section class="seo-section seo-case section-shell reveal">
   <p class="kicker">Cas client</p>
-  <h2>{data.caseStudy.title}</h2>
-  <p class="volume">{data.caseStudy.volume}</p>
-  <ul>
-    {data.caseStudy.results.map((result) => <li>{result}</li>)}
-  </ul>
+  <div class="case-layout">
+    <div>
+      <h2>{data.caseStudy.title}</h2>
+      <p class="volume">{data.caseStudy.volume}</p>
+    </div>
+    <ul>
+      {data.caseStudy.results.map((result) => <li>{result}</li>)}
+    </ul>
+  </div>
 </section>
 
 <section class="seo-section seo-faq section-shell reveal">
@@ -111,8 +176,8 @@ const { data } = Astro.props;
 </section>
 
 <section class="seo-section seo-links section-shell reveal">
-  <p class="kicker">Liens internes</p>
-  <h2>Services associés</h2>
+  <p class="kicker">Maillage interne</p>
+  <h2>Continuer votre lecture</h2>
   <div class="links-grid">
     {
       data.internalLinks.map((link) => (
@@ -159,12 +224,14 @@ const { data } = Astro.props;
     max-width: 20ch;
     font-size: clamp(2rem, 4vw, 3.9rem);
     line-height: 0.95;
+    text-wrap: balance;
   }
 
   h2 {
     margin: 0.62rem 0 0;
     font-size: clamp(1.45rem, 2.5vw, 2.4rem);
     line-height: 1.05;
+    text-wrap: balance;
   }
 
   h3 {
@@ -197,18 +264,49 @@ const { data } = Astro.props;
   .hero-copy {
     display: grid;
     gap: 0.9rem;
-    max-width: 72ch;
+    max-width: 76ch;
   }
 
-  .hero-copy .btn {
-    width: fit-content;
+  .hero-badges {
+    margin: 0.1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .hero-badges li,
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.2rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    padding: 0.38rem 0.74rem;
+    font-size: 0.73rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.62rem;
   }
 
   .problem-intro {
     margin-top: 0.74rem;
+    max-width: 72ch;
   }
 
-  .problem-grid {
+  .problem-grid,
+  .faq-grid,
+  .signal-grid {
     margin-top: 0.9rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -216,7 +314,9 @@ const { data } = Astro.props;
   }
 
   .problem-card,
-  .faq-card {
+  .faq-card,
+  .scope-panel,
+  .signal-grid p {
     border: 1px solid color-mix(in srgb, var(--line) 84%, white);
     border-radius: calc(var(--radius-md) - 4px);
     background: color-mix(in srgb, var(--surface-elevated) 90%, white);
@@ -225,12 +325,43 @@ const { data } = Astro.props;
     gap: 0.45rem;
   }
 
-  .seo-scope ul,
+  .split-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.72fr);
+    gap: 1rem;
+    align-items: end;
+  }
+
+  .scope-layout,
+  .case-layout {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.8rem;
+  }
+
+  .scope-panel ul,
   .seo-case ul {
-    margin: 0.84rem 0 0;
+    margin: 0.72rem 0 0;
     padding-left: 1.2rem;
     display: grid;
     gap: 0.42rem;
+  }
+
+  .scope-panel-dark {
+    background:
+      radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 58%),
+      #17130f;
+    border-color: color-mix(in srgb, var(--line) 45%, var(--accent));
+  }
+
+  .scope-panel-dark h3,
+  .scope-panel-dark li {
+    color: #f8f2e7;
+  }
+
+  .scope-panel-dark li {
+    color: #dfd4c6;
   }
 
   .seo-process ol {
@@ -271,18 +402,15 @@ const { data } = Astro.props;
     font-weight: 700;
   }
 
+  .seo-delegation .btn {
+    margin-top: 1rem;
+  }
+
   .volume {
     margin-top: 0.74rem;
     color: var(--text);
     font-size: 0.95rem;
     font-weight: 600;
-  }
-
-  .faq-grid {
-    margin-top: 0.9rem;
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
   }
 
   .links-grid {
@@ -293,19 +421,6 @@ const { data } = Astro.props;
   }
 
   .link-pill {
-    display: inline-flex;
-    align-items: center;
-    min-height: 2.2rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
-    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
-    padding: 0.38rem 0.74rem;
-    font-size: 0.73rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--text);
-    text-decoration: none;
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   }
 
@@ -346,11 +461,16 @@ const { data } = Astro.props;
 
   @media (max-width: 900px) {
     .problem-grid,
-    .faq-grid {
+    .faq-grid,
+    .signal-grid,
+    .scope-layout,
+    .case-layout,
+    .split-head {
       grid-template-columns: 1fr;
     }
 
-    .hero-copy .btn,
+    .hero-actions .btn,
+    .seo-delegation .btn,
     .seo-final .btn {
       width: 100%;
     }

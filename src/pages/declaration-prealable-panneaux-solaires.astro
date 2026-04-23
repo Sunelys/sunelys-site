@@ -18,6 +18,23 @@ const structuredData = [
       },
     })),
   },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: pageData.heroTitle,
+    description: pageData.heroSubtitle,
+    serviceType: "Gestion administrative photovoltaïque",
+    provider: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "France",
+    },
+    url: new URL(Astro.url.pathname, "https://sunelys.fr").toString(),
+  },
 ];
 ---
 
