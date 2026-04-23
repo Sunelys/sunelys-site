@@ -67,8 +67,18 @@ Tout est dans `src/data/home.ts`:
 
 ## Placeholders à remplacer
 - Logos partenaires: `proofSectionData.logos[]`
-- Témoignage: `proofSectionData.testimonial`
+- Témoignages: `proofSectionData.testimonials[]`
 - Données d'étude de cas: `caseStudySectionData.results` et `caseStudySectionData.note`
+
+## Blog SEO
+- Index blog: `src/pages/blog/index.astro`
+- Page article: `src/pages/blog/[slug].astro`
+- Articles Markdown: `src/content/blog/*.md`
+- Carte article: `src/components/blog/BlogCard.astro`
+- Chaque article doit inclure `slug`, `title`, `seoTitle`, `description`, `pubDate`, `category`, `readingTime` et `keywords` dans le frontmatter.
+- Les articles sont automatiquement ajoutés au sitemap via `src/pages/sitemap.xml.ts`.
+
+Rythme recommandé: 2 brouillons par semaine, validation humaine avant publication. Priorité aux requêtes proches de l intention client: DP, Consuel, raccordement Enedis, erreurs administratives, volume dossiers, externalisation administrative solaire.
 
 ## SEO / Tracking
 - SEO global: `BaseLayout` (meta, canonical, OG, Twitter, Organization/WebSite JSON-LD)
