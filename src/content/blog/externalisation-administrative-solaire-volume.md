@@ -7,7 +7,7 @@ pubDate: "2026-04-23"
 updatedDate: "2026-04-23"
 category: "Organisation"
 readingTime: "6 min"
-coverImage: "/images/site-portal-preview.svg"
+coverImage: "/images/site/portal-preview-placeholder.svg"
 coverAlt: "Illustration premium d'un flux d'externalisation administrative solaire."
 keywords: "externalisation administrative solaire, sous-traitance administrative solaire, gestion administrative photovoltaïque, installateur photovoltaïque"
 ---

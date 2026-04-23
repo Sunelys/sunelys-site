@@ -7,7 +7,7 @@ pubDate: "2026-04-23"
 updatedDate: "2026-04-23"
 category: "Déclaration préalable"
 readingTime: "5 min"
-coverImage: "/images/site-portal-preview.svg"
+coverImage: "/images/site/portal-preview-placeholder.svg"
 coverAlt: "Illustration premium d'un dossier de déclaration préalable panneaux solaires."
 keywords: "déclaration préalable panneaux solaires, dossier photovoltaïque, administratif solaire, installateur photovoltaïque"
 ---

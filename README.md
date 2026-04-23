@@ -80,8 +80,19 @@ Tout est dans `src/data/home.ts`:
 
 - Images blog: `coverImage` et `coverAlt` dans le frontmatter des articles
 - Composant image réutilisable: `src/components/MediaFrame.astro`
-- Placeholders actuels du site: `public/images/site-portal-preview.svg` et `public/images/site-case-study.svg`
-- Remplacement conseillé: déposer vos vrais visuels dans `public/images/` puis mettre à jour `src/data/home.ts` et le frontmatter des articles
+- Placeholders actuels du site: `public/images/site/portal-preview-placeholder.svg` et `public/images/site/case-study-placeholder.svg`
+
+### Arborescence images recommandée
+- `public/images/site/` : visuels structurels du site (hero, portail, cas client, process)
+- `public/images/blog/` : couvertures et visuels d'articles
+- `public/images/clients/` : logos et références clients autorisés à diffusion
+
+### Convention de nommage
+- site : `portal-preview-2026.webp`, `case-study-solar-b2b.webp`
+- blog : `consuel-photovoltaique-checklist.webp`, `declaration-prealable-erreurs.webp`
+- clients : `sunwatt-france-logo.svg`, `groupe-solarenov-logo.svg`
+
+Remplacement conseillé: déposer vos vrais visuels dans `public/images/site/`, `public/images/blog/` ou `public/images/clients/`, puis mettre à jour `src/data/home.ts` et le frontmatter des articles.
 
 Rythme recommandé: 2 brouillons par semaine, validation humaine avant publication. Priorité aux requêtes proches de l intention client: DP, Consuel, raccordement Enedis, erreurs administratives, volume dossiers, externalisation administrative solaire.
 

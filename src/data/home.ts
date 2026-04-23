@@ -287,7 +287,7 @@ export const portalSectionData = {
     track: "cta_portal_section",
   },
   image: {
-    src: "/images/site-portal-preview.svg",
+    src: "/images/site/portal-preview-placeholder.svg",
     alt: "Aperçu du portail Sunelys avec dossiers, statuts et suivi administratif.",
   },
 };
@@ -311,7 +311,7 @@ export const caseStudySectionData = {
     track: "cta_case_study",
   },
   image: {
-    src: "/images/site-case-study.svg",
+    src: "/images/site/case-study-placeholder.svg",
     alt: "Synthèse visuelle d'un cas client Sunelys avec indicateurs et flux administratif.",
   },
 };
