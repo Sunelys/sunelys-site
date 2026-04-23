@@ -4,58 +4,122 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 const services = [
   {
     title: "Déclaration préalable panneaux solaires",
+    benefit: "Des dossiers plus cadrés pour limiter les refus et sécuriser le lancement chantier.",
     description:
-      "Constitution, vérification et suivi des dossiers de déclaration préalable jusqu'au retour administratif.",
+      "Sunelys constitue, vérifie et suit la déclaration préalable jusqu'au retour administratif afin de réduire les retours et les délais cachés.",
+    points: [
+      "Montage administratif du dossier",
+      "Contrôle des pièces et cohérence documentaire",
+      "Suivi mairie et relances utiles",
+    ],
     href: "/declaration-prealable-panneaux-solaires",
   },
   {
-    title: "Gestion administrative photovoltaïque",
-    description:
-      "Pilotage global du flux administratif pour structurer vos dossiers et soulager vos equipes.",
-    href: "/gestion-administrative-photovoltaique",
-  },
-  {
     title: "Dossier Consuel photovoltaïque",
+    benefit: "Une conformité mieux anticipée pour accélérer la mise en service.",
     description:
-      "Preparation, controle et suivi des elements Consuel jusqu'a validation.",
+      "Nous préparons les pièces, suivons les échanges et pilotons le dossier Consuel pour garder de la visibilité jusqu'à validation.",
+    points: [
+      "Préparation des pièces administratives",
+      "Pilotage des compléments demandés",
+      "Suivi jusqu'à validation finale",
+    ],
     href: "/dossier-consuel-photovoltaique",
   },
   {
     title: "Raccordement Enedis photovoltaïque",
+    benefit: "Un suivi réseau centralisé pour mieux tenir vos délais de chantier.",
     description:
-      "Gestion du dossier de raccordement et coordination administrative jusqu'a la mise en service.",
+      "Sunelys prend en charge le volet administratif du raccordement Enedis et coordonne les jalons pour réduire les angles morts.",
+    points: [
+      "Constitution du dossier de raccordement",
+      "Suivi des échanges administratifs",
+      "Traçabilité des jalons et blocages",
+    ],
     href: "/raccordement-enedis-photovoltaique",
   },
+  {
+    title: "Gestion administrative photovoltaïque",
+    benefit: "Un pilotage global pour alléger vos équipes et industrialiser vos flux.",
+    description:
+      "Quand vos volumes montent, Sunelys structure l'ensemble du parcours administratif pour préserver la qualité d'exécution.",
+    points: [
+      "Prise en charge multi-dossiers",
+      "Méthode documentaire standardisée",
+      "Coordination continue avec vos équipes",
+    ],
+    href: "/gestion-administrative-photovoltaique",
+  },
+];
+
+const fitItems = [
+  "Vous voulez réduire la charge administrative de vos équipes commerciales ou travaux.",
+  "Vous cherchez plus de visibilité sur les dossiers en cours et les points de blocage.",
+  "Vous voulez absorber plus de volume sans dégrader l'expérience client.",
 ];
 ---
 
 <BaseLayout
-  title="Services photovoltaïques | Sunelys"
-  description="Sunelys gère vos démarches administratives photovoltaïques: declaration prealable, raccordement Enedis et dossier Consuel."
+  title="Services photovoltaïques pour installateurs | Sunelys"
+  description="Sunelys prend en charge déclaration préalable, Consuel, raccordement Enedis et pilotage administratif photovoltaïque pour les installateurs."
 >
   <section class="hero card">
-    <h1>Services Sunelys</h1>
-    <p>
-      Nous prenons en charge les démarches administratives liees a votre installation
-      photovoltaïque, du premier dossier a la mise en service.
+    <p class="eyebrow">Services Sunelys</p>
+    <h1>Externalisez l'administratif photovoltaïque, sans perdre la maîtrise de vos dossiers.</h1>
+    <p class="intro">
+      Sunelys prend en charge les démarches administratives qui ralentissent vos installations.
+      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire.
     </p>
+    <div class="hero-actions">
+      <a class="cta" href="/contact" data-track="cta_services_hero_primary">Planifier un échange</a>
+      <a class="cta cta-secondary" href="/parcours" data-track="cta_services_hero_secondary">Voir le fonctionnement</a>
+    </div>
+  </section>
+
+  <section class="section fit-grid">
+    <article class="card fit-card">
+      <p class="eyebrow">Pour qui</p>
+      <h2>Le bon fit pour les installateurs qui veulent industrialiser sans rigidifier.</h2>
+      <ul>
+        {fitItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </article>
+
+    <article class="card fit-card highlight-card">
+      <p class="eyebrow">Bénéfices métier</p>
+      <h2>Moins de charge interne. Plus de dossiers bien pilotés.</h2>
+      <div class="benefit-list">
+        <p>Moins de retours documentaires</p>
+        <p>Plus de visibilité sur les étapes</p>
+        <p>Des délais mieux tenus côté client</p>
+      </div>
+    </article>
   </section>
 
   <section class="section">
-    <h2>Offres specialisees</h2>
+    <div class="section-head">
+      <p class="eyebrow">Offres spécialisées</p>
+      <h2>Quatre blocs d'intervention selon votre organisation.</h2>
+    </div>
     <div class="grid">
       {
         services.map((service) => (
           <article class="card service-card">
-            <h3>{service.title}</h3>
-            <p>{service.description}</p>
+            <div class="service-copy">
+              <h3>{service.title}</h3>
+              <p class="benefit">{service.benefit}</p>
+              <p>{service.description}</p>
+            </div>
+            <ul>
+              {service.points.map((point) => <li>{point}</li>)}
+            </ul>
             <a
               class="cta cta-secondary"
               href={service.href}
               data-track="cta_services_detail"
               data-track-label={service.title}
             >
-              Voir le detail
+              Voir le détail
             </a>
           </article>
         ))
@@ -64,12 +128,16 @@ const services = [
   </section>
 
   <section class="section card box">
-    <h2>Besoin d'un accompagnement complet ?</h2>
+    <p class="eyebrow">Accompagnement</p>
+    <h2>Besoin d'un pilotage complet plutôt que d'une mission isolée ?</h2>
     <p>
-      Nous adaptons notre intervention selon votre volume de dossiers et votre
-      organisation commerciale.
+      Nous adaptons le niveau de prise en charge à votre volume, à votre structure et à la
+      maturité de vos flux administratifs.
     </p>
-    <a class="cta" href="/contact" data-track="cta_services_contact">Demander un audit</a>
+    <div class="box-actions">
+      <a class="cta" href="/contact" data-track="cta_services_contact">Demander un audit</a>
+      <a class="cta cta-secondary" href="/tarifs" data-track="cta_services_pricing">Comprendre les offres</a>
+    </div>
   </section>
 </BaseLayout>
 
@@ -79,86 +147,186 @@ const services = [
   }
 
   .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 1.25rem;
-    box-shadow: var(--shadow);
+    background: linear-gradient(
+      170deg,
+      color-mix(in srgb, var(--surface-elevated) 95%, white),
+      var(--surface)
+    );
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    padding: clamp(1.15rem, 2.6vw, 2rem);
+    box-shadow: var(--shadow-md);
+  }
+
+  .eyebrow {
+    margin: 0 0 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
   }
 
   h1 {
-    margin: 0 0 0.65rem;
-    font-size: clamp(1.75rem, 4.5vw, 2.8rem);
-    line-height: 1.15;
+    margin: 0;
+    max-width: 14ch;
+    font-size: clamp(2rem, 4.8vw, 4.4rem);
+    line-height: 0.95;
   }
 
   h2 {
-    margin: 0 0 0.9rem;
-    font-size: clamp(1.35rem, 3vw, 2rem);
+    margin: 0;
+    font-size: clamp(1.45rem, 3vw, 2.4rem);
+    line-height: 1.02;
   }
 
   h3 {
-    margin: 0 0 0.45rem;
-    font-size: 1.15rem;
+    margin: 0;
+    font-size: clamp(1.15rem, 1.4vw, 1.45rem);
+    line-height: 1.12;
   }
 
-  p {
+  p,
+  li {
     margin: 0;
-    color: var(--muted);
+    color: var(--text-muted);
+  }
+
+  .intro {
+    max-width: 62ch;
+    font-size: var(--step-0);
+    line-height: 1.6;
+  }
+
+  .hero {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .hero-actions,
+  .box-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  .fit-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 0.85rem;
+  }
+
+  .fit-card {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .fit-card ul,
+  .service-card ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.42rem;
+  }
+
+  .highlight-card {
+    background:
+      radial-gradient(
+        120% 110% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 58%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+  }
+
+  .benefit-list {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .benefit-list p,
+  .benefit {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 0.9rem;
   }
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
   }
 
   .service-card {
     display: grid;
-    gap: 0.75rem;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .service-copy {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .box {
+    display: grid;
+    gap: 1rem;
+    justify-items: start;
   }
 
   .cta {
-    display: inline-block;
-    padding: 0.72rem 1.2rem;
-    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.78rem 1.22rem;
+    border-radius: 999px;
     text-decoration: none;
     font-weight: 700;
-    color: #f4f1e8;
-    background: var(--primary);
+    color: #f7f3ec;
+    background: var(--text);
+    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
   }
 
   .cta:hover,
   .cta:focus-visible {
-    color: var(--primary-dark);
-    background: var(--accent-dark);
+    color: #fff;
+    background: #0f0d0a;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
   }
 
   .cta-secondary {
+    color: var(--text);
     background: transparent;
-    color: var(--primary);
-    border: 1px solid var(--primary);
+    border: 1px solid var(--line);
   }
 
   .cta-secondary:hover,
   .cta-secondary:focus-visible {
-    background: var(--accent);
-    border-color: var(--accent-dark);
-  }
-
-  .box {
-    text-align: center;
-    display: grid;
-    gap: 0.85rem;
-  }
-
-  .box .cta {
-    justify-self: center;
+    color: var(--text);
+    background: color-mix(in srgb, var(--accent-soft) 55%, white);
   }
 
   @media (max-width: 900px) {
+    .fit-grid,
     .grid {
       grid-template-columns: 1fr;
+    }
+
+    .hero-actions,
+    .box-actions {
+      display: grid;
+    }
+
+    .hero-actions .cta,
+    .box-actions .cta {
+      width: 100%;
     }
   }
 </style>

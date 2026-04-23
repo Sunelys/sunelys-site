@@ -46,12 +46,9 @@ export const heroData = {
 export const proofSectionData = {
   kicker: "Ils nous font confiance",
   title: "Une exécution administrative robuste, à l'échelle des installateurs exigeants.",
-  logos: [
-    { name: "Partenaire 01 (logo à remplacer)", src: "" },
-    { name: "Partenaire 02 (logo à remplacer)", src: "" },
-    { name: "Partenaire 03 (logo à remplacer)", src: "" },
-    { name: "Partenaire 04 (logo à remplacer)", src: "" },
-  ],
+  logos: [],
+  trustNote:
+    "Références partenaires, volumes accompagnés et cas détaillés communiqués sur demande tant que les autorisations de diffusion ne sont pas validées.",
   metrics: [
     { value: "+1000", label: "dossiers photovoltaïques pilotés" },
     { value: "+50", label: "installateurs partenaires actifs" },
@@ -61,7 +58,7 @@ export const proofSectionData = {
     quote:
       "Sunelys nous a permis de reprendre le contrôle des délais administratifs sans alourdir nos équipes terrain.",
     author: "Installateur partenaire (anonymisé) - Région Sud",
-    note: "Témoignage à valider/remplacer dans src/data/home.ts",
+    note: "Témoignage anonymisé en attente de validation nominative.",
   },
 };
 
@@ -182,7 +179,7 @@ export const caseStudySectionData = {
     { value: "Plus de visibilité", label: "suivi unifié pour les équipes internes" },
     { value: "Charge allégée", label: "temps commercial recentré sur la vente" },
   ],
-  note: "Version anonymisée. Remplacez ce bloc par vos résultats validés.",
+  note: "Cas anonymisé en attente de remplacement par une référence validée.",
   cta: {
     label: "Parler de votre contexte",
     href: "/contact",

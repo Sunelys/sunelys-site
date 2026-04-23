@@ -15,6 +15,7 @@ interface Props {
     title: string;
     logos: LogoItem[];
     metrics: MetricItem[];
+    trustNote?: string;
     testimonial: {
       quote: string;
       author: string;
@@ -24,6 +25,7 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const visibleLogos = data.logos.filter((logo) => logo.src);
 ---
 
 <section class="section-shell proof-section reveal">
@@ -32,15 +34,23 @@ const { data } = Astro.props;
     <h2>{data.title}</h2>
   </div>
 
-  <div class="logo-row" aria-label="Partenaires Sunelys">
-    {
-      data.logos.map((logo) => (
-        <article class="logo-slot" aria-label={logo.name}>
-          {logo.src ? <img src={logo.src} alt={logo.name} loading="lazy" /> : <span>{logo.name}</span>}
-        </article>
-      ))
-    }
-  </div>
+  {
+    visibleLogos.length > 0 ? (
+      <div class="logo-row" aria-label="Partenaires Sunelys">
+        {
+          visibleLogos.map((logo) => (
+            <article class="logo-slot" aria-label={logo.name}>
+              <img src={logo.src} alt={logo.name} loading="lazy" />
+            </article>
+          ))
+        }
+      </div>
+    ) : (
+      <div class="trust-note" aria-label="Références clients">
+        <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
+      </div>
+    )
+  }
 
   <div class="proof-layout">
     <div class="metrics-panel">
@@ -97,7 +107,8 @@ const { data } = Astro.props;
     gap: 0.5rem;
   }
 
-  .logo-slot {
+  .logo-slot,
+  .trust-note {
     min-height: 3.05rem;
     border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
     border-radius: 999px;
@@ -105,15 +116,21 @@ const { data } = Astro.props;
     display: grid;
     place-items: center;
     text-align: center;
-    padding: 0.5rem 0.66rem;
+    padding: 0.5rem 0.8rem;
   }
 
-  .logo-slot span {
-    font-size: 0.66rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--text-muted);
-    line-height: 1.3;
+  .trust-note {
+    margin-top: 0.95rem;
+    justify-items: start;
+    border-radius: calc(var(--radius-md) - 6px);
+    min-height: auto;
+  }
+
+  .trust-note p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.8rem;
+    line-height: 1.45;
     font-weight: 600;
   }
 
