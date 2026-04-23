@@ -24,8 +24,8 @@ export const heroData = {
     track: "cta_hero_secondary",
   },
   proofs: [
-    "+1000 dossiers photovoltaïques traités",
-    "+50 installateurs partenaires",
+    "+5000 dossiers photovoltaïques pilotés",
+    "+50 partenaires actifs",
     "Suivi unifié installateur + client",
   ],
   preview: {
@@ -50,9 +50,9 @@ export const proofSectionData = {
   trustNote:
     "Accompagnement national, méthodes documentaires cadrées et références partenaires communiquées sur demande après autorisation de diffusion.",
   metrics: [
-    { value: "+1000", label: "dossiers photovoltaïques pilotés" },
-    { value: "+50", label: "installateurs partenaires actifs" },
-    { value: "6j", label: "cadrage administratif moyen" },
+    { value: "+5000", label: "dossiers photovoltaïques pilotés" },
+    { value: "+50", label: "partenaires actifs" },
+    { value: "2j", label: "pour transmettre une demande complète" },
   ],
   testimonial: {
     quote:
