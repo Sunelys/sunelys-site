@@ -57,9 +57,9 @@ export const proofSectionData = {
   testimonials: [
     {
       quote:
-        "Sunelys nous a permis de structurer le suivi administratif sans mobiliser nos équipes commerciales sur chaque relance.",
-      author: "Direction commerciale - Partenaire solaire national",
-      note: "Témoignage anonymisé. Référence nominative à remplacer après accord écrit.",
+        "Sunelys nous apporte un vrai relais administratif sur nos dossiers photovoltaïques. Le suivi est clair, les échanges sont professionnels et nos équipes gagnent en fluidité.",
+      author: "SUNWATT France",
+      note: "Avis publié avec accord de la société.",
     },
     {
       quote:
