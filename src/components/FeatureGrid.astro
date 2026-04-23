@@ -1,7 +1,9 @@
 ---
 interface FeatureItem {
   title: string;
-  text: string;
+  text?: string;
+  consequence?: string;
+  benefit?: string;
 }
 
 interface FeatureData {
@@ -27,7 +29,8 @@ const { data } = Astro.props;
       data.items.map((item) => (
         <article class="feature-card">
           <h3>{item.title}</h3>
-          <p>{item.text}</p>
+          {item.consequence ? <p class="consequence">{item.consequence}</p> : item.text ? <p>{item.text}</p> : null}
+          {item.benefit ? <p class="benefit">{item.benefit}</p> : null}
         </article>
       ))
     }
@@ -99,6 +102,16 @@ const { data } = Astro.props;
     color: var(--color-muted);
     font-size: var(--step--1);
     line-height: 1.52;
+  }
+
+  .feature-card .consequence {
+    color: var(--color-muted);
+  }
+
+  .feature-card .benefit {
+    color: var(--color-text-strong);
+    font-weight: 600;
+    margin-top: 0.38rem;
   }
 
   .transition {
