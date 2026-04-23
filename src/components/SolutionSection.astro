@@ -1,0 +1,167 @@
+---
+interface SolutionPoint {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    text: string;
+    points: SolutionPoint[];
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section-shell solution-section reveal" aria-labelledby="solution-title">
+  <div class="solution-copy">
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="solution-title">{data.title}</h2>
+    <p class="intro">{data.text}</p>
+    <a class="btn btn-primary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
+  </div>
+
+  <div class="solution-panel" aria-label="Ce que Sunelys pilote">
+    {
+      data.points.map((point) => (
+        <article class="solution-point">
+          <span aria-hidden="true"></span>
+          <div>
+            <h3>{point.title}</h3>
+            <p>{point.text}</p>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .solution-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .solution-copy,
+  .solution-panel {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface));
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.15rem, 2.5vw, 2rem);
+  }
+
+  .solution-copy {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .solution-copy::after {
+    content: "";
+    position: absolute;
+    right: -18%;
+    bottom: -38%;
+    width: clamp(220px, 34vw, 420px);
+    aspect-ratio: 1;
+    background: url("/brand/shape-clean.svg") no-repeat center / contain;
+    opacity: calc(var(--shape-opacity) * 0.58);
+    filter: blur(calc(var(--shape-blur) * 1.1));
+    pointer-events: none;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.55rem 0 0;
+    max-width: 24ch;
+    font-size: clamp(1.65rem, 3vw, 3rem);
+    line-height: 1.03;
+    text-wrap: balance;
+  }
+
+  .intro {
+    margin: 0.85rem 0 0;
+    max-width: 58ch;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.62;
+  }
+
+  .solution-copy .btn {
+    margin-top: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .solution-panel {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .solution-point {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.78rem;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .solution-point:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
+  }
+
+  .solution-point span {
+    width: 0.72rem;
+    height: 0.72rem;
+    margin-top: 0.35rem;
+    border-radius: 999px;
+    background: linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 50%, white));
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent-soft) 70%, transparent);
+  }
+
+  .solution-point h3 {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.15;
+  }
+
+  .solution-point p {
+    margin: 0.35rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
+    .solution-section {
+      grid-template-columns: 1fr;
+    }
+
+    .solution-copy .btn {
+      width: 100%;
+    }
+  }
+</style>

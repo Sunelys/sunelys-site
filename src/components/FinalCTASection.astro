@@ -5,6 +5,13 @@ interface ActionItem {
   track: string;
 }
 
+interface ContactPoint {
+  label: string;
+  value: string;
+  href: string;
+  track: string;
+}
+
 interface Props {
   data: {
     kicker: string;
@@ -12,30 +19,50 @@ interface Props {
     text: string;
     primaryCta: ActionItem;
     secondaryCta: ActionItem;
+    contactPoints?: ContactPoint[];
   };
 }
 
 const { data } = Astro.props;
 ---
 
-<section id="contact" class="section-shell final-section reveal">
-  <p class="kicker">{data.kicker}</p>
-  <h2>{data.title}</h2>
-  <p class="text">{data.text}</p>
+<section id="contact" class="section-shell final-section reveal" aria-labelledby="final-title">
+  <div class="final-copy">
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="final-title">{data.title}</h2>
+    <p class="text">{data.text}</p>
 
-  <div class="actions">
-    <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
-      {data.primaryCta.label}
-    </a>
-    <a class="btn btn-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
-      {data.secondaryCta.label}
-    </a>
+    <div class="actions">
+      <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
+        {data.primaryCta.label}
+      </a>
+      <a class="btn btn-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
+        {data.secondaryCta.label}
+      </a>
+    </div>
   </div>
+
+  {
+    data.contactPoints && data.contactPoints.length > 0 && (
+      <div class="contact-grid" aria-label="Options de contact Sunelys">
+        {data.contactPoints.map((item) => (
+          <a class="contact-card" href={item.href} data-track={item.track}>
+            <span>{item.label}</span>
+            <strong>{item.value}</strong>
+          </a>
+        ))}
+      </div>
+    )
+  }
 </section>
 
 <style>
   .final-section {
     position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    gap: 1rem;
+    align-items: end;
     border: 1px solid color-mix(in srgb, var(--line) 52%, var(--accent));
     border-radius: var(--radius-xl);
     box-shadow: var(--shadow-md);
@@ -59,11 +86,17 @@ const { data } = Astro.props;
     pointer-events: none;
   }
 
+  .final-copy,
+  .contact-grid {
+    position: relative;
+    z-index: 1;
+  }
+
   .kicker {
     margin: 0;
     color: color-mix(in srgb, #f4ece0 76%, var(--accent));
     font-size: 0.74rem;
-    font-weight: 600;
+    font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.14em;
   }
@@ -90,14 +123,58 @@ const { data } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 0.66rem;
-    position: relative;
-    z-index: 1;
   }
 
   .actions .btn-secondary {
     background: color-mix(in srgb, #ffffff 88%, transparent);
     color: #13100c;
     border-color: color-mix(in srgb, #ffffff 70%, var(--line));
+  }
+
+  .contact-grid {
+    display: grid;
+    gap: 0.58rem;
+  }
+
+  .contact-card {
+    display: grid;
+    gap: 0.24rem;
+    min-height: 4.6rem;
+    border: 1px solid color-mix(in srgb, #ffffff 18%, var(--accent));
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, #ffffff 8%, transparent);
+    color: #fffdf7;
+    text-decoration: none;
+    padding: 0.78rem 0.88rem;
+    backdrop-filter: blur(12px);
+    transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease;
+  }
+
+  .contact-card:hover,
+  .contact-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: color-mix(in srgb, #ffffff 38%, var(--accent));
+    background: color-mix(in srgb, #ffffff 13%, transparent);
+  }
+
+  .contact-card span {
+    color: #cfc5b5;
+    font-size: 0.68rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .contact-card strong {
+    color: #fffdf7;
+    font-size: 1rem;
+    line-height: 1.22;
+  }
+
+  @media (max-width: 860px) {
+    .final-section {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 760px) {

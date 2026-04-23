@@ -1,0 +1,169 @@
+---
+interface BenefitItem {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    text: string;
+    items: BenefitItem[];
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section class="section-shell benefits-section reveal" aria-labelledby="benefits-title">
+  <div class="section-head">
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="benefits-title">{data.title}</h2>
+    <p>{data.text}</p>
+  </div>
+
+  <div class="benefits-grid">
+    {
+      data.items.map((item, index) => (
+        <article class="benefit-card">
+          <span class="benefit-index">0{index + 1}</span>
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="section-cta">
+    <p>Vous voulez savoir ce qui peut être externalisé dans votre organisation ?</p>
+    <a class="btn btn-primary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
+  </div>
+</section>
+
+<style>
+  .benefits-section {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--accent-soft) 34%, transparent), transparent 60%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, white), var(--bg-soft));
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.2rem, 2.7vw, 2.2rem);
+  }
+
+  .section-head {
+    max-width: 43rem;
+  }
+
+  .kicker,
+  .benefit-index {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 25ch;
+    font-size: clamp(1.65rem, 3vw, 3rem);
+    line-height: 1.03;
+    text-wrap: balance;
+  }
+
+  .section-head p {
+    margin: 0.8rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    line-height: 1.58;
+  }
+
+  .benefits-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.58rem;
+  }
+
+  .benefit-card {
+    min-height: 11rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    box-shadow: 0 10px 22px rgba(22, 17, 11, 0.055);
+    padding: 0.9rem;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
+  }
+
+  .benefit-card h3 {
+    margin: 0.7rem 0 0;
+    font-size: 1.05rem;
+    line-height: 1.12;
+  }
+
+  .benefit-card p {
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.48;
+  }
+
+  .section-cta {
+    margin-top: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.72rem;
+  }
+
+  .section-cta p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.88rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  @media (max-width: 1180px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .benefit-card {
+      min-height: auto;
+    }
+
+    .section-cta {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .section-cta .btn {
+      width: 100%;
+    }
+  }
+</style>

@@ -1,32 +1,32 @@
 export const homeSeo = {
-  title: "Sunelys | Infrastructure administrative photovoltaïque pour installateurs",
+  title: "Gestion administrative photovoltaïque France | Sunelys",
   description:
-    "Sunelys pilote DP, Consuel et raccordement de bout en bout pour alléger la charge administrative et accélérer les chantiers photovoltaïques.",
+    "Sunelys externalise la gestion administrative photovoltaïque pour les professionnels du solaire : DP, Consuel, raccordement Enedis, suivi et accompagnement administratif solaire en France.",
 };
 
 export const heroData = {
-  kicker: "Plateforme administrative photovoltaïque",
-  title: "Externalisez vos démarches\nadministratives photovoltaïques.",
+  kicker: "Gestion administrative photovoltaïque B2B",
+  title: "Externalisez l'administratif solaire.\nAccélérez vos dossiers.",
   titleVariants: [
-    "Externalisez vos démarches administratives photovoltaïques.",
-    "Moins de charge administrative. Plus de chantiers maîtrisés.",
+    "Externalisez l'administratif solaire. Accélérez vos dossiers.",
+    "Moins de charge administrative. Plus de dossiers photovoltaïques maîtrisés.",
   ],
   subtitle:
-    "Sunelys pilote DP, Consuel et raccordement Enedis pour les installateurs photovoltaïques. Vos équipes gardent la relation client. Nous sécurisons les dossiers, les relances et les délais.",
+    "Sunelys prend en charge vos démarches administratives photovoltaïques en France : déclaration préalable, Consuel et raccordement Enedis. Vos équipes vendent et installent. Nous pilotons l'administratif.",
   primaryCta: {
-    label: "Planifier un échange de 15 minutes",
-    href: "/contact",
+    label: "Prendre rendez-vous",
+    href: "/contact?source=hero-rdv",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Voir les services",
-    href: "/services",
+    label: "Demander un devis",
+    href: "/contact?source=hero-devis",
     track: "cta_hero_secondary",
   },
   proofs: [
-    "DP · Consuel · Raccordement",
-    "Suivi installateur + client",
-    "Audit de flux en 15 minutes",
+    "+1000 dossiers photovoltaïques traités",
+    "+50 installateurs partenaires",
+    "Suivi unifié installateur + client",
   ],
   preview: {
     variant: "full",
@@ -39,16 +39,16 @@ export const heroData = {
     ],
     timeline: ["Cadrage", "Dépôt DP", "Consuel", "Raccordement", "Mise en service"],
     documents: ["Plan de masse signé", "Schéma unifilaire", "Attestation installateur", "Photos chantier"],
-    footer: "Timeline administrative, pièces jointes et statuts centralisés dans un seul espace.",
+    footer: "Dossiers, pièces, statuts et relances centralisés dans un seul espace.",
   },
 };
 
 export const proofSectionData = {
-  kicker: "Ils nous font confiance",
-  title: "Des flux administratifs plus lisibles, mieux suivis, plus faciles à absorber.",
+  kicker: "Preuve et réassurance",
+  title: "Une relation professionnelle, réactive, pensée pour les flux photovoltaïques.",
   logos: [],
   trustNote:
-    "Références partenaires et cas détaillés disponibles sur demande. Les logos seront affichés uniquement après autorisation de diffusion.",
+    "Accompagnement national, méthodes documentaires cadrées et références partenaires communiquées sur demande après autorisation de diffusion.",
   metrics: [
     { value: "+1000", label: "dossiers photovoltaïques pilotés" },
     { value: "+50", label: "installateurs partenaires actifs" },
@@ -63,32 +63,117 @@ export const proofSectionData = {
 };
 
 export const frictionSectionData = {
-  kicker: "Les points de friction",
-  title: "L'administratif devient vite un goulot d'étranglement.",
+  kicker: "Le problème",
+  title: "Les démarches administratives ralentissent votre croissance commerciale.",
   cards: [
     {
-      title: "DP refusées",
-      consequence: "Retards de lancement et cycle de validation allongé.",
-      solution: "Sunelys verrouille la qualité documentaire en amont.",
+      title: "Temps perdu",
+      consequence: "Commerciaux et conducteurs de travaux passent trop de temps à relancer, vérifier et compléter les pièces.",
+      solution: "Sunelys absorbe cette charge pour recentrer vos équipes sur la vente, le suivi client et le terrain.",
     },
     {
-      title: "Délais Consuel",
-      consequence: "Mises en service repoussées et tension client.",
-      solution: "Sunelys anticipe les pièces et pilote les validations.",
+      title: "Dossiers incomplets",
+      consequence: "Une pièce manquante ou une erreur de cadrage crée des retours, des blocages et des délais supplémentaires.",
+      solution: "Sunelys contrôle la qualité documentaire avant dépôt pour limiter les refus et les allers-retours.",
     },
     {
-      title: "Raccordement Enedis",
-      consequence: "Dépendances mal visibles et coordination fragile.",
-      solution: "Sunelys centralise chaque étape réseau dans un workflow unique.",
+      title: "Délais mal maîtrisés",
+      consequence: "DP, Consuel et raccordement Enedis avancent chacun avec leurs contraintes, parfois sans visibilité claire.",
+      solution: "Sunelys suit les étapes, les statuts et les relances dans une logique de pilotage continu.",
     },
     {
-      title: "Gestion chronophage",
-      consequence: "Vos équipes commerciales et travaux perdent du temps utile.",
-      solution: "Sunelys prend en charge la mécanique administrative.",
+      title: "Volume difficile à absorber",
+      consequence: "Quand les dossiers augmentent, l'administratif devient un frein direct à la capacité commerciale.",
+      solution: "Sunelys structure une sous-traitance administrative solaire simple, récurrente et scalable.",
     },
   ],
   closing:
-    "Sunelys prend la mécanique administrative en charge. Vous gardez la relation commerciale et la maîtrise de vos chantiers.",
+    "L'enjeu n'est pas seulement de déléguer des tâches. C'est de sécuriser un flux administratif complet sans ralentir vos ventes ni vos chantiers.",
+};
+
+export const solutionSectionData = {
+  kicker: "La solution Sunelys",
+  title: "Une équipe dédiée pour piloter vos démarches de bout en bout.",
+  text:
+    "Sunelys devient votre relais administratif photovoltaïque. Nous réceptionnons les informations, vérifions les pièces, préparons les dossiers, suivons les échanges et gardons une traçabilité claire jusqu'à la validation.",
+  points: [
+    {
+      title: "Cadrage administratif",
+      text: "Nous identifions les pièces attendues, les risques de blocage et les priorités dossier par dossier.",
+    },
+    {
+      title: "Dépôts et échanges",
+      text: "Nous préparons les formalités et suivons les demandes auprès des interlocuteurs concernés.",
+    },
+    {
+      title: "Suivi opérationnel",
+      text: "Vous gardez une vision claire des statuts, des relances et des prochaines actions.",
+    },
+    {
+      title: "Relation professionnelle",
+      text: "Un accompagnement administratif solaire sobre, fiable, aligné avec votre niveau d'exigence client.",
+    },
+  ],
+  cta: {
+    label: "Analyser mon besoin",
+    href: "/contact?source=solution",
+    track: "cta_solution",
+  },
+};
+
+export const benefitsSectionData = {
+  kicker: "Bénéfices métier",
+  title: "Une externalisation administrative solaire qui améliore votre capacité d'exécution.",
+  text:
+    "Le rôle de Sunelys est simple : réduire la charge interne, fluidifier les dossiers et vous aider à absorber plus de volume sans perdre en qualité.",
+  items: [
+    {
+      title: "Gain de temps",
+      text: "Vos équipes passent moins de temps sur les pièces, les relances et les suivis administratifs.",
+    },
+    {
+      title: "Meilleure organisation",
+      text: "Chaque dossier avance avec un cadre clair, des statuts lisibles et des priorités identifiées.",
+    },
+    {
+      title: "Externalisation simple",
+      text: "Vous déléguez les démarches sans créer une organisation lourde ni multiplier les outils.",
+    },
+    {
+      title: "Traitement fluide",
+      text: "DP, Consuel et raccordement sont pilotés dans une logique continue, pas en silos.",
+    },
+    {
+      title: "Partenaire fiable",
+      text: "Un interlocuteur administratif professionnel, réactif et habitué aux contraintes photovoltaïques.",
+    },
+  ],
+  cta: {
+    label: "Demander un devis",
+    href: "/contact?source=benefices-devis",
+    track: "cta_benefits",
+  },
+};
+
+export const audienceSectionData = {
+  kicker: "Pour qui",
+  title: "Pensé pour les structures solaires qui veulent traiter plus de dossiers sans surcharge.",
+  text:
+    "Sunelys accompagne les professionnels qui ont besoin d'un relais administratif fiable, structuré et capable de suivre un flux récurrent.",
+  items: [
+    {
+      title: "Sociétés commercialistes du solaire",
+      text: "Vous générez des ventes et souhaitez éviter que l'administratif ralentisse la transformation chantier.",
+    },
+    {
+      title: "Professionnels du photovoltaïque",
+      text: "Vous voulez sécuriser DP, Consuel et raccordement sans mobiliser vos équipes sur chaque relance.",
+    },
+    {
+      title: "Structures qui traitent du volume",
+      text: "Vous avez besoin d'un flux clair, répétable et traçable pour absorber davantage de dossiers.",
+    },
+  ],
 };
 
 export const quizSectionData = {
@@ -120,38 +205,38 @@ export const quizSectionData = {
 };
 
 export const processSectionData = {
-  kicker: "Comment ça marche",
-  title: "Un workflow en 4 étapes, pensé pour rester fluide.",
+  kicker: "Process",
+  title: "Un parcours simple, lisible, sans friction inutile.",
   steps: [
     {
-      title: "Vous transmettez le dossier",
-      text: "Informations chantier et pièces initiales sont centralisées dès l'entrée en flux.",
+      title: "Prise de contact",
+      text: "Vous nous présentez votre volume, vos irritants et les démarches à externaliser.",
     },
     {
-      title: "Sunelys pilote les démarches",
-      text: "DP, Consuel et raccordement sont orchestrés selon un standard documentaire unique.",
+      title: "Analyse du besoin",
+      text: "Nous cadrons les flux, les pièces attendues, les priorités et les modes de suivi.",
     },
     {
-      title: "Vous suivez l'avancement",
-      text: "Statuts, alertes et prochaines actions restent visibles dans le portail.",
+      title: "Gestion des démarches",
+      text: "Sunelys pilote DP, Consuel, raccordement et échanges administratifs selon le périmètre retenu.",
     },
     {
-      title: "Le dossier avance sans friction",
-      text: "Moins de retours, moins d'aléas, plus de maîtrise opérationnelle.",
+      title: "Suivi continu",
+      text: "Vous gardez une vision claire des statuts, des blocages et des prochaines actions.",
     },
   ],
 };
 
 export const servicesSectionData = {
   kicker: "Services",
-  title: "Les trois blocs qui concentrent le plus de friction administrative.",
+  title: "Les démarches administratives photovoltaïques que vous pouvez déléguer.",
   cards: [
     {
       label: "Service 01",
       title: "Déclaration préalable",
-      benefit: "Des dossiers complets pour limiter les refus et les retours.",
+      benefit: "Des dossiers complets pour limiter les refus et sécuriser le lancement chantier.",
       description:
-        "Constitution, contrôle qualité et suivi mairie pour sécuriser chaque démarrage chantier.",
+        "Constitution, vérification des pièces, dépôt et suivi mairie jusqu'au retour administratif.",
       ctaLabel: "Voir le service",
       href: "/declaration-prealable-panneaux-solaires",
       track: "cta_service_dp",
@@ -159,9 +244,9 @@ export const servicesSectionData = {
     {
       label: "Service 02",
       title: "Consuel",
-      benefit: "Une conformité anticipée pour accélérer les mises en service.",
+      benefit: "Un suivi structuré pour réduire les retours et accélérer les mises en service.",
       description:
-        "Préparation des pièces, suivi des retours et pilotage jusqu'à la validation finale.",
+        "Préparation du dossier, coordination des pièces, suivi des demandes et accompagnement jusqu'à validation.",
       ctaLabel: "Voir le service",
       href: "/dossier-consuel-photovoltaique",
       track: "cta_service_consuel",
@@ -169,9 +254,9 @@ export const servicesSectionData = {
     {
       label: "Service 03",
       title: "Raccordement",
-      benefit: "Un suivi Enedis centralisé pour mieux maîtriser les délais.",
+      benefit: "Une coordination Enedis plus lisible pour mieux maîtriser les délais réseau.",
       description:
-        "Coordination administrative de bout en bout avec traçabilité complète de chaque jalon.",
+        "Suivi des étapes, relances, pièces attendues et traçabilité complète du parcours raccordement.",
       ctaLabel: "Voir le service",
       href: "/raccordement-enedis-photovoltaique",
       track: "cta_service_enedis",
@@ -181,8 +266,8 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Une plateforme dédiée à la qualité d'exécution administrative.",
-  text: "Le portail centralise vos dossiers, vos pièces et vos validations pour garder une vision claire à chaque étape.",
+  title: "Un suivi clair pour vos équipes et vos clients.",
+  text: "Le portail centralise les dossiers, les pièces et les validations pour rendre l'administratif plus lisible, plus traçable et plus facile à piloter.",
   benefits: [
     "Suivi des dossiers en temps réel",
     "Centralisation des pièces administratives",
@@ -210,31 +295,83 @@ export const caseStudySectionData = {
   note: "Cas anonymisé en attente de remplacement par une référence validée.",
   cta: {
     label: "Parler de votre contexte",
-    href: "/contact",
+    href: "/contact?source=cas-client",
     track: "cta_case_study",
   },
 };
 
 export const visionSectionData = {
-  kicker: "Vision",
-  title: "L'administratif photovoltaïque ne devrait jamais ralentir un installateur.",
+  kicker: "Positionnement",
+  title: "L'administratif photovoltaïque ne devrait jamais limiter votre croissance.",
   text:
-    "Sunelys transforme les démarches en infrastructure fluide : un système clair, fiable et traçable, aligné avec vos standards de production.",
+    "Sunelys transforme les démarches en flux clair : une sous-traitance administrative solaire professionnelle, pensée pour la qualité, la réactivité et la continuité opérationnelle.",
+};
+
+export const faqSectionData = {
+  kicker: "Questions fréquentes",
+  title: "Les réponses clés avant de déléguer votre administratif solaire.",
+  items: [
+    {
+      question: "Travaillez-vous partout en France ?",
+      answer:
+        "Oui. Sunelys accompagne les démarches administratives photovoltaïques en France, avec un suivi à distance structuré et des échanges centralisés.",
+    },
+    {
+      question: "Faites-vous l'installation photovoltaïque ?",
+      answer:
+        "Non. Sunelys ne réalise pas les installations. Nous intervenons comme partenaire administratif pour les professionnels du solaire : DP, Consuel, raccordement et suivi documentaire.",
+    },
+    {
+      question: "Comment fonctionne la tarification ?",
+      answer:
+        "La tarification dépend du volume, des démarches à déléguer et du niveau de suivi attendu. Le plus simple est de planifier un échange pour cadrer un devis adapté.",
+    },
+    {
+      question: "Quels types de clients accompagnez-vous ?",
+      answer:
+        "Nous accompagnons principalement des sociétés commercialistes du solaire, installateurs photovoltaïques et structures qui traitent un volume régulier de dossiers.",
+    },
+    {
+      question: "Pouvez-vous reprendre des dossiers déjà en cours ?",
+      answer:
+        "Oui, selon l'état du dossier et les pièces disponibles. Nous commençons par analyser le contexte pour identifier ce qui peut être repris proprement.",
+    },
+  ],
 };
 
 export const finalCtaSectionData = {
-  kicker: "Plan d'action rapide",
+  kicker: "Passage à l'action",
   title: "Faites le point sur vos flux administratifs en 15 minutes.",
   text:
-    "On identifie vos points de friction, le volume à déléguer et les gains opérationnels possibles. Vous repartez avec une lecture claire de ce qui peut être externalisé.",
+    "Un échange rapide pour identifier vos points de friction, estimer les gains possibles et voir si Sunelys est adapté à votre organisation.",
   primaryCta: {
-    label: "Planifier un échange de 15 minutes",
-    href: "/contact",
+    label: "Prendre rendez-vous",
+    href: "/contact?source=cta-final-rdv",
     track: "cta_final_primary",
   },
   secondaryCta: {
-    label: "Voir les services",
-    href: "/services",
+    label: "Demander un devis",
+    href: "/contact?source=cta-final-devis",
     track: "cta_final_secondary",
   },
+  contactPoints: [
+    {
+      label: "Calendrier",
+      value: "Créneau de 15 minutes",
+      href: "/contact?source=calendrier",
+      track: "cta_final_calendar",
+    },
+    {
+      label: "Formulaire",
+      value: "Réponse sous 24h ouvrées",
+      href: "/contact?source=formulaire-final",
+      track: "cta_final_form",
+    },
+    {
+      label: "Téléphone",
+      value: "06 95 90 79 19",
+      href: "tel:+33695907919",
+      track: "cta_final_phone",
+    },
+  ],
 };
