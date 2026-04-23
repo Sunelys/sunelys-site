@@ -96,9 +96,15 @@ nvm use
 npm run build
 ```
 
-3. Si blocage local persistant:
-- tuer les anciens process Astro (`pkill -f "astro build"`)
-- valider la build via CI/Vercel (environnement propre)
+3. Correction locale appliquée pour les disques externes:
+- Astro/Vite utilise maintenant un cache dans `/tmp/sunelys-site-vite-cache` au lieu de `node_modules/.vite`.
+- Le watcher Vite ignore les fichiers macOS `._*` générés par certains volumes externes.
+
+4. Si blocage local persistant:
+- arrêter le serveur dev en cours avec `Ctrl + C`
+- relancer `npm run dev`
+- valider avec `npm run build:ci`
+- si besoin, valider la build via Vercel (environnement propre)
 
 ## Checklist review visuelle
 - Hero: lisibilité immédiate (offre, cible, bénéfice, CTA)
