@@ -68,7 +68,9 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
 
     localStorage.setItem("sunelys_volume_range", value);
     quizMessage.textContent = message;
-    quizCta.setAttribute("href", `${ctaHref}?volume=${encodeURIComponent(value)}`);
+    const ctaUrl = new URL(ctaHref, window.location.origin);
+    ctaUrl.searchParams.set("volume", value);
+    quizCta.setAttribute("href", `${ctaUrl.pathname}${ctaUrl.search}`);
     quizResult.hidden = false;
 
     if (window.trackEvent) {

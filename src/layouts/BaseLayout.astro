@@ -109,11 +109,55 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
     <script>
       window.dataLayer = window.dataLayer || [];
+
+      const attributionKeys = [
+        "utm_source",
+        "utm_medium",
+        "utm_campaign",
+        "utm_term",
+        "utm_content",
+        "gclid",
+        "fbclid",
+        "msclkid",
+      ];
+
+      const readStoredAttribution = () => {
+        try {
+          return JSON.parse(localStorage.getItem("sunelys_attribution") || "{}");
+        } catch (_error) {
+          return {};
+        }
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const storedAttribution = readStoredAttribution();
+      const incomingAttribution = attributionKeys.reduce((acc, key) => {
+        const value = params.get(key);
+        if (value) acc[key] = value;
+        return acc;
+      }, {});
+
+      const attribution = {
+        landing_page: storedAttribution.landing_page || window.location.pathname,
+        first_referrer: storedAttribution.first_referrer || document.referrer || "direct",
+        first_seen_at: storedAttribution.first_seen_at || new Date().toISOString(),
+        last_page: window.location.pathname,
+        last_referrer: document.referrer || storedAttribution.last_referrer || "direct",
+        ...storedAttribution,
+        ...incomingAttribution,
+      };
+
+      localStorage.setItem("sunelys_attribution", JSON.stringify(attribution));
+
+      window.getSunelysAttribution = () => readStoredAttribution();
+
       window.trackEvent = (eventName, params = {}) => {
+        const currentAttribution = readStoredAttribution();
         window.dataLayer.push({
           event: eventName,
           page_path: window.location.pathname,
           page_title: document.title,
+          attribution: currentAttribution,
           timestamp: Date.now(),
           ...params,
         });

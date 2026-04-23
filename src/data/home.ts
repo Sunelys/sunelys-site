@@ -91,6 +91,34 @@ export const frictionSectionData = {
     "Sunelys prend la mécanique administrative en charge. Vous gardez la relation commerciale et la maîtrise de vos chantiers.",
 };
 
+export const quizSectionData = {
+  kicker: "Diagnostic rapide",
+  title: "Combien de dossiers devez-vous absorber chaque mois ?",
+  question: "Sélectionnez votre volume pour recevoir un cadrage adapté à votre organisation.",
+  options: [
+    {
+      value: "1-10",
+      label: "1-10 dossiers",
+      message:
+        "Votre priorité est probablement de sécuriser les dépôts sans complexifier l'organisation. On peut cadrer les tâches à déléguer en 15 minutes.",
+    },
+    {
+      value: "10-30",
+      label: "10-30 dossiers",
+      message:
+        "À ce volume, les retours administratifs et les relances commencent à peser. Sunelys peut structurer un flux récurrent et plus lisible.",
+    },
+    {
+      value: "+30",
+      label: "+30 dossiers",
+      message:
+        "Votre enjeu est l'industrialisation : priorisation, visibilité, qualité documentaire et capacité à absorber le flux sans surcharge interne.",
+    },
+  ],
+  ctaLabel: "Recevoir une estimation de gain",
+  ctaHref: "/contact?source=quiz",
+};
+
 export const processSectionData = {
   kicker: "Comment ça marche",
   title: "Un workflow en 4 étapes, pensé pour rester fluide.",

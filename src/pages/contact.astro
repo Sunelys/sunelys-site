@@ -67,6 +67,15 @@ const successUrl = "https://sunelys.fr/merci";
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_next" value={successUrl} />
+      <input type="hidden" name="source_page" id="source-page-field" />
+      <input type="hidden" name="landing_page" id="landing-page-field" />
+      <input type="hidden" name="first_referrer" id="first-referrer-field" />
+      <input type="hidden" name="utm_source" id="utm-source-field" />
+      <input type="hidden" name="utm_medium" id="utm-medium-field" />
+      <input type="hidden" name="utm_campaign" id="utm-campaign-field" />
+      <input type="hidden" name="utm_term" id="utm-term-field" />
+      <input type="hidden" name="utm_content" id="utm-content-field" />
+      <input type="hidden" name="gclid" id="gclid-field" />
 
       <label>
         Nom
@@ -95,7 +104,7 @@ const successUrl = "https://sunelys.fr/merci";
       </label>
       <label>
         Besoin principal
-        <select name="need">
+        <select name="need" id="need-field">
           <option value="">Sélectionner</option>
           <option value="Declaration prealable">Déclaration préalable</option>
           <option value="Consuel">Consuel</option>
@@ -116,17 +125,56 @@ const successUrl = "https://sunelys.fr/merci";
   const params = new URLSearchParams(window.location.search);
   const volumeFromQuery = params.get("volume");
   const volumeFromStorage = localStorage.getItem("sunelys_volume_range");
+  const sourceFromQuery = params.get("source") || params.get("service") || "";
+  const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+
   const volumeField = document.querySelector("#volume-field");
+  const needField = document.querySelector("#need-field");
+  const sourcePageField = document.querySelector("#source-page-field");
+
+  const fillHidden = (id, value) => {
+    const field = document.querySelector(id);
+    if (field instanceof HTMLInputElement) field.value = value || "";
+  };
 
   const prefillVolume = volumeFromQuery || volumeFromStorage || "";
-  if (volumeField && prefillVolume) {
+  if (volumeField instanceof HTMLSelectElement && prefillVolume) {
     volumeField.value = prefillVolume;
   }
+
+  if (needField instanceof HTMLSelectElement && sourceFromQuery) {
+    const normalizedSource = sourceFromQuery.toLowerCase();
+    if (normalizedSource.includes("consuel")) needField.value = "Consuel";
+    if (normalizedSource.includes("raccordement") || normalizedSource.includes("enedis")) {
+      needField.value = "Raccordement Enedis";
+    }
+    if (normalizedSource.includes("declaration") || normalizedSource.includes("prealable")) {
+      needField.value = "Declaration prealable";
+    }
+    if (normalizedSource.includes("gestion") || normalizedSource.includes("administrative")) {
+      needField.value = "Pilotage complet";
+    }
+  }
+
+  if (sourcePageField instanceof HTMLInputElement) {
+    sourcePageField.value = sourceFromQuery || document.referrer || window.location.pathname;
+  }
+
+  fillHidden("#landing-page-field", attribution.landing_page || "");
+  fillHidden("#first-referrer-field", attribution.first_referrer || "");
+  fillHidden("#utm-source-field", attribution.utm_source || "");
+  fillHidden("#utm-medium-field", attribution.utm_medium || "");
+  fillHidden("#utm-campaign-field", attribution.utm_campaign || "");
+  fillHidden("#utm-term-field", attribution.utm_term || "");
+  fillHidden("#utm-content-field", attribution.utm_content || "");
+  fillHidden("#gclid-field", attribution.gclid || "");
 
   document.querySelector("#contact-form")?.addEventListener("submit", () => {
     if (window.trackEvent) {
       window.trackEvent("contact_form_submit", {
+        source: sourceFromQuery,
         volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
+        need: needField instanceof HTMLSelectElement ? needField.value : "",
       });
     }
   });

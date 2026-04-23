@@ -73,7 +73,7 @@ const delegationSignals = [
     </ul>
 
     <div class="hero-actions">
-      <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_hero`}>
+      <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
         Planifier un échange
       </a>
       <a class="btn btn-secondary" href="/services" data-track={`cta_${data.slug}_hero_services`}>
@@ -142,7 +142,7 @@ const delegationSignals = [
   <div class="signal-grid">
     {delegationSignals.map((signal) => <p>{signal}</p>)}
   </div>
-  <a class="btn btn-secondary" href="/contact" data-track={`cta_${data.slug}_delegation`}>
+  <a class="btn btn-secondary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_delegation`}>
     Faire le point sur mes flux
   </a>
 </section>
@@ -192,7 +192,7 @@ const delegationSignals = [
 <section class="seo-section seo-final section-shell reveal">
   <h2>{data.finalTitle}</h2>
   <p>{data.finalText}</p>
-  <a class="btn btn-primary" href="/contact" data-track={`cta_${data.slug}_final`}>
+  <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_final`}>
     Planifier un échange de 15 minutes
   </a>
 </section>

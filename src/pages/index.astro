@@ -6,6 +6,7 @@ import FrictionSection from "../components/FrictionSection.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
+import MiniQuiz from "../components/MiniQuiz.astro";
 import CaseStudySection from "../components/CaseStudySection.astro";
 import VisionSection from "../components/VisionSection.astro";
 import FinalCTASection from "../components/FinalCTASection.astro";
@@ -18,6 +19,7 @@ import {
   portalSectionData,
   processSectionData,
   proofSectionData,
+  quizSectionData,
   servicesSectionData,
   visionSectionData,
 } from "../data/home";
@@ -53,6 +55,7 @@ const structuredData = [
   <Hero data={heroData} />
   <ProofSection data={proofSectionData} />
   <FrictionSection data={frictionSectionData} />
+  <MiniQuiz data={quizSectionData} />
   <ProcessSection data={processSectionData} />
   <ServicesSection data={servicesSectionData} />
   <PortalSection data={portalSectionData} />
