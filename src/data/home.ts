@@ -1,4 +1,4 @@
-const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "/contact?source=booking-fallback#contact-form";
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque France | Sunelys",

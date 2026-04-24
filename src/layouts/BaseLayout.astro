@@ -18,7 +18,7 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
 const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
-const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "/contact?source=booking-fallback#contact-form";
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
