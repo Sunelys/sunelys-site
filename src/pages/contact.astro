@@ -2,6 +2,8 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const successUrl = "https://sunelys.fr/merci";
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "";
+const hasBookingUrl = Boolean(bookingUrl);
 ---
 
 <BaseLayout
@@ -29,14 +31,44 @@ const successUrl = "https://sunelys.fr/merci";
     </div>
 
     <div class="hero-actions">
-      <a class="cta" href="tel:+33695907919" data-track="cta_contact_call">Appeler maintenant</a>
-      <a class="cta cta-secondary" href="#contact-form" data-track="cta_contact_form_top">
-        Remplir le formulaire d'audit
+      <a
+        class="cta"
+        href={hasBookingUrl ? bookingUrl : "#contact-form"}
+        data-track={hasBookingUrl ? "cta_contact_booking_top" : "cta_contact_form_top"}
+        target={hasBookingUrl ? "_blank" : undefined}
+        rel={hasBookingUrl ? "noreferrer" : undefined}
+      >
+        {hasBookingUrl ? "Choisir un créneau" : "Remplir le formulaire d'audit"}
+      </a>
+      <a class="cta cta-secondary" href="tel:+33695907919" data-track="cta_contact_call">
+        Appeler maintenant
       </a>
     </div>
+
+    {
+      hasBookingUrl && (
+        <p class="booking-note">
+          Ou remplissez le formulaire plus bas si vous préférez envoyer votre contexte avant l'échange.
+        </p>
+      )
+    }
   </section>
 
   <section class="section grid">
+    {
+      hasBookingUrl && (
+        <article class="card booking-card">
+          <h2>Prise de rendez-vous</h2>
+          <p>Choisissez directement un créneau de 15 minutes pour cadrer vos flux administratifs.</p>
+          <p>
+            <a href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_contact_booking_card">
+              Ouvrir le calendrier de rendez-vous
+            </a>
+          </p>
+        </article>
+      )
+    }
+
     <article class="card">
       <h2>Email</h2>
       <p>Pour une demande détaillée ou l'envoi de pièces.</p>
@@ -289,6 +321,11 @@ const successUrl = "https://sunelys.fr/merci";
     gap: 0.7rem;
   }
 
+  .booking-note {
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
   .proof-strip {
     display: flex;
     flex-wrap: wrap;
@@ -312,12 +349,23 @@ const successUrl = "https://sunelys.fr/merci";
 
   .grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 0.8rem;
   }
 
   .grid p + p {
     margin-top: 0.6rem;
+  }
+
+  .booking-card {
+    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
+    background:
+      radial-gradient(
+        100% 120% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 38%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
   }
 
   a {

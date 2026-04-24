@@ -18,6 +18,7 @@ const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
 const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "/contact?source=booking-fallback#contact-form";
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
@@ -134,7 +135,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
   <body style={brandingVars} data-branding-intensity={BRANDING_INTENSITY}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-audit" ctaLabel="Réserver un audit de 15 min" />
+    <Header path={path} navLinks={navLinks} ctaHref={bookingUrl} ctaLabel="Réserver un audit de 15 min" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">

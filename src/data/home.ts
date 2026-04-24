@@ -1,3 +1,5 @@
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "/contact?source=booking-fallback#contact-form";
+
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque France | Sunelys",
   description:
@@ -15,7 +17,7 @@ export const heroData = {
     "Sunelys accompagne les installateurs et équipes solaires qui veulent déléguer l'administratif sans perdre la visibilité sur leurs dossiers. Nous cadrons, suivons et pilotons DP, Consuel et raccordement en France.",
   primaryCta: {
     label: "Reserver un audit de 15 min",
-    href: "/contact?source=hero-audit",
+    href: bookingUrl,
     track: "cta_hero_primary",
   },
   secondaryCta: {
@@ -367,7 +369,7 @@ export const finalCtaSectionData = {
     "En 15 minutes, vous repartez avec une lecture plus claire de vos blocages, du volume reel a absorber et du perimetre a deleguer en priorite.",
   primaryCta: {
     label: "Reserver un audit de 15 min",
-    href: "/contact?source=cta-final-audit",
+    href: bookingUrl,
     track: "cta_final_primary",
   },
   secondaryCta: {
@@ -379,7 +381,7 @@ export const finalCtaSectionData = {
     {
       label: "Audit",
       value: "15 minutes de cadrage",
-      href: "/contact?source=cta-final-audit",
+      href: bookingUrl,
       track: "cta_final_calendar",
     },
     {
