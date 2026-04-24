@@ -10,22 +10,28 @@ const successUrl = "https://sunelys.fr/merci";
 >
   <section class="hero card">
     <p class="eyebrow">Prise de contact</p>
-    <h1>Faites le point sur vos flux administratifs en 15 minutes.</h1>
+    <h1>Réservez un audit de 15 minutes sur vos flux administratifs photovoltaïques.</h1>
     <p>
       Déclaration préalable, Consuel, raccordement Enedis : nous regardons votre volume,
-      vos points de friction et la façon la plus simple de soulager vos équipes.
+      vos blocages actuels et le périmètre le plus simple à déléguer pour soulager vos équipes.
     </p>
 
     <ul class="hero-points">
-      <li>Réponse rapide sur votre organisation actuelle</li>
-      <li>Vision claire sur les gains opérationnels possibles</li>
-      <li>Échange adapté aux installateurs et aux flux multi-dossiers</li>
+      <li>Lecture rapide de vos points de friction et de vos priorités</li>
+      <li>Estimation du périmètre à déléguer selon votre volume</li>
+      <li>Réponse adaptée aux installateurs, commercialisateurs et structures multi-dossiers</li>
     </ul>
+
+    <div class="proof-strip" aria-label="Réassurance contact">
+      <span>15 minutes de cadrage</span>
+      <span>Réponse sous 24h ouvrées</span>
+      <span>Sans engagement</span>
+    </div>
 
     <div class="hero-actions">
       <a class="cta" href="tel:+33695907919" data-track="cta_contact_call">Appeler maintenant</a>
-      <a class="cta cta-secondary" href="mailto:contact@sunelys.fr" data-track="cta_contact_email_top">
-        Envoyer un email
+      <a class="cta cta-secondary" href="#contact-form" data-track="cta_contact_form_top">
+        Remplir le formulaire d'audit
       </a>
     </div>
   </section>
@@ -52,6 +58,20 @@ const successUrl = "https://sunelys.fr/merci";
 
   <section class="section card form-card">
     <h2>Recevoir un cadrage initial</h2>
+    <div class="audit-steps" aria-label="Ce que vous obtenez">
+      <article>
+        <strong>1. Lecture du contexte</strong>
+        <p>Volume, type de dossiers, rôle de vos équipes et irritants opérationnels.</p>
+      </article>
+      <article>
+        <strong>2. Priorités identifiées</strong>
+        <p>Les étapes qui consomment le plus de temps ou créent le plus de retours.</p>
+      </article>
+      <article>
+        <strong>3. Recommandation claire</strong>
+        <p>Le périmètre à déléguer en premier pour fluidifier vos dossiers.</p>
+      </article>
+    </div>
     <p class="helper">
       Le volume de dossiers est pré-rempli si vous venez du mini-tunnel. Le formulaire
       envoie directement votre demande à Sunelys.
@@ -116,7 +136,10 @@ const successUrl = "https://sunelys.fr/merci";
         Message
         <textarea name="message" rows="5" placeholder="Contexte, zone, délais, type de projet..."></textarea>
       </label>
-      <button class="cta" type="submit" data-track="cta_contact_form_submit">Demander un audit</button>
+      <button class="cta" type="submit" data-track="cta_contact_form_submit">Réserver un audit de 15 min</button>
+      <p class="form-note full-width">
+        Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
+      </p>
     </form>
   </section>
 </BaseLayout>
@@ -266,6 +289,27 @@ const successUrl = "https://sunelys.fr/merci";
     gap: 0.7rem;
   }
 
+  .proof-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .proof-strip span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.15rem;
+    padding: 0.42rem 0.72rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
+    color: var(--text);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
   .grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -290,6 +334,33 @@ const successUrl = "https://sunelys.fr/merci";
   .helper {
     margin-bottom: 0.9rem;
     font-size: 0.92rem;
+  }
+
+  .audit-steps {
+    margin: 0.95rem 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+
+  .audit-steps article {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
+    padding: 0.85rem;
+  }
+
+  .audit-steps strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .audit-steps p {
+    margin-top: 0.38rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
   }
 
   .form-grid {
@@ -366,8 +437,19 @@ const successUrl = "https://sunelys.fr/merci";
     background: color-mix(in srgb, var(--accent-soft) 55%, white);
   }
 
+  .form-note {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
   @media (max-width: 900px) {
     .grid {
+      grid-template-columns: 1fr;
+    }
+
+    .audit-steps {
       grid-template-columns: 1fr;
     }
 

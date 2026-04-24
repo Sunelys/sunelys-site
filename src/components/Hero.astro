@@ -14,6 +14,7 @@ interface HeroData {
   primaryCta: { label: string; href: string; track: string };
   secondaryCta: { label: string; href: string; track: string };
   proofs: string[];
+  ctaNote?: string;
   preview: {
     label: string;
     title: string;
@@ -54,6 +55,8 @@ const { data } = Astro.props;
         {data.secondaryCta.label}
       </a>
     </div>
+
+    {data.ctaNote && <p class="cta-note">{data.ctaNote}</p>}
   </div>
 
   <HeroProductMockup data={data.preview} variant={data.preview.variant ?? "full"} />
@@ -168,6 +171,13 @@ const { data } = Astro.props;
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
   }
 
+  .cta-note {
+    margin: 0.72rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.45;
+  }
+
   @media (max-width: 1080px) {
     .hero {
       grid-template-columns: 1fr;
@@ -202,6 +212,10 @@ const { data } = Astro.props;
 
     .hero-actions .btn {
       width: 100%;
+    }
+
+    .cta-note {
+      text-align: center;
     }
   }
 </style>

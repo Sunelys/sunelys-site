@@ -2,25 +2,18 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import ProofSection from "../components/ProofSection.astro";
-import FrictionSection from "../components/FrictionSection.astro";
 import SolutionSection from "../components/SolutionSection.astro";
-import BenefitsSection from "../components/BenefitsSection.astro";
-import AudienceSection from "../components/AudienceSection.astro";
 import ProcessSection from "../components/ProcessSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
 import MiniQuiz from "../components/MiniQuiz.astro";
 import CaseStudySection from "../components/CaseStudySection.astro";
-import VisionSection from "../components/VisionSection.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTASection from "../components/FinalCTASection.astro";
 import {
-  audienceSectionData,
-  benefitsSectionData,
   caseStudySectionData,
   faqSectionData,
   finalCtaSectionData,
-  frictionSectionData,
   heroData,
   homeSeo,
   portalSectionData,
@@ -29,7 +22,6 @@ import {
   quizSectionData,
   servicesSectionData,
   solutionSectionData,
-  visionSectionData,
 } from "../data/home";
 
 const structuredData = [
@@ -74,17 +66,13 @@ const structuredData = [
 
 <BaseLayout title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
   <Hero data={heroData} />
-  <MiniQuiz data={quizSectionData} />
-  <FrictionSection data={frictionSectionData} />
-  <SolutionSection data={solutionSectionData} />
-  <BenefitsSection data={benefitsSectionData} />
-  <AudienceSection data={audienceSectionData} />
-  <ProcessSection data={processSectionData} />
-  <ServicesSection data={servicesSectionData} />
   <ProofSection data={proofSectionData} />
+  <MiniQuiz data={quizSectionData} />
+  <SolutionSection data={solutionSectionData} />
+  <ServicesSection data={servicesSectionData} />
   <PortalSection data={portalSectionData} />
+  <ProcessSection data={processSectionData} />
   <CaseStudySection data={caseStudySectionData} />
-  <VisionSection data={visionSectionData} />
   <FAQ data={faqSectionData} />
   <FinalCTASection data={finalCtaSectionData} />
 </BaseLayout>

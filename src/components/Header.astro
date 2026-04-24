@@ -15,7 +15,7 @@ const {
   path,
   navLinks,
   ctaHref = "/contact",
-  ctaLabel = "Réserver un échange",
+  ctaLabel = "Réserver un audit de 15 min",
 } = Astro.props;
 ---
 
@@ -52,7 +52,8 @@ const {
         href="https://portail.sunelys.fr/login"
         data-track="cta_header_portal"
       >
-        Portail client
+        <span>Deja client ?</span>
+        <strong>Acceder au portail</strong>
       </a>
       <a class="btn btn-primary nav-cta" href={ctaHref} data-track="cta_header_primary">{ctaLabel}</a>
     </div>
@@ -150,28 +151,31 @@ const {
   .portal-link {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    min-height: 2.35rem;
-    padding: 0.62rem 0.96rem;
-    border-radius: 999px;
-    border: 1px solid var(--line);
+    gap: 0.35rem;
+    min-height: 2.1rem;
+    padding: 0.1rem 0;
     text-decoration: none;
     color: var(--text-muted);
-    background: color-mix(in srgb, var(--surface) 90%, white);
     letter-spacing: 0.09em;
     text-transform: uppercase;
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     font-weight: 600;
-    transition: color 180ms ease, border-color 180ms ease, background-color 180ms ease,
-      transform 180ms ease;
+    transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
   }
 
   .portal-link:hover,
   .portal-link:focus-visible {
     color: var(--text);
-    border-color: color-mix(in srgb, var(--line) 65%, var(--accent));
-    background: color-mix(in srgb, var(--accent-soft) 55%, white);
     transform: translateY(-1px);
+  }
+
+  .portal-link span {
+    opacity: 0.72;
+  }
+
+  .portal-link strong {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
   }
 
   .nav-cta {
@@ -222,7 +226,7 @@ const {
 
     .header-actions {
       width: 100%;
-      justify-content: stretch;
+      justify-items: stretch;
       display: grid;
       grid-template-columns: 1fr;
       gap: 0.45rem;
@@ -234,6 +238,7 @@ const {
 
     .portal-link {
       width: 100%;
+      justify-content: center;
     }
   }
 </style>

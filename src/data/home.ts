@@ -5,29 +5,30 @@ export const homeSeo = {
 };
 
 export const heroData = {
-  kicker: "Gestion administrative photovoltaïque B2B",
-  title: "Externalisez l'administratif solaire.\nAccélérez vos dossiers.",
+  kicker: "Pour installateurs photovoltaïques et structures qui traitent du volume",
+  title: "DP, Consuel, raccordement :\nreprenez la main sur vos dossiers.",
   titleVariants: [
     "Externalisez l'administratif solaire. Accélérez vos dossiers.",
     "Moins de charge administrative. Plus de dossiers photovoltaïques maîtrisés.",
   ],
   subtitle:
-    "Sunelys prend en charge vos démarches administratives photovoltaïques en France : déclaration préalable, Consuel et raccordement Enedis. Vos équipes vendent et installent. Nous pilotons l'administratif.",
+    "Sunelys accompagne les installateurs et équipes solaires qui veulent déléguer l'administratif sans perdre la visibilité sur leurs dossiers. Nous cadrons, suivons et pilotons DP, Consuel et raccordement en France.",
   primaryCta: {
-    label: "Prendre rendez-vous",
-    href: "/contact?source=hero-rdv",
+    label: "Reserver un audit de 15 min",
+    href: "/contact?source=hero-audit",
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Demander un devis",
-    href: "/contact?source=hero-devis",
+    label: "Voir comment ca fonctionne",
+    href: "/parcours",
     track: "cta_hero_secondary",
   },
   proofs: [
     "+5000 dossiers photovoltaïques pilotés",
     "+50 partenaires actifs",
-    "Suivi unifié installateur + client",
+    "Reponse sous 24h ouvrées",
   ],
+  ctaNote: "Audit de cadrage sans engagement pour estimer les gains, les priorites et le perimetre a deleguer.",
   preview: {
     variant: "full",
     label: "Portail Sunelys",
@@ -45,10 +46,10 @@ export const heroData = {
 
 export const proofSectionData = {
   kicker: "Preuve et réassurance",
-  title: "Une relation professionnelle, réactive, pensée pour les flux photovoltaïques.",
+  title: "Un partenaire administratif deja opere sur des milliers de dossiers photovoltaïques.",
   logos: [],
   trustNote:
-    "Accompagnement national, méthodes documentaires cadrées et références partenaires communiquées sur demande après autorisation de diffusion.",
+    "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie.",
   metrics: [
     { value: "+5000", label: "dossiers photovoltaïques pilotés" },
     { value: "+50", label: "partenaires actifs" },
@@ -123,8 +124,8 @@ export const solutionSectionData = {
     },
   ],
   cta: {
-    label: "Analyser mon besoin",
-    href: "/contact?source=solution",
+    label: "Reserver un audit de 15 min",
+    href: "/contact?source=solution-audit",
     track: "cta_solution",
   },
 };
@@ -157,8 +158,8 @@ export const benefitsSectionData = {
     },
   ],
   cta: {
-    label: "Demander un devis",
-    href: "/contact?source=benefices-devis",
+    label: "Reserver un audit de 15 min",
+    href: "/contact?source=benefices-audit",
     track: "cta_benefits",
   },
 };
@@ -208,7 +209,7 @@ export const quizSectionData = {
         "Votre enjeu est l'industrialisation : priorisation, visibilité, qualité documentaire et capacité à absorber le flux sans surcharge interne.",
     },
   ],
-  ctaLabel: "Recevoir une estimation de gain",
+  ctaLabel: "Reserver un audit de 15 min",
   ctaHref: "/contact?source=quiz",
 };
 
@@ -361,30 +362,30 @@ export const faqSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Passage à l'action",
-  title: "Faites le point sur vos flux administratifs en 15 minutes.",
+  title: "Reservez un audit de 15 minutes pour cadrer vos flux administratifs.",
   text:
-    "Un échange rapide pour identifier vos points de friction, estimer les gains possibles et voir si Sunelys est adapté à votre organisation.",
+    "En 15 minutes, vous repartez avec une lecture plus claire de vos blocages, du volume reel a absorber et du perimetre a deleguer en priorite.",
   primaryCta: {
-    label: "Prendre rendez-vous",
-    href: "/contact?source=cta-final-rdv",
+    label: "Reserver un audit de 15 min",
+    href: "/contact?source=cta-final-audit",
     track: "cta_final_primary",
   },
   secondaryCta: {
-    label: "Demander un devis",
-    href: "/contact?source=cta-final-devis",
+    label: "Remplir le formulaire",
+    href: "/contact?source=formulaire-final#contact-form",
     track: "cta_final_secondary",
   },
   contactPoints: [
     {
-      label: "Calendrier",
-      value: "Créneau de 15 minutes",
-      href: "/contact?source=calendrier",
+      label: "Audit",
+      value: "15 minutes de cadrage",
+      href: "/contact?source=cta-final-audit",
       track: "cta_final_calendar",
     },
     {
       label: "Formulaire",
-      value: "Réponse sous 24h ouvrées",
-      href: "/contact?source=formulaire-final",
+      value: "Reponse sous 24h ouvrées",
+      href: "/contact?source=formulaire-final#contact-form",
       track: "cta_final_form",
     },
     {
