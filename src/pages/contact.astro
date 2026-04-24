@@ -102,6 +102,7 @@ const hasBookingUrl = Boolean(bookingUrl);
 
         <div class="booking-embed-shell">
           <iframe
+            id="booking-embed-iframe"
             src={bookingUrl}
             title="Calendly Sunelys"
             loading="lazy"
@@ -192,7 +193,9 @@ const hasBookingUrl = Boolean(bookingUrl);
         Message
         <textarea name="message" rows="5" placeholder="Contexte, zone, délais, type de projet..."></textarea>
       </label>
-      <button class="cta" type="submit" data-track="cta_contact_form_submit">Réserver un audit de 15 min</button>
+      <button id="contact-form-submit" class="cta" type="submit" data-track="cta_contact_form_submit">
+        Réserver un audit de 15 min
+      </button>
       <p class="form-note full-width">
         Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
       </p>
@@ -248,14 +251,67 @@ const hasBookingUrl = Boolean(bookingUrl);
   fillHidden("#utm-content-field", attribution.utm_content || "");
   fillHidden("#gclid-field", attribution.gclid || "");
 
+  const bookingEmbed = document.querySelector("#booking-embed-iframe");
+  const bookingSection = document.querySelector(".booking-embed-card");
+  const contactForm = document.querySelector("#contact-form");
+
+  const trackedStates = {
+    bookingLoaded: false,
+    bookingViewed: false,
+    formViewed: false,
+  };
+
+  const buildContactPayload = (label) => ({
+    category: "lead",
+    label,
+    source: sourceFromQuery,
+    volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
+    need: needField instanceof HTMLSelectElement ? needField.value : "",
+  });
+
+  const trackOnce = (key, eventName, label, extra = {}) => {
+    if (trackedStates[key] || !window.trackEvent) return;
+    trackedStates[key] = true;
+    window.trackEvent(eventName, {
+      ...buildContactPayload(label),
+      ...extra,
+    });
+  };
+
+  if (bookingEmbed instanceof HTMLIFrameElement) {
+    bookingEmbed.addEventListener("load", () => {
+      trackOnce("bookingLoaded", "booking_embed_loaded", "Calendly loaded", {
+        href: bookingEmbed.src,
+      });
+    });
+  }
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && entry.target === bookingSection) {
+            trackOnce("bookingViewed", "booking_embed_viewed", "Calendly viewed", {
+              href: bookingEmbed instanceof HTMLIFrameElement ? bookingEmbed.src : "",
+            });
+          }
+
+          if (entry.isIntersecting && entry.target === contactForm) {
+            trackOnce("formViewed", "contact_form_viewed", "Contact form viewed");
+          }
+        });
+      },
+      { threshold: 0.35 }
+    );
+
+    if (bookingSection instanceof HTMLElement) observer.observe(bookingSection);
+    if (contactForm instanceof HTMLFormElement) observer.observe(contactForm);
+  }
+
   document.querySelector("#contact-form")?.addEventListener("submit", () => {
     if (window.trackEvent) {
       window.trackEvent("contact_form_submit", {
-        category: "form",
-        label: "Contact form",
-        source: sourceFromQuery,
-        volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
-        need: needField instanceof HTMLSelectElement ? needField.value : "",
+        ...buildContactPayload("Contact form"),
       });
     }
   });
