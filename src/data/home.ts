@@ -66,6 +66,10 @@ export const proofSectionData = {
       name: "Ensol",
       src: "/images/site/client-ensol.webp",
     },
+    {
+      name: "Be Travaux",
+      src: "/images/site/client-betravaux.png",
+    },
   ],
   trustNote:
     "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie.",
