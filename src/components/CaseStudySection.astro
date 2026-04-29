@@ -15,6 +15,11 @@ interface Props {
     narrative: string;
     results: ResultItem[];
     note?: string;
+    secondaryCase?: {
+      title: string;
+      author: string;
+      quote: string;
+    };
     cta: {
       label: string;
       href: string;
@@ -38,6 +43,15 @@ const { data } = Astro.props;
     {data.context && <p class="context">{data.context}</p>}
     <p class="narrative">{data.narrative}</p>
     {data.note && <p class="note">{data.note}</p>}
+    {
+      data.secondaryCase && (
+        <article class="secondary-case">
+          <p class="secondary-kicker">{data.secondaryCase.title}</p>
+          <p class="secondary-quote">"{data.secondaryCase.quote}"</p>
+          <p class="secondary-author">{data.secondaryCase.author}</p>
+        </article>
+      )
+    }
     <a class="btn btn-secondary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
   </div>
 
@@ -115,6 +129,38 @@ const { data } = Astro.props;
     margin: 0.52rem 0 0;
     color: var(--text-muted);
     font-size: 0.69rem;
+  }
+
+  .secondary-case {
+    margin-top: 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border-radius: calc(var(--radius-md) - 6px);
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+    padding: 0.88rem 0.92rem;
+  }
+
+  .secondary-kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .secondary-quote {
+    margin: 0.42rem 0 0;
+    color: var(--text);
+    font-size: 0.84rem;
+    line-height: 1.52;
+  }
+
+  .secondary-author {
+    margin: 0.46rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 600;
   }
 
   .case-content .btn {

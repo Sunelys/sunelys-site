@@ -92,9 +92,9 @@ export const proofSectionData = {
   testimonials: [
     {
       quote:
-        "Le pilotage des dossiers est devenu plus lisible. Les pièces, les statuts et les priorités sont mieux cadrés dès le départ, ce qui aide les équipes à absorber le volume sans multiplier les relances.",
-      author: "Un responsable opérations, groupe solaire Paca",
-      note: "Retour opérationnel recueilli auprès d'une équipe solaire.",
+        "Nous sommes ravis des services de Sunelys. Les dossiers sont cadrés sérieusement, les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
+      author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
+      note: "Témoignage publié avec l'accord de Damien Guillaume.",
     },
   ],
 };
@@ -336,15 +336,25 @@ export const portalSectionData = {
 };
 
 export const caseStudySectionData = {
-  kicker: "Impact opérationnel",
-  title: "Trois repères pour mesurer l'effet d'un pilotage administratif structuré.",
+  kicker: "Cas client",
+  title: "SUN WATT FRANCE : une gestion DP plus fluide, plus propre et plus rassurante.",
+  client: "Damien Guillaume, dirigeant - SUN WATT FRANCE",
+  context: "Témoignage nominatif validé pour publication",
   narrative:
-    "Sur un flux récurrent, l'objectif est de réduire la charge interne, d'absorber plus de dossiers et de rendre les délais administratifs plus prévisibles.",
+    "Pour SUN WATT FRANCE, la valeur perçue ne tient pas seulement à la délégation administrative. Elle tient aussi à la qualité des dépôts, à l'absence de pièces complémentaires sur les dossiers bien cadrés, et à la tranquillité d'esprit de savoir les démarches suivies sérieusement et en règle.",
   results: [
-    { value: "-30%", label: "de temps administratif mobilisé en interne" },
-    { value: "+20", label: "dossiers par mois traités avec un flux mieux cadré" },
-    { value: "2 jours", label: "pour transmettre une demande complète" },
+    { value: "DP accordées", label: "avec un très haut niveau de validation sur les dossiers cadrés" },
+    { value: "0 pièce", label: "complémentaire sur les dépôts correctement préparés" },
+    { value: "Esprit tranquille", label: "sur la conformité administrative et le suivi des démarches" },
   ],
+  note:
+    "Focus mis sur la qualité des dépôts et la sérénité opérationnelle plutôt que sur une simple baisse de charge interne.",
+  secondaryCase: {
+    title: "Autre retour terrain",
+    quote:
+      "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
+    author: "Victorion Brice - gérant, Be Travaux",
+  },
   cta: {
     label: "Parler de votre contexte",
     href: "/contact?source=cas-client",
