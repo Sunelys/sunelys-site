@@ -30,6 +30,14 @@ const { data } = Astro.props;
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
 
+    <div class="hero-signature" aria-label="Positionnement Sunelys">
+      <span class="signature-pill">Cadrage premium</span>
+      <p>
+        Une exécution administrative claire, rigoureuse et présentable pour des structures solaires qui veulent
+        inspirer confiance dès le premier dossier.
+      </p>
+    </div>
+
     <div class="portal-proof" aria-label="Portail client Sunelys">
       <ul class="proof-bar">
         {
@@ -55,67 +63,77 @@ const { data } = Astro.props;
 
     {
       data.leadForm ? (
-        <form
-          id="hero-lead-form"
-          class="hero-lead-form"
-          action={data.leadForm.action}
-          method="POST"
-        >
-          <input type="hidden" name="_subject" value="Nouveau cadrage gratuit - Hero Sunelys" />
-          <input type="hidden" name="_captcha" value="false" />
-          <input type="hidden" name="_template" value="table" />
-          <input type="hidden" name="_next" value={data.leadForm.successUrl} />
-          <input type="hidden" name="source_page" value="homepage_hero" />
-          <input type="hidden" name="lead_status" value="Nouveau lead" />
-          <input type="hidden" name="lead_pipeline" value="Site web - Cadrage gratuit" />
-          <input type="hidden" name="lead_owner" value="Sunelys commercial" />
-          <input type="hidden" name="follow_up_sla" value="24h" />
-          <input type="hidden" name="landing_page" data-hero-attribution="landing_page" />
-          <input type="hidden" name="first_referrer" data-hero-attribution="first_referrer" />
-          <input type="hidden" name="utm_source" data-hero-attribution="utm_source" />
-          <input type="hidden" name="utm_medium" data-hero-attribution="utm_medium" />
-          <input type="hidden" name="utm_campaign" data-hero-attribution="utm_campaign" />
-          <input type="hidden" name="utm_term" data-hero-attribution="utm_term" />
-          <input type="hidden" name="utm_content" data-hero-attribution="utm_content" />
-          <input type="hidden" name="gclid" data-hero-attribution="gclid" />
-
-          <div class="hero-form-fields">
-            <label>
-              <span>Prénom</span>
-              <input type="text" name="first_name" autocomplete="given-name" required />
-            </label>
-            <label>
-              <span>Email professionnel</span>
-              <input type="email" name="email" autocomplete="email" inputmode="email" required />
-            </label>
-            <label>
-              <span>Volume mensuel</span>
-              <select name="volume" required>
-                <option value="">Sélectionner</option>
-                <option value="1-10 dossiers">1-10 dossiers</option>
-                <option value="10-30 dossiers">10-30 dossiers</option>
-                <option value="+30 dossiers">+30 dossiers</option>
-              </select>
-            </label>
+        <div class="hero-intake-card">
+          <div class="hero-intake-head">
+            <p class="hero-intake-kicker">Échange de 15 minutes</p>
+            <p class="hero-intake-copy">
+              Décrivez votre volume et vos blocages. On vous revient avec un cadrage clair, sans jargon ni friction
+              inutile.
+            </p>
           </div>
 
-          <div class="hero-form-actions">
-            <button class="btn btn-primary" type="submit" data-track="cta_hero_lead_submit">
-              {data.leadForm.submitLabel}
-            </button>
-            <a
-              class="btn btn-secondary hero-secondary"
-              href={data.secondaryCta.href}
-              data-track={data.secondaryCta.track}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {data.secondaryCta.label}
-            </a>
-          </div>
+          <form
+            id="hero-lead-form"
+            class="hero-lead-form"
+            action={data.leadForm.action}
+            method="POST"
+          >
+            <input type="hidden" name="_subject" value="Nouveau cadrage gratuit - Hero Sunelys" />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <input type="hidden" name="_next" value={data.leadForm.successUrl} />
+            <input type="hidden" name="source_page" value="homepage_hero" />
+            <input type="hidden" name="lead_status" value="Nouveau lead" />
+            <input type="hidden" name="lead_pipeline" value="Site web - Cadrage gratuit" />
+            <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+            <input type="hidden" name="follow_up_sla" value="24h" />
+            <input type="hidden" name="landing_page" data-hero-attribution="landing_page" />
+            <input type="hidden" name="first_referrer" data-hero-attribution="first_referrer" />
+            <input type="hidden" name="utm_source" data-hero-attribution="utm_source" />
+            <input type="hidden" name="utm_medium" data-hero-attribution="utm_medium" />
+            <input type="hidden" name="utm_campaign" data-hero-attribution="utm_campaign" />
+            <input type="hidden" name="utm_term" data-hero-attribution="utm_term" />
+            <input type="hidden" name="utm_content" data-hero-attribution="utm_content" />
+            <input type="hidden" name="gclid" data-hero-attribution="gclid" />
 
-          <p class="hero-form-note">{data.leadForm.note}</p>
-        </form>
+            <div class="hero-form-fields">
+              <label>
+                <span>Prénom</span>
+                <input type="text" name="first_name" autocomplete="given-name" required />
+              </label>
+              <label>
+                <span>Email professionnel</span>
+                <input type="email" name="email" autocomplete="email" inputmode="email" required />
+              </label>
+              <label>
+                <span>Volume mensuel</span>
+                <select name="volume" required>
+                  <option value="">Sélectionner</option>
+                  <option value="1-10 dossiers">1-10 dossiers</option>
+                  <option value="10-30 dossiers">10-30 dossiers</option>
+                  <option value="+30 dossiers">+30 dossiers</option>
+                </select>
+              </label>
+            </div>
+
+            <div class="hero-form-actions">
+              <button class="btn btn-primary" type="submit" data-track="cta_hero_lead_submit">
+                {data.leadForm.submitLabel}
+              </button>
+              <a
+                class="btn btn-secondary hero-secondary"
+                href={data.secondaryCta.href}
+                data-track={data.secondaryCta.track}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {data.secondaryCta.label}
+              </a>
+            </div>
+
+            <p class="hero-form-note">{data.leadForm.note}</p>
+          </form>
+        </div>
       ) : (
         <div class="hero-actions">
           <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
@@ -146,6 +164,10 @@ const { data } = Astro.props;
         loading="eager"
         decoding="async"
       />
+      <div class="portal-caption">
+        <strong>Capture réelle du portail Sunelys</strong>
+        <span>Statuts, pièces, relances et prochaines actions centralisés dans une seule vue.</span>
+      </div>
     </a>
   </aside>
 </section>
@@ -215,6 +237,15 @@ const { data } = Astro.props;
       );
     box-shadow: var(--shadow-md);
     padding: clamp(1.45rem, 3vw, 2.7rem);
+  }
+
+  .hero-copy::after {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.46);
+    border-radius: calc(var(--radius-xl) - 14px);
+    pointer-events: none;
   }
 
   .hero-portal {
@@ -313,6 +344,37 @@ const { data } = Astro.props;
     text-wrap: pretty;
   }
 
+  .hero-signature {
+    margin-top: 1rem;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 60ch;
+  }
+
+  .hero-signature p {
+    margin: 0;
+    color: color-mix(in srgb, var(--text-muted) 92%, var(--text));
+    font-size: 0.92rem;
+    line-height: 1.58;
+  }
+
+  .signature-pill {
+    width: fit-content;
+    min-height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    padding: 0.32rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(239, 227, 201, 0.74));
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    box-shadow: 0 12px 30px rgba(20, 16, 10, 0.08);
+  }
+
   .portal-proof {
     margin: 1rem 0 0;
     display: grid;
@@ -342,6 +404,7 @@ const { data } = Astro.props;
     text-transform: none;
     font-weight: 650;
     line-height: 1.4;
+    box-shadow: 0 12px 28px rgba(20, 16, 10, 0.06);
   }
 
   .portal-demo-link {
@@ -368,8 +431,41 @@ const { data } = Astro.props;
     gap: 0.62rem;
   }
 
+  .hero-intake-card {
+    margin-top: 1.16rem;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border-radius: 24px;
+    background:
+      radial-gradient(120% 140% at 100% 0%, rgba(239, 227, 201, 0.52), transparent 58%),
+      rgba(255, 255, 255, 0.72);
+    box-shadow: 0 18px 44px rgba(20, 16, 10, 0.08);
+    padding: clamp(0.95rem, 1.8vw, 1.18rem);
+    backdrop-filter: blur(12px);
+  }
+
+  .hero-intake-head {
+    display: grid;
+    gap: 0.28rem;
+  }
+
+  .hero-intake-kicker {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .hero-intake-copy {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.52;
+  }
+
   .hero-lead-form {
-    margin-top: 1.12rem;
+    margin-top: 0.82rem;
     display: grid;
     gap: 0.72rem;
   }
@@ -431,7 +527,7 @@ const { data } = Astro.props;
   }
 
   .hero-form-note {
-    margin: -0.15rem 0 0;
+    margin: -0.1rem 0 0;
     color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.45;
@@ -439,6 +535,26 @@ const { data } = Astro.props;
 
   .hero-secondary {
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+  }
+
+  .portal-caption {
+    display: grid;
+    gap: 0.16rem;
+    margin-top: 0.72rem;
+    padding: 0 0.18rem 0.08rem;
+  }
+
+  .portal-caption strong {
+    color: var(--text);
+    font-size: 0.78rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .portal-caption span {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.5;
   }
 
   .cta-note {
@@ -490,6 +606,14 @@ const { data } = Astro.props;
       justify-content: center;
     }
 
+    .hero-signature {
+      margin-inline: auto;
+    }
+
+    .signature-pill {
+      margin-inline: auto;
+    }
+
     .portal-demo-link {
       margin-inline: auto;
     }
@@ -517,6 +641,10 @@ const { data } = Astro.props;
 
     .cta-note {
       text-align: center;
+    }
+
+    .portal-caption {
+      text-align: left;
     }
 
     .portal-chip {

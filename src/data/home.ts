@@ -34,10 +34,12 @@ export const heroData = {
     note: "Réponse sous 24h • Sans engagement",
   },
   proofs: [
-    "Demande complète sous 2 jours — DP, Consuel et raccordement centralisés dans votre portail dédié.",
+    "Réponse sous 24h ouvrées",
+    "DP, Consuel et raccordement pilotés dans un même flux",
+    "Suivi clair pour vos équipes et vos clients",
   ],
   portalDemo: {
-    label: "Voir une démo du portail →",
+    label: "Voir un aperçu du portail →",
     href: "/images/site/portal-overview-2026-04-23.png",
     track: "cta_hero_portal_demo",
   },
@@ -59,7 +61,7 @@ export const heroData = {
 
 export const proofSectionData = {
   kicker: "Preuve et réassurance",
-  title: "Des flux administratifs pilotés à grande échelle.",
+  title: "Une exécution administrative qui inspire confiance dès le premier regard.",
   logos: [
     {
       name: "Sunwatt France",
@@ -83,18 +85,18 @@ export const proofSectionData = {
     },
   ],
   trustNote:
-    "Des installateurs et structures solaires s'appuient sur Sunelys pour cadrer les pièces, suivre les statuts et garder une exécution administrative lisible.",
+    "Des installateurs et structures solaires s'appuient sur Sunelys pour cadrer leurs pièces, sécuriser les dépôts et offrir à leurs clients une expérience plus propre, plus fluide et plus rassurante.",
   metrics: [
-    { value: "+5000", label: "dossiers photovoltaïques pilotés" },
-    { value: "+50", label: "partenaires et installateurs accompagnés" },
-    { value: "2 jours", label: "pour transmettre une demande complète" },
+    { value: "+5000", label: "dossiers photovoltaïques pilotés avec traçabilité" },
+    { value: "+50", label: "partenaires et installateurs déjà accompagnés" },
+    { value: "2 jours", label: "pour cadrer une demande complète et exploitable" },
   ],
   testimonials: [
     {
       quote:
         "Nous sommes ravis des services de Sunelys. Les dossiers sont cadrés sérieusement, les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
       author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
-      note: "Témoignage publié avec l'accord de Damien Guillaume.",
+      note: "Témoignage nominatif publié avec accord.",
     },
   ],
 };
@@ -337,18 +339,18 @@ export const portalSectionData = {
 
 export const caseStudySectionData = {
   kicker: "Cas client",
-  title: "SUN WATT FRANCE : une gestion DP plus fluide, plus propre et plus rassurante.",
+  title: "SUN WATT FRANCE : une gestion DP plus nette, plus sereine et plus crédible face au client final.",
   client: "Damien Guillaume, dirigeant - SUN WATT FRANCE",
   context: "Témoignage nominatif validé pour publication",
   narrative:
-    "Pour SUN WATT FRANCE, la valeur perçue ne tient pas seulement à la délégation administrative. Elle tient aussi à la qualité des dépôts, à l'absence de pièces complémentaires sur les dossiers bien cadrés, et à la tranquillité d'esprit de savoir les démarches suivies sérieusement et en règle.",
+    "Pour SUN WATT FRANCE, la valeur perçue ne tient pas seulement à la délégation administrative. Elle tient à la qualité du cadrage, à l'absence de pièces complémentaires sur les dossiers bien préparés, et à la tranquillité d'esprit de savoir chaque démarche suivie avec rigueur.",
   results: [
-    { value: "DP accordées", label: "avec un très haut niveau de validation sur les dossiers cadrés" },
-    { value: "0 pièce", label: "complémentaire sur les dépôts correctement préparés" },
-    { value: "Esprit tranquille", label: "sur la conformité administrative et le suivi des démarches" },
+    { value: "DP accordées", label: "avec un très haut niveau de validation sur les dossiers bien cadrés" },
+    { value: "0 pièce", label: "complémentaire sur les dépôts proprement préparés" },
+    { value: "Esprit tranquille", label: "sur la conformité, le suivi et la qualité d'exécution" },
   ],
   note:
-    "Focus mis sur la qualité des dépôts et la sérénité opérationnelle plutôt que sur une simple baisse de charge interne.",
+    "Ici, la promesse n'est pas seulement un gain de temps. C'est une qualité d'exécution qui rassure autant l'installateur que son client final.",
   secondaryCase: {
     title: "Autre retour terrain",
     quote:

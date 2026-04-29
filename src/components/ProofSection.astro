@@ -26,74 +26,87 @@ interface Props {
 
 const { data } = Astro.props;
 const visibleLogos = data.logos.filter((logo) => logo.src);
+const spotlight = data.testimonials[0];
 ---
 
 <section class="section-shell proof-section reveal">
-  <div class="proof-top">
-    <div class="proof-head">
-      <p class="kicker">{data.kicker}</p>
-      <h2>{data.title}</h2>
-    </div>
-    <div class="trust-note" aria-label="Références clients">
-      <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
-    </div>
-  </div>
+  <div class="proof-shell">
+    <div class="proof-top">
+      <div class="proof-head">
+        <p class="kicker">{data.kicker}</p>
+        <h2>{data.title}</h2>
+      </div>
 
-  <div class="proof-layout">
-    <div class="metrics-panel">
+      <div class="trust-note" aria-label="Positionnement de confiance">
+        <span class="trust-tag">Structures déjà accompagnées</span>
+        <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
+      </div>
+    </div>
+
+    <div class="proof-stage">
       {
-        data.metrics.map((metric) => (
-          <article class="metric-card">
-            <p class="metric-value">{metric.value}</p>
-            <p class="metric-label">{metric.label}</p>
+        spotlight && (
+          <article class="proof-spotlight" aria-label="Témoignage client">
+            <p class="spotlight-kicker">Témoignage nominatif</p>
+            <span class="quote-mark" aria-hidden="true">“</span>
+            <p class="spotlight-quote">{spotlight.quote}</p>
+            <div class="spotlight-footer">
+              <strong>{spotlight.author}</strong>
+              <span>{spotlight.note}</span>
+            </div>
           </article>
-        ))
+        )
       }
-    </div>
 
-    <div class="cred-panel">
-      {
-        data.testimonials.map((testimonial) => (
-          <blockquote class="quote-box">
-            <p>"{testimonial.quote}"</p>
-            <cite>{testimonial.author}</cite>
-            <small>{testimonial.note}</small>
-          </blockquote>
-        ))
-      }
-    </div>
-  </div>
-
-  {
-    visibleLogos.length > 0 && (
-      <div class="logo-wall" aria-label="Partenaires Sunelys">
-        <p class="logo-eyebrow">Ils nous font déjà confiance</p>
-        <div class="logo-row">
+      <div class="proof-side">
+        <div class="metric-grid">
           {
-            visibleLogos.map((logo) => (
-              <article class="logo-slot" aria-label={logo.name}>
-                <img src={logo.src} alt={logo.name} loading="lazy" />
+            data.metrics.map((metric, index) => (
+              <article class:list={["metric-card", index === 0 && "is-featured"]}>
+                <p class="metric-value">{metric.value}</p>
+                <p class="metric-label">{metric.label}</p>
               </article>
             ))
           }
         </div>
+
+        {
+          visibleLogos.length > 0 && (
+            <div class="logo-wall" aria-label="Clients Sunelys">
+              <div class="logo-wall-head">
+                <p class="logo-eyebrow">Ils nous font déjà confiance</p>
+                <p class="logo-caption">Des marques déjà visibles, pas des promesses théoriques.</p>
+              </div>
+
+              <div class="logo-row">
+                {
+                  visibleLogos.map((logo) => (
+                    <article class="logo-slot" aria-label={logo.name}>
+                      <img src={logo.src} alt={logo.name} loading="lazy" />
+                    </article>
+                  ))
+                }
+              </div>
+            </div>
+          )
+        }
       </div>
-    )
-  }
+    </div>
+  </div>
 </section>
 
 <style>
   .proof-section {
     position: relative;
     overflow: hidden;
-    background:
-      radial-gradient(90% 110% at 0% 0%, rgba(239, 227, 201, 0.2), transparent 54%),
-      radial-gradient(80% 100% at 104% 24%, rgba(197, 165, 111, 0.18), transparent 58%),
-      linear-gradient(150deg, #1b1712, #0f0d0a 72%);
-    border: 1px solid color-mix(in srgb, var(--line) 38%, var(--accent));
+    padding: 0;
     border-radius: var(--radius-xl);
-    box-shadow: 0 34px 110px rgba(20, 16, 10, 0.2);
-    padding: clamp(1.35rem, 2.8vw, 2.35rem);
+    border: 1px solid color-mix(in srgb, var(--line) 38%, var(--accent));
+    background:
+      radial-gradient(85% 115% at 0% 0%, rgba(239, 227, 201, 0.18), transparent 56%),
+      radial-gradient(82% 110% at 100% 8%, rgba(197, 165, 111, 0.16), transparent 58%),
+      linear-gradient(154deg, #191510, #100d09 74%);
+    box-shadow: 0 38px 120px rgba(20, 16, 10, 0.22);
   }
 
   .proof-section::before {
@@ -101,25 +114,23 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     position: absolute;
     inset: 1rem;
     border: 1px solid rgba(255, 253, 247, 0.08);
-    border-radius: calc(var(--radius-xl) - 12px);
+    border-radius: calc(var(--radius-xl) - 14px);
     pointer-events: none;
   }
 
-  .proof-top {
+  .proof-shell {
     position: relative;
     z-index: 1;
+    padding: clamp(1.4rem, 3vw, 2.4rem);
     display: grid;
-    grid-template-columns: minmax(0, 0.76fr) minmax(300px, 1fr);
-    gap: clamp(1rem, 2.6vw, 2rem);
-    align-items: center;
+    gap: clamp(1rem, 2vw, 1.5rem);
   }
 
-  .proof-head h2 {
-    margin: 0.56rem 0 0;
-    max-width: 13ch;
-    color: #fffdf7;
-    font-size: clamp(2.05rem, 3.6vw, 3.75rem);
-    line-height: 0.94;
+  .proof-top {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.95fr);
+    gap: clamp(0.9rem, 2vw, 1.6rem);
+    align-items: end;
   }
 
   .kicker {
@@ -131,217 +142,281 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     letter-spacing: 0.16em;
   }
 
-  .logo-wall {
-    position: relative;
-    z-index: 1;
-    margin-top: clamp(1rem, 2vw, 1.35rem);
-    display: grid;
-    gap: 0.7rem;
+  .proof-head h2 {
+    margin: 0.56rem 0 0;
+    max-width: 11ch;
+    color: #fffdf7;
+    font-size: clamp(2.15rem, 3.8vw, 4.1rem);
+    line-height: 0.94;
+    text-wrap: balance;
   }
 
-  .logo-eyebrow {
+  .trust-note {
+    justify-self: end;
+    width: min(100%, 34rem);
+    border: 1px solid rgba(255, 253, 247, 0.14);
+    border-radius: 24px;
+    background: rgba(255, 253, 247, 0.06);
+    backdrop-filter: blur(16px);
+    padding: clamp(1rem, 2vw, 1.3rem);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .trust-tag {
+    display: inline-flex;
+    min-height: 1.9rem;
+    align-items: center;
+    padding: 0.24rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 253, 247, 0.14);
+    background: rgba(255, 253, 247, 0.07);
+    color: #fff3de;
+    font-size: 0.66rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+  .trust-note p {
+    margin: 0.72rem 0 0;
+    color: #f5edde;
+    font-size: clamp(0.98rem, 0.34vw + 0.9rem, 1.1rem);
+    line-height: 1.62;
+    font-weight: 600;
+  }
+
+  .proof-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    gap: clamp(0.95rem, 1.6vw, 1.2rem);
+    align-items: stretch;
+  }
+
+  .proof-spotlight {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--accent));
+    border-radius: 30px;
+    background:
+      radial-gradient(78% 120% at 100% 0%, rgba(239, 227, 201, 0.28), transparent 58%),
+      linear-gradient(180deg, #fffdfa, #fbf6ec);
+    padding: clamp(1.25rem, 2.3vw, 1.8rem);
+    box-shadow: 0 24px 60px rgba(13, 11, 8, 0.18);
+  }
+
+  .proof-spotlight::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(140deg, transparent 58%, rgba(197, 165, 111, 0.08) 100%);
+    pointer-events: none;
+  }
+
+  .spotlight-kicker {
+    position: relative;
+    z-index: 1;
     margin: 0;
-    color: #d5c8b4;
+    color: var(--text-muted);
     font-size: 0.68rem;
     font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .quote-mark {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    margin-top: 0.7rem;
+    color: color-mix(in srgb, var(--accent) 86%, #f2dbc0);
+    font-family: var(--font-display);
+    font-size: clamp(3.6rem, 5vw, 5.2rem);
+    line-height: 0.7;
+  }
+
+  .spotlight-quote {
+    position: relative;
+    z-index: 1;
+    margin: 0.28rem 0 0;
+    color: var(--text);
+    font-size: clamp(1.08rem, 0.58vw + 0.96rem, 1.28rem);
+    line-height: 1.62;
+    text-wrap: pretty;
+  }
+
+  .spotlight-footer {
+    position: relative;
+    z-index: 1;
+    margin-top: 1rem;
+    padding-top: 0.88rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 84%, white);
+    display: grid;
+    gap: 0.22rem;
+  }
+
+  .spotlight-footer strong {
+    color: var(--text);
+    font-size: 0.76rem;
     letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
+  .spotlight-footer span {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .proof-side {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.78rem;
+  }
+
+  .metric-card {
+    min-height: 10rem;
+    border: 1px solid rgba(255, 253, 247, 0.14);
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, rgba(255, 253, 247, 0.11), rgba(255, 253, 247, 0.045));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding: 1rem;
+    display: grid;
+    align-content: end;
+    gap: 0.48rem;
+  }
+
+  .metric-card.is-featured {
+    grid-column: 1 / -1;
+    min-height: 11.25rem;
+    background:
+      radial-gradient(110% 140% at 100% 0%, rgba(239, 227, 201, 0.18), transparent 56%),
+      linear-gradient(180deg, rgba(255, 253, 247, 0.14), rgba(255, 253, 247, 0.06));
+  }
+
+  .metric-value {
+    margin: 0;
+    color: #fffdf7;
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 2.9vw, 3.2rem);
+    line-height: 0.9;
+  }
+
+  .metric-label {
+    margin: 0;
+    color: #d5c8b4;
+    font-size: 0.84rem;
+    line-height: 1.46;
+    max-width: 21ch;
+  }
+
+  .logo-wall {
+    border: 1px solid rgba(255, 253, 247, 0.12);
+    border-radius: 24px;
+    background: rgba(255, 253, 247, 0.05);
+    padding: 1rem;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .logo-wall-head {
+    display: grid;
+    gap: 0.18rem;
+  }
+
+  .logo-eyebrow {
+    margin: 0;
+    color: #f0dfc0;
+    font-size: 0.67rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .logo-caption {
+    margin: 0;
+    color: #cfc1ad;
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
   .logo-row {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: clamp(0.55rem, 1vw, 0.8rem);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
   }
 
   .logo-slot {
-    min-height: clamp(4.35rem, 5.4vw, 5.25rem);
-    border: 1px solid color-mix(in srgb, #ffffff 72%, var(--accent));
+    min-height: 4.8rem;
+    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--accent));
     border-radius: 18px;
     background:
-      radial-gradient(100% 130% at 100% 0%, rgba(239, 227, 201, 0.36), transparent 62%),
+      radial-gradient(100% 130% at 100% 0%, rgba(239, 227, 201, 0.34), transparent 62%),
       #fffefa;
     display: grid;
     place-items: center;
-    text-align: center;
-    padding: 0.86rem 1.05rem;
-    overflow: hidden;
+    padding: 0.82rem 1rem;
     box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
-    transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  }
-
-  .trust-note {
-    border: 1px solid rgba(255, 253, 247, 0.16);
-    border-radius: 22px;
-    background: rgba(255, 253, 247, 0.07);
-    padding: clamp(1rem, 2vw, 1.35rem);
-    backdrop-filter: blur(16px);
-  }
-
-  .trust-note p {
-    margin: 0;
-    color: #f5edde;
-    font-size: clamp(0.96rem, 0.35vw + 0.88rem, 1.08rem);
-    line-height: 1.58;
-    font-weight: 650;
-  }
-
-  .logo-slot img {
-    display: block;
-    width: auto;
-    max-width: min(72%, 150px);
-    max-height: 42px;
-    object-fit: contain;
-  }
-
-  .logo-slot img[alt="Be Travaux"] {
-    max-width: 118px;
-    max-height: 38px;
-    transform: none;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
   }
 
   .logo-slot:hover,
   .logo-slot:focus-within {
     transform: translateY(-2px);
-    border-color: color-mix(in srgb, #ffffff 42%, var(--accent));
-    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
+    border-color: color-mix(in srgb, #ffffff 40%, var(--accent));
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
   }
 
-  .proof-layout {
-    position: relative;
-    z-index: 1;
-    margin-top: clamp(1rem, 2.2vw, 1.6rem);
-    display: grid;
-    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
-    gap: clamp(0.72rem, 1.2vw, 0.95rem);
-  }
-
-  .metrics-panel {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(0.55rem, 1vw, 0.78rem);
-  }
-
-  .metric-card {
-    min-height: clamp(7.4rem, 8.2vw, 8.7rem);
-    border: 1px solid rgba(255, 253, 247, 0.14);
-    border-radius: 20px;
-    background:
-      linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    padding: clamp(0.85rem, 1.4vw, 1rem);
-    display: grid;
-    place-items: center;
-    text-align: center;
-  }
-
-  .metric-value {
-    margin: 0;
-    font-family: var(--font-display);
-    color: #fffdf7;
-    font-size: clamp(2rem, 3vw, 3rem);
-    line-height: 0.9;
-  }
-
-  .metric-label {
-    margin: 0.45rem auto 0;
-    max-width: 18ch;
-    color: #d5c8b4;
-    font-size: 0.82rem;
-    line-height: 1.38;
-  }
-
-  .cred-panel {
-    border: 1px solid color-mix(in srgb, #ffffff 68%, var(--accent));
-    border-radius: 22px;
-    background:
-      radial-gradient(100% 120% at 100% 0%, rgba(239, 227, 201, 0.28), transparent 58%),
-      #fffdf8;
-    display: grid;
-    align-items: stretch;
-    padding: clamp(0.78rem, 1.5vw, 1rem);
-    box-shadow: 0 22px 52px rgba(0, 0, 0, 0.12);
-  }
-
-  .quote-box {
-    margin: 0;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
-    border-radius: 18px;
-    background: rgba(255, 255, 255, 0.72);
-    padding: clamp(1rem, 1.8vw, 1.28rem);
-    display: grid;
-    align-content: center;
-  }
-
-  .quote-box p {
-    margin: 0;
-    color: var(--text);
-    font-size: clamp(0.98rem, 0.55vw + 0.9rem, 1.16rem);
-    line-height: 1.5;
-  }
-
-  .quote-box cite {
-    display: inline-block;
-    margin-top: 0.9rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.13em;
-    text-transform: uppercase;
-    font-style: normal;
-    font-weight: 800;
-  }
-
-  .quote-box small {
+  .logo-slot img {
     display: block;
-    margin-top: 0.2rem;
-    color: var(--text-muted);
-    font-size: 0.68rem;
+    width: auto;
+    max-width: min(76%, 150px);
+    max-height: 40px;
+    object-fit: contain;
   }
 
-  @media (max-width: 960px) {
-    .proof-top {
+  .logo-slot img[alt="Be Travaux"] {
+    max-width: 118px;
+    max-height: 36px;
+  }
+
+  @media (max-width: 1080px) {
+    .proof-top,
+    .proof-stage {
       grid-template-columns: 1fr;
     }
 
-    .logo-row {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .proof-layout {
-      grid-template-columns: 1fr;
-    }
-
-    .metrics-panel {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .logo-slot img[alt="Be Travaux"] {
-      max-width: 104px;
+    .trust-note {
+      justify-self: stretch;
+      width: 100%;
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 760px) {
     .proof-head h2 {
       max-width: 11ch;
-      font-size: clamp(2.2rem, 12vw, 3.2rem);
+      font-size: clamp(2.3rem, 12vw, 3.25rem);
     }
 
-    .metrics-panel,
+    .metric-grid,
     .logo-row {
       grid-template-columns: 1fr;
     }
 
-    .metric-card {
+    .metric-card,
+    .metric-card.is-featured {
       min-height: auto;
     }
 
-    .logo-slot {
-      min-height: 4rem;
-      padding: 0.72rem;
-    }
-
-    .logo-slot img {
-      max-height: 32px;
+    .spotlight-quote {
+      font-size: 1rem;
     }
   }
 </style>
