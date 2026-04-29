@@ -93,7 +93,7 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     border: 1px solid color-mix(in srgb, var(--line) 38%, var(--accent));
     border-radius: var(--radius-xl);
     box-shadow: 0 34px 110px rgba(20, 16, 10, 0.2);
-    padding: clamp(1.35rem, 3vw, 2.6rem);
+    padding: clamp(1.35rem, 2.8vw, 2.35rem);
   }
 
   .proof-section::before {
@@ -109,17 +109,17 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
-    gap: clamp(1rem, 3vw, 2.2rem);
-    align-items: end;
+    grid-template-columns: minmax(0, 0.76fr) minmax(300px, 1fr);
+    gap: clamp(1rem, 2.6vw, 2rem);
+    align-items: center;
   }
 
   .proof-head h2 {
     margin: 0.56rem 0 0;
-    max-width: 12ch;
+    max-width: 13ch;
     color: #fffdf7;
-    font-size: clamp(2.1rem, 4.6vw, 4.4rem);
-    line-height: 0.9;
+    font-size: clamp(2.05rem, 3.6vw, 3.75rem);
+    line-height: 0.94;
   }
 
   .kicker {
@@ -151,11 +151,11 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   .logo-row {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.55rem;
+    gap: clamp(0.55rem, 1vw, 0.8rem);
   }
 
   .logo-slot {
-    min-height: clamp(4.2rem, 6vw, 5.8rem);
+    min-height: clamp(4.35rem, 5.4vw, 5.25rem);
     border: 1px solid color-mix(in srgb, #ffffff 72%, var(--accent));
     border-radius: 18px;
     background:
@@ -164,7 +164,8 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     display: grid;
     place-items: center;
     text-align: center;
-    padding: 0.82rem 1rem;
+    padding: 0.86rem 1.05rem;
+    overflow: hidden;
     box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
   }
@@ -186,13 +187,17 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   }
 
   .logo-slot img {
-    max-width: min(74%, 168px);
-    max-height: 46px;
+    display: block;
+    width: auto;
+    max-width: min(72%, 150px);
+    max-height: 42px;
     object-fit: contain;
   }
 
   .logo-slot img[alt="Be Travaux"] {
-    transform: scale(2.1);
+    max-width: 118px;
+    max-height: 38px;
+    transform: none;
   }
 
   .logo-slot:hover,
@@ -207,38 +212,40 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     z-index: 1;
     margin-top: clamp(1rem, 2.2vw, 1.6rem);
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-    gap: 0.72rem;
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(0.72rem, 1.2vw, 0.95rem);
   }
 
   .metrics-panel {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.58rem;
+    gap: clamp(0.55rem, 1vw, 0.78rem);
   }
 
   .metric-card {
-    min-height: 9rem;
+    min-height: clamp(7.4rem, 8.2vw, 8.7rem);
     border: 1px solid rgba(255, 253, 247, 0.14);
     border-radius: 20px;
     background:
       linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045));
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    padding: clamp(0.9rem, 1.6vw, 1.1rem);
+    padding: clamp(0.85rem, 1.4vw, 1rem);
     display: grid;
-    align-content: end;
+    place-items: center;
+    text-align: center;
   }
 
   .metric-value {
     margin: 0;
     font-family: var(--font-display);
     color: #fffdf7;
-    font-size: clamp(2.1rem, 3.3vw, 3.35rem);
+    font-size: clamp(2rem, 3vw, 3rem);
     line-height: 0.9;
   }
 
   .metric-label {
-    margin: 0.35rem 0 0;
+    margin: 0.45rem auto 0;
+    max-width: 18ch;
     color: #d5c8b4;
     font-size: 0.82rem;
     line-height: 1.38;
@@ -252,7 +259,7 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
       #fffdf8;
     display: grid;
     align-items: stretch;
-    padding: clamp(0.8rem, 1.8vw, 1.1rem);
+    padding: clamp(0.78rem, 1.5vw, 1rem);
     box-shadow: 0 22px 52px rgba(0, 0, 0, 0.12);
   }
 
@@ -261,7 +268,7 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     border: 1px solid color-mix(in srgb, var(--line) 72%, white);
     border-radius: 18px;
     background: rgba(255, 255, 255, 0.72);
-    padding: clamp(1rem, 2vw, 1.4rem);
+    padding: clamp(1rem, 1.8vw, 1.28rem);
     display: grid;
     align-content: center;
   }
@@ -269,8 +276,8 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   .quote-box p {
     margin: 0;
     color: var(--text);
-    font-size: clamp(1rem, 0.7vw + 0.9rem, 1.26rem);
-    line-height: 1.48;
+    font-size: clamp(0.98rem, 0.55vw + 0.9rem, 1.16rem);
+    line-height: 1.5;
   }
 
   .quote-box cite {
@@ -306,6 +313,10 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
 
     .metrics-panel {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .logo-slot img[alt="Be Travaux"] {
+      max-width: 104px;
     }
   }
 
