@@ -10,6 +10,9 @@ interface QuizData {
   title: string;
   question: string;
   options: QuizOption[];
+  leadForm: {
+    action: string;
+  };
   ctaLabel: string;
   ctaHref: string;
 }
@@ -27,52 +30,104 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   <h2>{data.title}</h2>
   <p class="question">{data.question}</p>
 
-  <div class="options" role="radiogroup" aria-label={data.question}>
-    {
-      data.options.map((option) => (
-        <button
-          type="button"
-          class="option"
-          data-volume={option.value}
-          data-track="quiz_option_click"
-          data-track-label={option.label}
-          aria-pressed="false"
-        >
-          {option.label}
-        </button>
-      ))
-    }
-  </div>
+  <div class="quiz-panel">
+    <div class="options" role="radiogroup" aria-label={data.question}>
+      {
+        data.options.map((option) => (
+          <button
+            type="button"
+            class="option"
+            data-volume={option.value}
+            data-track="quiz_option_click"
+            data-track-label={option.label}
+            aria-pressed="false"
+          >
+            {option.label}
+          </button>
+        ))
+      }
+    </div>
 
-  <div class="result" id="quiz-result" hidden>
-    <p id="quiz-message"></p>
-    <a id="quiz-cta" class="btn btn-primary" href={data.ctaHref} data-track="cta_quiz_estimation">
-      {data.ctaLabel}
-    </a>
+    <form id="quiz-email-form" class="email-step" action={data.leadForm.action} method="POST" hidden>
+      <input type="hidden" name="_subject" value="Nouveau lead quiz Sunelys" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="source_page" value="homepage_quiz" />
+      <input type="hidden" name="volume" id="quiz-volume-field" />
+      <input type="hidden" name="landing_page" data-quiz-attribution="landing_page" />
+      <input type="hidden" name="first_referrer" data-quiz-attribution="first_referrer" />
+      <input type="hidden" name="utm_source" data-quiz-attribution="utm_source" />
+      <input type="hidden" name="utm_medium" data-quiz-attribution="utm_medium" />
+      <input type="hidden" name="utm_campaign" data-quiz-attribution="utm_campaign" />
+      <input type="hidden" name="utm_term" data-quiz-attribution="utm_term" />
+      <input type="hidden" name="utm_content" data-quiz-attribution="utm_content" />
+      <input type="hidden" name="gclid" data-quiz-attribution="gclid" />
+
+      <label>
+        <span>Votre email pour recevoir le cadrage personnalisé</span>
+        <input id="quiz-email-field" type="email" name="email" autocomplete="email" inputmode="email" required />
+      </label>
+      <button class="btn btn-primary" type="submit" data-track="cta_quiz_email_submit">
+        Voir mon cadrage
+      </button>
+      <p class="email-note" id="quiz-email-status" aria-live="polite">
+        Réponse sous 24h. Calendly reste optionnel après le résultat.
+      </p>
+    </form>
+
+    <div class="result" id="quiz-result" hidden>
+      <p id="quiz-message"></p>
+      <a id="quiz-cta" class="btn btn-secondary" href={data.ctaHref} data-track="cta_quiz_calendly" target="_blank" rel="noreferrer">
+        {data.ctaLabel}
+      </a>
+    </div>
   </div>
 </section>
 
 <script define:vars={{ messages, ctaHref: data.ctaHref }}>
   const quizButtons = document.querySelectorAll("[data-volume]");
+  const quizEmailForm = document.querySelector("#quiz-email-form");
+  const quizEmailStatus = document.querySelector("#quiz-email-status");
+  const quizVolumeField = document.querySelector("#quiz-volume-field");
   const quizResult = document.querySelector("#quiz-result");
   const quizMessage = document.querySelector("#quiz-message");
   const quizCta = document.querySelector("#quiz-cta");
+  let selectedQuizVolume = "";
 
-  const setQuizValue = (value) => {
+  if (quizEmailForm instanceof HTMLFormElement) {
+    const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+    quizEmailForm.querySelectorAll("[data-quiz-attribution]").forEach((field) => {
+      if (!(field instanceof HTMLInputElement)) return;
+      const key = field.dataset.quizAttribution || "";
+      field.value = attribution[key] || "";
+    });
+  }
+
+  const showQuizResult = (value) => {
     const message = messages[value];
     if (!message || !quizResult || !quizMessage || !quizCta) return;
 
+    quizMessage.textContent = message;
+    const ctaUrl = new URL(ctaHref, window.location.origin);
+    ctaUrl.searchParams.set("volume", value);
+    quizCta.setAttribute("href", ctaUrl.toString());
+    quizResult.hidden = false;
+  };
+
+  const setQuizValue = (value) => {
+    const message = messages[value];
+    if (!message || !quizEmailForm || !(quizEmailForm instanceof HTMLFormElement)) return;
+
+    selectedQuizVolume = value;
     quizButtons.forEach((button) => {
       button.setAttribute("aria-pressed", button.dataset.volume === value ? "true" : "false");
     });
 
     localStorage.setItem("sunelys_volume_range", value);
-    quizMessage.textContent = message;
-    const ctaUrl = new URL(ctaHref, window.location.origin);
-    ctaUrl.searchParams.set("volume", value);
-    quizCta.setAttribute("href", `${ctaUrl.pathname}${ctaUrl.search}`);
-    quizResult.hidden = false;
-
+    if (quizVolumeField instanceof HTMLInputElement) quizVolumeField.value = value;
+    quizEmailForm.hidden = false;
+    quizResult.hidden = true;
+    quizEmailForm.querySelector("input[type='email']")?.focus();
     if (window.trackEvent) {
       window.trackEvent("quiz_volume_selected", { category: "quiz", volume: value, label: value });
     }
@@ -83,6 +138,44 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       setQuizValue(button.dataset.volume);
     });
   });
+
+  if (quizEmailForm instanceof HTMLFormElement) {
+    quizEmailForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (!selectedQuizVolume) return;
+
+      const submitButton = quizEmailForm.querySelector("button[type='submit']");
+      if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+      if (quizEmailStatus) quizEmailStatus.textContent = "Envoi du cadrage en cours...";
+
+      const formData = new FormData(quizEmailForm);
+      try {
+        const response = await fetch(quizEmailForm.action, {
+          method: "POST",
+          body: formData,
+          headers: { Accept: "application/json" },
+        });
+        if (!response.ok) throw new Error("Lead submit failed");
+        if (window.trackEvent) {
+          window.trackEvent("lead_quiz_email_submit", {
+            category: "form",
+            volume: selectedQuizVolume,
+            label: "Quiz email capture",
+            source: "homepage_quiz",
+          });
+        }
+        quizEmailForm.hidden = true;
+        showQuizResult(selectedQuizVolume);
+      } catch (_error) {
+        if (quizEmailStatus) {
+          quizEmailStatus.textContent =
+            "L'envoi n'a pas abouti. Vous pouvez réessayer ou passer par le formulaire de contact.";
+        }
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+      }
+    });
+  }
 </script>
 
 <style>
@@ -127,8 +220,13 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     color: var(--color-muted);
   }
 
-  .options {
+  .quiz-panel {
     margin-top: 0;
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .options {
     display: flex;
     flex-wrap: wrap;
     gap: 0.58rem;
@@ -154,8 +252,67 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     transform: translateY(-1px);
   }
 
+  .email-step {
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--color-bg-elevated) 84%, white);
+    padding: 0.75rem;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .email-step[hidden],
+  .result[hidden] {
+    display: none;
+  }
+
+  .email-step label {
+    display: grid;
+    gap: 0.4rem;
+    color: var(--color-text-strong);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .email-step input {
+    min-height: 2.85rem;
+    border: 1px solid color-mix(in srgb, var(--color-hairline) 82%, var(--color-accent));
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--color-surface) 92%, white);
+    color: var(--color-text-strong);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.72rem 0.82rem;
+    outline: none;
+  }
+
+  .email-step input:focus-visible {
+    border-color: color-mix(in srgb, var(--color-accent) 82%, var(--color-text-strong));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-cream) 72%, transparent);
+  }
+
+  .email-step .btn {
+    width: fit-content;
+  }
+
+  .email-step .btn:disabled {
+    cursor: wait;
+    opacity: 0.72;
+  }
+
+  .email-note {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: var(--step--1);
+    line-height: 1.45;
+  }
+
   .result {
-    grid-column: 1 / -1;
     margin-top: 0;
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-md);
@@ -193,6 +350,11 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     }
 
     .result .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .email-step .btn {
       width: 100%;
       justify-content: center;
     }

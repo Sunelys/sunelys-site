@@ -1,4 +1,6 @@
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
+const leadSuccessUrl = "https://sunelys.fr/merci?source=hero-lead";
 
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque France | Sunelys",
@@ -16,20 +18,29 @@ export const heroData = {
   subtitle:
     "Sunelys accompagne les installateurs et équipes solaires qui veulent déléguer l'administratif sans perdre la visibilité sur leurs dossiers. Nous cadrons, suivons et pilotons DP, Consuel et raccordement en France.",
   primaryCta: {
-    label: "Reserver un audit de 15 min",
-    href: bookingUrl,
-    track: "cta_hero_primary",
+    label: "Recevoir un cadrage gratuit",
+    href: "#hero-lead-form",
+    track: "cta_hero_form_focus",
   },
   secondaryCta: {
-    label: "Décrire mon besoin",
-    href: "/contact?source=hero-form#contact-form",
-    track: "cta_hero_secondary",
+    label: "Réserver un audit Calendly",
+    href: bookingUrl,
+    track: "cta_hero_calendly_secondary",
+  },
+  leadForm: {
+    action: leadFormAction,
+    successUrl: leadSuccessUrl,
+    submitLabel: "Recevoir un cadrage gratuit",
+    note: "Réponse sous 24h • Sans engagement",
   },
   proofs: [
-    "+5000 dossiers photovoltaïques pilotés",
-    "+50 partenaires actifs",
-    "Reponse sous 24h ouvrées",
+    "Pilotage en temps réel via votre portail dédié — DP, Consuel, raccordement centralisés.",
   ],
+  portalDemo: {
+    label: "Voir une démo du portail →",
+    href: "/images/site/portal-overview-2026-04-23.png",
+    track: "cta_hero_portal_demo",
+  },
   ctaNote: "Audit de cadrage sans engagement pour qualifier votre volume, vos blocages et le périmètre à déléguer.",
   preview: {
     variant: "full",
@@ -81,15 +92,9 @@ export const proofSectionData = {
   testimonials: [
     {
       quote:
-        "Sunelys nous apporte un vrai relais administratif sur nos dossiers photovoltaïques. Le suivi est clair, les échanges sont professionnels et nos équipes gagnent en fluidité.",
-      author: "SUNWATT France",
-      note: "Avis publié avec accord de la société.",
-    },
-    {
-      quote:
-        "Le pilotage des dossiers est devenu plus lisible : les pièces, les statuts et les priorités sont mieux cadrés dès le départ.",
-      author: "Responsable opérations - Groupe régional photovoltaïque",
-      note: "Témoignage anonymisé. Référence nominative à remplacer après accord écrit.",
+        "Le pilotage des dossiers est devenu plus lisible. Les pièces, les statuts et les priorités sont mieux cadrés dès le départ, ce qui aide les équipes à absorber le volume sans multiplier les relances.",
+      author: "Un responsable opérations, groupe solaire Paca",
+      note: "Retour opérationnel recueilli auprès d'une équipe solaire.",
     },
   ],
 };
@@ -147,8 +152,8 @@ export const solutionSectionData = {
     },
   ],
   cta: {
-    label: "Reserver un audit de 15 min",
-    href: bookingUrl,
+    label: "Recevoir un cadrage gratuit",
+    href: "/contact?source=solution#contact-form",
     track: "cta_solution",
   },
 };
@@ -181,8 +186,8 @@ export const benefitsSectionData = {
     },
   ],
   cta: {
-    label: "Reserver un audit de 15 min",
-    href: bookingUrl,
+    label: "Recevoir un cadrage gratuit",
+    href: "/contact?source=benefices#contact-form",
     track: "cta_benefits",
   },
 };
@@ -209,8 +214,8 @@ export const audienceSectionData = {
   note:
     "Le bon moment pour nous parler : quand les relances, les pièces manquantes ou le volume commencent à grignoter le temps commercial et opérationnel.",
   cta: {
-    label: "Reserver un audit de 15 min",
-    href: bookingUrl,
+    label: "Recevoir un cadrage gratuit",
+    href: "/contact?source=audience#contact-form",
     track: "cta_audience_primary",
   },
 };
@@ -239,8 +244,11 @@ export const quizSectionData = {
         "Votre enjeu est l'industrialisation : priorisation, visibilité, qualité documentaire et capacité à absorber le flux sans surcharge interne.",
     },
   ],
-  ctaLabel: "Recevoir un cadrage adapté",
-  ctaHref: "/contact?source=quiz",
+  leadForm: {
+    action: leadFormAction,
+  },
+  ctaLabel: "Réserver un audit Calendly en option",
+  ctaHref: bookingUrl,
 };
 
 export const processSectionData = {
@@ -328,26 +336,19 @@ export const portalSectionData = {
 };
 
 export const caseStudySectionData = {
-  kicker: "Cas client",
-  title: "Industrialiser les dossiers sans dégrader la qualité d'expérience client.",
-  client: "Installateur multi-agences (anonymisé)",
-  context: "Volume moyen: 20+ dossiers/mois",
+  kicker: "Impact opérationnel",
+  title: "Trois repères pour mesurer l'effet d'un pilotage administratif structuré.",
   narrative:
-    "Après déploiement du pilotage Sunelys, l'équipe a réduit les points de blocage administratifs et sécurisé ses délais de mise en service.",
+    "Sur un flux récurrent, l'objectif est de réduire la charge interne, d'absorber plus de dossiers et de rendre les délais administratifs plus prévisibles.",
   results: [
-    { value: "Moins de retours", label: "dossiers plus complets dès l'envoi" },
-    { value: "Plus de visibilité", label: "suivi unifié pour les équipes internes" },
-    { value: "Charge allégée", label: "temps commercial recentré sur la vente" },
+    { value: "-30%", label: "de temps administratif mobilisé en interne" },
+    { value: "+20", label: "dossiers par mois traités avec un flux mieux cadré" },
+    { value: "2 jours", label: "pour transmettre une demande complète" },
   ],
-  note: "Cas anonymisé en attente de remplacement par une référence validée.",
   cta: {
     label: "Parler de votre contexte",
     href: "/contact?source=cas-client",
     track: "cta_case_study",
-  },
-  image: {
-    src: "/images/site/case-study-placeholder.svg",
-    alt: "Synthèse visuelle d'un cas client Sunelys avec indicateurs et flux administratif.",
   },
 };
 
@@ -392,31 +393,31 @@ export const faqSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Passage à l'action",
-  title: "Reservez un audit de 15 minutes pour cadrer vos flux administratifs.",
+  title: "Recevez un cadrage gratuit pour vos flux administratifs.",
   text:
-    "En 15 minutes, vous repartez avec une lecture plus claire de vos blocages, du volume réel à absorber et du périmètre à déléguer en priorité.",
+    "Transmettez votre volume et vos blocages : nous revenons vers vous avec une lecture claire du périmètre à déléguer en priorité.",
   primaryCta: {
-    label: "Reserver un audit de 15 min",
-    href: bookingUrl,
-    track: "cta_final_primary",
+    label: "Recevoir un cadrage gratuit",
+    href: "/contact?source=final#contact-form",
+    track: "cta_final_form_primary",
   },
   secondaryCta: {
-    label: "Remplir le formulaire",
-    href: "/contact?source=formulaire-final#contact-form",
-    track: "cta_final_secondary",
+    label: "Réserver un audit Calendly en option",
+    href: bookingUrl,
+    track: "cta_final_calendar_secondary",
   },
   contactPoints: [
-    {
-      label: "Audit",
-      value: "15 minutes de cadrage",
-      href: bookingUrl,
-      track: "cta_final_calendar",
-    },
     {
       label: "Formulaire",
       value: "Reponse sous 24h ouvrées",
       href: "/contact?source=formulaire-final#contact-form",
       track: "cta_final_form",
+    },
+    {
+      label: "Calendly",
+      value: "Créneau optionnel après cadrage",
+      href: bookingUrl,
+      track: "cta_final_calendar",
     },
     {
       label: "Téléphone",

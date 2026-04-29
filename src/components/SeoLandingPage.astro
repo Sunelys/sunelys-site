@@ -20,6 +20,11 @@ interface InternalLink {
   label: string;
 }
 
+interface DetailBlock {
+  title: string;
+  text: string;
+}
+
 interface SeoPageContent {
   slug: string;
   heroTitle: string;
@@ -28,6 +33,7 @@ interface SeoPageContent {
   problemIntro: string;
   problemItems: ProblemItem[];
   scopeItems: string[];
+  detailBlocks?: DetailBlock[];
   processSteps: string[];
   caseStudy: CaseStudyData;
   faqItems: FaqItem[];
@@ -41,6 +47,8 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
+const successUrl = `https://sunelys.fr/merci?source=${data.slug}_service_form`;
 
 const heroBadges = [
   "Pour installateurs photovoltaïques",
@@ -128,6 +136,23 @@ const delegationSignals = [
   </div>
 </section>
 
+{
+  data.detailBlocks && data.detailBlocks.length > 0 && (
+    <section class="seo-section seo-details section-shell reveal">
+      <p class="kicker">À prévoir</p>
+      <h2>Documents, délais et erreurs à éviter</h2>
+      <div class="details-grid">
+        {data.detailBlocks.map((block) => (
+          <article class="detail-card">
+            <h3>{block.title}</h3>
+            <p>{block.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 <section class="seo-section seo-process section-shell reveal">
   <p class="kicker">Process</p>
   <h2>Une exécution claire en 4 étapes</h2>
@@ -192,9 +217,35 @@ const delegationSignals = [
 <section class="seo-section seo-final section-shell reveal">
   <h2>{data.finalTitle}</h2>
   <p>{data.finalText}</p>
-  <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_final`}>
-    Recevoir un cadrage
-  </a>
+  <form class="service-lead-form" action={leadFormAction} method="POST">
+    <input type="hidden" name="_subject" value={`Nouveau cadrage service - ${data.heroTitle}`} />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value={successUrl} />
+    <input type="hidden" name="source_page" value={data.slug} />
+
+    <label>
+      <span>Prénom</span>
+      <input type="text" name="first_name" autocomplete="given-name" required />
+    </label>
+    <label>
+      <span>Email professionnel</span>
+      <input type="email" name="email" autocomplete="email" inputmode="email" required />
+    </label>
+    <label>
+      <span>Volume mensuel</span>
+      <select name="volume" required>
+        <option value="">Sélectionner</option>
+        <option value="1-10 dossiers">1-10 dossiers</option>
+        <option value="10-30 dossiers">10-30 dossiers</option>
+        <option value="+30 dossiers">+30 dossiers</option>
+      </select>
+    </label>
+    <button class="btn btn-primary" type="submit" data-track={`cta_${data.slug}_final_form`}>
+      Recevoir un cadrage
+    </button>
+    <small>Réponse sous 24h • Sans engagement</small>
+  </form>
 </section>
 
 <style>
@@ -305,6 +356,7 @@ const delegationSignals = [
   }
 
   .problem-grid,
+  .details-grid,
   .faq-grid,
   .signal-grid {
     margin-top: 0.9rem;
@@ -314,6 +366,7 @@ const delegationSignals = [
   }
 
   .problem-card,
+  .detail-card,
   .faq-card,
   .scope-panel,
   .signal-grid p {
@@ -323,6 +376,18 @@ const delegationSignals = [
     padding: 0.85rem;
     display: grid;
     gap: 0.45rem;
+  }
+
+  .seo-details h2 {
+    max-width: 22ch;
+  }
+
+  .details-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .detail-card {
+    align-content: start;
   }
 
   .split-head {
@@ -459,8 +524,56 @@ const delegationSignals = [
     margin-top: 1rem;
   }
 
+  .service-lead-form {
+    margin: 1rem auto 0;
+    max-width: 860px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    gap: 0.62rem;
+    align-items: end;
+  }
+
+  .service-lead-form label {
+    display: grid;
+    gap: 0.34rem;
+    text-align: left;
+    color: #f7f2e8;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .service-lead-form input,
+  .service-lead-form select {
+    width: 100%;
+    min-height: 2.75rem;
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    border-radius: 14px;
+    background: #fffdfa;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.7rem 0.78rem;
+  }
+
+  .service-lead-form .btn {
+    margin-top: 0;
+    white-space: nowrap;
+  }
+
+  .service-lead-form small {
+    grid-column: 1 / -1;
+    color: #d9cfbf;
+    font-size: 0.78rem;
+  }
+
   @media (max-width: 900px) {
     .problem-grid,
+    .details-grid,
     .faq-grid,
     .signal-grid,
     .scope-layout,
@@ -473,6 +586,10 @@ const delegationSignals = [
     .seo-delegation .btn,
     .seo-final .btn {
       width: 100%;
+    }
+
+    .service-lead-form {
+      grid-template-columns: 1fr;
     }
   }
 </style>

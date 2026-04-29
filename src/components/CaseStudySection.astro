@@ -10,11 +10,11 @@ interface Props {
   data: {
     kicker: string;
     title: string;
-    client: string;
-    context: string;
+    client?: string;
+    context?: string;
     narrative: string;
     results: ResultItem[];
-    note: string;
+    note?: string;
     cta: {
       label: string;
       href: string;
@@ -34,10 +34,10 @@ const { data } = Astro.props;
   <div class="case-content">
     <p class="kicker">{data.kicker}</p>
     <h2>{data.title}</h2>
-    <p class="client">{data.client}</p>
-    <p class="context">{data.context}</p>
+    {data.client && <p class="client">{data.client}</p>}
+    {data.context && <p class="context">{data.context}</p>}
     <p class="narrative">{data.narrative}</p>
-    <p class="note">{data.note}</p>
+    {data.note && <p class="note">{data.note}</p>}
     <a class="btn btn-secondary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
   </div>
 

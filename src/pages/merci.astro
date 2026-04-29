@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 ---
 
 <BaseLayout
@@ -14,9 +16,16 @@ import BaseLayout from "../layouts/BaseLayout.astro";
       Nous revenons vers vous rapidement pour cadrer votre besoin et voir si Sunelys peut
       absorber votre flux administratif.
     </p>
+    <p class="intro">
+      Si vous souhaitez avancer plus vite, vous pouvez aussi choisir un créneau Calendly.
+      C'est optionnel : votre demande a déjà bien été envoyée.
+    </p>
 
     <div class="actions">
       <a class="btn btn-primary" href="/services">Voir les services</a>
+      <a class="btn btn-secondary" href={bookingUrl} target="_blank" rel="noreferrer">
+        Réserver un créneau optionnel
+      </a>
       <a class="btn btn-secondary" href="/contact">Envoyer une autre demande</a>
     </div>
   </section>

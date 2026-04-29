@@ -135,7 +135,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
   <body style={brandingVars} data-branding-intensity={BRANDING_INTENSITY}>
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref={bookingUrl} ctaLabel="Réserver un audit de 15 min" />
+    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header#contact-form" ctaLabel="Recevoir un cadrage" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">
@@ -148,8 +148,8 @@ const allSchemas = [...baseSchemas, ...structuredData];
     {
       path !== "/merci" && (
         <div class="sticky-lead-bar" aria-label="Actions rapides de contact">
-          <a class="sticky-lead-primary" href={bookingUrl} data-track="cta_sticky_booking">
-            Réserver 15 min
+          <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
+            Recevoir un cadrage
           </a>
           <a class="sticky-lead-secondary" href="tel:+33695907919" data-track="cta_sticky_phone">
             Appeler

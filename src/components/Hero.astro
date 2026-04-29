@@ -13,7 +13,14 @@ interface HeroData {
   subtitle: string;
   primaryCta: { label: string; href: string; track: string };
   secondaryCta: { label: string; href: string; track: string };
+  leadForm?: {
+    action: string;
+    successUrl: string;
+    submitLabel: string;
+    note: string;
+  };
   proofs: string[];
+  portalDemo?: { label: string; href: string; track: string };
   ctaNote?: string;
   preview: {
     label: string;
@@ -39,28 +46,127 @@ const { data } = Astro.props;
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
 
-    <ul class="proof-bar" aria-label="Preuves clés Sunelys">
+    <div class="portal-proof" aria-label="Portail client Sunelys">
+      <ul class="proof-bar">
+        {
+          data.proofs.map((proof) => (
+            <li>{proof}</li>
+          ))
+        }
+      </ul>
       {
-        data.proofs.map((proof) => (
-          <li>{proof}</li>
-        ))
+        data.portalDemo && (
+          <a
+            class="portal-demo-link"
+            href={data.portalDemo.href}
+            data-track={data.portalDemo.track}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {data.portalDemo.label}
+          </a>
+        )
       }
-    </ul>
-
-    <div class="hero-actions">
-      <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
-        {data.primaryCta.label}
-      </a>
-      <a class="btn btn-secondary hero-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
-        {data.secondaryCta.label}
-      </a>
     </div>
+
+    {
+      data.leadForm ? (
+        <form
+          id="hero-lead-form"
+          class="hero-lead-form"
+          action={data.leadForm.action}
+          method="POST"
+        >
+          <input type="hidden" name="_subject" value="Nouveau cadrage gratuit - Hero Sunelys" />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value={data.leadForm.successUrl} />
+          <input type="hidden" name="source_page" value="homepage_hero" />
+          <input type="hidden" name="landing_page" data-hero-attribution="landing_page" />
+          <input type="hidden" name="first_referrer" data-hero-attribution="first_referrer" />
+          <input type="hidden" name="utm_source" data-hero-attribution="utm_source" />
+          <input type="hidden" name="utm_medium" data-hero-attribution="utm_medium" />
+          <input type="hidden" name="utm_campaign" data-hero-attribution="utm_campaign" />
+          <input type="hidden" name="utm_term" data-hero-attribution="utm_term" />
+          <input type="hidden" name="utm_content" data-hero-attribution="utm_content" />
+          <input type="hidden" name="gclid" data-hero-attribution="gclid" />
+
+          <div class="hero-form-fields">
+            <label>
+              <span>Prénom</span>
+              <input type="text" name="first_name" autocomplete="given-name" required />
+            </label>
+            <label>
+              <span>Email professionnel</span>
+              <input type="email" name="email" autocomplete="email" inputmode="email" required />
+            </label>
+            <label>
+              <span>Volume mensuel</span>
+              <select name="volume" required>
+                <option value="">Sélectionner</option>
+                <option value="1-10 dossiers">1-10 dossiers</option>
+                <option value="10-30 dossiers">10-30 dossiers</option>
+                <option value="+30 dossiers">+30 dossiers</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="hero-form-actions">
+            <button class="btn btn-primary" type="submit" data-track="cta_hero_lead_submit">
+              {data.leadForm.submitLabel}
+            </button>
+            <a
+              class="btn btn-secondary hero-secondary"
+              href={data.secondaryCta.href}
+              data-track={data.secondaryCta.track}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {data.secondaryCta.label}
+            </a>
+          </div>
+
+          <p class="hero-form-note">{data.leadForm.note}</p>
+        </form>
+      ) : (
+        <div class="hero-actions">
+          <a class="btn btn-primary" href={data.primaryCta.href} data-track={data.primaryCta.track}>
+            {data.primaryCta.label}
+          </a>
+          <a class="btn btn-secondary hero-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
+            {data.secondaryCta.label}
+          </a>
+        </div>
+      )
+    }
 
     {data.ctaNote && <p class="cta-note">{data.ctaNote}</p>}
   </div>
 
   <HeroProductMockup data={data.preview} variant={data.preview.variant ?? "full"} />
 </section>
+
+<script>
+  const heroLeadForm = document.querySelector("#hero-lead-form");
+  if (heroLeadForm instanceof HTMLFormElement) {
+    const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+    heroLeadForm.querySelectorAll("[data-hero-attribution]").forEach((field) => {
+      if (!(field instanceof HTMLInputElement)) return;
+      const key = field.dataset.heroAttribution || "";
+      field.value = attribution[key] || "";
+    });
+
+    heroLeadForm.addEventListener("submit", () => {
+      const formData = new FormData(heroLeadForm);
+      window.trackEvent?.("lead_hero_form_submit", {
+        category: "form",
+        label: "Recevoir un cadrage gratuit",
+        volume: String(formData.get("volume") || ""),
+        source: "homepage_hero",
+      });
+    });
+  }
+</script>
 
 <style>
   .hero {
@@ -135,8 +241,14 @@ const { data } = Astro.props;
     text-wrap: pretty;
   }
 
-  .proof-bar {
+  .portal-proof {
     margin: 1rem 0 0;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .proof-bar {
+    margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -149,15 +261,32 @@ const { data } = Astro.props;
     align-items: center;
     min-height: 2.3rem;
     padding: 0.46rem 0.8rem;
-    border-radius: 999px;
+    border-radius: 16px;
     border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
     background: color-mix(in srgb, var(--surface-elevated) 86%, white);
     color: var(--text);
-    font-size: 0.7rem;
-    letter-spacing: 0.09em;
-    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 650;
+    line-height: 1.4;
+  }
+
+  .portal-demo-link {
+    width: fit-content;
+    color: var(--text);
+    font-size: 0.84rem;
     font-weight: 700;
-    line-height: 1.2;
+    text-decoration: none;
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 70%, var(--text));
+    padding-bottom: 0.08rem;
+    transition: color 170ms ease, border-color 170ms ease;
+  }
+
+  .portal-demo-link:hover,
+  .portal-demo-link:focus-visible {
+    color: color-mix(in srgb, var(--text) 76%, var(--accent));
+    border-color: currentColor;
   }
 
   .hero-actions {
@@ -165,6 +294,75 @@ const { data } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     gap: 0.62rem;
+  }
+
+  .hero-lead-form {
+    margin-top: 1.12rem;
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .hero-form-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.62rem;
+  }
+
+  .hero-lead-form label {
+    display: grid;
+    gap: 0.35rem;
+    min-width: 0;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-lead-form input,
+  .hero-lead-form select {
+    width: 100%;
+    min-height: 2.85rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, var(--accent));
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    color: var(--text);
+    font: inherit;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.72rem 0.82rem;
+    box-shadow: 0 8px 24px rgba(20, 16, 10, 0.04);
+    outline: none;
+  }
+
+  .hero-lead-form input:focus-visible,
+  .hero-lead-form select:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 82%, var(--text));
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-soft) 72%, transparent);
+  }
+
+  .hero-form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.62rem;
+    align-items: center;
+  }
+
+  .hero-form-actions .btn {
+    min-height: 2.9rem;
+  }
+
+  .hero-form-actions button {
+    cursor: pointer;
+  }
+
+  .hero-form-note {
+    margin: -0.15rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.45;
   }
 
   .hero-secondary {
@@ -202,8 +400,13 @@ const { data } = Astro.props;
       margin-inline: auto;
     }
 
+    .portal-proof,
     .proof-bar {
       justify-content: center;
+    }
+
+    .portal-demo-link {
+      margin-inline: auto;
     }
 
     .hero-actions {
@@ -211,6 +414,19 @@ const { data } = Astro.props;
     }
 
     .hero-actions .btn {
+      width: 100%;
+    }
+
+    .hero-form-fields {
+      grid-template-columns: 1fr;
+      text-align: left;
+    }
+
+    .hero-form-actions {
+      justify-content: center;
+    }
+
+    .hero-form-actions .btn {
       width: 100%;
     }
 

@@ -13,6 +13,7 @@ export interface SeoPageData {
   problemIntro: string;
   problemItems: Array<{ title: string; text: string }>;
   scopeItems: string[];
+  detailBlocks?: Array<{ title: string; text: string }>;
   processSteps: string[];
   caseStudy: {
     title: string;
@@ -116,9 +117,9 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   consuel: {
     slug: "consuel_photovoltaique",
-    metaTitle: "Consuel photovoltaïque : préparation et suivi des dossiers | Sunelys",
+    metaTitle: "Consuel pour installateurs photovoltaïques — Sunelys",
     metaDescription:
-      "Sunelys gère la préparation et le suivi de vos dossiers Consuel photovoltaïques: pièces, coordination administrative et pilotage jusqu'à validation.",
+      "Déléguez vos dossiers Consuel photovoltaïques: pièces, suivi et relances pour installateurs. Sunelys cadre vos flux et vos délais.",
     heroTitle: "Consuel photovoltaïque : préparation et suivi des dossiers",
     heroSubtitle:
       "Sunelys prend en charge le volet administratif Consuel pour sécuriser vos dossiers et accélérer la mise en service de vos installations.",
@@ -149,6 +150,20 @@ export const seoPages: Record<string, SeoPageData> = {
       "Gestion des échanges et demandes de compléments",
       "Suivi des étapes jusqu'à l'attestation",
       "Coordination continue avec vos équipes",
+    ],
+    detailBlocks: [
+      {
+        title: "Quels documents fournir ?",
+        text: "Pour préparer un dossier Consuel photovoltaïque, l'installateur doit réunir les informations client, l'adresse du chantier, les caractéristiques de l'installation, les éléments de puissance, le schéma unifilaire, les références du matériel posé, les photos demandées et les attestations utiles selon la configuration. Sunelys vérifie la cohérence entre les pièces techniques et les informations administratives avant transmission. Cette étape évite les écarts entre devis, chantier réel et formulaire, qui créent souvent des compléments. Lorsque plusieurs équipes interviennent, nous cadrons aussi qui fournit quoi afin que le commercial, le conducteur de travaux et l'administratif ne relancent pas le même client en parallèle.",
+      },
+      {
+        title: "Quel délai prévoir ?",
+        text: "Le délai dépend surtout de la qualité du dossier disponible au départ et de la rapidité de réponse aux demandes de complément. Pour un flux installateur, l'enjeu est de préparer un dossier complet en amont, puis de suivre l'avancement sans perdre les relances dans les emails. Sunelys structure les pièces, qualifie les points manquants et centralise le statut jusqu'à validation. En pratique, le cadrage en amont permet d'éviter que le Consuel devienne le point de blocage de la mise en service, surtout quand plusieurs dossiers arrivent en même temps.",
+      },
+      {
+        title: "Quelles erreurs éviter ?",
+        text: "Les erreurs les plus fréquentes sont les informations techniques incohérentes, les pièces non nommées, les photos insuffisantes, les changements chantier non répercutés dans le dossier et les relances faites trop tard. Il faut aussi éviter de déposer sans contrôle qualité lorsque le volume augmente : un dossier incomplet semble gagner du temps, mais il en fait perdre au moment des retours. Sunelys met en place une vérification documentaire et un suivi lisible pour réduire ces allers-retours, préserver le planning de mise en service et libérer vos équipes terrain. Chaque dossier conserve un statut clair afin que la prochaine action soit identifiable sans rouvrir tout l'historique.",
+      },
     ],
     processSteps: [
       "Brief dossier",
@@ -204,9 +219,9 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   raccordementEnedis: {
     slug: "raccordement_enedis",
-    metaTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète | Sunelys",
+    metaTitle: "Raccordement pour installateurs photovoltaïques — Sunelys",
     metaDescription:
-      "Sunelys pilote l'administratif du raccordement Enedis photovoltaïque: constitution du dossier, suivi des échanges et coordination jusqu'à validation.",
+      "Confiez le raccordement photovoltaïque à Sunelys: dossier, échanges Enedis et suivi des jalons pour installateurs solaires.",
     heroTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète",
     heroSubtitle:
       "Sunelys centralise les étapes administratives du raccordement Enedis pour sécuriser les délais et simplifier le pilotage de vos équipes.",
@@ -237,6 +252,20 @@ export const seoPages: Record<string, SeoPageData> = {
       "Gestion des échanges avec les acteurs du raccordement",
       "Suivi des jalons et relances sur points bloquants",
       "Coordination jusqu'à validation finale du dossier",
+    ],
+    detailBlocks: [
+      {
+        title: "Quels documents fournir ?",
+        text: "Un raccordement photovoltaïque demande des informations administratives fiables, les coordonnées du client, l'adresse précise du site, les caractéristiques de l'installation, la puissance, le type d'autoconsommation ou de vente, les références techniques, les plans utiles et les justificatifs demandés selon le cas. Sunelys rassemble ces éléments dans un dossier cohérent, vérifie les champs sensibles et identifie les pièces manquantes avant que la demande ne bloque. Pour les installateurs qui traitent plusieurs chantiers par mois, cette consolidation évite les relances dispersées entre Enedis, le client, le bureau d'étude et les équipes commerciales.",
+      },
+      {
+        title: "Quel délai prévoir ?",
+        text: "Le délai de raccordement varie selon la configuration du projet, le traitement réseau et les échanges nécessaires. Ce que l'installateur peut maîtriser, c'est la qualité du dossier initial, la vitesse de réponse aux demandes et la visibilité sur chaque jalon. Sunelys organise le suivi pour savoir où se trouve le dossier, quelle action est attendue et quel point mérite une relance. Cette méthode limite les angles morts, particulièrement lorsque les mises en service dépendent de plusieurs interlocuteurs et que les équipes internes manquent de temps pour suivre chaque portail.",
+      },
+      {
+        title: "Quelles erreurs éviter ?",
+        text: "Les principales erreurs sont les adresses imprécises, les puissances mal renseignées, les pièces techniques contradictoires, les demandes déposées avec des informations incomplètes ou les relances oubliées après une demande de complément. Il faut aussi éviter de gérer le raccordement comme une tâche isolée : il impacte le planning chantier, la relation client et la mise en service. Sunelys centralise les statuts et les échanges afin de réduire les blocages administratifs, clarifier les responsabilités et garder un historique exploitable pour vos équipes. Le portail permet ensuite de retrouver rapidement le dossier, les pièces déjà transmises et les points encore ouverts. Vos équipes savent ainsi quoi traiter en priorité.",
+      },
     ],
     processSteps: [
       "Brief dossier",
@@ -292,9 +321,9 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   declarationPrealable: {
     slug: "declaration_prealable",
-    metaTitle: "Déclaration préalable panneaux solaires : constitution du dossier | Sunelys",
+    metaTitle: "Déclaration Préalable pour installateurs photovoltaïques — Sunelys",
     metaDescription:
-      "Sunelys prend en charge la déclaration préalable pour panneaux solaires: constitution du dossier, vérification des pièces et suivi administratif.",
+      "Externalisez vos déclarations préalables solaires: pièces, dépôt mairie et suivi pour installateurs photovoltaïques avec Sunelys.",
     heroTitle: "Déclaration préalable panneaux solaires : constitution du dossier",
     heroSubtitle:
       "Sunelys structure votre déclaration préalable photovoltaïque pour réduire les refus, limiter les retours et sécuriser le lancement chantier.",
@@ -325,6 +354,20 @@ export const seoPages: Record<string, SeoPageData> = {
       "Gestion des échanges administratifs pendant l'instruction",
       "Suivi des étapes et relances si nécessaire",
       "Coordination jusqu'au retour administratif final",
+    ],
+    detailBlocks: [
+      {
+        title: "Quels documents fournir ?",
+        text: "Pour une déclaration préalable solaire, l'installateur doit généralement réunir les informations du propriétaire, l'adresse exacte, les caractéristiques du projet, les plans demandés, les visuels de toiture ou de façade, les éléments d'intégration et les pièces permettant à la mairie de comprendre l'impact visuel. Selon la commune, la zone ou les contraintes patrimoniales, des éléments complémentaires peuvent être nécessaires. Sunelys vérifie la complétude du dossier, la cohérence entre le projet vendu et les pièces préparées, puis organise les échanges pour éviter que le client ou vos équipes terrain ne soient sollicités plusieurs fois pour la même information.",
+      },
+      {
+        title: "Quel délai prévoir ?",
+        text: "Le délai d'instruction dépend de la commune, de la zone concernée et de la qualité du dépôt initial. Pour un installateur, le vrai levier consiste à envoyer un dossier complet dès le départ, puis à suivre l'instruction sans laisser passer une demande de complément. Sunelys prépare les éléments, contrôle les points sensibles et garde une traçabilité du statut. Sur un volume régulier, ce pilotage évite que les déclarations préalables deviennent un goulot d'étranglement entre la vente, la planification chantier et les étapes Consuel ou raccordement.",
+      },
+      {
+        title: "Quelles erreurs éviter ?",
+        text: "Les erreurs qui ralentissent le plus une DP sont les plans incomplets, les visuels peu lisibles, une adresse ou une parcelle mal renseignée, une incohérence entre la puissance annoncée et les pièces, ou un dépôt qui ne tient pas compte des exigences locales. Il faut aussi éviter de disperser les informations dans plusieurs boîtes mail ou fichiers non suivis. Sunelys structure le contrôle documentaire, clarifie les pièces attendues et suit les retours pour limiter les demandes de complément, les refus évitables et les retards de lancement chantier. Cette rigueur facilite aussi le passage vers les étapes Consuel et raccordement. Le client final reçoit une information plus stable.",
+      },
     ],
     processSteps: [
       "Brief dossier",
