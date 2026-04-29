@@ -49,7 +49,24 @@ export const heroData = {
 export const proofSectionData = {
   kicker: "Preuve et réassurance",
   title: "Un partenaire administratif deja opere sur des milliers de dossiers photovoltaïques.",
-  logos: [],
+  logos: [
+    {
+      name: "Sunwatt France",
+      src: "/images/site/client-sunwatt-france.png",
+    },
+    {
+      name: "Terra ENR",
+      src: "/images/site/client-terra-enr.png",
+    },
+    {
+      name: "Groupe Solarenov",
+      src: "/images/site/client-groupe-solarenov.png",
+    },
+    {
+      name: "Ensol",
+      src: "/images/site/client-ensol.webp",
+    },
+  ],
   trustNote:
     "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie.",
   metrics: [
