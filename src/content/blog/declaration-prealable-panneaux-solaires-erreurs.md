@@ -7,8 +7,8 @@ pubDate: "2026-04-23"
 updatedDate: "2026-04-23"
 category: "Déclaration préalable"
 readingTime: "5 min"
-coverImage: "/images/site/portal-preview-placeholder.svg"
-coverAlt: "Illustration premium d'un dossier de déclaration préalable panneaux solaires."
+coverImage: "/images/site/portal-dossiers-2026-04-23.png"
+coverAlt: "Vue réelle de la liste de dossiers dans le portail Sunelys avec progression et prochaines étapes."
 keywords: "déclaration préalable panneaux solaires, dossier photovoltaïque, administratif solaire, installateur photovoltaïque"
 ---
 

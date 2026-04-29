@@ -107,7 +107,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
-      "Planifier un échange de 15 minutes pour identifier vos points de friction et estimer vos gains opérationnels.",
+      "Recevez un cadrage gratuit pour identifier vos points de friction, votre volume et le périmètre à déléguer en priorité.",
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/declaration-prealable-panneaux-solaires", label: "Déclaration préalable" },
@@ -209,7 +209,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
-      "Planifier un échange de 15 minutes pour cadrer votre flux Consuel et réduire les délais de mise en service.",
+      "Recevez un cadrage gratuit pour cadrer votre flux Consuel et réduire les délais de mise en service.",
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
@@ -311,7 +311,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
-      "Planifier un échange de 15 minutes pour sécuriser votre pilotage de raccordement Enedis.",
+      "Recevez un cadrage gratuit pour sécuriser votre pilotage de raccordement Enedis.",
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
@@ -413,7 +413,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
-      "Planifier un échange de 15 minutes pour fiabiliser vos dépôts de déclaration préalable.",
+      "Recevez un cadrage gratuit pour fiabiliser vos dépôts de déclaration préalable.",
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },

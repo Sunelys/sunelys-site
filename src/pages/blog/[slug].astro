@@ -69,14 +69,14 @@ const structuredData = [
       <h1>{frontmatter.title}</h1>
       <p>{frontmatter.description}</p>
       <div class="article-actions">
-        <a class="btn btn-primary" href="/contact?source=article-header" data-track="cta_article_header_primary" data-track-label={frontmatter.title}>Planifier un échange</a>
+        <a class="btn btn-primary" href="/contact?source=article-header#contact-form" data-track="cta_article_header_primary" data-track-label={frontmatter.title}>Recevoir un cadrage</a>
         <a class="btn btn-secondary" href="/services" data-track="cta_article_header_services" data-track-label={frontmatter.title}>Voir les services</a>
       </div>
       <div class="article-cover">
         <MediaFrame
           src={frontmatter.coverImage}
           alt={frontmatter.coverAlt || frontmatter.title}
-          label="Image article à remplacer"
+          label="Visuel article Sunelys"
           variant="wide"
           loading="eager"
         />

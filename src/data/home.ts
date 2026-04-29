@@ -16,7 +16,7 @@ export const heroData = {
     "Moins de charge administrative. Plus de dossiers photovoltaïques maîtrisés.",
   ],
   subtitle:
-    "Sunelys accompagne les installateurs et équipes solaires qui veulent déléguer l'administratif sans perdre la visibilité sur leurs dossiers. Nous cadrons, suivons et pilotons DP, Consuel et raccordement en France.",
+    "Transmettez une demande complète sous 2 jours et suivez DP, Consuel, raccordement dans un portail dédié. Sunelys cadre, suit et pilote vos démarches administratives photovoltaïques en France.",
   primaryCta: {
     label: "Recevoir un cadrage gratuit",
     href: "#hero-lead-form",
@@ -34,14 +34,14 @@ export const heroData = {
     note: "Réponse sous 24h • Sans engagement",
   },
   proofs: [
-    "Pilotage en temps réel via votre portail dédié — DP, Consuel, raccordement centralisés.",
+    "Demande complète sous 2 jours — DP, Consuel et raccordement centralisés dans votre portail dédié.",
   ],
   portalDemo: {
     label: "Voir une démo du portail →",
     href: "/images/site/portal-overview-2026-04-23.png",
     track: "cta_hero_portal_demo",
   },
-  ctaNote: "Audit de cadrage sans engagement pour qualifier votre volume, vos blocages et le périmètre à déléguer.",
+  ctaNote: "Cadrage sans engagement pour qualifier votre volume, vos blocages et le périmètre à déléguer.",
   preview: {
     variant: "full",
     label: "Portail Sunelys",
@@ -83,11 +83,11 @@ export const proofSectionData = {
     },
   ],
   trustNote:
-    "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie.",
+    "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie. Logos et indicateurs issus des références et données internes Sunelys.",
   metrics: [
     { value: "+5000", label: "dossiers photovoltaïques pilotés" },
-    { value: "+50", label: "partenaires actifs" },
-    { value: "2j", label: "pour transmettre une demande complète" },
+    { value: "+50", label: "partenaires et installateurs accompagnés" },
+    { value: "2 jours", label: "pour transmettre une demande complète" },
   ],
   testimonials: [
     {

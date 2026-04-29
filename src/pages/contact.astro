@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const successUrl = "https://sunelys.fr/merci";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const hasBookingUrl = Boolean(bookingUrl);
 ---
@@ -12,20 +13,20 @@ const hasBookingUrl = Boolean(bookingUrl);
 >
   <section class="hero card">
     <p class="eyebrow">Prise de contact</p>
-    <h1>Réservez un audit de 15 minutes sur vos flux administratifs photovoltaïques.</h1>
+    <h1>Recevez un cadrage gratuit sur vos flux administratifs photovoltaïques.</h1>
     <p>
-      Déclaration préalable, Consuel, raccordement Enedis : nous regardons votre volume,
-      vos blocages actuels et le périmètre le plus simple à déléguer pour soulager vos équipes.
+      Transmettez votre volume, vos blocages et vos priorités. Sunelys revient sous 24h
+      avec une lecture claire du périmètre à déléguer sur DP, Consuel et raccordement.
     </p>
 
     <ul class="hero-points">
-      <li>Lecture rapide de vos points de friction et de vos priorités</li>
-      <li>Estimation du périmètre à déléguer selon votre volume</li>
-      <li>Réponse adaptée aux installateurs, commercialisateurs et structures multi-dossiers</li>
+      <li>Demande complète structurée sous 2 jours</li>
+      <li>Qualification du volume mensuel et des démarches à déléguer</li>
+      <li>Suivi possible dans le portail dédié Sunelys</li>
     </ul>
 
     <div class="proof-strip" aria-label="Réassurance contact">
-      <span>15 minutes de cadrage</span>
+      <span>Cadrage gratuit</span>
       <span>Réponse sous 24h ouvrées</span>
       <span>Sans engagement</span>
     </div>
@@ -33,12 +34,10 @@ const hasBookingUrl = Boolean(bookingUrl);
     <div class="hero-actions">
       <a
         class="cta"
-        href={hasBookingUrl ? bookingUrl : "#contact-form"}
-        data-track={hasBookingUrl ? "cta_contact_booking_top" : "cta_contact_form_top"}
-        target={hasBookingUrl ? "_blank" : undefined}
-        rel={hasBookingUrl ? "noreferrer" : undefined}
+        href="#contact-form"
+        data-track="cta_contact_form_top"
       >
-        {hasBookingUrl ? "Choisir un créneau de 15 min" : "Remplir le formulaire d'audit"}
+        Remplir le formulaire de cadrage
       </a>
       <a class="cta cta-secondary" href="tel:+33695907919" data-track="cta_contact_call">
         Appeler maintenant
@@ -48,70 +47,11 @@ const hasBookingUrl = Boolean(bookingUrl);
     {
       hasBookingUrl && (
         <p class="booking-note">
-          Ou remplissez le formulaire plus bas si vous préférez envoyer votre contexte avant l'échange.
+          Calendly reste disponible en option après l'envoi de votre contexte.
         </p>
       )
     }
   </section>
-
-  <section class="section grid">
-    {
-      hasBookingUrl && (
-        <article class="card booking-card">
-          <h2>Prise de rendez-vous</h2>
-          <p>Choisissez directement un créneau de 15 minutes pour cadrer vos flux administratifs.</p>
-          <p>
-            <a href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_contact_booking_card">
-              Ouvrir le calendrier de rendez-vous
-            </a>
-          </p>
-        </article>
-      )
-    }
-
-    <article class="card">
-      <h2>Email</h2>
-      <p>Pour une demande détaillée ou l'envoi de pièces.</p>
-      <p><a href="mailto:contact@sunelys.fr" data-track="cta_contact_email">contact@sunelys.fr</a></p>
-    </article>
-
-    <article class="card">
-      <h2>Téléphone</h2>
-      <p>Pour un échange rapide sur votre volume de dossiers ou vos délais.</p>
-      <p><a href="tel:+33695907919" data-track="cta_contact_phone">06 95 90 79 19</a></p>
-    </article>
-
-    <article class="card">
-      <h2>Adresse</h2>
-      <p>49, impasse des lauriers</p>
-      <p>83600 Les Adrets de l'Esterel</p>
-    </article>
-  </section>
-
-  {
-    hasBookingUrl && (
-      <section class="section card booking-embed-card" aria-labelledby="booking-embed-title">
-        <div class="booking-embed-copy">
-          <p class="eyebrow">Prise de rendez-vous</p>
-          <h2 id="booking-embed-title">Choisissez directement un créneau de 15 minutes.</h2>
-          <p>
-            Si le créneau vous convient, vous pouvez réserver sans quitter la page. Si vous préférez, le
-            formulaire reste disponible juste en dessous pour nous transmettre votre contexte en amont.
-          </p>
-        </div>
-
-        <div class="booking-embed-shell">
-          <iframe
-            id="booking-embed-iframe"
-            src={bookingUrl}
-            title="Calendly Sunelys"
-            loading="lazy"
-            referrerpolicy="strict-origin-when-cross-origin"
-          ></iframe>
-        </div>
-      </section>
-    )
-  }
 
   <section class="section card form-card">
     <h2>Recevoir un cadrage initial par formulaire</h2>
@@ -131,13 +71,13 @@ const hasBookingUrl = Boolean(bookingUrl);
     </div>
     <p class="helper">
       Le volume de dossiers est pré-rempli si vous venez du mini-tunnel. Le formulaire
-      envoie directement votre demande à Sunelys.
+      envoie votre demande à Sunelys avec les informations utiles au suivi commercial.
     </p>
 
     <form
       id="contact-form"
       class="form-grid"
-      action="https://formsubmit.co/contact@sunelys.fr"
+      action={leadFormAction}
       method="POST"
     >
       <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
@@ -145,6 +85,10 @@ const hasBookingUrl = Boolean(bookingUrl);
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="_next" value={successUrl} />
       <input type="hidden" name="source_page" id="source-page-field" />
+      <input type="hidden" name="lead_status" value="Nouveau lead" />
+      <input type="hidden" name="lead_pipeline" value="Site web - Contact" />
+      <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+      <input type="hidden" name="follow_up_sla" value="24h" />
       <input type="hidden" name="landing_page" id="landing-page-field" />
       <input type="hidden" name="first_referrer" id="first-referrer-field" />
       <input type="hidden" name="utm_source" id="utm-source-field" />
@@ -201,6 +145,40 @@ const hasBookingUrl = Boolean(bookingUrl);
       </p>
     </form>
   </section>
+
+  <section class="section grid">
+    {
+      hasBookingUrl && (
+        <article class="card booking-card">
+          <h2>Calendly optionnel</h2>
+          <p>Si vous préférez choisir un créneau après avoir transmis votre contexte.</p>
+          <p>
+            <a href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_contact_booking_card">
+              Ouvrir le calendrier de rendez-vous
+            </a>
+          </p>
+        </article>
+      )
+    }
+
+    <article class="card">
+      <h2>Email</h2>
+      <p>Pour une demande détaillée ou l'envoi de pièces.</p>
+      <p><a href="mailto:contact@sunelys.fr" data-track="cta_contact_email">contact@sunelys.fr</a></p>
+    </article>
+
+    <article class="card">
+      <h2>Téléphone</h2>
+      <p>Pour un échange rapide sur votre volume de dossiers ou vos délais.</p>
+      <p><a href="tel:+33695907919" data-track="cta_contact_phone">06 95 90 79 19</a></p>
+    </article>
+
+    <article class="card">
+      <h2>Adresse</h2>
+      <p>49, impasse des lauriers</p>
+      <p>83600 Les Adrets de l'Esterel</p>
+    </article>
+  </section>
 </BaseLayout>
 
 <script>
@@ -251,13 +229,9 @@ const hasBookingUrl = Boolean(bookingUrl);
   fillHidden("#utm-content-field", attribution.utm_content || "");
   fillHidden("#gclid-field", attribution.gclid || "");
 
-  const bookingEmbed = document.querySelector("#booking-embed-iframe");
-  const bookingSection = document.querySelector(".booking-embed-card");
   const contactForm = document.querySelector("#contact-form");
 
   const trackedStates = {
-    bookingLoaded: false,
-    bookingViewed: false,
     formViewed: false,
   };
 
@@ -278,24 +252,10 @@ const hasBookingUrl = Boolean(bookingUrl);
     });
   };
 
-  if (bookingEmbed instanceof HTMLIFrameElement) {
-    bookingEmbed.addEventListener("load", () => {
-      trackOnce("bookingLoaded", "booking_embed_loaded", "Calendly loaded", {
-        href: bookingEmbed.src,
-      });
-    });
-  }
-
   if ("IntersectionObserver" in window) {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.target === bookingSection) {
-            trackOnce("bookingViewed", "booking_embed_viewed", "Calendly viewed", {
-              href: bookingEmbed instanceof HTMLIFrameElement ? bookingEmbed.src : "",
-            });
-          }
-
           if (entry.isIntersecting && entry.target === contactForm) {
             trackOnce("formViewed", "contact_form_viewed", "Contact form viewed");
           }
@@ -304,7 +264,6 @@ const hasBookingUrl = Boolean(bookingUrl);
       { threshold: 0.35 }
     );
 
-    if (bookingSection instanceof HTMLElement) observer.observe(bookingSection);
     if (contactForm instanceof HTMLFormElement) observer.observe(contactForm);
   }
 
@@ -464,38 +423,6 @@ const hasBookingUrl = Boolean(bookingUrl);
     font-size: 0.92rem;
   }
 
-  .booking-embed-card {
-    display: grid;
-    gap: 1rem;
-    overflow: hidden;
-  }
-
-  .booking-embed-copy {
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .booking-embed-copy h2 {
-    margin-bottom: 0;
-  }
-
-  .booking-embed-shell {
-    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
-    border-radius: 22px;
-    overflow: hidden;
-    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
-    min-height: 760px;
-  }
-
-  .booking-embed-shell iframe {
-    width: 100%;
-    min-width: 320px;
-    height: 760px;
-    border: 0;
-    display: block;
-    background: #fff;
-  }
-
   .audit-steps {
     margin: 0.95rem 0;
     display: grid;
@@ -615,12 +542,6 @@ const hasBookingUrl = Boolean(bookingUrl);
 
     .form-grid {
       grid-template-columns: 1fr;
-    }
-
-    .booking-embed-shell,
-    .booking-embed-shell iframe {
-      min-height: 700px;
-      height: 700px;
     }
 
     .full-width {

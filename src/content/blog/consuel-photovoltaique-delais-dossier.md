@@ -7,8 +7,8 @@ pubDate: "2026-04-23"
 updatedDate: "2026-04-23"
 category: "Consuel"
 readingTime: "5 min"
-coverImage: "/images/site/portal-preview-placeholder.svg"
-coverAlt: "Illustration premium du suivi Consuel photovoltaïque."
+coverImage: "/images/site/portal-overview-2026-04-23.png"
+coverAlt: "Vue réelle du portail Sunelys avec suivi des demandes de documents et des dossiers en cours."
 keywords: "Consuel photovoltaïque, dossier Consuel solaire, administratif photovoltaïque, installateur solaire"
 ---
 
