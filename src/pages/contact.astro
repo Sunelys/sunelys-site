@@ -38,7 +38,7 @@ const hasBookingUrl = Boolean(bookingUrl);
         target={hasBookingUrl ? "_blank" : undefined}
         rel={hasBookingUrl ? "noreferrer" : undefined}
       >
-        {hasBookingUrl ? "Choisir un créneau" : "Remplir le formulaire d'audit"}
+        {hasBookingUrl ? "Choisir un créneau de 15 min" : "Remplir le formulaire d'audit"}
       </a>
       <a class="cta cta-secondary" href="tel:+33695907919" data-track="cta_contact_call">
         Appeler maintenant
@@ -93,7 +93,7 @@ const hasBookingUrl = Boolean(bookingUrl);
       <section class="section card booking-embed-card" aria-labelledby="booking-embed-title">
         <div class="booking-embed-copy">
           <p class="eyebrow">Prise de rendez-vous</p>
-          <h2 id="booking-embed-title">Choisissez directement un créneau de 30 minutes.</h2>
+          <h2 id="booking-embed-title">Choisissez directement un créneau de 15 minutes.</h2>
           <p>
             Si le créneau vous convient, vous pouvez réserver sans quitter la page. Si vous préférez, le
             formulaire reste disponible juste en dessous pour nous transmettre votre contexte en amont.
@@ -114,7 +114,7 @@ const hasBookingUrl = Boolean(bookingUrl);
   }
 
   <section class="section card form-card">
-    <h2>Recevoir un cadrage initial</h2>
+    <h2>Recevoir un cadrage initial par formulaire</h2>
     <div class="audit-steps" aria-label="Ce que vous obtenez">
       <article>
         <strong>1. Lecture du contexte</strong>
@@ -194,7 +194,7 @@ const hasBookingUrl = Boolean(bookingUrl);
         <textarea name="message" rows="5" placeholder="Contexte, zone, délais, type de projet..."></textarea>
       </label>
       <button id="contact-form-submit" class="cta" type="submit" data-track="cta_contact_form_submit">
-        Réserver un audit de 15 min
+        Envoyer ma demande
       </button>
       <p class="form-note full-width">
         Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.

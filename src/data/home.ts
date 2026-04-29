@@ -21,8 +21,8 @@ export const heroData = {
     track: "cta_hero_primary",
   },
   secondaryCta: {
-    label: "Voir comment ca fonctionne",
-    href: "/parcours",
+    label: "Décrire mon besoin",
+    href: "/contact?source=hero-form#contact-form",
     track: "cta_hero_secondary",
   },
   proofs: [
@@ -30,7 +30,7 @@ export const heroData = {
     "+50 partenaires actifs",
     "Reponse sous 24h ouvrées",
   ],
-  ctaNote: "Audit de cadrage sans engagement pour estimer les gains, les priorites et le perimetre a deleguer.",
+  ctaNote: "Audit de cadrage sans engagement pour qualifier votre volume, vos blocages et le périmètre à déléguer.",
   preview: {
     variant: "full",
     label: "Portail Sunelys",
@@ -127,7 +127,7 @@ export const solutionSectionData = {
   ],
   cta: {
     label: "Reserver un audit de 15 min",
-    href: "/contact?source=solution-audit",
+    href: bookingUrl,
     track: "cta_solution",
   },
 };
@@ -161,7 +161,7 @@ export const benefitsSectionData = {
   ],
   cta: {
     label: "Reserver un audit de 15 min",
-    href: "/contact?source=benefices-audit",
+    href: bookingUrl,
     track: "cta_benefits",
   },
 };
@@ -185,6 +185,13 @@ export const audienceSectionData = {
       text: "Vous avez besoin d'un flux clair, répétable et traçable pour absorber davantage de dossiers.",
     },
   ],
+  note:
+    "Le bon moment pour nous parler : quand les relances, les pièces manquantes ou le volume commencent à grignoter le temps commercial et opérationnel.",
+  cta: {
+    label: "Reserver un audit de 15 min",
+    href: bookingUrl,
+    track: "cta_audience_primary",
+  },
 };
 
 export const quizSectionData = {
@@ -196,7 +203,7 @@ export const quizSectionData = {
       value: "1-10",
       label: "1-10 dossiers",
       message:
-        "Votre priorité est probablement de sécuriser les dépôts sans complexifier l'organisation. On peut cadrer les tâches à déléguer en 15 minutes.",
+        "Votre priorité est probablement de sécuriser les dépôts sans complexifier l'organisation. On peut cadrer les tâches à déléguer et le bon niveau d'accompagnement en 15 minutes.",
     },
     {
       value: "10-30",
@@ -211,7 +218,7 @@ export const quizSectionData = {
         "Votre enjeu est l'industrialisation : priorisation, visibilité, qualité documentaire et capacité à absorber le flux sans surcharge interne.",
     },
   ],
-  ctaLabel: "Reserver un audit de 15 min",
+  ctaLabel: "Recevoir un cadrage adapté",
   ctaHref: "/contact?source=quiz",
 };
 
@@ -366,7 +373,7 @@ export const finalCtaSectionData = {
   kicker: "Passage à l'action",
   title: "Reservez un audit de 15 minutes pour cadrer vos flux administratifs.",
   text:
-    "En 15 minutes, vous repartez avec une lecture plus claire de vos blocages, du volume reel a absorber et du perimetre a deleguer en priorite.",
+    "En 15 minutes, vous repartez avec une lecture plus claire de vos blocages, du volume réel à absorber et du périmètre à déléguer en priorité.",
   primaryCta: {
     label: "Reserver un audit de 15 min",
     href: bookingUrl,

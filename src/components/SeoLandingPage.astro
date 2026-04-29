@@ -45,7 +45,7 @@ const { data } = Astro.props;
 const heroBadges = [
   "Pour installateurs photovoltaïques",
   "DP · Consuel · Raccordement",
-  "Audit de flux en 15 minutes",
+  "Cadrage de flux en 15 minutes",
 ];
 
 const outcomeItems = [
@@ -74,7 +74,7 @@ const delegationSignals = [
 
     <div class="hero-actions">
       <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
-        Planifier un échange
+        Recevoir un cadrage
       </a>
       <a class="btn btn-secondary" href="/services" data-track={`cta_${data.slug}_hero_services`}>
         Voir les services
@@ -193,7 +193,7 @@ const delegationSignals = [
   <h2>{data.finalTitle}</h2>
   <p>{data.finalText}</p>
   <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_final`}>
-    Planifier un échange de 15 minutes
+    Recevoir un cadrage
   </a>
 </section>
 
