@@ -1,11 +1,4 @@
 ---
-import HeroProductMockup from "./HeroProductMockup.astro";
-
-interface PreviewProject {
-  name: string;
-  progress: string;
-  status: string;
-}
 
 interface HeroData {
   kicker: string;
@@ -22,15 +15,6 @@ interface HeroData {
   proofs: string[];
   portalDemo?: { label: string; href: string; track: string };
   ctaNote?: string;
-  preview: {
-    label: string;
-    title: string;
-    projects: PreviewProject[];
-    timeline?: string[];
-    documents?: string[];
-    footer?: string;
-    variant?: "minimal" | "full";
-  };
 }
 
 interface Props {
@@ -143,7 +127,23 @@ const { data } = Astro.props;
     {data.ctaNote && <p class="cta-note">{data.ctaNote}</p>}
   </div>
 
-  <HeroProductMockup data={data.preview} variant={data.preview.variant ?? "full"} />
+  <aside class="hero-portal reveal" aria-label="Aperçu réel du portail Sunelys">
+    <a
+      class="hero-portal-link"
+      href={data.portalDemo?.href ?? "/images/site/portal-overview-2026-04-23.png"}
+      data-track={data.portalDemo?.track ?? "cta_hero_portal_demo_image"}
+      target="_blank"
+      rel="noreferrer"
+    >
+      <span class="portal-chip">Interface réelle du portail</span>
+      <img
+        src="/images/site/portal-overview-2026-04-23.png"
+        alt="Capture réelle du portail Sunelys avec suivi des dossiers, pièces à transmettre et demandes de documents."
+        loading="eager"
+        decoding="async"
+      />
+    </a>
+  </aside>
 </section>
 
 <script>
@@ -211,6 +211,70 @@ const { data } = Astro.props;
       );
     box-shadow: var(--shadow-md);
     padding: clamp(1.55rem, 3.2vw, 3.1rem);
+  }
+
+  .hero-portal {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+    align-self: center;
+  }
+
+  .hero-portal-link {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(
+        105% 120% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 48%, transparent),
+        transparent 58%
+      ),
+      color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-md);
+    padding: clamp(0.68rem, 1.5vw, 1rem);
+    text-decoration: none;
+    transform: perspective(1400px) rotateY(-3deg) rotateX(1.2deg);
+    transform-origin: right center;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .hero-portal-link:hover,
+  .hero-portal-link:focus-visible {
+    transform: perspective(1400px) rotateY(-2deg) rotateX(0.6deg) translateY(-3px);
+    border-color: color-mix(in srgb, var(--line) 48%, var(--accent));
+    box-shadow: 0 32px 90px rgba(20, 16, 10, 0.16);
+  }
+
+  .hero-portal img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: calc(var(--radius-xl) - 14px);
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    background: var(--surface-elevated);
+  }
+
+  .portal-chip {
+    position: absolute;
+    left: clamp(1rem, 2vw, 1.4rem);
+    top: clamp(1rem, 2vw, 1.4rem);
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 62%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    color: var(--text);
+    padding: 0.38rem 0.74rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-weight: 800;
+    box-shadow: var(--shadow-sm);
   }
 
   .kicker {
@@ -380,6 +444,15 @@ const { data } = Astro.props;
     .hero {
       grid-template-columns: 1fr;
     }
+
+    .hero-portal-link {
+      transform: none;
+    }
+
+    .hero-portal-link:hover,
+    .hero-portal-link:focus-visible {
+      transform: translateY(-3px);
+    }
   }
 
   @media (max-width: 760px) {
@@ -432,6 +505,14 @@ const { data } = Astro.props;
 
     .cta-note {
       text-align: center;
+    }
+
+    .portal-chip {
+      left: 0.9rem;
+      top: 0.9rem;
+      min-height: 1.8rem;
+      font-size: 0.58rem;
+      padding: 0.28rem 0.55rem;
     }
   }
 </style>
