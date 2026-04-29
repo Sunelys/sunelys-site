@@ -29,12 +29,14 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
 ---
 
 <section class="section-shell proof-section reveal">
-  <div class="proof-head">
-    <p class="kicker">{data.kicker}</p>
-    <h2>{data.title}</h2>
-  </div>
-  <div class="trust-note" aria-label="Références clients">
-    <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
+  <div class="proof-top">
+    <div class="proof-head">
+      <p class="kicker">{data.kicker}</p>
+      <h2>{data.title}</h2>
+    </div>
+    <div class="trust-note" aria-label="Références clients">
+      <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
+    </div>
   </div>
 
   <div class="proof-layout">
@@ -82,163 +84,204 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
 
 <style>
   .proof-section {
+    position: relative;
+    overflow: hidden;
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--surface) 92%, white), color-mix(in srgb, var(--bg-soft) 65%, white));
-    border: 1px solid var(--line);
+      radial-gradient(90% 110% at 0% 0%, rgba(239, 227, 201, 0.2), transparent 54%),
+      radial-gradient(80% 100% at 104% 24%, rgba(197, 165, 111, 0.18), transparent 58%),
+      linear-gradient(150deg, #1b1712, #0f0d0a 72%);
+    border: 1px solid color-mix(in srgb, var(--line) 38%, var(--accent));
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-md);
-    padding: clamp(1.2rem, 2.8vw, 2.2rem);
+    box-shadow: 0 34px 110px rgba(20, 16, 10, 0.2);
+    padding: clamp(1.35rem, 3vw, 2.6rem);
+  }
+
+  .proof-section::before {
+    content: "";
+    position: absolute;
+    inset: 1rem;
+    border: 1px solid rgba(255, 253, 247, 0.08);
+    border-radius: calc(var(--radius-xl) - 12px);
+    pointer-events: none;
+  }
+
+  .proof-top {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(280px, 1fr);
+    gap: clamp(1rem, 3vw, 2.2rem);
+    align-items: end;
   }
 
   .proof-head h2 {
-    margin: 0.52rem 0 0;
-    max-width: 26ch;
-    font-size: clamp(1.65rem, 2.85vw, 2.7rem);
-    line-height: 1.03;
+    margin: 0.56rem 0 0;
+    max-width: 12ch;
+    color: #fffdf7;
+    font-size: clamp(2.1rem, 4.6vw, 4.4rem);
+    line-height: 0.9;
   }
 
   .kicker {
     margin: 0;
-    color: var(--text-muted);
+    color: color-mix(in srgb, #f5e8d0 82%, var(--accent));
     font-size: 0.72rem;
-    font-weight: 600;
+    font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 0.13em;
+    letter-spacing: 0.16em;
   }
 
   .logo-wall {
-    margin-top: 0.85rem;
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(1rem, 2vw, 1.35rem);
     display: grid;
-    gap: 0.5rem;
+    gap: 0.7rem;
   }
 
   .logo-eyebrow {
     margin: 0;
-    color: var(--text-muted);
+    color: #d5c8b4;
     font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.11em;
+    font-weight: 800;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
   }
 
   .logo-row {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.65rem;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.55rem;
   }
 
-  .logo-slot,
-  .trust-note {
-    min-height: 4.4rem;
-    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
-    border-radius: calc(var(--radius-md) - 5px);
+  .logo-slot {
+    min-height: clamp(4.2rem, 6vw, 5.8rem);
+    border: 1px solid color-mix(in srgb, #ffffff 72%, var(--accent));
+    border-radius: 18px;
     background:
-      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 34%, transparent), transparent 62%),
-      color-mix(in srgb, var(--surface-elevated) 92%, white);
+      radial-gradient(100% 130% at 100% 0%, rgba(239, 227, 201, 0.36), transparent 62%),
+      #fffefa;
     display: grid;
     place-items: center;
     text-align: center;
-    padding: 0.7rem 1rem;
-    box-shadow: var(--shadow-sm);
+    padding: 0.82rem 1rem;
+    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
   }
 
   .trust-note {
-    margin-top: 0.95rem;
-    justify-items: start;
-    border-radius: calc(var(--radius-md) - 6px);
-    min-height: auto;
+    border: 1px solid rgba(255, 253, 247, 0.16);
+    border-radius: 22px;
+    background: rgba(255, 253, 247, 0.07);
+    padding: clamp(1rem, 2vw, 1.35rem);
+    backdrop-filter: blur(16px);
   }
 
   .trust-note p {
     margin: 0;
-    color: var(--text);
-    font-size: 0.8rem;
-    line-height: 1.45;
-    font-weight: 600;
+    color: #f5edde;
+    font-size: clamp(0.96rem, 0.35vw + 0.88rem, 1.08rem);
+    line-height: 1.58;
+    font-weight: 650;
   }
 
   .logo-slot img {
-    max-width: 100%;
-    max-height: 38px;
+    max-width: min(74%, 168px);
+    max-height: 46px;
     object-fit: contain;
+  }
+
+  .logo-slot img[alt="Be Travaux"] {
+    transform: scale(2.1);
   }
 
   .logo-slot:hover,
   .logo-slot:focus-within {
     transform: translateY(-2px);
-    border-color: color-mix(in srgb, var(--line) 54%, var(--accent));
-    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, #ffffff 42%, var(--accent));
+    box-shadow: 0 20px 48px rgba(0, 0, 0, 0.14);
   }
 
   .proof-layout {
-    margin-top: 0.7rem;
+    position: relative;
+    z-index: 1;
+    margin-top: clamp(1rem, 2.2vw, 1.6rem);
     display: grid;
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-    gap: 0.65rem;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0.72rem;
   }
 
   .metrics-panel {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.5rem;
+    gap: 0.58rem;
   }
 
   .metric-card {
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: calc(var(--radius-md) - 6px);
-    background: var(--surface-elevated);
-    box-shadow: var(--shadow-sm);
-    padding: 0.8rem;
+    min-height: 9rem;
+    border: 1px solid rgba(255, 253, 247, 0.14);
+    border-radius: 20px;
+    background:
+      linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding: clamp(0.9rem, 1.6vw, 1.1rem);
+    display: grid;
+    align-content: end;
   }
 
   .metric-value {
     margin: 0;
     font-family: var(--font-display);
-    font-size: clamp(1.7rem, 2.6vw, 2.8rem);
-    line-height: 0.88;
+    color: #fffdf7;
+    font-size: clamp(2.1rem, 3.3vw, 3.35rem);
+    line-height: 0.9;
   }
 
   .metric-label {
     margin: 0.35rem 0 0;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    line-height: 1.35;
+    color: #d5c8b4;
+    font-size: 0.82rem;
+    line-height: 1.38;
   }
 
   .cred-panel {
-    border: 1px solid color-mix(in srgb, var(--line) 84%, white);
-    border-radius: calc(var(--radius-md) - 4px);
-    background: linear-gradient(160deg, color-mix(in srgb, var(--surface-elevated) 88%, white), var(--surface));
+    border: 1px solid color-mix(in srgb, #ffffff 68%, var(--accent));
+    border-radius: 22px;
+    background:
+      radial-gradient(100% 120% at 100% 0%, rgba(239, 227, 201, 0.28), transparent 58%),
+      #fffdf8;
     display: grid;
-    gap: 0.55rem;
-    padding: 0.7rem;
+    align-items: stretch;
+    padding: clamp(0.8rem, 1.8vw, 1.1rem);
+    box-shadow: 0 22px 52px rgba(0, 0, 0, 0.12);
   }
 
   .quote-box {
     margin: 0;
-    border: 1px solid color-mix(in srgb, var(--line) 85%, white);
-    border-radius: calc(var(--radius-md) - 8px);
-    background: color-mix(in srgb, var(--surface-elevated) 93%, white);
-    padding: 0.72rem;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.72);
+    padding: clamp(1rem, 2vw, 1.4rem);
+    display: grid;
+    align-content: center;
   }
 
   .quote-box p {
     margin: 0;
     color: var(--text);
-    font-size: 0.88rem;
-    line-height: 1.5;
+    font-size: clamp(1rem, 0.7vw + 0.9rem, 1.26rem);
+    line-height: 1.48;
   }
 
   .quote-box cite {
     display: inline-block;
-    margin-top: 0.46rem;
+    margin-top: 0.9rem;
     color: var(--text-muted);
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
+    font-size: 0.72rem;
+    letter-spacing: 0.13em;
     text-transform: uppercase;
     font-style: normal;
-    font-weight: 600;
+    font-weight: 800;
   }
 
   .quote-box small {
@@ -249,6 +292,10 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   }
 
   @media (max-width: 960px) {
+    .proof-top {
+      grid-template-columns: 1fr;
+    }
+
     .logo-row {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -258,11 +305,25 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     }
 
     .metrics-panel {
-      grid-template-columns: 1fr;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
   }
 
   @media (max-width: 640px) {
+    .proof-head h2 {
+      max-width: 11ch;
+      font-size: clamp(2.2rem, 12vw, 3.2rem);
+    }
+
+    .metrics-panel,
+    .logo-row {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-card {
+      min-height: auto;
+    }
+
     .logo-slot {
       min-height: 4rem;
       padding: 0.72rem;

@@ -59,7 +59,7 @@ export const heroData = {
 
 export const proofSectionData = {
   kicker: "Preuve et réassurance",
-  title: "Un partenaire administratif deja opere sur des milliers de dossiers photovoltaïques.",
+  title: "Des flux administratifs pilotés à grande échelle.",
   logos: [
     {
       name: "Sunwatt France",
@@ -83,7 +83,7 @@ export const proofSectionData = {
     },
   ],
   trustNote:
-    "Sunelys accompagne des flux photovoltaïques recurrents partout en France avec un cadre documentaire, des statuts lisibles et une relation operationnelle suivie. Logos et indicateurs issus des références et données internes Sunelys.",
+    "Des installateurs et structures solaires s'appuient sur Sunelys pour cadrer les pièces, suivre les statuts et garder une exécution administrative lisible.",
   metrics: [
     { value: "+5000", label: "dossiers photovoltaïques pilotés" },
     { value: "+50", label: "partenaires et installateurs accompagnés" },
