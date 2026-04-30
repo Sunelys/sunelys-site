@@ -6,6 +6,7 @@ import ProofSection from "../components/ProofSection.astro";
 import SolutionSection from "../components/SolutionSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
+import MiniQuiz from "../components/MiniQuiz.astro";
 import CaseStudySection from "../components/CaseStudySection.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTASection from "../components/FinalCTASection.astro";
@@ -18,6 +19,7 @@ import {
   homeSeo,
   portalSectionData,
   proofSectionData,
+  quizSectionData,
   servicesSectionData,
   solutionSectionData,
 } from "../data/home";
@@ -70,6 +72,7 @@ const structuredData = [
   <ProofSection data={proofSectionData} />
   <ServicesSection data={servicesSectionData} />
   <PortalSection data={portalSectionData} />
+  <MiniQuiz data={quizSectionData} />
   <FAQ data={faqSectionData} />
   <FinalCTASection data={finalCtaSectionData} />
 </BaseLayout>

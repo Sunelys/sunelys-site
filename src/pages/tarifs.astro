@@ -1,130 +1,138 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const offers = [
+const plans = [
   {
-    title: "Mission ciblée",
-    subtitle: "Pour traiter un point de friction précis sans refondre toute votre organisation.",
-    points: [
-      "Déclaration préalable ou bloc spécifique",
-      "Besoin ponctuel ou montée en charge temporaire",
-      "Idéal pour tester le fonctionnement Sunelys",
-    ],
+    name: "Essentiel",
+    fit: "1-10 dossiers/mois",
+    services: "DP ou Consuel ou Raccordement",
+    portal: "Accès inclus",
+    followUp: "Hebdomadaire",
+    price: "Sur devis",
   },
   {
-    title: "Flux récurrent",
-    subtitle: "Pour les installateurs qui veulent déléguer une partie stable de leur charge administrative.",
-    points: [
-      "Volumes réguliers de dossiers",
-      "Méthode documentaire reproductible",
-      "Pilotage plus lisible pour les équipes internes",
-    ],
+    name: "Structuré",
+    fit: "10-30 dossiers/mois",
+    services: "2 services au choix",
+    portal: "Accès inclus",
+    followUp: "Bi-hebdomadaire",
+    price: "Sur devis",
   },
   {
-    title: "Pilotage complet",
-    subtitle: "Pour structurer déclaration préalable, Consuel et raccordement dans un cadre unique.",
-    points: [
-      "Vision globale du parcours administratif",
-      "Interlocuteur dédié côté Sunelys",
-      "Meilleure maîtrise des délais et des priorités",
-    ],
+    name: "Pilotage complet",
+    fit: "+30 dossiers/mois",
+    services: "DP + Consuel + Raccordement",
+    portal: "Accès inclus",
+    followUp: "Quotidien",
+    price: "Sur devis",
   },
-];
-
-const pricingFactors = [
-  "Le volume de dossiers à absorber chaque mois",
-  "Le niveau de prise en charge attendu par vos équipes",
-  "Le type de dossiers et leur complexité documentaire",
-  "Les délais à tenir et le niveau de visibilité attendu",
 ];
 ---
 
 <BaseLayout
-  title="Tarifs administratifs photovoltaïques | Sunelys"
-  description="Comprenez comment Sunelys construit ses offres de gestion administrative photovoltaïque pour les installateurs: mission ciblée, flux récurrent ou pilotage complet."
+  title="Tarifs Sunelys | Gestion administrative photovoltaïque"
+  description="Découvrez le fonctionnement tarifaire Sunelys par volume de dossiers pour les installateurs photovoltaïques : essentiel, structuré ou pilotage complet."
 >
-  <section class="hero card">
-    <p class="eyebrow">Tarifs Sunelys</p>
-    <h1>Des offres construites autour de votre volume et de votre organisation.</h1>
+  <section class="hero pricing-hero">
+    <p class="eyebrow">Tarification Sunelys</p>
+    <h1>Une tarification au volume, pas à la tâche.</h1>
     <p class="intro">
-      Sunelys ne vend pas un forfait générique. Nous calibrons la prise en charge selon vos
-      flux, vos objectifs de délai et le niveau de visibilité dont vos équipes ont besoin.
+      Nous adaptons le périmètre et la cadence à votre organisation. Voici comment nous travaillons.
     </p>
-    <div class="hero-actions">
-      <a class="cta" href="/contact" data-track="cta_tarifs_primary">Demander un cadrage</a>
-      <a class="cta cta-secondary" href="/services" data-track="cta_tarifs_secondary">Voir les services</a>
-    </div>
   </section>
 
-  <section class="section intro-grid">
-    <article class="card intro-card">
-      <p class="eyebrow">Ce qui détermine l'offre</p>
-      <h2>Le bon niveau d'accompagnement dépend d'abord de vos flux.</h2>
-      <ul>
-        {pricingFactors.map((factor) => <li>{factor}</li>)}
-      </ul>
-    </article>
+  <section class="pricing-table-shell">
+    <div class="table-head">
+      <p class="eyebrow">Formules</p>
+      <h2>Trois cadres d'accompagnement selon votre flux mensuel.</h2>
+    </div>
 
-    <article class="card intro-card highlight-card">
-      <p class="eyebrow">Ce que vous achetez vraiment</p>
-      <h2>Du temps récupéré, des dossiers mieux suivis, des délais plus maîtrisés.</h2>
-      <div class="value-list">
-        <p>Moins de charge administrative à faible valeur</p>
-        <p>Moins de retours et de pertes d'information</p>
-        <p>Plus de lisibilité pour vos équipes et vos clients</p>
+    <div class="pricing-table" role="table" aria-label="Tableau des offres Sunelys">
+      <div class="pricing-row pricing-row-head" role="row">
+        <div class="pricing-cell pricing-label" role="columnheader"></div>
+        {plans.map((plan) => (
+          <div class="pricing-cell pricing-plan-head" role="columnheader">
+            <strong>{plan.name}</strong>
+          </div>
+        ))}
       </div>
-    </article>
+
+      <div class="pricing-row" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">Pour</div>
+        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.fit}</div>)}
+      </div>
+
+      <div class="pricing-row" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">Services</div>
+        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.services}</div>)}
+      </div>
+
+      <div class="pricing-row" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">Portail</div>
+        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.portal}</div>)}
+      </div>
+
+      <div class="pricing-row" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">Suivi</div>
+        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.followUp}</div>)}
+      </div>
+
+      <div class="pricing-row" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">Tarif</div>
+        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.price}</div>)}
+      </div>
+
+      <div class="pricing-row pricing-row-cta" role="row">
+        <div class="pricing-cell pricing-label" role="rowheader">CTA</div>
+        {
+          plans.map((plan) => (
+            <div class="pricing-cell" role="cell">
+              <a
+                class="btn btn-primary btn-accent"
+                href={`/contact?source=tarifs-${plan.name.toLowerCase().replace(/\s+/g, "-")}#contact-form`}
+                data-track="cta_tarifs_plan"
+                data-track-label={plan.name}
+              >
+                Demander un devis
+              </a>
+            </div>
+          ))
+        }
+      </div>
+    </div>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <p class="eyebrow">Formats d'intervention</p>
-      <h2>Trois façons de travailler avec Sunelys.</h2>
-    </div>
-    <div class="cards">
-      {
-        offers.map((offer) => (
-          <article class="card offer-card">
-            <h3>{offer.title}</h3>
-            <p class="subtitle">{offer.subtitle}</p>
-            <ul>
-              {offer.points.map((point) => <li>{point}</li>)}
-            </ul>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section class="section note card">
-    <p class="eyebrow">Devis personnalisé</p>
-    <h2>Le devis sert à cadrer le bon périmètre, pas à vous faire entrer dans une case.</h2>
+  <section class="pricing-note">
     <p>
-      En 15 minutes, nous pouvons qualifier votre volume, comprendre vos points de friction
-      et vous orienter vers le format d'accompagnement le plus pertinent.
+      Les tarifs sont construits sur votre volume et votre périmètre. Contactez-nous pour un cadrage sans engagement.
     </p>
-    <div class="hero-actions">
-      <a class="cta" href="/contact" data-track="cta_tarifs_contact">Demander un devis</a>
-      <a class="cta cta-secondary" href="/parcours" data-track="cta_tarifs_process">Voir le parcours</a>
+    <div class="note-actions">
+      <a class="btn btn-primary btn-accent" href="/contact?source=tarifs#contact-form" data-track="cta_tarifs_primary">
+        Demander un devis
+      </a>
+      <a class="btn btn-secondary" href="/services" data-track="cta_tarifs_services">
+        Voir les services
+      </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .section {
-    margin-top: 1.8rem;
-  }
-
-  .card {
-    background: linear-gradient(
-      170deg,
-      color-mix(in srgb, var(--surface-elevated) 95%, white),
-      var(--surface)
-    );
+  .pricing-hero,
+  .pricing-table-shell,
+  .pricing-note {
     border: 1px solid var(--line);
     border-radius: var(--radius-xl);
-    padding: clamp(1.15rem, 2.6vw, 2rem);
+    background:
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
     box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.8vw, 2rem);
+  }
+
+  .pricing-table-shell,
+  .pricing-note {
+    margin-top: 1.5rem;
   }
 
   .eyebrow {
@@ -139,150 +147,98 @@ const pricingFactors = [
   h1 {
     margin: 0;
     max-width: 14ch;
-    font-size: clamp(2rem, 4.6vw, 4.2rem);
+    font-size: clamp(2rem, 4.8vw, 4.3rem);
     line-height: 0.95;
   }
 
   h2 {
     margin: 0;
-    font-size: clamp(1.45rem, 3vw, 2.35rem);
-    line-height: 1.02;
+    font-size: clamp(1.4rem, 3vw, 2.3rem);
+    line-height: 1.04;
   }
 
-  h3 {
-    margin: 0;
-    font-size: clamp(1.12rem, 1.4vw, 1.4rem);
-    line-height: 1.14;
-  }
-
-  p,
-  li {
-    margin: 0;
+  .intro,
+  .pricing-note p,
+  .pricing-cell {
     color: var(--text-muted);
-  }
-
-  .hero,
-  .intro-card,
-  .note {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .intro {
-    max-width: 63ch;
-    font-size: var(--step-0);
     line-height: 1.6;
   }
 
-  .hero-actions {
+  .intro {
+    margin-top: 1rem;
+    max-width: 48rem;
+    font-size: var(--step-0);
+  }
+
+  .table-head {
+    display: grid;
+    gap: 0.35rem;
+    margin-bottom: 1rem;
+  }
+
+  .pricing-table {
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .pricing-row {
+    display: grid;
+    grid-template-columns: minmax(160px, 0.8fr) repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .pricing-cell {
+    min-height: 5.1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.95rem;
+    display: grid;
+    align-content: center;
+    justify-items: start;
+  }
+
+  .pricing-row-head .pricing-cell,
+  .pricing-label {
+    background:
+      radial-gradient(120% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      color-mix(in srgb, var(--surface-elevated) 95%, white);
+  }
+
+  .pricing-plan-head strong,
+  .pricing-label {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .pricing-label {
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.74rem;
+  }
+
+  .pricing-row-cta .pricing-cell {
+    min-height: auto;
+  }
+
+  .pricing-row-cta .btn {
+    width: 100%;
+  }
+
+  .note-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 0.7rem;
+    margin-top: 1rem;
   }
 
-  .intro-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
-
-  .intro-card ul,
-  .offer-card ul {
-    margin: 0;
-    padding-left: 1.1rem;
-    display: grid;
-    gap: 0.42rem;
-  }
-
-  .highlight-card {
-    background:
-      radial-gradient(
-        120% 110% at 100% 0%,
-        color-mix(in srgb, var(--accent-soft) 58%, transparent),
-        transparent 58%
-      ),
-      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
-  }
-
-  .value-list {
-    display: grid;
-    gap: 0.55rem;
-  }
-
-  .value-list p {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .section-head {
-    display: grid;
-    gap: 0.35rem;
-    margin-bottom: 0.9rem;
-  }
-
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.85rem;
-  }
-
-  .offer-card {
-    display: grid;
-    gap: 0.85rem;
-    align-content: start;
-  }
-
-  .subtitle {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 3rem;
-    padding: 0.78rem 1.22rem;
-    border-radius: 999px;
-    text-decoration: none;
-    font-weight: 700;
-    color: #f7f3ec;
-    background: var(--text);
-    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
-  }
-
-  .cta:hover,
-  .cta:focus-visible {
-    color: #fff;
-    background: #0f0d0a;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .cta-secondary {
-    color: var(--text);
-    background: transparent;
-    border: 1px solid var(--line);
-  }
-
-  .cta-secondary:hover,
-  .cta-secondary:focus-visible {
-    color: var(--text);
-    background: color-mix(in srgb, var(--accent-soft) 55%, white);
-  }
-
-  @media (max-width: 900px) {
-    .intro-grid,
-    .cards {
+  @media (max-width: 960px) {
+    .pricing-row {
       grid-template-columns: 1fr;
     }
 
-    .hero-actions {
-      display: grid;
-    }
-
-    .hero-actions .cta {
-      width: 100%;
+    .pricing-cell {
+      min-height: auto;
     }
   }
 </style>

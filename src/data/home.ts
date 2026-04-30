@@ -225,26 +225,32 @@ export const quizSectionData = {
       value: "1-10",
       label: "1-10 dossiers",
       message:
-        "Votre priorité est probablement de sécuriser les dépôts sans complexifier l'organisation. On peut cadrer les tâches à déléguer et le bon niveau d'accompagnement en 15 minutes.",
+        "Pour votre volume, un accompagnement ciblé DP + Consuel est le plus adapté. Vous avez besoin de méthode, pas d'une usine.",
     },
     {
       value: "10-30",
       label: "10-30 dossiers",
       message:
-        "À ce volume, les retours administratifs et les relances commencent à peser. Sunelys peut structurer un flux récurrent et plus lisible.",
+        "C'est le volume où l'administratif commence vraiment à peser. Un pilotage structuré permet d'absorber 20% de volume en plus sans recruter.",
     },
     {
       value: "+30",
       label: "+30 dossiers",
       message:
-        "Votre enjeu est l'industrialisation : priorisation, visibilité, qualité documentaire et capacité à absorber le flux sans surcharge interne.",
+        "À ce volume, chaque retour documentaire a un coût réel. Sunelys peut industrialiser votre flux et libérer vos équipes sur la vente.",
     },
   ],
   leadForm: {
     action: leadFormAction,
   },
-  ctaLabel: "Réserver un audit Calendly en option",
+  emailStepTitle: "Entrez votre email pour recevoir votre cadrage adapté",
+  emailLabel: "Email professionnel",
+  emailSubmitLabel: "Recevoir mon cadrage",
+  emailNote: "Réponse sous 24h • Sans engagement",
+  resultCtaLabel: "Réserver un audit de 15 min →",
   ctaHref: bookingUrl,
+  phoneLabel: "Ou on vous rappelle : 06 95 90 79 19",
+  phoneHref: "tel:+33695907919",
 };
 
 export const processSectionData = {

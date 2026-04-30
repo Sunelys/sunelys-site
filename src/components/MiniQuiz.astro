@@ -13,8 +13,14 @@ interface QuizData {
   leadForm: {
     action: string;
   };
-  ctaLabel: string;
+  emailStepTitle: string;
+  emailLabel: string;
+  emailSubmitLabel: string;
+  emailNote: string;
+  resultCtaLabel: string;
   ctaHref: string;
+  phoneLabel: string;
+  phoneHref: string;
 }
 
 interface Props {
@@ -31,6 +37,12 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   <p class="question">{data.question}</p>
 
   <div class="quiz-panel">
+    <div class="step-indicator" aria-label="Étapes du tunnel quiz">
+      <span class="step-pill is-active" id="quiz-step-pill-1">Étape 1</span>
+      <span class="step-pill" id="quiz-step-pill-2">Étape 2</span>
+      <span class="step-pill" id="quiz-step-pill-3">Étape 3</span>
+    </div>
+
     <div class="options" role="radiogroup" aria-label={data.question}>
       {
         data.options.map((option) => (
@@ -38,7 +50,7 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
             type="button"
             class="option"
             data-volume={option.value}
-            data-track="quiz_option_click"
+            data-track="quiz_step_1"
             data-track-label={option.label}
             aria-pressed="false"
           >
@@ -52,7 +64,8 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       <input type="hidden" name="_subject" value="Nouveau lead quiz Sunelys" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="source_page" value="homepage_quiz" />
+      <input type="hidden" name="source_page" value="quiz-homepage" />
+      <input type="hidden" name="source" value="quiz-homepage" />
       <input type="hidden" name="volume" id="quiz-volume-field" />
       <input type="hidden" name="lead_status" value="Nouveau lead" />
       <input type="hidden" name="lead_pipeline" value="Site web - Quiz volume" />
@@ -67,23 +80,40 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       <input type="hidden" name="utm_content" data-quiz-attribution="utm_content" />
       <input type="hidden" name="gclid" data-quiz-attribution="gclid" />
 
+      <p class="email-step-title">{data.emailStepTitle}</p>
+
       <label>
-        <span>Votre email pour recevoir le cadrage personnalisé</span>
+        <span>{data.emailLabel}</span>
         <input id="quiz-email-field" type="email" name="email" autocomplete="email" inputmode="email" required />
       </label>
-      <button class="btn btn-primary" type="submit" data-track="cta_quiz_email_submit">
-        Voir mon cadrage
+
+      <button class="btn btn-primary btn-accent" type="submit" data-track="cta_quiz_email_submit">
+        {data.emailSubmitLabel}
       </button>
+
       <p class="email-note" id="quiz-email-status" aria-live="polite">
-        Réponse sous 24h. Calendly reste optionnel après le résultat.
+        {data.emailNote}
       </p>
     </form>
 
     <div class="result" id="quiz-result" hidden>
       <p id="quiz-message"></p>
-      <a id="quiz-cta" class="btn btn-secondary" href={data.ctaHref} data-track="cta_quiz_calendly" target="_blank" rel="noreferrer">
-        {data.ctaLabel}
-      </a>
+
+      <div class="result-actions">
+        <a
+          id="quiz-cta"
+          class="btn btn-primary btn-accent"
+          href={data.ctaHref}
+          data-track="cta_quiz_calendly"
+          target="_blank"
+          rel="noreferrer"
+        >
+          {data.resultCtaLabel}
+        </a>
+        <a class="result-phone" href={data.phoneHref} data-track="cta_quiz_phone">
+          {data.phoneLabel}
+        </a>
+      </div>
     </div>
   </div>
 </section>
@@ -96,7 +126,18 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   const quizResult = document.querySelector("#quiz-result");
   const quizMessage = document.querySelector("#quiz-message");
   const quizCta = document.querySelector("#quiz-cta");
+  const quizPill1 = document.querySelector("#quiz-step-pill-1");
+  const quizPill2 = document.querySelector("#quiz-step-pill-2");
+  const quizPill3 = document.querySelector("#quiz-step-pill-3");
   let selectedQuizVolume = "";
+
+  const setQuizStep = (step) => {
+    [quizPill1, quizPill2, quizPill3].forEach((pill, index) => {
+      if (!(pill instanceof HTMLElement)) return;
+      pill.classList.toggle("is-active", index + 1 === step);
+      pill.classList.toggle("is-complete", index + 1 < step);
+    });
+  };
 
   if (quizEmailForm instanceof HTMLFormElement) {
     const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
@@ -116,11 +157,20 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     ctaUrl.searchParams.set("volume", value);
     quizCta.setAttribute("href", ctaUrl.toString());
     quizResult.hidden = false;
+    setQuizStep(3);
+
+    if (window.trackEvent) {
+      window.trackEvent("quiz_complete", {
+        category: "quiz",
+        volume: value,
+        label: "Quiz complete",
+        source: "quiz-homepage",
+      });
+    }
   };
 
   const setQuizValue = (value) => {
-    const message = messages[value];
-    if (!message || !quizEmailForm || !(quizEmailForm instanceof HTMLFormElement)) return;
+    if (!messages[value] || !(quizEmailForm instanceof HTMLFormElement)) return;
 
     selectedQuizVolume = value;
     quizButtons.forEach((button) => {
@@ -131,9 +181,16 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     if (quizVolumeField instanceof HTMLInputElement) quizVolumeField.value = value;
     quizEmailForm.hidden = false;
     quizResult.hidden = true;
+    setQuizStep(2);
     quizEmailForm.querySelector("input[type='email']")?.focus();
+
     if (window.trackEvent) {
-      window.trackEvent("quiz_volume_selected", { category: "quiz", volume: value, label: value });
+      window.trackEvent("quiz_step_1", {
+        category: "quiz",
+        volume: value,
+        label: value,
+        source: "quiz-homepage",
+      });
     }
   };
 
@@ -153,21 +210,25 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       if (quizEmailStatus) quizEmailStatus.textContent = "Envoi du cadrage en cours...";
 
       const formData = new FormData(quizEmailForm);
+
       try {
         const response = await fetch(quizEmailForm.action, {
           method: "POST",
           body: formData,
           headers: { Accept: "application/json" },
         });
+
         if (!response.ok) throw new Error("Lead submit failed");
+
         if (window.trackEvent) {
-          window.trackEvent("lead_quiz_email_submit", {
+          window.trackEvent("quiz_step_2", {
             category: "form",
             volume: selectedQuizVolume,
             label: "Quiz email capture",
-            source: "homepage_quiz",
+            source: "quiz-homepage",
           });
         }
+
         quizEmailForm.hidden = true;
         showQuizResult(selectedQuizVolume);
       } catch (_error) {
@@ -225,9 +286,40 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   }
 
   .quiz-panel {
-    margin-top: 0;
     display: grid;
     gap: 0.72rem;
+  }
+
+  .step-indicator {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+  }
+
+  .step-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.95rem;
+    padding: 0.24rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--color-hairline);
+    background: color-mix(in srgb, var(--color-surface) 88%, white);
+    color: var(--color-muted);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .step-pill.is-active {
+    border-color: color-mix(in srgb, var(--color-hairline) 64%, var(--color-accent));
+    background: color-mix(in srgb, var(--color-cream) 72%, white);
+    color: var(--color-text-strong);
+  }
+
+  .step-pill.is-complete {
+    border-color: color-mix(in srgb, var(--color-hairline) 62%, #d4822a);
+    color: var(--color-text-strong);
   }
 
   .options {
@@ -263,6 +355,14 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
     padding: 0.75rem;
     display: grid;
     gap: 0.65rem;
+  }
+
+  .email-step-title {
+    margin: 0;
+    color: var(--color-text-strong);
+    font-size: 0.96rem;
+    font-weight: 650;
+    line-height: 1.5;
   }
 
   .email-step[hidden],
@@ -317,47 +417,49 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   }
 
   .result {
-    margin-top: 0;
     border: 1px solid var(--color-hairline);
     border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--color-bg-elevated) 84%, white);
-    padding: 0.75rem;
+    padding: 0.9rem;
     display: grid;
-    gap: 0.72rem;
+    gap: 0.85rem;
   }
 
   .result p {
     margin: 0;
-    color: var(--color-muted);
-    font-size: var(--step--1);
-    line-height: 1.55;
+    color: var(--color-text-strong);
+    font-size: 0.98rem;
+    line-height: 1.62;
   }
 
-  .result .btn {
-    width: fit-content;
+  .result-actions {
+    display: grid;
+    gap: 0.62rem;
+  }
+
+  .result-phone {
+    color: var(--color-text-strong);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .result-phone:hover,
+  .result-phone:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.22rem;
   }
 
   @media (max-width: 820px) {
     .quiz {
       grid-template-columns: 1fr;
     }
-
-    .options {
-      margin-top: 0.2rem;
-    }
   }
 
   @media (max-width: 640px) {
-    .option {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .result .btn {
-      width: 100%;
-      justify-content: center;
-    }
-
+    .option,
+    .result .btn,
     .email-step .btn {
       width: 100%;
       justify-content: center;
