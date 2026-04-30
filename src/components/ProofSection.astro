@@ -26,8 +26,6 @@ interface Props {
 
 const { data } = Astro.props;
 const visibleLogos = data.logos.filter((logo) => logo.src);
-const spotlight = data.testimonials[0];
-const secondaryTestimonial = data.testimonials[1];
 ---
 
 <section class="section-shell proof-section reveal">
@@ -44,67 +42,65 @@ const secondaryTestimonial = data.testimonials[1];
       </div>
     </div>
 
-    <div class="proof-stage">
-      {
-        spotlight && (
-          <article class="proof-spotlight" aria-label="Témoignage client">
-            <p class="spotlight-kicker">Témoignage nominatif</p>
-            <span class="quote-mark" aria-hidden="true">“</span>
-            <p class="spotlight-quote">{spotlight.quote}</p>
-            <div class="spotlight-footer">
-              <strong>{spotlight.author}</strong>
-              <span>{spotlight.note}</span>
-            </div>
-          </article>
-        )
-      }
-
-      <div class="proof-side">
+    <div class="proof-core">
+      <div class="metric-grid">
         {
-          secondaryTestimonial && (
-            <article class="supporting-testimonial" aria-label="Témoignage complémentaire">
-              <p class="supporting-kicker">Retour complémentaire</p>
-              <p class="supporting-quote">"{secondaryTestimonial.quote}"</p>
-              <div class="supporting-footer">
-                <strong>{secondaryTestimonial.author}</strong>
-              </div>
+          data.metrics.map((metric, index) => (
+            <article class:list={["metric-card", index === 0 && "is-featured"]}>
+              <p class="metric-value">{metric.value}</p>
+              <p class="metric-label">{metric.label}</p>
             </article>
-          )
-        }
-
-        <div class="metric-grid">
-          {
-            data.metrics.map((metric, index) => (
-              <article class:list={["metric-card", index === 0 && "is-featured"]}>
-                <p class="metric-value">{metric.value}</p>
-                <p class="metric-label">{metric.label}</p>
-              </article>
-            ))
-          }
-        </div>
-
-        {
-          visibleLogos.length > 0 && (
-            <div class="logo-wall" aria-label="Clients Sunelys">
-              <div class="logo-wall-head">
-                <p class="logo-eyebrow">Ils nous font déjà confiance</p>
-                <p class="logo-caption">Des marques déjà visibles, pas des promesses théoriques.</p>
-              </div>
-
-              <div class="logo-row">
-                {
-                  visibleLogos.map((logo) => (
-                    <article class="logo-slot" aria-label={logo.name}>
-                      <img src={logo.src} alt={logo.name} loading="lazy" />
-                    </article>
-                  ))
-                }
-              </div>
-            </div>
-          )
+          ))
         }
       </div>
+
+      {
+        visibleLogos.length > 0 && (
+          <div class="logo-wall" aria-label="Clients Sunelys">
+            <div class="logo-wall-head">
+              <p class="logo-eyebrow">Ils nous font déjà confiance</p>
+              <p class="logo-caption">Des références visibles avant même de rentrer dans les détails.</p>
+            </div>
+
+            <div class="logo-row">
+              {
+                visibleLogos.map((logo) => (
+                  <article class="logo-slot" aria-label={logo.name}>
+                    <img src={logo.src} alt={logo.name} loading="lazy" />
+                  </article>
+                ))
+              }
+            </div>
+          </div>
+        )
+      }
     </div>
+
+    {
+      data.testimonials.length > 0 && (
+        <div class="testimonial-stage" aria-label="Témoignages clients">
+          <div class="testimonial-stage-head">
+            <p class="testimonial-kicker">Paroles d'installateurs</p>
+            <p class="testimonial-intro">Des retours terrain nominatifs, placés après la preuve visuelle et les chiffres.</p>
+          </div>
+
+          <div class="testimonial-grid">
+            {
+              data.testimonials.map((item, index) => (
+                <article class:list={["testimonial-card", index === 0 && "is-primary"]}>
+                  <span class="quote-mark" aria-hidden="true">“</span>
+                  <p class="testimonial-quote">{item.quote}</p>
+                  <div class="testimonial-footer">
+                    <strong>{item.author}</strong>
+                    <span>{item.note}</span>
+                  </div>
+                </article>
+              ))
+            }
+          </div>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -146,7 +142,8 @@ const secondaryTestimonial = data.testimonials[1];
     align-items: end;
   }
 
-  .kicker {
+  .kicker,
+  .testimonial-kicker {
     margin: 0;
     color: color-mix(in srgb, #f5e8d0 82%, var(--accent));
     font-size: 0.72rem;
@@ -198,126 +195,11 @@ const secondaryTestimonial = data.testimonials[1];
     font-weight: 600;
   }
 
-  .proof-stage {
+  .proof-core {
     display: grid;
-    grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-    gap: clamp(0.95rem, 1.6vw, 1.2rem);
-    align-items: stretch;
-  }
-
-  .proof-spotlight {
-    position: relative;
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--accent));
-    border-radius: 30px;
-    background:
-      radial-gradient(78% 120% at 100% 0%, rgba(239, 227, 201, 0.28), transparent 58%),
-      linear-gradient(180deg, #fffdfa, #fbf6ec);
-    padding: clamp(1.25rem, 2.3vw, 1.8rem);
-    box-shadow: 0 24px 60px rgba(13, 11, 8, 0.18);
-  }
-
-  .proof-spotlight::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(140deg, transparent 58%, rgba(197, 165, 111, 0.08) 100%);
-    pointer-events: none;
-  }
-
-  .spotlight-kicker {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .quote-mark {
-    position: relative;
-    z-index: 1;
-    display: inline-block;
-    margin-top: 0.7rem;
-    color: color-mix(in srgb, var(--accent) 86%, #f2dbc0);
-    font-family: var(--font-display);
-    font-size: clamp(3.6rem, 5vw, 5.2rem);
-    line-height: 0.7;
-  }
-
-  .spotlight-quote {
-    position: relative;
-    z-index: 1;
-    margin: 0.28rem 0 0;
-    color: var(--text);
-    font-size: clamp(1.08rem, 0.58vw + 0.96rem, 1.28rem);
-    line-height: 1.62;
-    text-wrap: pretty;
-  }
-
-  .spotlight-footer {
-    position: relative;
-    z-index: 1;
-    margin-top: 1rem;
-    padding-top: 0.88rem;
-    border-top: 1px solid color-mix(in srgb, var(--line) 84%, white);
-    display: grid;
-    gap: 0.22rem;
-  }
-
-  .spotlight-footer strong {
-    color: var(--text);
-    font-size: 0.76rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .spotlight-footer span {
-    color: var(--text-muted);
-    font-size: 0.78rem;
-    line-height: 1.45;
-  }
-
-  .proof-side {
-    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 0.9rem;
-    align-content: start;
-  }
-
-  .supporting-testimonial {
-    border: 1px solid rgba(255, 253, 247, 0.14);
-    border-radius: 22px;
-    background: rgba(255, 253, 247, 0.06);
-    padding: 1rem;
-    display: grid;
-    gap: 0.5rem;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  }
-
-  .supporting-kicker {
-    margin: 0;
-    color: #f0dfc0;
-    font-size: 0.66rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-  }
-
-  .supporting-quote {
-    margin: 0;
-    color: #fff8ed;
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-
-  .supporting-footer strong {
-    color: #d8c9b5;
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    align-items: stretch;
   }
 
   .metric-grid {
@@ -386,7 +268,8 @@ const secondaryTestimonial = data.testimonials[1];
     text-transform: uppercase;
   }
 
-  .logo-caption {
+  .logo-caption,
+  .testimonial-intro {
     margin: 0;
     color: #cfc1ad;
     font-size: 0.84rem;
@@ -433,9 +316,81 @@ const secondaryTestimonial = data.testimonials[1];
     max-height: 36px;
   }
 
+  .testimonial-stage {
+    display: grid;
+    gap: 0.85rem;
+    padding-top: 0.2rem;
+  }
+
+  .testimonial-stage-head {
+    display: grid;
+    gap: 0.18rem;
+  }
+
+  .testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .testimonial-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(255, 253, 247, 0.14);
+    border-radius: 26px;
+    background:
+      linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045));
+    padding: 1.05rem;
+    display: grid;
+    gap: 0.58rem;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .testimonial-card.is-primary {
+    background:
+      radial-gradient(110% 140% at 100% 0%, rgba(239, 227, 201, 0.16), transparent 56%),
+      linear-gradient(180deg, rgba(255, 253, 247, 0.12), rgba(255, 253, 247, 0.055));
+  }
+
+  .quote-mark {
+    display: inline-block;
+    color: color-mix(in srgb, var(--accent) 84%, #f1d8b8);
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 3.6vw, 4rem);
+    line-height: 0.7;
+  }
+
+  .testimonial-quote {
+    margin: 0;
+    color: #fff8ed;
+    font-size: 0.98rem;
+    line-height: 1.62;
+    text-wrap: pretty;
+  }
+
+  .testimonial-footer {
+    padding-top: 0.72rem;
+    border-top: 1px solid rgba(255, 253, 247, 0.12);
+    display: grid;
+    gap: 0.18rem;
+  }
+
+  .testimonial-footer strong {
+    color: #fff2db;
+    font-size: 0.74rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .testimonial-footer span {
+    color: #d5c8b4;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
   @media (max-width: 1080px) {
     .proof-top,
-    .proof-stage {
+    .proof-core {
       grid-template-columns: 1fr;
     }
 
@@ -452,7 +407,8 @@ const secondaryTestimonial = data.testimonials[1];
     }
 
     .metric-grid,
-    .logo-row {
+    .logo-row,
+    .testimonial-grid {
       grid-template-columns: 1fr;
     }
 
@@ -461,8 +417,8 @@ const secondaryTestimonial = data.testimonials[1];
       min-height: auto;
     }
 
-    .spotlight-quote {
-      font-size: 1rem;
+    .testimonial-quote {
+      font-size: 0.95rem;
     }
   }
 </style>

@@ -88,9 +88,9 @@ export const proofSectionData = {
     },
     {
       quote:
-        "Le suivi est beaucoup plus lisible depuis qu'on a délégué l'administratif. Les blocages de dossiers ont nettement diminué.",
-      author: "Responsable opérations - Installateur solaire multi-agences, Occitanie",
-      note: "Référence anonyme publiée à titre de réassurance sectorielle.",
+        "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
+      author: "Victorion Brice - gérant, Be Travaux",
+      note: "Retour terrain publié avec accord.",
     },
   ],
 };
