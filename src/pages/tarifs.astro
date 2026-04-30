@@ -1,114 +1,114 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const plans = [
+const pricingRows = [
   {
-    name: "Essentiel",
-    fit: "1-10 dossiers/mois",
-    services: "DP ou Consuel ou Raccordement",
-    portal: "Accès inclus",
-    followUp: "Hebdomadaire",
-    price: "Sur devis",
+    service: "Déclarations préalables",
+    scope: "Analyse, production, dépôt, suivi et validation",
+    lessThan20: "À partir de 149 € HT",
+    from21To50: "À partir de 119 € HT",
+    moreThan51: "À partir de 79 € HT",
   },
   {
-    name: "Structuré",
-    fit: "10-30 dossiers/mois",
-    services: "2 services au choix",
-    portal: "Accès inclus",
-    followUp: "Bi-hebdomadaire",
-    price: "Sur devis",
+    service: "Raccordement réseau + Consuel",
+    scope: "Dépôt de demande, gestion des échanges, validation et mise en service",
+    lessThan20: "À partir de 100 € HT",
+    from21To50: "À partir de 85 € HT",
+    moreThan51: "À partir de 70 € HT",
   },
-  {
-    name: "Pilotage complet",
-    fit: "+30 dossiers/mois",
-    services: "DP + Consuel + Raccordement",
-    portal: "Accès inclus",
-    followUp: "Quotidien",
-    price: "Sur devis",
-  },
+];
+
+const collaborationItems = [
+  "Production sous 48h lorsque le dossier est complet",
+  "Suivi sur espace dédié",
+  "Interlocuteur unique dédié",
+  "Facturation mensuelle selon le volume réel",
 ];
 ---
 
 <BaseLayout
   title="Tarifs Sunelys | Gestion administrative photovoltaïque"
-  description="Découvrez le fonctionnement tarifaire Sunelys par volume de dossiers pour les installateurs photovoltaïques : essentiel, structuré ou pilotage complet."
+  description="Tarifs Sunelys pour installateurs photovoltaïques : déclaration préalable, raccordement réseau et Consuel avec prix dégressifs selon le volume mensuel."
 >
   <section class="hero pricing-hero">
     <p class="eyebrow">Tarification Sunelys</p>
-    <h1>Une tarification au volume, pas à la tâche.</h1>
+    <h1>Des prix clairs, dégressifs selon votre volume.</h1>
     <p class="intro">
-      Nous adaptons le périmètre et la cadence à votre organisation. Voici comment nous travaillons.
+      Les montants ci-dessous donnent une base de cadrage pour les installateurs photovoltaïques.
+      Le prix final dépend du périmètre, de la qualité des pièces transmises et du volume réellement traité.
     </p>
   </section>
 
   <section class="pricing-table-shell">
     <div class="table-head">
-      <p class="eyebrow">Formules</p>
-      <h2>Trois cadres d'accompagnement selon votre flux mensuel.</h2>
+      <p class="eyebrow">Prix par dossier</p>
+      <h2>Deux blocs d'accompagnement, avec tarifs dégressifs.</h2>
     </div>
 
     <div class="pricing-table" role="table" aria-label="Tableau des offres Sunelys">
       <div class="pricing-row pricing-row-head" role="row">
-        <div class="pricing-cell pricing-label" role="columnheader"></div>
-        {plans.map((plan) => (
-          <div class="pricing-cell pricing-plan-head" role="columnheader">
-            <strong>{plan.name}</strong>
+        <div class="pricing-cell pricing-label" role="columnheader">Service</div>
+        <div class="pricing-cell pricing-plan-head" role="columnheader">
+          <strong>Moins de 20 dossiers / mois</strong>
+        </div>
+        <div class="pricing-cell pricing-plan-head" role="columnheader">
+          <strong>21 à 50 dossiers / mois</strong>
+        </div>
+        <div class="pricing-cell pricing-plan-head" role="columnheader">
+          <strong>Plus de 51 dossiers / mois</strong>
+        </div>
+      </div>
+
+      {
+        pricingRows.map((row) => (
+          <div class="pricing-row" role="row">
+            <div class="pricing-cell pricing-service" role="rowheader">
+              <strong>{row.service}</strong>
+              <span>{row.scope}</span>
+            </div>
+            <div class="pricing-cell price-cell" role="cell">{row.lessThan20}</div>
+            <div class="pricing-cell price-cell" role="cell">{row.from21To50}</div>
+            <div class="pricing-cell price-cell" role="cell">{row.moreThan51}</div>
           </div>
-        ))}
-      </div>
-
-      <div class="pricing-row" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Pour</div>
-        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.fit}</div>)}
-      </div>
-
-      <div class="pricing-row" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Services</div>
-        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.services}</div>)}
-      </div>
-
-      <div class="pricing-row" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Portail</div>
-        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.portal}</div>)}
-      </div>
-
-      <div class="pricing-row" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Suivi</div>
-        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.followUp}</div>)}
-      </div>
-
-      <div class="pricing-row" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Tarif</div>
-        {plans.map((plan) => <div class="pricing-cell" role="cell">{plan.price}</div>)}
-      </div>
+        ))
+      }
 
       <div class="pricing-row pricing-row-cta" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">CTA</div>
-        {
-          plans.map((plan) => (
-            <div class="pricing-cell" role="cell">
-              <a
-                class="btn btn-primary btn-accent"
-                href={`/contact?source=tarifs-${plan.name.toLowerCase().replace(/\s+/g, "-")}#contact-form`}
-                data-track="cta_tarifs_plan"
-                data-track-label={plan.name}
-              >
-                Demander un devis
-              </a>
-            </div>
-          ))
-        }
+        <div class="pricing-cell pricing-label" role="rowheader">Cadrage</div>
+        <div class="pricing-cell cta-cell" role="cell">
+          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-moins-20#contact-form" data-track="cta_tarifs_volume" data-track-label="moins de 20 dossiers">
+            Cadrer mon volume
+          </a>
+        </div>
+        <div class="pricing-cell cta-cell" role="cell">
+          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-21-50#contact-form" data-track="cta_tarifs_volume" data-track-label="21 à 50 dossiers">
+            Cadrer mon volume
+          </a>
+        </div>
+        <div class="pricing-cell cta-cell" role="cell">
+          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-51-plus#contact-form" data-track="cta_tarifs_volume" data-track-label="plus de 51 dossiers">
+            Cadrer mon volume
+          </a>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="pricing-note">
-    <p>
-      Les tarifs sont construits sur votre volume et votre périmètre. Contactez-nous pour un cadrage sans engagement.
-    </p>
+    <div>
+      <p class="eyebrow">Pack stratégique</p>
+      <h2>Chaîne administrative complète</h2>
+      <p>
+        Déclaration préalable, raccordement réseau et coordination Consuel peuvent être pilotés ensemble
+        avec un interlocuteur unique et une facturation mensuelle selon le volume réel.
+      </p>
+      <ul class="collaboration-list">
+        {collaborationItems.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
     <div class="note-actions">
       <a class="btn btn-primary btn-accent" href="/contact?source=tarifs#contact-form" data-track="cta_tarifs_primary">
-        Demander un devis
+        Recevoir un cadrage
       </a>
       <a class="btn btn-secondary" href="/services" data-track="cta_tarifs_services">
         Voir les services
@@ -183,7 +183,7 @@ const plans = [
 
   .pricing-row {
     display: grid;
-    grid-template-columns: minmax(160px, 0.8fr) repeat(3, minmax(0, 1fr));
+    grid-template-columns: minmax(220px, 1.05fr) repeat(3, minmax(0, 1fr));
     gap: 0.72rem;
   }
 
@@ -206,9 +206,25 @@ const plans = [
   }
 
   .pricing-plan-head strong,
-  .pricing-label {
+  .pricing-label,
+  .pricing-service strong,
+  .price-cell {
     color: var(--text);
     font-weight: 700;
+  }
+
+  .pricing-service {
+    gap: 0.35rem;
+  }
+
+  .pricing-service span {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+
+  .price-cell {
+    font-size: clamp(1rem, 1.2vw, 1.18rem);
   }
 
   .pricing-label {
@@ -221,8 +237,26 @@ const plans = [
     min-height: auto;
   }
 
-  .pricing-row-cta .btn {
+  .cta-cell .btn {
     width: 100%;
+  }
+
+  .collaboration-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .collaboration-list li {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    color: var(--text-muted);
+    padding: 0.85rem 0.9rem;
+    line-height: 1.45;
   }
 
   .note-actions {
@@ -239,6 +273,10 @@ const plans = [
 
     .pricing-cell {
       min-height: auto;
+    }
+
+    .collaboration-list {
+      grid-template-columns: 1fr;
     }
   }
 </style>

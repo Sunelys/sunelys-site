@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Flux administratif solaire par volume</title>
+  <desc id="desc">Visualisation éditoriale d'un pipeline de dossiers photovoltaïques classés par volume.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <rect x="84" y="78" width="1032" height="519" rx="36" fill="#fffdfa" stroke="#d9d0c1" stroke-width="2"/>
+  <circle cx="966" cy="150" r="88" fill="#efe3c9"/>
+  <g fill="none" stroke="#181510" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" opacity=".9">
+    <path d="M184 456h208c68 0 68-236 136-236h140"/>
+    <path d="M184 348h208c68 0 68-92 136-92h238"/>
+    <path d="M184 240h208c68 0 68 168 136 168h330"/>
+  </g>
+  <g fill="#d4822a">
+    <circle cx="184" cy="456" r="18"/>
+    <circle cx="184" cy="348" r="18"/>
+    <circle cx="184" cy="240" r="18"/>
+    <circle cx="668" cy="220" r="18"/>
+    <circle cx="766" cy="256" r="18"/>
+    <circle cx="858" cy="408" r="18"/>
+  </g>
+  <g fill="#181510">
+    <rect x="154" y="138" width="210" height="20" rx="10"/>
+    <rect x="154" y="170" width="330" height="14" rx="7" opacity=".45"/>
+    <rect x="746" y="490" width="210" height="18" rx="9"/>
+    <rect x="746" y="522" width="300" height="12" rx="6" opacity=".35"/>
+  </g>
+</svg>

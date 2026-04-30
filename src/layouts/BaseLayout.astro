@@ -15,6 +15,7 @@ const canonical = new URL(path, `${siteUrl}/`).toString();
 const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
 
 const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
+const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION || "";
 const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
@@ -80,6 +81,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta name="theme-color" content="#c9ac85" />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
     <meta property="og:type" content="website" />

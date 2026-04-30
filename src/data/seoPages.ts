@@ -172,13 +172,13 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     proof: {
       quote:
-        "Le vrai gain, c'est la sérénité. Le dossier est cadré, suivi et on sait que tout est propre administrativement avant de dépendre d'un retour tardif.",
-      author: "Damien Guillaume",
-      role: "dirigeant de SUN WATT FRANCE",
+        "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
+      author: "Victorion Brice",
+      role: "gérant de Be Travaux",
       highlights: [
-        "Contrôle documentaire plus rigoureux",
-        "Moins d'écarts entre chantier et dossier",
-        "Visibilité renforcée avant mise en service",
+        "Suivi plus réactif des dossiers",
+        "Réponses plus rapides côté administratif",
+        "Chantiers lancés plus sereinement",
       ],
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
@@ -430,13 +430,13 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     proof: {
       quote:
-        "Nous avons atteint un très bon niveau de dossiers accordés, sans pièce complémentaire, avec la tranquillité d'esprit de savoir que tout est cadré et conforme.",
-      author: "Damien Guillaume",
-      role: "dirigeant de SUN WATT FRANCE",
+        "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
+      author: "Victorion Brice",
+      role: "gérant de Be Travaux",
       highlights: [
-        "DP mieux préparées dès le départ",
-        "Moins de demandes de compléments",
-        "Lancement chantier plus serein",
+        "Délais mieux suivis dès le dépôt",
+        "Pilotage plus lisible pour les équipes",
+        "Chantiers installés plus rapidement",
       ],
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",

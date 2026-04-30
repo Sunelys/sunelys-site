@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Déclaration préalable panneaux solaires</title>
+  <desc id="desc">Visualisation éditoriale d'une toiture solaire et de points de contrôle pour éviter les erreurs de déclaration préalable.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <rect x="92" y="76" width="1016" height="523" rx="36" fill="#fffdfa" stroke="#d9d0c1" stroke-width="2"/>
+  <path d="M218 408l382-206 382 206" fill="none" stroke="#181510" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M304 410h592v84H304z" fill="#faf6ef" stroke="#d9d0c1" stroke-width="2"/>
+  <g stroke="#181510" stroke-width="4" opacity=".8">
+    <rect x="428" y="318" width="92" height="58" rx="8" fill="#efe3c9"/>
+    <rect x="542" y="318" width="92" height="58" rx="8" fill="#efe3c9"/>
+    <rect x="656" y="318" width="92" height="58" rx="8" fill="#efe3c9"/>
+  </g>
+  <g fill="#d4822a">
+    <circle cx="384" cy="206" r="22"/>
+    <circle cx="822" cy="252" r="22"/>
+    <circle cx="688" cy="466" r="22"/>
+  </g>
+  <g stroke="#fffdfa" stroke-width="6" stroke-linecap="round">
+    <path d="M374 206h20"/>
+    <path d="M384 196v20"/>
+    <path d="M812 252h20"/>
+    <path d="M822 242v20"/>
+    <path d="M678 466h20"/>
+    <path d="M688 456v20"/>
+  </g>
+  <rect x="198" y="148" width="264" height="18" rx="9" fill="#181510"/>
+  <rect x="198" y="180" width="350" height="12" rx="6" fill="#625b4f" opacity=".4"/>
+</svg>

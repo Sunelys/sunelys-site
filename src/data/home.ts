@@ -48,8 +48,8 @@ export const heroData = {
 };
 
 export const trustSectionData = {
-  kicker: "Réassurance immédiate",
-  title: "Des références visibles et des indicateurs concrets dès le premier coup d'oeil.",
+  kicker: "Déjà sur le terrain",
+  title: "Des dossiers solaires suivis pour des installateurs qui avancent.",
   logos: [
     {
       name: "Sunwatt France",
@@ -73,7 +73,7 @@ export const trustSectionData = {
     },
   ],
   trustNote:
-    "Des installateurs et structures solaires s'appuient sur Sunelys pour cadrer leurs pièces, sécuriser les dépôts et offrir à leurs clients une expérience plus propre, plus fluide et plus rassurante.",
+    "Sunelys accompagne des installateurs et structures solaires qui veulent garder des dossiers propres, des dépôts mieux cadrés et des clients informés sans mobiliser leurs équipes à chaque relance.",
   metrics: [
     { value: "+5000", label: "dossiers photovoltaïques pilotés avec traçabilité" },
     { value: "+50", label: "partenaires et installateurs déjà accompagnés" },
@@ -82,8 +82,8 @@ export const trustSectionData = {
 };
 
 export const proofSectionData = {
-  kicker: "Paroles d'installateurs",
-  title: "Une preuve plus humaine, placée au bon moment dans le parcours.",
+  kicker: "Retours terrain",
+  title: "Ce que les installateurs gagnent quand le suivi administratif tient la route.",
   testimonials: [
     {
       quote:
@@ -343,7 +343,7 @@ export const portalSectionData = {
 };
 
 export const caseStudySectionData = {
-  kicker: "Cas client",
+  kicker: "Exemple de flux",
   title: "Quand un flux multi-agences est enfin piloté avec plus de tenue et moins de retours.",
   context: "Installateur multi-agences, 20-30 dossiers/mois, France.",
   narrative:

@@ -65,10 +65,11 @@ Tout est dans `src/data/home.ts`:
 - `visionSectionData`
 - `finalCtaSectionData`
 
-## Placeholders à remplacer
-- Logos partenaires: `proofSectionData.logos[]`
+## Preuves sociales et visuels
+- Logos partenaires: `trustSectionData.logos[]`
 - Témoignages: `proofSectionData.testimonials[]`
-- Données d'étude de cas: `caseStudySectionData.results` et `caseStudySectionData.note`
+- Chiffres clés: `trustSectionData.metrics[]`
+- Image métier homepage: `public/images/site/solar-admin-coordination-2026.webp`
 
 ## Blog SEO
 - Index blog: `src/pages/blog/index.astro`
@@ -80,7 +81,7 @@ Tout est dans `src/data/home.ts`:
 
 - Images blog: `coverImage` et `coverAlt` dans le frontmatter des articles
 - Composant image réutilisable: `src/components/MediaFrame.astro`
-- Placeholders actuels du site: `public/images/site/portal-preview-placeholder.svg` et `public/images/site/case-study-placeholder.svg`
+- Chaque article doit utiliser un visuel spécifique dans `public/images/blog/` ou une capture réelle dédiée.
 
 ### Arborescence images recommandée
 - `public/images/site/` : visuels structurels du site (hero, portail, cas client, process)
@@ -109,6 +110,13 @@ Dans Vercel > Project Settings > Environment Variables, ajouter:
 PUBLIC_GA4_ID=G-XXXXXXXXXX
 ```
 Puis redeployer. En local, copier `.env.example` vers `.env` et renseigner la valeur.
+
+### Activer Search Console
+Dans Google Search Console, choisir la validation par balise meta, puis copier uniquement le contenu de l'attribut `content`:
+```bash
+PUBLIC_GOOGLE_SITE_VERIFICATION=xxxxxxxxxxxxxxxx
+```
+Puis redeployer. La balise `google-site-verification` sera injectee automatiquement dans le `<head>`.
 
 ### Activer Matomo
 Dans Vercel > Project Settings > Environment Variables, ajouter:

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Suivi de dossier Consuel photovoltaïque</title>
+  <desc id="desc">Visualisation éditoriale d'un dossier Consuel avec contrôle documentaire et statut de validation.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <rect x="100" y="72" width="1000" height="531" rx="38" fill="#fffdfa" stroke="#d9d0c1" stroke-width="2"/>
+  <rect x="182" y="146" width="360" height="404" rx="24" fill="#faf6ef" stroke="#d9d0c1" stroke-width="2"/>
+  <rect x="232" y="210" width="260" height="18" rx="9" fill="#181510"/>
+  <rect x="232" y="260" width="210" height="12" rx="6" fill="#625b4f" opacity=".55"/>
+  <rect x="232" y="300" width="238" height="12" rx="6" fill="#625b4f" opacity=".45"/>
+  <rect x="232" y="340" width="180" height="12" rx="6" fill="#625b4f" opacity=".45"/>
+  <circle cx="774" cy="334" r="120" fill="#efe3c9"/>
+  <path d="M710 336l42 42 94-102" fill="none" stroke="#d4822a" stroke-width="26" stroke-linecap="round" stroke-linejoin="round"/>
+  <g fill="#181510">
+    <rect x="664" y="492" width="220" height="18" rx="9"/>
+    <rect x="626" y="524" width="296" height="12" rx="6" opacity=".35"/>
+  </g>
+</svg>
