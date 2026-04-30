@@ -12,6 +12,12 @@ const blog = defineCollection({
     keywords: z.string(),
     coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
+    primaryServiceHref: z.string().optional(),
+    primaryServiceLabel: z.string().optional(),
+    secondaryServiceHref: z.string().optional(),
+    secondaryServiceLabel: z.string().optional(),
+    contactSource: z.string().optional(),
+    businessOutcome: z.string().optional(),
   }),
 });
 

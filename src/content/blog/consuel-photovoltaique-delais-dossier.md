@@ -10,6 +10,12 @@ readingTime: "5 min"
 coverImage: "/images/site/portal-overview-2026-04-23.png"
 coverAlt: "Vue réelle du portail Sunelys avec suivi des demandes de documents et des dossiers en cours."
 keywords: "Consuel photovoltaïque, dossier Consuel solaire, administratif photovoltaïque, installateur solaire"
+primaryServiceHref: "/dossier-consuel-photovoltaique"
+primaryServiceLabel: "Service dossier Consuel"
+secondaryServiceHref: "/contact"
+secondaryServiceLabel: "Recevoir un cadrage"
+contactSource: "blog-consuel"
+businessOutcome: "Réduire les retours Consuel et sécuriser la mise en service avec un suivi documentaire plus propre."
 ---
 
 ## Le Consuel est souvent un révélateur d'organisation

@@ -10,6 +10,12 @@ readingTime: "6 min"
 coverImage: "/images/site/portal-overview-2026-04-23.png"
 coverAlt: "Vue réelle du portail Sunelys pour suivre les dossiers photovoltaïques et les pièces à transmettre."
 keywords: "externalisation administrative solaire, sous-traitance administrative solaire, gestion administrative photovoltaïque, installateur photovoltaïque"
+primaryServiceHref: "/gestion-administrative-photovoltaique"
+primaryServiceLabel: "Gestion administrative photovoltaïque"
+secondaryServiceHref: "/contact"
+secondaryServiceLabel: "Recevoir un cadrage"
+contactSource: "blog-externalisation"
+businessOutcome: "Absorber plus de volume sans faire basculer vos commerciaux et conducteurs de travaux dans l'administratif."
 ---
 
 ## L'administratif solaire devient coûteux quand il ralentit le commerce

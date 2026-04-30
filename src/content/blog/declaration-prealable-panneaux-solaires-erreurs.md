@@ -10,6 +10,12 @@ readingTime: "5 min"
 coverImage: "/images/site/portal-dossiers-2026-04-23.png"
 coverAlt: "Vue réelle de la liste de dossiers dans le portail Sunelys avec progression et prochaines étapes."
 keywords: "déclaration préalable panneaux solaires, dossier photovoltaïque, administratif solaire, installateur photovoltaïque"
+primaryServiceHref: "/declaration-prealable-panneaux-solaires"
+primaryServiceLabel: "Service déclaration préalable"
+secondaryServiceHref: "/contact"
+secondaryServiceLabel: "Recevoir un cadrage"
+contactSource: "blog-dp"
+businessOutcome: "Fiabiliser les dépôts mairie pour réduire les pièces complémentaires et lancer les chantiers plus sereinement."
 ---
 
 ## Pourquoi la déclaration préalable bloque autant de dossiers solaires
