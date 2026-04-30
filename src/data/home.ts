@@ -86,6 +86,12 @@ export const proofSectionData = {
       author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
       note: "Témoignage nominatif publié avec accord.",
     },
+    {
+      quote:
+        "Le suivi est beaucoup plus lisible depuis qu'on a délégué l'administratif. Les blocages de dossiers ont nettement diminué.",
+      author: "Responsable opérations - Installateur solaire multi-agences, Occitanie",
+      note: "Référence anonyme publiée à titre de réassurance sectorielle.",
+    },
   ],
 };
 
@@ -327,24 +333,15 @@ export const portalSectionData = {
 
 export const caseStudySectionData = {
   kicker: "Cas client",
-  title: "SUN WATT FRANCE : une gestion DP plus nette, plus sereine et plus crédible face au client final.",
-  client: "Damien Guillaume, dirigeant - SUN WATT FRANCE",
-  context: "Témoignage nominatif validé pour publication",
+  title: "Quand un flux multi-agences est enfin piloté avec plus de tenue et moins de retours.",
+  context: "Installateur multi-agences, 20-30 dossiers/mois, France.",
   narrative:
-    "Pour SUN WATT FRANCE, la valeur perçue ne tient pas seulement à la délégation administrative. Elle tient à la qualité du cadrage, à l'absence de pièces complémentaires sur les dossiers bien préparés, et à la tranquillité d'esprit de savoir chaque démarche suivie avec rigueur.",
+    "Sur ce type d'organisation, l'enjeu n'est pas seulement de gagner du temps. Il s'agit surtout d'absorber davantage de volume, de réduire les retours documentaires et de rendre les délais administratifs beaucoup plus lisibles pour toute l'équipe.",
   results: [
-    { value: "DP accordées", label: "avec un très haut niveau de validation sur les dossiers bien cadrés" },
-    { value: "0 pièce", label: "complémentaire sur les dépôts proprement préparés" },
-    { value: "Esprit tranquille", label: "sur la conformité, le suivi et la qualité d'exécution" },
+    { value: "-40%", label: "de dossiers retournés pour pièces incomplètes" },
+    { value: "+18", label: "dossiers/mois absorbés sans charge interne supplémentaire" },
+    { value: "8 jours", label: "délai moyen DP en jours ouvrés" },
   ],
-  note:
-    "Ici, la promesse n'est pas seulement un gain de temps. C'est une qualité d'exécution qui rassure autant l'installateur que son client final.",
-  secondaryCase: {
-    title: "Autre retour terrain",
-    quote:
-      "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
-    author: "Victorion Brice - gérant, Be Travaux",
-  },
   cta: {
     label: "Parler de votre contexte",
     href: "/contact?source=cas-client",
