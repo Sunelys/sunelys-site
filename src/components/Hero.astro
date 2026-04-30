@@ -24,13 +24,13 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="hero section-shell">
+<section class="hero section-shell" data-sticky-guard="hero">
   <div class="hero-copy reveal">
     <p class="kicker">{data.kicker}</p>
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
 
-    <div class="portal-proof" aria-label="Portail client Sunelys">
+    <div class="portal-proof" aria-label="Réassurance immédiate">
       <ul class="proof-bar">
         {
           data.proofs.map((proof) => (
@@ -38,19 +38,6 @@ const { data } = Astro.props;
           ))
         }
       </ul>
-      {
-        data.portalDemo && (
-          <a
-            class="portal-demo-link"
-            href={data.portalDemo.href}
-            data-track={data.portalDemo.track}
-            target="_blank"
-            rel="noreferrer"
-          >
-            {data.portalDemo.label}
-          </a>
-        )
-      }
     </div>
 
     {
@@ -109,7 +96,7 @@ const { data } = Astro.props;
             </div>
 
             <div class="hero-form-actions">
-              <button class="btn btn-primary" type="submit" data-track="cta_hero_lead_submit">
+              <button class="btn btn-primary btn-accent" type="submit" data-track="cta_hero_lead_submit">
                 {data.leadForm.submitLabel}
               </button>
               <a
@@ -141,27 +128,6 @@ const { data } = Astro.props;
     {data.ctaNote && <p class="cta-note">{data.ctaNote}</p>}
   </div>
 
-  <aside class="hero-portal reveal" aria-label="Aperçu réel du portail Sunelys">
-    <a
-      class="hero-portal-link"
-      href={data.portalDemo?.href ?? "/images/site/portal-overview-2026-04-23.png"}
-      data-track={data.portalDemo?.track ?? "cta_hero_portal_demo_image"}
-      target="_blank"
-      rel="noreferrer"
-    >
-      <span class="portal-chip">Interface réelle du portail</span>
-      <img
-        src="/images/site/portal-overview-2026-04-23.png"
-        alt="Capture réelle du portail Sunelys avec suivi des dossiers, pièces à transmettre et demandes de documents."
-        loading="eager"
-        decoding="async"
-      />
-      <div class="portal-caption">
-        <strong>Capture réelle du portail Sunelys</strong>
-        <span>Statuts, pièces, relances et prochaines actions centralisés dans une seule vue.</span>
-      </div>
-    </a>
-  </aside>
 </section>
 
 <script>
@@ -189,10 +155,7 @@ const { data } = Astro.props;
 <style>
   .hero {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(420px, 0.92fr) minmax(0, 1.08fr);
-    gap: clamp(1.2rem, 3vw, 2.8rem);
-    align-items: start;
+    max-width: 62rem;
     padding-top: clamp(1rem, 1.8vw, 2rem);
     padding-bottom: clamp(1.1rem, 2vw, 2.4rem);
   }
@@ -238,74 +201,6 @@ const { data } = Astro.props;
     border: 1px solid rgba(255, 255, 255, 0.46);
     border-radius: calc(var(--radius-xl) - 14px);
     pointer-events: none;
-  }
-
-  .hero-portal {
-    position: relative;
-    z-index: 1;
-    min-width: 0;
-    align-self: start;
-    padding-top: clamp(0.2rem, 0.8vw, 0.75rem);
-  }
-
-  .hero-portal-link {
-    position: relative;
-    display: block;
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(
-        105% 120% at 100% 0%,
-        color-mix(in srgb, var(--accent-soft) 48%, transparent),
-        transparent 58%
-      ),
-      color-mix(in srgb, var(--surface-elevated) 94%, white);
-    box-shadow: var(--shadow-md);
-    padding: clamp(0.68rem, 1.5vw, 1rem);
-    text-decoration: none;
-    transform: perspective(1400px) rotateY(-2deg) rotateX(0.8deg);
-    transform-origin: right center;
-    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-  }
-
-  .hero-portal-link:hover,
-  .hero-portal-link:focus-visible {
-    transform: perspective(1400px) rotateY(-2deg) rotateX(0.6deg) translateY(-3px);
-    border-color: color-mix(in srgb, var(--line) 48%, var(--accent));
-    box-shadow: 0 32px 90px rgba(20, 16, 10, 0.16);
-  }
-
-  .hero-portal img {
-    display: block;
-    width: 100%;
-    aspect-ratio: 16 / 10;
-    height: auto;
-    object-fit: cover;
-    object-position: top center;
-    border-radius: calc(var(--radius-xl) - 14px);
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    background: var(--surface-elevated);
-  }
-
-  .portal-chip {
-    position: absolute;
-    left: clamp(1rem, 2vw, 1.4rem);
-    top: clamp(1rem, 2vw, 1.4rem);
-    z-index: 2;
-    display: inline-flex;
-    align-items: center;
-    min-height: 2rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--line) 62%, var(--accent));
-    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
-    color: var(--text);
-    padding: 0.38rem 0.74rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    font-weight: 800;
-    box-shadow: var(--shadow-sm);
   }
 
   .kicker {
@@ -366,23 +261,6 @@ const { data } = Astro.props;
     font-weight: 650;
     line-height: 1.4;
     box-shadow: 0 12px 28px rgba(20, 16, 10, 0.06);
-  }
-
-  .portal-demo-link {
-    width: fit-content;
-    color: var(--text);
-    font-size: 0.84rem;
-    font-weight: 700;
-    text-decoration: none;
-    border-bottom: 1px solid color-mix(in srgb, var(--accent) 70%, var(--text));
-    padding-bottom: 0.08rem;
-    transition: color 170ms ease, border-color 170ms ease;
-  }
-
-  .portal-demo-link:hover,
-  .portal-demo-link:focus-visible {
-    color: color-mix(in srgb, var(--text) 76%, var(--accent));
-    border-color: currentColor;
   }
 
   .hero-actions {
@@ -498,50 +376,11 @@ const { data } = Astro.props;
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
   }
 
-  .portal-caption {
-    display: grid;
-    gap: 0.16rem;
-    margin-top: 0.72rem;
-    padding: 0 0.18rem 0.08rem;
-  }
-
-  .portal-caption strong {
-    color: var(--text);
-    font-size: 0.78rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-  }
-
-  .portal-caption span {
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    line-height: 1.5;
-  }
-
   .cta-note {
     margin: 0.72rem 0 0;
     color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.45;
-  }
-
-  @media (max-width: 1080px) {
-    .hero {
-      grid-template-columns: 1fr;
-    }
-
-    .hero-portal {
-      padding-top: 0;
-    }
-
-    .hero-portal-link {
-      transform: none;
-    }
-
-    .hero-portal-link:hover,
-    .hero-portal-link:focus-visible {
-      transform: translateY(-3px);
-    }
   }
 
   @media (max-width: 760px) {
@@ -567,10 +406,6 @@ const { data } = Astro.props;
       justify-content: center;
     }
 
-    .portal-demo-link {
-      margin-inline: auto;
-    }
-
     .hero-actions {
       justify-content: center;
     }
@@ -594,18 +429,6 @@ const { data } = Astro.props;
 
     .cta-note {
       text-align: center;
-    }
-
-    .portal-caption {
-      text-align: left;
-    }
-
-    .portal-chip {
-      left: 0.9rem;
-      top: 0.9rem;
-      min-height: 1.8rem;
-      font-size: 0.58rem;
-      padding: 0.28rem 0.55rem;
     }
   }
 </style>

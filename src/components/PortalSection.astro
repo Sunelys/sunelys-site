@@ -27,7 +27,7 @@ const { data } = Astro.props;
 ---
 
 <section class="section-shell portal-section reveal">
-  <div class="portal-copy">
+  <div class="portal-copy" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2>{data.title}</h2>
     <p class="text">{data.text}</p>
@@ -43,7 +43,7 @@ const { data } = Astro.props;
     <a class="btn btn-primary" href={data.cta.href} data-track={data.cta.track}>{data.cta.label}</a>
   </div>
 
-  <div class="portal-mock" aria-label="Aperçu du portail Sunelys">
+  <div class="portal-mock" aria-label="Aperçu du portail Sunelys" data-reveal-item>
     <header>
       <span class="chip">Portail Sunelys</span>
       <span class="status">Vue client</span>

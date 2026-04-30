@@ -23,7 +23,7 @@ const { data } = Astro.props;
 ---
 
 <section class="audience section-shell reveal" aria-labelledby="audience-title">
-  <div class="intro">
+  <div class="intro" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2 id="audience-title">{data.title}</h2>
     <p class="text">{data.text}</p>
@@ -33,7 +33,7 @@ const { data } = Astro.props;
   <div class="cards">
     {
       data.items.map((item) => (
-        <article class="card">
+        <article class="card" data-reveal-item>
           <h3>{item.title}</h3>
           <p>{item.text}</p>
         </article>
@@ -43,7 +43,7 @@ const { data } = Astro.props;
 
   {
     data.cta && (
-      <div class="actions">
+      <div class="actions" data-reveal-item>
         <a class="btn btn-primary" href={data.cta.href} data-track={data.cta.track}>
           {data.cta.label}
         </a>

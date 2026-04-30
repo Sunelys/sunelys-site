@@ -37,13 +37,13 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
   <p class="question">{data.question}</p>
 
   <div class="quiz-panel">
-    <div class="step-indicator" aria-label="Étapes du tunnel quiz">
+    <div class="step-indicator" aria-label="Étapes du tunnel quiz" data-reveal-item>
       <span class="step-pill is-active" id="quiz-step-pill-1">Étape 1</span>
       <span class="step-pill" id="quiz-step-pill-2">Étape 2</span>
       <span class="step-pill" id="quiz-step-pill-3">Étape 3</span>
     </div>
 
-    <div class="options" role="radiogroup" aria-label={data.question}>
+    <div class="options" role="radiogroup" aria-label={data.question} data-reveal-item>
       {
         data.options.map((option) => (
           <button
@@ -60,7 +60,7 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       }
     </div>
 
-    <form id="quiz-email-form" class="email-step" action={data.leadForm.action} method="POST" hidden>
+    <form id="quiz-email-form" class="email-step" action={data.leadForm.action} method="POST" hidden data-reveal-item>
       <input type="hidden" name="_subject" value="Nouveau lead quiz Sunelys" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
@@ -96,7 +96,7 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       </p>
     </form>
 
-    <div class="result" id="quiz-result" hidden>
+    <div class="result" id="quiz-result" hidden data-reveal-item>
       <p id="quiz-message"></p>
 
       <div class="result-actions">

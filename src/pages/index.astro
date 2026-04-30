@@ -2,16 +2,15 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/Hero.astro";
 import AudienceSection from "../components/AudienceSection.astro";
+import TrustSection from "../components/TrustSection.astro";
 import ProofSection from "../components/ProofSection.astro";
-import SolutionSection from "../components/SolutionSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
 import MiniQuiz from "../components/MiniQuiz.astro";
-import CaseStudySection from "../components/CaseStudySection.astro";
+import ProcessSection from "../components/ProcessSection.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTASection from "../components/FinalCTASection.astro";
 import {
-  caseStudySectionData,
   audienceSectionData,
   faqSectionData,
   finalCtaSectionData,
@@ -19,9 +18,10 @@ import {
   homeSeo,
   portalSectionData,
   proofSectionData,
+  processSectionData,
   quizSectionData,
   servicesSectionData,
-  solutionSectionData,
+  trustSectionData,
 } from "../data/home";
 
 const structuredData = [
@@ -66,13 +66,13 @@ const structuredData = [
 
 <BaseLayout title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
   <Hero data={heroData} />
+  <TrustSection data={trustSectionData} />
   <AudienceSection data={audienceSectionData} />
-  <SolutionSection data={solutionSectionData} />
-  <CaseStudySection data={caseStudySectionData} />
-  <ProofSection data={proofSectionData} />
-  <ServicesSection data={servicesSectionData} />
   <PortalSection data={portalSectionData} />
   <MiniQuiz data={quizSectionData} />
+  <ServicesSection data={servicesSectionData} />
+  <ProcessSection data={processSectionData} />
+  <ProofSection data={proofSectionData} />
   <FAQ data={faqSectionData} />
   <FinalCTASection data={finalCtaSectionData} />
 </BaseLayout>

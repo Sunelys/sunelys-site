@@ -47,9 +47,9 @@ export const heroData = {
   },
 };
 
-export const proofSectionData = {
-  kicker: "Preuve et réassurance",
-  title: "Des références réelles et une qualité d'exécution qui rassurent vite.",
+export const trustSectionData = {
+  kicker: "Réassurance immédiate",
+  title: "Des références visibles et des indicateurs concrets dès le premier coup d'oeil.",
   logos: [
     {
       name: "Sunwatt France",
@@ -79,6 +79,11 @@ export const proofSectionData = {
     { value: "+50", label: "partenaires et installateurs déjà accompagnés" },
     { value: "2 jours", label: "pour cadrer une demande complète et exploitable" },
   ],
+};
+
+export const proofSectionData = {
+  kicker: "Paroles d'installateurs",
+  title: "Une preuve plus humaine, placée au bon moment dans le parcours.",
   testimonials: [
     {
       quote:

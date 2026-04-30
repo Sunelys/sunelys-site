@@ -134,6 +134,10 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body style={brandingVars} data-branding-intensity={BRANDING_INTENSITY}>
+    <script>
+      document.documentElement.classList.add("js");
+    </script>
+
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header#contact-form" ctaLabel="Recevoir un cadrage" />
@@ -149,11 +153,11 @@ const allSchemas = [...baseSchemas, ...structuredData];
     {
       path !== "/merci" && (
         <div class="sticky-lead-bar" aria-label="Actions rapides de contact">
-          <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
-            Recevoir un cadrage
-          </a>
           <a class="sticky-lead-secondary" href="tel:+33695907919" data-track="cta_sticky_phone">
             Appeler
+          </a>
+          <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
+            Recevoir un cadrage
           </a>
         </div>
       )
@@ -265,6 +269,64 @@ const allSchemas = [...baseSchemas, ...structuredData];
           href,
         });
       });
+
+      const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const revealNodes = document.querySelectorAll(".reveal");
+
+      const showNode = (node) => {
+        if (!(node instanceof HTMLElement)) return;
+        node.classList.add("is-visible");
+      };
+
+      if (reducedMotion || !("IntersectionObserver" in window)) {
+        revealNodes.forEach((node) => showNode(node));
+      } else {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              showNode(entry.target);
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: 0.16, rootMargin: "0px 0px -8% 0px" }
+        );
+
+        revealNodes.forEach((node) => revealObserver.observe(node));
+      }
+
+      const stickyBar = document.querySelector(".sticky-lead-bar");
+      const heroGuard = document.querySelector("[data-sticky-guard='hero']");
+      const mobileQuery = window.matchMedia("(max-width: 767px)");
+      let heroVisible = false;
+
+      const syncStickyBar = () => {
+        if (!(stickyBar instanceof HTMLElement)) return;
+
+        const isMobile = mobileQuery.matches;
+        const hasScrolled = window.scrollY > 24;
+        document.body.classList.toggle("sticky-bar-hero-hidden", isMobile && heroVisible);
+        document.body.classList.toggle("sticky-bar-visible", isMobile && hasScrolled && !heroVisible);
+      };
+
+      if (heroGuard instanceof HTMLElement && "IntersectionObserver" in window) {
+        const heroObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              heroVisible = entry.isIntersecting && entry.intersectionRatio > 0.25;
+              syncStickyBar();
+            });
+          },
+          { threshold: [0, 0.25, 0.5, 0.75] }
+        );
+
+        heroObserver.observe(heroGuard);
+      }
+
+      window.addEventListener("scroll", syncStickyBar, { passive: true });
+      window.addEventListener("resize", syncStickyBar);
+      mobileQuery.addEventListener?.("change", syncStickyBar);
+      syncStickyBar();
     </script>
   </body>
 </html>
@@ -492,8 +554,51 @@ const allSchemas = [...baseSchemas, ...structuredData];
     outline-offset: 2px;
   }
 
-  .reveal {
-    animation: reveal-up 260ms ease both;
+  .js .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: opacity, transform;
+  }
+
+  .js .reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .js .reveal [data-reveal-item] {
+    opacity: 0;
+    transform: translateY(24px);
+    transition:
+      opacity 0.6s ease,
+      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .js .reveal.is-visible [data-reveal-item] {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .js .reveal.is-visible [data-reveal-item]:nth-child(1) {
+    transition-delay: 0.08s;
+  }
+
+  .js .reveal.is-visible [data-reveal-item]:nth-child(2) {
+    transition-delay: 0.18s;
+  }
+
+  .js .reveal.is-visible [data-reveal-item]:nth-child(3) {
+    transition-delay: 0.28s;
+  }
+
+  .js .reveal.is-visible [data-reveal-item]:nth-child(4) {
+    transition-delay: 0.38s;
+  }
+
+  .js .reveal.is-visible [data-reveal-item]:nth-child(5) {
+    transition-delay: 0.48s;
   }
 
   @media (max-width: 760px) {
@@ -507,26 +612,31 @@ const allSchemas = [...baseSchemas, ...structuredData];
       opacity: calc(var(--shape-opacity) * 0.45);
     }
 
-    .reveal {
-      animation: none;
-    }
-
     .sticky-lead-bar {
       position: fixed;
-      left: max(0.8rem, env(safe-area-inset-left, 0px));
-      right: max(0.8rem, env(safe-area-inset-right, 0px));
-      bottom: max(0.8rem, env(safe-area-inset-bottom, 0px));
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 130;
       display: grid;
-      grid-template-columns: minmax(0, 1fr) auto;
-      gap: 0.55rem;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.6rem;
       align-items: center;
-      padding: 0.55rem;
-      border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
-      border-radius: calc(var(--radius-md) - 4px);
-      background: color-mix(in srgb, var(--surface-elevated) 94%, white);
-      box-shadow: 0 18px 44px rgba(20, 16, 10, 0.16);
-      backdrop-filter: blur(16px) saturate(125%);
+      padding: 0.75rem max(1rem, env(safe-area-inset-right, 0px)) calc(0.75rem + env(safe-area-inset-bottom, 0px))
+        max(1rem, env(safe-area-inset-left, 0px));
+      border-top: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
+      background: #fafaf7;
+      box-shadow: 0 -14px 34px rgba(20, 16, 10, 0.08);
+      opacity: 0;
+      transform: translateY(110%);
+      pointer-events: none;
+      transition: opacity 220ms ease, transform 220ms ease;
+    }
+
+    body.sticky-bar-visible .sticky-lead-bar {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
     }
 
     .sticky-lead-primary,
@@ -544,39 +654,26 @@ const allSchemas = [...baseSchemas, ...structuredData];
     }
 
     .sticky-lead-primary {
-      padding: 0.78rem 1rem;
-      background: linear-gradient(180deg, #12100d, #090806);
-      color: #fffdfa;
+      padding: 0.84rem 1rem;
+      background: #d4822a;
+      color: #ffffff;
       box-shadow: var(--shadow-sm);
     }
 
     .sticky-lead-secondary {
-      padding: 0.78rem 0.95rem;
-      border: 1px solid var(--line);
-      background: color-mix(in srgb, var(--surface) 90%, white);
+      padding: 0.84rem 0.95rem;
+      border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
+      background: #fafaf7;
       color: var(--text);
-      white-space: nowrap;
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     *,
-    .reveal,
     .btn {
       animation: none !important;
       transition: none !important;
       scroll-behavior: auto !important;
-    }
-  }
-
-  @keyframes reveal-up {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
     }
   }
 </style>

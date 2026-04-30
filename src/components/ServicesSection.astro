@@ -21,7 +21,7 @@ const { data } = Astro.props;
 ---
 
 <section id="services" class="section-shell services-section reveal">
-  <div class="services-head">
+  <div class="services-head" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2>{data.title}</h2>
   </div>
@@ -29,7 +29,7 @@ const { data } = Astro.props;
   <div class="services-grid">
     {
       data.cards.map((card) => (
-        <article class="service-card">
+        <article class="service-card" data-reveal-item>
           <p class="label">{card.label}</p>
           <h3>{card.title}</h3>
           <p class="benefit">{card.benefit}</p>

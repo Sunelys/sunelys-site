@@ -1,0 +1,351 @@
+---
+interface LogoItem {
+  name: string;
+  src: string;
+}
+
+interface MetricItem {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    logos: LogoItem[];
+    metrics: MetricItem[];
+    trustNote?: string;
+  };
+}
+
+const { data } = Astro.props;
+const visibleLogos = data.logos.filter((logo) => logo.src);
+
+const parseMetric = (value: string) => {
+  const numeric = value.match(/-?\d+/)?.[0] ?? "0";
+  const number = Number.parseInt(numeric, 10);
+  const prefix = value.slice(0, value.indexOf(numeric)).trim();
+  const suffix = value.slice(value.indexOf(numeric) + numeric.length).trim();
+
+  return {
+    number,
+    prefix,
+    suffix,
+    raw: value,
+  };
+};
+---
+
+<section class="section-shell trust-section reveal" aria-labelledby="trust-title">
+  <div class="trust-head" data-reveal-item>
+    <div class="trust-copy">
+      <p class="kicker">{data.kicker}</p>
+      <h2 id="trust-title">{data.title}</h2>
+    </div>
+
+    <div class="trust-note" aria-label="Réassurance rapide">
+      <span class="trust-tag">Références visibles</span>
+      <p>{data.trustNote ?? "Des références et indicateurs concrets communiqués dès le premier échange."}</p>
+    </div>
+  </div>
+
+  <div class="trust-metrics" aria-label="Chiffres clés Sunelys">
+    {
+      data.metrics.map((metric, index) => {
+        const parsed = parseMetric(metric.value);
+
+        return (
+          <article class:list={["metric-card", index === 0 && "is-featured"]} data-reveal-item>
+            <p class="metric-value">
+              {parsed.prefix && <span class="metric-prefix">{parsed.prefix}</span>}
+              <span class="metric-number" data-counter-target={parsed.number}>0</span>
+              {parsed.suffix && <span class="metric-suffix">{parsed.suffix}</span>}
+            </p>
+            <p class="metric-label">{metric.label}</p>
+          </article>
+        );
+      })
+    }
+  </div>
+
+  {
+    visibleLogos.length > 0 && (
+      <div class="logo-wall" aria-label="Clients Sunelys" data-reveal-item>
+        <div class="logo-wall-head">
+          <p class="logo-eyebrow">Ils nous font déjà confiance</p>
+          <p class="logo-caption">Des références B2B visibles, sans avoir besoin d'en faire trop.</p>
+        </div>
+
+        <div class="logo-row">
+          {
+            visibleLogos.map((logo) => (
+              <article class="logo-slot" aria-label={logo.name}>
+                <img src={logo.src} alt={logo.name} loading="lazy" />
+              </article>
+            ))
+          }
+        </div>
+      </div>
+    )
+  }
+</section>
+
+<script>
+  const animatedCounters = document.querySelectorAll("[data-counter-target]");
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
+
+  const animateCounter = (element) => {
+    if (!(element instanceof HTMLElement)) return;
+    if (element.dataset.counterAnimated === "true") return;
+
+    const target = Number(element.dataset.counterTarget || "0");
+    if (!Number.isFinite(target)) {
+      element.textContent = element.dataset.counterTarget || "";
+      return;
+    }
+
+    element.dataset.counterAnimated = "true";
+
+    if (reducedMotion) {
+      element.textContent = String(target);
+      return;
+    }
+
+    const duration = 1500;
+    const start = performance.now();
+
+    const tick = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = easeOutCubic(progress);
+      element.textContent = String(Math.round(target * eased));
+
+      if (progress < 1) {
+        window.requestAnimationFrame(tick);
+      } else {
+        element.textContent = String(target);
+      }
+    };
+
+    window.requestAnimationFrame(tick);
+  };
+
+  if ("IntersectionObserver" in window) {
+    const counterObserver = new IntersectionObserver(
+      (entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          animateCounter(entry.target);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.4 }
+    );
+
+    animatedCounters.forEach((counter) => counterObserver.observe(counter));
+  } else {
+    animatedCounters.forEach((counter) => animateCounter(counter));
+  }
+</script>
+
+<style>
+  .trust-section {
+    position: relative;
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1.15rem, 2.6vw, 2.1rem);
+    border: 1px solid color-mix(in srgb, var(--line) 66%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 54%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+  }
+
+  .trust-head {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.95fr);
+    gap: 0.85rem;
+    align-items: end;
+  }
+
+  .kicker,
+  .logo-eyebrow {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 3.2vw, 3.2rem);
+    line-height: 1;
+  }
+
+  .trust-note {
+    justify-self: end;
+    width: min(100%, 33rem);
+    padding: 1rem 1.05rem;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.68);
+    box-shadow: 0 14px 38px rgba(20, 16, 10, 0.07);
+  }
+
+  .trust-tag {
+    display: inline-flex;
+    align-items: center;
+    min-height: 1.9rem;
+    padding: 0.24rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--line) 66%, var(--accent));
+    background: color-mix(in srgb, var(--surface) 92%, white);
+    color: var(--text);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 800;
+  }
+
+  .trust-note p {
+    margin: 0.68rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+
+  .trust-metrics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .metric-card {
+    min-height: 10rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: 0 12px 30px rgba(20, 16, 10, 0.07);
+    display: grid;
+    align-content: end;
+    gap: 0.5rem;
+  }
+
+  .metric-card.is-featured {
+    background:
+      radial-gradient(120% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 52%, transparent), transparent 56%),
+      color-mix(in srgb, var(--surface-elevated) 95%, white);
+  }
+
+  .metric-value {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--font-display);
+    font-size: clamp(2.1rem, 3vw, 3.3rem);
+    line-height: 0.92;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.2rem;
+  }
+
+  .metric-prefix,
+  .metric-suffix {
+    font-size: 0.9em;
+  }
+
+  .metric-label {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.48;
+    max-width: 22ch;
+  }
+
+  .logo-wall {
+    display: grid;
+    gap: 0.72rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.66);
+    box-shadow: 0 14px 36px rgba(20, 16, 10, 0.06);
+  }
+
+  .logo-wall-head {
+    display: grid;
+    gap: 0.16rem;
+  }
+
+  .logo-caption {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.46;
+  }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.68rem;
+  }
+
+  .logo-slot {
+    min-height: 4.8rem;
+    padding: 0.82rem 1rem;
+    display: grid;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
+    border-radius: 18px;
+    background:
+      radial-gradient(100% 120% at 100% 0%, color-mix(in srgb, var(--accent-soft) 44%, transparent), transparent 60%),
+      #fffefa;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+  }
+
+  .logo-slot img {
+    display: block;
+    width: auto;
+    max-width: min(76%, 150px);
+    max-height: 40px;
+    object-fit: contain;
+  }
+
+  .logo-slot img[alt="Be Travaux"] {
+    max-width: 118px;
+    max-height: 36px;
+  }
+
+  @media (max-width: 1040px) {
+    .trust-head,
+    .trust-metrics {
+      grid-template-columns: 1fr;
+    }
+
+    .trust-note {
+      justify-self: stretch;
+      width: 100%;
+    }
+
+    .logo-row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 760px) {
+    .logo-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metric-card {
+      min-height: auto;
+    }
+  }
+</style>

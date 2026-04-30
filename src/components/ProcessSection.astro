@@ -16,7 +16,7 @@ const { data } = Astro.props;
 ---
 
 <section id="parcours" class="section-shell process-section reveal">
-  <div class="process-head">
+  <div class="process-head" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2>{data.title}</h2>
   </div>
@@ -24,7 +24,7 @@ const { data } = Astro.props;
   <ol class="process-track" aria-label="Parcours Sunelys en quatre étapes">
     {
       data.steps.map((step, index) => (
-        <li class="process-step">
+        <li class="process-step" data-reveal-item>
           <span class="index">0{index + 1}</span>
           <h3>{step.title}</h3>
           <p>{step.text}</p>

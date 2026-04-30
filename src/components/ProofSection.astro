@@ -1,21 +1,8 @@
 ---
-interface LogoItem {
-  name: string;
-  src: string;
-}
-
-interface MetricItem {
-  value: string;
-  label: string;
-}
-
 interface Props {
   data: {
     kicker: string;
     title: string;
-    logos: LogoItem[];
-    metrics: MetricItem[];
-    trustNote?: string;
     testimonials: Array<{
       quote: string;
       author: string;
@@ -25,400 +12,132 @@ interface Props {
 }
 
 const { data } = Astro.props;
-const visibleLogos = data.logos.filter((logo) => logo.src);
 ---
 
-<section class="section-shell proof-section reveal">
-  <div class="proof-shell">
-    <div class="proof-top">
-      <div class="proof-head">
-        <p class="kicker">{data.kicker}</p>
-        <h2>{data.title}</h2>
-      </div>
+<section class="section-shell proof-section reveal" aria-labelledby="proof-title">
+  <div class="proof-head" data-reveal-item>
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="proof-title">{data.title}</h2>
+    <p class="intro">
+      Des retours terrain nominatifs, placés après le parcours, les services et le produit pour rassurer sans alourdir
+      le haut de page.
+    </p>
+  </div>
 
-      <div class="trust-note" aria-label="Positionnement de confiance">
-        <span class="trust-tag">Structures déjà accompagnées</span>
-        <p>{data.trustNote ?? "Références et cas détaillés communiqués sur demande."}</p>
-      </div>
-    </div>
-
-    <div class="proof-core">
-      <div class="metric-grid">
-        {
-          data.metrics.map((metric, index) => (
-            <article class:list={["metric-card", index === 0 && "is-featured"]}>
-              <p class="metric-value">{metric.value}</p>
-              <p class="metric-label">{metric.label}</p>
-            </article>
-          ))
-        }
-      </div>
-
-      {
-        visibleLogos.length > 0 && (
-          <div class="logo-wall" aria-label="Clients Sunelys">
-            <div class="logo-wall-head">
-              <p class="logo-eyebrow">Ils nous font déjà confiance</p>
-              <p class="logo-caption">Des références visibles avant même de rentrer dans les détails.</p>
-            </div>
-
-            <div class="logo-row">
-              {
-                visibleLogos.map((logo) => (
-                  <article class="logo-slot" aria-label={logo.name}>
-                    <img src={logo.src} alt={logo.name} loading="lazy" />
-                  </article>
-                ))
-              }
-            </div>
-          </div>
-        )
-      }
-    </div>
-
+  <div class="testimonial-grid">
     {
-      data.testimonials.length > 0 && (
-        <div class="testimonial-stage" aria-label="Témoignages clients">
-          <div class="testimonial-stage-head">
-            <p class="testimonial-kicker">Paroles d'installateurs</p>
-            <p class="testimonial-intro">Des retours terrain nominatifs, placés après la preuve visuelle et les chiffres.</p>
+      data.testimonials.map((item, index) => (
+        <article class:list={["testimonial-card", index === 0 && "is-primary"]} data-reveal-item>
+          <span class="quote-mark" aria-hidden="true">“</span>
+          <p class="testimonial-quote">{item.quote}</p>
+          <div class="testimonial-footer">
+            <strong>{item.author}</strong>
+            <span>{item.note}</span>
           </div>
-
-          <div class="testimonial-grid">
-            {
-              data.testimonials.map((item, index) => (
-                <article class:list={["testimonial-card", index === 0 && "is-primary"]}>
-                  <span class="quote-mark" aria-hidden="true">“</span>
-                  <p class="testimonial-quote">{item.quote}</p>
-                  <div class="testimonial-footer">
-                    <strong>{item.author}</strong>
-                    <span>{item.note}</span>
-                  </div>
-                </article>
-              ))
-            }
-          </div>
-        </div>
-      )
+        </article>
+      ))
     }
   </div>
 </section>
 
 <style>
   .proof-section {
-    position: relative;
-    overflow: hidden;
-    padding: 0;
-    border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--line) 38%, var(--accent));
-    background:
-      radial-gradient(85% 115% at 0% 0%, rgba(239, 227, 201, 0.18), transparent 56%),
-      radial-gradient(82% 110% at 100% 8%, rgba(197, 165, 111, 0.16), transparent 58%),
-      linear-gradient(154deg, #191510, #100d09 74%);
-    box-shadow: 0 38px 120px rgba(20, 16, 10, 0.22);
-  }
-
-  .proof-section::before {
-    content: "";
-    position: absolute;
-    inset: 1rem;
-    border: 1px solid rgba(255, 253, 247, 0.08);
-    border-radius: calc(var(--radius-xl) - 14px);
-    pointer-events: none;
-  }
-
-  .proof-shell {
-    position: relative;
-    z-index: 1;
-    padding: clamp(1.4rem, 3vw, 2.4rem);
     display: grid;
-    gap: clamp(1rem, 2vw, 1.5rem);
-  }
-
-  .proof-top {
-    display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(320px, 0.95fr);
-    gap: clamp(0.9rem, 2vw, 1.6rem);
-    align-items: end;
-  }
-
-  .kicker,
-  .testimonial-kicker {
-    margin: 0;
-    color: color-mix(in srgb, #f5e8d0 82%, var(--accent));
-    font-size: 0.72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.16em;
-  }
-
-  .proof-head h2 {
-    margin: 0.56rem 0 0;
-    max-width: 11ch;
-    color: #fffdf7;
-    font-size: clamp(2.15rem, 3.8vw, 4.1rem);
-    line-height: 0.94;
-    text-wrap: balance;
-  }
-
-  .trust-note {
-    justify-self: end;
-    width: min(100%, 34rem);
-    border: 1px solid rgba(255, 253, 247, 0.14);
-    border-radius: 24px;
-    background: rgba(255, 253, 247, 0.06);
-    backdrop-filter: blur(16px);
-    padding: clamp(1rem, 2vw, 1.3rem);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  }
-
-  .trust-tag {
-    display: inline-flex;
-    min-height: 1.9rem;
-    align-items: center;
-    padding: 0.24rem 0.7rem;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 253, 247, 0.14);
-    background: rgba(255, 253, 247, 0.07);
-    color: #fff3de;
-    font-size: 0.66rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    font-weight: 800;
-  }
-
-  .trust-note p {
-    margin: 0.72rem 0 0;
-    color: #f5edde;
-    font-size: clamp(0.98rem, 0.34vw + 0.9rem, 1.1rem);
-    line-height: 1.62;
-    font-weight: 600;
-  }
-
-  .proof-core {
-    display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     gap: 0.9rem;
-    align-items: stretch;
-  }
-
-  .metric-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.78rem;
-  }
-
-  .metric-card {
-    min-height: 10rem;
-    border: 1px solid rgba(255, 253, 247, 0.14);
-    border-radius: 24px;
+    padding: clamp(1.2rem, 2.6vw, 2.1rem);
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: var(--radius-xl);
     background:
-      linear-gradient(180deg, rgba(255, 253, 247, 0.11), rgba(255, 253, 247, 0.045));
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-    padding: 1rem;
-    display: grid;
-    align-content: end;
-    gap: 0.48rem;
+      radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
   }
 
-  .metric-card.is-featured {
-    grid-column: 1 / -1;
-    min-height: 11.25rem;
-    background:
-      radial-gradient(110% 140% at 100% 0%, rgba(239, 227, 201, 0.18), transparent 56%),
-      linear-gradient(180deg, rgba(255, 253, 247, 0.14), rgba(255, 253, 247, 0.06));
-  }
-
-  .metric-value {
+  .kicker {
     margin: 0;
-    color: #fffdf7;
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 2.9vw, 3.2rem);
-    line-height: 0.9;
-  }
-
-  .metric-label {
-    margin: 0;
-    color: #d5c8b4;
-    font-size: 0.84rem;
-    line-height: 1.46;
-    max-width: 21ch;
-  }
-
-  .logo-wall {
-    border: 1px solid rgba(255, 253, 247, 0.12);
-    border-radius: 24px;
-    background: rgba(255, 253, 247, 0.05);
-    padding: 1rem;
-    display: grid;
-    gap: 0.8rem;
-  }
-
-  .logo-wall-head {
-    display: grid;
-    gap: 0.18rem;
-  }
-
-  .logo-eyebrow {
-    margin: 0;
-    color: #f0dfc0;
-    font-size: 0.67rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.15em;
   }
 
-  .logo-caption,
-  .testimonial-intro {
-    margin: 0;
-    color: #cfc1ad;
-    font-size: 0.84rem;
-    line-height: 1.45;
+  h2 {
+    margin: 0.5rem 0 0;
+    max-width: 16ch;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 1.02;
   }
 
-  .logo-row {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.7rem;
-  }
-
-  .logo-slot {
-    min-height: 4.8rem;
-    border: 1px solid color-mix(in srgb, #ffffff 74%, var(--accent));
-    border-radius: 18px;
-    background:
-      radial-gradient(100% 130% at 100% 0%, rgba(239, 227, 201, 0.34), transparent 62%),
-      #fffefa;
-    display: grid;
-    place-items: center;
-    padding: 0.82rem 1rem;
-    box-shadow: 0 16px 38px rgba(0, 0, 0, 0.08);
-    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
-  }
-
-  .logo-slot:hover,
-  .logo-slot:focus-within {
-    transform: translateY(-2px);
-    border-color: color-mix(in srgb, #ffffff 40%, var(--accent));
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.12);
-  }
-
-  .logo-slot img {
-    display: block;
-    width: auto;
-    max-width: min(76%, 150px);
-    max-height: 40px;
-    object-fit: contain;
-  }
-
-  .logo-slot img[alt="Be Travaux"] {
-    max-width: 118px;
-    max-height: 36px;
-  }
-
-  .testimonial-stage {
-    display: grid;
-    gap: 0.85rem;
-    padding-top: 0.2rem;
-  }
-
-  .testimonial-stage-head {
-    display: grid;
-    gap: 0.18rem;
+  .intro {
+    margin: 0.72rem 0 0;
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.58;
   }
 
   .testimonial-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
+    gap: 0.78rem;
   }
 
   .testimonial-card {
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(255, 253, 247, 0.14);
+    display: grid;
+    gap: 0.62rem;
+    padding: 1.05rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
     border-radius: 26px;
     background:
-      linear-gradient(180deg, rgba(255, 253, 247, 0.1), rgba(255, 253, 247, 0.045));
-    padding: 1.05rem;
-    display: grid;
-    gap: 0.58rem;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 95%, white), rgba(255, 255, 255, 0.78));
+    box-shadow: 0 16px 38px rgba(20, 16, 10, 0.07);
   }
 
   .testimonial-card.is-primary {
     background:
-      radial-gradient(110% 140% at 100% 0%, rgba(239, 227, 201, 0.16), transparent 56%),
-      linear-gradient(180deg, rgba(255, 253, 247, 0.12), rgba(255, 253, 247, 0.055));
+      radial-gradient(110% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 54%, transparent), transparent 56%),
+      color-mix(in srgb, var(--surface-elevated) 96%, white);
   }
 
   .quote-mark {
     display: inline-block;
     color: color-mix(in srgb, var(--accent) 84%, #f1d8b8);
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 3.6vw, 4rem);
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
     line-height: 0.7;
   }
 
   .testimonial-quote {
     margin: 0;
-    color: #fff8ed;
-    font-size: 0.98rem;
-    line-height: 1.62;
+    color: var(--text);
+    font-size: clamp(0.98rem, 0.4vw + 0.92rem, 1.08rem);
+    line-height: 1.65;
     text-wrap: pretty;
   }
 
   .testimonial-footer {
-    padding-top: 0.72rem;
-    border-top: 1px solid rgba(255, 253, 247, 0.12);
     display: grid;
     gap: 0.18rem;
+    padding-top: 0.15rem;
   }
 
   .testimonial-footer strong {
-    color: #fff2db;
-    font-size: 0.74rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
+    font-size: 0.86rem;
+    line-height: 1.4;
   }
 
   .testimonial-footer span {
-    color: #d5c8b4;
-    font-size: 0.78rem;
-    line-height: 1.45;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.48;
   }
 
-  @media (max-width: 1080px) {
-    .proof-top,
-    .proof-core {
-      grid-template-columns: 1fr;
-    }
-
-    .trust-note {
-      justify-self: stretch;
-      width: 100%;
-    }
-  }
-
-  @media (max-width: 760px) {
-    .proof-head h2 {
-      max-width: 11ch;
-      font-size: clamp(2.3rem, 12vw, 3.25rem);
-    }
-
-    .metric-grid,
-    .logo-row,
+  @media (max-width: 900px) {
     .testimonial-grid {
       grid-template-columns: 1fr;
-    }
-
-    .metric-card,
-    .metric-card.is-featured {
-      min-height: auto;
-    }
-
-    .testimonial-quote {
-      font-size: 0.95rem;
     }
   }
 </style>
