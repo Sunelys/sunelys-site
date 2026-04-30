@@ -5,179 +5,282 @@ const successUrl = "https://sunelys.fr/merci";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const hasBookingUrl = Boolean(bookingUrl);
+
+const trustBullets = [
+  "Réponse sous 24h ouvrées",
+  "Échange de cadrage sans engagement",
+  "DP, Consuel et raccordement pilotés selon votre volume",
+];
+
+const contactReasons = [
+  {
+    title: "Vous avez du volume",
+    text: "Vos équipes vendent, suivent et relancent déjà trop de dossiers pour garder un pilotage propre.",
+  },
+  {
+    title: "Vous voulez moins de retours",
+    text: "Pièces manquantes, relances et étapes floues finissent par ralentir vos mises en service.",
+  },
+  {
+    title: "Vous voulez une méthode sérieuse",
+    text: "Vous cherchez un partenaire administratif présentable, traçable et capable de tenir un flux récurrent.",
+  },
+];
+
+const whatYouGet = [
+  {
+    title: "Lecture du contexte",
+    text: "Volume, typologie des dossiers, organisation interne et points de blocage.",
+  },
+  {
+    title: "Priorités claires",
+    text: "Les étapes à déléguer en premier pour soulager vos équipes sans casser votre fonctionnement.",
+  },
+  {
+    title: "Recommandation exploitable",
+    text: "Un cadrage simple, lisible et aligné sur vos contraintes terrain, commerce et délais.",
+  },
+];
+
+const supportCards = [
+  {
+    title: "Email",
+    text: "Pour transmettre une demande détaillée ou envoyer des pièces.",
+    value: "contact@sunelys.fr",
+    href: "mailto:contact@sunelys.fr",
+    track: "cta_contact_email",
+  },
+  {
+    title: "Téléphone",
+    text: "Pour un échange rapide sur votre volume ou un blocage en cours.",
+    value: "06 95 90 79 19",
+    href: "tel:+33695907919",
+    track: "cta_contact_phone",
+  },
+  {
+    title: "Adresse",
+    text: "Sunelys accompagne à distance partout en France depuis le Var.",
+    value: "49, impasse des lauriers · 83600 Les Adrets de l'Esterel",
+    href: "https://maps.google.com/?q=49%20impasse%20des%20lauriers%2083600%20Les%20Adrets%20de%20l%27Esterel",
+    track: "cta_contact_address",
+  },
+];
 ---
 
 <BaseLayout
   title="Contact installateurs photovoltaïques | Sunelys"
   description="Parlez à Sunelys de vos flux administratifs photovoltaïques. Nous cadrons vos besoins en déclaration préalable, Consuel et raccordement."
 >
-  <section class="hero card">
-    <p class="eyebrow">Prise de contact</p>
-    <h1>Recevez un cadrage gratuit sur vos flux administratifs photovoltaïques.</h1>
-    <p>
-      Transmettez votre volume, vos blocages et vos priorités. Sunelys revient sous 24h
-      avec une lecture claire du périmètre à déléguer sur DP, Consuel et raccordement.
-    </p>
-
-    <ul class="hero-points">
-      <li>Demande complète structurée sous 2 jours</li>
-      <li>Qualification du volume mensuel et des démarches à déléguer</li>
-      <li>Suivi possible dans le portail dédié Sunelys</li>
-    </ul>
-
-    <div class="proof-strip" aria-label="Réassurance contact">
-      <span>Cadrage gratuit</span>
-      <span>Réponse sous 24h ouvrées</span>
-      <span>Sans engagement</span>
-    </div>
-
-    <div class="hero-actions">
-      <a
-        class="cta"
-        href="#contact-form"
-        data-track="cta_contact_form_top"
-      >
-        Remplir le formulaire de cadrage
-      </a>
-      <a class="cta cta-secondary" href="tel:+33695907919" data-track="cta_contact_call">
-        Appeler maintenant
-      </a>
-    </div>
-
-    {
-      hasBookingUrl && (
-        <p class="booking-note">
-          Calendly reste disponible en option après l'envoi de votre contexte.
-        </p>
-      )
-    }
-  </section>
-
-  <section class="section card form-card">
-    <h2>Recevoir un cadrage initial par formulaire</h2>
-    <div class="audit-steps" aria-label="Ce que vous obtenez">
-      <article>
-        <strong>1. Lecture du contexte</strong>
-        <p>Volume, type de dossiers, rôle de vos équipes et irritants opérationnels.</p>
-      </article>
-      <article>
-        <strong>2. Priorités identifiées</strong>
-        <p>Les étapes qui consomment le plus de temps ou créent le plus de retours.</p>
-      </article>
-      <article>
-        <strong>3. Recommandation claire</strong>
-        <p>Le périmètre à déléguer en premier pour fluidifier vos dossiers.</p>
-      </article>
-    </div>
-    <p class="helper">
-      Le volume de dossiers est pré-rempli si vous venez du mini-tunnel. Le formulaire
-      envoie votre demande à Sunelys avec les informations utiles au suivi commercial.
-    </p>
-
-    <form
-      id="contact-form"
-      class="form-grid"
-      action={leadFormAction}
-      method="POST"
-    >
-      <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
-      <input type="hidden" name="_captcha" value="false" />
-      <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="_next" value={successUrl} />
-      <input type="hidden" name="source_page" id="source-page-field" />
-      <input type="hidden" name="lead_status" value="Nouveau lead" />
-      <input type="hidden" name="lead_pipeline" value="Site web - Contact" />
-      <input type="hidden" name="lead_owner" value="Sunelys commercial" />
-      <input type="hidden" name="follow_up_sla" value="24h" />
-      <input type="hidden" name="landing_page" id="landing-page-field" />
-      <input type="hidden" name="first_referrer" id="first-referrer-field" />
-      <input type="hidden" name="utm_source" id="utm-source-field" />
-      <input type="hidden" name="utm_medium" id="utm-medium-field" />
-      <input type="hidden" name="utm_campaign" id="utm-campaign-field" />
-      <input type="hidden" name="utm_term" id="utm-term-field" />
-      <input type="hidden" name="utm_content" id="utm-content-field" />
-      <input type="hidden" name="gclid" id="gclid-field" />
-
-      <label>
-        Nom
-        <input type="text" name="name" required autocomplete="name" />
-      </label>
-      <label>
-        Société
-        <input type="text" name="company" autocomplete="organization" />
-      </label>
-      <label>
-        Email
-        <input type="email" name="email" required autocomplete="email" />
-      </label>
-      <label>
-        Téléphone
-        <input type="tel" name="phone" autocomplete="tel" />
-      </label>
-      <label>
-        Volume de dossiers / mois
-        <select name="volume" id="volume-field">
-          <option value="">Sélectionner</option>
-          <option value="1-10">1-10</option>
-          <option value="10-30">10-30</option>
-          <option value="+30">+30</option>
-        </select>
-      </label>
-      <label>
-        Besoin principal
-        <select name="need" id="need-field">
-          <option value="">Sélectionner</option>
-          <option value="Declaration prealable">Déclaration préalable</option>
-          <option value="Consuel">Consuel</option>
-          <option value="Raccordement Enedis">Raccordement Enedis</option>
-          <option value="Pilotage complet">Pilotage complet</option>
-        </select>
-      </label>
-      <label class="full-width">
-        Message
-        <textarea name="message" rows="5" placeholder="Contexte, zone, délais, type de projet..."></textarea>
-      </label>
-      <button id="contact-form-submit" class="cta" type="submit" data-track="cta_contact_form_submit">
-        Envoyer ma demande
-      </button>
-      <p class="form-note full-width">
-        Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
+  <section class="contact-hero section-shell reveal">
+    <div class="hero-copy">
+      <p class="eyebrow">Prise de contact</p>
+      <h1>Recevez un cadrage clair avant de remettre vos flux administratifs entre de mauvaises mains.</h1>
+      <p class="hero-text">
+        Décrivez votre volume, vos blocages et vos priorités. Sunelys revient avec une lecture sérieuse du
+        périmètre à déléguer sur DP, Consuel et raccordement, sans jargon ni promesse floue.
       </p>
-    </form>
+
+      <ul class="trust-strip" aria-label="Réassurance contact">
+        {trustBullets.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact-form" data-track="cta_contact_form_top">
+          Recevoir un cadrage gratuit
+        </a>
+        {
+          hasBookingUrl && (
+            <a
+              class="btn btn-secondary"
+              href={bookingUrl}
+              target="_blank"
+              rel="noreferrer"
+              data-track="cta_contact_booking_top"
+            >
+              Réserver 15 min
+            </a>
+          )
+        }
+      </div>
+
+      <div class="reason-grid">
+        {contactReasons.map((item) => (
+          <article class="reason-card">
+            <h2>{item.title}</h2>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+
+    <aside class="hero-panel" aria-label="Réassurance Sunelys">
+      <div class="hero-panel-card">
+        <p class="panel-kicker">Ce que vous obtenez</p>
+        <h2>Un premier échange utile, pas un call de qualification vide.</h2>
+        <div class="what-grid">
+          {whatYouGet.map((item, index) => (
+            <article class="step-card">
+              <span>{index + 1}</span>
+              <div>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+
+      <blockquote class="quote-card">
+        <p>
+          "Les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires,
+          et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif."
+        </p>
+        <footer>
+          <strong>Damien Guillaume</strong>
+          <span>Dirigeant, SUN WATT FRANCE</span>
+        </footer>
+      </blockquote>
+    </aside>
   </section>
 
-  <section class="section grid">
-    {
-      hasBookingUrl && (
-        <article class="card booking-card">
-          <h2>Calendly optionnel</h2>
-          <p>Si vous préférez choisir un créneau après avoir transmis votre contexte.</p>
-          <p>
-            <a href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_contact_booking_card">
-              Ouvrir le calendrier de rendez-vous
+  <section class="contact-main section-shell reveal">
+    <div class="form-shell">
+      <div class="form-head">
+        <p class="eyebrow">Formulaire</p>
+        <h2>Décrivez votre contexte en quelques champs.</h2>
+        <p>
+          Le volume de dossiers est pré-rempli si vous venez du tunnel homepage. Plus votre contexte est clair,
+          plus notre retour est utile dès le premier échange.
+        </p>
+      </div>
+
+      <form
+        id="contact-form"
+        class="form-grid"
+        action={leadFormAction}
+        method="POST"
+      >
+        <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_next" value={successUrl} />
+        <input type="hidden" name="source_page" id="source-page-field" />
+        <input type="hidden" name="lead_status" value="Nouveau lead" />
+        <input type="hidden" name="lead_pipeline" value="Site web - Contact" />
+        <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+        <input type="hidden" name="follow_up_sla" value="24h" />
+        <input type="hidden" name="landing_page" id="landing-page-field" />
+        <input type="hidden" name="first_referrer" id="first-referrer-field" />
+        <input type="hidden" name="utm_source" id="utm-source-field" />
+        <input type="hidden" name="utm_medium" id="utm-medium-field" />
+        <input type="hidden" name="utm_campaign" id="utm-campaign-field" />
+        <input type="hidden" name="utm_term" id="utm-term-field" />
+        <input type="hidden" name="utm_content" id="utm-content-field" />
+        <input type="hidden" name="gclid" id="gclid-field" />
+
+        <label>
+          Nom
+          <input type="text" name="name" required autocomplete="name" />
+        </label>
+        <label>
+          Société
+          <input type="text" name="company" autocomplete="organization" />
+        </label>
+        <label>
+          Email professionnel
+          <input type="email" name="email" required autocomplete="email" />
+        </label>
+        <label>
+          Téléphone
+          <input type="tel" name="phone" autocomplete="tel" />
+        </label>
+        <label>
+          Volume de dossiers / mois
+          <select name="volume" id="volume-field">
+            <option value="">Sélectionner</option>
+            <option value="1-10">1-10</option>
+            <option value="10-30">10-30</option>
+            <option value="+30">+30</option>
+          </select>
+        </label>
+        <label>
+          Besoin principal
+          <select name="need" id="need-field">
+            <option value="">Sélectionner</option>
+            <option value="Declaration prealable">Déclaration préalable</option>
+            <option value="Consuel">Consuel</option>
+            <option value="Raccordement Enedis">Raccordement Enedis</option>
+            <option value="Pilotage complet">Pilotage complet</option>
+          </select>
+        </label>
+        <label class="full-width">
+          Message
+          <textarea name="message" rows="6" placeholder="Contexte, zone, délais, organisation actuelle, irritants..."></textarea>
+        </label>
+        <button id="contact-form-submit" class="btn btn-primary submit-btn" type="submit" data-track="cta_contact_form_submit">
+          Envoyer ma demande
+        </button>
+        <p class="form-note full-width">
+          Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
+        </p>
+      </form>
+    </div>
+
+    <div class="booking-shell">
+      <div class="booking-head">
+        <p class="eyebrow">Rendez-vous</p>
+        <h2>Vous préférez parler plutôt que rédiger ?</h2>
+        <p>
+          Si votre contexte est déjà clair, vous pouvez aussi choisir directement un créneau de 15 minutes.
+        </p>
+      </div>
+
+      {
+        hasBookingUrl ? (
+          <>
+            <a
+              class="btn btn-secondary booking-link"
+              href={bookingUrl}
+              target="_blank"
+              rel="noreferrer"
+              data-track="cta_contact_booking_card"
+            >
+              Ouvrir le calendrier
             </a>
-          </p>
-        </article>
-      )
-    }
+            <div class="booking-embed-shell" id="booking-embed-shell">
+              <iframe
+                id="booking-embed"
+                src={bookingUrl}
+                title="Calendrier de rendez-vous Sunelys"
+                loading="lazy"
+                referrerpolicy="strict-origin-when-cross-origin"
+              ></iframe>
+            </div>
+          </>
+        ) : (
+          <div class="booking-fallback">
+            <p>Le calendrier n'est pas disponible pour le moment. Utilisez le formulaire ou appelez-nous directement.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
 
-    <article class="card">
-      <h2>Email</h2>
-      <p>Pour une demande détaillée ou l'envoi de pièces.</p>
-      <p><a href="mailto:contact@sunelys.fr" data-track="cta_contact_email">contact@sunelys.fr</a></p>
-    </article>
+  <section class="contact-support section-shell reveal">
+    <div class="support-head">
+      <p class="eyebrow">Coordonnées</p>
+      <h2>Des points de contact simples, sans parcours compliqué.</h2>
+    </div>
 
-    <article class="card">
-      <h2>Téléphone</h2>
-      <p>Pour un échange rapide sur votre volume de dossiers ou vos délais.</p>
-      <p><a href="tel:+33695907919" data-track="cta_contact_phone">06 95 90 79 19</a></p>
-    </article>
-
-    <article class="card">
-      <h2>Adresse</h2>
-      <p>49, impasse des lauriers</p>
-      <p>83600 Les Adrets de l'Esterel</p>
-    </article>
+    <div class="support-grid">
+      {supportCards.map((item) => (
+        <a class="support-card" href={item.href} data-track={item.track} target={item.href.startsWith("http") ? "_blank" : undefined} rel={item.href.startsWith("http") ? "noreferrer" : undefined}>
+          <span>{item.title}</span>
+          <strong>{item.value}</strong>
+          <p>{item.text}</p>
+        </a>
+      ))}
+    </div>
   </section>
 </BaseLayout>
 
@@ -191,6 +294,9 @@ const hasBookingUrl = Boolean(bookingUrl);
   const volumeField = document.querySelector("#volume-field");
   const needField = document.querySelector("#need-field");
   const sourcePageField = document.querySelector("#source-page-field");
+  const contactForm = document.querySelector("#contact-form");
+  const bookingEmbed = document.querySelector("#booking-embed");
+  const bookingEmbedShell = document.querySelector("#booking-embed-shell");
 
   const fillHidden = (id, value) => {
     const field = document.querySelector(id);
@@ -229,10 +335,10 @@ const hasBookingUrl = Boolean(bookingUrl);
   fillHidden("#utm-content-field", attribution.utm_content || "");
   fillHidden("#gclid-field", attribution.gclid || "");
 
-  const contactForm = document.querySelector("#contact-form");
-
   const trackedStates = {
     formViewed: false,
+    bookingViewed: false,
+    bookingLoaded: false,
   };
 
   const buildContactPayload = (label) => ({
@@ -259,12 +365,22 @@ const hasBookingUrl = Boolean(bookingUrl);
           if (entry.isIntersecting && entry.target === contactForm) {
             trackOnce("formViewed", "contact_form_viewed", "Contact form viewed");
           }
+          if (entry.isIntersecting && entry.target === bookingEmbedShell) {
+            trackOnce("bookingViewed", "booking_embed_viewed", "Booking embed viewed");
+          }
         });
       },
       { threshold: 0.35 }
     );
 
     if (contactForm instanceof HTMLFormElement) observer.observe(contactForm);
+    if (bookingEmbedShell instanceof HTMLElement) observer.observe(bookingEmbedShell);
+  }
+
+  if (bookingEmbed instanceof HTMLIFrameElement) {
+    bookingEmbed.addEventListener("load", () => {
+      trackOnce("bookingLoaded", "booking_embed_loaded", "Booking embed loaded");
+    });
   }
 
   document.querySelector("#contact-form")?.addEventListener("submit", () => {
@@ -277,32 +393,60 @@ const hasBookingUrl = Boolean(bookingUrl);
 </script>
 
 <style>
-  .section {
-    margin-top: 1.8rem;
+  .contact-hero,
+  .contact-main,
+  .contact-support {
+    display: grid;
+    gap: 1rem;
   }
 
-  .card {
-    background: linear-gradient(
-      170deg,
-      color-mix(in srgb, var(--surface-elevated) 95%, white),
-      var(--surface)
-    );
-    border: 1px solid var(--line);
+  .contact-hero {
+    grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+    align-items: start;
+  }
+
+  .hero-copy,
+  .hero-panel,
+  .form-shell,
+  .booking-shell,
+  .contact-support {
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
     border-radius: var(--radius-xl);
-    padding: clamp(1.15rem, 2.6vw, 2rem);
+    background:
+      radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 46%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
     box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.8vw, 2.2rem);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+    line-height: 0.98;
+    text-wrap: balance;
   }
 
   h1 {
-    margin: 0;
-    max-width: 14ch;
-    font-size: clamp(2rem, 4.6vw, 4.2rem);
-    line-height: 0.94;
+    max-width: 13ch;
+    font-size: clamp(2.2rem, 4.6vw, 4.35rem);
   }
 
   h2 {
-    margin: 0 0 0.6rem;
-    font-size: clamp(1.2rem, 2.9vw, 1.5rem);
+    font-size: clamp(1.55rem, 3vw, 2.7rem);
   }
 
   p,
@@ -311,47 +455,37 @@ const hasBookingUrl = Boolean(bookingUrl);
     color: var(--text-muted);
   }
 
-  p {
+  .hero-text,
+  .form-head p,
+  .booking-head p,
+  .support-card p {
     margin: 0;
+    font-size: 0.98rem;
+    line-height: 1.62;
   }
 
-  .eyebrow {
-    margin: 0 0 0.7rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-
-  .hero {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .hero-points {
+  .trust-strip {
     margin: 0;
     padding: 0;
     list-style: none;
-    display: grid;
-    gap: 0.45rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
   }
 
-  .hero-points li {
-    position: relative;
-    padding-left: 1rem;
-    color: var(--text);
-  }
-
-  .hero-points li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.52rem;
-    width: 0.42rem;
-    height: 0.42rem;
+  .trust-strip li {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.1rem;
+    padding: 0.4rem 0.74rem;
     border-radius: 999px;
-    background: var(--accent);
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
   .hero-actions {
@@ -360,107 +494,199 @@ const hasBookingUrl = Boolean(bookingUrl);
     gap: 0.7rem;
   }
 
-  .booking-note {
-    font-size: 0.82rem;
-    line-height: 1.45;
-  }
-
-  .proof-strip {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem;
-  }
-
-  .proof-strip span {
+  .btn {
+    justify-self: start;
+    border: 0;
     display: inline-flex;
     align-items: center;
-    min-height: 2.15rem;
-    padding: 0.42rem 0.72rem;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0.78rem 1.22rem;
     border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
-    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
-    color: var(--text);
-    font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease, color 170ms ease;
   }
 
-  .grid {
+  .btn-primary {
+    color: #f7f3ec;
+    background: var(--text);
+  }
+
+  .btn-primary:hover,
+  .btn-primary:focus-visible {
+    color: #fff;
+    background: #0f0d0a;
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--line);
+  }
+
+  .btn-secondary:hover,
+  .btn-secondary:focus-visible {
+    color: var(--text);
+    background: color-mix(in srgb, var(--accent-soft) 55%, white);
+    transform: translateY(-1px);
+  }
+
+  .reason-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .reason-card,
+  .hero-panel-card,
+  .quote-card,
+  .support-card {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .reason-card {
+    padding: 0.95rem;
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .reason-card h2 {
+    font-size: 1.08rem;
+    line-height: 1.16;
+  }
+
+  .reason-card p {
+    margin: 0;
+    font-size: 0.84rem;
+    line-height: 1.55;
+  }
+
+  .hero-panel {
+    display: grid;
+    gap: 0.8rem;
+    align-content: start;
+  }
+
+  .hero-panel-card {
+    padding: 1rem;
+    display: grid;
     gap: 0.8rem;
   }
 
-  .grid p + p {
-    margin-top: 0.6rem;
+  .panel-kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
   }
 
-  .booking-card {
-    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
-    background:
-      radial-gradient(
-        100% 120% at 100% 0%,
-        color-mix(in srgb, var(--accent-soft) 38%, transparent),
-        transparent 58%
-      ),
-      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
-  }
-
-  a {
-    color: var(--text);
-    text-decoration: none;
-    font-weight: 700;
-  }
-
-  a:hover,
-  a:focus-visible {
-    text-decoration: underline;
-  }
-
-  .helper {
-    margin-bottom: 0.9rem;
-    font-size: 0.92rem;
-  }
-
-  .audit-steps {
-    margin: 0.95rem 0;
+  .what-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
+    gap: 0.6rem;
   }
 
-  .audit-steps article {
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
-    padding: 0.85rem;
+  .step-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+    align-items: start;
+    border-top: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    padding-top: 0.7rem;
   }
 
-  .audit-steps strong {
-    display: block;
+  .step-card:first-child {
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .step-card span {
+    display: inline-grid;
+    place-items: center;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-soft) 70%, white);
     color: var(--text);
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 800;
+  }
+
+  .step-card strong {
+    color: var(--text);
+    font-size: 0.92rem;
     line-height: 1.3;
   }
 
-  .audit-steps p {
-    margin-top: 0.38rem;
-    font-size: 0.84rem;
-    line-height: 1.5;
+  .step-card p {
+    margin: 0.24rem 0 0;
+    font-size: 0.82rem;
+    line-height: 1.52;
+  }
+
+  .quote-card {
+    margin: 0;
+    padding: 1rem;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .quote-card p {
+    margin: 0;
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .quote-card footer {
+    display: grid;
+    gap: 0.14rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    padding-top: 0.7rem;
+  }
+
+  .quote-card strong {
+    color: var(--text);
+    font-size: 0.76rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .quote-card span {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+  }
+
+  .contact-main {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.92fr);
+    align-items: start;
+  }
+
+  .form-shell,
+  .booking-shell {
+    display: grid;
+    gap: 1rem;
   }
 
   .form-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.8rem;
+    gap: 0.85rem;
   }
 
   label {
     display: grid;
     gap: 0.35rem;
     font-weight: 600;
-    font-size: 0.92rem;
+    font-size: 0.9rem;
   }
 
   input,
@@ -470,8 +696,8 @@ const hasBookingUrl = Boolean(bookingUrl);
     border: 1px solid var(--line);
     background: color-mix(in srgb, var(--bg-soft) 84%, white);
     color: var(--text);
-    border-radius: 14px;
-    padding: 0.78rem 0.82rem;
+    border-radius: 16px;
+    padding: 0.82rem 0.86rem;
     font: inherit;
   }
 
@@ -487,73 +713,120 @@ const hasBookingUrl = Boolean(bookingUrl);
     grid-column: 1 / -1;
   }
 
-  .cta {
+  .submit-btn {
     justify-self: start;
-    border: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 3rem;
-    padding: 0.78rem 1.22rem;
-    border-radius: 999px;
-    font-weight: 700;
-    color: #f7f3ec;
-    background: var(--text);
-    cursor: pointer;
-    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease,
-      color 170ms ease;
-  }
-
-  .cta:hover,
-  .cta:focus-visible {
-    color: #fff;
-    background: #0f0d0a;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .cta-secondary {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--line);
-  }
-
-  .cta-secondary:hover,
-  .cta-secondary:focus-visible {
-    color: var(--text);
-    background: color-mix(in srgb, var(--accent-soft) 55%, white);
   }
 
   .form-note {
     margin: 0;
-    color: var(--text-muted);
     font-size: 0.8rem;
     line-height: 1.45;
   }
 
-  @media (max-width: 900px) {
-    .grid {
+  .booking-link {
+    width: fit-content;
+  }
+
+  .booking-embed-shell {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+    min-height: 760px;
+  }
+
+  .booking-embed-shell iframe {
+    display: block;
+    width: 100%;
+    min-height: 760px;
+    border: 0;
+    background: white;
+  }
+
+  .booking-fallback {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 20px;
+    padding: 1rem;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+  }
+
+  .support-head {
+    display: grid;
+    gap: 0.5rem;
+    max-width: 48rem;
+  }
+
+  .support-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .support-card {
+    padding: 1rem;
+    display: grid;
+    gap: 0.35rem;
+    text-decoration: none;
+    transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+  }
+
+  .support-card:hover,
+  .support-card:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
+  }
+
+  .support-card span {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  .support-card strong {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+
+  @media (max-width: 980px) {
+    .contact-hero,
+    .contact-main {
       grid-template-columns: 1fr;
     }
 
-    .audit-steps {
+    .reason-grid,
+    .support-grid {
       grid-template-columns: 1fr;
     }
+  }
 
+  @media (max-width: 760px) {
+    .hero-actions,
     .form-grid {
       grid-template-columns: 1fr;
-    }
-
-    .full-width {
-      grid-column: auto;
     }
 
     .hero-actions {
       display: grid;
     }
 
-    .hero-actions .cta {
+    .hero-actions .btn,
+    .submit-btn,
+    .booking-link {
       width: 100%;
+    }
+
+    .full-width {
+      grid-column: auto;
+    }
+
+    .booking-embed-shell,
+    .booking-embed-shell iframe {
+      min-height: 680px;
     }
   }
 </style>

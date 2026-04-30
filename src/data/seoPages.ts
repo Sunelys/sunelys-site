@@ -9,12 +9,24 @@ export interface SeoPageData {
   metaDescription: string;
   heroTitle: string;
   heroSubtitle: string;
+  fitTitle: string;
+  fitIntro: string;
+  fitItems: string[];
+  proof: {
+    quote: string;
+    author: string;
+    role: string;
+    highlights: string[];
+  };
   problemTitle: string;
   problemIntro: string;
   problemItems: Array<{ title: string; text: string }>;
   scopeItems: string[];
   detailBlocks?: Array<{ title: string; text: string }>;
   processSteps: string[];
+  signalTitle: string;
+  signalIntro: string;
+  signalItems: string[];
   caseStudy: {
     title: string;
     volume: string;
@@ -35,6 +47,25 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Gestion administrative photovoltaïque pour installateurs",
     heroSubtitle:
       "Sunelys structure l'ensemble du parcours administratif solaire pour réduire la charge interne, fiabiliser les dossiers et accélérer les installations.",
+    fitTitle: "Quand vos équipes passent plus de temps à suivre les dossiers qu'à produire.",
+    fitIntro:
+      "Cette page parle aux installateurs qui veulent retrouver un pilotage propre sans continuer à faire absorber l'administratif par les commerciaux et les conducteurs de travaux.",
+    fitItems: [
+      "Vous traitez plusieurs dossiers chaque mois avec des statuts dispersés.",
+      "Les relances clients, mairies, Consuel ou Enedis vivent dans plusieurs boîtes mail.",
+      "Vos équipes terrain perdent du temps sur des tâches de suivi non facturables.",
+    ],
+    proof: {
+      quote:
+        "Nous avons enfin un suivi réactif et structuré. Les dossiers avancent mieux, les échanges sont fluides et nos chantiers se lancent plus vite.",
+      author: "Victorion Brice",
+      role: "gérant de Be Travaux",
+      highlights: [
+        "Délais mieux tenus sur les flux administratifs",
+        "Suivi plus lisible pour les équipes",
+        "Lancements chantier accélérés",
+      ],
+    },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
     problemIntro:
       "Entre délais, dossiers incomplets et allers-retours, les équipes installateurs perdent du temps sur des tâches critiques mais non productives.",
@@ -68,6 +99,14 @@ export const seoPages: Record<string, SeoPageData> = {
       "Constitution administrative",
       "Dépôt et suivi",
       "Validation finale",
+    ],
+    signalTitle: "Les signaux qui montrent que l'administratif freine déjà votre croissance",
+    signalIntro:
+      "Ce n'est pas un sujet de confort. C'est souvent le point qui commence à dégrader vos délais, votre visibilité interne et l'expérience client.",
+    signalItems: [
+      "Les dossiers avancent, mais personne ne sait exactement lesquels sont bloqués et pourquoi.",
+      "Les mêmes informations sont redemandées plusieurs fois au client ou aux équipes.",
+      "Le volume augmente, mais le pilotage reste artisanal entre tableaux, emails et portails.",
     ],
     caseStudy: {
       title: "Installateur régional",
@@ -123,6 +162,25 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Consuel photovoltaïque : préparation et suivi des dossiers",
     heroSubtitle:
       "Sunelys prend en charge le volet administratif Consuel pour sécuriser vos dossiers et accélérer la mise en service de vos installations.",
+    fitTitle: "Quand le Consuel devient le point de blocage entre chantier terminé et mise en service.",
+    fitIntro:
+      "Cette page s'adresse aux installateurs qui veulent éviter les allers-retours inutiles, mieux préparer leurs pièces et garder de la visibilité sur les validations.",
+    fitItems: [
+      "Vous perdez du temps sur des pièces incomplètes ou des compléments tardifs.",
+      "Le suivi Consuel est repris en urgence par les équipes opérationnelles.",
+      "Les mises en service glissent faute de dossier bien préparé dès le départ.",
+    ],
+    proof: {
+      quote:
+        "Le vrai gain, c'est la sérénité. Le dossier est cadré, suivi et on sait que tout est propre administrativement avant de dépendre d'un retour tardif.",
+      author: "Damien Guillaume",
+      role: "dirigeant de SUN WATT FRANCE",
+      highlights: [
+        "Contrôle documentaire plus rigoureux",
+        "Moins d'écarts entre chantier et dossier",
+        "Visibilité renforcée avant mise en service",
+      ],
+    },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
     problemIntro:
       "Les retours Consuel, les pièces manquantes et les validations tardives pèsent directement sur vos délais de mise en service.",
@@ -170,6 +228,14 @@ export const seoPages: Record<string, SeoPageData> = {
       "Constitution administrative",
       "Dépôt et suivi",
       "Validation finale",
+    ],
+    signalTitle: "Les signes qu'il faut remettre le flux Consuel sous contrôle",
+    signalIntro:
+      "Dès que le Consuel repose sur des relances improvisées, il se transforme en source directe de retard et de tension interne.",
+    signalItems: [
+      "Le dossier part sans contrôle qualité suffisant parce que le planning pousse.",
+      "Les équipes terrain découvrent trop tard qu'une pièce ou une photo manque.",
+      "Vous ne distinguez plus clairement les dossiers prêts, en attente ou à relancer.",
     ],
     caseStudy: {
       title: "Installateur régional",
@@ -225,6 +291,25 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète",
     heroSubtitle:
       "Sunelys centralise les étapes administratives du raccordement Enedis pour sécuriser les délais et simplifier le pilotage de vos équipes.",
+    fitTitle: "Quand le raccordement devient une suite de jalons flous et de relances dispersées.",
+    fitIntro:
+      "Cette page est pensée pour les installateurs qui veulent sortir du brouillard sur les demandes Enedis, les pièces, les retours et les dépendances chantier.",
+    fitItems: [
+      "Vous manquez de lisibilité sur les étapes réseau et leurs prochaines actions.",
+      "Les demandes de compléments rallongent les cycles et immobilisent vos équipes.",
+      "Le raccordement dépend de plusieurs interlocuteurs et personne ne tient la vue d'ensemble.",
+    ],
+    proof: {
+      quote:
+        "Le suivi est beaucoup plus réactif et on sait enfin où en sont vraiment les dossiers. Cela nous aide à installer nos chantiers plus rapidement.",
+      author: "Victorion Brice",
+      role: "gérant de Be Travaux",
+      highlights: [
+        "Relances plus régulières",
+        "Jalons mieux pilotés",
+        "Planning chantier plus lisible",
+      ],
+    },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
     problemIntro:
       "Le raccordement implique de multiples échanges et jalons. Sans pilotage administratif structuré, les retards se multiplient.",
@@ -272,6 +357,14 @@ export const seoPages: Record<string, SeoPageData> = {
       "Constitution administrative",
       "Dépôt et suivi",
       "Validation finale",
+    ],
+    signalTitle: "Les signaux qu'un pilotage raccordement dédié devient nécessaire",
+    signalIntro:
+      "Le raccordement ne bloque pas toujours au même endroit. Sans méthode, c'est justement cette variabilité qui déstabilise les plannings.",
+    signalItems: [
+      "Les dossiers restent techniquement faisables mais administrativement difficiles à suivre.",
+      "Vos commerciaux, le bureau d'étude et l'administratif relancent sans pilotage commun.",
+      "Les mises en service deviennent imprévisibles à cause des statuts et dépendances réseau.",
     ],
     caseStudy: {
       title: "Installateur régional",
@@ -327,6 +420,25 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Déclaration préalable panneaux solaires : constitution du dossier",
     heroSubtitle:
       "Sunelys structure votre déclaration préalable photovoltaïque pour réduire les refus, limiter les retours et sécuriser le lancement chantier.",
+    fitTitle: "Quand chaque dépôt mairie doit partir propre du premier coup.",
+    fitIntro:
+      "Cette page est faite pour les installateurs qui veulent éviter les demandes de pièces complémentaires, lisser leurs délais et donner un vrai cadre à leurs dépôts de DP.",
+    fitItems: [
+      "Vous déposez plusieurs DP par mois et chaque complément vous décale le chantier.",
+      "Les plans, visuels ou informations projet sont récupérés dans l'urgence.",
+      "Vous voulez fiabiliser vos dossiers avant mairie, sans dépendre d'une vérification tardive.",
+    ],
+    proof: {
+      quote:
+        "Nous avons atteint un très bon niveau de dossiers accordés, sans pièce complémentaire, avec la tranquillité d'esprit de savoir que tout est cadré et conforme.",
+      author: "Damien Guillaume",
+      role: "dirigeant de SUN WATT FRANCE",
+      highlights: [
+        "DP mieux préparées dès le départ",
+        "Moins de demandes de compléments",
+        "Lancement chantier plus serein",
+      ],
+    },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
     problemIntro:
       "Un dossier de déclaration préalable incomplet ou imprécis peut retarder tout le planning d'installation.",
@@ -374,6 +486,14 @@ export const seoPages: Record<string, SeoPageData> = {
       "Constitution administrative",
       "Dépôt et suivi",
       "Validation finale",
+    ],
+    signalTitle: "Les signes qu'il faut reprendre la main sur vos déclarations préalables",
+    signalIntro:
+      "Une DP mal cadrée ne vous coûte pas seulement du temps administratif. Elle désorganise la suite du projet et fragilise toute la chaîne chantier.",
+    signalItems: [
+      "Vos dépôts repartent trop souvent avec une pièce manquante ou un visuel à reprendre.",
+      "Le planning chantier dépend d'un retour mairie qui manque de visibilité.",
+      "Les informations projet sont encore recoupées à la main entre vente, technique et administratif.",
     ],
     caseStudy: {
       title: "Installateur régional",
