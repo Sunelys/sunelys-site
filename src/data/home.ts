@@ -1,6 +1,5 @@
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
-const leadSuccessUrl = "https://sunelys.fr/merci?source=hero-lead";
 
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque France | Sunelys",
@@ -11,39 +10,28 @@ export const homeSeo = {
 export const heroData = {
   kicker: "Pour installateurs photovoltaïques et structures qui traitent du volume",
   title: "DP, Consuel, raccordement :\nreprenez la main sur vos dossiers.",
-  titleVariants: [
-    "Externalisez l'administratif solaire. Accélérez vos dossiers.",
-    "Moins de charge administrative. Plus de dossiers photovoltaïques maîtrisés.",
-  ],
   subtitle:
-    "Transmettez une demande complète sous 2 jours et suivez DP, Consuel, raccordement dans un portail dédié. Sunelys cadre, suit et pilote vos démarches administratives photovoltaïques en France.",
+    "Sunelys cadre, suit et pilote vos démarches administratives photovoltaïques pour fluidifier vos dépôts, réduire les retours et redonner de la visibilité à vos équipes.",
   primaryCta: {
     label: "Recevoir un cadrage gratuit",
-    href: "#hero-lead-form",
-    track: "cta_hero_form_focus",
+    href: "/contact?source=hero#contact-form",
+    track: "cta_hero_primary_contact",
   },
   secondaryCta: {
-    label: "Réserver un audit Calendly",
+    label: "Réserver 15 min",
     href: bookingUrl,
-    track: "cta_hero_calendly_secondary",
-  },
-  leadForm: {
-    action: leadFormAction,
-    successUrl: leadSuccessUrl,
-    submitLabel: "Recevoir un cadrage gratuit",
-    note: "Réponse sous 24h • Sans engagement",
+    track: "cta_hero_secondary_booking",
   },
   proofs: [
     "Réponse sous 24h ouvrées",
-    "DP, Consuel et raccordement pilotés dans un même flux",
-    "Suivi clair pour vos équipes et vos clients",
+    "Pilotage DP, Consuel et raccordement",
+    "Visibilité claire sur chaque dossier",
   ],
   portalDemo: {
     label: "Voir un aperçu du portail →",
     href: "/images/site/portal-overview-2026-04-23.png",
     track: "cta_hero_portal_demo",
   },
-  ctaNote: "Cadrage sans engagement pour qualifier votre volume, vos blocages et le périmètre à déléguer.",
   preview: {
     variant: "full",
     label: "Portail Sunelys",
@@ -61,7 +49,7 @@ export const heroData = {
 
 export const proofSectionData = {
   kicker: "Preuve et réassurance",
-  title: "Une exécution administrative qui inspire confiance dès le premier regard.",
+  title: "Des références réelles et une qualité d'exécution qui rassurent vite.",
   logos: [
     {
       name: "Sunwatt France",
@@ -132,9 +120,9 @@ export const frictionSectionData = {
 
 export const solutionSectionData = {
   kicker: "La solution Sunelys",
-  title: "Une équipe dédiée pour piloter vos démarches de bout en bout.",
+  title: "Un relais administratif fiable pour piloter vos démarches de bout en bout.",
   text:
-    "Sunelys devient votre relais administratif photovoltaïque. Nous réceptionnons les informations, vérifions les pièces, préparons les dossiers, suivons les échanges et gardons une traçabilité claire jusqu'à la validation.",
+    "Sunelys devient votre relais administratif photovoltaïque. Nous réceptionnons les informations, vérifions les pièces, préparons les dossiers, suivons les échanges et gardons une traçabilité claire jusqu'à validation.",
   points: [
     {
       title: "Cadrage administratif",
@@ -196,9 +184,9 @@ export const benefitsSectionData = {
 
 export const audienceSectionData = {
   kicker: "Pour qui",
-  title: "Pensé pour les structures solaires qui veulent traiter plus de dossiers sans surcharge.",
+  title: "Pensé pour les structures solaires qui veulent absorber plus de dossiers sans dégrader l'exécution.",
   text:
-    "Sunelys accompagne les professionnels qui ont besoin d'un relais administratif fiable, structuré et capable de suivre un flux récurrent.",
+    "Sunelys est utile quand l'administratif commence à ralentir le commerce, brouiller le suivi ou faire perdre du temps à vos équipes chantier et back-office.",
   items: [
     {
       title: "Sociétés commercialistes du solaire",
@@ -214,7 +202,7 @@ export const audienceSectionData = {
     },
   ],
   note:
-    "Le bon moment pour nous parler : quand les relances, les pièces manquantes ou le volume commencent à grignoter le temps commercial et opérationnel.",
+    "Le bon moment pour nous parler : quand les relances, les pièces manquantes et le volume commencent à détériorer votre qualité d'exécution.",
   cta: {
     label: "Recevoir un cadrage gratuit",
     href: "/contact?source=audience#contact-form",
@@ -315,8 +303,8 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Un suivi clair pour vos équipes et vos clients.",
-  text: "Le portail centralise les dossiers, les pièces et les validations pour rendre l'administratif plus lisible, plus traçable et plus facile à piloter.",
+  title: "Un portail utile, mais au service d'un vrai pilotage humain.",
+  text: "Le portail centralise les dossiers, les pièces et les validations pour rendre l'administratif plus lisible, plus traçable et plus simple à piloter au quotidien.",
   benefits: [
     "Suivi des dossiers en temps réel",
     "Centralisation des pièces administratives",
@@ -405,9 +393,9 @@ export const faqSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Passage à l'action",
-  title: "Recevez un cadrage gratuit pour vos flux administratifs.",
+  title: "Faites le point sur vos flux administratifs en 15 minutes.",
   text:
-    "Transmettez votre volume et vos blocages : nous revenons vers vous avec une lecture claire du périmètre à déléguer en priorité.",
+    "Expliquez-nous votre volume, vos délais et vos blocages. Nous revenons vers vous avec un cadrage clair du périmètre à déléguer en priorité.",
   primaryCta: {
     label: "Recevoir un cadrage gratuit",
     href: "/contact?source=final#contact-form",

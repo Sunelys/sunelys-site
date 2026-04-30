@@ -30,14 +30,6 @@ const { data } = Astro.props;
     <h1>{data.title}</h1>
     <p class="subtitle">{data.subtitle}</p>
 
-    <div class="hero-signature" aria-label="Positionnement Sunelys">
-      <span class="signature-pill">Cadrage premium</span>
-      <p>
-        Une exécution administrative claire, rigoureuse et présentable pour des structures solaires qui veulent
-        inspirer confiance dès le premier dossier.
-      </p>
-    </div>
-
     <div class="portal-proof" aria-label="Portail client Sunelys">
       <ul class="proof-bar">
         {
@@ -344,37 +336,6 @@ const { data } = Astro.props;
     text-wrap: pretty;
   }
 
-  .hero-signature {
-    margin-top: 1rem;
-    display: grid;
-    gap: 0.5rem;
-    max-width: 60ch;
-  }
-
-  .hero-signature p {
-    margin: 0;
-    color: color-mix(in srgb, var(--text-muted) 92%, var(--text));
-    font-size: 0.92rem;
-    line-height: 1.58;
-  }
-
-  .signature-pill {
-    width: fit-content;
-    min-height: 2rem;
-    display: inline-flex;
-    align-items: center;
-    padding: 0.32rem 0.8rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(239, 227, 201, 0.74));
-    color: var(--text);
-    font-size: 0.68rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    box-shadow: 0 12px 30px rgba(20, 16, 10, 0.08);
-  }
-
   .portal-proof {
     margin: 1rem 0 0;
     display: grid;
@@ -604,14 +565,6 @@ const { data } = Astro.props;
     .portal-proof,
     .proof-bar {
       justify-content: center;
-    }
-
-    .hero-signature {
-      margin-inline: auto;
-    }
-
-    .signature-pill {
-      margin-inline: auto;
     }
 
     .portal-demo-link {
