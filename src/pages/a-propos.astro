@@ -72,12 +72,18 @@ const approachItems = [
       </p>
     </div>
 
-    <figure class="founder-photo" data-photo-placeholder="/images/myriam-zaoui.jpg" aria-label="Photo de Myriam Zaoui à ajouter">
+    <figure class="founder-photo">
       <div class="photo-frame">
-        <span>Photo Myriam Zaoui</span>
-        <small>/images/myriam-zaoui.jpg</small>
+        <img
+          src="/images/myriam-zaoui.jpg"
+          alt="Myriam Zaoui, fondatrice de Sunelys"
+          width="1024"
+          height="1024"
+          loading="eager"
+          decoding="async"
+        />
       </div>
-      <figcaption>Placeholder à remplacer par la photo officielle de Myriam Zaoui.</figcaption>
+      <figcaption>Myriam Zaoui, fondatrice de Sunelys.</figcaption>
     </figure>
   </section>
 
@@ -226,29 +232,21 @@ const approachItems = [
   }
 
   .photo-frame {
-    min-height: clamp(18rem, 34vw, 26rem);
-    display: grid;
-    place-items: end start;
-    gap: 0.2rem;
-    align-content: end;
-    border: 1px dashed color-mix(in srgb, var(--line) 58%, var(--accent));
+    aspect-ratio: 1;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
     border-radius: var(--radius-md);
     background:
       linear-gradient(160deg, color-mix(in srgb, var(--accent-soft) 56%, white), color-mix(in srgb, var(--surface) 94%, white));
-    padding: 1rem;
   }
 
-  .photo-frame span,
-  .photo-frame small {
+  .photo-frame img {
     display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
-  .photo-frame span {
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  .photo-frame small,
   figcaption {
     font-size: var(--step--1);
   }
