@@ -227,6 +227,13 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
             label: "Quiz email capture",
             source: "quiz-homepage",
           });
+
+          window.trackEvent("generate_lead", {
+            category: "lead",
+            volume: selectedQuizVolume,
+            label: "Quiz email capture",
+            source: "quiz-homepage",
+          });
         }
 
         quizEmailForm.hidden = true;

@@ -70,4 +70,4 @@ Sunelys prend en charge la constitution, le contrôle et le suivi de vos dossier
 
 Une déclaration préalable bien cadrée n'est pas un détail. C'est une condition de fluidité pour vendre, poser et mettre en service sans créer de tension inutile.
 
-Pour structurer vos démarches, vous pouvez consulter notre page dédiée : [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), ou [planifier un échange](/contact?source=blog-dp) avec Sunelys.
+Pour structurer vos démarches, vous pouvez consulter notre page dédiée : [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), lire le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), vérifier le cas des [panneaux solaires en toiture](/blog/declaration-prealable-panneaux-solaires-toiture), ou [planifier un échange](/contact?source=blog-dp) avec Sunelys.

@@ -53,10 +53,22 @@ const baseSchemas = [
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Sunelys",
+    alternateName: ["SUNELYS", "Sunelys SASU"],
+    legalName: "SUNELYS",
     url: siteUrl,
     logo: ogImage,
     email: "contact@sunelys.fr",
     telephone: "+33 6 95 90 79 19",
+    foundingDate: "2025-04-15",
+    taxID: "FR46943493759",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "SIREN",
+      value: "943493759",
+    },
+    sameAs: [
+      "https://www.pappers.fr/entreprise/sunelys-943493759",
+    ],
     address: {
       "@type": "PostalAddress",
       streetAddress: "49, impasse des lauriers",
@@ -69,7 +81,13 @@ const baseSchemas = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Sunelys",
+    alternateName: "SUNELYS",
     url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
   },
 ];
 

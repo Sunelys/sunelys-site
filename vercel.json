@@ -11,6 +11,61 @@
       ],
       "destination": "https://sunelys.fr/:path*",
       "permanent": true
+    },
+    {
+      "source": "/consuel",
+      "destination": "/dossier-consuel-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/consuel-photovoltaique",
+      "destination": "/dossier-consuel-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/dossier-consuel",
+      "destination": "/dossier-consuel-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-prealable",
+      "destination": "/declaration-prealable-panneaux-solaires",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-panneaux-solaires",
+      "destination": "/declaration-prealable-panneaux-solaires",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-prealable-solaire",
+      "destination": "/declaration-prealable-panneaux-solaires",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-prealable-panneaux-solaires-toiture",
+      "destination": "/blog/declaration-prealable-panneaux-solaires-toiture",
+      "permanent": true
+    },
+    {
+      "source": "/raccordement",
+      "destination": "/raccordement-enedis-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/raccordement-enedis",
+      "destination": "/raccordement-enedis-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/raccordement-photovoltaique",
+      "destination": "/raccordement-enedis-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/particuliers",
+      "destination": "/services",
+      "permanent": true
     }
   ]
 }
