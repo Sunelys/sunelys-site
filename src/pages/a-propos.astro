@@ -1,0 +1,370 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
+const title = "Qui est derrière Sunelys | À propos";
+const description =
+  "Découvrez Myriam Zaoui, fondatrice de Sunelys, et l'approche de pilotage administratif photovoltaïque dédiée aux installateurs solaires.";
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Myriam Zaoui",
+    jobTitle: "Fondatrice de Sunelys",
+    worksFor: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    url: "https://sunelys.fr/a-propos",
+    image: "https://sunelys.fr/images/myriam-zaoui.jpg",
+    sameAs: ["https://www.linkedin.com/in/myriam-zaoui-2baa501b9/"],
+    knowsAbout: [
+      "Déclaration préalable photovoltaïque",
+      "Dossier Consuel photovoltaïque",
+      "Raccordement Enedis photovoltaïque",
+      "Gestion administrative photovoltaïque",
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Sunelys",
+    url: "https://sunelys.fr",
+    founder: {
+      "@type": "Person",
+      name: "Myriam Zaoui",
+    },
+    sameAs: [
+      "https://www.linkedin.com/in/myriam-zaoui-2baa501b9/",
+      "https://www.linkedin.com/company/sunelys/",
+    ],
+  },
+];
+
+const approachItems = [
+  {
+    title: "Cadrage clair",
+    text:
+      "Chaque collaboration commence par un cadrage du volume, des irritants et des démarches à externaliser. Pas d'engagement avant d'avoir défini ce qui a du sens pour vous.",
+  },
+  {
+    title: "Pilotage humain + portail",
+    text:
+      "Un interlocuteur dédié, un portail qui centralise dossiers, pièces et statuts. La technologie au service de la relation, pas l'inverse.",
+  },
+  {
+    title: "Traçabilité totale",
+    text:
+      "Chaque dossier garde son historique, son statut et sa prochaine étape visibles à tout moment. Vous reprenez la main quand vous voulez.",
+  },
+];
+---
+
+<BaseLayout title={title} description={description} structuredData={structuredData}>
+  <section class="about-hero section-shell reveal">
+    <div class="about-copy">
+      <p class="eyebrow">À propos</p>
+      <h1>Qui est derrière Sunelys</h1>
+      <p>
+        Sunelys est née d'un constat simple : sur le terrain, les installateurs photovoltaïques perdent du temps et du chiffre sur l'administratif. La promesse de Sunelys, c'est de leur rendre cette charge mentale, sans approximation et sans rupture de service.
+      </p>
+    </div>
+
+    <figure class="founder-photo" data-photo-placeholder="/images/myriam-zaoui.jpg" aria-label="Photo de Myriam Zaoui à ajouter">
+      <div class="photo-frame">
+        <span>Photo Myriam Zaoui</span>
+        <small>/images/myriam-zaoui.jpg</small>
+      </div>
+      <figcaption>Placeholder à remplacer par la photo officielle de Myriam Zaoui.</figcaption>
+    </figure>
+  </section>
+
+  <section class="about-section section-shell reveal">
+    <div class="section-head">
+      <p class="eyebrow">Expertise</p>
+      <h2>Une expertise au service des installateurs solaires</h2>
+    </div>
+    <p>
+      Sunelys accompagne aujourd'hui des structures comme SunWatt France, Terra ENR, Groupe Solarenov, Ensol et Be Travaux sur le pilotage de leurs déclarations préalables, dossiers Consuel et raccordements Enedis. L'objectif est toujours le même : des dossiers complets, des délais maîtrisés, une traçabilité totale.
+    </p>
+  </section>
+
+  <section class="founder-section section-shell reveal">
+    <div class="section-head">
+      <p class="eyebrow">Fondatrice</p>
+      <h2>Myriam Zaoui — Fondatrice</h2>
+    </div>
+    <div class="founder-grid">
+      <p>
+        Myriam Zaoui dirige Sunelys depuis sa création. Spécialiste de la gestion administrative des projets photovoltaïques en France, elle a structuré une méthode qui s'adapte aux flux réels des installateurs : production sous 48h quand le dossier est complet, suivi sur portail dédié, interlocuteur unique.
+      </p>
+      <blockquote>
+        <p>« Mon métier, c'est de transformer un irritant administratif en process fluide. Les installateurs n'ont plus à choisir entre vendre et être en règle. »</p>
+        <cite>— Myriam Zaoui, fondatrice de Sunelys</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="approach-section section-shell reveal">
+    <div class="section-head">
+      <p class="eyebrow">Méthode</p>
+      <h2>Notre approche</h2>
+    </div>
+    <div class="approach-grid">
+      {
+        approachItems.map((item) => (
+          <article>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="contact-direct section-shell reveal">
+    <div>
+      <p class="eyebrow">Contact direct</p>
+      <h2>Un cadrage simple pour savoir quoi déléguer.</h2>
+      <div class="contact-lines">
+        <a href="mailto:contact@sunelys.fr" data-track="cta_about_email">contact@sunelys.fr</a>
+        <a href="tel:+33695907919" data-track="cta_about_phone">06 95 90 79 19</a>
+      </div>
+    </div>
+    <div class="cta-actions">
+      <a class="btn btn-primary btn-accent" href="/contact?source=a-propos#contact-form" data-track="cta_about_contact">
+        Recevoir un cadrage gratuit
+      </a>
+      <a class="btn btn-secondary" href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_about_booking">
+        Réserver 15 min
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .about-hero,
+  .about-section,
+  .founder-section,
+  .approach-section,
+  .contact-direct {
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.8vw, 2.25rem);
+  }
+
+  .about-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
+    gap: clamp(1rem, 3vw, 2.4rem);
+    align-items: center;
+  }
+
+  .about-copy,
+  .about-section,
+  .founder-section,
+  .approach-section,
+  .contact-direct > div {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+    line-height: 1;
+  }
+
+  h1 {
+    max-width: 13ch;
+    font-size: clamp(2.35rem, 5.2vw, 5rem);
+  }
+
+  h2 {
+    max-width: 16ch;
+    font-size: clamp(1.75rem, 3.2vw, 3.15rem);
+  }
+
+  h3 {
+    font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  }
+
+  p,
+  figcaption,
+  cite {
+    color: var(--text-muted);
+    line-height: 1.62;
+  }
+
+  .about-copy p,
+  .about-section > p,
+  .founder-grid > p {
+    max-width: 68ch;
+    font-size: var(--step-0);
+  }
+
+  .founder-photo {
+    margin: 0;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .photo-frame {
+    min-height: clamp(18rem, 34vw, 26rem);
+    display: grid;
+    place-items: end start;
+    gap: 0.2rem;
+    align-content: end;
+    border: 1px dashed color-mix(in srgb, var(--line) 58%, var(--accent));
+    border-radius: var(--radius-md);
+    background:
+      linear-gradient(160deg, color-mix(in srgb, var(--accent-soft) 56%, white), color-mix(in srgb, var(--surface) 94%, white));
+    padding: 1rem;
+  }
+
+  .photo-frame span,
+  .photo-frame small {
+    display: block;
+  }
+
+  .photo-frame span {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .photo-frame small,
+  figcaption {
+    font-size: var(--step--1);
+  }
+
+  .section-head {
+    display: grid;
+    gap: 0.52rem;
+  }
+
+  .founder-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
+    gap: clamp(1rem, 2.4vw, 1.8rem);
+    align-items: start;
+  }
+
+  blockquote {
+    margin: 0;
+    padding: 1rem 1rem 1rem 1.15rem;
+    border-left: 4px solid #d4822a;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  blockquote p {
+    color: var(--text);
+    font-size: var(--step-0);
+  }
+
+  blockquote cite {
+    display: block;
+    margin-top: 0.8rem;
+    font-style: normal;
+    font-size: var(--step--1);
+  }
+
+  .approach-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .approach-grid article {
+    display: grid;
+    gap: 0.55rem;
+    min-height: 12rem;
+    align-content: start;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact-direct {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .contact-lines {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1rem;
+  }
+
+  .contact-lines a {
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+  }
+
+  .contact-lines a:hover,
+  .contact-lines a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.65rem;
+  }
+
+  @media (max-width: 920px) {
+    .about-hero,
+    .founder-grid,
+    .approach-grid,
+    .contact-direct {
+      grid-template-columns: 1fr;
+    }
+
+    h1,
+    h2 {
+      max-width: 18ch;
+    }
+
+    .cta-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .about-hero,
+    .about-section,
+    .founder-section,
+    .approach-section,
+    .contact-direct {
+      border-radius: var(--radius-md);
+    }
+
+    .cta-actions .btn {
+      width: 100%;
+    }
+  }
+</style>
