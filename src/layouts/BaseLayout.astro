@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ExitIntentModal from "../components/ExitIntentModal.astro";
 
 const {
   title = "Sunelys",
@@ -20,6 +21,7 @@ const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
@@ -154,6 +156,8 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
     <Footer links={footerLinks} />
 
+    <ExitIntentModal action={leadFormAction} path={path} />
+
     {
       path !== "/merci" && (
         <div class="sticky-lead-bar" aria-label="Actions rapides de contact">
@@ -272,6 +276,16 @@ const allSchemas = [...baseSchemas, ...structuredData];
           label: element.dataset.trackLabel || (element.textContent || "").trim(),
           href,
         });
+      });
+
+      document.addEventListener("submit", (event) => {
+        if (!(event.target instanceof HTMLFormElement)) return;
+        if (event.target.id === "exit-intent-form") return;
+        try {
+          sessionStorage.setItem("sunelys_form_submitted", "true");
+        } catch (_error) {
+          // Storage can be unavailable in some private browsing contexts.
+        }
       });
 
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
