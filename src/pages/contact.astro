@@ -1,8 +1,8 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 
-const successUrl = "https://sunelys.fr/merci";
-const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
+const successUrl = "https://sunelys.fr/merci?source=contact_form";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const hasBookingUrl = Boolean(bookingUrl);
 

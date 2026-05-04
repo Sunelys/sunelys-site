@@ -59,7 +59,7 @@ interface Props {
 }
 
 const { data } = Astro.props;
-const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const successUrl = `https://sunelys.fr/merci?source=${data.slug}_service_form`;
 
 const heroBadges = [

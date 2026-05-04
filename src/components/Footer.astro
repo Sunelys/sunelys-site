@@ -9,6 +9,8 @@ interface Props {
 }
 
 const { links } = Astro.props;
+const founderLinkedinUrl = "https://www.linkedin.com/in/myriam-zaoui-2baa501b9/";
+const companyLinkedinUrl = "https://www.linkedin.com/company/sunelys/"; // TODO: confirmer URL LinkedIn entreprise avec Myriam.
 ---
 
 <footer class="site-footer">
@@ -17,6 +19,33 @@ const { links } = Astro.props;
       <p>contact@sunelys.fr</p>
       <p>06 95 90 79 19</p>
       <a href="https://portail.sunelys.fr/login" data-track="cta_footer_portal">Portail client</a>
+      <div class="social-links" aria-label="Suivez-nous">
+        <span>Suivez-nous</span>
+        <a
+          href={founderLinkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn de Myriam Zaoui"
+          data-track="cta_footer_linkedin_founder"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path d="M6.94 8.98H3.56v10.79h3.38V8.98ZM5.25 4.22c-1.08 0-1.79.72-1.79 1.66 0 .92.69 1.65 1.75 1.65h.02c1.1 0 1.79-.73 1.79-1.65-.02-.94-.69-1.66-1.77-1.66Zm14.3 9.36v6.19h-3.38V14c0-1.45-.52-2.44-1.82-2.44-.99 0-1.58.67-1.84 1.31-.09.23-.12.55-.12.87v6.03H9.01s.04-9.78 0-10.79h3.38v1.53c.45-.69 1.25-1.68 3.04-1.68 2.22 0 4.12 1.45 4.12 4.75Z" />
+          </svg>
+          <span>Myriam Zaoui</span>
+        </a>
+        <a
+          href={companyLinkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn Sunelys"
+          data-track="cta_footer_linkedin_company"
+        >
+          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
+            <path d="M6.94 8.98H3.56v10.79h3.38V8.98ZM5.25 4.22c-1.08 0-1.79.72-1.79 1.66 0 .92.69 1.65 1.75 1.65h.02c1.1 0 1.79-.73 1.79-1.65-.02-.94-.69-1.66-1.77-1.66Zm14.3 9.36v6.19h-3.38V14c0-1.45-.52-2.44-1.82-2.44-.99 0-1.58.67-1.84 1.31-.09.23-.12.55-.12.87v6.03H9.01s.04-9.78 0-10.79h3.38v1.53c.45-.69 1.25-1.68 3.04-1.68 2.22 0 4.12 1.45 4.12 4.75Z" />
+          </svg>
+          <span>Sunelys</span>
+        </a>
+      </div>
     </div>
 
     <nav class="footer-secondary" aria-label="Pages SEO">
@@ -47,6 +76,7 @@ const { links } = Astro.props;
   .footer-primary {
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
     gap: 0.7rem 1.2rem;
     color: var(--text-muted);
     font-size: 0.78rem;
@@ -62,6 +92,36 @@ const { links } = Astro.props;
     color: var(--text);
     text-decoration: none;
     transition: color 170ms ease;
+  }
+
+  .social-links {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.44rem;
+  }
+
+  .social-links > span {
+    color: var(--text-muted);
+  }
+
+  .social-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.32rem;
+    min-height: 1.9rem;
+    padding: 0.22rem 0.54rem;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface) 92%, white);
+    font-size: 0.72rem;
+  }
+
+  .social-links svg {
+    width: 1rem;
+    height: 1rem;
+    flex: 0 0 auto;
+    fill: currentColor;
   }
 
   .footer-primary a:hover,

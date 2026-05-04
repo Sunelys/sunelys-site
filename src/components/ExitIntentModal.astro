@@ -1,0 +1,387 @@
+---
+interface Props {
+  action: string;
+  path: string;
+}
+
+const { action, path } = Astro.props;
+---
+
+<div
+  id="exit-intent-modal"
+  class="exit-modal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="exit-modal-title"
+  hidden
+  data-path={path}
+>
+  <div class="exit-modal__panel" role="document">
+    <button class="exit-modal__close" type="button" aria-label="Fermer la fenêtre">
+      <span aria-hidden="true">×</span>
+    </button>
+
+    <div class="exit-modal__copy">
+      <p class="exit-modal__kicker">Checklist déclaration préalable</p>
+      <h2 id="exit-modal-title">Avant de partir : récupérez la checklist DP qui évite 80 % des retours</h2>
+      <p>
+        30 points de contrôle pour qu'une déclaration préalable panneaux solaires passe sans pièce complémentaire.
+        Utilisée par les installateurs accompagnés par Sunelys.
+      </p>
+    </div>
+
+    <form id="exit-intent-form" class="exit-modal__form" action={action} method="POST">
+      <input type="hidden" name="_subject" value="Nouveau lead checklist DP Sunelys" />
+      <input type="hidden" name="_captcha" value="false" />
+      <input type="hidden" name="_template" value="table" />
+      <input type="hidden" name="source_page" value="lead-magnet-checklist-dp" />
+      <input type="hidden" name="source" value="lead-magnet-checklist-dp" />
+      <input type="hidden" name="need" value="Declaration prealable" />
+      <input type="hidden" name="message" value="Demande de checklist DP" />
+      <input type="hidden" name="lead_status" value="Nouveau lead" />
+      <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist DP" />
+      <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+      <input type="hidden" name="follow_up_sla" value="24h" />
+      <input type="hidden" name="landing_page" data-exit-attribution="landing_page" />
+      <input type="hidden" name="first_referrer" data-exit-attribution="first_referrer" />
+      <input type="hidden" name="utm_source" data-exit-attribution="utm_source" />
+      <input type="hidden" name="utm_medium" data-exit-attribution="utm_medium" />
+      <input type="hidden" name="utm_campaign" data-exit-attribution="utm_campaign" />
+      <input type="hidden" name="utm_term" data-exit-attribution="utm_term" />
+      <input type="hidden" name="utm_content" data-exit-attribution="utm_content" />
+      <input type="hidden" name="gclid" data-exit-attribution="gclid" />
+
+      <label>
+        <span>Email professionnel</span>
+        <input id="exit-intent-email" type="email" name="email" autocomplete="email" inputmode="email" required />
+      </label>
+
+      <button class="btn btn-primary btn-accent" type="submit" data-track="cta_exit_intent_submit">
+        Recevoir la checklist
+      </button>
+
+      <p class="exit-modal__note" id="exit-intent-status" aria-live="polite">
+        Pas de spam. Vous pouvez vous désabonner en un clic.
+      </p>
+    </form>
+  </div>
+</div>
+
+<script>
+  const modal = document.querySelector("#exit-intent-modal");
+  const modalPanel = modal?.querySelector(".exit-modal__panel");
+  const closeButton = modal?.querySelector(".exit-modal__close");
+  const exitForm = document.querySelector("#exit-intent-form");
+  const exitStatus = document.querySelector("#exit-intent-status");
+  const shownKey = "sunelys_exit_intent_shown";
+  const submittedKey = "sunelys_form_submitted";
+  let lastFocusedElement = null;
+  let hasReachedHalfPage = false;
+  let previousScrollY = window.scrollY;
+
+  const canUseStorage = () => {
+    try {
+      sessionStorage.setItem("sunelys_storage_test", "1");
+      sessionStorage.removeItem("sunelys_storage_test");
+      return true;
+    } catch (_error) {
+      return false;
+    }
+  };
+
+  const storageAvailable = canUseStorage();
+  const readSessionFlag = (key) => storageAvailable && sessionStorage.getItem(key) === "true";
+  const writeSessionFlag = (key) => {
+    if (storageAvailable) sessionStorage.setItem(key, "true");
+  };
+
+  const isExcludedPage = () => {
+    const path = modal instanceof HTMLElement ? modal.dataset.path || window.location.pathname : window.location.pathname;
+    return path === "/contact" || path.startsWith("/contact/");
+  };
+
+  const focusableSelector = [
+    "a[href]",
+    "button:not([disabled])",
+    "input:not([disabled])",
+    "select:not([disabled])",
+    "textarea:not([disabled])",
+    "[tabindex]:not([tabindex='-1'])",
+  ].join(",");
+
+  const getFocusableElements = () => {
+    if (!(modalPanel instanceof HTMLElement)) return [];
+    return Array.from(modalPanel.querySelectorAll(focusableSelector)).filter((element) => {
+      return element instanceof HTMLElement && element.offsetParent !== null;
+    });
+  };
+
+  const closeModal = () => {
+    if (!(modal instanceof HTMLElement)) return;
+    modal.hidden = true;
+    document.body.classList.remove("exit-modal-open");
+    document.removeEventListener("keydown", handleKeydown);
+    if (lastFocusedElement instanceof HTMLElement) lastFocusedElement.focus();
+  };
+
+  function handleKeydown(event) {
+    if (event.key === "Escape") {
+      closeModal();
+      return;
+    }
+
+    if (event.key !== "Tab") return;
+
+    const focusableElements = getFocusableElements();
+    if (focusableElements.length === 0) {
+      event.preventDefault();
+      return;
+    }
+
+    const firstElement = focusableElements[0];
+    const lastElement = focusableElements[focusableElements.length - 1];
+
+    if (event.shiftKey && document.activeElement === firstElement) {
+      event.preventDefault();
+      lastElement.focus();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      event.preventDefault();
+      firstElement.focus();
+    }
+  }
+
+  const openModal = () => {
+    if (!(modal instanceof HTMLElement)) return;
+    if (isExcludedPage() || readSessionFlag(shownKey) || readSessionFlag(submittedKey)) return;
+
+    writeSessionFlag(shownKey);
+    lastFocusedElement = document.activeElement;
+    modal.hidden = false;
+    document.body.classList.add("exit-modal-open");
+    document.addEventListener("keydown", handleKeydown);
+    window.trackEvent?.("exit_intent_modal_viewed", {
+      category: "lead",
+      label: "Checklist DP",
+      source: "lead-magnet-checklist-dp",
+    });
+
+    window.requestAnimationFrame(() => {
+      const focusTarget = document.querySelector("#exit-intent-email") || closeButton;
+      if (focusTarget instanceof HTMLElement) focusTarget.focus();
+    });
+  };
+
+  if (modal instanceof HTMLElement && !isExcludedPage() && !readSessionFlag(shownKey) && !readSessionFlag(submittedKey)) {
+    const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+    modal.querySelectorAll("[data-exit-attribution]").forEach((field) => {
+      if (!(field instanceof HTMLInputElement)) return;
+      const key = field.dataset.exitAttribution || "";
+      field.value = attribution[key] || "";
+    });
+
+    document.addEventListener("mouseleave", (event) => {
+      if (event.clientY <= 0) openModal();
+    });
+
+    window.setTimeout(openModal, 30000);
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+        if (scrollableHeight <= 0) return;
+
+        const currentScrollY = window.scrollY;
+        const scrollProgress = currentScrollY / scrollableHeight;
+        if (scrollProgress >= 0.5) hasReachedHalfPage = true;
+
+        if (hasReachedHalfPage && previousScrollY - currentScrollY > 24) {
+          openModal();
+        }
+
+        previousScrollY = currentScrollY;
+      },
+      { passive: true }
+    );
+  }
+
+  closeButton?.addEventListener("click", closeModal);
+  modal?.addEventListener("click", (event) => {
+    if (event.target === modal) closeModal();
+  });
+
+  if (exitForm instanceof HTMLFormElement) {
+    exitForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const submitButton = exitForm.querySelector("button[type='submit']");
+      if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
+      if (exitStatus) exitStatus.textContent = "Envoi de la checklist en cours...";
+
+      try {
+        const response = await fetch(exitForm.action, {
+          method: "POST",
+          body: new FormData(exitForm),
+          headers: { Accept: "application/json" },
+        });
+
+        if (!response.ok) throw new Error("Lead magnet submit failed");
+
+        writeSessionFlag(submittedKey);
+        window.trackEvent?.("generate_lead", {
+          category: "lead",
+          label: "Checklist DP",
+          source: "lead-magnet-checklist-dp",
+        });
+
+        if (exitStatus) {
+          exitStatus.textContent = "Merci, votre demande est bien prise en compte.";
+        }
+        window.setTimeout(closeModal, 900);
+      } catch (_error) {
+        if (exitStatus) {
+          exitStatus.textContent =
+            "L'envoi n'a pas abouti. Vous pouvez réessayer ou passer par le formulaire de contact.";
+        }
+      } finally {
+        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+      }
+    });
+  }
+</script>
+
+<style>
+  .exit-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 220;
+    display: grid;
+    place-items: center;
+    padding: max(1rem, env(safe-area-inset-top, 0px)) max(1rem, env(safe-area-inset-right, 0px))
+      max(1rem, env(safe-area-inset-bottom, 0px)) max(1rem, env(safe-area-inset-left, 0px));
+    background: rgba(18, 15, 11, 0.44);
+    backdrop-filter: blur(8px);
+  }
+
+  .exit-modal[hidden] {
+    display: none;
+  }
+
+  :global(body.exit-modal-open) {
+    overflow: hidden;
+  }
+
+  .exit-modal__panel {
+    position: relative;
+    width: min(100%, 34rem);
+    display: grid;
+    gap: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 52%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 97%, white), var(--surface));
+    box-shadow: 0 34px 90px rgba(20, 16, 10, 0.22);
+    padding: clamp(1.1rem, 3vw, 1.65rem);
+  }
+
+  .exit-modal__close {
+    position: absolute;
+    top: 0.78rem;
+    right: 0.78rem;
+    width: 2.35rem;
+    height: 2.35rem;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    color: var(--text);
+    font-size: 1.45rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .exit-modal__copy {
+    display: grid;
+    gap: 0.62rem;
+    padding-right: 2.2rem;
+  }
+
+  .exit-modal__kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h2 {
+    max-width: 17ch;
+    margin: 0;
+    font-size: clamp(1.6rem, 4vw, 2.45rem);
+    line-height: 1;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.58;
+  }
+
+  .exit-modal__form {
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.38rem;
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  input {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #fffefa;
+    color: var(--text);
+    padding: 0.76rem 0.9rem;
+    font: inherit;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  input:focus-visible {
+    border-color: #111111;
+  }
+
+  .exit-modal__form .btn {
+    width: 100%;
+  }
+
+  .exit-modal__note {
+    font-size: var(--step--1);
+    text-align: center;
+  }
+
+  @media (max-width: 560px) {
+    .exit-modal {
+      align-items: end;
+      padding: 0.75rem;
+    }
+
+    .exit-modal__panel {
+      border-radius: var(--radius-md);
+    }
+
+    .exit-modal__copy {
+      padding-right: 1.9rem;
+    }
+  }
+</style>

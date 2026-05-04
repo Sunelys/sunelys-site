@@ -1,5 +1,5 @@
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
-const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "https://formsubmit.co/contact@sunelys.fr";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque France | Sunelys",
@@ -75,9 +75,10 @@ export const trustSectionData = {
   trustNote:
     "Sunelys accompagne des installateurs et structures solaires qui veulent garder des dossiers propres, des dépôts mieux cadrés et des clients informés sans mobiliser leurs équipes à chaque relance.",
   metrics: [
-    { value: "+5000", label: "dossiers photovoltaïques pilotés avec traçabilité" },
-    { value: "+50", label: "partenaires et installateurs déjà accompagnés" },
-    { value: "2 jours", label: "pour cadrer une demande complète et exploitable" },
+    { value: "1357", label: "Dossiers photovoltaïques pilotés avec traçabilité" },
+    { value: "28", label: "Partenaires et installateurs déjà accompagnés" },
+    { value: "2 jours", label: "Pour cadrer une demande complète et exploitable" },
+    { value: "96%", label: "Taux d'acceptation des déclarations préalables sans pièce complémentaire" },
   ],
 };
 

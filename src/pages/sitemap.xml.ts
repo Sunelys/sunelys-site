@@ -5,6 +5,7 @@ const staticRoutes = [
   "/tarifs",
   "/contact",
   "/blog",
+  "/sunelys",
   "/gestion-administrative-photovoltaique",
   "/dossier-consuel-photovoltaique",
   "/raccordement-enedis-photovoltaique",

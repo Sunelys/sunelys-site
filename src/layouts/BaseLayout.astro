@@ -1,6 +1,7 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import ExitIntentModal from "../components/ExitIntentModal.astro";
 
 const {
   title = "Sunelys",
@@ -20,6 +21,7 @@ const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
@@ -32,11 +34,13 @@ const navLinks = [
   { href: "/services", label: "Services" },
   { href: "/tarifs", label: "Tarifs" },
   { href: "/parcours", label: "Parcours" },
+  { href: "/a-propos", label: "À propos" },
   { href: "/blog", label: "Blog" },
   { href: "/contact", label: "Contact" },
 ];
 
 const footerLinks = [
+  { href: "/a-propos", label: "À propos de Sunelys" },
   { href: "/blog", label: "Blog administratif solaire" },
   { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
   { href: "/declaration-prealable-panneaux-solaires", label: "Déclaration préalable panneaux solaires" },
@@ -49,10 +53,22 @@ const baseSchemas = [
     "@context": "https://schema.org",
     "@type": "Organization",
     name: "Sunelys",
+    alternateName: ["SUNELYS", "Sunelys SASU"],
+    legalName: "SUNELYS",
     url: siteUrl,
     logo: ogImage,
     email: "contact@sunelys.fr",
     telephone: "+33 6 95 90 79 19",
+    foundingDate: "2025-04-15",
+    taxID: "FR46943493759",
+    identifier: {
+      "@type": "PropertyValue",
+      propertyID: "SIREN",
+      value: "943493759",
+    },
+    sameAs: [
+      "https://www.pappers.fr/entreprise/sunelys-943493759",
+    ],
     address: {
       "@type": "PostalAddress",
       streetAddress: "49, impasse des lauriers",
@@ -65,7 +81,13 @@ const baseSchemas = [
     "@context": "https://schema.org",
     "@type": "WebSite",
     name: "Sunelys",
+    alternateName: "SUNELYS",
     url: siteUrl,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${siteUrl}/?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
   },
 ];
 
@@ -151,6 +173,8 @@ const allSchemas = [...baseSchemas, ...structuredData];
     </main>
 
     <Footer links={footerLinks} />
+
+    <ExitIntentModal action={leadFormAction} path={path} />
 
     {
       path !== "/merci" && (
@@ -270,6 +294,16 @@ const allSchemas = [...baseSchemas, ...structuredData];
           label: element.dataset.trackLabel || (element.textContent || "").trim(),
           href,
         });
+      });
+
+      document.addEventListener("submit", (event) => {
+        if (!(event.target instanceof HTMLFormElement)) return;
+        if (event.target.id === "exit-intent-form") return;
+        try {
+          sessionStorage.setItem("sunelys_form_submitted", "true");
+        } catch (_error) {
+          // Storage can be unavailable in some private browsing contexts.
+        }
       });
 
       const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;

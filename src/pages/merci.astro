@@ -31,6 +31,17 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
   </section>
 </BaseLayout>
 
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const source = params.get("source") || "lead_form";
+
+  window.trackEvent?.("generate_lead", {
+    category: "lead",
+    label: source,
+    source,
+  });
+</script>
+
 <style>
   .thanks-card {
     border: 1px solid var(--line);

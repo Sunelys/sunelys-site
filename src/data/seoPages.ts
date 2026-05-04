@@ -414,15 +414,15 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   declarationPrealable: {
     slug: "declaration_prealable",
-    metaTitle: "Déclaration Préalable pour installateurs photovoltaïques — Sunelys",
+    metaTitle: "Déclaration préalable panneaux solaires pour installateurs | Sunelys",
     metaDescription:
-      "Externalisez vos déclarations préalables solaires: pièces, dépôt mairie et suivi pour installateurs photovoltaïques avec Sunelys.",
-    heroTitle: "Déclaration préalable panneaux solaires : constitution du dossier",
+      "Externalisez vos déclarations préalables panneaux solaires: pièces toiture, dépôt mairie et suivi pour installateurs photovoltaïques avec Sunelys.",
+    heroTitle: "Déclaration préalable panneaux solaires : pièces, dépôt mairie et suivi",
     heroSubtitle:
-      "Sunelys structure votre déclaration préalable photovoltaïque pour réduire les refus, limiter les retours et sécuriser le lancement chantier.",
+      "Sunelys structure vos déclarations préalables solaires pour réduire les refus, limiter les demandes de pièces complémentaires et sécuriser le lancement chantier.",
     fitTitle: "Quand chaque dépôt mairie doit partir propre du premier coup.",
     fitIntro:
-      "Cette page est faite pour les installateurs qui veulent éviter les demandes de pièces complémentaires, lisser leurs délais et donner un vrai cadre à leurs dépôts de DP.",
+      "Cette page est faite pour les installateurs qui veulent éviter les demandes de pièces complémentaires, lisser leurs délais et donner un vrai cadre à leurs dépôts de DP pour panneaux solaires en toiture.",
     fitItems: [
       "Vous déposez plusieurs DP par mois et chaque complément vous décale le chantier.",
       "Les plans, visuels ou informations projet sont récupérés dans l'urgence.",
@@ -461,7 +461,7 @@ export const seoPages: Record<string, SeoPageData> = {
       },
     ],
     scopeItems: [
-      "Constitution de la déclaration préalable panneaux solaires",
+      "Constitution de la déclaration préalable panneaux solaires en toiture",
       "Vérification de la complétude des pièces du dossier",
       "Gestion des échanges administratifs pendant l'instruction",
       "Suivi des étapes et relances si nécessaire",
@@ -470,15 +470,19 @@ export const seoPages: Record<string, SeoPageData> = {
     detailBlocks: [
       {
         title: "Quels documents fournir ?",
-        text: "Pour une déclaration préalable solaire, l'installateur doit généralement réunir les informations du propriétaire, l'adresse exacte, les caractéristiques du projet, les plans demandés, les visuels de toiture ou de façade, les éléments d'intégration et les pièces permettant à la mairie de comprendre l'impact visuel. Selon la commune, la zone ou les contraintes patrimoniales, des éléments complémentaires peuvent être nécessaires. Sunelys vérifie la complétude du dossier, la cohérence entre le projet vendu et les pièces préparées, puis organise les échanges pour éviter que le client ou vos équipes terrain ne soient sollicités plusieurs fois pour la même information.",
+        text: "Pour une déclaration préalable solaire, l'installateur doit généralement réunir les informations du propriétaire, l'adresse exacte, les caractéristiques du projet, les plans demandés, les visuels de toiture ou de façade, les éléments d'intégration et les pièces permettant à la mairie de comprendre l'impact visuel. Pour des panneaux solaires en toiture, la lisibilité de l'insertion, de la pente, de la couleur des modules et de la visibilité depuis l'espace public compte beaucoup. Selon la commune, la zone ou les contraintes patrimoniales, des éléments complémentaires peuvent être nécessaires. Sunelys vérifie la complétude du dossier, la cohérence entre le projet vendu et les pièces préparées, puis organise les échanges pour éviter que le client ou vos équipes terrain ne soient sollicités plusieurs fois pour la même information.",
       },
       {
         title: "Quel délai prévoir ?",
-        text: "Le délai d'instruction dépend de la commune, de la zone concernée et de la qualité du dépôt initial. Pour un installateur, le vrai levier consiste à envoyer un dossier complet dès le départ, puis à suivre l'instruction sans laisser passer une demande de complément. Sunelys prépare les éléments, contrôle les points sensibles et garde une traçabilité du statut. Sur un volume régulier, ce pilotage évite que les déclarations préalables deviennent un goulot d'étranglement entre la vente, la planification chantier et les étapes Consuel ou raccordement.",
+        text: "Le délai d'instruction dépend de la commune, de la zone concernée et de la qualité du dépôt initial. Pour un installateur photovoltaïque, le vrai levier consiste à envoyer un dossier complet dès le départ, puis à suivre l'instruction sans laisser passer une demande de complément. Sunelys prépare les éléments, contrôle les points sensibles et garde une traçabilité du statut. Sur un volume régulier, ce pilotage évite que les déclarations préalables solaires deviennent un goulot d'étranglement entre la vente, la planification chantier et les étapes Consuel ou raccordement.",
       },
       {
         title: "Quelles erreurs éviter ?",
         text: "Les erreurs qui ralentissent le plus une DP sont les plans incomplets, les visuels peu lisibles, une adresse ou une parcelle mal renseignée, une incohérence entre la puissance annoncée et les pièces, ou un dépôt qui ne tient pas compte des exigences locales. Il faut aussi éviter de disperser les informations dans plusieurs boîtes mail ou fichiers non suivis. Sunelys structure le contrôle documentaire, clarifie les pièces attendues et suit les retours pour limiter les demandes de complément, les refus évitables et les retards de lancement chantier. Cette rigueur facilite aussi le passage vers les étapes Consuel et raccordement. Le client final reçoit une information plus stable.",
+      },
+      {
+        title: "Dans quels cas une DP est-elle demandée ?",
+        text: "Les panneaux solaires en toiture nécessitent souvent une déclaration préalable lorsque l'aspect extérieur du bâtiment est modifié. Le besoin exact dépend du projet, de la commune, de la visibilité et des règles locales d'urbanisme. Pour un installateur, l'enjeu n'est pas de trancher chaque cas au dernier moment, mais de cadrer dès la vente si une DP est probable, quelles pièces seront nécessaires et qui suit le retour mairie. Sunelys aide à structurer ce réflexe pour que la déclaration préalable panneaux solaires ne devienne pas une étape improvisée après signature.",
       },
     ],
     processSteps: [
@@ -521,6 +525,11 @@ export const seoPages: Record<string, SeoPageData> = {
           "Les pièces dépendent du projet; Sunelys vérifie la complétude et la cohérence avant dépôt.",
       },
       {
+        question: "Faut-il une déclaration préalable pour des panneaux solaires en toiture ?",
+        answer:
+          "Dans de nombreux cas, oui, car les panneaux modifient l'aspect extérieur du bâtiment. Les règles varient selon la commune et la zone.",
+      },
+      {
         question: "Pourquoi externaliser la déclaration préalable ?",
         answer:
           "Pour limiter les erreurs, accélérer les échanges administratifs et réduire la charge de vos équipes.",
@@ -537,6 +546,8 @@ export const seoPages: Record<string, SeoPageData> = {
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+      { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP solaire" },
+      { href: "/blog/declaration-prealable-panneaux-solaires-toiture", label: "DP panneaux solaires toiture" },
       { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel" },
       { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis" },
     ],
