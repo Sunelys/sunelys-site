@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">Suivi raccordement Enedis photovoltaïque</title>
+  <desc id="desc">Pipeline de raccordement Enedis avec étapes de dossier, Consuel, travaux et mise en service.</desc>
+  <rect width="1200" height="675" fill="#f3f0e8"/>
+  <rect x="72" y="72" width="1056" height="531" rx="34" fill="#fffefa" stroke="#d9d0c1" stroke-width="2"/>
+  <circle cx="1000" cy="135" r="84" fill="#efe3c9" opacity=".65"/>
+  <circle cx="198" cy="535" r="116" fill="#efe3c9" opacity=".46"/>
+  <text x="118" y="142" fill="#181510" font-family="Avenir Next, Segoe UI, sans-serif" font-size="34" font-weight="700">Raccordement Enedis photovoltaïque</text>
+  <text x="118" y="184" fill="#625b4f" font-family="Avenir Next, Segoe UI, sans-serif" font-size="20">Dossier, pièces, statuts et relances visibles au même endroit</text>
+  <g fill="none" stroke="#c5a56f" stroke-width="5" stroke-linecap="round">
+    <path d="M172 352h856"/>
+  </g>
+  <g font-family="Avenir Next, Segoe UI, sans-serif">
+    <g transform="translate(140 266)">
+      <rect width="190" height="168" rx="22" fill="#faf6ef" stroke="#d9d0c1"/>
+      <circle cx="42" cy="44" r="18" fill="#d4822a"/>
+      <text x="72" y="51" fill="#181510" font-size="19" font-weight="700">Demande</text>
+      <text x="28" y="96" fill="#625b4f" font-size="16">Mandat, option</text>
+      <text x="28" y="122" fill="#625b4f" font-size="16">d'injection, infos</text>
+      <text x="28" y="148" fill="#625b4f" font-size="16">installation</text>
+    </g>
+    <g transform="translate(384 266)">
+      <rect width="190" height="168" rx="22" fill="#faf6ef" stroke="#d9d0c1"/>
+      <circle cx="42" cy="44" r="18" fill="#d4822a"/>
+      <text x="72" y="51" fill="#181510" font-size="19" font-weight="700">Instruction</text>
+      <text x="28" y="96" fill="#625b4f" font-size="16">Recevabilité,</text>
+      <text x="28" y="122" fill="#625b4f" font-size="16">compléments,</text>
+      <text x="28" y="148" fill="#625b4f" font-size="16">devis éventuel</text>
+    </g>
+    <g transform="translate(628 266)">
+      <rect width="190" height="168" rx="22" fill="#faf6ef" stroke="#d9d0c1"/>
+      <circle cx="42" cy="44" r="18" fill="#d4822a"/>
+      <text x="72" y="51" fill="#181510" font-size="19" font-weight="700">Conformité</text>
+      <text x="28" y="96" fill="#625b4f" font-size="16">Consuel,</text>
+      <text x="28" y="122" fill="#625b4f" font-size="16">travaux et pièces</text>
+      <text x="28" y="148" fill="#625b4f" font-size="16">finales</text>
+    </g>
+    <g transform="translate(872 266)">
+      <rect width="190" height="168" rx="22" fill="#faf6ef" stroke="#d9d0c1"/>
+      <circle cx="42" cy="44" r="18" fill="#d4822a"/>
+      <text x="72" y="51" fill="#181510" font-size="19" font-weight="700">Mise en service</text>
+      <text x="28" y="96" fill="#625b4f" font-size="16">Suivi Enedis,</text>
+      <text x="28" y="122" fill="#625b4f" font-size="16">contrat d'achat,</text>
+      <text x="28" y="148" fill="#625b4f" font-size="16">visibilité client</text>
+    </g>
+  </g>
+  <rect x="118" y="497" width="964" height="58" rx="18" fill="#181510"/>
+  <text x="152" y="533" fill="#fffefa" font-family="Avenir Next, Segoe UI, sans-serif" font-size="20" font-weight="700">Objectif installateur : réduire les dossiers incomplets et garder une traçabilité exploitable.</text>
+</svg>
