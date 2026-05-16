@@ -1,0 +1,43 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SeoLandingPage from "../components/SeoLandingPage.astro";
+import { seoPages } from "../data/seoPages";
+
+const pageData = seoPages.tarifDeclarationPrealable;
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: pageData.faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: pageData.heroTitle,
+    description: pageData.heroSubtitle,
+    serviceType: "Tarif déclaration préalable photovoltaïque",
+    provider: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "France",
+    },
+    url: new URL(Astro.url.pathname, "https://sunelys.fr").toString(),
+  },
+];
+---
+
+<BaseLayout title={pageData.metaTitle} description={pageData.metaDescription} structuredData={structuredData}>
+  <SeoLandingPage data={pageData} />
+</BaseLayout>

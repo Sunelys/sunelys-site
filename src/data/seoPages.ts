@@ -544,12 +544,264 @@ export const seoPages: Record<string, SeoPageData> = {
     finalText:
       "Recevez un cadrage gratuit pour fiabiliser vos dépôts de déclaration préalable.",
     internalLinks: [
+      { href: "/sous-traitance-declaration-prealable-solaire", label: "Sous-traitance DP solaire" },
+      { href: "/tarif-declaration-prealable-photovoltaique", label: "Tarif DP photovoltaïque" },
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
       { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP solaire" },
       { href: "/blog/declaration-prealable-panneaux-solaires-toiture", label: "DP panneaux solaires toiture" },
       { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel" },
       { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis" },
+    ],
+  },
+  sousTraitanceDeclarationPrealable: {
+    slug: "sous_traitance_declaration_prealable",
+    metaTitle: "Sous-traitance déclaration préalable solaire | Sunelys",
+    metaDescription:
+      "Confiez vos déclarations préalables solaires à Sunelys: montage, contrôle des pièces, dépôt mairie et suivi pour installateurs photovoltaïques.",
+    heroTitle: "Sous-traitance déclaration préalable solaire pour installateurs",
+    heroSubtitle:
+      "Sunelys prend en charge vos dossiers DP panneaux solaires pour réduire la charge interne, limiter les demandes de complément et sécuriser vos lancements chantier.",
+    fitTitle: "Quand vos DP solaires consomment trop de temps commercial et administratif.",
+    fitIntro:
+      "Cette page s'adresse aux installateurs qui veulent déléguer un flux régulier de déclarations préalables sans perdre la maîtrise des dossiers ni la visibilité sur les retours mairie.",
+    fitItems: [
+      "Vous traitez plusieurs DP par mois et les pièces arrivent dans des formats dispersés.",
+      "Vos équipes commerciales relancent les clients pour des informations administratives.",
+      "Les demandes de complément mairie ralentissent votre planning chantier.",
+    ],
+    proof: {
+      quote:
+        "Les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
+      author: "Damien Guillaume",
+      role: "dirigeant de SUN WATT FRANCE",
+      highlights: [
+        "Dépôts DP mieux cadrés",
+        "Moins de retours pour pièces complémentaires",
+        "Suivi plus lisible pour les équipes",
+      ],
+    },
+    problemTitle: "La DP solaire devient vite un goulot d'étranglement quand le volume augmente",
+    problemIntro:
+      "Une déclaration préalable semble simple isolément. Sur un flux installateur, les pièces, les plans, les relances et les retours mairie finissent par bloquer la capacité d'exécution.",
+    problemItems: [
+      {
+        title: "Informations dispersées",
+        text: "Les éléments client, projet, toiture et visuels sont récupérés dans plusieurs outils ou boîtes mail.",
+      },
+      {
+        title: "Qualité variable",
+        text: "Chaque dossier dépend de la précision des informations transmises par le commercial ou le terrain.",
+      },
+      {
+        title: "Demandes de complément",
+        text: "Un dossier parti trop vite crée des retours mairie, décale le chantier et détériore l'expérience client.",
+      },
+      {
+        title: "Charge non facturable",
+        text: "Le suivi DP mobilise des équipes qui devraient vendre, produire ou gérer la relation client.",
+      },
+    ],
+    scopeItems: [
+      "Collecte et cadrage des informations nécessaires à la DP solaire",
+      "Contrôle de cohérence entre projet vendu, toiture et pièces administratives",
+      "Préparation des éléments attendus pour le dépôt mairie",
+      "Suivi des retours et demandes de complément",
+      "Traçabilité des statuts pour vos équipes commerciales et travaux",
+    ],
+    detailBlocks: [
+      {
+        title: "Ce qui peut être sous-traité",
+        text: "Sunelys peut prendre en charge le montage du dossier, la vérification des informations, la préparation des pièces administratives, le suivi mairie et la coordination des demandes de complément. Le périmètre exact dépend de votre organisation: certains installateurs délèguent uniquement les DP, d'autres intègrent aussi le Consuel et le raccordement.",
+      },
+      {
+        title: "Comment transmettre les dossiers",
+        text: "L'objectif est d'éviter les échanges dispersés. Les informations utiles sont cadrées dès l'entrée du dossier: coordonnées client, adresse, typologie toiture, caractéristiques du projet, visuels, plans et contraintes connues. Sunelys qualifie ensuite les points manquants avant dépôt pour limiter les reprises tardives.",
+      },
+      {
+        title: "Quand externaliser",
+        text: "La sous-traitance devient pertinente dès que les DP mobilisent trop de temps interne ou créent des retards récurrents. Le bon signal n'est pas seulement le nombre de dossiers, mais la fréquence des relances, des pièces manquantes et des statuts difficiles à suivre.",
+      },
+    ],
+    processSteps: [
+      "Vous transmettez le brief et les pièces disponibles",
+      "Sunelys contrôle les points sensibles",
+      "Le dossier DP est préparé puis suivi",
+      "Vos équipes gardent une visibilité claire jusqu'au retour mairie",
+    ],
+    signalTitle: "Les signes que vos DP doivent sortir du traitement artisanal",
+    signalIntro:
+      "Quand le volume monte, une méthode standardisée devient plus rentable que des reprises dossier par dossier.",
+    signalItems: [
+      "Les mêmes pièces sont redemandées plusieurs fois au client.",
+      "Le commercial devient le relais administratif du dossier après signature.",
+      "Vous ne savez pas immédiatement quelles DP sont prêtes, déposées, bloquées ou à relancer.",
+    ],
+    caseStudy: {
+      title: "Flux installateur DP",
+      volume: "10 à 50 dossiers / mois",
+      results: [
+        "Dossiers cadrés plus tôt",
+        "Moins de demandes de complément",
+        "Charge administrative interne réduite",
+      ],
+    },
+    faqItems: [
+      {
+        question: "Peut-on sous-traiter uniquement les déclarations préalables solaires ?",
+        answer:
+          "Oui. Sunelys peut intervenir uniquement sur les DP ou intégrer ce bloc dans un pilotage administratif plus complet.",
+      },
+      {
+        question: "À partir de quel volume la sous-traitance devient-elle intéressante ?",
+        answer:
+          "Elle devient utile dès que les DP ralentissent vos équipes ou créent des relances récurrentes. Le volume mensuel permet ensuite d'ajuster le tarif.",
+      },
+      {
+        question: "Sunelys remplace-t-il l'installateur dans la relation client ?",
+        answer:
+          "Non. Sunelys agit comme relais administratif. L'installateur garde la relation commerciale et chantier.",
+      },
+      {
+        question: "Comment démarrer ?",
+        answer:
+          "Un cadrage permet d'identifier vos volumes, les pièces disponibles, les irritants et le niveau de délégation adapté.",
+      },
+    ],
+    finalTitle: "Sous-traitez vos DP solaires avec un cadre clair.",
+    finalText:
+      "Recevez une première lecture de votre volume et du périmètre à déléguer pour réduire les retours et soulager vos équipes.",
+    internalLinks: [
+      { href: "/tarif-declaration-prealable-photovoltaique", label: "Tarif DP photovoltaïque" },
+      { href: "/declaration-prealable-panneaux-solaires", label: "Service déclaration préalable" },
+      { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP" },
+      { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+      { href: "/contact", label: "Contacter Sunelys" },
+    ],
+  },
+  tarifDeclarationPrealable: {
+    slug: "tarif_declaration_prealable",
+    metaTitle: "Tarif déclaration préalable photovoltaïque | Sunelys",
+    metaDescription:
+      "Découvrez les tarifs de déclaration préalable photovoltaïque Sunelys pour installateurs: prix par dossier, volumes mensuels et cadrage sous 24h.",
+    heroTitle: "Tarif déclaration préalable photovoltaïque pour installateurs",
+    heroSubtitle:
+      "Sunelys propose une tarification par dossier pour vos déclarations préalables panneaux solaires, avec des prix dégressifs selon le volume mensuel.",
+    fitTitle: "Quand vous voulez un coût clair par DP avant de déléguer.",
+    fitIntro:
+      "Cette page aide les installateurs à évaluer le budget de sous-traitance DP avant de confier un flux régulier à Sunelys.",
+    fitItems: [
+      "Vous voulez comparer le coût d'une DP sous-traitée au temps passé en interne.",
+      "Vous avez besoin d'un tarif lisible selon votre volume mensuel.",
+      "Vous cherchez un partenaire capable de suivre les dépôts, pas seulement de produire des pièces.",
+    ],
+    proof: {
+      quote:
+        "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
+      author: "Victorion Brice",
+      role: "gérant de Be Travaux",
+      highlights: [
+        "Prix cadré selon le volume",
+        "Suivi administratif plus fluide",
+        "Gain de temps côté équipes",
+      ],
+    },
+    problemTitle: "Le vrai coût d'une DP n'est pas seulement le prix de production",
+    problemIntro:
+      "Une déclaration préalable mobilise du temps de collecte, de contrôle, de production, de dépôt, de suivi et parfois de reprise après demande de complément.",
+    problemItems: [
+      {
+        title: "Temps interne masqué",
+        text: "Le coût réel inclut les relances client, la vérification des pièces et le suivi du retour mairie.",
+      },
+      {
+        title: "Variabilité des dossiers",
+        text: "Une DP simple et une DP avec pièces à reprendre ne consomment pas la même énergie opérationnelle.",
+      },
+      {
+        title: "Effet volume",
+        text: "Plus le flux est régulier, plus le process peut être standardisé et le prix par dossier optimisé.",
+      },
+      {
+        title: "Impact chantier",
+        text: "Un dossier incomplet peut coûter plus cher en délai perdu qu'en production administrative.",
+      },
+    ],
+    scopeItems: [
+      "Tarif à partir de 149 EUR HT par DP pour moins de 20 dossiers / mois",
+      "Tarif à partir de 119 EUR HT par DP pour 21 à 50 dossiers / mois",
+      "Tarif à partir de 79 EUR HT par DP pour plus de 51 dossiers / mois",
+      "Production, contrôle, dépôt et suivi selon le périmètre cadré",
+      "Facturation mensuelle selon le volume réellement traité",
+    ],
+    detailBlocks: [
+      {
+        title: "Ce qui influence le prix",
+        text: "Le tarif dépend du volume mensuel, de la qualité des pièces transmises, du niveau de suivi demandé et du nombre d'allers-retours nécessaires. Un flux propre, standardisé et régulier permet de réduire le coût unitaire.",
+      },
+      {
+        title: "Prix par dossier ou accompagnement complet",
+        text: "La DP peut être traitée comme un bloc isolé ou intégrée dans une chaîne administrative complète avec Consuel et raccordement. Le cadrage permet d'éviter un devis générique et de chiffrer le vrai besoin.",
+      },
+      {
+        title: "Pourquoi cadrer avant devis",
+        text: "Deux installateurs avec le même volume peuvent avoir des charges très différentes selon leur organisation, leurs outils et la qualité des informations collectées en amont. Un court échange permet d'identifier le prix adapté sans surdimensionner l'offre.",
+      },
+    ],
+    processSteps: [
+      "Vous indiquez votre volume mensuel",
+      "Nous identifions le niveau de prise en charge",
+      "Nous cadrons le tarif par dossier",
+      "Vous démarrez avec un flux test ou récurrent",
+    ],
+    signalTitle: "Les bons signaux pour demander un tarif DP",
+    signalIntro:
+      "Le bon moment pour chiffrer arrive quand l'administratif commence à peser sur votre capacité commerciale ou chantier.",
+    signalItems: [
+      "Vos équipes passent plusieurs heures par semaine sur les DP.",
+      "Le volume signé augmente mais le suivi administratif reste manuel.",
+      "Vous voulez connaître le coût réel d'une externalisation avant de recruter.",
+    ],
+    caseStudy: {
+      title: "Installateur solaire",
+      volume: "21 à 50 DP / mois",
+      results: [
+        "Prix par dossier plus lisible",
+        "Facturation alignée sur le volume réel",
+        "Délégation progressive sans engagement lourd",
+      ],
+    },
+    faqItems: [
+      {
+        question: "Quel est le tarif d'une déclaration préalable photovoltaïque ?",
+        answer:
+          "Les tarifs Sunelys commencent à 149 EUR HT par dossier et deviennent dégressifs selon le volume mensuel.",
+      },
+      {
+        question: "Le tarif inclut-il le suivi mairie ?",
+        answer:
+          "Le périmètre peut inclure la production, le dépôt et le suivi. Il est précisé lors du cadrage.",
+      },
+      {
+        question: "Y a-t-il un engagement de volume ?",
+        answer:
+          "Le fonctionnement est cadré selon votre flux réel. La facturation peut être mensuelle selon les dossiers traités.",
+      },
+      {
+        question: "Pourquoi les prix baissent-ils avec le volume ?",
+        answer:
+          "Un flux régulier permet de standardiser les pièces, les contrôles et les échanges, ce qui réduit le coût unitaire.",
+      },
+    ],
+    finalTitle: "Obtenez un tarif DP adapté à votre volume.",
+    finalText:
+      "Indiquez votre volume mensuel et recevez un cadrage clair pour savoir combien coûterait la délégation de vos déclarations préalables.",
+    internalLinks: [
+      { href: "/sous-traitance-declaration-prealable-solaire", label: "Sous-traitance DP solaire" },
+      { href: "/tarifs", label: "Tous les tarifs Sunelys" },
+      { href: "/declaration-prealable-panneaux-solaires", label: "Service déclaration préalable" },
+      { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP" },
+      { href: "/contact", label: "Recevoir un cadrage" },
     ],
   },
 };

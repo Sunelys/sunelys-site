@@ -22,6 +22,12 @@ export const heroData = {
     href: bookingUrl,
     track: "cta_hero_secondary_booking",
   },
+  leadForm: {
+    action: leadFormAction,
+    successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
+    submitLabel: "Recevoir mon cadrage",
+    note: "Réponse sous 24h ouvrées. Aucun engagement, aucun spam.",
+  },
   proofs: [
     "Réponse sous 24h ouvrées",
     "Pilotage DP, Consuel et raccordement",

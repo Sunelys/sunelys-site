@@ -1,0 +1,172 @@
+---
+interface Props {
+  source?: string;
+}
+
+const { source = "checklist-dp-inline" } = Astro.props;
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
+const successUrl = `https://sunelys.fr/merci?source=${source}`;
+const attributionFields = [
+  "landing_page",
+  "first_referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+];
+---
+
+<section class="section-shell lead-magnet reveal" aria-labelledby="lead-magnet-title">
+  <div class="lead-magnet-copy">
+    <p class="kicker">Checklist DP solaire</p>
+    <h2 id="lead-magnet-title">30 points à vérifier avant de déposer une déclaration préalable.</h2>
+    <p>
+      Une ressource courte pour repérer les pièces, visuels et informations qui déclenchent le plus souvent des
+      demandes de complément mairie sur les projets photovoltaïques.
+    </p>
+    <ul>
+      <li>Pièces à réunir avant dépôt</li>
+      <li>Points de contrôle visuel et administratif</li>
+      <li>Signaux qui justifient une sous-traitance DP</li>
+    </ul>
+  </div>
+
+  <form class="lead-magnet-form" action={leadFormAction} method="POST">
+    <input type="hidden" name="_subject" value="Nouveau lead checklist DP Sunelys" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value={successUrl} />
+    <input type="hidden" name="source_page" value={source} />
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="need" value="Declaration prealable" />
+    <input type="hidden" name="message" value="Demande de checklist DP visible" />
+    <input type="hidden" name="lead_status" value="Nouveau lead" />
+    <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist DP" />
+    <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+    <input type="hidden" name="follow_up_sla" value="24h" />
+    {attributionFields.map((fieldName) => (
+      <input type="hidden" name={fieldName} data-lead-magnet-attribution={fieldName} />
+    ))}
+
+    <label>
+      <span>Email professionnel</span>
+      <input type="email" name="email" autocomplete="email" inputmode="email" required />
+    </label>
+    <button class="btn btn-primary btn-accent" type="submit" data-track="cta_checklist_dp_inline">
+      Recevoir la checklist
+    </button>
+    <small>Demande enregistrée instantanément. Aucun spam.</small>
+  </form>
+</section>
+
+<script>
+  const leadMagnetAttribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+  document.querySelectorAll("[data-lead-magnet-attribution]").forEach((field) => {
+    if (!(field instanceof HTMLInputElement)) return;
+    const key = field.dataset.leadMagnetAttribution || "";
+    field.value = leadMagnetAttribution[key] || "";
+  });
+</script>
+
+<style>
+  .lead-magnet {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    gap: clamp(0.9rem, 2vw, 1.4rem);
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(90% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 52%, transparent), transparent 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.1rem, 2.6vw, 2rem);
+  }
+
+  .lead-magnet-copy {
+    display: grid;
+    gap: 0.72rem;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 18ch;
+    font-size: clamp(1.65rem, 3vw, 3rem);
+    line-height: 1;
+  }
+
+  p,
+  li,
+  small {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.38rem;
+  }
+
+  .lead-magnet-form {
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    border-radius: calc(var(--radius-md) - 2px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: clamp(0.95rem, 2vw, 1.25rem);
+    display: grid;
+    gap: 0.68rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  label {
+    display: grid;
+    gap: 0.34rem;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  input {
+    width: 100%;
+    min-height: 2.85rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    border-radius: 14px;
+    background: #fffdfa;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.96rem;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.72rem 0.82rem;
+  }
+
+  .lead-magnet-form .btn {
+    width: 100%;
+  }
+
+  small {
+    font-size: 0.78rem;
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .lead-magnet {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

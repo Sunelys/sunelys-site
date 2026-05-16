@@ -13,6 +13,101 @@
       "permanent": true
     },
     {
+      "source": "/dp-photovoltaique",
+      "destination": "/declaration-prealable-panneaux-solaires",
+      "permanent": true
+    },
+    {
+      "source": "/dp-photovoltaique/",
+      "destination": "/declaration-prealable-panneaux-solaires",
+      "permanent": true
+    },
+    {
+      "source": "/raccordements",
+      "destination": "/raccordement-enedis-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/raccordements/",
+      "destination": "/raccordement-enedis-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/contactez-nous",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/contactez-nous/",
+      "destination": "/contact",
+      "permanent": true
+    },
+    {
+      "source": "/a-propos-de-nous",
+      "destination": "/a-propos",
+      "permanent": true
+    },
+    {
+      "source": "/a-propos-de-nous/",
+      "destination": "/a-propos",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-prealable-projet-solaire",
+      "destination": "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+      "permanent": true
+    },
+    {
+      "source": "/declaration-prealable-projet-solaire/",
+      "destination": "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+      "permanent": true
+    },
+    {
+      "source": "/raccordement-enedis-installation-solaire",
+      "destination": "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+      "permanent": true
+    },
+    {
+      "source": "/raccordement-enedis-installation-solaire/",
+      "destination": "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+      "permanent": true
+    },
+    {
+      "source": "/aides-financieres-solaire-2025",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/aides-financieres-solaire-2025/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/consuel/",
+      "destination": "/dossier-consuel-photovoltaique",
+      "permanent": true
+    },
+    {
+      "source": "/mentions-legales",
+      "destination": "/sunelys",
+      "permanent": true
+    },
+    {
+      "source": "/mentions-legales/",
+      "destination": "/sunelys",
+      "permanent": true
+    },
+    {
       "source": "/consuel",
       "destination": "/dossier-consuel-photovoltaique",
       "permanent": true

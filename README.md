@@ -126,6 +126,13 @@ PUBLIC_MATOMO_SITE_ID=1
 ```
 Puis redeployer. Ne pas mettre de slash final dans l'URL Matomo.
 
+### Alerte optionnelle si Airtable refuse un lead
+Pour recevoir une alerte quand Airtable rejette une creation de lead, ajouter un webhook compatible JSON:
+```bash
+LEAD_ALERT_WEBHOOK_URL=https://votre-webhook.example.com/leads-alert
+```
+Le formulaire continue d'utiliser Airtable comme destination principale. Cette URL sert uniquement de filet de securite en cas d'erreur Airtable.
+
 ### Nommage des evenements
 Les evenements envoyes reprennent les valeurs `data-track` dans le code, par exemple:
 - `cta_hero_primary`

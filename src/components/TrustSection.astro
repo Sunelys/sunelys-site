@@ -59,7 +59,7 @@ const parseMetric = (value: string) => {
           <article class:list={["metric-card", index === 0 && "is-featured"]} data-reveal-item>
             <p class="metric-value">
               {parsed.prefix && <span class="metric-prefix">{parsed.prefix}</span>}
-              <span class="metric-number" data-counter-target={parsed.number}>0</span>
+              <span class="metric-number" data-counter-target={parsed.number}>{parsed.number}</span>
               {parsed.suffix && <span class="metric-suffix">{parsed.suffix}</span>}
             </p>
             <p class="metric-label">{metric.label}</p>

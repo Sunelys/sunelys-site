@@ -1,4 +1,6 @@
 ---
+import LeadMagnetChecklist from "./LeadMagnetChecklist.astro";
+
 interface ProblemItem {
   title: string;
   text: string;
@@ -74,6 +76,22 @@ const outcomeItems = [
   "Plus de visibilité sur les jalons et les blocages",
   "Une expérience client plus fluide côté installateur",
 ];
+
+const attributionFields = [
+  "landing_page",
+  "first_referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+];
+
+const showDpLeadMagnet =
+  data.slug.includes("declaration") ||
+  data.slug.includes("prealable") ||
+  data.slug === "tarif_declaration_prealable";
 ---
 
 <section class="seo-section seo-hero section-shell reveal">
@@ -98,6 +116,43 @@ const outcomeItems = [
     </div>
 
     <aside class="hero-aside">
+      <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
+        <p class="kicker">Cadrage rapide</p>
+        <h2>Recevez une première lecture de votre flux sous 24h.</h2>
+        <form class="hero-service-form" action={leadFormAction} method="POST">
+          <input type="hidden" name="_subject" value={`Nouveau cadrage service hero - ${data.heroTitle}`} />
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_next" value={successUrl} />
+          <input type="hidden" name="source_page" value={`${data.slug}_hero`} />
+          <input type="hidden" name="lead_status" value="Nouveau lead" />
+          <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
+          <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+          <input type="hidden" name="follow_up_sla" value="24h" />
+          {attributionFields.map((fieldName) => (
+            <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
+          ))}
+
+          <label>
+            <span>Email professionnel</span>
+            <input type="email" name="email" autocomplete="email" inputmode="email" required />
+          </label>
+          <label>
+            <span>Volume mensuel</span>
+            <select name="volume" required>
+              <option value="">Sélectionner</option>
+              <option value="1-10 dossiers">1-10 dossiers</option>
+              <option value="10-30 dossiers">10-30 dossiers</option>
+              <option value="+30 dossiers">+30 dossiers</option>
+            </select>
+          </label>
+          <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
+            Recevoir mon cadrage
+          </button>
+          <small>Réponse sous 24h ouvrées. Sans engagement.</small>
+        </form>
+      </article>
+
       <article class="hero-fit-card">
         <p class="kicker">Quand cette page vous concerne</p>
         <h2>{data.fitTitle}</h2>
@@ -121,6 +176,10 @@ const outcomeItems = [
     </aside>
   </div>
 </section>
+
+{
+  showDpLeadMagnet && <LeadMagnetChecklist source={`${data.slug}_checklist_dp_inline`} />
+}
 
 <section class="seo-section seo-problem section-shell reveal">
   <p class="kicker">Le problème</p>
@@ -259,6 +318,9 @@ const outcomeItems = [
     <input type="hidden" name="lead_pipeline" value="Site web - Page service" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
     <input type="hidden" name="follow_up_sla" value="24h" />
+    {attributionFields.map((fieldName) => (
+      <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
+    ))}
 
     <label>
       <span>Prénom</span>
@@ -283,6 +345,15 @@ const outcomeItems = [
     <small>Réponse sous 24h • Sans engagement</small>
   </form>
 </section>
+
+<script>
+  const serviceAttribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+  document.querySelectorAll("[data-service-attribution]").forEach((field) => {
+    if (!(field instanceof HTMLInputElement)) return;
+    const key = field.dataset.serviceAttribution || "";
+    field.value = serviceAttribution[key] || "";
+  });
+</script>
 
 <style>
   .seo-section {
@@ -398,6 +469,7 @@ const outcomeItems = [
   }
 
   .hero-fit-card,
+  .hero-lead-card,
   .hero-proof-card {
     border: 1px solid color-mix(in srgb, var(--line) 78%, white);
     border-radius: calc(var(--radius-md) - 2px);
@@ -405,6 +477,58 @@ const outcomeItems = [
     padding: 1rem;
     display: grid;
     gap: 0.58rem;
+  }
+
+  .hero-lead-card {
+    background:
+      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 46%, transparent), transparent 58%),
+      color-mix(in srgb, var(--surface-elevated) 94%, white);
+  }
+
+  .hero-lead-card h2 {
+    font-size: clamp(1.2rem, 2vw, 1.65rem);
+    max-width: 16ch;
+  }
+
+  .hero-service-form {
+    display: grid;
+    gap: 0.58rem;
+  }
+
+  .hero-service-form label {
+    display: grid;
+    gap: 0.32rem;
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-service-form input,
+  .hero-service-form select {
+    width: 100%;
+    min-height: 2.65rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    border-radius: 14px;
+    background: #fffdfa;
+    color: var(--text);
+    font: inherit;
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0;
+    text-transform: none;
+    padding: 0.66rem 0.74rem;
+  }
+
+  .hero-service-form .btn {
+    width: 100%;
+  }
+
+  .hero-service-form small {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.45;
   }
 
   .hero-fit-card h2 {

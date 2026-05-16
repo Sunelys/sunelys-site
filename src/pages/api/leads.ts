@@ -38,6 +38,30 @@ function wantsJson(request: Request) {
   return request.headers.get("accept")?.includes("application/json") ?? false;
 }
 
+async function notifyLeadFailure(
+  env: Record<string, string | undefined>,
+  payload: Record<string, unknown>,
+) {
+  const webhookUrl = clean(env.LEAD_ALERT_WEBHOOK_URL ?? "");
+  if (!webhookUrl) return;
+
+  try {
+    await fetch(webhookUrl, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        event: "sunelys_lead_airtable_failure",
+        occurred_at: new Date().toISOString(),
+        ...payload,
+      }),
+    });
+  } catch (error) {
+    console.error("Lead failure alert failed", error);
+  }
+}
+
 function jsonResponse(payload: unknown, status = 200) {
   return new Response(JSON.stringify(payload), {
     status,
@@ -108,6 +132,25 @@ export const POST: APIRoute = async ({ request }) => {
   if (!response.ok) {
     const details = await response.text();
     console.error("Airtable lead creation failed", details);
+    await notifyLeadFailure(env, {
+      reason: "airtable_create_failed",
+      airtable_status: response.status,
+      airtable_details: details.slice(0, 2000),
+      lead: {
+        email,
+        firstName,
+        lastName,
+        company: clean(formData.get("company")),
+        phone: clean(formData.get("phone")),
+        volume: clean(formData.get("volume")),
+        need: clean(formData.get("need")),
+        source: clean(formData.get("source_page")) || clean(formData.get("source")),
+        landing_page: clean(formData.get("landing_page")),
+        utm_source: clean(formData.get("utm_source")),
+        utm_medium: clean(formData.get("utm_medium")),
+        utm_campaign: clean(formData.get("utm_campaign")),
+      },
+    });
     return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);
   }
 

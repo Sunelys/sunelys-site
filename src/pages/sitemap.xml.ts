@@ -10,6 +10,8 @@ const staticRoutes = [
   "/dossier-consuel-photovoltaique",
   "/raccordement-enedis-photovoltaique",
   "/declaration-prealable-panneaux-solaires",
+  "/sous-traitance-declaration-prealable-solaire",
+  "/tarif-declaration-prealable-photovoltaique",
 ];
 
 const blogPosts = Object.values(
