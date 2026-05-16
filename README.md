@@ -133,6 +133,31 @@ LEAD_ALERT_WEBHOOK_URL=https://votre-webhook.example.com/leads-alert
 ```
 Le formulaire continue d'utiliser Airtable comme destination principale. Cette URL sert uniquement de filet de securite en cas d'erreur Airtable.
 
+### Champs Airtable optionnels
+L'API envoie toujours le nom et l'email. Les autres champs ne sont transmis que si la variable d'environnement indique le nom exact de la colonne Airtable:
+```bash
+AIRTABLE_FIELD_COMPANY=Societe
+AIRTABLE_FIELD_PHONE=Telephone
+AIRTABLE_FIELD_VOLUME=Volume
+AIRTABLE_FIELD_NEED=Besoin
+AIRTABLE_FIELD_MESSAGE=Message
+AIRTABLE_FIELD_STATUS=Statut
+AIRTABLE_FIELD_PIPELINE=Pipeline
+AIRTABLE_FIELD_OWNER=Responsable
+AIRTABLE_FIELD_FOLLOW_UP_SLA=SLA relance
+AIRTABLE_FIELD_SOURCE=Source
+AIRTABLE_FIELD_FIRST_REFERRER=Premier referrer
+AIRTABLE_FIELD_LANDING_PAGE=Landing page
+AIRTABLE_FIELD_UTM_SOURCE=UTM source
+AIRTABLE_FIELD_UTM_MEDIUM=UTM medium
+AIRTABLE_FIELD_UTM_CAMPAIGN=UTM campaign
+AIRTABLE_FIELD_UTM_TERM=UTM term
+AIRTABLE_FIELD_UTM_CONTENT=UTM content
+AIRTABLE_FIELD_GCLID=GCLID
+AIRTABLE_FIELD_FBCLID=FBCLID
+AIRTABLE_FIELD_MSCLKID=MSCLKID
+```
+
 ### Nommage des evenements
 Les evenements envoyes reprennent les valeurs `data-track` dans le code, par exemple:
 - `cta_hero_primary`

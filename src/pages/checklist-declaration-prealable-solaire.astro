@@ -1,0 +1,257 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const checklistGroups = [
+  {
+    title: "1. Informations projet",
+    items: [
+      "Adresse exacte du chantier, commune, parcelle et coordonnées du demandeur.",
+      "Type de bâtiment concerné : maison individuelle, annexe, local professionnel ou bâtiment agricole.",
+      "Puissance envisagée, nombre de panneaux, implantation et orientation de la toiture.",
+      "Statut du projet : autoconsommation, revente totale, surplus ou projet en attente de dimensionnement.",
+    ],
+  },
+  {
+    title: "2. Contraintes d'urbanisme",
+    items: [
+      "Vérifier le PLU ou règlement local avant de figer les visuels.",
+      "Identifier les zones ABF, sites classés, lotissements ou prescriptions architecturales.",
+      "Contrôler les exigences de couleur, de surimposition, d'intégration et de visibilité depuis l'espace public.",
+      "Conserver une trace de la règle utilisée pour répondre vite si la mairie demande un complément.",
+    ],
+  },
+  {
+    title: "3. Pièces graphiques",
+    items: [
+      "Plan de situation lisible avec localisation de la parcelle.",
+      "Plan de masse avec l'emplacement de la toiture concernée.",
+      "Plan ou photographie de la toiture avant projet.",
+      "Insertion ou photomontage après projet, cohérent avec la teinte et la disposition des panneaux.",
+      "Photo proche et photo lointaine quand elles sont nécessaires pour comprendre l'impact visuel.",
+    ],
+  },
+  {
+    title: "4. Cohérence du dossier",
+    items: [
+      "Même adresse, même nom et même surface sur toutes les pièces.",
+      "Nombre de panneaux cohérent entre formulaire, plan et photomontage.",
+      "Orientation, pente et emprise visibles sans ambiguïté.",
+      "Pièces nommées proprement pour limiter les erreurs lors du dépôt.",
+      "Message d'accompagnement court si le projet comporte une particularité.",
+    ],
+  },
+  {
+    title: "5. Avant dépôt",
+    items: [
+      "Relire le dossier comme une mairie le lirait : le projet est-il compréhensible en moins de deux minutes ?",
+      "Anticiper les questions probables : visibilité rue, couleur, surimposition, zone protégée.",
+      "Sauvegarder une version complète du dossier transmis.",
+      "Prévoir le suivi de récépissé, délai d'instruction et demande éventuelle de pièce complémentaire.",
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Checklist déclaration préalable solaire | Sunelys"
+  description="Checklist opérationnelle pour préparer une déclaration préalable panneaux solaires plus lisible et limiter les demandes de complément."
+  robots="noindex,nofollow"
+>
+  <section class="checklist-hero section-shell">
+    <div>
+      <p class="eyebrow">Ressource Sunelys</p>
+      <h1>Checklist déclaration préalable panneaux solaires</h1>
+      <p class="intro">
+        Une grille de contrôle simple pour repérer les oublis qui ralentissent le plus souvent les dossiers en mairie.
+      </p>
+    </div>
+    <button class="btn btn-primary btn-accent print-button" type="button" data-track="cta_checklist_print">
+      Imprimer / enregistrer en PDF
+    </button>
+  </section>
+
+  <section class="checklist-grid section-shell" aria-label="Checklist déclaration préalable">
+    {checklistGroups.map((group) => (
+      <article class="checklist-card">
+        <h2>{group.title}</h2>
+        <ul>
+          {group.items.map((item) => (
+            <li>
+              <span aria-hidden="true"></span>
+              <p>{item}</p>
+            </li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+
+  <section class="checklist-cta section-shell">
+    <p class="eyebrow">Besoin d'absorber du volume ?</p>
+    <h2>Sunelys peut prendre le relais sur vos dossiers DP, Consuel et raccordement.</h2>
+    <p>
+      Si vos équipes perdent du temps sur les pièces, relances et dépôts administratifs, envoyez votre contexte.
+      Nous cadrons le flux délégable et les priorités de reprise.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary btn-accent" href="/contact?source=checklist_dp#contact-form" data-track="cta_checklist_contact">
+        Recevoir un cadrage
+      </a>
+      <a class="btn btn-secondary" href="/declaration-prealable-panneaux-solaires" data-track="cta_checklist_dp_service">
+        Voir l'accompagnement DP
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document.querySelector(".print-button")?.addEventListener("click", () => {
+    window.print();
+  });
+</script>
+
+<style>
+  .checklist-hero,
+  .checklist-cta {
+    display: grid;
+    gap: 1rem;
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(92% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.3rem, 3vw, 2.5rem);
+  }
+
+  .checklist-hero {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2 {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 13ch;
+    font-size: clamp(2.1rem, 4.8vw, 4.6rem);
+    line-height: 0.95;
+  }
+
+  h2 {
+    font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+    line-height: 1.02;
+  }
+
+  .intro,
+  .checklist-cta p,
+  li p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.58;
+  }
+
+  .intro {
+    max-width: 56ch;
+    margin-top: 0.9rem;
+    font-size: clamp(1rem, 0.36vw + 0.94rem, 1.15rem);
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .checklist-card {
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .checklist-card ul {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .checklist-card li {
+    display: grid;
+    grid-template-columns: 1.1rem minmax(0, 1fr);
+    gap: 0.6rem;
+    align-items: start;
+  }
+
+  .checklist-card li span {
+    width: 1.05rem;
+    height: 1.05rem;
+    border: 1px solid color-mix(in srgb, var(--line) 65%, var(--accent));
+    border-radius: 5px;
+    background: #fffdfa;
+    margin-top: 0.2rem;
+  }
+
+  .checklist-cta {
+    max-width: 54rem;
+  }
+
+  .checklist-cta h2 {
+    max-width: 18ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+  }
+
+  @media (max-width: 780px) {
+    .checklist-hero,
+    .checklist-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .print-button,
+    .actions .btn {
+      width: 100%;
+    }
+  }
+
+  @media print {
+    body {
+      background: #ffffff !important;
+    }
+
+    :global(header),
+    :global(footer),
+    .print-button,
+    .checklist-cta {
+      display: none !important;
+    }
+
+    .checklist-hero,
+    .checklist-card {
+      box-shadow: none;
+      break-inside: avoid;
+    }
+
+    .checklist-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

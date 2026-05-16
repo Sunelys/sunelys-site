@@ -21,6 +21,21 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
       C'est optionnel : votre demande a déjà bien été envoyée.
     </p>
 
+    <div class="delivery-card" id="checklist-delivery" hidden>
+      <p class="delivery-kicker">Checklist disponible</p>
+      <h2>Votre ressource DP est prête.</h2>
+      <p>
+        Vous pouvez l'ouvrir maintenant, puis l'imprimer ou l'enregistrer en PDF depuis votre navigateur.
+      </p>
+      <a
+        class="btn btn-primary btn-accent"
+        href="/checklist-declaration-prealable-solaire?source=merci_checklist"
+        data-track="cta_thanks_checklist_download"
+      >
+        Ouvrir la checklist
+      </a>
+    </div>
+
     <div class="actions">
       <a class="btn btn-primary" href="/services">Voir les services</a>
       <a class="btn btn-secondary" href={bookingUrl} target="_blank" rel="noreferrer">
@@ -34,6 +49,11 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
 <script>
   const params = new URLSearchParams(window.location.search);
   const source = params.get("source") || "lead_form";
+  const checklistDelivery = document.querySelector("#checklist-delivery");
+
+  if (checklistDelivery instanceof HTMLElement && source.toLowerCase().includes("checklist")) {
+    checklistDelivery.hidden = false;
+  }
 
   window.trackEvent?.("generate_lead", {
     category: "lead",
@@ -87,6 +107,45 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     line-height: 1.6;
   }
 
+  .delivery-card {
+    display: grid;
+    gap: 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    padding: clamp(1rem, 2vw, 1.3rem);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .delivery-card[hidden] {
+    display: none;
+  }
+
+  .delivery-kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  .delivery-card h2 {
+    margin: 0;
+    font-size: clamp(1.4rem, 2.6vw, 2.2rem);
+    line-height: 1.02;
+  }
+
+  .delivery-card p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .delivery-card .btn {
+    justify-self: start;
+  }
+
   .actions {
     display: flex;
     flex-wrap: wrap;
@@ -101,6 +160,11 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     .actions .btn {
       width: 100%;
       justify-content: center;
+    }
+
+    .delivery-card .btn {
+      width: 100%;
+      justify-self: stretch;
     }
   }
 </style>

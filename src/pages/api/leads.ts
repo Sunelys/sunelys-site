@@ -111,10 +111,19 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_NEED", clean(formData.get("need")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_MESSAGE", clean(formData.get("message")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_STATUS", clean(formData.get("lead_status")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_PIPELINE", clean(formData.get("lead_pipeline")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_OWNER", clean(formData.get("lead_owner")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_FOLLOW_UP_SLA", clean(formData.get("follow_up_sla")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_SOURCE", clean(formData.get("source_page")) || clean(formData.get("source")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_FIRST_REFERRER", clean(formData.get("first_referrer")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_SOURCE", clean(formData.get("utm_source")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_MEDIUM", clean(formData.get("utm_medium")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_CAMPAIGN", clean(formData.get("utm_campaign")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_UTM_TERM", clean(formData.get("utm_term")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_UTM_CONTENT", clean(formData.get("utm_content")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_GCLID", clean(formData.get("gclid")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_FBCLID", clean(formData.get("fbclid")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_MSCLKID", clean(formData.get("msclkid")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_LANDING_PAGE", clean(formData.get("landing_page")), env);
 
   const response = await fetch(`${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(tableName)}`, {
@@ -144,11 +153,20 @@ export const POST: APIRoute = async ({ request }) => {
         phone: clean(formData.get("phone")),
         volume: clean(formData.get("volume")),
         need: clean(formData.get("need")),
+        pipeline: clean(formData.get("lead_pipeline")),
+        owner: clean(formData.get("lead_owner")),
+        follow_up_sla: clean(formData.get("follow_up_sla")),
         source: clean(formData.get("source_page")) || clean(formData.get("source")),
+        first_referrer: clean(formData.get("first_referrer")),
         landing_page: clean(formData.get("landing_page")),
         utm_source: clean(formData.get("utm_source")),
         utm_medium: clean(formData.get("utm_medium")),
         utm_campaign: clean(formData.get("utm_campaign")),
+        utm_term: clean(formData.get("utm_term")),
+        utm_content: clean(formData.get("utm_content")),
+        gclid: clean(formData.get("gclid")),
+        fbclid: clean(formData.get("fbclid")),
+        msclkid: clean(formData.get("msclkid")),
       },
     });
     return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);

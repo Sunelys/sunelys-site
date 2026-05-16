@@ -50,6 +50,8 @@ const { action, path } = Astro.props;
       <input type="hidden" name="utm_term" data-exit-attribution="utm_term" />
       <input type="hidden" name="utm_content" data-exit-attribution="utm_content" />
       <input type="hidden" name="gclid" data-exit-attribution="gclid" />
+      <input type="hidden" name="fbclid" data-exit-attribution="fbclid" />
+      <input type="hidden" name="msclkid" data-exit-attribution="msclkid" />
 
       <label>
         <span>Email professionnel</span>
@@ -63,6 +65,15 @@ const { action, path } = Astro.props;
       <p class="exit-modal__note" id="exit-intent-status" aria-live="polite">
         Pas de spam. Vous pouvez vous désabonner en un clic.
       </p>
+      <a
+        class="exit-modal__download"
+        id="exit-intent-download"
+        href="/checklist-declaration-prealable-solaire?source=exit_intent_success"
+        data-track="cta_exit_intent_checklist_download"
+        hidden
+      >
+        Ouvrir la checklist
+      </a>
     </form>
   </div>
 </div>
@@ -73,6 +84,7 @@ const { action, path } = Astro.props;
   const closeButton = modal?.querySelector(".exit-modal__close");
   const exitForm = document.querySelector("#exit-intent-form");
   const exitStatus = document.querySelector("#exit-intent-status");
+  const exitDownload = document.querySelector("#exit-intent-download");
   const shownKey = "sunelys_exit_intent_shown";
   const submittedKey = "sunelys_form_submitted";
   let lastFocusedElement = null;
@@ -234,16 +246,21 @@ const { action, path } = Astro.props;
         });
 
         if (exitStatus) {
-          exitStatus.textContent = "Merci, votre demande est bien prise en compte.";
+          exitStatus.textContent = "Merci, votre demande est bien prise en compte. La checklist est disponible.";
         }
-        window.setTimeout(closeModal, 900);
+        if (exitDownload instanceof HTMLElement) {
+          exitDownload.hidden = false;
+          exitDownload.focus();
+        }
       } catch (_error) {
         if (exitStatus) {
           exitStatus.textContent =
             "L'envoi n'a pas abouti. Vous pouvez réessayer ou passer par le formulaire de contact.";
         }
       } finally {
-        if (submitButton instanceof HTMLButtonElement) submitButton.disabled = false;
+        if (submitButton instanceof HTMLButtonElement && !readSessionFlag(submittedKey)) {
+          submitButton.disabled = false;
+        }
       }
     });
   }
@@ -363,6 +380,27 @@ const { action, path } = Astro.props;
 
   .exit-modal__form .btn {
     width: 100%;
+  }
+
+  .exit-modal__download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.65rem;
+    border: 1px solid #0f0c09;
+    border-radius: 999px;
+    background: linear-gradient(180deg, #12100d, #090806);
+    color: #fffdfa;
+    text-decoration: none;
+    font-size: 0.77rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.72rem 1.2rem;
+  }
+
+  .exit-modal__download[hidden] {
+    display: none;
   }
 
   .exit-modal__note {

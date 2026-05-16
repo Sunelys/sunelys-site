@@ -177,6 +177,8 @@ const supportCards = [
         <input type="hidden" name="utm_term" id="utm-term-field" />
         <input type="hidden" name="utm_content" id="utm-content-field" />
         <input type="hidden" name="gclid" id="gclid-field" />
+        <input type="hidden" name="fbclid" id="fbclid-field" />
+        <input type="hidden" name="msclkid" id="msclkid-field" />
 
         <label>
           Nom
@@ -334,6 +336,8 @@ const supportCards = [
   fillHidden("#utm-term-field", attribution.utm_term || "");
   fillHidden("#utm-content-field", attribution.utm_content || "");
   fillHidden("#gclid-field", attribution.gclid || "");
+  fillHidden("#fbclid-field", attribution.fbclid || "");
+  fillHidden("#msclkid-field", attribution.msclkid || "");
 
   const trackedStates = {
     formViewed: false,

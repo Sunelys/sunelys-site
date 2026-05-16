@@ -22,6 +22,8 @@ const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
+const isNoindex = robots.includes("noindex");
+const showLeadCaptureShell = path !== "/merci" && !isNoindex;
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
@@ -174,10 +176,10 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
     <Footer links={footerLinks} />
 
-    <ExitIntentModal action={leadFormAction} path={path} />
+    {showLeadCaptureShell && <ExitIntentModal action={leadFormAction} path={path} />}
 
     {
-      path !== "/merci" && (
+      showLeadCaptureShell && (
         <div class="sticky-lead-bar" aria-label="Actions rapides de contact">
           <a class="sticky-lead-secondary" href="tel:+33695907919" data-track="cta_sticky_phone">
             Appeler
