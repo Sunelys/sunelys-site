@@ -63,7 +63,13 @@ const structuredData = [
 ];
 ---
 
-<BaseLayout title={frontmatter.seoTitle ?? frontmatter.title} description={frontmatter.description} structuredData={structuredData}>
+<BaseLayout
+  title={frontmatter.seoTitle ?? frontmatter.title}
+  description={frontmatter.description}
+  structuredData={structuredData}
+  image={frontmatter.coverImage}
+  ogType="article"
+>
   <article class="article-shell reveal">
     <header class="article-header">
       <a class="back-link" href="/blog" data-track="cta_article_back_blog">Blog Sunelys</a>

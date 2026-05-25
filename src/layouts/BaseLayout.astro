@@ -8,12 +8,15 @@ const {
   description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
   structuredData = [],
   robots = "index,follow",
+  image,
+  ogType = "website",
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
 const canonical = new URL(path, `${siteUrl}/`).toString();
-const ogImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
+const defaultOgImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
+const ogImage = image ? new URL(image, `${siteUrl}/`).toString() : defaultOgImage;
 
 const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION || "";
@@ -58,7 +61,7 @@ const baseSchemas = [
     alternateName: ["SUNELYS", "Sunelys SASU"],
     legalName: "SUNELYS",
     url: siteUrl,
-    logo: ogImage,
+    logo: defaultOgImage,
     email: "contact@sunelys.fr",
     telephone: "+33 6 95 90 79 19",
     foundingDate: "2025-04-15",
@@ -108,7 +111,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:site_name" content="Sunelys" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
