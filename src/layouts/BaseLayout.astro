@@ -3,6 +3,11 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ExitIntentModal from "../components/ExitIntentModal.astro";
 
+interface BreadcrumbItem {
+  name: string;
+  item?: string;
+}
+
 const {
   title = "Sunelys",
   description = "Sunelys accompagne vos démarches administratives photovoltaïques.",
@@ -10,12 +15,14 @@ const {
   robots = "index,follow",
   image,
   ogType = "website",
+  breadcrumbs,
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
 const canonical = new URL(path, `${siteUrl}/`).toString();
-const defaultOgImage = new URL("/brand/logo-full.svg", `${siteUrl}/`).toString();
+const defaultOgImage = new URL("/images/og/sunelys-og.png", `${siteUrl}/`).toString();
+const schemaLogo = new URL("/brand/logo-full.png", `${siteUrl}/`).toString();
 const ogImage = image ? new URL(image, `${siteUrl}/`).toString() : defaultOgImage;
 
 const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
@@ -27,6 +34,57 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
 const showLeadCaptureShell = path !== "/merci" && !isNoindex;
+
+const routeLabels: Record<string, string> = {
+  "/services": "Services",
+  "/parcours": "Parcours",
+  "/tarifs": "Tarifs",
+  "/contact": "Contact",
+  "/blog": "Blog",
+  "/sunelys": "Sunelys",
+  "/a-propos": "À propos",
+  "/gestion-administrative-photovoltaique": "Gestion administrative photovoltaïque",
+  "/declaration-prealable-panneaux-solaires": "Déclaration préalable panneaux solaires",
+  "/dossier-consuel-photovoltaique": "Dossier Consuel photovoltaïque",
+  "/raccordement-enedis-photovoltaique": "Raccordement Enedis photovoltaïque",
+  "/sous-traitance-declaration-prealable-solaire": "Sous-traitance déclaration préalable solaire",
+  "/tarif-declaration-prealable-photovoltaique": "Tarif déclaration préalable photovoltaïque",
+};
+
+const formatSegmentLabel = (segment: string) =>
+  decodeURIComponent(segment)
+    .replace(/-/g, " ")
+    .replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase("fr-FR"));
+
+const pathSegments = path.split("/").filter(Boolean);
+const automaticBreadcrumbs: BreadcrumbItem[] =
+  path === "/" || isNoindex
+    ? []
+    : [
+        { name: "Accueil", item: `${siteUrl}/` },
+        ...pathSegments.map((segment, index) => {
+          const routePath = `/${pathSegments.slice(0, index + 1).join("/")}`;
+          return {
+            name: routeLabels[routePath] ?? formatSegmentLabel(segment),
+            item: new URL(routePath, `${siteUrl}/`).toString(),
+          };
+        }),
+      ];
+
+const breadcrumbItems: BreadcrumbItem[] = breadcrumbs ?? automaticBreadcrumbs;
+const breadcrumbSchema =
+  breadcrumbItems.length > 1
+    ? {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbItems.map((item, index) => ({
+          "@type": "ListItem",
+          position: index + 1,
+          name: item.name,
+          ...(item.item ? { item: item.item } : {}),
+        })),
+      }
+    : null;
 
 const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
 const brandingVars =
@@ -61,9 +119,9 @@ const baseSchemas = [
     alternateName: ["SUNELYS", "Sunelys SASU"],
     legalName: "SUNELYS",
     url: siteUrl,
-    logo: defaultOgImage,
+    logo: schemaLogo,
     email: "contact@sunelys.fr",
-    telephone: "+33 6 95 90 79 19",
+    telephone: "+33695907919",
     foundingDate: "2025-04-15",
     taxID: "FR46943493759",
     identifier: {
@@ -72,6 +130,8 @@ const baseSchemas = [
       value: "943493759",
     },
     sameAs: [
+      "https://www.linkedin.com/company/sunelys/",
+      "https://www.linkedin.com/in/myriam-zaoui-2baa501b9/",
       "https://www.pappers.fr/entreprise/sunelys-943493759",
     ],
     address: {
@@ -88,15 +148,11 @@ const baseSchemas = [
     name: "Sunelys",
     alternateName: "SUNELYS",
     url: siteUrl,
-    potentialAction: {
-      "@type": "SearchAction",
-      target: `${siteUrl}/?q={search_term_string}`,
-      "query-input": "required name=search_term_string",
-    },
+    inLanguage: "fr-FR",
   },
 ];
 
-const allSchemas = [...baseSchemas, ...structuredData];
+const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : []), ...structuredData];
 ---
 
 <!doctype html>
@@ -117,6 +173,9 @@ const allSchemas = [...baseSchemas, ...structuredData];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="fr_FR" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
@@ -312,6 +371,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
         if (href.toLowerCase().includes("calendly.com")) {
           window.trackEvent("booking_click", { ...clickPayload, category: "lead" });
+          window.trackEvent("generate_lead", { ...clickPayload, category: "lead", source: "calendly" });
         }
       });
 
@@ -462,6 +522,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
   body {
     margin: 0;
     min-height: 100%;
+    overflow-x: clip;
   }
 
   body {
@@ -595,7 +656,7 @@ const allSchemas = [...baseSchemas, ...structuredData];
 
   .skip-link {
     position: absolute;
-    left: -9999px;
+    left: 1rem;
     top: 0;
     z-index: 120;
     text-decoration: none;
@@ -604,11 +665,12 @@ const allSchemas = [...baseSchemas, ...structuredData];
     border: 1px solid var(--line);
     border-radius: var(--radius-sm);
     padding: 0.48rem 0.72rem;
+    transform: translateY(-150%);
   }
 
   .skip-link:focus-visible {
-    left: 1rem;
     top: 1rem;
+    transform: translateY(0);
   }
 
   .sticky-lead-bar {

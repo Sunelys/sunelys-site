@@ -12,12 +12,30 @@ const blog = defineCollection({
     keywords: z.string(),
     coverImage: z.string().optional(),
     coverAlt: z.string().optional(),
+    ogImage: z.string().optional(),
     primaryServiceHref: z.string().optional(),
     primaryServiceLabel: z.string().optional(),
     secondaryServiceHref: z.string().optional(),
     secondaryServiceLabel: z.string().optional(),
     contactSource: z.string().optional(),
     businessOutcome: z.string().optional(),
+    relatedLinks: z
+      .array(
+        z.object({
+          href: z.string(),
+          label: z.string(),
+          description: z.string().optional(),
+        }),
+      )
+      .optional(),
+    faqItems: z
+      .array(
+        z.object({
+          question: z.string(),
+          answer: z.string(),
+        }),
+      )
+      .optional(),
   }),
 });
 

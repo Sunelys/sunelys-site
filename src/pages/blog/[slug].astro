@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import LeadMagnetChecklist from "../../components/LeadMagnetChecklist.astro";
 import MediaFrame from "../../components/MediaFrame.astro";
 
 export async function getStaticPaths() {
@@ -20,11 +21,39 @@ const secondaryServiceHref =
   frontmatter.secondaryServiceHref || `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
 const secondaryServiceLabel = frontmatter.secondaryServiceLabel || "Recevoir un cadrage";
 const articleContactHref = `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
+const relatedLinks = frontmatter.relatedLinks ?? [];
 const date = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
   month: "long",
   year: "numeric",
 }).format(new Date(frontmatter.pubDate));
+const modifiedDate = new Intl.DateTimeFormat("fr-FR", {
+  day: "2-digit",
+  month: "long",
+  year: "numeric",
+}).format(new Date(frontmatter.updatedDate ?? frontmatter.pubDate));
+const defaultArticleImage = "https://sunelys.fr/images/og/sunelys-og.png";
+const socialImage = frontmatter.ogImage || frontmatter.coverImage;
+const author = {
+  name: "Myriam Zaoui",
+  url: "https://sunelys.fr/a-propos",
+  linkedin: "https://www.linkedin.com/in/myriam-zaoui-2baa501b9/",
+};
+
+const faqSchema = frontmatter.faqItems?.length
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: frontmatter.faqItems.map((item) => ({
+        "@type": "Question",
+        name: item.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.answer,
+        },
+      })),
+    }
+  : null;
 
 const structuredData = [
   {
@@ -35,31 +64,37 @@ const structuredData = [
     datePublished: frontmatter.pubDate,
     dateModified: frontmatter.updatedDate ?? frontmatter.pubDate,
     author: {
-      "@type": "Organization",
-      name: "Sunelys",
-      url: "https://sunelys.fr",
+      "@type": "Person",
+      name: author.name,
+      url: author.url,
+      sameAs: [author.linkedin],
+      worksFor: {
+        "@type": "Organization",
+        name: "Sunelys",
+        url: "https://sunelys.fr",
+      },
     },
     publisher: {
       "@type": "Organization",
       name: "Sunelys",
       logo: {
         "@type": "ImageObject",
-        url: "https://sunelys.fr/brand/logo-full.svg",
+        url: "https://sunelys.fr/brand/logo-full.png",
       },
     },
     mainEntityOfPage: articleUrl,
     keywords: frontmatter.keywords,
-    image: frontmatter.coverImage ? `https://sunelys.fr${frontmatter.coverImage}` : undefined,
+    image: socialImage ? `https://sunelys.fr${socialImage}` : defaultArticleImage,
+    articleSection: frontmatter.category,
+    inLanguage: "fr-FR",
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: "https://sunelys.fr" },
-      { "@type": "ListItem", position: 2, name: "Blog", item: "https://sunelys.fr/blog" },
-      { "@type": "ListItem", position: 3, name: frontmatter.title, item: articleUrl },
-    ],
-  },
+  ...(faqSchema ? [faqSchema] : []),
+];
+
+const breadcrumbs = [
+  { name: "Accueil", item: "https://sunelys.fr/" },
+  { name: "Blog", item: "https://sunelys.fr/blog" },
+  { name: frontmatter.title, item: articleUrl },
 ];
 ---
 
@@ -67,8 +102,9 @@ const structuredData = [
   title={frontmatter.seoTitle ?? frontmatter.title}
   description={frontmatter.description}
   structuredData={structuredData}
-  image={frontmatter.coverImage}
+  image={socialImage}
   ogType="article"
+  breadcrumbs={breadcrumbs}
 >
   <article class="article-shell reveal">
     <header class="article-header">
@@ -76,6 +112,7 @@ const structuredData = [
       <div class="article-meta">
         <span>{frontmatter.category}</span>
         <span>{date}</span>
+        {frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate && <span>Mis à jour le {modifiedDate}</span>}
         <span>{frontmatter.readingTime}</span>
       </div>
       <h1>{frontmatter.title}</h1>
@@ -110,6 +147,38 @@ const structuredData = [
         <Content />
       </div>
     </div>
+
+    <section class="article-author" aria-label="Auteur de l'article">
+      <img src="/images/myriam-zaoui.jpg" alt="Myriam Zaoui, fondatrice de Sunelys" width="128" height="128" loading="lazy" decoding="async" />
+      <div>
+        <p class="aside-label">Rédigé par</p>
+        <h2>{author.name}</h2>
+        <p>
+          Fondatrice de Sunelys, Myriam accompagne les installateurs photovoltaïques sur la
+          préparation, le suivi et la fiabilisation des démarches administratives solaires.
+        </p>
+        <a href={author.url} data-track="cta_article_author_about">Voir le profil Sunelys</a>
+      </div>
+    </section>
+
+    <LeadMagnetChecklist source={`blog_${frontmatter.slug}_checklist_dp`} />
+
+    {
+      relatedLinks.length > 0 && (
+        <section class="related-guides" aria-labelledby="related-guides-title">
+          <p class="aside-label">À lire aussi</p>
+          <h2 id="related-guides-title">Continuer dans le même sujet</h2>
+          <div class="related-guides-grid">
+            {relatedLinks.map((link) => (
+              <a href={link.href} data-track="cta_article_related" data-track-label={link.label}>
+                <span>{link.label}</span>
+                {link.description && <small>{link.description}</small>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     <section class="article-conclusion">
       <div class="article-conclusion-copy">
@@ -301,6 +370,96 @@ const structuredData = [
     background: color-mix(in srgb, var(--accent-soft) 38%, white);
   }
 
+  .article-author,
+  .related-guides {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.1rem, 2.4vw, 1.8rem);
+  }
+
+  .article-author {
+    display: grid;
+    grid-template-columns: 5rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .article-author img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid color-mix(in srgb, var(--line) 74%, white);
+  }
+
+  .article-author div,
+  .related-guides {
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  .article-author h2,
+  .related-guides h2 {
+    font-size: clamp(1.35rem, 2.2vw, 2rem);
+    line-height: 1.08;
+  }
+
+  .article-author p:not(.aside-label),
+  .article-author a,
+  .related-guides small {
+    color: var(--text-muted);
+    line-height: 1.55;
+  }
+
+  .article-author a {
+    width: fit-content;
+    color: var(--text);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .article-author a:hover,
+  .article-author a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+
+  .related-guides-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .related-guides-grid a {
+    display: grid;
+    gap: 0.35rem;
+    min-height: 7.6rem;
+    padding: 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: calc(var(--radius-md) - 4px);
+    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+  }
+
+  .related-guides-grid a:hover,
+  .related-guides-grid a:focus-visible {
+    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+    box-shadow: var(--shadow-sm);
+    transform: translateY(-2px);
+  }
+
+  .related-guides-grid span {
+    font-weight: 800;
+    line-height: 1.25;
+  }
+
   .article-conclusion {
     display: grid;
     grid-template-columns: minmax(0, 1.2fr) auto;
@@ -342,6 +501,16 @@ const structuredData = [
     }
 
     .article-conclusion {
+      grid-template-columns: 1fr;
+    }
+
+    .related-guides-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .article-author {
       grid-template-columns: 1fr;
     }
   }
