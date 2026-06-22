@@ -19,16 +19,17 @@ Etat global au 2026-06-22 :
 - `main` local est aligne avec `origin/main` au commit `66acf3a`.
 - Les contenus S1 a S8 ont ete prepares localement.
 - La plupart des articles S1 a S8 ne sont pas suivis par Git et ne sont pas publies.
-- S1 est validee et committee localement dans `c301555` (`Publish week 1 SEO articles`), mais le push GitHub est bloque par authentification.
-- Tant que `c301555` n'est pas pousse sur `origin/main` et que les deux URLs S1 ne repondent pas en `200`, S1 ne doit pas etre marquee publiee.
-- S2 a S8 restent en backlog local prepare. Ne pas preparer S9 tant que S1 a S8 ne sont pas progressivement publiees selon la cadence.
+- S1 est validee, poussee et publiee.
+- Les deux URLs S1 repondent en `200` sur `https://sunelys.fr`.
+- S2 est la prochaine semaine a traiter a partir du lundi 9h.
+- S3 a S8 restent en backlog local prepare. Ne pas preparer S9 tant que S2 a S8 ne sont pas progressivement publiees selon la cadence.
 
 ## Tableau de suivi
 
 | Semaine | Contenus | Etat local | Etat Git au 2026-06-22 | Etat public au 2026-06-22 | Prochaine action |
 |---|---|---|---|---|---|
-| S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee et committee localement dans `c301555` | Commit local pret, push GitHub bloque par auth | 404 / 404 tant que le commit n'est pas deploye | Pousser `c301555`, attendre le deploiement, verifier les deux URLs en 200 |
-| S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Preparee localement, avec un article deja existant en ligne | 1 fichier modifie suivi, 1 fichier non suivi | 200 / 404 | Attendre publication S1, puis valider la version S2 |
+| S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
+| S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Preparee localement, avec un article deja existant en ligne | 1 fichier modifie suivi, 1 fichier non suivi | 200 / 404 | Prochaine semaine a valider et publier |
 | S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Preparee | Non suivis | 404 / 404 | Backlog, ne pas publier avant S2 |
 | S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Preparee | Non suivis | 404 / 404 | Backlog, ne pas publier avant S3 |
 | S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Preparee | Non suivis | 404 / 404 | Backlog, ne pas publier avant S4 |
