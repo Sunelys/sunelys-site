@@ -16,7 +16,7 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 Etat global au 2026-06-22 :
 
-- `main` local est aligne avec `origin/main` au commit `bb7c2fd`.
+- `main` local est aligne avec `origin/main`.
 - S1 est publiee ; les contenus S2 a S8 ont ete prepares localement.
 - La plupart des articles S2 a S8 ne sont pas suivis par Git et ne sont pas publies.
 - S1 est validee, poussee et publiee.
