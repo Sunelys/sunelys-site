@@ -16,9 +16,9 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 Etat global au 2026-06-22 :
 
-- `main` local est aligne avec `origin/main` au commit `66acf3a`.
-- Les contenus S1 a S8 ont ete prepares localement.
-- La plupart des articles S1 a S8 ne sont pas suivis par Git et ne sont pas publies.
+- `main` local est aligne avec `origin/main` au commit `85e7902`.
+- S1 est publiee ; les contenus S2 a S8 ont ete prepares localement.
+- La plupart des articles S2 a S8 ne sont pas suivis par Git et ne sont pas publies.
 - S1 est validee, poussee et publiee.
 - Les deux URLs S1 repondent en `200` sur `https://sunelys.fr`.
 - S2 est la prochaine semaine a traiter a partir du lundi 9h.
@@ -57,7 +57,7 @@ Etat global au 2026-06-22 :
 
 ## Interdictions pour l'automation
 
-- Ne pas creer de contenu S9 tant que S1 a S8 ne sont pas publiees dans l'ordre.
+- Ne pas creer de contenu S9 tant que S2 a S8 ne sont pas publiees dans l'ordre.
 - Ne pas publier plus d'une semaine a la fois.
 - Ne pas supposer qu'un fichier local est publie.
 - Ne pas faire de reset, checkout destructif ou suppression de changements existants.
