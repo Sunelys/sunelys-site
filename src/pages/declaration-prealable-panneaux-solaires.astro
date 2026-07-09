@@ -4,6 +4,7 @@ import SeoLandingPage from "../components/SeoLandingPage.astro";
 import { seoPages } from "../data/seoPages";
 
 const pageData = seoPages.declarationPrealable;
+const canonicalUrl = "https://sunelys.fr/declaration-prealable-panneaux-solaires";
 
 const structuredData = [
   {
@@ -33,7 +34,7 @@ const structuredData = [
       "@type": "Country",
       name: "France",
     },
-    url: new URL(Astro.url.pathname, "https://sunelys.fr").toString(),
+    url: canonicalUrl,
   },
 ];
 ---

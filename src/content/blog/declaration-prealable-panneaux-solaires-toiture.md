@@ -9,6 +9,7 @@ category: "Déclaration préalable"
 readingTime: "5 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
 coverAlt: "Plans de toiture photovoltaïque et photo de panneaux solaires préparés pour une déclaration préalable."
+ogImage: "/images/og/declaration-prealable-panneaux-solaires.png"
 keywords: "déclaration préalable panneaux solaires toiture, déclaration panneau solaire, panneaux solaires toiture déclaration préalable, installateur photovoltaïque"
 primaryServiceHref: "/declaration-prealable-panneaux-solaires"
 primaryServiceLabel: "Service déclaration préalable"
@@ -16,6 +17,22 @@ secondaryServiceHref: "/contact?source=blog-dp-toiture#contact-form"
 secondaryServiceLabel: "Sécuriser mes dépôts toiture"
 contactSource: "blog-dp-toiture"
 businessOutcome: "Anticiper les demandes mairie sur les projets toiture et éviter les dépôts incomplets."
+relatedLinks:
+  - href: "/declaration-prealable-panneaux-solaires"
+    label: "Déclaration préalable panneaux solaires"
+    description: "Le service Sunelys dédié aux dossiers DP."
+  - href: "/blog/cerfa-declaration-prealable-panneaux-solaires"
+    label: "Cerfa DP panneaux solaires"
+    description: "Le formulaire et les champs à vérifier pour une toiture."
+  - href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais"
+    label: "Pièces et délais d'une DP solaire"
+    description: "Préparer les éléments avant dépôt."
+  - href: "/blog/declaration-prealable-ou-permis-construire-photovoltaique"
+    label: "DP ou permis photovoltaïque"
+    description: "Différencier toiture, sol, ombrière et maison neuve."
+  - href: "/blog/panneaux-solaires-sans-declaration-prealable"
+    label: "Panneaux solaires sans DP"
+    description: "Risques et reprise d'un dossier posé trop vite."
 ---
 
 ## Le point à retenir pour les projets toiture
@@ -23,6 +40,8 @@ businessOutcome: "Anticiper les demandes mairie sur les projets toiture et évit
 Des panneaux solaires en toiture modifient souvent l'aspect extérieur du bâtiment. Dans beaucoup de situations, une déclaration préalable est donc nécessaire ou fortement probable avant le chantier.
 
 La règle exacte dépend du projet, de la commune, du bâtiment et de son environnement. Pour un installateur photovoltaïque, l'enjeu opérationnel n'est pas seulement de savoir si une DP est obligatoire. Il faut surtout anticiper les pièces, les délais et le suivi pour éviter que le chantier soit bloqué après la vente.
+
+Pour sécuriser le point de départ, vous pouvez vérifier le [Cerfa de déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires) avant de préparer les visuels toiture.
 
 ## Ce que la mairie doit comprendre
 
@@ -70,6 +89,6 @@ Le but n'est pas d'alourdir le processus. C'est de rendre le dépôt plus fiable
 
 ## À lire ensuite
 
-Pour structurer vos dépôts, consultez la page [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), ou les [erreurs fréquentes à éviter](/blog/declaration-prealable-panneaux-solaires-erreurs).
+Pour structurer vos dépôts, consultez la page [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), le [Cerfa déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires), ou les [erreurs fréquentes à éviter](/blog/declaration-prealable-panneaux-solaires-erreurs).
 
 Si vos projets toiture créent des retours ou des délais, vous pouvez [demander un cadrage Sunelys](/contact?source=blog-dp-toiture#contact-form).

@@ -33,7 +33,8 @@ const hasMatomo = Boolean(matomoUrl && matomoSiteId);
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
-const showLeadCaptureShell = path !== "/merci" && !isNoindex;
+const isContactPage = path === "/contact";
+const showLeadCaptureShell = path !== "/merci" && !isNoindex && !isContactPage;
 
 const routeLabels: Record<string, string> = {
   "/services": "Services",
@@ -228,7 +229,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header#contact-form" ctaLabel="Recevoir un cadrage" />
+    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic gratuit" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">
@@ -247,7 +248,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             Appeler
           </a>
           <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
-            Recevoir un cadrage
+            Diagnostic gratuit
           </a>
         </div>
       )
@@ -275,6 +276,47 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         }
       };
 
+      const normalizeText = (value) => String(value || "").trim().toLowerCase();
+
+      const mapConversionType = (value) => {
+        const normalized = normalizeText(value);
+        if (!normalized) return "form_contact";
+
+        if (normalized.includes("checklist") || normalized.includes("lead_magnet") || normalized.includes("lead-magnet")) {
+          return "checklist_download";
+        }
+
+        if (normalized.includes("quiz")) {
+          return "quiz_submit";
+        }
+
+        if (normalized.includes("calendly") || normalized.includes("booking") || normalized.includes("rdv")) {
+          return "booking";
+        }
+
+        if (normalized.includes("phone") || normalized.includes("telephone") || normalized.includes("call")) {
+          return "phone_click";
+        }
+
+        if (normalized.includes("email") || normalized.includes("mail")) {
+          return "email_click";
+        }
+
+        if (normalized.includes("lead") && normalized.includes("form")) {
+          return "form_contact";
+        }
+
+        if (normalized.includes("form") || normalized.includes("contact") || normalized.includes("diagnostic")) {
+          return "form_contact";
+        }
+
+        if (normalized.startsWith("unknown") || normalized === "lead_form") {
+          return "form_contact";
+        }
+
+        return normalized;
+      };
+
       const params = new URLSearchParams(window.location.search);
       const storedAttribution = readStoredAttribution();
       const incomingAttribution = attributionKeys.reduce((acc, key) => {
@@ -297,6 +339,33 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
       window.getSunelysAttribution = () => readStoredAttribution();
 
+      const syncSunelysAttributionFields = (root = document) => {
+        const currentAttribution = readStoredAttribution();
+        const fieldRoot = root instanceof Element || root instanceof Document ? root : document;
+        const attributionFieldNames = ["landing_page", "first_referrer", ...attributionKeys];
+
+        attributionFieldNames.forEach((fieldName) => {
+          fieldRoot.querySelectorAll(`input[type="hidden"][name="${fieldName}"]`).forEach((field) => {
+            if (!(field instanceof HTMLInputElement)) return;
+            field.value = currentAttribution[fieldName] || field.value || "";
+          });
+        });
+      };
+
+      window.syncSunelysAttributionFields = syncSunelysAttributionFields;
+      syncSunelysAttributionFields();
+
+      const servicePaths = [
+        "/gestion-administrative-photovoltaique",
+        "/declaration-prealable-panneaux-solaires",
+        "/dossier-consuel-photovoltaique",
+        "/raccordement-enedis-photovoltaique",
+        "/sous-traitance-declaration-prealable-solaire",
+        "/tarif-declaration-prealable-photovoltaique",
+        "/tarifs",
+        "/contact",
+      ];
+
       const buildAnalyticsPayload = (eventName, params, currentAttribution) => ({
         event_category: params.category || "engagement",
         event_label: params.label || params.href || eventName,
@@ -306,6 +375,12 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         source: params.source || "",
         volume: params.volume || "",
         need: params.need || "",
+        blocked_stage: params.blocked_stage || "",
+        conversion_type: params.conversion_type || "",
+        lead_stage: params.lead_stage || "",
+        service_interest: params.service_interest || "",
+        form_id: params.form_id || "",
+        cta_group: params.cta_group || "",
         utm_source: currentAttribution.utm_source || "",
         utm_medium: currentAttribution.utm_medium || "",
         utm_campaign: currentAttribution.utm_campaign || "",
@@ -357,21 +432,62 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
           category,
           label,
           href,
+          cta_group: element.dataset.track || "",
         };
 
         window.trackEvent(element.dataset.track, clickPayload);
 
+        const hrefPath = (() => {
+          try {
+            return new URL(href, window.location.origin).pathname.replace(/\/$/, "") || "/";
+          } catch (_error) {
+            return href.replace(/\/$/, "") || "/";
+          }
+        })();
+
+        if (window.location.pathname.startsWith("/blog/") && servicePaths.includes(hrefPath)) {
+          window.trackEvent("blog_to_service_click", {
+            ...clickPayload,
+            category: "internal_link",
+            service_interest: hrefPath,
+            source: "blog",
+          });
+        }
+
         if (category === "phone") {
-          window.trackEvent("phone_click", { ...clickPayload, category: "lead" });
+          window.trackEvent("phone_click", {
+            ...clickPayload,
+            category: "lead",
+            conversion_type: "phone_click",
+            lead_stage: "phone_click",
+          });
         }
 
         if (category === "email") {
-          window.trackEvent("email_click", { ...clickPayload, category: "lead" });
+          window.trackEvent("email_click", {
+            ...clickPayload,
+            category: "lead",
+            conversion_type: "email_click",
+            lead_stage: "email_click",
+          });
         }
 
         if (href.toLowerCase().includes("calendly.com")) {
-          window.trackEvent("booking_click", { ...clickPayload, category: "lead" });
-          window.trackEvent("generate_lead", { ...clickPayload, category: "lead", source: "calendly" });
+          window.trackEvent("booking_click", {
+            ...clickPayload,
+            category: "lead",
+            conversion_type: "booking",
+            lead_stage: "booking_click",
+            source: "calendly",
+          });
+
+          window.trackEvent("lead_converted", {
+            ...clickPayload,
+            category: "lead",
+            source: "calendly",
+            conversion_type: "booking",
+            lead_stage: "booking_click",
+          });
         }
       });
 
@@ -379,15 +495,65 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         if (!(event.target instanceof HTMLFormElement)) return;
         if (event.target.id === "exit-intent-form") return;
         const submittedForm = event.target;
+        syncSunelysAttributionFields(submittedForm);
         const submittedFormData = new FormData(submittedForm);
 
-        window.trackEvent?.("form_submit", {
+        const conversionType = String(
+          submittedFormData.get("conversion_type") ||
+            submittedForm.dataset.conversionType ||
+            "lead_form",
+        );
+        const normalizedConversionType = mapConversionType(conversionType);
+        const sourcePageValue = String(submittedFormData.get("source_page") || submittedFormData.get("source") || "");
+        const normalizedFallbackConversionType = mapConversionType([conversionType, sourcePageValue].filter(Boolean).join(" "));
+        const finalConversionType = normalizedConversionType || normalizedFallbackConversionType;
+        const leadStage = String(submittedFormData.get("lead_stage") || "form_submitted");
+        const serviceInterest = String(submittedFormData.get("service_interest") || "");
+        const formPayload = {
           category: "form",
           label: submittedForm.id || submittedForm.getAttribute("class") || "lead_form",
           source: String(submittedFormData.get("source_page") || submittedFormData.get("source") || ""),
           volume: String(submittedFormData.get("volume") || ""),
           need: String(submittedFormData.get("need") || ""),
-        });
+          blocked_stage: String(submittedFormData.get("blocked_stage") || ""),
+          conversion_type: finalConversionType,
+          lead_stage: leadStage,
+          service_interest: serviceInterest,
+          form_id: submittedForm.id || "",
+        };
+
+        if (finalConversionType !== conversionType) {
+          const conversionInput = submittedForm.querySelector("input[name='conversion_type']");
+          if (conversionInput instanceof HTMLInputElement) {
+            conversionInput.value = finalConversionType;
+          }
+        }
+
+        window.trackEvent?.("form_submit", formPayload);
+
+        if (submittedForm.hasAttribute("data-lead-form") || submittedFormData.has("email")) {
+          window.trackEvent?.("lead_form_submit", {
+            ...formPayload,
+            category: "lead",
+            conversion_type: finalConversionType,
+            lead_stage: leadStage,
+          });
+
+          window.trackEvent?.("generate_lead", {
+            ...formPayload,
+            category: "lead",
+            conversion_type: finalConversionType,
+            lead_stage: leadStage,
+          });
+
+          window.trackEvent?.("lead_converted", {
+            ...formPayload,
+            category: "lead",
+            source: sourcePageValue || formPayload.source || "lead_form",
+            conversion_type: finalConversionType,
+            lead_stage: leadStage || "form_submitted",
+          });
+        }
 
         try {
           sessionStorage.setItem("sunelys_form_submitted", "true");
@@ -422,31 +588,36 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       }
 
       const stickyBar = document.querySelector(".sticky-lead-bar");
-      const heroGuard = document.querySelector("[data-sticky-guard='hero']");
+      const stickyGuardElements = document.querySelectorAll("[data-sticky-guard='hero'], [data-lead-form]");
       const mobileQuery = window.matchMedia("(max-width: 767px)");
-      let heroVisible = false;
+      const visibleStickyGuards = new Set();
 
       const syncStickyBar = () => {
         if (!(stickyBar instanceof HTMLElement)) return;
 
         const isMobile = mobileQuery.matches;
         const hasScrolled = window.scrollY > 24;
-        document.body.classList.toggle("sticky-bar-hero-hidden", isMobile && heroVisible);
-        document.body.classList.toggle("sticky-bar-visible", isMobile && hasScrolled && !heroVisible);
+        const hasVisibleGuard = visibleStickyGuards.size > 0;
+        document.body.classList.toggle("sticky-bar-hero-hidden", isMobile && hasVisibleGuard);
+        document.body.classList.toggle("sticky-bar-visible", isMobile && hasScrolled && !hasVisibleGuard);
       };
 
-      if (heroGuard instanceof HTMLElement && "IntersectionObserver" in window) {
-        const heroObserver = new IntersectionObserver(
+      if (stickyGuardElements.length > 0 && "IntersectionObserver" in window) {
+        const stickyGuardObserver = new IntersectionObserver(
           (entries) => {
             entries.forEach((entry) => {
-              heroVisible = entry.isIntersecting && entry.intersectionRatio > 0.25;
+              if (entry.isIntersecting && entry.intersectionRatio > 0.12) {
+                visibleStickyGuards.add(entry.target);
+              } else {
+                visibleStickyGuards.delete(entry.target);
+              }
               syncStickyBar();
             });
           },
-          { threshold: [0, 0.25, 0.5, 0.75] }
+          { threshold: [0, 0.12, 0.25, 0.5, 0.75] }
         );
 
-        heroObserver.observe(heroGuard);
+        stickyGuardElements.forEach((element) => stickyGuardObserver.observe(element));
       }
 
       window.addEventListener("scroll", syncStickyBar, { passive: true });

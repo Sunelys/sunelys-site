@@ -35,7 +35,13 @@ const attributionFields = [
     </ul>
   </div>
 
-  <form class="lead-magnet-form" action={leadFormAction} method="POST">
+  <form
+    class="lead-magnet-form"
+    action={leadFormAction}
+    method="POST"
+    data-lead-form
+    data-conversion-type="checklist_download"
+  >
     <input type="hidden" name="_subject" value="Nouveau lead checklist DP Sunelys" />
     <input type="hidden" name="_captcha" value="false" />
     <input type="hidden" name="_template" value="table" />
@@ -43,7 +49,13 @@ const attributionFields = [
     <input type="hidden" name="source_page" value={source} />
     <input type="hidden" name="source" value={source} />
     <input type="hidden" name="need" value="Declaration prealable" />
+    <input type="hidden" name="blocked_stage" value="Avant dépôt" />
     <input type="hidden" name="message" value="Demande de checklist DP visible" />
+    <input type="hidden" name="conversion_type" value="checklist_download" />
+    <input type="hidden" name="lead_stage" value="lead_magnet_form_submitted" />
+    <input type="hidden" name="service_interest" value="Déclaration préalable panneaux solaires" />
+    <input type="hidden" name="lead_source_detail" value={source} />
+    <input type="hidden" name="qualification_hint" value="email professionnel demandeur checklist DP avant dépôt" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist DP" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />

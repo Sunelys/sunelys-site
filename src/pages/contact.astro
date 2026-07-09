@@ -9,7 +9,7 @@ const hasBookingUrl = Boolean(bookingUrl);
 const trustBullets = [
   "Réponse sous 24h ouvrées",
   "Échange de cadrage sans engagement",
-  "DP, Consuel et raccordement pilotés selon votre volume",
+  "DP, Consuel, raccordement et aides pilotés selon votre organisation",
 ];
 
 const contactReasons = [
@@ -69,15 +69,15 @@ const supportCards = [
 
 <BaseLayout
   title="Contact installateurs photovoltaïques | Sunelys"
-  description="Parlez à Sunelys de vos flux administratifs photovoltaïques. Nous cadrons vos besoins en déclaration préalable, Consuel et raccordement."
+  description="Parlez à Sunelys de vos flux administratifs photovoltaïques et aides rénovation. Nous cadrons vos besoins en DP, Consuel, raccordement, MaPrimeRénov' et CEE."
 >
   <section class="contact-hero section-shell reveal">
     <div class="hero-copy">
       <p class="eyebrow">Prise de contact</p>
-      <h1>Recevez un cadrage clair avant de remettre vos flux administratifs entre de mauvaises mains.</h1>
+      <h1>Recevez un cadrage clair pour sécuriser votre pilotage complet.</h1>
       <p class="hero-text">
         Décrivez votre volume, vos blocages et vos priorités. Sunelys revient avec une lecture sérieuse du
-        périmètre à déléguer sur DP, Consuel et raccordement, sans jargon ni promesse floue.
+        pilotage DP, Consuel, raccordement, MaPrimeRénov' et CEE, sans jargon ni promesse floue.
       </p>
 
       <ul class="trust-strip" aria-label="Réassurance contact">
@@ -86,7 +86,7 @@ const supportCards = [
 
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#contact-form" data-track="cta_contact_form_top">
-          Recevoir un cadrage gratuit
+          Recevoir un cadrage pilotage complet
         </a>
         {
           hasBookingUrl && (
@@ -159,12 +159,19 @@ const supportCards = [
         class="form-grid"
         action={leadFormAction}
         method="POST"
+        data-lead-form
+        data-conversion-type="form_contact"
       >
         <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_next" value={successUrl} />
         <input type="hidden" name="source_page" id="source-page-field" />
+        <input type="hidden" name="conversion_type" value="form_contact" />
+        <input type="hidden" name="lead_stage" value="contact_form_submitted" />
+        <input type="hidden" name="service_interest" id="service-interest-field" />
+        <input type="hidden" name="lead_source_detail" id="lead-source-detail-field" />
+        <input type="hidden" name="qualification_hint" value="formulaire contact avec volume, besoin, étape bloquée et message" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Site web - Contact" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -198,7 +205,7 @@ const supportCards = [
         </label>
         <label>
           Volume de dossiers / mois
-          <select name="volume" id="volume-field">
+          <select name="volume" id="volume-field" required>
             <option value="">Sélectionner</option>
             <option value="1-10">1-10</option>
             <option value="10-30">10-30</option>
@@ -207,12 +214,30 @@ const supportCards = [
         </label>
         <label>
           Besoin principal
-          <select name="need" id="need-field">
+          <select name="need" id="need-field" required>
             <option value="">Sélectionner</option>
             <option value="Declaration prealable">Déclaration préalable</option>
             <option value="Consuel">Consuel</option>
             <option value="Raccordement Enedis">Raccordement Enedis</option>
+            <option value="MaPrimeRenov">MaPrimeRénov'</option>
+            <option value="CEE">CEE</option>
+            <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
             <option value="Pilotage complet">Pilotage complet</option>
+          </select>
+        </label>
+        <label class="full-width">
+          Étape administrative bloquée
+          <select name="blocked_stage" id="blocked-stage-field" required>
+            <option value="">Sélectionner</option>
+            <option value="Avant dépôt">Avant dépôt</option>
+            <option value="Complément mairie">Complément mairie</option>
+            <option value="Consuel à préparer">Consuel à préparer</option>
+            <option value="Raccordement en attente">Raccordement en attente</option>
+            <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+            <option value="Prime à suivre">Prime à suivre</option>
+            <option value="Mise en service bloquée">Mise en service bloquée</option>
+            <option value="Pilotage global">Pilotage global</option>
+            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
           </select>
         </label>
         <label class="full-width">
@@ -295,7 +320,10 @@ const supportCards = [
 
   const volumeField = document.querySelector("#volume-field");
   const needField = document.querySelector("#need-field");
+  const blockedStageField = document.querySelector("#blocked-stage-field");
   const sourcePageField = document.querySelector("#source-page-field");
+  const serviceInterestField = document.querySelector("#service-interest-field");
+  const leadSourceDetailField = document.querySelector("#lead-source-detail-field");
   const contactForm = document.querySelector("#contact-form");
   const bookingEmbed = document.querySelector("#booking-embed");
   const bookingEmbedShell = document.querySelector("#booking-embed-shell");
@@ -316,10 +344,25 @@ const supportCards = [
     if (normalizedSource.includes("raccordement") || normalizedSource.includes("enedis")) {
       needField.value = "Raccordement Enedis";
     }
+    if (normalizedSource.includes("maprimerenov") || normalizedSource.includes("ma-prime-renov")) {
+      needField.value = "MaPrimeRenov";
+    }
+    if (normalizedSource.includes("cee")) needField.value = "CEE";
+    if (normalizedSource.includes("pack-maprimerenov-cee") || normalizedSource.includes("aides-renovation")) {
+      needField.value = "MaPrimeRenov + CEE";
+    }
     if (normalizedSource.includes("declaration") || normalizedSource.includes("prealable")) {
       needField.value = "Declaration prealable";
     }
     if (normalizedSource.includes("gestion") || normalizedSource.includes("administrative")) {
+      needField.value = "Pilotage complet";
+    }
+    if (
+      normalizedSource.includes("diagnostic") ||
+      normalizedSource.includes("pilotage") ||
+      normalizedSource.includes("sticky") ||
+      normalizedSource.includes("header")
+    ) {
       needField.value = "Pilotage complet";
     }
   }
@@ -327,6 +370,24 @@ const supportCards = [
   if (sourcePageField instanceof HTMLInputElement) {
     sourcePageField.value = sourceFromQuery || document.referrer || window.location.pathname;
   }
+
+  const resolveServiceInterest = () => {
+    if (needField instanceof HTMLSelectElement && needField.value) return needField.value;
+    if (sourceFromQuery) return sourceFromQuery;
+    return "Diagnostic administratif installateur";
+  };
+
+  const syncLeadQualificationFields = () => {
+    if (serviceInterestField instanceof HTMLInputElement) {
+      serviceInterestField.value = resolveServiceInterest();
+    }
+    if (leadSourceDetailField instanceof HTMLInputElement) {
+      leadSourceDetailField.value = sourceFromQuery || window.location.pathname;
+    }
+  };
+
+  syncLeadQualificationFields();
+  needField?.addEventListener("change", syncLeadQualificationFields);
 
   fillHidden("#landing-page-field", attribution.landing_page || "");
   fillHidden("#first-referrer-field", attribution.first_referrer || "");
@@ -351,6 +412,7 @@ const supportCards = [
     source: sourceFromQuery,
     volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
     need: needField instanceof HTMLSelectElement ? needField.value : "",
+    blocked_stage: blockedStageField instanceof HTMLSelectElement ? blockedStageField.value : "",
   });
 
   const trackOnce = (key, eventName, label, extra = {}) => {
@@ -391,6 +453,10 @@ const supportCards = [
     if (window.trackEvent) {
       window.trackEvent("contact_form_submit", {
         ...buildContactPayload("Contact form"),
+        conversion_type: "form_contact",
+        lead_stage: "contact_form_submitted",
+        service_interest: resolveServiceInterest(),
+        blocked_stage: blockedStageField instanceof HTMLSelectElement ? blockedStageField.value : "",
       });
     }
   });

@@ -1,106 +1,168 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 
-const pricingRows = [
+const pricingOffers = [
   {
-    service: "Déclarations préalables",
-    scope: "Analyse, production, dépôt, suivi et validation",
-    lessThan20: "À partir de 149 € HT",
-    from21To50: "À partir de 119 € HT",
-    moreThan51: "À partir de 79 € HT",
+    service: "Déclaration préalable complète",
+    scope: "Pièces, dépôt en mairie et suivi de l'instruction jusqu'à validation.",
+    price: "119 €",
+    note: "HT / dossier",
+    badge: "Garantie zéro pièce complémentaire",
   },
   {
     service: "Raccordement réseau + Consuel",
-    scope: "Dépôt de demande, gestion des échanges, validation et mise en service",
-    lessThan20: "À partir de 100 € HT",
-    from21To50: "À partir de 85 € HT",
-    moreThan51: "À partir de 70 € HT",
+    scope: "Demande, gestion des échanges, validation et mise en service.",
+    price: "89 €",
+    note: "HT / dossier",
+    badge: "",
+  },
+  {
+    service: "Chaîne administrative complète",
+    scope: "DP, raccordement et Consuel avec interlocuteur unique et pilotage intégral de A à Z.",
+    price: "199 €",
+    note: "HT / dossier",
+    badge: "Recommandé - le choix des pros",
+    highlighted: true,
+  },
+];
+
+const renovationAidOffers = [
+  {
+    service: "MaPrimeRénov' - montage & suivi",
+    scope: "Éligibilité, montage conforme, dépôt ANAH et suivi jusqu'au versement de la prime.",
+    price: "129 €",
+    note: "HT / dossier",
+    badge: "Mandat administratif possible",
+  },
+  {
+    service: "CEE - certificats d'économies d'énergie",
+    scope: "Contrôle devis et factures, montage du dossier CEE et suivi jusqu'à validation.",
+    price: "99 €",
+    note: "HT / dossier",
+    badge: "",
+  },
+  {
+    service: "Pack MaPrimeRénov' + CEE",
+    scope: "Les deux dossiers montés et suivis ensemble, sur un même chantier.",
+    price: "199 €",
+    note: "HT / dossier",
+    badge: "Le plus demandé",
+    highlighted: true,
   },
 ];
 
 const collaborationItems = [
   "Production sous 48h lorsque le dossier est complet",
-  "Suivi sur espace dédié",
+  "Suivi en temps réel sur espace dédié",
   "Interlocuteur unique dédié",
-  "Facturation mensuelle selon le volume réel",
+  "Facturation mensuelle sur les dossiers réellement traités",
+];
+
+const pricingSignals = [
+  "Tarifs unitaires en euros HT",
+  "Prix unitaires fixes par dossier",
+  "Garantie zéro pièce complémentaire applicable sur la formule DP complète avec dépôt et suivi assurés par Sunelys",
+  "TVA 20 % en sus, facturation mensuelle selon les dossiers réellement traités",
 ];
 ---
 
 <BaseLayout
-  title="Tarifs Sunelys | Gestion administrative photovoltaïque"
-  description="Tarifs Sunelys pour installateurs photovoltaïques : déclaration préalable, raccordement réseau et Consuel avec prix dégressifs selon le volume mensuel."
+  title="Tarifs gestion administrative photovoltaïque | Sunelys"
+  description="Tarifs unitaires au dossier pour DP, Consuel, raccordement, MaPrimeRénov' et CEE. Demandez un cadrage gratuit de 15 min."
 >
   <section class="hero pricing-hero">
     <p class="eyebrow">Tarification Sunelys</p>
-    <h1>Des prix clairs, dégressifs selon votre volume.</h1>
+    <h1>Des tarifs uniques et clairs pour un pilotage complet par dossier.</h1>
     <p class="intro">
-      Les montants ci-dessous donnent une base de cadrage pour les installateurs photovoltaïques.
-      Le prix final dépend du périmètre, de la qualité des pièces transmises et du volume réellement traité.
+      Les montants ci-dessous sont les prix unitaires Sunelys pour les installateurs photovoltaïques.
+      Chaque tarif correspond à un périmètre précis : DP, raccordement + Consuel, chaîne complète
+      ou dossiers d'aides à la rénovation MaPrimeRénov' et CEE.
     </p>
   </section>
 
-  <section class="pricing-table-shell">
+  <section class="pricing-table-shell" id="tarifs-photovoltaique">
     <div class="table-head">
       <p class="eyebrow">Prix par dossier</p>
-      <h2>Deux blocs d'accompagnement, avec tarifs dégressifs.</h2>
+      <h2>Photovoltaïque : DP, raccordement et Consuel.</h2>
+      <p>
+        Une assistante ADV dédiée représente souvent plus de 2 000 € par mois de charges.
+        Un dossier piloté par Sunelys démarre à 89 € HT. Le calcul reste lisible dossier par dossier.
+      </p>
     </div>
 
-    <div class="pricing-table" role="table" aria-label="Tableau des offres Sunelys">
-      <div class="pricing-row pricing-row-head" role="row">
-        <div class="pricing-cell pricing-label" role="columnheader">Service</div>
-        <div class="pricing-cell pricing-plan-head" role="columnheader">
-          <strong>Moins de 20 dossiers / mois</strong>
-        </div>
-        <div class="pricing-cell pricing-plan-head" role="columnheader">
-          <strong>21 à 50 dossiers / mois</strong>
-        </div>
-        <div class="pricing-cell pricing-plan-head" role="columnheader">
-          <strong>Plus de 51 dossiers / mois</strong>
-        </div>
-      </div>
-
+    <div class="offer-grid" aria-label="Offres Sunelys">
       {
-        pricingRows.map((row) => (
-          <div class="pricing-row" role="row">
-            <div class="pricing-cell pricing-service" role="rowheader">
-              <strong>{row.service}</strong>
-              <span>{row.scope}</span>
+        pricingOffers.map((offer) => (
+          <article class:list={["offer-card", { "offer-card-highlight": offer.highlighted }]}>
+            <div class="offer-copy">
+              {offer.badge && <p class="offer-badge">{offer.badge}</p>}
+              <h3>{offer.service}</h3>
+              <p>{offer.scope}</p>
             </div>
-            <div class="pricing-cell price-cell" role="cell">{row.lessThan20}</div>
-            <div class="pricing-cell price-cell" role="cell">{row.from21To50}</div>
-            <div class="pricing-cell price-cell" role="cell">{row.moreThan51}</div>
-          </div>
+            <div class="offer-price">
+              <strong>{offer.price}</strong>
+              <span>{offer.note}</span>
+            </div>
+          </article>
         ))
       }
-
-      <div class="pricing-row pricing-row-cta" role="row">
-        <div class="pricing-cell pricing-label" role="rowheader">Cadrage</div>
-        <div class="pricing-cell cta-cell" role="cell">
-          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-moins-20#contact-form" data-track="cta_tarifs_volume" data-track-label="moins de 20 dossiers">
-            Cadrer mon volume
-          </a>
-        </div>
-        <div class="pricing-cell cta-cell" role="cell">
-          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-21-50#contact-form" data-track="cta_tarifs_volume" data-track-label="21 à 50 dossiers">
-            Cadrer mon volume
-          </a>
-        </div>
-        <div class="pricing-cell cta-cell" role="cell">
-          <a class="btn btn-primary btn-accent" href="/contact?source=tarifs-51-plus#contact-form" data-track="cta_tarifs_volume" data-track-label="plus de 51 dossiers">
-            Cadrer mon volume
-          </a>
-        </div>
-      </div>
     </div>
+
+    <ul class="pricing-signals">
+      {pricingSignals.map((item) => <li>{item}</li>)}
+    </ul>
   </section>
+
+  <section class="pricing-table-shell" id="aides-renovation">
+    <div class="table-head">
+      <p class="eyebrow">Aides à la rénovation</p>
+      <h2>MaPrimeRénov' et CEE sécurisés jusqu'au versement.</h2>
+      <p>
+        Un dossier d'aide refusé peut bloquer la prime du client final et fragiliser le chantier.
+        Sunelys monte, dépose et suit les dossiers d'aides pour garder le flux administratif sous contrôle.
+      </p>
+    </div>
+
+    <div class="offer-grid" aria-label="Offres aides à la rénovation Sunelys">
+      {
+        renovationAidOffers.map((offer) => (
+          <article class:list={["offer-card", { "offer-card-highlight": offer.highlighted }]}>
+            <div class="offer-copy">
+              {offer.badge && <p class="offer-badge">{offer.badge}</p>}
+              <h3>{offer.service}</h3>
+              <p>{offer.scope}</p>
+            </div>
+            <div class="offer-price">
+              <strong>{offer.price}</strong>
+              <span>{offer.note}</span>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <ul class="pricing-signals">
+      <li>Prestation de montage et de suivi administratif</li>
+      <li>Versement des primes soumis à la décision de l'ANAH et des obligés CEE</li>
+      <li>Pack disponible lorsque MaPrimeRénov' et CEE sont gérés ensemble sur le même chantier</li>
+    </ul>
+  </section>
+
+  <BlockedDiagnostic
+    source="tarifs_diagnostic_dossiers_bloques"
+    title="Vous hésitez sur le bon périmètre ? Faites cadrer vos dossiers avant de choisir l'offre."
+    text="Indiquez votre volume, le blocage principal et le service concerné. Sunelys vous oriente vers le tarif utile sans empiler les prestations."
+  />
 
   <section class="pricing-note">
     <div>
       <p class="eyebrow">Pack stratégique</p>
       <h2>Chaîne administrative complète</h2>
       <p>
-        Déclaration préalable, raccordement réseau et coordination Consuel peuvent être pilotés ensemble
-        avec un interlocuteur unique et une facturation mensuelle selon le volume réel.
+        Déclaration préalable, raccordement réseau et Consuel peuvent être pilotés ensemble
+        avec un interlocuteur unique, une production sous 48h lorsque les pièces sont complètes
+        et un tarif unitaire fixe par dossier.
       </p>
       <ul class="collaboration-list">
         {collaborationItems.map((item) => <li>{item}</li>)}
@@ -108,13 +170,19 @@ const collaborationItems = [
     </div>
     <div class="note-actions">
       <a class="btn btn-primary btn-accent" href="/contact?source=tarifs#contact-form" data-track="cta_tarifs_primary">
-        Recevoir un cadrage
+        Cadrer un pilotage complet
       </a>
       <a class="btn btn-secondary" href="/tarif-declaration-prealable-photovoltaique" data-track="cta_tarifs_dp_detail">
         Tarif DP détaillé
       </a>
+      <a class="btn btn-secondary" href="/gestion-administrative-photovoltaique" data-track="cta_tarifs_cost_guide">
+        Pilotage complet
+      </a>
       <a class="btn btn-secondary" href="/services" data-track="cta_tarifs_services">
         Voir les services
+      </a>
+      <a class="btn btn-secondary" href="#aides-renovation" data-track="cta_tarifs_aides_renovation">
+        Tarifs MaPrimeRénov' + CEE
       </a>
     </div>
   </section>
@@ -179,69 +247,101 @@ const collaborationItems = [
     margin-bottom: 1rem;
   }
 
-  .pricing-table {
+  .offer-grid {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.72rem;
   }
 
-  .pricing-row {
-    display: grid;
-    grid-template-columns: minmax(220px, 1.05fr) repeat(3, minmax(0, 1fr));
-    gap: 0.72rem;
-  }
-
-  .pricing-cell {
-    min-height: 5.1rem;
+  .offer-card {
+    min-height: 10rem;
     border: 1px solid color-mix(in srgb, var(--line) 82%, white);
     border-radius: 24px;
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
-    padding: 0.95rem;
+    padding: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .offer-card-highlight {
+    background: linear-gradient(165deg, #1b1712, #11100d);
+    border-color: color-mix(in srgb, var(--line) 52%, var(--accent));
+  }
+
+  .offer-copy {
     display: grid;
-    align-content: center;
-    justify-items: start;
+    gap: 0.44rem;
   }
 
-  .pricing-row-head .pricing-cell,
-  .pricing-label {
-    background:
-      radial-gradient(120% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
-      color-mix(in srgb, var(--surface-elevated) 95%, white);
-  }
-
-  .pricing-plan-head strong,
-  .pricing-label,
-  .pricing-service strong,
-  .price-cell {
+  .offer-copy h3 {
+    margin: 0;
     color: var(--text);
+    font-size: clamp(1.1rem, 1.4vw, 1.35rem);
+    line-height: 1.12;
+  }
+
+  .offer-copy p {
+    margin: 0;
+  }
+
+  .offer-card-highlight h3,
+  .offer-card-highlight p,
+  .offer-card-highlight .offer-price strong,
+  .offer-card-highlight .offer-price span {
+    color: #f7f2e8;
+  }
+
+  .offer-card-highlight .offer-copy p,
+  .offer-card-highlight .offer-price span {
+    color: #d9cfbf;
+  }
+
+  .offer-card-highlight .offer-badge {
+    color: var(--text);
+  }
+
+  .offer-badge {
+    width: fit-content;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 72%, white);
+    color: var(--text);
+    padding: 0.28rem 0.64rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .offer-price {
+    min-width: 9.5rem;
+    display: grid;
+    justify-items: end;
+    gap: 0.12rem;
+    color: var(--text);
+  }
+
+  .offer-price strong {
+    font-size: clamp(2.3rem, 4vw, 4rem);
+    line-height: 0.95;
+    white-space: nowrap;
+  }
+
+  .offer-price span {
+    color: var(--text-muted);
     font-weight: 700;
   }
 
-  .pricing-service {
-    gap: 0.35rem;
+  .pricing-signals {
+    margin: 1rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.36rem;
   }
 
-  .pricing-service span {
+  .pricing-signals li {
     color: var(--text-muted);
-    font-size: 0.88rem;
-    line-height: 1.45;
-  }
-
-  .price-cell {
-    font-size: clamp(1rem, 1.2vw, 1.18rem);
-  }
-
-  .pricing-label {
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    font-size: 0.74rem;
-  }
-
-  .pricing-row-cta .pricing-cell {
-    min-height: auto;
-  }
-
-  .cta-cell .btn {
-    width: 100%;
   }
 
   .collaboration-list {
@@ -270,12 +370,17 @@ const collaborationItems = [
   }
 
   @media (max-width: 960px) {
-    .pricing-row {
+    .offer-grid {
       grid-template-columns: 1fr;
     }
 
-    .pricing-cell {
-      min-height: auto;
+    .offer-card {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .offer-price {
+      justify-items: start;
     }
 
     .collaboration-list {

@@ -60,13 +60,28 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       }
     </div>
 
-    <form id="quiz-email-form" class="email-step" action={data.leadForm.action} method="POST" hidden data-reveal-item>
+    <form
+      id="quiz-email-form"
+      class="email-step"
+      action={data.leadForm.action}
+      method="POST"
+      hidden
+      data-reveal-item
+      data-lead-form
+          data-conversion-type="quiz_submit"
+    >
       <input type="hidden" name="_subject" value="Nouveau lead quiz Sunelys" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
       <input type="hidden" name="source_page" value="quiz-homepage" />
       <input type="hidden" name="source" value="quiz-homepage" />
       <input type="hidden" name="volume" id="quiz-volume-field" />
+      <input type="hidden" name="blocked_stage" value="Pilotage global" />
+      <input type="hidden" name="conversion_type" value="quiz_submit" />
+      <input type="hidden" name="lead_stage" value="quiz_email_submitted" />
+      <input type="hidden" name="service_interest" value="Pilotage administratif photovoltaïque" />
+      <input type="hidden" name="lead_source_detail" value="homepage_quiz" />
+      <input type="hidden" name="qualification_hint" value="email professionnel, volume mensuel déclaré et besoin de pilotage global" />
       <input type="hidden" name="lead_status" value="Nouveau lead" />
       <input type="hidden" name="lead_pipeline" value="Site web - Quiz volume" />
       <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -228,13 +243,19 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
             volume: selectedQuizVolume,
             label: "Quiz email capture",
             source: "quiz-homepage",
+            conversion_type: "quiz_submit",
+            lead_stage: "quiz_email_submitted",
+            service_interest: "Pilotage administratif photovoltaïque",
           });
 
-          window.trackEvent("generate_lead", {
+          window.trackEvent("lead_converted", {
             category: "lead",
             volume: selectedQuizVolume,
             label: "Quiz email capture",
             source: "quiz-homepage",
+            conversion_type: "quiz_submit",
+            lead_stage: "lead_confirmed",
+            service_interest: "Pilotage administratif photovoltaïque",
           });
         }
 

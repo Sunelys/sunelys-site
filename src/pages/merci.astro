@@ -55,10 +55,17 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     checklistDelivery.hidden = false;
   }
 
-  window.trackEvent?.("generate_lead", {
+  window.trackEvent?.("lead_converted", {
     category: "lead",
     label: source,
     source,
+    conversion_type: source.toLowerCase().includes("checklist")
+      ? "checklist_download"
+      : "form_contact",
+    lead_stage: "lead_confirmed",
+    ...(source.toLowerCase().includes("checklist")
+      ? { service_interest: "Déclaration préalable panneaux solaires" }
+      : { service_interest: "Pilotage administratif photovoltaïque" }),
   });
 </script>
 

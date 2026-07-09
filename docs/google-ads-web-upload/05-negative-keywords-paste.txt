@@ -1,0 +1,25 @@
+# Paste these negative keywords before enabling campaigns.
+# Google Ads path: Campaigns > Audiences, keywords and content > Search keywords > Negative keywords.
+# One keyword per line:
+
+particulier
+aide panneau solaire
+prime panneau solaire
+ma prime renov
+gratuit pdf
+cerfa pdf
+schema gratuit
+forum
+avis particulier
+emploi
+recrutement
+formation
+stage
+salaire
+bricolage
+kit solaire
+batterie solaire
+panneau solaire prix particulier
+simulateur
+modele gratuit
+exemple gratuit

@@ -1,0 +1,4 @@
+Campaign,Campaign type,Networks,Campaign status,Campaign daily budget,Bid strategy type,Language targeting,Location,Final URL suffix,Comment
+Search - Pilotage admin PV,Search,Google Search,Paused,4,Manual CPC,fr,France,utm_source=google&utm_medium=cpc&utm_campaign=search_pilotage_admin_pv&utm_content={creative}&utm_term={keyword},Launch split from 10 daily total. Keep paused until conversion tracking is confirmed.
+Search - Sous-traitance DP,Search,Google Search,Paused,3,Manual CPC,fr,France,utm_source=google&utm_medium=cpc&utm_campaign=search_sous_traitance_dp&utm_content={creative}&utm_term={keyword},Launch split from 10 daily total. Keep paused until conversion tracking is confirmed.
+Search - Consuel Raccordement,Search,Google Search,Paused,3,Manual CPC,fr,France,utm_source=google&utm_medium=cpc&utm_campaign=search_consuel_raccordement&utm_content={creative}&utm_term={keyword},Launch split from 10 daily total. Keep paused until conversion tracking is confirmed.

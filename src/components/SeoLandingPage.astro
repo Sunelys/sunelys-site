@@ -1,5 +1,6 @@
 ---
 import LeadMagnetChecklist from "./LeadMagnetChecklist.astro";
+import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 
 interface ProblemItem {
   title: string;
@@ -22,7 +23,18 @@ interface InternalLink {
   label: string;
 }
 
+interface GuideLink {
+  href: string;
+  label: string;
+  description: string;
+}
+
 interface DetailBlock {
+  title: string;
+  text: string;
+}
+
+interface UseCaseItem {
   title: string;
   text: string;
 }
@@ -43,6 +55,7 @@ interface SeoPageContent {
   problemTitle: string;
   problemIntro: string;
   problemItems: ProblemItem[];
+  useCaseItems?: UseCaseItem[];
   scopeItems: string[];
   detailBlocks?: DetailBlock[];
   processSteps: string[];
@@ -53,6 +66,7 @@ interface SeoPageContent {
   faqItems: FaqItem[];
   finalTitle: string;
   finalText: string;
+  guideLinks?: GuideLink[];
   internalLinks: InternalLink[];
 }
 
@@ -68,6 +82,41 @@ const heroBadges = [
   "Pour installateurs photovoltaïques",
   "DP · Consuel · Raccordement",
   "Cadrage de flux en 15 minutes",
+];
+
+const serviceInterestBySlug: Record<string, string> = {
+  gestion_administrative: "Pilotage complet DP, Consuel et raccordement",
+  consuel_photovoltaique: "Dossier Consuel photovoltaïque",
+  raccordement_enedis: "Raccordement Enedis photovoltaïque",
+  declaration_prealable: "Déclaration préalable panneaux solaires",
+  sous_traitance_declaration_prealable: "Sous-traitance déclaration préalable solaire",
+  tarif_declaration_prealable: "Tarif déclaration préalable photovoltaïque",
+};
+
+const serviceInterest = serviceInterestBySlug[data.slug] || data.heroTitle;
+const isGestionLanding = data.slug === "gestion_administrative";
+const heroSecondaryCta = isGestionLanding
+  ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
+  : { label: "Voir les services", href: "/services" };
+const heroPrimaryLabel = isGestionLanding ? "Recevoir un cadrage pilotage complet" : "Recevoir un cadrage";
+const delegationLabel = isGestionLanding ? "Démarrer votre pilotage complet" : "Faire le point sur mes flux";
+const diagnosticPrimaryLabel = isGestionLanding ? "Demander un cadrage pilotage complet" : "Demander un diagnostic";
+const diagnosticSecondaryLabel = isGestionLanding ? "Voir les offres pilotage complet" : "Voir les offres";
+const finalSubmitLabel = isGestionLanding ? "Recevoir mon cadrage de pilotage complet" : "Recevoir un cadrage";
+
+const diagnosticItems = [
+  {
+    title: "Volume et sources",
+    text: "Identifier d'où viennent les demandes, combien de dossiers arrivent chaque mois et quelles pages génèrent les leads utiles.",
+  },
+  {
+    title: "Blocages réels",
+    text: "Séparer les irritants DP, Consuel, raccordement, relances client et suivi interne pour prioriser sans tout déléguer d'un coup.",
+  },
+  {
+    title: "Plan d'action",
+    text: "Définir le premier périmètre à confier, les statuts à suivre et les indicateurs qui diront si la délégation crée vraiment du revenu.",
+  },
 ];
 
 const outcomeItems = [
@@ -94,6 +143,8 @@ const showDpLeadMagnet =
   data.slug.includes("declaration") ||
   data.slug.includes("prealable") ||
   data.slug === "tarif_declaration_prealable";
+const visibleInternalLinks = filterVisibleLinks(data.internalLinks, publicBlogSlugs);
+const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 ---
 
 <section class="seo-section seo-hero section-shell reveal">
@@ -109,10 +160,10 @@ const showDpLeadMagnet =
 
       <div class="hero-actions">
         <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
-          Recevoir un cadrage
+          {heroPrimaryLabel}
         </a>
-        <a class="btn btn-secondary" href="/services" data-track={`cta_${data.slug}_hero_services`}>
-          Voir les services
+        <a class="btn btn-secondary" href={heroSecondaryCta.href} data-track={`cta_${data.slug}_hero_services`}>
+          {heroSecondaryCta.label}
         </a>
       </div>
     </div>
@@ -121,12 +172,23 @@ const showDpLeadMagnet =
       <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
         <p class="kicker">Cadrage rapide</p>
         <h2>Recevez une première lecture de votre flux sous 24h.</h2>
-        <form class="hero-service-form" action={leadFormAction} method="POST">
+        <form
+          class="hero-service-form"
+          action={leadFormAction}
+          method="POST"
+          data-lead-form
+          data-conversion-type="form_contact"
+        >
           <input type="hidden" name="_subject" value={`Nouveau cadrage service hero - ${data.heroTitle}`} />
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_next" value={successUrl} />
           <input type="hidden" name="source_page" value={`${data.slug}_hero`} />
+          <input type="hidden" name="conversion_type" value="form_contact" />
+          <input type="hidden" name="lead_stage" value="service_hero_form_submitted" />
+          <input type="hidden" name="service_interest" value={serviceInterest} />
+          <input type="hidden" name="lead_source_detail" value={`${data.slug}_hero_form`} />
+          <input type="hidden" name="qualification_hint" value="email professionnel, volume mensuel et étape bloquée" />
           <input type="hidden" name="lead_status" value="Nouveau lead" />
           <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
           <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -146,6 +208,21 @@ const showDpLeadMagnet =
               <option value="1-10 dossiers">1-10 dossiers</option>
               <option value="10-30 dossiers">10-30 dossiers</option>
               <option value="+30 dossiers">+30 dossiers</option>
+            </select>
+          </label>
+          <label>
+            <span>Étape bloquée</span>
+            <select name="blocked_stage" required>
+              <option value="">Sélectionner</option>
+              <option value="Avant dépôt">Avant dépôt</option>
+              <option value="Complément mairie">Complément mairie</option>
+              <option value="Consuel à préparer">Consuel à préparer</option>
+              <option value="Raccordement en attente">Raccordement en attente</option>
+              <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+              <option value="Prime à suivre">Prime à suivre</option>
+              <option value="Mise en service bloquée">Mise en service bloquée</option>
+              <option value="Pilotage global">Pilotage global</option>
+              <option value="Je ne sais pas encore">Je ne sais pas encore</option>
             </select>
           </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
@@ -198,6 +275,32 @@ const showDpLeadMagnet =
     }
   </div>
 </section>
+
+{
+  data.useCaseItems && data.useCaseItems.length > 0 && (
+    <section class="seo-section seo-use-cases section-shell reveal">
+      <div class="split-head">
+        <div>
+          <p class="kicker">Cas d'usage</p>
+          <h2>Les situations où Sunelys accélère vos DP</h2>
+        </div>
+        <p>
+          Chaque installateur n'a pas le même volume ni les mêmes blocages. La prise en charge
+          s'adapte au flux réel: dossiers récurrents, reprises après complément ou coordination
+          entre plusieurs interlocuteurs.
+        </p>
+      </div>
+      <div class="use-case-grid">
+        {data.useCaseItems.map((item) => (
+          <article class="use-case-card">
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
 
 <section class="seo-section seo-scope section-shell reveal">
   <div class="split-head">
@@ -260,9 +363,9 @@ const showDpLeadMagnet =
   <div class="signal-grid">
     {data.signalItems.map((signal) => <p>{signal}</p>)}
   </div>
-  <a class="btn btn-secondary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_delegation`}>
-    Faire le point sur mes flux
-  </a>
+      <a class="btn btn-secondary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_delegation`}>
+        {delegationLabel}
+      </a>
 </section>
 
 <section class="seo-section seo-case section-shell reveal">
@@ -275,6 +378,41 @@ const showDpLeadMagnet =
     <ul>
       {data.caseStudy.results.map((result) => <li>{result}</li>)}
     </ul>
+  </div>
+</section>
+
+<section class="seo-section seo-diagnostic section-shell reveal">
+  <div class="split-head">
+    <div>
+      <p class="kicker">Diagnostic installateur</p>
+      <h2>Savoir quoi déléguer avant de changer votre organisation</h2>
+    </div>
+    <p>
+      Le premier échange sert à relier vos pages d'entrée, vos demandes commerciales et vos dossiers signés.
+      L'objectif est de repérer le périmètre le plus rentable à traiter en premier.
+    </p>
+  </div>
+
+  <div class="diagnostic-grid">
+    {diagnosticItems.map((item) => (
+      <article class="diagnostic-card">
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="diagnostic-actions">
+      <a
+        class="btn btn-primary btn-accent"
+        href={`/contact?source=${data.slug}_diagnostic#contact-form`}
+        data-track={`cta_${data.slug}_diagnostic`}
+      >
+        {diagnosticPrimaryLabel}
+      </a>
+      <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_diagnostic_tarifs`}>
+        {diagnosticSecondaryLabel}
+      </a>
   </div>
 </section>
 
@@ -296,9 +434,9 @@ const showDpLeadMagnet =
 <section class="seo-section seo-links section-shell reveal">
   <p class="kicker">À lire aussi</p>
   <h2>Explorer les autres démarches</h2>
-  <div class="links-grid">
+      <div class="links-grid">
     {
-      data.internalLinks.map((link) => (
+      visibleInternalLinks.map((link) => (
         <a class="link-pill" href={link.href} data-track={`link_${data.slug}_${link.href}`}>
           {link.label}
         </a>
@@ -307,15 +445,43 @@ const showDpLeadMagnet =
   </div>
 </section>
 
+{
+  visibleGuideLinks.length > 0 && (
+    <section class="seo-section seo-guides section-shell reveal">
+      <p class="kicker">Guides associés</p>
+      <h2>Approfondir ce sujet</h2>
+      <div class="guide-grid">
+        {visibleGuideLinks.map((link) => (
+          <a class="guide-link" href={link.href} data-track={`guide_${data.slug}_${link.href}`}>
+            <span>{link.label}</span>
+            <small>{link.description}</small>
+          </a>
+        ))}
+      </div>
+    </section>
+  )
+}
+
 <section class="seo-section seo-final section-shell reveal">
   <h2>{data.finalTitle}</h2>
   <p>{data.finalText}</p>
-  <form class="service-lead-form" action={leadFormAction} method="POST">
+  <form
+    class="service-lead-form"
+    action={leadFormAction}
+    method="POST"
+    data-lead-form
+    data-conversion-type="form_contact"
+  >
     <input type="hidden" name="_subject" value={`Nouveau cadrage service - ${data.heroTitle}`} />
     <input type="hidden" name="_captcha" value="false" />
     <input type="hidden" name="_template" value="table" />
     <input type="hidden" name="_next" value={successUrl} />
     <input type="hidden" name="source_page" value={data.slug} />
+    <input type="hidden" name="conversion_type" value="form_contact" />
+    <input type="hidden" name="lead_stage" value="service_final_form_submitted" />
+    <input type="hidden" name="service_interest" value={serviceInterest} />
+    <input type="hidden" name="lead_source_detail" value={`${data.slug}_final_form`} />
+    <input type="hidden" name="qualification_hint" value="prenom, email professionnel, volume mensuel et étape bloquée" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Page service" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -341,8 +507,23 @@ const showDpLeadMagnet =
         <option value="+30 dossiers">+30 dossiers</option>
       </select>
     </label>
+    <label>
+      <span>Étape bloquée</span>
+      <select name="blocked_stage" required>
+        <option value="">Sélectionner</option>
+        <option value="Avant dépôt">Avant dépôt</option>
+        <option value="Complément mairie">Complément mairie</option>
+        <option value="Consuel à préparer">Consuel à préparer</option>
+        <option value="Raccordement en attente">Raccordement en attente</option>
+        <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+        <option value="Prime à suivre">Prime à suivre</option>
+        <option value="Mise en service bloquée">Mise en service bloquée</option>
+        <option value="Pilotage global">Pilotage global</option>
+        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+    </label>
     <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
-      Recevoir un cadrage
+      {finalSubmitLabel}
     </button>
     <small>Réponse sous 24h • Sans engagement</small>
   </form>
@@ -590,7 +771,9 @@ const showDpLeadMagnet =
   .problem-grid,
   .details-grid,
   .faq-grid,
-  .signal-grid {
+  .signal-grid,
+  .use-case-grid,
+  .diagnostic-grid {
     margin-top: 0.9rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -600,7 +783,9 @@ const showDpLeadMagnet =
   .problem-card,
   .detail-card,
   .faq-card,
+  .diagnostic-card,
   .scope-panel,
+  .use-case-card,
   .signal-grid p {
     border: 1px solid color-mix(in srgb, var(--line) 84%, white);
     border-radius: calc(var(--radius-md) - 4px);
@@ -612,6 +797,18 @@ const showDpLeadMagnet =
 
   .seo-details h2 {
     max-width: 22ch;
+  }
+
+  .seo-use-cases {
+    background: color-mix(in srgb, var(--surface-elevated) 82%, white);
+  }
+
+  .use-case-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .use-case-card {
+    align-content: start;
   }
 
   .details-grid {
@@ -703,6 +900,35 @@ const showDpLeadMagnet =
     margin-top: 1rem;
   }
 
+  .seo-diagnostic {
+    background:
+      radial-gradient(
+        100% 120% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 48%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(
+        170deg,
+        color-mix(in srgb, var(--surface-elevated) 94%, white),
+        var(--surface)
+      );
+  }
+
+  .diagnostic-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .diagnostic-card {
+    align-content: start;
+  }
+
+  .diagnostic-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.62rem;
+  }
+
   .volume {
     margin-top: 0.74rem;
     color: var(--text);
@@ -726,6 +952,45 @@ const showDpLeadMagnet =
     transform: translateY(-2px);
     box-shadow: var(--shadow-sm);
     border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+  }
+
+  .guide-grid {
+    margin-top: 0.9rem;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .guide-link {
+    min-height: 7.2rem;
+    display: grid;
+    align-content: start;
+    gap: 0.34rem;
+    padding: 0.92rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: calc(var(--radius-md) - 4px);
+    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
+    color: var(--text);
+    text-decoration: none;
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+
+  .guide-link:hover,
+  .guide-link:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+  }
+
+  .guide-link span {
+    font-weight: 800;
+    line-height: 1.24;
+  }
+
+  .guide-link small {
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    line-height: 1.45;
   }
 
   .seo-final {
@@ -758,9 +1023,9 @@ const showDpLeadMagnet =
 
   .service-lead-form {
     margin: 1rem auto 0;
-    max-width: 860px;
+    max-width: 1040px;
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) auto;
+    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
     gap: 0.62rem;
     align-items: end;
   }
@@ -808,14 +1073,18 @@ const showDpLeadMagnet =
     .details-grid,
     .faq-grid,
     .signal-grid,
+    .use-case-grid,
+    .diagnostic-grid,
     .scope-layout,
     .case-layout,
     .split-head,
+    .guide-grid,
     .hero-layout {
       grid-template-columns: 1fr;
     }
 
     .hero-actions .btn,
+    .diagnostic-actions .btn,
     .seo-delegation .btn,
     .seo-final .btn {
       width: 100%;

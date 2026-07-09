@@ -1,4 +1,4 @@
-# Sunelys Website (Astro 5)
+# Sunelys Website (Astro 7)
 
 Landing page Sunelys orientée conversion B2B, avec direction artistique premium (luxe minimaliste + SaaS haut de gamme).
 
@@ -77,9 +77,11 @@ Tout est dans `src/data/home.ts`:
 - Articles Markdown: `src/content/blog/*.md`
 - Carte article: `src/components/blog/BlogCard.astro`
 - Chaque article doit inclure `slug`, `title`, `seoTitle`, `description`, `pubDate`, `category`, `readingTime` et `keywords` dans le frontmatter.
-- Les articles sont automatiquement ajoutés au sitemap via `src/pages/sitemap.xml.ts`.
+- Champs recommandés: `updatedDate`, `coverImage`, `coverAlt`, `ogImage`, `primaryServiceHref`, `relatedLinks`.
+- Les articles sont automatiquement ajoutés au sitemap via `src/pages/sitemap.xml.ts` avec `lastmod` depuis `updatedDate` ou `pubDate`.
 
-- Images blog: `coverImage` et `coverAlt` dans le frontmatter des articles
+- Images blog visibles: `coverImage` et `coverAlt` dans le frontmatter des articles
+- Images de partage social: `ogImage` en 1200 x 630 px dans `public/images/og/`
 - Composant image réutilisable: `src/components/MediaFrame.astro`
 - Chaque article doit utiliser un visuel spécifique dans `public/images/blog/` ou une capture réelle dédiée.
 
@@ -100,9 +102,11 @@ Rythme recommandé: 2 brouillons par semaine, validation humaine avant publicati
 ## SEO / Tracking
 - SEO global: `BaseLayout` (meta, canonical, OG, Twitter, Organization/WebSite JSON-LD)
 - SEO home: `index.astro` (`Service` + `FAQPage` JSON-LD)
-- Tracking centralise: attributs `data-track` + `window.trackEvent`
-- Sorties tracking supportees: `dataLayer` (GTM), GA4 via `gtag`, Matomo via `_paq`
-- Evenements couverts: clics CTA, telephone, email, quiz, clic estimation, soumission formulaire contact
+- SEO articles: `BlogPosting` + auteur `Person`, encart auteur, lead magnet checklist et liens internes.
+- SEO pages services: `Service`, `FAQPage`, breadcrumbs et guides associés.
+- Tracking centralisé: attributs `data-track` + `window.trackEvent`
+- Sorties tracking supportées: `dataLayer` (GTM), GA4 via `gtag`, Matomo via `_paq`
+- Événements couverts: clics CTA, téléphone, email, Calendly, quiz, checklist, soumissions formulaires et `lead_converted`.
 
 ### Activer GA4
 Dans Vercel > Project Settings > Environment Variables, ajouter:
@@ -133,30 +137,47 @@ LEAD_ALERT_WEBHOOK_URL=https://votre-webhook.example.com/leads-alert
 ```
 Le formulaire continue d'utiliser Airtable comme destination principale. Cette URL sert uniquement de filet de securite en cas d'erreur Airtable.
 
+### Reporting leads qualifies
+`npm run marketing:audit` lit aussi Airtable en lecture pour produire un bloc `Lead quality reporting` dans `reports/marketing-agent/latest.md`.
+Le rapport agrège uniquement des données non personnelles: landing page, canal, service demandé, type de conversion, volume, score qualité et trous de qualification.
+
+Variables utiles:
+```bash
+AIRTABLE_LEADS_VIEW=Leads qualifiés
+MARKETING_LEADS_MAX_RECORDS=5000
+```
+`AIRTABLE_LEADS_VIEW` est optionnel. Sans vue dédiée, l'agent lit la table configurée dans `AIRTABLE_LEADS_TABLE`.
+
 ### Champs Airtable optionnels
 L'API envoie toujours le nom et l'email. Les autres champs ne sont transmis que si la variable d'environnement indique le nom exact de la colonne Airtable:
 ```bash
-AIRTABLE_FIELD_COMPANY=Societe
-AIRTABLE_FIELD_PHONE=Telephone
-AIRTABLE_FIELD_VOLUME=Volume
-AIRTABLE_FIELD_NEED=Besoin
-AIRTABLE_FIELD_MESSAGE=Message
+AIRTABLE_FIELD_COMPANY=Société
+AIRTABLE_FIELD_PHONE=Téléphone
+AIRTABLE_FIELD_VOLUME=Volume dossiers/mois
+AIRTABLE_FIELD_NEED=Besoin principal
+AIRTABLE_FIELD_MESSAGE=Commentaire
+AIRTABLE_FIELD_CONVERSION_TYPE=
+AIRTABLE_FIELD_LEAD_STAGE=
+AIRTABLE_FIELD_SERVICE_INTEREST=
+AIRTABLE_FIELD_LEAD_SOURCE_DETAIL=
+AIRTABLE_FIELD_QUALIFICATION_HINT=
 AIRTABLE_FIELD_STATUS=Statut
-AIRTABLE_FIELD_PIPELINE=Pipeline
-AIRTABLE_FIELD_OWNER=Responsable
-AIRTABLE_FIELD_FOLLOW_UP_SLA=SLA relance
+AIRTABLE_FIELD_PIPELINE=
+AIRTABLE_FIELD_OWNER=
+AIRTABLE_FIELD_FOLLOW_UP_SLA=
 AIRTABLE_FIELD_SOURCE=Source
-AIRTABLE_FIELD_FIRST_REFERRER=Premier referrer
+AIRTABLE_FIELD_FIRST_REFERRER=
 AIRTABLE_FIELD_LANDING_PAGE=Landing page
 AIRTABLE_FIELD_UTM_SOURCE=UTM source
 AIRTABLE_FIELD_UTM_MEDIUM=UTM medium
 AIRTABLE_FIELD_UTM_CAMPAIGN=UTM campaign
-AIRTABLE_FIELD_UTM_TERM=UTM term
-AIRTABLE_FIELD_UTM_CONTENT=UTM content
-AIRTABLE_FIELD_GCLID=GCLID
-AIRTABLE_FIELD_FBCLID=FBCLID
-AIRTABLE_FIELD_MSCLKID=MSCLKID
+AIRTABLE_FIELD_UTM_TERM=
+AIRTABLE_FIELD_UTM_CONTENT=
+AIRTABLE_FIELD_GCLID=
+AIRTABLE_FIELD_FBCLID=
+AIRTABLE_FIELD_MSCLKID=
 ```
+L'API normalise les valeurs envoyées vers les listes Airtable existantes: `DP`, `Consuel`, `Raccordement`, `Gestion admin`, `Pilotage complet`, ainsi que les volumes `1-10`, `10-30`, `+30`.
 
 ### Nommage des evenements
 Les evenements envoyes reprennent les valeurs `data-track` dans le code, par exemple:
@@ -165,7 +186,53 @@ Les evenements envoyes reprennent les valeurs `data-track` dans le code, par exe
 - `quiz_volume_selected`
 - `contact_form_submit`
 
-Le payload inclut quand disponible: page, label, href, source, volume, besoin, UTM, referrer et landing page.
+Les evenements normalises a suivre en priorite sont:
+- `lead_converted`: conversion primaire sur confirmation de demande.
+  - `conversion_type` recommandé: `form_contact`, `booking`, `phone_click`, `email_click`, `checklist_download`, `quiz_submit`.
+- `lead_form_submit`: envoi d'un formulaire de lead.
+- `contact_form_submit`: formulaire contact principal.
+- `booking_click`: clic vers le calendrier.
+- `phone_click`: appel depuis le site.
+- `blog_to_service_click`: passage d'un article vers une page business.
+
+Le payload inclut quand disponible: page, label, href, source, volume, besoin, type de conversion, etape lead, service interesse, UTM, referrer et landing page.
+
+## Agent marketing IA
+
+Un agent local est disponible pour auditer le site comme un directeur marketing: SEO, contenus, maillage, tracking, opportunites Search Console/GA4 et recommandations priorisees.
+
+```bash
+npm run marketing:audit
+npm run marketing:audit:no-ai
+npm run marketing:apply
+npm run marketing:google:auth
+npm run marketing:google:test
+npm run marketing:leads:test
+npm run marketing:pulse
+npm run marketing:pulse:watch
+```
+
+- `marketing:audit` genere un rapport dans `reports/marketing-agent/`.
+- `marketing:audit:no-ai` force l'audit sans OpenAI.
+- `marketing:apply` applique uniquement des corrections deterministes et prudentes.
+- `marketing:google:auth` connecte le compte Google en OAuth local.
+- `marketing:google:test` verifie les acces directs GA4 et Search Console.
+- `marketing:leads:test` verifie la connexion Airtable leads sans afficher de donnees personnelles.
+- `marketing:pulse:watch` lance l’audit en continu avec une fréquence par défaut de 360 min et un seuil d’alerte P0 à 2.
+
+Configuration detaillee: `docs/marketing-agent.md`.
+
+Variables optionnelles principales:
+```bash
+OPENAI_API_KEY=
+MARKETING_AGENT_MODEL=gpt-5.5
+GOOGLE_APPLICATION_CREDENTIALS=
+GA4_PROPERTY_ID=
+GOOGLE_SEARCH_CONSOLE_SITE_URL=https://sunelys.fr/
+MARKETING_PULSE_MAX_P0=0          # alertes si plus de 0 priorité P0
+MARKETING_PULSE_INTERVAL_MINUTES=360 # fréquence watch en minutes
+MARKETING_PULSE_WEBHOOK=           # webhook Slack/Notion/Make, optionnel
+```
 
 ## Commandes
 ```bash
@@ -180,9 +247,9 @@ npm run build
 ```bash
 node -v
 ```
-La version attendue est `v20.20.0` (fichier `.nvmrc`).
+La version attendue est `v22.23.0` en local (fichier `.nvmrc`). Le projet demande Node `>=22.12.0 <23`.
 
-2. Recharger Node 20 puis relancer:
+2. Recharger Node 22 puis relancer:
 ```bash
 nvm use
 npm run build
@@ -194,6 +261,7 @@ npm run build
 
 4. Si blocage local persistant:
 - arrêter le serveur dev en cours avec `Ctrl + C`
+- avec Astro 7, si le serveur tourne en arrière-plan: `npm exec -- astro dev stop`
 - relancer `npm run dev`
 - valider avec `npm run build:ci`
 - si besoin, valider la build via Vercel (environnement propre)

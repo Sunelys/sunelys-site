@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import Hero from "../components/Hero.astro";
 import AudienceSection from "../components/AudienceSection.astro";
 import TrustSection from "../components/TrustSection.astro";
@@ -69,6 +70,11 @@ const structuredData = [
   <Hero data={heroData} />
   <TrustSection data={trustSectionData} />
   <AudienceSection data={audienceSectionData} />
+  <BlockedDiagnostic
+    source="homepage_diagnostic_dossiers_bloques"
+    title="Vos dossiers bloquent quelque part ? Faites diagnostiquer le bon premier périmètre."
+    text="Le diagnostic relie votre volume, vos blocages DP/Consuel/raccordement et l'offre Sunelys la plus utile pour créer des leads mieux qualifiés."
+  />
   <PortalSection data={portalSectionData} />
   <MiniQuiz data={quizSectionData} />
   <LeadMagnetChecklist source="homepage_checklist_dp_inline" />

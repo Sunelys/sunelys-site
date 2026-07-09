@@ -3,6 +3,12 @@ export interface FaqItem {
   answer: string;
 }
 
+export interface GuideLink {
+  href: string;
+  label: string;
+  description: string;
+}
+
 export interface SeoPageData {
   slug: string;
   metaTitle: string;
@@ -21,6 +27,7 @@ export interface SeoPageData {
   problemTitle: string;
   problemIntro: string;
   problemItems: Array<{ title: string; text: string }>;
+  useCaseItems?: Array<{ title: string; text: string }>;
   scopeItems: string[];
   detailBlocks?: Array<{ title: string; text: string }>;
   processSteps: string[];
@@ -35,18 +42,19 @@ export interface SeoPageData {
   faqItems: FaqItem[];
   finalTitle: string;
   finalText: string;
+  guideLinks?: GuideLink[];
   internalLinks: Array<{ href: string; label: string }>;
 }
 
 export const seoPages: Record<string, SeoPageData> = {
   gestionAdministrative: {
     slug: "gestion_administrative",
-    metaTitle: "Gestion administrative photovoltaïque pour installateurs | Sunelys",
+    metaTitle: "Pilotage administratif photovoltaïque externalisé",
     metaDescription:
-      "Externalisez votre gestion administrative photovoltaïque avec Sunelys: constitution de dossier, vérification des pièces, suivi des démarches et coordination opérationnelle.",
-    heroTitle: "Gestion administrative photovoltaïque pour installateurs",
+      "Externalisez DP, Consuel, raccordement photovoltaïque, MaPrimeRénov' et CEE avec Sunelys: interlocuteur unique, production sous 48h et suivi clair.",
+    heroTitle: "Pilotage administratif photovoltaïque pour installateurs",
     heroSubtitle:
-      "Sunelys structure l'ensemble du parcours administratif solaire pour réduire la charge interne, fiabiliser les dossiers et accélérer les installations.",
+      "Sunelys pilote vos démarches DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE dans un flux unique pour sécuriser votre croissance sans recruter.",
     fitTitle: "Quand vos équipes passent plus de temps à suivre les dossiers qu'à produire.",
     fitIntro:
       "Cette page parle aux installateurs qui veulent retrouver un pilotage propre sans continuer à faire absorber l'administratif par les commerciaux et les conducteurs de travaux.",
@@ -61,9 +69,9 @@ export const seoPages: Record<string, SeoPageData> = {
       author: "Victorion Brice",
       role: "gérant de Be Travaux",
       highlights: [
-        "Délais mieux tenus sur les flux administratifs",
-        "Suivi plus lisible pour les équipes",
-        "Lancements chantier accélérés",
+        "96 % de DP sans pièce complémentaire",
+        "Production sous 48h lorsque le dossier est complet",
+        "1 357 dossiers pilotés",
       ],
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
@@ -88,17 +96,32 @@ export const seoPages: Record<string, SeoPageData> = {
       },
     ],
     scopeItems: [
-      "Constitution des dossiers administratifs photovoltaïques",
-      "Vérification des pièces techniques et réglementaires",
-      "Échanges administratifs avec les organismes concernés",
-      "Suivi des étapes et relances prioritaires",
-      "Coordination avec les acteurs du dossier jusqu'à validation",
+      "Déclaration préalable complète: pièces, dépôt mairie et suivi jusqu'à validation",
+      "Raccordement réseau et dossier Consuel dans un flux coordonné",
+      "MaPrimeRénov' et CEE montés et suivis jusqu'à validation",
+      "Interlocuteur unique pour centraliser les échanges et les relances",
+      "Production sous 48h lorsque les éléments techniques sont complets",
+      "Suivi en temps réel des statuts, blocages et validations",
+    ],
+    detailBlocks: [
+      {
+        title: "Chaîne administrative complète",
+        text: "Sunelys peut piloter DP, raccordement, Consuel, MaPrimeRénov' et CEE dans le même parcours. Cette approche évite de disperser les échanges entre plusieurs interlocuteurs et permet de garder une lecture claire du statut de chaque dossier.",
+      },
+      {
+        title: "Garantie zéro pièce complémentaire",
+        text: "Les dossiers DP complets sont préparés pour limiter les demandes de complément. Si une pièce complémentaire est réclamée du fait d'un oubli ou d'une erreur Sunelys sur la formule complète, elle est traitée sans frais selon les conditions de l'offre.",
+      },
+      {
+        title: "Tarif au dossier",
+        text: "La chaîne administrative complète est proposée à 199 EUR HT par dossier. Le prix unitaire est fixe et la facturation mensuelle se base sur les dossiers réellement traités.",
+      },
     ],
     processSteps: [
-      "Brief dossier",
-      "Constitution administrative",
-      "Dépôt et suivi",
-      "Validation finale",
+      "Transmission des éléments techniques",
+      "Production du dossier sous 48h si complet",
+      "Dépôt, suivi et relances",
+      "Validation et suivi en temps réel",
     ],
     signalTitle: "Les signaux qui montrent que l'administratif freine déjà votre croissance",
     signalIntro:
@@ -109,12 +132,12 @@ export const seoPages: Record<string, SeoPageData> = {
       "Le volume augmente, mais le pilotage reste artisanal entre tableaux, emails et portails.",
     ],
     caseStudy: {
-      title: "Installateur régional",
-      volume: "30 dossiers / mois",
+      title: "Flux installateur",
+      volume: "1 357 dossiers pilotés",
       results: [
-        "Réduction du temps administratif mobilisé en interne",
-        "Meilleure visibilité sur l'avancement de chaque dossier",
-        "Moins de retours administratifs et de blocages",
+        "Production administrative structurée sans recrutement dédié",
+        "Meilleure visibilité sur chaque étape DP, Consuel et Enedis",
+        "Moins de charge mentale pour les équipes commerciales et travaux",
       ],
     },
     faqItems: [
@@ -134,6 +157,16 @@ export const seoPages: Record<string, SeoPageData> = {
           "Oui. La méthode Sunelys est pensée pour des flux réguliers et pour des organisations multi-agences.",
       },
       {
+        question: "Quel est le tarif du pilotage complet ?",
+        answer:
+          "La chaîne administrative complète DP, raccordement et Consuel est proposée à 199 EUR HT par dossier, avec un prix unitaire fixe.",
+      },
+      {
+        question: "Que couvre la garantie zéro pièce complémentaire ?",
+        answer:
+          "Elle concerne la formule DP complète avec dépôt et suivi assurés par Sunelys. Si un complément vient d'un oubli ou d'une erreur Sunelys, il est traité sans frais selon les conditions de l'offre.",
+      },
+      {
         question: "Quels bénéfices concrets pour un installateur ?",
         answer:
           "Moins de charge interne, des dossiers mieux cadrés, une meilleure maîtrise des délais et une expérience client plus fluide.",
@@ -144,21 +177,62 @@ export const seoPages: Record<string, SeoPageData> = {
           "Un échange de cadrage permet d'analyser vos flux administratifs et de définir le niveau de prise en charge adapté.",
       },
     ],
-    finalTitle: "Externalisez l'administratif photovoltaïque.",
+    finalTitle: "Externalisez votre pilotage administratif complet.",
     finalText:
-      "Recevez un cadrage gratuit pour identifier vos points de friction, votre volume et le périmètre à déléguer en priorité.",
+      "Recevez un cadrage de pilotage complet pour identifier vos points de friction, votre volume et le périmètre à déléguer en priorité.",
+    guideLinks: [
+      {
+        href: "/blog/externaliser-administratif-photovoltaique",
+        label: "Externaliser l'administratif PV",
+        description: "Choisir quoi déléguer, quand le faire et comment garder la maîtrise.",
+      },
+      {
+        href: "/blog/gerer-soi-meme-ou-deleguer-administratif-solaire",
+        label: "Gérer ou déléguer ?",
+        description: "Comparer gestion interne, délégation et coût caché des dossiers.",
+      },
+      {
+        href: "/blog/cout-gestion-administrative-photovoltaique",
+        label: "Coût gestion administrative PV",
+        description: "Comparer tarifs externalisés, coût interne et ROI opérationnel.",
+      },
+      {
+        href: "/blog/sous-traiter-declaration-prealable-photovoltaique",
+        label: "Sous-traiter ses DP PV",
+        description: "Déléguer les déclarations préalables sans perdre la maîtrise du client.",
+      },
+      {
+        href: "/blog/externalisation-administrative-solaire-volume",
+        label: "Externalisation administrative solaire",
+        description: "Identifier le bon moment pour déléguer selon votre organisation et vos irritants.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+        label: "Pièces et délais d'une DP solaire",
+        description: "Le guide pratique pour cadrer les dépôts mairie.",
+      },
+      {
+        href: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+        label: "Raccordement Enedis photovoltaïque",
+        description: "Les étapes à suivre pour limiter les blocages réseau.",
+      },
+    ],
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/declaration-prealable-panneaux-solaires", label: "Déclaration préalable" },
       { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel" },
       { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis" },
+      { href: "/blog/externaliser-administratif-photovoltaique", label: "Externaliser l'administratif photovoltaïque" },
+      { href: "/blog/gerer-soi-meme-ou-deleguer-administratif-solaire", label: "Gérer soi-même ou déléguer l'administratif solaire" },
+      { href: "/blog/cout-gestion-administrative-photovoltaique", label: "Prix gestion administrative photovoltaïque" },
+      { href: "/blog/sous-traiter-declaration-prealable-photovoltaique", label: "Sous-traiter ses déclarations préalables photovoltaïques" },
     ],
   },
   consuel: {
     slug: "consuel_photovoltaique",
-    metaTitle: "Consuel pour installateurs photovoltaïques — Sunelys",
+    metaTitle: "Dossier Consuel photovoltaïque : guide complet",
     metaDescription:
-      "Déléguez vos dossiers Consuel photovoltaïques: pièces, suivi et relances pour installateurs. Sunelys cadre vos flux et vos délais.",
+      "Attestation, pièces, délais et motifs de refus du Consuel PV. Réduisez les retours avec Sunelys.",
     heroTitle: "Consuel photovoltaïque : préparation et suivi des dossiers",
     heroSubtitle:
       "Sunelys prend en charge le volet administratif Consuel pour sécuriser vos dossiers et accélérer la mise en service de vos installations.",
@@ -276,18 +350,59 @@ export const seoPages: Record<string, SeoPageData> = {
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
       "Recevez un cadrage gratuit pour cadrer votre flux Consuel et réduire les délais de mise en service.",
+    guideLinks: [
+      {
+        href: "/blog/attestation-consuel-photovoltaique",
+        label: "Attestation Consuel photovoltaïque",
+        description: "Choisir entre attestation bleue ou violette et préparer le SC 144.",
+      },
+      {
+        href: "/blog/delai-consuel-photovoltaique",
+        label: "Délai Consuel photovoltaïque",
+        description: "Anticiper demande de visa, visite, anomalies et mise en service.",
+      },
+      {
+        href: "/blog/prix-consuel-photovoltaique",
+        label: "Prix Consuel photovoltaïque",
+        description: "Comprendre les tarifs bleus, violets et les coûts cachés.",
+      },
+      {
+        href: "/blog/consuel-refuse-motifs-solutions",
+        label: "Consuel refusé photovoltaïque",
+        description: "Identifier les motifs de retour et les actions pour débloquer le visa.",
+      },
+      {
+        href: "/blog/consuel-photovoltaique-delais-dossier",
+        label: "Consuel photovoltaïque : dossier et délais",
+        description: "Préparer les pièces et limiter les retours avant mise en service.",
+      },
+      {
+        href: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+        label: "Raccordement Enedis photovoltaïque",
+        description: "Comprendre l'étape suivante du parcours administratif.",
+      },
+      {
+        href: "/blog/externalisation-administrative-solaire-volume",
+        label: "Externalisation administrative solaire",
+        description: "Savoir quand déléguer plutôt que continuer en interne.",
+      },
+    ],
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
       { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis" },
+      { href: "/blog/attestation-consuel-photovoltaique", label: "Attestation Consuel photovoltaïque" },
+      { href: "/blog/delai-consuel-photovoltaique", label: "Délai Consuel photovoltaïque" },
+      { href: "/blog/prix-consuel-photovoltaique", label: "Prix Consuel photovoltaïque" },
+      { href: "/blog/consuel-refuse-motifs-solutions", label: "Consuel refusé photovoltaïque" },
       { href: "/contact", label: "Contacter Sunelys" },
     ],
   },
   raccordementEnedis: {
     slug: "raccordement_enedis",
-    metaTitle: "Raccordement pour installateurs photovoltaïques — Sunelys",
+    metaTitle: "Raccordement Enedis photovoltaïque : étapes & délais",
     metaDescription:
-      "Confiez le raccordement photovoltaïque à Sunelys: dossier, échanges Enedis et suivi des jalons pour installateurs solaires.",
+      "Étapes, délais et coûts du raccordement Enedis solaire. Sunelys suit vos dossiers jusqu'à la mise en service.",
     heroTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète",
     heroSubtitle:
       "Sunelys centralise les étapes administratives du raccordement Enedis pour sécuriser les délais et simplifier le pilotage de vos équipes.",
@@ -405,21 +520,56 @@ export const seoPages: Record<string, SeoPageData> = {
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
       "Recevez un cadrage gratuit pour sécuriser votre pilotage de raccordement Enedis.",
+    guideLinks: [
+      {
+        href: "/blog/etapes-raccordement-enedis-panneaux-solaires",
+        label: "Étapes raccordement Enedis",
+        description: "La checklist opérationnelle pour suivre chaque jalon jusqu'à mise en service.",
+      },
+      {
+        href: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+        label: "Raccordement Enedis : étapes et dossier",
+        description: "Le guide pour mieux préparer et suivre les demandes réseau.",
+      },
+      {
+        href: "/blog/delai-raccordement-enedis-photovoltaique",
+        label: "Délai raccordement Enedis",
+        description: "Comprendre les délais maximums, la PDR, le Consuel et la mise en service.",
+      },
+      {
+        href: "/blog/cout-raccordement-enedis-photovoltaique",
+        label: "Coût raccordement Enedis",
+        description: "Identifier devis, travaux réseau et coûts cachés côté installateur.",
+      },
+      {
+        href: "/blog/consuel-photovoltaique-delais-dossier",
+        label: "Consuel photovoltaïque",
+        description: "Anticiper la conformité avant la mise en service.",
+      },
+      {
+        href: "/blog/externalisation-administrative-solaire-volume",
+        label: "Externaliser l'administratif solaire",
+        description: "Structurer le suivi quand le volume augmente.",
+      },
+    ],
     internalLinks: [
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+      { href: "/blog/etapes-raccordement-enedis-panneaux-solaires", label: "Étapes raccordement Enedis panneaux solaires" },
+      { href: "/blog/delai-raccordement-enedis-photovoltaique", label: "Délai raccordement Enedis photovoltaïque" },
+      { href: "/blog/cout-raccordement-enedis-photovoltaique", label: "Coût raccordement Enedis photovoltaïque" },
       { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel" },
       { href: "/contact", label: "Contacter Sunelys" },
     ],
   },
   declarationPrealable: {
     slug: "declaration_prealable",
-    metaTitle: "Déclaration préalable panneaux solaires pour installateurs | Sunelys",
+    metaTitle: "Déclaration préalable panneaux solaires installateurs",
     metaDescription:
-      "Externalisez vos déclarations préalables panneaux solaires: pièces toiture, dépôt mairie et suivi pour installateurs photovoltaïques avec Sunelys.",
-    heroTitle: "Déclaration préalable panneaux solaires : pièces, dépôt mairie et suivi",
+      "Externalisez vos déclarations préalables photovoltaïques: pièces, dépôt mairie, suivi et relances pour limiter les compléments.",
+    heroTitle: "Déclaration préalable panneaux solaires pour installateurs",
     heroSubtitle:
-      "Sunelys structure vos déclarations préalables solaires pour réduire les refus, limiter les demandes de pièces complémentaires et sécuriser le lancement chantier.",
+      "Sunelys gère le cadrage, les pièces, le dépôt mairie et le suivi des retours pour fiabiliser vos DP photovoltaïques sans charger vos équipes.",
     fitTitle: "Quand chaque dépôt mairie doit partir propre du premier coup.",
     fitIntro:
       "Cette page est faite pour les installateurs qui veulent éviter les demandes de pièces complémentaires, lisser leurs délais et donner un vrai cadre à leurs dépôts de DP pour panneaux solaires en toiture.",
@@ -441,7 +591,7 @@ export const seoPages: Record<string, SeoPageData> = {
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
     problemIntro:
-      "Un dossier de déclaration préalable incomplet ou imprécis peut retarder tout le planning d'installation.",
+      "Sur un flux installateur, une déclaration préalable solaire incomplète ne crée pas seulement un retard mairie: elle décale les relances client, la planification chantier et les étapes administratives suivantes.",
     problemItems: [
       {
         title: "Pièces manquantes",
@@ -458,6 +608,20 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         title: "Impact sur le chantier",
         text: "Chaque retard administratif repousse la planification opérationnelle.",
+      },
+    ],
+    useCaseItems: [
+      {
+        title: "Flux régulier de DP toiture",
+        text: "Vous avez plusieurs ventes solaires à transformer chaque mois et vous voulez que les dossiers partent avec les bonnes pièces, les bons visuels et un statut clair dès le dépôt.",
+      },
+      {
+        title: "Dossier à reprendre après complément",
+        text: "Une mairie demande une précision, une pièce ou un visuel retravaillé. Sunelys reprend le dossier, clarifie les éléments manquants et organise la réponse sans disperser les échanges.",
+      },
+      {
+        title: "Organisation multi-interlocuteurs",
+        text: "Commercial, client final, équipe technique et mairie n'avancent pas toujours au même rythme. Sunelys centralise les informations utiles pour éviter les relances doublons et les oublis.",
       },
     ],
     scopeItems: [
@@ -539,16 +703,73 @@ export const seoPages: Record<string, SeoPageData> = {
         answer:
           "Oui. Vous pouvez déléguer uniquement la déclaration préalable ou l'intégrer à un pilotage complet.",
       },
+      {
+        question: "Peut-on commencer par un flux test de DP ?",
+        answer:
+          "Oui. Un premier flux de dossiers permet de cadrer les pièces, les statuts et le niveau de suivi avant d'élargir la délégation.",
+      },
+      {
+        question: "Gardez-vous le client final dans la boucle ?",
+        answer:
+          "Oui. L'objectif est de soulager vos équipes sans brouiller la relation client: les informations utiles sont centralisées et les retours sont suivis avec un statut lisible.",
+      },
     ],
     finalTitle: "Externalisez l'administratif photovoltaïque.",
     finalText:
       "Recevez un cadrage gratuit pour fiabiliser vos dépôts de déclaration préalable.",
+    guideLinks: [
+      {
+        href: "/blog/cerfa-declaration-prealable-panneaux-solaires",
+        label: "Cerfa DP panneaux solaires",
+        description: "Quel formulaire utiliser et quels champs contrôler avant dépôt.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+        label: "Pièces et délais d'une DP solaire",
+        description: "Les informations à préparer avant un dépôt mairie.",
+      },
+      {
+        href: "/blog/delai-declaration-prealable-photovoltaique",
+        label: "Délai DP photovoltaïque",
+        description: "Anticiper le délai mairie, les secteurs protégés et les compléments.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-erreurs",
+        label: "Erreurs à éviter dans une DP",
+        description: "Les points qui ralentissent les chantiers photovoltaïques.",
+      },
+      {
+        href: "/blog/dp-refusee-panneaux-solaires-que-faire",
+        label: "DP refusée panneaux solaires",
+        description: "Analyser l'arrêté, corriger le dossier et choisir la bonne suite.",
+      },
+      {
+        href: "/blog/declaration-prealable-ou-permis-construire-photovoltaique",
+        label: "DP ou permis photovoltaïque",
+        description: "Choisir le bon régime selon toiture, sol, ombrière ou maison neuve.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-toiture",
+        label: "Panneaux solaires en toiture",
+        description: "Anticiper les cas fréquents sur bâtiment existant.",
+      },
+      {
+        href: "/blog/panneaux-solaires-sans-declaration-prealable",
+        label: "Panneaux solaires sans déclaration",
+        description: "Reprendre un dossier posé trop vite et limiter les risques.",
+      },
+    ],
     internalLinks: [
+      { href: "/checklist-declaration-prealable-solaire", label: "Checklist déclaration préalable solaire" },
       { href: "/sous-traitance-declaration-prealable-solaire", label: "Sous-traitance DP solaire" },
       { href: "/tarif-declaration-prealable-photovoltaique", label: "Tarif DP photovoltaïque" },
       { href: "/services", label: "Voir les services" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+      { href: "/blog/cerfa-declaration-prealable-panneaux-solaires", label: "Cerfa déclaration préalable panneaux solaires" },
       { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP solaire" },
+      { href: "/blog/delai-declaration-prealable-photovoltaique", label: "Délai déclaration préalable photovoltaïque" },
+      { href: "/blog/dp-refusee-panneaux-solaires-que-faire", label: "DP refusée panneaux solaires" },
+      { href: "/blog/declaration-prealable-ou-permis-construire-photovoltaique", label: "DP ou permis de construire photovoltaïque" },
       { href: "/blog/declaration-prealable-panneaux-solaires-toiture", label: "DP panneaux solaires toiture" },
       { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel" },
       { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis" },
@@ -655,7 +876,7 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "À partir de quel volume la sous-traitance devient-elle intéressante ?",
         answer:
-          "Elle devient utile dès que les DP ralentissent vos équipes ou créent des relances récurrentes. Le volume mensuel permet ensuite d'ajuster le tarif.",
+          "Elle devient utile dès que les DP ralentissent vos équipes ou créent des relances récurrentes. Le volume mensuel sert ensuite à organiser le flux de traitement.",
       },
       {
         question: "Sunelys remplace-t-il l'installateur dans la relation client ?",
@@ -671,9 +892,38 @@ export const seoPages: Record<string, SeoPageData> = {
     finalTitle: "Sous-traitez vos DP solaires avec un cadre clair.",
     finalText:
       "Recevez une première lecture de votre volume et du périmètre à déléguer pour réduire les retours et soulager vos équipes.",
+    guideLinks: [
+      {
+        href: "/blog/sous-traiter-declaration-prealable-photovoltaique",
+        label: "Sous-traiter ses DP PV",
+        description: "Définir le périmètre, la méthode et les garde-fous de délégation.",
+      },
+      {
+        href: "/blog/cerfa-declaration-prealable-panneaux-solaires",
+        label: "Cerfa DP panneaux solaires",
+        description: "Sécuriser le formulaire et les champs sensibles avant dépôt.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+        label: "Pièces et délais DP solaire",
+        description: "Cadrer les dossiers avant dépôt pour éviter les compléments.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-erreurs",
+        label: "Erreurs fréquentes en DP",
+        description: "Repérer les irritants qui consomment du temps interne.",
+      },
+      {
+        href: "/blog/externalisation-administrative-solaire-volume",
+        label: "Quand externaliser ?",
+        description: "Comparer charge interne, volume et intérêt de la délégation.",
+      },
+    ],
     internalLinks: [
       { href: "/tarif-declaration-prealable-photovoltaique", label: "Tarif DP photovoltaïque" },
       { href: "/declaration-prealable-panneaux-solaires", label: "Service déclaration préalable" },
+      { href: "/blog/sous-traiter-declaration-prealable-photovoltaique", label: "Sous-traiter ses DP photovoltaïques" },
+      { href: "/blog/cerfa-declaration-prealable-panneaux-solaires", label: "Cerfa DP panneaux solaires" },
       { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP" },
       { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
       { href: "/contact", label: "Contacter Sunelys" },
@@ -683,16 +933,16 @@ export const seoPages: Record<string, SeoPageData> = {
     slug: "tarif_declaration_prealable",
     metaTitle: "Tarif déclaration préalable photovoltaïque | Sunelys",
     metaDescription:
-      "Découvrez les tarifs de déclaration préalable photovoltaïque Sunelys pour installateurs: prix par dossier, volumes mensuels et cadrage sous 24h.",
+      "Tarifs DP photovoltaïque Sunelys: formule complète 119 EUR HT, raccordement + Consuel 89 EUR HT, chaîne complète 199 EUR HT.",
     heroTitle: "Tarif déclaration préalable photovoltaïque pour installateurs",
     heroSubtitle:
-      "Sunelys propose une tarification par dossier pour vos déclarations préalables panneaux solaires, avec des prix dégressifs selon le volume mensuel.",
+      "Sunelys propose des tarifs au dossier pour les installateurs: DP complète avec dépôt et suivi, raccordement + Consuel ou chaîne administrative complète DP, raccordement et Consuel.",
     fitTitle: "Quand vous voulez un coût clair par DP avant de déléguer.",
     fitIntro:
       "Cette page aide les installateurs à évaluer le budget de sous-traitance DP avant de confier un flux régulier à Sunelys.",
     fitItems: [
       "Vous voulez comparer le coût d'une DP sous-traitée au temps passé en interne.",
-      "Vous avez besoin d'un tarif lisible selon votre volume mensuel.",
+      "Vous avez besoin d'un prix unitaire lisible avant de déléguer.",
       "Vous cherchez un partenaire capable de suivre les dépôts, pas seulement de produire des pièces.",
     ],
     proof: {
@@ -701,9 +951,9 @@ export const seoPages: Record<string, SeoPageData> = {
       author: "Victorion Brice",
       role: "gérant de Be Travaux",
       highlights: [
-        "Prix cadré selon le volume",
-        "Suivi administratif plus fluide",
-        "Gain de temps côté équipes",
+        "DP complète à 119 EUR HT / dossier",
+        "Raccordement + Consuel à 89 EUR HT / dossier",
+        "Chaîne complète à 199 EUR HT / dossier",
       ],
     },
     problemTitle: "Le vrai coût d'une DP n'est pas seulement le prix de production",
@@ -720,7 +970,7 @@ export const seoPages: Record<string, SeoPageData> = {
       },
       {
         title: "Effet volume",
-        text: "Plus le flux est régulier, plus le process peut être standardisé et le prix par dossier optimisé.",
+        text: "Plus le flux est régulier, plus la méthode de transmission, de contrôle et de suivi doit être structurée.",
       },
       {
         title: "Impact chantier",
@@ -728,24 +978,23 @@ export const seoPages: Record<string, SeoPageData> = {
       },
     ],
     scopeItems: [
-      "Tarif à partir de 149 EUR HT par DP pour moins de 20 dossiers / mois",
-      "Tarif à partir de 119 EUR HT par DP pour 21 à 50 dossiers / mois",
-      "Tarif à partir de 79 EUR HT par DP pour plus de 51 dossiers / mois",
-      "Production, contrôle, dépôt et suivi selon le périmètre cadré",
-      "Facturation mensuelle selon le volume réellement traité",
+      "Déclaration préalable complète: 119 EUR HT par dossier",
+      "Raccordement réseau + Consuel: 89 EUR HT par dossier",
+      "Chaîne administrative complète DP + raccordement + Consuel: 199 EUR HT par dossier",
+      "Tarifs unitaires fixes par dossier",
     ],
     detailBlocks: [
       {
         title: "Ce qui influence le prix",
-        text: "Le tarif dépend du volume mensuel, de la qualité des pièces transmises, du niveau de suivi demandé et du nombre d'allers-retours nécessaires. Un flux propre, standardisé et régulier permet de réduire le coût unitaire.",
+        text: "Le prix dépend du périmètre confié: DP complète avec dépôt et suivi, raccordement + Consuel ou chaîne administrative complète. Le flux mensuel sert à organiser le traitement, pas à modifier les tarifs unitaires publics.",
       },
       {
         title: "Prix par dossier ou accompagnement complet",
-        text: "La DP peut être traitée comme un bloc isolé ou intégrée dans une chaîne administrative complète avec Consuel et raccordement. Le cadrage permet d'éviter un devis générique et de chiffrer le vrai besoin.",
+        text: "La DP complète est proposée à 119 EUR HT par dossier, le raccordement + Consuel à 89 EUR HT et la chaîne administrative complète à 199 EUR HT. Cette dernière centralise DP, raccordement et Consuel avec un interlocuteur unique.",
       },
       {
-        title: "Pourquoi cadrer avant devis",
-        text: "Deux installateurs avec le même volume peuvent avoir des charges très différentes selon leur organisation, leurs outils et la qualité des informations collectées en amont. Un court échange permet d'identifier le prix adapté sans surdimensionner l'offre.",
+        title: "Garantie DP complète",
+        text: "La garantie zéro pièce complémentaire s'applique à la formule DP complète lorsque le dépôt et le suivi sont assurés par Sunelys. Les tarifs publics restent des prix unitaires fixes par dossier.",
       },
     ],
     processSteps: [
@@ -764,10 +1013,10 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     caseStudy: {
       title: "Installateur solaire",
-      volume: "21 à 50 DP / mois",
+      volume: "Flux DP récurrent",
       results: [
         "Prix par dossier plus lisible",
-        "Facturation alignée sur le volume réel",
+        "Facturation basée sur les dossiers traités",
         "Délégation progressive sans engagement lourd",
       ],
     },
@@ -775,31 +1024,59 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Quel est le tarif d'une déclaration préalable photovoltaïque ?",
         answer:
-          "Les tarifs Sunelys commencent à 149 EUR HT par dossier et deviennent dégressifs selon le volume mensuel.",
+          "La déclaration préalable complète est proposée à 119 EUR HT par dossier. Elle inclut les pièces, le dépôt en mairie et le suivi de l'instruction jusqu'à validation.",
       },
       {
         question: "Le tarif inclut-il le suivi mairie ?",
         answer:
-          "Le périmètre peut inclure la production, le dépôt et le suivi. Il est précisé lors du cadrage.",
+          "Oui pour la formule DP complète, qui inclut les pièces, le dépôt en mairie et le suivi de l'instruction jusqu'à validation.",
+      },
+      {
+        question: "Quel est le tarif de la chaîne administrative complète ?",
+        answer:
+          "La formule complète DP, raccordement réseau et Consuel est proposée à 199 EUR HT par dossier, avec interlocuteur unique et pilotage de A à Z.",
       },
       {
         question: "Y a-t-il un engagement de volume ?",
         answer:
-          "Le fonctionnement est cadré selon votre flux réel. La facturation peut être mensuelle selon les dossiers traités.",
+          "Non. Les tarifs unitaires sont fixes par dossier et la facturation suit les dossiers réellement traités.",
       },
       {
-        question: "Pourquoi les prix baissent-ils avec le volume ?",
+        question: "Les tarifs sont-ils fixes ?",
         answer:
-          "Un flux régulier permet de standardiser les pièces, les contrôles et les échanges, ce qui réduit le coût unitaire.",
+          "Oui. Les tarifs publics transmis sont des prix unitaires fixes par dossier.",
       },
     ],
-    finalTitle: "Obtenez un tarif DP adapté à votre volume.",
+    finalTitle: "Obtenez un tarif DP clair par dossier.",
     finalText:
-      "Indiquez votre volume mensuel et recevez un cadrage clair pour savoir combien coûterait la délégation de vos déclarations préalables.",
+      "Indiquez votre flux mensuel et recevez un cadrage clair pour savoir combien coûterait la délégation de vos déclarations préalables.",
+    guideLinks: [
+      {
+        href: "/blog/externalisation-administrative-solaire-volume",
+        label: "Rentabilité de l'externalisation",
+        description: "Identifier le coût caché du traitement administratif interne.",
+      },
+      {
+        href: "/blog/cerfa-declaration-prealable-panneaux-solaires",
+        label: "Cerfa DP panneaux solaires",
+        description: "Comprendre le formulaire inclus dans le périmètre d'une DP.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+        label: "Pièces et délais DP solaire",
+        description: "Comprendre le périmètre réel d'un dossier complet.",
+      },
+      {
+        href: "/blog/declaration-prealable-panneaux-solaires-erreurs",
+        label: "Erreurs à éviter",
+        description: "Limiter les reprises qui font grimper le coût opérationnel.",
+      },
+    ],
     internalLinks: [
       { href: "/sous-traitance-declaration-prealable-solaire", label: "Sous-traitance DP solaire" },
       { href: "/tarifs", label: "Tous les tarifs Sunelys" },
       { href: "/declaration-prealable-panneaux-solaires", label: "Service déclaration préalable" },
+      { href: "/blog/cerfa-declaration-prealable-panneaux-solaires", label: "Cerfa DP panneaux solaires" },
       { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP" },
       { href: "/contact", label: "Recevoir un cadrage" },
     ],

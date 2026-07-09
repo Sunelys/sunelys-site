@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
+import { getPublicBlogPosts } from "../../lib/blogPublication";
 
-const posts = Object.values(import.meta.glob("../../content/blog/*.md", { eager: true })).sort(
+const posts = getPublicBlogPosts().sort(
   (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime(),
 );
 

@@ -9,6 +9,7 @@ category: "Déclaration préalable"
 readingTime: "9 min"
 coverImage: "/images/blog/panneaux-solaires-sans-declaration-prealable-photo.jpg"
 coverAlt: "Installateurs posant des panneaux photovoltaïques sur une toiture pour un projet solaire résidentiel."
+ogImage: "/images/og/panneaux-solaires-sans-declaration-prealable.png"
 keywords: "panneaux solaires sans déclaration préalable, panneau solaire sans autorisation mairie, régularisation panneaux solaires, déclaration préalable panneaux solaires, travaux sans autorisation urbanisme, installateur photovoltaïque"
 primaryServiceHref: "/declaration-prealable-panneaux-solaires"
 primaryServiceLabel: "Service déclaration préalable"
@@ -16,6 +17,22 @@ secondaryServiceHref: "/contact?source=blog-panneaux-solaires-sans-dp#contact-fo
 secondaryServiceLabel: "Régulariser un dossier solaire"
 contactSource: "blog-panneaux-solaires-sans-dp"
 businessOutcome: "Reprendre un dossier solaire posé trop vite, limiter les retours mairie et protéger la suite du parcours client."
+relatedLinks:
+  - href: "/declaration-prealable-panneaux-solaires"
+    label: "Déclaration préalable panneaux solaires"
+    description: "Faire reprendre ou sécuriser vos dossiers DP."
+  - href: "/blog/cerfa-declaration-prealable-panneaux-solaires"
+    label: "Cerfa DP panneaux solaires"
+    description: "Repartir du bon formulaire pour régulariser proprement."
+  - href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais"
+    label: "Pièces et délais d'une DP solaire"
+    description: "Les bases pour constituer un dossier plus lisible."
+  - href: "/blog/declaration-prealable-panneaux-solaires-erreurs"
+    label: "Erreurs à éviter dans une DP"
+    description: "Limiter les retours et pièces complémentaires."
+  - href: "/blog/dp-refusee-panneaux-solaires-que-faire"
+    label: "DP refusée panneaux solaires"
+    description: "Traiter le cas où la mairie s'oppose au projet."
 ---
 
 ## Panneaux solaires sans déclaration préalable : le sujet à traiter vite
@@ -25,6 +42,8 @@ Des panneaux solaires posés sans déclaration préalable peuvent sembler être 
 Pour une installation en toiture sur un bâtiment existant, la règle générale est simple à comprendre : les panneaux modifient l'aspect extérieur du bâtiment. Une déclaration préalable de travaux est donc généralement attendue avant la pose. Service-Public rappelle d'ailleurs que les panneaux solaires installés sur toiture doivent faire l'objet d'une DP en mairie.
 
 L'enjeu n'est pas de dramatiser chaque dossier. L'enjeu est de savoir quoi vérifier, comment reprendre la situation et comment éviter que ce cas devienne récurrent dans votre flux commercial.
+
+Si le dossier doit être régularisé, repartez du [Cerfa déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires) avant de reconstituer les plans et photos.
 
 ## Est-il possible d'installer des panneaux solaires sans autorisation mairie ?
 
@@ -213,7 +232,7 @@ Ce sont deux démarches différentes, mais elles appartiennent au même parcours
 
 ## À lire ensuite
 
-Pour cadrer les démarches en amont, consultez notre page [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), notre guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais) et l'article sur les [erreurs qui ralentissent les chantiers](/blog/declaration-prealable-panneaux-solaires-erreurs).
+Pour cadrer les démarches en amont, consultez notre page [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), notre guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), l'article sur les [erreurs qui ralentissent les chantiers](/blog/declaration-prealable-panneaux-solaires-erreurs) et le guide [Cerfa déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires).
 
 Si vous avez déjà des panneaux posés sans DP ou des dossiers mairie à reprendre, vous pouvez [demander un cadrage Sunelys](/contact?source=blog-panneaux-solaires-sans-dp#contact-form).
 

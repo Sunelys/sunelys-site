@@ -1,14 +1,15 @@
 ---
 slug: "externalisation-administrative-solaire-volume"
 title: "Externalisation administrative solaire : quand devient-elle rentable pour un installateur ?"
-seoTitle: "Externalisation administrative solaire pour installateurs | Sunelys"
+seoTitle: "Externalisation administrative solaire : rentable ?"
 description: "Identifier le bon moment pour déléguer la gestion administrative photovoltaïque : volume, charge interne, retours dossiers et impact commercial."
 pubDate: "2026-04-23"
-updatedDate: "2026-04-23"
+updatedDate: "2026-06-22"
 category: "Organisation"
 readingTime: "6 min"
 coverImage: "/images/blog/externalisation-administrative-solaire-photo.jpg"
 coverAlt: "Dossiers photovoltaïques organisés par statut sur un bureau d'équipe administrative solaire."
+ogImage: "/images/og/externalisation-administrative-solaire-volume.png"
 keywords: "externalisation administrative solaire, sous-traitance administrative solaire, gestion administrative photovoltaïque, installateur photovoltaïque"
 primaryServiceHref: "/gestion-administrative-photovoltaique"
 primaryServiceLabel: "Gestion administrative photovoltaïque"
@@ -16,6 +17,25 @@ secondaryServiceHref: "/contact"
 secondaryServiceLabel: "Recevoir un cadrage"
 contactSource: "blog-externalisation"
 businessOutcome: "Absorber plus de volume sans faire basculer vos commerciaux et conducteurs de travaux dans l'administratif."
+relatedLinks:
+  - href: "/gestion-administrative-photovoltaique"
+    label: "Gestion administrative photovoltaïque"
+    description: "Le pilier pour déléguer tout le parcours administratif."
+  - href: "/blog/externaliser-administratif-photovoltaique"
+    label: "Externaliser l'administratif PV"
+    description: "Quoi déléguer et comment réussir la transition."
+  - href: "/blog/gerer-soi-meme-ou-deleguer-administratif-solaire"
+    label: "Gérer ou déléguer ?"
+    description: "Comparer les deux modèles avant de décider."
+  - href: "/blog/cout-gestion-administrative-photovoltaique"
+    label: "Coût gestion administrative PV"
+    description: "Comparer coût interne, tarifs externalisés et organisation."
+  - href: "/services"
+    label: "Services administratifs Sunelys"
+    description: "DP, Consuel, raccordement ou pilotage complet."
+  - href: "/tarifs"
+    label: "Tarifs gestion administrative"
+    description: "Comprendre les prix unitaires par dossier."
 ---
 
 ## L'administratif solaire devient coûteux quand il ralentit le commerce
@@ -25,6 +45,8 @@ Au départ, gérer les démarches administratives en interne paraît logique. Qu
 Les commerciaux commencent à suivre des statuts, les conducteurs de travaux relancent des documents, la direction cherche à comprendre pourquoi certains dossiers n'avancent pas. L'administratif devient alors un coût invisible : il ne se voit pas toujours dans une ligne budgétaire, mais il consomme de la capacité commerciale.
 
 C'est souvent à ce moment que l'externalisation administrative solaire devient intéressante.
+
+Pour une vue d'ensemble du périmètre possible, consultez aussi le guide [externaliser l'administratif photovoltaïque](/blog/externaliser-administratif-photovoltaique), la page [Gestion administrative photovoltaïque](/gestion-administrative-photovoltaique) et la page [tarifs Sunelys](/tarifs).
 
 ## Les signaux qui montrent qu'il faut structurer
 
@@ -61,7 +83,7 @@ Autrement dit, l'externalisation doit devenir une extension fiable de votre orga
 
 Il n'y a pas de seuil universel. Mais dès que vous traitez un flux régulier de dossiers photovoltaïques chaque mois, la question mérite d'être posée.
 
-Le bon indicateur n'est pas seulement le nombre de dossiers. C'est le temps interne absorbé, le nombre de retours, la pression client et la difficulté à garder une vision claire du portefeuille.
+Le bon indicateur n'est pas seulement le nombre de dossiers. C'est le temps interne absorbé, le nombre de retours, la pression client et la difficulté à garder une vision claire du portefeuille. Pour chiffrer cette comparaison, appuyez-vous sur la page [tarifs Sunelys](/tarifs) et sur la page [Gestion administrative photovoltaïque](/gestion-administrative-photovoltaique).
 
 Pour certains installateurs, la délégation devient utile à partir de 10 dossiers par mois. Pour d'autres, elle devient urgente quand plusieurs agences ou équipes terrain doivent suivre des process différents.
 

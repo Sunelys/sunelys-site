@@ -2,35 +2,35 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 
 export const homeSeo = {
-  title: "Gestion administrative photovoltaïque France | Sunelys",
+  title: "Gestion administrative photovoltaïque | Sunelys",
   description:
-    "Sunelys externalise la gestion administrative photovoltaïque pour les professionnels du solaire : DP, Consuel, raccordement Enedis, suivi et accompagnement administratif solaire en France.",
+    "Externalisez DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE : dossiers cadrés, suivi en temps réel et moins de retours.",
 };
 
 export const heroData = {
   kicker: "Pour installateurs photovoltaïques et structures qui traitent du volume",
-  title: "DP, Consuel, raccordement :\nreprenez la main sur vos dossiers.",
+  title: "Pilotage complet : DP, Consuel, raccordement, aides\nreprenez la main sur vos dossiers.",
   subtitle:
-    "Sunelys cadre, suit et pilote vos démarches administratives photovoltaïques pour fluidifier vos dépôts, réduire les retours et redonner de la visibilité à vos équipes.",
+    "Sunelys pilote vos démarches administratives en flux continu pour fluidifier vos dépôts, aides MaPrimeRénov' et CEE, réduire les retours et redonner une vraie visibilité à vos équipes.",
   primaryCta: {
-    label: "Recevoir un cadrage gratuit",
+    label: "Recevoir un cadrage de pilotage complet",
     href: "/contact?source=hero#contact-form",
     track: "cta_hero_primary_contact",
   },
   secondaryCta: {
-    label: "Réserver 15 min",
+    label: "Réserver 15 min pilotage complet",
     href: bookingUrl,
     track: "cta_hero_secondary_booking",
   },
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
-    submitLabel: "Recevoir mon cadrage",
+    submitLabel: "Recevoir mon cadrage complet",
     note: "Réponse sous 24h ouvrées. Aucun engagement, aucun spam.",
   },
   proofs: [
     "Réponse sous 24h ouvrées",
-    "Pilotage DP, Consuel et raccordement",
+    "Pilotage complet DP, Consuel, raccordement et aides",
     "Visibilité claire sur chaque dossier",
   ],
   portalDemo: {
@@ -49,7 +49,7 @@ export const heroData = {
     ],
     timeline: ["Cadrage", "Dépôt DP", "Consuel", "Raccordement", "Mise en service"],
     documents: ["Plan de masse signé", "Schéma unifilaire", "Attestation installateur", "Photos chantier"],
-    footer: "Dossiers, pièces, statuts et relances centralisés dans un seul espace.",
+    footer: "Dossiers, aides, pièces, statuts et relances centralisés dans un seul espace.",
   },
 };
 
@@ -81,7 +81,7 @@ export const trustSectionData = {
   trustNote:
     "Sunelys accompagne des installateurs et structures solaires qui veulent garder des dossiers propres, des dépôts mieux cadrés et des clients informés sans mobiliser leurs équipes à chaque relance.",
   metrics: [
-    { value: "1357", label: "Dossiers photovoltaïques pilotés avec traçabilité" },
+    { value: "1357", label: "Dossiers ENR pilotés avec traçabilité" },
     { value: "28", label: "Partenaires et installateurs déjà accompagnés" },
     { value: "2 jours", label: "Pour cadrer une demande complète et exploitable" },
     { value: "96%", label: "Taux d'acceptation des déclarations préalables sans pièce complémentaire" },
@@ -138,9 +138,9 @@ export const frictionSectionData = {
 
 export const solutionSectionData = {
   kicker: "La solution Sunelys",
-  title: "Un relais administratif fiable pour piloter vos démarches de bout en bout.",
+  title: "Un relais administratif fiable pour votre pilotage complet.",
   text:
-    "Sunelys devient votre relais administratif photovoltaïque. Nous réceptionnons les informations, vérifions les pièces, préparons les dossiers, suivons les échanges et gardons une traçabilité claire jusqu'à validation.",
+    "Sunelys devient votre relais administratif ENR pour piloter DP, Consuel, raccordement, MaPrimeRénov' et CEE dans une seule logique de production.",
   points: [
     {
       title: "Cadrage administratif",
@@ -148,7 +148,7 @@ export const solutionSectionData = {
     },
     {
       title: "Dépôts et échanges",
-      text: "Nous préparons les formalités et suivons les demandes auprès des interlocuteurs concernés.",
+      text: "Nous préparons les formalités, les dossiers d'aides et suivons les demandes auprès des interlocuteurs concernés.",
     },
     {
       title: "Suivi opérationnel",
@@ -160,7 +160,7 @@ export const solutionSectionData = {
     },
   ],
   cta: {
-    label: "Recevoir un cadrage gratuit",
+    label: "Recevoir un cadrage pilotage complet",
     href: "/contact?source=solution#contact-form",
     track: "cta_solution",
   },
@@ -186,7 +186,7 @@ export const benefitsSectionData = {
     },
     {
       title: "Traitement fluide",
-      text: "DP, Consuel et raccordement sont pilotés dans une logique continue, pas en silos.",
+      text: "DP, Consuel, raccordement et aides à la rénovation sont pilotés dans une logique continue, pas en silos.",
     },
     {
       title: "Partenaire fiable",
@@ -194,7 +194,7 @@ export const benefitsSectionData = {
     },
   ],
   cta: {
-    label: "Recevoir un cadrage gratuit",
+    label: "Recevoir un cadrage pilotage complet",
     href: "/contact?source=benefices#contact-form",
     track: "cta_benefits",
   },
@@ -204,7 +204,7 @@ export const audienceSectionData = {
   kicker: "Pour qui",
   title: "Pensé pour les structures solaires qui veulent absorber plus de dossiers sans dégrader l'exécution.",
   text:
-    "Sunelys est utile quand l'administratif commence à ralentir le commerce, brouiller le suivi ou faire perdre du temps à vos équipes chantier et back-office.",
+    "Sunelys s'impose quand l'administratif ralentit le commerce, brouille le suivi ou coûte trop de temps à vos équipes chantier et back-office.",
   items: [
     {
       title: "Sociétés commercialistes du solaire",
@@ -222,7 +222,7 @@ export const audienceSectionData = {
   note:
     "Le bon moment pour nous parler : quand les relances, les pièces manquantes et le volume commencent à détériorer votre qualité d'exécution.",
   cta: {
-    label: "Recevoir un cadrage gratuit",
+    label: "Recevoir un cadrage pilotage complet",
     href: "/contact?source=audience#contact-form",
     track: "cta_audience_primary",
   },
@@ -259,7 +259,7 @@ export const quizSectionData = {
   emailLabel: "Email professionnel",
   emailSubmitLabel: "Recevoir mon cadrage",
   emailNote: "Réponse sous 24h • Sans engagement",
-  resultCtaLabel: "Réserver un audit de 15 min →",
+  resultCtaLabel: "Réserver un cadrage complet de 15 min →",
   ctaHref: bookingUrl,
   phoneLabel: "Ou on vous rappelle : 06 95 90 79 19",
   phoneHref: "tel:+33695907919",
@@ -321,6 +321,16 @@ export const servicesSectionData = {
       ctaLabel: "Voir le service",
       href: "/raccordement-enedis-photovoltaique",
       track: "cta_service_enedis",
+    },
+    {
+      label: "Service 04",
+      title: "MaPrimeRénov' + CEE",
+      benefit: "Des dossiers d'aides montés et suivis jusqu'à validation.",
+      description:
+        "Éligibilité, dépôt ANAH, contrôle CEE, pièces client et suivi jusqu'au versement ou à la validation.",
+      ctaLabel: "Voir les tarifs",
+      href: "/tarifs#aides-renovation",
+      track: "cta_service_aides_renovation",
     },
   ],
 };
@@ -391,7 +401,7 @@ export const faqSectionData = {
     {
       question: "Comment fonctionne la tarification ?",
       answer:
-        "La tarification dépend du volume, des démarches à déléguer et du niveau de suivi attendu. Le plus simple est de planifier un échange pour cadrer un devis adapté.",
+        "Les tarifs transmis sont des prix unitaires par dossier selon le périmètre confié : DP complète, raccordement + Consuel, chaîne administrative complète, MaPrimeRénov', CEE ou pack MaPrimeRénov' + CEE.",
     },
     {
       question: "Quels types de clients accompagnez-vous ?",
@@ -412,7 +422,7 @@ export const finalCtaSectionData = {
   text:
     "Expliquez-nous votre volume, vos délais et vos blocages. Nous revenons vers vous avec un cadrage clair du périmètre à déléguer en priorité.",
   primaryCta: {
-    label: "Recevoir un cadrage gratuit",
+    label: "Recevoir un cadrage pilotage complet",
     href: "/contact?source=final#contact-form",
     track: "cta_final_form_primary",
   },

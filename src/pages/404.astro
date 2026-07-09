@@ -1,0 +1,108 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const quickLinks = [
+  { href: "/services", label: "Voir les services" },
+  { href: "/gestion-administrative-photovoltaique", label: "Gestion administrative photovoltaïque" },
+  { href: "/declaration-prealable-panneaux-solaires", label: "Déclaration préalable panneaux solaires" },
+  { href: "/dossier-consuel-photovoltaique", label: "Dossier Consuel photovoltaïque" },
+  { href: "/raccordement-enedis-photovoltaique", label: "Raccordement Enedis photovoltaïque" },
+  { href: "/blog", label: "Lire les guides" },
+];
+---
+
+<BaseLayout
+  title="Page introuvable | Sunelys"
+  description="La page demandée est introuvable. Retrouvez les services Sunelys ou contactez-nous pour vos démarches administratives photovoltaïques."
+  robots="noindex,follow"
+>
+  <section class="not-found section-shell">
+    <p class="eyebrow">Erreur 404</p>
+    <h1>Cette page n'existe pas ou a changé d'adresse.</h1>
+    <p class="intro">
+      Retrouvez les ressources utiles pour cadrer vos démarches administratives photovoltaïques,
+      ou contactez Sunelys pour orienter votre demande.
+    </p>
+    <div class="actions">
+      <a class="btn btn-primary btn-accent" href="/contact?source=404#contact-form" data-track="cta_404_contact">
+        Recevoir un cadrage
+      </a>
+      <a class="btn btn-secondary" href="/" data-track="cta_404_home">Retour à l'accueil</a>
+    </div>
+    <div class="quick-links" aria-label="Pages utiles">
+      {quickLinks.map((link) => (
+        <a href={link.href} data-track="cta_404_quick_link" data-track-label={link.label}>
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .not-found {
+    max-width: 860px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(100% 120% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.4rem, 3vw, 2.4rem);
+    display: grid;
+    gap: 1rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 14ch;
+    font-size: clamp(2.4rem, 6vw, 5.4rem);
+    line-height: 0.94;
+  }
+
+  .intro {
+    margin: 0;
+    max-width: 60ch;
+    color: var(--text-muted);
+    font-size: var(--step-0);
+    line-height: 1.65;
+  }
+
+  .actions,
+  .quick-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+  }
+
+  .quick-links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.3rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-elevated) 90%, white);
+    padding: 0.42rem 0.8rem;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .quick-links a:hover,
+  .quick-links a:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
+  }
+</style>

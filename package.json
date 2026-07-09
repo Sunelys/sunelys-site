@@ -3,17 +3,34 @@
   "type": "module",
   "version": "0.0.1",
   "engines": {
-    "node": "20.x"
+    "node": ">=22.12.0 <23"
   },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "build:ci": "CI=1 ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "marketing:audit": "node scripts/marketing-agent.mjs",
+    "marketing:audit:no-ai": "node scripts/marketing-agent.mjs --no-ai",
+    "marketing:apply": "node scripts/marketing-agent.mjs --apply",
+    "marketing:google:auth": "node scripts/marketing-google-auth.mjs",
+    "marketing:google:test": "node scripts/marketing-google-test.mjs",
+    "marketing:ads:validate": "node scripts/marketing-google-ads-validate.mjs",
+    "marketing:ads:editor-export": "node scripts/marketing-google-ads-editor-export.mjs",
+    "marketing:ads:web-upload-export": "node scripts/marketing-google-ads-web-upload-export.mjs",
+    "marketing:ads:script-export": "node scripts/marketing-google-ads-script-export.mjs",
+    "marketing:ads:leads": "node scripts/marketing-google-ads-leads.mjs",
+    "marketing:leads:test": "node scripts/marketing-leads-test.mjs",
+    "marketing:leads:normalize": "node scripts/marketing-leads-normalize.mjs",
+    "marketing:pulse": "node scripts/marketing-pulse.mjs",
+    "marketing:pulse:watch": "node scripts/marketing-pulse.mjs --watch --interval 360 --max-p0 2"
   },
   "dependencies": {
-    "@astrojs/vercel": "^9.0.4",
-    "astro": "^5.17.1"
+    "@astrojs/vercel": "^11.0.0",
+    "astro": "^7.0.0"
+  },
+  "overrides": {
+    "@vercel/routing-utils": "4.0.0"
   }
 }

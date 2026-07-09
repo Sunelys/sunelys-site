@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 
 const steps = [
   {
@@ -37,14 +38,14 @@ const guarantees = [
 >
   <section class="card hero">
     <p class="eyebrow">Parcours Sunelys</p>
-    <h1>Un process simple pour remettre l'administratif au service de vos chantiers.</h1>
+    <h1>Un process simple pour piloter votre administratif en flux continu.</h1>
     <p class="intro">
       Sunelys s'intègre à votre organisation sans alourdir vos équipes. Le but n'est pas
       d'ajouter une couche, mais de rendre le traitement administratif plus lisible, plus fiable
       et plus prévisible.
     </p>
     <div class="hero-actions">
-      <a class="cta" href="/contact?source=parcours#contact-form" data-track="cta_parcours_primary">Recevoir un cadrage</a>
+      <a class="cta" href="/contact?source=parcours#contact-form" data-track="cta_parcours_primary">Cadrer votre pilotage complet</a>
       <a class="cta cta-secondary" href="/services" data-track="cta_parcours_secondary">Voir les services</a>
     </div>
   </section>
@@ -87,6 +88,12 @@ const guarantees = [
     </div>
   </section>
 
+  <BlockedDiagnostic
+    source="parcours_diagnostic_dossiers_bloques"
+    title="Votre process existe déjà, mais certains dossiers ralentissent tout le flux ?"
+    text="On qualifie l'étape qui bloque, le volume mensuel et le niveau de pilotage nécessaire pour vous proposer une reprise simple."
+  />
+
   <section class="card cta-box section">
     <p class="eyebrow">Décision</p>
     <h2>Le bon moment pour structurer vos flux, c'est avant que le volume ne vous rattrape.</h2>
@@ -95,7 +102,7 @@ const guarantees = [
       délégué, industrialisé ou repris en main.
     </p>
     <div class="hero-actions">
-      <a class="cta" href="/contact?source=parcours-final#contact-form" data-track="cta_parcours_contact">Recevoir un cadrage</a>
+      <a class="cta" href="/contact?source=parcours-final#contact-form" data-track="cta_parcours_contact">Cadrer votre pilotage complet</a>
       <a class="cta cta-secondary" href="/tarifs" data-track="cta_parcours_pricing">Voir les offres</a>
     </div>
   </section>

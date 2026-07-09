@@ -1,22 +1,22 @@
+import { getPublicBlogPosts } from "../lib/blogPublication";
+
 const staticRoutes = [
-  "",
-  "/services",
-  "/parcours",
-  "/tarifs",
-  "/contact",
-  "/blog",
-  "/sunelys",
-  "/gestion-administrative-photovoltaique",
-  "/dossier-consuel-photovoltaique",
-  "/raccordement-enedis-photovoltaique",
-  "/declaration-prealable-panneaux-solaires",
-  "/sous-traitance-declaration-prealable-solaire",
-  "/tarif-declaration-prealable-photovoltaique",
+  { path: "", lastmod: "2026-07-09" },
+  { path: "/services", lastmod: "2026-07-09" },
+  { path: "/parcours", lastmod: "2026-06-22" },
+  { path: "/tarifs", lastmod: "2026-07-09" },
+  { path: "/contact", lastmod: "2026-07-09" },
+  { path: "/blog", lastmod: "2026-06-22" },
+  { path: "/a-propos", lastmod: "2026-06-22" },
+  { path: "/gestion-administrative-photovoltaique", lastmod: "2026-07-09" },
+  { path: "/dossier-consuel-photovoltaique", lastmod: "2026-06-22" },
+  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-06-22" },
+  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-06-22" },
+  { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-06-22" },
+  { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-07-09" },
 ];
 
-const blogPosts = Object.values(
-  import.meta.glob("../content/blog/*.md", { eager: true }),
-) as Array<{
+const blogPosts = getPublicBlogPosts() as Array<{
   frontmatter: {
     slug: string;
     pubDate?: string;
@@ -26,12 +26,12 @@ const blogPosts = Object.values(
 
 export function GET() {
   const baseUrl = "https://sunelys.fr";
-  const now = new Date().toISOString();
+  const fallbackLastmod = "2026-06-22";
   const routes = [
-    ...staticRoutes.map((path) => ({ path, lastmod: now })),
+    ...staticRoutes,
     ...blogPosts.map((post) => ({
       path: `/blog/${post.frontmatter.slug}`,
-      lastmod: post.frontmatter.updatedDate ?? post.frontmatter.pubDate ?? now,
+      lastmod: post.frontmatter.updatedDate ?? post.frontmatter.pubDate ?? fallbackLastmod,
     })),
   ];
 

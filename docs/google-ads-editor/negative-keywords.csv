@@ -1,0 +1,22 @@
+Campaign,Keyword,Match type,Comment
+<Account-level>,particulier,Negative Phrase,Hors cible B2B
+<Account-level>,aide panneau solaire,Negative Phrase,Recherche subvention
+<Account-level>,prime panneau solaire,Negative Phrase,Recherche subvention
+<Account-level>,ma prime renov,Negative Phrase,Recherche subvention
+<Account-level>,gratuit pdf,Negative Phrase,Recherche ressource gratuite
+<Account-level>,cerfa pdf,Negative Phrase,Recherche formulaire seul
+<Account-level>,schema gratuit,Negative Phrase,Recherche ressource gratuite
+<Account-level>,forum,Negative Phrase,Recherche information communautaire
+<Account-level>,avis particulier,Negative Phrase,Hors cible B2B
+<Account-level>,emploi,Negative Phrase,Recherche recrutement
+<Account-level>,recrutement,Negative Phrase,Recherche recrutement
+<Account-level>,formation,Negative Phrase,Recherche formation
+<Account-level>,stage,Negative Phrase,Recherche emploi
+<Account-level>,salaire,Negative Phrase,Recherche emploi
+<Account-level>,bricolage,Negative Phrase,Hors cible B2B
+<Account-level>,kit solaire,Negative Phrase,Recherche materiel
+<Account-level>,batterie solaire,Negative Phrase,Recherche materiel
+<Account-level>,panneau solaire prix particulier,Negative Phrase,Hors cible B2B
+<select campaign>,simulateur,Negative Phrase,Recherche outil gratuit
+<select campaign>,modele gratuit,Negative Phrase,Recherche modele gratuit
+<select campaign>,exemple gratuit,Negative Phrase,Recherche exemple gratuit

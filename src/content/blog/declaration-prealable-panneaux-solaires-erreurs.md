@@ -1,14 +1,15 @@
 ---
 slug: "declaration-prealable-panneaux-solaires-erreurs"
 title: "Déclaration préalable panneaux solaires : les erreurs qui ralentissent vos chantiers"
-seoTitle: "Déclaration préalable panneaux solaires : erreurs à éviter | Sunelys"
+seoTitle: "Erreurs déclaration préalable panneaux solaires"
 description: "Les erreurs fréquentes dans une déclaration préalable panneaux solaires, leurs conséquences pour les installateurs et comment structurer un dossier plus fluide."
 pubDate: "2026-04-23"
-updatedDate: "2026-04-23"
+updatedDate: "2026-06-22"
 category: "Déclaration préalable"
 readingTime: "5 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
 coverAlt: "Plans de toiture photovoltaïque et documents de déclaration préalable sur un bureau."
+ogImage: "/images/og/declaration-prealable-panneaux-solaires.png"
 keywords: "déclaration préalable panneaux solaires, dossier photovoltaïque, administratif solaire, installateur photovoltaïque"
 primaryServiceHref: "/declaration-prealable-panneaux-solaires"
 primaryServiceLabel: "Service déclaration préalable"
@@ -16,6 +17,25 @@ secondaryServiceHref: "/contact"
 secondaryServiceLabel: "Recevoir un cadrage"
 contactSource: "blog-dp"
 businessOutcome: "Fiabiliser les dépôts mairie pour réduire les pièces complémentaires et lancer les chantiers plus sereinement."
+relatedLinks:
+  - href: "/declaration-prealable-panneaux-solaires"
+    label: "Déclaration préalable panneaux solaires"
+    description: "La page service pour externaliser les dépôts DP."
+  - href: "/blog/cerfa-declaration-prealable-panneaux-solaires"
+    label: "Cerfa DP panneaux solaires"
+    description: "Choisir le bon formulaire et vérifier les champs sensibles."
+  - href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais"
+    label: "Pièces et délais d'une DP solaire"
+    description: "Les éléments à préparer avant dépôt en mairie."
+  - href: "/blog/delai-declaration-prealable-photovoltaique"
+    label: "Délai DP photovoltaïque"
+    description: "Identifier les retards liés aux compléments mairie."
+  - href: "/blog/dp-refusee-panneaux-solaires-que-faire"
+    label: "DP refusée panneaux solaires"
+    description: "Savoir quoi faire après un arrêté d'opposition."
+  - href: "/blog/declaration-prealable-panneaux-solaires-toiture"
+    label: "Panneaux solaires en toiture"
+    description: "Quand anticiper une déclaration préalable."
 ---
 
 ## Pourquoi la déclaration préalable bloque autant de dossiers solaires
@@ -23,6 +43,8 @@ businessOutcome: "Fiabiliser les dépôts mairie pour réduire les pièces compl
 Pour beaucoup d'installateurs photovoltaïques, la déclaration préalable n'est pas la partie la plus technique du chantier. C'est pourtant l'une des étapes qui crée le plus de retours, de délais et de friction client.
 
 Un dossier incomplet, une pièce mal cadrée ou une information incohérente peut suffire à repousser le démarrage. À l'échelle d'une équipe qui traite plusieurs dossiers par semaine, ces petites erreurs deviennent vite un vrai goulot d'étranglement.
+
+Le sujet commence dès le formulaire : si besoin, consultez aussi le guide dédié au [Cerfa déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires) avant de relire vos pièces.
 
 Sunelys intervient précisément sur cette zone : structurer le dossier, vérifier les pièces et suivre l'avancement administratif pour éviter que la croissance commerciale soit ralentie par la charge documentaire.
 
@@ -70,4 +92,4 @@ Sunelys prend en charge la constitution, le contrôle et le suivi de vos dossier
 
 Une déclaration préalable bien cadrée n'est pas un détail. C'est une condition de fluidité pour vendre, poser et mettre en service sans créer de tension inutile.
 
-Pour structurer vos démarches, vous pouvez consulter notre page dédiée : [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), lire le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), vérifier le cas des [panneaux solaires en toiture](/blog/declaration-prealable-panneaux-solaires-toiture), ou [planifier un échange](/contact?source=blog-dp) avec Sunelys.
+Pour structurer vos démarches, vous pouvez consulter notre page dédiée : [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), lire le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), vérifier le cas des [panneaux solaires en toiture](/blog/declaration-prealable-panneaux-solaires-toiture), revoir le [Cerfa déclaration préalable panneaux solaires](/blog/cerfa-declaration-prealable-panneaux-solaires), ou [planifier un échange](/contact?source=blog-dp) avec Sunelys.

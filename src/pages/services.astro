@@ -1,5 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+import { isVisibleHref, publicBlogSlugs } from "../lib/blogPublication";
 
 const services = [
   {
@@ -13,6 +15,8 @@ const services = [
       "Suivi mairie et relances utiles",
     ],
     href: "/declaration-prealable-panneaux-solaires",
+    guideHref: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+    guideLabel: "Lire le guide DP",
   },
   {
     title: "Sous-traitance DP solaire",
@@ -22,9 +26,11 @@ const services = [
     points: [
       "Traitement récurrent des dossiers DP",
       "Contrôle qualité avant dépôt",
-      "Tarification adaptée au volume",
+      "Organisation adaptée à votre flux",
     ],
     href: "/sous-traitance-declaration-prealable-solaire",
+    guideHref: "/blog/sous-traiter-declaration-prealable-photovoltaique",
+    guideLabel: "Sous-traiter ses DP",
   },
   {
     title: "Dossier Consuel photovoltaïque",
@@ -37,6 +43,8 @@ const services = [
       "Suivi jusqu'à validation finale",
     ],
     href: "/dossier-consuel-photovoltaique",
+    guideHref: "/blog/attestation-consuel-photovoltaique",
+    guideLabel: "Attestation Consuel",
   },
   {
     title: "Raccordement Enedis photovoltaïque",
@@ -49,6 +57,53 @@ const services = [
       "Traçabilité des jalons et blocages",
     ],
     href: "/raccordement-enedis-photovoltaique",
+    guideHref: "/blog/etapes-raccordement-enedis-panneaux-solaires",
+    guideLabel: "Étapes raccordement",
+  },
+  {
+    title: "MaPrimeRénov' - montage & suivi",
+    benefit: "Des dossiers d'aide structurés pour limiter les refus et sécuriser le versement.",
+    description:
+      "Sunelys vérifie l'éligibilité, monte le dossier, prépare le dépôt ANAH et suit les échanges jusqu'à la décision.",
+    points: [
+      "Contrôle des informations client et chantier",
+      "Montage conforme du dossier MaPrimeRénov'",
+      "Suivi administratif jusqu'au versement",
+    ],
+    href: "/contact?source=maprimerenov#contact-form",
+    guideHref: "",
+    guideLabel: "",
+    ctaLabel: "Cadrer MaPrimeRénov'",
+  },
+  {
+    title: "CEE - certificats d'économies d'énergie",
+    benefit: "Un contrôle administratif pour éviter les dossiers CEE rejetés ou incomplets.",
+    description:
+      "Nous contrôlons les devis et factures, montons le dossier CEE et suivons la validation avec les éléments attendus.",
+    points: [
+      "Contrôle devis, facture et cohérence documentaire",
+      "Montage du dossier CEE",
+      "Suivi jusqu'à validation",
+    ],
+    href: "/contact?source=cee#contact-form",
+    guideHref: "",
+    guideLabel: "",
+    ctaLabel: "Cadrer les CEE",
+  },
+  {
+    title: "Pack MaPrimeRénov' + CEE",
+    benefit: "Les deux aides pilotées ensemble sur un même chantier.",
+    description:
+      "Sunelys coordonne le montage MaPrimeRénov' et CEE pour éviter les doublons, les oublis et les allers-retours dispersés.",
+    points: [
+      "Gestion des deux dossiers d'aides",
+      "Suivi coordonné jusqu'aux validations",
+      "Lecture claire des pièces manquantes",
+    ],
+    href: "/contact?source=pack-maprimerenov-cee#contact-form",
+    guideHref: "",
+    guideLabel: "",
+    ctaLabel: "Cadrer le pack aides",
   },
   {
     title: "Gestion administrative photovoltaïque",
@@ -61,6 +116,8 @@ const services = [
       "Coordination continue avec vos équipes",
     ],
     href: "/gestion-administrative-photovoltaique",
+    guideHref: "/blog/externaliser-administratif-photovoltaique",
+    guideLabel: "Externaliser l'admin PV",
   },
 ];
 
@@ -69,23 +126,56 @@ const fitItems = [
   "Vous cherchez plus de visibilité sur les dossiers en cours et les points de blocage.",
   "Vous voulez absorber plus de volume sans dégrader l'expérience client.",
 ];
+
+const partnerMetrics = [
+  { value: "96 %", label: "DP sans pièce complémentaire" },
+  { value: "48 h", label: "production lorsque le dossier est complet" },
+  { value: "1 357", label: "dossiers pilotés" },
+];
+
+const completeChainItems = [
+  "Déclaration préalable, raccordement réseau et Consuel dans le même flux",
+  "Un interlocuteur unique pour centraliser les échanges et les relances",
+  "Pilotage intégral de A à Z, avec suivi en temps réel côté installateur",
+  "199 € HT / dossier, tarif unitaire fixe",
+];
+
+const renovationAidItems = [
+  "MaPrimeRénov' : montage et suivi à 129 € HT / dossier",
+  "CEE : contrôle, montage et validation à 99 € HT / dossier",
+  "Pack MaPrimeRénov' + CEE : gestion des deux dossiers à 199 € HT / dossier",
+];
+
+const visibleServices = services.map((service) => ({
+  ...service,
+  showGuide: Boolean(service.guideHref) && isVisibleHref(service.guideHref, publicBlogSlugs),
+}));
 ---
 
 <BaseLayout
-  title="Services photovoltaïques pour installateurs | Sunelys"
-  description="Sunelys prend en charge déclaration préalable, Consuel, raccordement Enedis et pilotage administratif photovoltaïque pour les installateurs."
+  title="Services administratifs photovoltaïques | Sunelys"
+  description="DP, Consuel, raccordement, MaPrimeRénov' et CEE : services administratifs délégables pour installateurs et structures ENR."
 >
   <section class="hero card">
     <p class="eyebrow">Services Sunelys</p>
-    <h1>Externalisez l'administratif photovoltaïque, sans perdre la maîtrise de vos dossiers.</h1>
+    <h1>Externalisez le pilotage administratif photovoltaïque, sans perdre la maîtrise de vos dossiers.</h1>
     <p class="intro">
-      Sunelys prend en charge les démarches administratives qui ralentissent vos installations.
-      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire.
+      Sunelys prend en charge le pilotage complet de vos dossiers administratifs qui ralentissent vos installations.
+      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire, les aides et les priorités.
     </p>
     <div class="hero-actions">
-      <a class="cta" href="/contact?source=services#contact-form" data-track="cta_services_hero_primary">Recevoir un cadrage</a>
+      <a class="cta" href="/contact?source=services#contact-form" data-track="cta_services_hero_primary">Cadrer votre pilotage complet</a>
       <a class="cta cta-secondary" href="/parcours" data-track="cta_services_hero_secondary">Voir le fonctionnement</a>
     </div>
+  </section>
+
+  <section class="section proof-strip" aria-label="Preuves opérationnelles Sunelys">
+    {partnerMetrics.map((metric) => (
+      <article class="proof-metric">
+        <strong>{metric.value}</strong>
+        <span>{metric.label}</span>
+      </article>
+    ))}
   </section>
 
   <section class="section fit-grid">
@@ -108,14 +198,66 @@ const fitItems = [
     </article>
   </section>
 
+  <section class="section card complete-chain">
+    <div>
+      <p class="eyebrow">Recommandé</p>
+      <h2>Chaîne administrative complète : le choix des installateurs qui veulent piloter sans recruter.</h2>
+      <p>
+        Sunelys peut piloter toute la chaîne DP, raccordement et Consuel avec un seul interlocuteur,
+        une production sous 48h lorsque le dossier est complet, une visibilité continue sur les statuts
+        et un tarif unique par dossier.
+      </p>
+    </div>
+    <ul>
+      {completeChainItems.map((item) => <li>{item}</li>)}
+    </ul>
+    <div class="box-actions">
+      <a class="cta" href="/contact?source=services-pilotage-complet#contact-form" data-track="cta_services_complete_chain">
+        Cadrer un pilotage complet
+      </a>
+      <a class="cta cta-secondary" href="/tarifs" data-track="cta_services_complete_chain_tarifs">
+        Voir les tarifs
+      </a>
+    </div>
+  </section>
+
+  <section class="section card complete-chain aid-chain">
+    <div>
+      <p class="eyebrow">Nouveau</p>
+      <h2>Aides à la rénovation : MaPrimeRénov' et CEE pilotés sans dispersion.</h2>
+      <p>
+        Les dossiers d'aides demandent autant de rigueur que les démarches photovoltaïques :
+        éligibilité, pièces client, devis, factures, dépôt et suivi jusqu'à validation.
+        Sunelys peut gérer MaPrimeRénov', les CEE ou les deux ensemble.
+      </p>
+    </div>
+    <ul>
+      {renovationAidItems.map((item) => <li>{item}</li>)}
+    </ul>
+    <div class="box-actions">
+      <a class="cta" href="/contact?source=aides-renovation#contact-form" data-track="cta_services_aides_renovation">
+        Cadrer vos aides
+      </a>
+      <a class="cta cta-secondary" href="/tarifs#aides-renovation" data-track="cta_services_aides_tarifs">
+        Voir les tarifs aides
+      </a>
+    </div>
+  </section>
+
+  <BlockedDiagnostic
+    source="services_diagnostic_dossiers_bloques"
+    title="Vous avez plusieurs dossiers à débloquer ? On identifie le flux à reprendre en premier."
+    text="Le diagnostic aide à prioriser entre DP, Consuel, raccordement et pilotage global, sans transformer tout votre process d'un coup."
+  />
+
   <section class="section">
     <div class="section-head">
       <p class="eyebrow">Offres spécialisées</p>
-      <h2>Cinq blocs d'intervention selon votre organisation.</h2>
+      <h2>Huit blocs d'intervention selon votre organisation.</h2>
     </div>
     <div class="grid">
       {
-        services.map((service) => (
+        visibleServices.map((service) => (
           <article class="card service-card">
             <div class="service-copy">
               <h3>{service.title}</h3>
@@ -131,8 +273,20 @@ const fitItems = [
               data-track="cta_services_detail"
               data-track-label={service.title}
             >
-              Voir le détail
+              {service.ctaLabel ?? "Voir le détail"}
             </a>
+            {
+              service.showGuide && (
+                <a
+                  class="service-guide-link"
+                  href={service.guideHref}
+                  data-track="cta_services_guide"
+                  data-track-label={service.title}
+                >
+                  {service.guideLabel}
+                </a>
+              )
+            }
           </article>
         ))
       }
@@ -141,13 +295,13 @@ const fitItems = [
 
   <section class="section card box">
     <p class="eyebrow">Accompagnement</p>
-    <h2>Besoin d'un pilotage complet plutôt que d'une mission isolée ?</h2>
+    <h2>Vous voulez piloter votre administratif au complet ?</h2>
     <p>
-      Nous adaptons le niveau de prise en charge à votre volume, à votre structure et à la
+      Nous adaptons le niveau de prise en charge à votre organisation, à votre structure et à la
       maturité de vos flux administratifs.
     </p>
     <div class="box-actions">
-      <a class="cta" href="/contact?source=services-final#contact-form" data-track="cta_services_contact">Recevoir un cadrage</a>
+      <a class="cta" href="/contact?source=services-final#contact-form" data-track="cta_services_contact">Démarrer un cadrage complet</a>
       <a class="cta cta-secondary" href="/tarifs" data-track="cta_services_pricing">Comprendre les offres</a>
     </div>
   </section>
@@ -228,6 +382,61 @@ const fitItems = [
     gap: 0.85rem;
   }
 
+  .proof-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.85rem;
+  }
+
+  .proof-metric {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    box-shadow: var(--shadow-sm);
+    padding: 1rem;
+    display: grid;
+    gap: 0.28rem;
+  }
+
+  .proof-metric strong {
+    color: var(--text);
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    line-height: 0.95;
+  }
+
+  .proof-metric span {
+    color: var(--text-muted);
+    line-height: 1.35;
+  }
+
+  .complete-chain {
+    display: grid;
+    gap: 1rem;
+    background:
+      radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 58%),
+      linear-gradient(165deg, #1b1712, #11100d);
+    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+  }
+
+  .complete-chain h2,
+  .complete-chain p,
+  .complete-chain li,
+  .complete-chain .eyebrow {
+    color: #f7f2e8;
+  }
+
+  .complete-chain p,
+  .complete-chain li {
+    color: #ded2c1;
+  }
+
+  .complete-chain ul {
+    margin: 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.46rem;
+  }
+
   .fit-card {
     display: grid;
     gap: 0.9rem;
@@ -239,6 +448,22 @@ const fitItems = [
     padding-left: 1.1rem;
     display: grid;
     gap: 0.42rem;
+  }
+
+  .service-guide-link {
+    width: fit-content;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .service-guide-link:hover,
+  .service-guide-link:focus-visible {
+    text-decoration: underline;
+    text-underline-offset: 0.25rem;
   }
 
   .highlight-card {
@@ -327,6 +552,7 @@ const fitItems = [
 
   @media (max-width: 900px) {
     .fit-grid,
+    .proof-strip,
     .grid {
       grid-template-columns: 1fr;
     }

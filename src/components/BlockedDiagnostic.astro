@@ -1,0 +1,329 @@
+---
+interface Props {
+  source?: string;
+  kicker?: string;
+  title?: string;
+  text?: string;
+  submitLabel?: string;
+}
+
+const {
+  source = "diagnostic_dossiers_bloques",
+  kicker = "Diagnostic dossiers bloqués",
+  title = "Identifiez ce qui ralentit vos DP, Consuel, raccordements ou aides.",
+  text = "En quelques champs, Sunelys repère votre volume, l'étape bloquée et le premier périmètre à traiter pour récupérer du temps opérationnel.",
+  submitLabel = "Recevoir mon diagnostic",
+} = Astro.props;
+
+const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
+const normalizedSource = source.replace(/[^a-zA-Z0-9_-]/g, "_");
+const formId = `blocked-diagnostic-${normalizedSource}`;
+const successUrl = `https://sunelys.fr/merci?source=${encodeURIComponent(source)}`;
+const attributionFields = [
+  "landing_page",
+  "first_referrer",
+  "utm_source",
+  "utm_medium",
+  "utm_campaign",
+  "utm_term",
+  "utm_content",
+  "gclid",
+  "fbclid",
+  "msclkid",
+];
+
+const signals = [
+  "Réponse sous 24h ouvrées",
+  "Priorité aux dossiers à forte friction",
+  "Aucun engagement",
+];
+---
+
+<section class="blocked-diagnostic section-shell reveal" id={formId}>
+  <div class="blocked-diagnostic__copy">
+    <p class="blocked-diagnostic__kicker">{kicker}</p>
+    <h2>{title}</h2>
+    <p>{text}</p>
+    <ul aria-label="Garanties du diagnostic">
+      {signals.map((signal) => <li>{signal}</li>)}
+    </ul>
+  </div>
+
+  <form
+    class="blocked-diagnostic__form"
+    action={leadFormAction}
+    method="POST"
+    data-lead-form
+    data-blocked-diagnostic-form
+    data-conversion-type="form_contact"
+  >
+    <input type="hidden" name="_subject" value="Nouveau diagnostic dossiers bloqués Sunelys" />
+    <input type="hidden" name="_captcha" value="false" />
+    <input type="hidden" name="_template" value="table" />
+    <input type="hidden" name="_next" value={successUrl} />
+    <input type="hidden" name="source_page" value={source} />
+    <input type="hidden" name="source" value={source} />
+    <input type="hidden" name="conversion_type" value="form_contact" />
+    <input type="hidden" name="lead_stage" value="blocked_diagnostic_form_submitted" />
+    <input type="hidden" name="service_interest" value="Pilotage complet" data-diagnostic-service-interest />
+    <input type="hidden" name="lead_source_detail" value={`${source}_form`} />
+    <input type="hidden" name="message" value="Demande de diagnostic dossiers bloqués" />
+    <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec volume, besoin et étape administrative" />
+    <input type="hidden" name="lead_status" value="Nouveau lead" />
+    <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
+    <input type="hidden" name="lead_owner" value="Sunelys commercial" />
+    <input type="hidden" name="follow_up_sla" value="24h" />
+    {attributionFields.map((fieldName) => (
+      <input type="hidden" name={fieldName} data-diagnostic-attribution={fieldName} />
+    ))}
+
+    <label>
+      <span>Email professionnel</span>
+      <input type="email" name="email" autocomplete="email" inputmode="email" required />
+    </label>
+    <label>
+      <span>Société</span>
+      <input type="text" name="company" autocomplete="organization" />
+    </label>
+    <label>
+      <span>Volume mensuel</span>
+      <select name="volume" required>
+        <option value="">Sélectionner</option>
+        <option value="1-10">1-10 dossiers</option>
+        <option value="10-30">10-30 dossiers</option>
+        <option value="+30">+30 dossiers</option>
+      </select>
+    </label>
+    <label>
+      <span>Besoin principal</span>
+      <select name="need" data-diagnostic-need required>
+        <option value="">Sélectionner</option>
+        <option value="Pilotage complet">Pilotage complet</option>
+        <option value="Declaration prealable">Déclaration préalable</option>
+        <option value="Consuel">Consuel</option>
+        <option value="Raccordement Enedis">Raccordement Enedis</option>
+        <option value="MaPrimeRenov">MaPrimeRénov'</option>
+        <option value="CEE">CEE</option>
+        <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
+        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+    </label>
+    <label class="blocked-diagnostic__full">
+      <span>Étape bloquée</span>
+      <select name="blocked_stage" required>
+        <option value="">Sélectionner</option>
+        <option value="Avant dépôt">Avant dépôt</option>
+        <option value="Complément mairie">Complément mairie</option>
+        <option value="Consuel à préparer">Consuel à préparer</option>
+        <option value="Raccordement en attente">Raccordement en attente</option>
+        <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+        <option value="Prime à suivre">Prime à suivre</option>
+        <option value="Mise en service bloquée">Mise en service bloquée</option>
+        <option value="Pilotage global">Pilotage global</option>
+        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+    </label>
+
+    <button class="btn btn-primary btn-accent blocked-diagnostic__submit" type="submit" data-track={`cta_${source}_diagnostic_submit`}>
+      {submitLabel}
+    </button>
+    <p class="blocked-diagnostic__note">On vous répond avec le premier périmètre à traiter, pas avec un questionnaire interminable.</p>
+  </form>
+</section>
+
+<script define:vars={{ formId, source }}>
+  const blockedDiagnosticRoot = document.querySelector(`#${formId}`);
+  const blockedDiagnosticForm = blockedDiagnosticRoot?.querySelector("[data-blocked-diagnostic-form]");
+  const syncDiagnosticFields = () => {
+    if (!(blockedDiagnosticForm instanceof HTMLFormElement)) return;
+    const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
+    blockedDiagnosticForm.querySelectorAll("[data-diagnostic-attribution]").forEach((field) => {
+      if (!(field instanceof HTMLInputElement)) return;
+      const key = field.dataset.diagnosticAttribution || "";
+      field.value = attribution[key] || "";
+    });
+
+    const needField = blockedDiagnosticForm.querySelector("[data-diagnostic-need]");
+    const serviceInterestField = blockedDiagnosticForm.querySelector("[data-diagnostic-service-interest]");
+    if (needField instanceof HTMLSelectElement && serviceInterestField instanceof HTMLInputElement && needField.value) {
+      serviceInterestField.value = needField.value;
+    }
+  };
+
+  if (blockedDiagnosticRoot instanceof HTMLElement && blockedDiagnosticForm instanceof HTMLFormElement) {
+    syncDiagnosticFields();
+    blockedDiagnosticForm.querySelector("[data-diagnostic-need]")?.addEventListener("change", syncDiagnosticFields);
+
+    if ("IntersectionObserver" in window) {
+      let diagnosticViewed = false;
+      const diagnosticObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || diagnosticViewed) return;
+            diagnosticViewed = true;
+            window.trackEvent?.("blocked_diagnostic_viewed", {
+              category: "lead",
+              label: "Diagnostic dossiers bloqués",
+              source,
+              conversion_type: "form_contact",
+              lead_stage: "diagnostic_viewed",
+              service_interest: "Pilotage complet",
+            });
+            diagnosticObserver.disconnect();
+          });
+        },
+        { threshold: 0.35 }
+      );
+      diagnosticObserver.observe(blockedDiagnosticRoot);
+    }
+
+    blockedDiagnosticForm.addEventListener("submit", () => {
+      syncDiagnosticFields();
+      const formData = new FormData(blockedDiagnosticForm);
+      window.trackEvent?.("blocked_diagnostic_submit", {
+        category: "lead",
+        label: "Diagnostic dossiers bloqués",
+        source,
+        volume: String(formData.get("volume") || ""),
+        need: String(formData.get("need") || ""),
+        blocked_stage: String(formData.get("blocked_stage") || ""),
+        conversion_type: "form_contact",
+        lead_stage: "blocked_diagnostic_form_submitted",
+        service_interest: String(formData.get("service_interest") || formData.get("need") || "Pilotage complet"),
+        form_id: formId,
+      });
+    });
+  }
+</script>
+
+<style>
+  .blocked-diagnostic {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
+    gap: clamp(1rem, 2.4vw, 1.6rem);
+    align-items: start;
+    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(95% 120% at 100% 0%, color-mix(in srgb, var(--accent-soft) 58%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.2rem, 2.8vw, 2.2rem);
+  }
+
+  .blocked-diagnostic__copy,
+  .blocked-diagnostic__form {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .blocked-diagnostic__kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 19ch;
+    font-size: clamp(1.65rem, 3.1vw, 2.85rem);
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+
+  p {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.62;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.55rem;
+  }
+
+  li {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  li::before {
+    content: "";
+    display: inline-block;
+    width: 0.45rem;
+    height: 0.45rem;
+    margin-right: 0.55rem;
+    border-radius: 999px;
+    background: var(--accent);
+    transform: translateY(-0.08rem);
+  }
+
+  .blocked-diagnostic__form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: end;
+    gap: 0.72rem;
+  }
+
+  label {
+    display: grid;
+    gap: 0.38rem;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  input,
+  select {
+    width: 100%;
+    min-height: 3rem;
+    border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
+    border-radius: var(--radius-sm);
+    background: #fffefa;
+    color: var(--text);
+    padding: 0.76rem 0.9rem;
+    font: inherit;
+    letter-spacing: 0;
+    text-transform: none;
+  }
+
+  input:focus-visible,
+  select:focus-visible {
+    outline: 2px solid color-mix(in srgb, var(--accent) 70%, #111);
+    outline-offset: 2px;
+  }
+
+  .blocked-diagnostic__full,
+  .blocked-diagnostic__submit,
+  .blocked-diagnostic__note {
+    grid-column: 1 / -1;
+  }
+
+  .blocked-diagnostic__submit {
+    width: 100%;
+    border: 0;
+  }
+
+  .blocked-diagnostic__note {
+    font-size: var(--step--1);
+    text-align: center;
+  }
+
+  @media (max-width: 860px) {
+    .blocked-diagnostic,
+    .blocked-diagnostic__form {
+      grid-template-columns: 1fr;
+    }
+
+    h2 {
+      max-width: 20ch;
+    }
+  }
+</style>

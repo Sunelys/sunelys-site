@@ -1,14 +1,15 @@
 ---
 slug: "raccordement-enedis-photovoltaique-etapes-delais"
 title: "Raccordement Enedis photovoltaïque : étapes, pièces et suivi installateur"
-seoTitle: "Raccordement Enedis photovoltaïque : étapes et dossier | Sunelys"
+seoTitle: "Raccordement Enedis photovoltaïque : guide"
 description: "Guide complet du raccordement Enedis photovoltaïque pour installateurs : demande, pièces, Consuel, délais, suivi et méthode pour limiter les blocages."
 pubDate: "2026-05-15"
-updatedDate: "2026-05-15"
+updatedDate: "2026-06-22"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
 coverAlt: "Documents techniques et matériel solaire pour le suivi d'un raccordement Enedis photovoltaïque."
+ogImage: "/images/og/raccordement-enedis-photovoltaique-etapes-delais.png"
 keywords: "raccordement Enedis photovoltaïque, demande raccordement Enedis panneau solaire, dossier raccordement Enedis photovoltaïque, délai raccordement Enedis solaire, raccordement panneaux solaires Enedis"
 primaryServiceHref: "/raccordement-enedis-photovoltaique"
 primaryServiceLabel: "Service raccordement Enedis"
@@ -16,6 +17,25 @@ secondaryServiceHref: "/contact?source=blog-raccordement-enedis#contact-form"
 secondaryServiceLabel: "Cadrer mes raccordements"
 contactSource: "blog-raccordement-enedis"
 businessOutcome: "Rendre les raccordements Enedis plus lisibles, limiter les dossiers incomplets et sécuriser la mise en service."
+relatedLinks:
+  - href: "/raccordement-enedis-photovoltaique"
+    label: "Raccordement Enedis photovoltaïque"
+    description: "La page service pour déléguer ce flux."
+  - href: "/blog/etapes-raccordement-enedis-panneaux-solaires"
+    label: "Étapes raccordement Enedis"
+    description: "La checklist opérationnelle jusqu'à la mise en service."
+  - href: "/blog/delai-raccordement-enedis-photovoltaique"
+    label: "Délai raccordement Enedis"
+    description: "Comprendre les délais maximums et les points de blocage."
+  - href: "/blog/cout-raccordement-enedis-photovoltaique"
+    label: "Coût raccordement Enedis"
+    description: "Préparer devis, travaux et communication client."
+  - href: "/blog/consuel-photovoltaique-delais-dossier"
+    label: "Dossier Consuel photovoltaïque"
+    description: "La dépendance clé avant mise en service."
+  - href: "/gestion-administrative-photovoltaique"
+    label: "Gestion administrative photovoltaïque"
+    description: "Piloter tout le parcours dans un même cadre."
 ---
 
 ## Pourquoi le raccordement Enedis bloque souvent les installateurs
@@ -119,6 +139,8 @@ Quand les conditions sont réunies, le dossier doit pouvoir passer en mise en se
 
 Beaucoup de recherches SEO tournent autour du délai de raccordement Enedis solaire. La réponse dépend du projet, des éventuels travaux réseau, de la complétude du dossier et du traitement des étapes intermédiaires.
 
+Pour une analyse dédiée du parcours administratif, consultez aussi la page [Raccordement Enedis photovoltaïque](/raccordement-enedis-photovoltaique).
+
 Pour un installateur, il est plus utile de piloter les causes de délai que de promettre un délai unique. Les points à surveiller sont :
 
 - le temps avant dépôt de la demande ;
@@ -187,7 +209,7 @@ Dans ces situations, déléguer le pilotage administratif ne sert pas seulement 
 
 ## À lire ensuite
 
-Pour approfondir le parcours complet, consultez notre page [Raccordement Enedis photovoltaïque](/raccordement-enedis-photovoltaique).
+Pour approfondir le parcours complet, consultez notre page [Raccordement Enedis photovoltaïque](/raccordement-enedis-photovoltaique). Pour cadrer les dépendances amont, lisez aussi le guide [Consuel photovoltaïque : dossier et délais](/blog/consuel-photovoltaique-delais-dossier).
 
 Si vos blocages viennent plutôt de l'amont, lisez aussi notre guide sur la [déclaration préalable panneaux solaires](/blog/declaration-prealable-panneaux-solaires-pieces-delais) et notre article sur le [Consuel photovoltaïque](/blog/consuel-photovoltaique-delais-dossier).
 

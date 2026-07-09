@@ -22,24 +22,36 @@ const { action, path } = Astro.props;
     </button>
 
     <div class="exit-modal__copy">
-      <p class="exit-modal__kicker">Checklist déclaration préalable</p>
-      <h2 id="exit-modal-title">Avant de partir : récupérez la checklist DP qui évite 80 % des retours</h2>
+      <p class="exit-modal__kicker">Diagnostic dossiers bloqués</p>
+      <h2 id="exit-modal-title">Avant de partir : faites identifier l'étape qui ralentit vos dossiers</h2>
       <p>
-        30 points de contrôle pour qu'une déclaration préalable panneaux solaires passe sans pièce complémentaire.
-        Utilisée par les installateurs accompagnés par Sunelys.
+        DP, Consuel ou raccordement : indiquez votre volume et le blocage principal. Sunelys vous répond
+        avec le premier périmètre à reprendre en priorité.
       </p>
     </div>
 
-    <form id="exit-intent-form" class="exit-modal__form" action={action} method="POST">
-      <input type="hidden" name="_subject" value="Nouveau lead checklist DP Sunelys" />
+    <form
+      id="exit-intent-form"
+      class="exit-modal__form"
+      action={action}
+      method="POST"
+      data-lead-form
+      data-conversion-type="form_contact"
+    >
+      <input type="hidden" name="_subject" value="Nouveau diagnostic dossiers bloqués Sunelys" />
       <input type="hidden" name="_captcha" value="false" />
       <input type="hidden" name="_template" value="table" />
-      <input type="hidden" name="source_page" value="lead-magnet-checklist-dp" />
-      <input type="hidden" name="source" value="lead-magnet-checklist-dp" />
-      <input type="hidden" name="need" value="Declaration prealable" />
-      <input type="hidden" name="message" value="Demande de checklist DP" />
+      <input type="hidden" name="source_page" value="exit-intent-diagnostic-dossiers-bloques" />
+      <input type="hidden" name="source" value="exit-intent-diagnostic-dossiers-bloques" />
+      <input type="hidden" name="need" value="Pilotage complet" />
+      <input type="hidden" name="message" value="Demande de diagnostic dossiers bloqués depuis exit intent" />
+      <input type="hidden" name="conversion_type" value="form_contact" />
+      <input type="hidden" name="lead_stage" value="exit_intent_form_submitted" />
+      <input type="hidden" name="service_interest" value="Pilotage complet" />
+      <input type="hidden" name="lead_source_detail" value="exit_intent_diagnostic_modal" />
+      <input type="hidden" name="qualification_hint" value="email professionnel, volume mensuel et étape bloquée depuis exit intent" />
       <input type="hidden" name="lead_status" value="Nouveau lead" />
-      <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist DP" />
+      <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
       <input type="hidden" name="lead_owner" value="Sunelys commercial" />
       <input type="hidden" name="follow_up_sla" value="24h" />
       <input type="hidden" name="landing_page" data-exit-attribution="landing_page" />
@@ -54,25 +66,51 @@ const { action, path } = Astro.props;
       <input type="hidden" name="msclkid" data-exit-attribution="msclkid" />
 
       <label>
+        <span>Volume mensuel</span>
+        <select name="volume" required>
+          <option value="">Sélectionner</option>
+          <option value="1-10">1-10 dossiers</option>
+          <option value="10-30">10-30 dossiers</option>
+          <option value="+30">+30 dossiers</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Étape bloquée</span>
+        <select name="blocked_stage" required>
+          <option value="">Sélectionner</option>
+          <option value="Avant dépôt">Avant dépôt</option>
+          <option value="Complément mairie">Complément mairie</option>
+          <option value="Consuel à préparer">Consuel à préparer</option>
+          <option value="Raccordement en attente">Raccordement en attente</option>
+          <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+          <option value="Prime à suivre">Prime à suivre</option>
+          <option value="Mise en service bloquée">Mise en service bloquée</option>
+          <option value="Pilotage global">Pilotage global</option>
+          <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+        </select>
+      </label>
+
+      <label>
         <span>Email professionnel</span>
         <input id="exit-intent-email" type="email" name="email" autocomplete="email" inputmode="email" required />
       </label>
 
       <button class="btn btn-primary btn-accent" type="submit" data-track="cta_exit_intent_submit">
-        Recevoir la checklist
+        Recevoir mon diagnostic
       </button>
 
       <p class="exit-modal__note" id="exit-intent-status" aria-live="polite">
-        Pas de spam. Vous pouvez vous désabonner en un clic.
+        Réponse sous 24h ouvrées. Aucun engagement.
       </p>
       <a
         class="exit-modal__download"
         id="exit-intent-download"
-        href="/checklist-declaration-prealable-solaire?source=exit_intent_success"
-        data-track="cta_exit_intent_checklist_download"
+        href="/contact?source=exit_intent_success#contact-form"
+        data-track="cta_exit_intent_diagnostic_context"
         hidden
       >
-        Ouvrir la checklist
+        Compléter mon contexte
       </a>
     </form>
   </div>
@@ -173,8 +211,11 @@ const { action, path } = Astro.props;
     document.addEventListener("keydown", handleKeydown);
     window.trackEvent?.("exit_intent_modal_viewed", {
       category: "lead",
-      label: "Checklist DP",
-      source: "lead-magnet-checklist-dp",
+      label: "Diagnostic dossiers bloqués",
+      source: "exit-intent-diagnostic-dossiers-bloques",
+      conversion_type: "form_contact",
+      lead_stage: "exit_intent_viewed",
+      service_interest: "Pilotage complet",
     });
 
     window.requestAnimationFrame(() => {
@@ -227,26 +268,55 @@ const { action, path } = Astro.props;
       event.preventDefault();
       const submitButton = exitForm.querySelector("button[type='submit']");
       if (submitButton instanceof HTMLButtonElement) submitButton.disabled = true;
-      if (exitStatus) exitStatus.textContent = "Envoi de la checklist en cours...";
+      if (exitStatus) exitStatus.textContent = "Envoi du diagnostic en cours...";
+      const exitFormData = new FormData(exitForm);
 
       try {
         const response = await fetch(exitForm.action, {
           method: "POST",
-          body: new FormData(exitForm),
+          body: exitFormData,
           headers: { Accept: "application/json" },
         });
 
         if (!response.ok) throw new Error("Lead magnet submit failed");
 
         writeSessionFlag(submittedKey);
-        window.trackEvent?.("generate_lead", {
-          category: "lead",
-          label: "Checklist DP",
-          source: "lead-magnet-checklist-dp",
-        });
+          window.trackEvent?.("lead_form_submit", {
+            category: "lead",
+            label: "Diagnostic dossiers bloqués",
+            source: "exit-intent-diagnostic-dossiers-bloques",
+            volume: String(exitFormData.get("volume") || ""),
+            need: String(exitFormData.get("need") || ""),
+            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
+            conversion_type: "form_contact",
+            lead_stage: "exit_intent_form_submitted",
+            service_interest: "Pilotage complet",
+          });
+          window.trackEvent?.("generate_lead", {
+            category: "lead",
+            label: "Diagnostic dossiers bloqués",
+            source: "exit-intent-diagnostic-dossiers-bloques",
+            volume: String(exitFormData.get("volume") || ""),
+            need: String(exitFormData.get("need") || ""),
+            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
+            conversion_type: "form_contact",
+            lead_stage: "exit_intent_form_submitted",
+            service_interest: "Pilotage complet",
+          });
+          window.trackEvent?.("lead_converted", {
+            category: "lead",
+            label: "Diagnostic dossiers bloqués",
+            source: "exit-intent-diagnostic-dossiers-bloques",
+            volume: String(exitFormData.get("volume") || ""),
+            need: String(exitFormData.get("need") || ""),
+            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
+            conversion_type: "form_contact",
+            lead_stage: "lead_confirmed",
+            service_interest: "Pilotage complet",
+          });
 
         if (exitStatus) {
-          exitStatus.textContent = "Merci, votre demande est bien prise en compte. La checklist est disponible.";
+          exitStatus.textContent = "Merci, votre demande est bien prise en compte. On vous revient avec une première lecture.";
         }
         if (exitDownload instanceof HTMLElement) {
           exitDownload.hidden = false;
@@ -361,7 +431,8 @@ const { action, path } = Astro.props;
     text-transform: uppercase;
   }
 
-  input {
+  input,
+  select {
     width: 100%;
     min-height: 3rem;
     border: 1px solid var(--line);
@@ -374,7 +445,8 @@ const { action, path } = Astro.props;
     text-transform: none;
   }
 
-  input:focus-visible {
+  input:focus-visible,
+  select:focus-visible {
     border-color: #111111;
   }
 

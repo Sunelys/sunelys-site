@@ -2,9 +2,10 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import LeadMagnetChecklist from "../../components/LeadMagnetChecklist.astro";
 import MediaFrame from "../../components/MediaFrame.astro";
+import { filterVisibleLinks, getPublicBlogPosts, publicBlogSlugs } from "../../lib/blogPublication";
 
 export async function getStaticPaths() {
-  const posts = Object.values(import.meta.glob("../../content/blog/*.md", { eager: true }));
+  const posts = getPublicBlogPosts();
   return posts.map((post) => ({
     params: { slug: post.frontmatter.slug },
     props: { post },
@@ -21,7 +22,38 @@ const secondaryServiceHref =
   frontmatter.secondaryServiceHref || `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
 const secondaryServiceLabel = frontmatter.secondaryServiceLabel || "Recevoir un cadrage";
 const articleContactHref = `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
-const relatedLinks = frontmatter.relatedLinks ?? [];
+const relatedLinks = filterVisibleLinks(frontmatter.relatedLinks, publicBlogSlugs);
+const pricingLinkByService: Record<string, { href: string; label: string; description: string }> = {
+  "/declaration-prealable-panneaux-solaires": {
+    href: "/tarif-declaration-prealable-photovoltaique",
+    label: "Tarif déclaration préalable",
+    description: "Comparer le coût par dossier et le niveau de délégation adapté.",
+  },
+  "/sous-traitance-declaration-prealable-solaire": {
+    href: "/tarif-declaration-prealable-photovoltaique",
+    label: "Tarif DP photovoltaïque",
+    description: "Chiffrer la sous-traitance de vos déclarations préalables solaires.",
+  },
+};
+const defaultPricingLink = {
+  href: "/tarifs",
+  label: "Voir les offres Sunelys",
+  description: "Comparer les périmètres de prise en charge selon votre organisation.",
+};
+const pricingLink = pricingLinkByService[primaryServiceHref] ?? defaultPricingLink;
+const articleBusinessLinks = [
+  {
+    href: primaryServiceHref,
+    label: primaryServiceLabel,
+    description: "Transformer le sujet de l'article en flux administratif piloté.",
+  },
+  pricingLink,
+  {
+    href: articleContactHref,
+    label: "Demander un diagnostic",
+    description: "Cadrer votre volume, vos blocages et le bon périmètre à déléguer.",
+  },
+].filter((link, index, links) => links.findIndex((candidate) => candidate.href === link.href) === index);
 const date = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
   month: "long",
@@ -106,7 +138,7 @@ const breadcrumbs = [
   ogType="article"
   breadcrumbs={breadcrumbs}
 >
-  <article class="article-shell reveal">
+  <article class="article-shell">
     <header class="article-header">
       <a class="back-link" href="/blog" data-track="cta_article_back_blog">Blog Sunelys</a>
       <div class="article-meta">
@@ -147,6 +179,27 @@ const breadcrumbs = [
         <Content />
       </div>
     </div>
+
+    <section class="article-business-path" aria-labelledby="article-business-path-title">
+      <div>
+        <p class="aside-label">Parcours recommandé</p>
+        <h2 id="article-business-path-title">Passer du problème lu au flux à piloter</h2>
+        <p>
+          Chaque guide doit permettre une action claire : comprendre le blocage, choisir le service adapté,
+          puis cadrer le volume et les priorités avec Sunelys.
+        </p>
+      </div>
+      <div class="business-path-grid">
+        {
+          articleBusinessLinks.map((link) => (
+            <a href={link.href} data-track="cta_article_business_path" data-track-label={link.label}>
+              <span>{link.label}</span>
+              <small>{link.description}</small>
+            </a>
+          ))
+        }
+      </div>
+    </section>
 
     <section class="article-author" aria-label="Auteur de l'article">
       <img src="/images/myriam-zaoui.jpg" alt="Myriam Zaoui, fondatrice de Sunelys" width="128" height="128" loading="lazy" decoding="async" />
@@ -370,6 +423,72 @@ const breadcrumbs = [
     background: color-mix(in srgb, var(--accent-soft) 38%, white);
   }
 
+  .article-business-path {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(1rem, 2vw, 1.4rem);
+    align-items: start;
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(110% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.1rem, 2.4vw, 1.7rem);
+  }
+
+  .article-business-path h2 {
+    margin: 0.45rem 0 0;
+    max-width: 15ch;
+    font-size: clamp(1.6rem, 3vw, 2.7rem);
+    line-height: 1;
+  }
+
+  .article-business-path p {
+    margin: 0.7rem 0 0;
+    max-width: 58ch;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .business-path-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .business-path-grid a {
+    min-height: 8.2rem;
+    display: grid;
+    align-content: start;
+    gap: 0.38rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    border-radius: calc(var(--radius-md) - 4px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.9rem;
+    transition: transform 170ms ease, box-shadow 170ms ease, border-color 170ms ease;
+  }
+
+  .business-path-grid a:hover,
+  .business-path-grid a:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+  }
+
+  .business-path-grid span {
+    font-weight: 800;
+    line-height: 1.2;
+  }
+
+  .business-path-grid small {
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+
   .article-author,
   .related-guides {
     border: 1px solid var(--line);
@@ -491,7 +610,8 @@ const breadcrumbs = [
       margin-top: 1.7rem;
     }
 
-    .article-layout {
+    .article-layout,
+    .article-business-path {
       grid-template-columns: 1fr;
     }
 
@@ -504,7 +624,8 @@ const breadcrumbs = [
       grid-template-columns: 1fr;
     }
 
-    .related-guides-grid {
+    .related-guides-grid,
+    .business-path-grid {
       grid-template-columns: 1fr;
     }
   }

@@ -56,12 +56,19 @@ const { data } = Astro.props;
             class="hero-lead-form"
             action={data.leadForm.action}
             method="POST"
+            data-lead-form
+            data-conversion-type="form_contact"
           >
             <input type="hidden" name="_subject" value="Nouveau cadrage gratuit - Hero Sunelys" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_next" value={data.leadForm.successUrl} />
             <input type="hidden" name="source_page" value="homepage_hero" />
+            <input type="hidden" name="conversion_type" value="form_contact" />
+            <input type="hidden" name="lead_stage" value="homepage_hero_form_submitted" />
+            <input type="hidden" name="service_interest" value="Pilotage administratif photovoltaïque" />
+            <input type="hidden" name="lead_source_detail" value="homepage_hero_form" />
+            <input type="hidden" name="qualification_hint" value="prenom, email professionnel, volume mensuel et étape bloquée" />
             <input type="hidden" name="lead_status" value="Nouveau lead" />
             <input type="hidden" name="lead_pipeline" value="Site web - Cadrage gratuit" />
             <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -93,6 +100,21 @@ const { data } = Astro.props;
                   <option value="1-10 dossiers">1-10 dossiers</option>
                   <option value="10-30 dossiers">10-30 dossiers</option>
                   <option value="+30 dossiers">+30 dossiers</option>
+                </select>
+              </label>
+              <label>
+                <span>Étape bloquée</span>
+                <select name="blocked_stage" required>
+                  <option value="">Sélectionner</option>
+                  <option value="Avant dépôt">Avant dépôt</option>
+                  <option value="Complément mairie">Complément mairie</option>
+                  <option value="Consuel à préparer">Consuel à préparer</option>
+                  <option value="Raccordement en attente">Raccordement en attente</option>
+                  <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
+                  <option value="Prime à suivre">Prime à suivre</option>
+                  <option value="Mise en service bloquée">Mise en service bloquée</option>
+                  <option value="Pilotage global">Pilotage global</option>
+                  <option value="Je ne sais pas encore">Je ne sais pas encore</option>
                 </select>
               </label>
             </div>
@@ -148,7 +170,11 @@ const { data } = Astro.props;
         category: "form",
         label: "Recevoir un cadrage gratuit",
         volume: String(formData.get("volume") || ""),
+        blocked_stage: String(formData.get("blocked_stage") || ""),
         source: "homepage_hero",
+        conversion_type: "form_contact",
+        lead_stage: "homepage_hero_form_submitted",
+        service_interest: "Pilotage administratif photovoltaïque",
       });
     });
   }
@@ -313,7 +339,7 @@ const { data } = Astro.props;
 
   .hero-form-fields {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.62rem;
   }
 

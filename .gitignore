@@ -12,9 +12,19 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
+# marketing agent generated reports
+reports/marketing-agent/
+reports/google-ads-leads/
+tmp/
+
+# local private credentials
+secrets/
+
 
 # environment variables
 .env
+.env.local
+.env.*.local
 .env.production
 
 # macOS-specific files
