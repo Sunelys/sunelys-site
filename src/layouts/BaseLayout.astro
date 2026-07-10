@@ -25,7 +25,21 @@ const defaultOgImage = new URL("/images/og/sunelys-og.png", `${siteUrl}/`).toStr
 const schemaLogo = new URL("/brand/logo-full.png", `${siteUrl}/`).toString();
 const ogImage = image ? new URL(image, `${siteUrl}/`).toString() : defaultOgImage;
 
+const normalizeGoogleAdsConversionId = (value: string) => {
+  const trimmed = value.trim();
+  return trimmed && !trimmed.startsWith("AW-") ? `AW-${trimmed}` : trimmed;
+};
+
 const ga4Id = import.meta.env.PUBLIC_GA4_ID || "";
+const googleAdsConversionId = normalizeGoogleAdsConversionId(
+  import.meta.env.PUBLIC_GOOGLE_ADS_CONVERSION_ID || "",
+);
+const googleAdsLeadConversionLabel = import.meta.env.PUBLIC_GOOGLE_ADS_LEAD_CONVERSION_LABEL || "";
+const googleAdsLeadConversionSendTo =
+  googleAdsConversionId && googleAdsLeadConversionLabel
+    ? `${googleAdsConversionId}/${googleAdsLeadConversionLabel}`
+    : "";
+const gtagScriptId = ga4Id || googleAdsConversionId;
 const googleSiteVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION || "";
 const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
@@ -189,14 +203,19 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       ))
     }
 
-    {ga4Id && <script async src={"https://www.googletagmanager.com/gtag/js?id=" + ga4Id}></script>}
+    {gtagScriptId && <script async src={"https://www.googletagmanager.com/gtag/js?id=" + gtagScriptId}></script>}
     {
-      ga4Id && (
-        <script define:vars={{ ga4Id }}>
+      gtagScriptId && (
+        <script define:vars={{ ga4Id, googleAdsConversionId }}>
           window.dataLayer = window.dataLayer || [];
           window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
           window.gtag("js", new Date());
-          window.gtag("config", ga4Id, { anonymize_ip: true });
+          if (ga4Id) {
+            window.gtag("config", ga4Id, { anonymize_ip: true });
+          }
+          if (googleAdsConversionId) {
+            window.gtag("config", googleAdsConversionId);
+          }
         </script>
       )
     }
@@ -254,7 +273,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       )
     }
 
-    <script define:vars={{ ga4Id, hasMatomo }}>
+    <script define:vars={{ ga4Id, googleAdsLeadConversionSendTo, hasMatomo }}>
       window.dataLayer = window.dataLayer || [];
 
       const attributionKeys = [
@@ -403,6 +422,18 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
         if (ga4Id && typeof window.gtag === "function") {
           window.gtag("event", eventName, analyticsPayload);
+        }
+
+        if (
+          eventName === "generate_lead" &&
+          googleAdsLeadConversionSendTo &&
+          typeof window.gtag === "function"
+        ) {
+          window.gtag("event", "conversion", {
+            send_to: googleAdsLeadConversionSendTo,
+            value: Number(params.value || 1),
+            currency: params.currency || "EUR",
+          });
         }
 
         if (hasMatomo && Array.isArray(window._paq)) {
