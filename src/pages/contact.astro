@@ -526,7 +526,7 @@ const supportCards = [
     margin: 0;
     color: var(--text-muted);
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0;
     text-transform: uppercase;
     font-weight: 700;
   }
@@ -576,13 +576,13 @@ const supportCards = [
     align-items: center;
     min-height: 2.1rem;
     padding: 0.4rem 0.74rem;
-    border-radius: 999px;
+    border-radius: 12px;
     border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
     background: color-mix(in srgb, var(--surface-elevated) 88%, white);
     color: var(--text);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -600,7 +600,7 @@ const supportCards = [
     justify-content: center;
     min-height: 3rem;
     padding: 0.78rem 1.22rem;
-    border-radius: 999px;
+    border-radius: 13px;
     font-weight: 700;
     text-decoration: none;
     cursor: pointer;
@@ -609,7 +609,7 @@ const supportCards = [
 
   .btn-primary {
     color: #f7f3ec;
-    background: var(--text);
+    background: linear-gradient(180deg, var(--ink-soft), #080706);
   }
 
   .btn-primary:hover,
@@ -644,7 +644,7 @@ const supportCards = [
   .quote-card,
   .support-card {
     border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: 24px;
+    border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
     box-shadow: var(--shadow-sm);
   }
@@ -683,7 +683,7 @@ const supportCards = [
     color: var(--text-muted);
     font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.15em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -754,7 +754,7 @@ const supportCards = [
   .quote-card strong {
     color: var(--text);
     font-size: 0.76rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -794,7 +794,7 @@ const supportCards = [
     border: 1px solid var(--line);
     background: color-mix(in srgb, var(--bg-soft) 84%, white);
     color: var(--text);
-    border-radius: 16px;
+    border-radius: 11px;
     padding: 0.82rem 0.86rem;
     font: inherit;
   }
@@ -828,7 +828,7 @@ const supportCards = [
   .booking-embed-shell {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
-    border-radius: 24px;
+    border-radius: var(--radius-md);
     background: color-mix(in srgb, var(--surface-elevated) 94%, white);
     box-shadow: var(--shadow-sm);
     min-height: 760px;
@@ -879,7 +879,7 @@ const supportCards = [
   .support-card span {
     color: var(--text-muted);
     font-size: 0.68rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0;
     text-transform: uppercase;
     font-weight: 700;
   }

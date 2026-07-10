@@ -4,6 +4,7 @@ interface HeroData {
   kicker: string;
   title: string;
   subtitle: string;
+  expertLine?: string;
   primaryCta: { label: string; href: string; track: string };
   secondaryCta: { label: string; href: string; track: string };
   leadForm?: {
@@ -25,19 +26,22 @@ const { data } = Astro.props;
 ---
 
 <section class="hero section-shell" data-sticky-guard="hero">
-  <div class="hero-copy reveal">
-    <p class="kicker">{data.kicker}</p>
-    <h1>{data.title}</h1>
-    <p class="subtitle">{data.subtitle}</p>
+  <div class:list={["hero-copy reveal", data.leadForm && "hero-copy-with-form"]}>
+    <div class="hero-narrative">
+      <p class="kicker">{data.kicker}</p>
+      <h1>{data.title}</h1>
+      <p class="subtitle">{data.subtitle}</p>
+      {data.expertLine && <p class="expert-line">{data.expertLine}</p>}
 
-    <div class="portal-proof" aria-label="Réassurance immédiate">
-      <ul class="proof-bar">
-        {
-          data.proofs.map((proof) => (
-            <li>{proof}</li>
-          ))
-        }
-      </ul>
+      <div class="portal-proof" aria-label="Réassurance immédiate">
+        <ul class="proof-bar">
+          {
+            data.proofs.map((proof) => (
+              <li>{proof}</li>
+            ))
+          }
+        </ul>
+      </div>
     </div>
 
     {
@@ -187,7 +191,7 @@ const { data } = Astro.props;
 <style>
   .hero {
     position: relative;
-    max-width: 62rem;
+    max-width: 74rem;
     padding-top: clamp(1rem, 1.8vw, 2rem);
     padding-bottom: clamp(1.1rem, 2vw, 2.4rem);
   }
@@ -209,12 +213,14 @@ const { data } = Astro.props;
   .hero-copy {
     position: relative;
     z-index: 1;
+    display: grid;
+    gap: clamp(1rem, 2vw, 1.35rem);
     border-radius: var(--radius-xl);
-    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
     background:
       radial-gradient(
-        90% 120% at 100% 120%,
-        color-mix(in srgb, var(--accent-soft) 62%, transparent),
+        80% 115% at 100% 120%,
+        color-mix(in srgb, var(--accent-soft) 42%, transparent),
         transparent 58%
       ),
       linear-gradient(
@@ -226,30 +232,41 @@ const { data } = Astro.props;
     padding: clamp(1.45rem, 3vw, 2.7rem);
   }
 
+  .hero-copy-with-form {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.78fr);
+    align-items: start;
+  }
+
   .hero-copy::after {
     content: "";
     position: absolute;
     inset: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.46);
-    border-radius: calc(var(--radius-xl) - 14px);
+    border-radius: calc(var(--radius-xl) - 10px);
     pointer-events: none;
+  }
+
+  .hero-narrative {
+    display: grid;
+    align-content: start;
+    gap: 0;
   }
 
   .kicker {
     margin: 0;
     color: var(--text-muted);
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0;
     text-transform: uppercase;
     font-weight: 700;
   }
 
   h1 {
     margin: 0.9rem 0 0;
-    max-width: 13.5ch;
+    max-width: 12.8ch;
     font-size: clamp(2.35rem, 4.2vw, 4.65rem);
     line-height: 0.92;
-    letter-spacing: -0.025em;
+    letter-spacing: 0;
     white-space: pre-line;
     text-wrap: balance;
   }
@@ -263,10 +280,22 @@ const { data } = Astro.props;
     text-wrap: pretty;
   }
 
+  .expert-line {
+    margin: 0.9rem 0 0;
+    max-width: 52ch;
+    border-left: 3px solid var(--accent-strong);
+    padding: 0.1rem 0 0.1rem 0.82rem;
+    color: var(--text);
+    font-size: clamp(0.98rem, 0.28vw + 0.92rem, 1.08rem);
+    font-weight: 650;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+
   .portal-proof {
     margin: 1rem 0 0;
     display: grid;
-    gap: 0.5rem;
+    gap: 0.42rem;
   }
 
   .proof-bar {
@@ -281,11 +310,11 @@ const { data } = Astro.props;
   .proof-bar li {
     display: inline-flex;
     align-items: center;
-    min-height: 2.3rem;
-    padding: 0.46rem 0.8rem;
-    border-radius: 16px;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
-    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    min-height: 2.18rem;
+    padding: 0.42rem 0.74rem;
+    border-radius: 12px;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    background: color-mix(in srgb, var(--surface-elevated) 82%, white);
     color: var(--text);
     font-size: 0.9rem;
     letter-spacing: 0;
@@ -305,13 +334,17 @@ const { data } = Astro.props;
   .hero-intake-card {
     margin-top: 1.16rem;
     border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
-    border-radius: 24px;
+    border-radius: 18px;
     background:
-      radial-gradient(120% 140% at 100% 0%, rgba(239, 227, 201, 0.52), transparent 58%),
-      rgba(255, 255, 255, 0.72);
+      radial-gradient(120% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      rgba(255, 255, 255, 0.82);
     box-shadow: 0 18px 44px rgba(20, 16, 10, 0.08);
     padding: clamp(0.95rem, 1.8vw, 1.18rem);
     backdrop-filter: blur(12px);
+  }
+
+  .hero-copy-with-form .hero-intake-card {
+    margin-top: 0;
   }
 
   .hero-intake-head {
@@ -324,7 +357,7 @@ const { data } = Astro.props;
     color: var(--text);
     font-size: 0.7rem;
     font-weight: 800;
-    letter-spacing: 0.16em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -354,7 +387,7 @@ const { data } = Astro.props;
     color: var(--text);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
@@ -363,7 +396,7 @@ const { data } = Astro.props;
     width: 100%;
     min-height: 2.85rem;
     border: 1px solid color-mix(in srgb, var(--line) 82%, var(--accent));
-    border-radius: 14px;
+    border-radius: 11px;
     background: color-mix(in srgb, var(--surface-elevated) 92%, white);
     color: var(--text);
     font: inherit;
@@ -409,6 +442,7 @@ const { data } = Astro.props;
   }
 
   .cta-note {
+    grid-column: 1 / -1;
     margin: 0.72rem 0 0;
     color: var(--text-muted);
     font-size: 0.8rem;
@@ -424,6 +458,10 @@ const { data } = Astro.props;
       text-align: center;
     }
 
+    .hero-copy-with-form {
+      grid-template-columns: 1fr;
+    }
+
     h1 {
       margin-inline: auto;
       max-width: 12ch;
@@ -431,6 +469,15 @@ const { data } = Astro.props;
 
     .subtitle {
       margin-inline: auto;
+    }
+
+    .expert-line {
+      margin-inline: auto;
+      border-left: 0;
+      border-top: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+      border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+      padding: 0.72rem 0;
+      max-width: 28rem;
     }
 
     .portal-proof,

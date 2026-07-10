@@ -65,17 +65,17 @@ const {
     position: sticky;
     top: 0;
     z-index: 120;
-    border-bottom: 1px solid color-mix(in srgb, var(--line) 64%, transparent);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 74%, transparent);
     background: linear-gradient(
       180deg,
-      color-mix(in srgb, var(--bg-soft) 86%, transparent),
-      color-mix(in srgb, var(--bg) 78%, transparent)
+      color-mix(in srgb, var(--bg-soft) 94%, transparent),
+      color-mix(in srgb, var(--surface) 86%, transparent)
     );
-    backdrop-filter: blur(16px) saturate(125%);
+    backdrop-filter: blur(18px) saturate(118%);
   }
 
   .header-row {
-    min-height: 4.8rem;
+    min-height: 4.55rem;
     display: grid;
     grid-template-columns: auto 1fr auto;
     align-items: center;
@@ -120,7 +120,7 @@ const {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.32rem;
   }
 
   .main-nav {
@@ -132,13 +132,13 @@ const {
     display: inline-flex;
     align-items: center;
     min-height: 2.15rem;
-    padding: 0.42rem 0.88rem;
-    border-radius: var(--radius-sm);
+    padding: 0.42rem 0.78rem;
+    border-radius: 10px;
     border: 1px solid transparent;
     color: var(--text-muted);
     font-size: 0.75rem;
     font-weight: 600;
-    letter-spacing: 0.13em;
+    letter-spacing: 0;
     text-transform: uppercase;
     text-decoration: none;
     transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
@@ -150,7 +150,7 @@ const {
     color: var(--text);
     border-color: color-mix(in srgb, var(--line) 82%, white);
     background: color-mix(in srgb, var(--surface) 88%, white);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 10px 24px rgba(20, 16, 10, 0.05);
   }
 
   .header-actions {
@@ -167,7 +167,7 @@ const {
     padding: 0.1rem 0;
     text-decoration: none;
     color: var(--text-muted);
-    letter-spacing: 0.09em;
+    letter-spacing: 0;
     text-transform: uppercase;
     font-size: 0.66rem;
     font-weight: 600;
@@ -186,7 +186,7 @@ const {
 
   .portal-link strong {
     font-size: 0.68rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0;
   }
 
   .nav-cta {
@@ -231,49 +231,63 @@ const {
 
   @media (max-width: 640px) {
     .header-row {
-      grid-template-columns: 1fr;
+      grid-template-columns: auto 1fr;
       grid-template-areas:
-        "brand"
-        "actions"
-        "nav";
+        "brand actions"
+        "cta cta"
+        "nav nav";
+      gap: 0.48rem 0.8rem;
+      padding-block: 0.62rem 0.58rem;
     }
 
     .header-actions {
-      width: 100%;
-      justify-items: stretch;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0.45rem;
+      display: contents;
     }
 
     .nav-cta {
+      grid-area: cta;
       width: 100%;
+      min-height: 2.62rem;
     }
 
     .portal-link {
-      width: 100%;
-      justify-content: center;
+      grid-area: actions;
+      width: auto;
+      justify-content: flex-end;
+      justify-self: end;
+      min-height: 1.8rem;
+      font-size: 0.65rem;
     }
 
     .main-nav {
-      overflow-x: visible;
-      overflow-y: visible;
-      contain: none;
+      overflow-x: auto;
+      overflow-y: hidden;
+      contain: paint;
+      scrollbar-width: none;
+      padding-bottom: 0;
+    }
+
+    .main-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .main-nav ul {
       width: 100%;
-      min-width: 0;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 0.35rem;
+      min-width: max-content;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: 0.28rem;
     }
 
     .nav-link {
-      min-height: 2rem;
-      padding: 0.36rem 0.58rem;
+      min-height: 1.92rem;
+      padding: 0.32rem 0.54rem;
       font-size: 0.68rem;
-      letter-spacing: 0.08em;
+      letter-spacing: 0;
+    }
+
+    .portal-link span {
+      display: none;
     }
 
     .brand-link::before {

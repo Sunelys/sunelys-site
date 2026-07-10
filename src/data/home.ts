@@ -12,6 +12,8 @@ export const heroData = {
   title: "Reprenez la main sur vos dossiers administratifs PV bloqués.",
   subtitle:
     "Sunelys reprend vos démarches DP, Consuel, raccordement, MaPrimeRénov' et CEE pour libérer vos équipes, accélérer les chantiers et sécuriser le suivi, du dossier ponctuel au flux récurrent.",
+  expertLine:
+    "Un pilotage administratif solaire exigeant, pensé pour les installateurs qui veulent grandir sans perdre le contrôle.",
   primaryCta: {
     label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=hero#contact-form",
