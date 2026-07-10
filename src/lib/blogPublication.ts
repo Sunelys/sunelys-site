@@ -1,4 +1,4 @@
-type PublicationStatus = "public" | "backlog";
+import { publicBlogSlugs as configuredPublicBlogSlugs } from "../data/publicBlogSlugs";
 
 type BlogLink = {
   href: string;
@@ -8,7 +8,6 @@ type BlogPostModule = {
   Content: unknown;
   frontmatter: {
     slug: string;
-    publicationStatus?: PublicationStatus;
     [key: string]: unknown;
   };
 };
@@ -17,16 +16,30 @@ const blogPosts = Object.values(
   import.meta.glob("../content/blog/*.md", { eager: true }),
 ) as BlogPostModule[];
 
+const configuredPublicBlogSlugSet = new Set<string>(configuredPublicBlogSlugs);
+
+const blogPostsBySlug = new Map(
+  blogPosts.map((post) => [post.frontmatter.slug, post] as const),
+);
+
+for (const slug of configuredPublicBlogSlugs) {
+  if (!blogPostsBySlug.has(slug)) {
+    throw new Error(`Unknown public blog slug configured: ${slug}`);
+  }
+}
+
 export function isPublicBlogPost(post: BlogPostModule) {
-  return post.frontmatter.publicationStatus !== "backlog";
+  return configuredPublicBlogSlugSet.has(post.frontmatter.slug);
 }
 
 export function getPublicBlogPosts() {
-  return blogPosts.filter(isPublicBlogPost);
+  return configuredPublicBlogSlugs
+    .map((slug) => blogPostsBySlug.get(slug))
+    .filter((post): post is BlogPostModule => Boolean(post));
 }
 
 export const publicBlogSlugs = new Set(
-  getPublicBlogPosts().map((post) => post.frontmatter.slug),
+  configuredPublicBlogSlugSet,
 );
 
 export function getBlogSlugFromHref(href: string) {

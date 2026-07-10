@@ -5,7 +5,6 @@ const blog = defineCollection({
     title: z.string(),
     seoTitle: z.string().optional(),
     description: z.string(),
-    publicationStatus: z.enum(["public", "backlog"]).default("public"),
     pubDate: z.string(),
     updatedDate: z.string().optional(),
     category: z.string(),

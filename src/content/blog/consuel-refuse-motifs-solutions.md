@@ -1,6 +1,5 @@
 ---
 slug: "consuel-refuse-motifs-solutions"
-publicationStatus: "backlog"
 title: "Consuel refusé photovoltaïque : motifs fréquents et solutions"
 seoTitle: "Consuel refusé photovoltaïque : que faire ?"
 description: "Consuel refusé photovoltaïque : motifs fréquents, action requise, seconde visite, SC 144 et méthode pour débloquer la mise en service."

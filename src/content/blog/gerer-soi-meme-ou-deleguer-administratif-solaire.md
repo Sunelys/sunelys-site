@@ -1,6 +1,5 @@
 ---
 slug: "gerer-soi-meme-ou-deleguer-administratif-solaire"
-publicationStatus: "backlog"
 title: "Gérer soi-même ou déléguer l'administratif solaire : comment décider ?"
 seoTitle: "Déléguer administratif solaire ou gérer en interne"
 description: "Comparer gestion interne et délégation de l'administratif solaire : temps caché, risques, volume, méthode et seuil de bascule."

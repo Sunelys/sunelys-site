@@ -1,6 +1,5 @@
 ---
 slug: "cout-raccordement-enedis-photovoltaique"
-publicationStatus: "backlog"
 title: "Coût raccordement Enedis photovoltaïque : devis, travaux et points à anticiper"
 seoTitle: "Coût raccordement Enedis photovoltaïque"
 description: "Coût d'un raccordement Enedis photovoltaïque : devis, barème, travaux réseau, surplus, injection totale et coûts cachés côté installateur."

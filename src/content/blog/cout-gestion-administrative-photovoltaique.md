@@ -1,6 +1,5 @@
 ---
 slug: "cout-gestion-administrative-photovoltaique"
-publicationStatus: "backlog"
 title: "Coût gestion administrative photovoltaïque : interne, externalisée et ROI"
 seoTitle: "Prix gestion administrative photovoltaïque"
 description: "Prix gestion administrative photovoltaïque : tarifs par dossier, coût interne, organisation, ROI et méthode pour chiffrer DP, Consuel, Enedis et aides rénovation."
