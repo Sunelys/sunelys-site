@@ -1,9 +1,35 @@
 ---
 interface Props {
   source?: string;
+  kicker?: string;
+  title?: string;
+  text?: string;
+  items?: string[];
+  need?: string;
+  blockedStage?: string;
+  message?: string;
+  serviceInterest?: string;
+  qualificationHint?: string;
+  submitLabel?: string;
 }
 
-const { source = "checklist-dp-inline" } = Astro.props;
+const {
+  source = "checklist-dp-inline",
+  kicker = "Checklist DP solaire",
+  title = "30 points à vérifier avant de déposer une déclaration préalable.",
+  text = "Une ressource courte pour repérer les pièces, visuels et informations qui déclenchent le plus souvent des demandes de complément mairie sur les projets photovoltaïques.",
+  items = [
+    "Pièces à réunir avant dépôt",
+    "Points de contrôle visuel et administratif",
+    "Signaux qui justifient une sous-traitance DP",
+  ],
+  need = "Declaration prealable",
+  blockedStage = "Avant dépôt",
+  message = "Demande de checklist DP visible",
+  serviceInterest = "Déclaration préalable panneaux solaires",
+  qualificationHint = "email professionnel demandeur checklist DP avant dépôt",
+  submitLabel = "Recevoir la checklist",
+} = Astro.props;
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const successUrl = `https://sunelys.fr/merci?source=${source}`;
 const attributionFields = [
@@ -22,16 +48,11 @@ const attributionFields = [
 
 <section class="section-shell lead-magnet reveal" aria-labelledby="lead-magnet-title">
   <div class="lead-magnet-copy">
-    <p class="kicker">Checklist DP solaire</p>
-    <h2 id="lead-magnet-title">30 points à vérifier avant de déposer une déclaration préalable.</h2>
-    <p>
-      Une ressource courte pour repérer les pièces, visuels et informations qui déclenchent le plus souvent des
-      demandes de complément mairie sur les projets photovoltaïques.
-    </p>
+    <p class="kicker">{kicker}</p>
+    <h2 id="lead-magnet-title">{title}</h2>
+    <p>{text}</p>
     <ul>
-      <li>Pièces à réunir avant dépôt</li>
-      <li>Points de contrôle visuel et administratif</li>
-      <li>Signaux qui justifient une sous-traitance DP</li>
+      {items.map((item) => <li>{item}</li>)}
     </ul>
   </div>
 
@@ -48,18 +69,19 @@ const attributionFields = [
     <input type="hidden" name="_next" value={successUrl} />
     <input type="hidden" name="source_page" value={source} />
     <input type="hidden" name="source" value={source} />
-    <input type="hidden" name="need" value="Declaration prealable" />
-    <input type="hidden" name="blocked_stage" value="Avant dépôt" />
-    <input type="hidden" name="message" value="Demande de checklist DP visible" />
+    <input type="hidden" name="need" value={need} />
+    <input type="hidden" name="blocked_stage" value={blockedStage} />
+    <input type="hidden" name="message" value={message} />
     <input type="hidden" name="conversion_type" value="checklist_download" />
     <input type="hidden" name="lead_stage" value="lead_magnet_form_submitted" />
-    <input type="hidden" name="service_interest" value="Déclaration préalable panneaux solaires" />
+    <input type="hidden" name="service_interest" value={serviceInterest} />
     <input type="hidden" name="lead_source_detail" value={source} />
-    <input type="hidden" name="qualification_hint" value="email professionnel demandeur checklist DP avant dépôt" />
+    <input type="hidden" name="qualification_hint" value={qualificationHint} />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
-    <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist DP" />
+    <input type="hidden" name="lead_pipeline" value="Site web - Lead magnet checklist administratif" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
     <input type="hidden" name="follow_up_sla" value="24h" />
+    <input type="hidden" name="follow_up_sequence" value="email_j0_checklist_then_j1_j3_diagnostic" />
     {attributionFields.map((fieldName) => (
       <input type="hidden" name={fieldName} data-lead-magnet-attribution={fieldName} />
     ))}
@@ -69,7 +91,7 @@ const attributionFields = [
       <input type="email" name="email" autocomplete="email" inputmode="email" required />
     </label>
     <button class="btn btn-primary btn-accent" type="submit" data-track="cta_checklist_dp_inline">
-      Recevoir la checklist
+      {submitLabel}
     </button>
     <small>Demande enregistrée instantanément. Aucun spam.</small>
   </form>

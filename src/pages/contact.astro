@@ -8,7 +8,8 @@ const hasBookingUrl = Boolean(bookingUrl);
 
 const trustBullets = [
   "Réponse sous 24h ouvrées",
-  "Diagnostic administratif sans engagement",
+  "Plan d'action administratif sans engagement",
+  "Dossier ponctuel accepté",
   "DP, Consuel, raccordement et aides pilotés selon votre organisation",
 ];
 
@@ -30,11 +31,11 @@ const contactReasons = [
 const whatYouGet = [
   {
     title: "Lecture du contexte",
-    text: "Volume, typologie des dossiers, organisation interne et points de blocage.",
+    text: "Volume, urgence, typologie des dossiers, organisation interne et points de blocage.",
   },
   {
     title: "Priorités claires",
-    text: "Le premier périmètre à reprendre pour soulager vos équipes sans casser votre fonctionnement.",
+    text: "Le premier périmètre à déléguer pour soulager vos équipes sans casser votre fonctionnement.",
   },
   {
     title: "Recommandation exploitable",
@@ -76,7 +77,7 @@ const supportCards = [
       <p class="eyebrow">Prise de contact</p>
       <h1>Recevez un diagnostic sous 24h pour vos dossiers administratifs bloqués.</h1>
       <p class="hero-text">
-        Décrivez votre volume, vos blocages et vos priorités. Sunelys identifie le premier périmètre à reprendre:
+        Décrivez votre volume, vos blocages et vos priorités. Sunelys identifie le premier périmètre à déléguer:
         DP, Consuel, raccordement, MaPrimeRénov' ou CEE, du dossier ponctuel au flux récurrent.
       </p>
 
@@ -176,6 +177,7 @@ const supportCards = [
         <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic administratif" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
         <input type="hidden" name="follow_up_sla" value="24h" />
+        <input type="hidden" name="follow_up_sequence" value="email_j0_diagnostic_then_j1_j3_relance" />
         <input type="hidden" name="landing_page" id="landing-page-field" />
         <input type="hidden" name="first_referrer" id="first-referrer-field" />
         <input type="hidden" name="utm_source" id="utm-source-field" />
@@ -207,9 +209,19 @@ const supportCards = [
           Volume de dossiers / mois
           <select name="volume" id="volume-field" required>
             <option value="">Sélectionner</option>
-            <option value="1-10">1-10</option>
+            <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
             <option value="10-30">10-30</option>
             <option value="+30">+30</option>
+          </select>
+        </label>
+        <label>
+          Situation
+          <select name="team_context" id="team-context-field">
+            <option value="">Sélectionner</option>
+            <option value="Dossier ponctuel">Dossier ponctuel</option>
+            <option value="Pic de charge">Pic de charge</option>
+            <option value="Flux récurrent">Flux récurrent</option>
+            <option value="Reprise dossier bloqué">Reprise dossier bloqué</option>
           </select>
         </label>
         <label>
@@ -223,6 +235,16 @@ const supportCards = [
             <option value="CEE">CEE</option>
             <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
             <option value="Pilotage complet">Pilotage complet</option>
+          </select>
+        </label>
+        <label>
+          Urgence
+          <select name="urgency" id="urgency-field" required>
+            <option value="">Sélectionner</option>
+            <option value="Sous 48h">Sous 48h</option>
+            <option value="Cette semaine">Cette semaine</option>
+            <option value="Ce mois-ci">Ce mois-ci</option>
+            <option value="Pas urgent">Pas urgent</option>
           </select>
         </label>
         <label class="full-width">
@@ -245,7 +267,7 @@ const supportCards = [
           <textarea name="message" rows="6" placeholder="Contexte, zone, délais, organisation actuelle, irritants..."></textarea>
         </label>
         <button id="contact-form-submit" class="btn btn-primary btn-accent submit-btn" type="submit" data-track="cta_contact_form_submit">
-          Recevoir mon diagnostic
+          Recevoir mon plan d'action
         </button>
         <p class="form-note full-width">
           Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
@@ -319,7 +341,9 @@ const supportCards = [
   const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
 
   const volumeField = document.querySelector("#volume-field");
+  const teamContextField = document.querySelector("#team-context-field");
   const needField = document.querySelector("#need-field");
+  const urgencyField = document.querySelector("#urgency-field");
   const blockedStageField = document.querySelector("#blocked-stage-field");
   const sourcePageField = document.querySelector("#source-page-field");
   const serviceInterestField = document.querySelector("#service-interest-field");
@@ -411,7 +435,9 @@ const supportCards = [
     label,
     source: sourceFromQuery,
     volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
+    team_context: teamContextField instanceof HTMLSelectElement ? teamContextField.value : "",
     need: needField instanceof HTMLSelectElement ? needField.value : "",
+    urgency: urgencyField instanceof HTMLSelectElement ? urgencyField.value : "",
     blocked_stage: blockedStageField instanceof HTMLSelectElement ? blockedStageField.value : "",
   });
 
@@ -456,6 +482,8 @@ const supportCards = [
         conversion_type: "form_contact",
         lead_stage: "contact_form_submitted",
         service_interest: resolveServiceInterest(),
+        team_context: teamContextField instanceof HTMLSelectElement ? teamContextField.value : "",
+        urgency: urgencyField instanceof HTMLSelectElement ? urgencyField.value : "",
         blocked_stage: blockedStageField instanceof HTMLSelectElement ? blockedStageField.value : "",
       });
     }

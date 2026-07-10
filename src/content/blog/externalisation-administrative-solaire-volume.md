@@ -85,7 +85,7 @@ Il n'y a pas de seuil universel. Mais dès que vous traitez un flux régulier de
 
 Le bon indicateur n'est pas seulement le nombre de dossiers. C'est le temps interne absorbé, le nombre de retours, la pression client et la difficulté à garder une vision claire du portefeuille. Pour chiffrer cette comparaison, appuyez-vous sur la page [tarifs Sunelys](/tarifs) et sur la page [Gestion administrative photovoltaïque](/gestion-administrative-photovoltaique).
 
-Pour certains installateurs, la délégation devient utile à partir de 10 dossiers par mois. Pour d'autres, elle devient urgente quand plusieurs agences ou équipes terrain doivent suivre des process différents.
+Pour certains installateurs, la délégation devient utile parce que le volume mensuel est régulier. Pour d'autres, elle devient urgente dès un dossier ponctuel à forte friction: complément mairie, Consuel à préparer, raccordement en attente ou prime à suivre.
 
 ## Pourquoi Sunelys se positionne comme relais administratif
 

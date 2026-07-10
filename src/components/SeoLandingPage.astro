@@ -80,8 +80,8 @@ const successUrl = `https://sunelys.fr/merci?source=${data.slug}_service_form`;
 
 const heroBadges = [
   "Pour installateurs photovoltaïques",
-  "Dossier ponctuel ou flux récurrent",
-  "Diagnostic sous 24h",
+  "Dossier ponctuel accepté",
+  "Diagnostic gratuit sous 24h",
 ];
 
 const serviceInterestBySlug: Record<string, string> = {
@@ -98,11 +98,40 @@ const isGestionLanding = data.slug === "gestion_administrative";
 const heroSecondaryCta = isGestionLanding
   ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
   : { label: "Voir les services", href: "/services" };
-const heroPrimaryLabel = "Recevoir un diagnostic sous 24h";
+const heroPrimaryLabel = "Recevoir mon diagnostic gratuit";
 const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
 const diagnosticPrimaryLabel = "Recevoir un diagnostic sous 24h";
 const diagnosticSecondaryLabel = isGestionLanding ? "Voir les offres pilotage complet" : "Voir les offres";
-const finalSubmitLabel = isGestionLanding ? "Recevoir mon diagnostic complet" : "Recevoir mon diagnostic";
+const finalSubmitLabel = isGestionLanding ? "Recevoir mon plan d'action" : "Recevoir mon diagnostic";
+
+const pricingHighlights = [
+  {
+    service: "DP complète",
+    price: "119 € HT",
+    text: "Pièces, dépôt mairie et suivi jusqu'à validation.",
+  },
+  {
+    service: "Raccordement + Consuel",
+    price: "89 € HT",
+    text: "Dossier suivi, relances et mise en service plus lisible.",
+  },
+  {
+    service: "MaPrimeRénov'",
+    price: "129 € HT",
+    text: "Montage, dépôt ANAH et suivi administratif.",
+  },
+  {
+    service: "CEE",
+    price: "99 € HT",
+    text: "Contrôle des pièces et suivi jusqu'à validation.",
+  },
+];
+
+const adminChecklistItems = [
+  "Pièces à réunir selon le blocage: DP, Consuel, Enedis ou aides",
+  "Signaux qui indiquent quoi déléguer en premier",
+  "Réponse Sunelys sous 24h pour cadrer le prochain dossier",
+];
 
 const fastDiagnosticItems = [
   {
@@ -188,10 +217,6 @@ const attributionFields = [
   "msclkid",
 ];
 
-const showDpLeadMagnet =
-  data.slug.includes("declaration") ||
-  data.slug.includes("prealable") ||
-  data.slug === "tarif_declaration_prealable";
 const visibleInternalLinks = filterVisibleLinks(data.internalLinks, publicBlogSlugs);
 const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 ---
@@ -220,7 +245,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <aside class="hero-aside">
       <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
         <p class="kicker">Diagnostic sous 24h</p>
-        <h2>Recevez une première lecture de vos dossiers bloqués.</h2>
+        <h2>Identifiez le premier flux administratif à déléguer.</h2>
         <form
           class="hero-service-form"
           action={leadFormAction}
@@ -242,6 +267,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
           <input type="hidden" name="lead_owner" value="Sunelys commercial" />
           <input type="hidden" name="follow_up_sla" value="24h" />
+          <input type="hidden" name="follow_up_sequence" value="email_j0_diagnostic_then_j1_j3_relance" />
           {attributionFields.map((fieldName) => (
             <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
           ))}
@@ -258,7 +284,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             <span>Volume mensuel</span>
             <select name="volume" required>
               <option value="">Sélectionner</option>
-              <option value="1-10 dossiers">1-10 dossiers</option>
+              <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
               <option value="10-30 dossiers">10-30 dossiers</option>
               <option value="+30 dossiers">+30 dossiers</option>
             </select>
@@ -289,9 +315,9 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             </select>
           </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
-            Recevoir mon diagnostic
+            Recevoir mon plan d'action
           </button>
-          <small>Réponse sous 24h ouvrées. Sans engagement.</small>
+          <small>Diagnostic gratuit sous 24h. Dossier ponctuel accepté, sans engagement.</small>
         </form>
       </article>
 
@@ -319,18 +345,60 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   </div>
 </section>
 
-{
-  showDpLeadMagnet && <LeadMagnetChecklist source={`${data.slug}_checklist_dp_inline`} />
-}
+<section class="seo-section seo-offer-snapshot section-shell reveal">
+  <div class="split-head">
+    <div>
+      <p class="kicker">Offre claire</p>
+      <h2>Tarifs visibles, diagnostic gratuit, pas de minimum bloquant.</h2>
+    </div>
+    <p>
+      Vous pouvez commencer par un dossier ponctuel, un blocage urgent ou un flux récurrent.
+      Le diagnostic sert à choisir le premier périmètre rentable à déléguer.
+    </p>
+  </div>
+
+  <div class="offer-snapshot-grid" aria-label="Tarifs Sunelys principaux">
+    {pricingHighlights.map((item) => (
+      <article class="offer-snapshot-item">
+        <span>{item.service}</span>
+        <strong>{item.price}</strong>
+        <p>{item.text}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="offer-snapshot-actions">
+    <a class="btn btn-primary btn-accent" href={`/contact?source=${data.slug}_pricing_snapshot#contact-form`} data-track={`cta_${data.slug}_pricing_snapshot`}>
+      Recevoir mon diagnostic gratuit
+    </a>
+    <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_pricing_snapshot_tarifs`}>
+      Voir tous les tarifs
+    </a>
+  </div>
+</section>
+
+<LeadMagnetChecklist
+  source={`${data.slug}_checklist_admin_inline`}
+  kicker="Checklist de reprise"
+  title="Recevez la checklist des pièces à fournir selon votre blocage."
+  text="Une ressource courte pour savoir quoi préparer avant de confier une DP, un Consuel, un raccordement Enedis, MaPrimeRénov' ou CEE."
+  items={adminChecklistItems}
+  need={serviceInterest}
+  blockedStage="Pilotage global"
+  message="Demande de checklist administrative selon blocage"
+  serviceInterest={serviceInterest}
+  qualificationHint="email professionnel demandeur checklist administrative DP Consuel Enedis aides"
+  submitLabel="Recevoir la checklist"
+/>
 
 <section class="seo-section seo-fast-diagnostic section-shell reveal">
   <div class="split-head">
     <div>
       <p class="kicker">Offre d'entrée</p>
-      <h2>Diagnostic gratuit de vos dossiers administratifs bloqués.</h2>
+      <h2>Diagnostic gratuit sous 24h de vos dossiers administratifs bloqués.</h2>
     </div>
     <p>
-      Sunelys identifie le premier périmètre à reprendre pour récupérer du temps et de la visibilité:
+      Sunelys identifie le premier périmètre à déléguer pour récupérer du temps et de la visibilité:
       DP, Consuel, raccordement Enedis, MaPrimeRénov' ou CEE.
     </p>
   </div>
@@ -624,6 +692,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <input type="hidden" name="lead_pipeline" value="Site web - Page service" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
     <input type="hidden" name="follow_up_sla" value="24h" />
+    <input type="hidden" name="follow_up_sequence" value="email_j0_diagnostic_then_j1_j3_relance" />
     {attributionFields.map((fieldName) => (
       <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
     ))}
@@ -644,7 +713,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       <span>Volume mensuel</span>
       <select name="volume" required>
         <option value="">Sélectionner</option>
-        <option value="1-10 dossiers">1-10 dossiers</option>
+        <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
         <option value="10-30 dossiers">10-30 dossiers</option>
         <option value="+30 dossiers">+30 dossiers</option>
       </select>
@@ -969,6 +1038,55 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         transparent 58%
       ),
       linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+  }
+
+  .seo-offer-snapshot {
+    background:
+      radial-gradient(
+        100% 120% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 56%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+  }
+
+  .offer-snapshot-grid {
+    margin-top: 1rem;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .offer-snapshot-item {
+    min-height: 9.2rem;
+    border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
+    border-radius: calc(var(--radius-md) - 4px);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.9rem;
+    display: grid;
+    gap: 0.4rem;
+    align-content: start;
+  }
+
+  .offer-snapshot-item span {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .offer-snapshot-item strong {
+    color: var(--text);
+    font-size: clamp(1.5rem, 2.3vw, 2.45rem);
+    line-height: 1;
+  }
+
+  .offer-snapshot-actions {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.62rem;
   }
 
   .fast-diagnostic-grid {
@@ -1298,6 +1416,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .use-case-grid,
     .diagnostic-grid,
     .fast-diagnostic-grid,
+    .offer-snapshot-grid,
     .handover-grid,
     .concern-grid,
     .scope-layout,
@@ -1310,6 +1429,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     .hero-actions .btn,
     .diagnostic-actions .btn,
+    .offer-snapshot-actions .btn,
     .seo-delegation .btn,
     .seo-final .btn {
       width: 100%;

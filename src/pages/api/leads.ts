@@ -451,6 +451,7 @@ export const POST: APIRoute = async ({ request }) => {
   const rawVolume = clean(formData.get("volume"));
   const rawTeamContext = clean(formData.get("team_context"));
   const rawUrgency = clean(formData.get("urgency"));
+  const rawFollowUpSequence = clean(formData.get("follow_up_sequence"));
   const rawMessage = clean(formData.get("message"));
   const explicitBlockedStage = clean(formData.get("blocked_stage"));
   const serviceHint = firstClean(formData.get("service_interest"), rawNeed);
@@ -511,6 +512,7 @@ export const POST: APIRoute = async ({ request }) => {
     ["Blocage", blockedStage],
     ["Situation", rawTeamContext],
     ["Urgence", rawUrgency],
+    ["Relance prévue", rawFollowUpSequence],
     ["Landing page", landingPageRaw],
     ["Volume", rawVolume],
     ["Source détail", leadSourceDetail],
@@ -558,6 +560,7 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_PIPELINE", clean(formData.get("lead_pipeline")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_OWNER", clean(formData.get("lead_owner")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_FOLLOW_UP_SLA", clean(formData.get("follow_up_sla")), env);
+  addOptionalField(fields, "AIRTABLE_FIELD_FOLLOW_UP_SEQUENCE", rawFollowUpSequence, env);
 
   const createResult = await createAirtableLead({
     token,
@@ -592,6 +595,7 @@ export const POST: APIRoute = async ({ request }) => {
         pipeline: clean(formData.get("lead_pipeline")),
         owner: clean(formData.get("lead_owner")),
         follow_up_sla: clean(formData.get("follow_up_sla")),
+        follow_up_sequence: rawFollowUpSequence,
         source: sourceValue,
         first_referrer: firstReferrer,
         landing_page: landingPage,

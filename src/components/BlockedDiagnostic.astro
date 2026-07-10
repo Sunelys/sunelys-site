@@ -10,9 +10,9 @@ interface Props {
 const {
   source = "diagnostic_dossiers_bloques",
   kicker = "Diagnostic dossiers bloqués",
-  title = "Identifiez ce qui ralentit vos DP, Consuel, raccordements ou aides.",
-  text = "En quelques champs, Sunelys repère votre volume, l'étape bloquée et le premier périmètre à traiter pour récupérer du temps opérationnel.",
-  submitLabel = "Recevoir mon diagnostic",
+  title = "Recevez un plan d'action sous 24h pour votre premier dossier à déléguer.",
+  text = "En quelques champs, Sunelys repère votre volume, l'étape bloquée et le premier périmètre à traiter: dossier ponctuel, pic de charge ou flux récurrent.",
+  submitLabel = "Recevoir mon plan d'action",
 } = Astro.props;
 
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
@@ -34,7 +34,8 @@ const attributionFields = [
 
 const signals = [
   "Réponse sous 24h ouvrées",
-  "Dossier ponctuel ou flux récurrent",
+  "Dossier ponctuel accepté",
+  "Flux récurrent possible",
   "Priorité aux dossiers à forte friction",
   "Aucun engagement",
 ];
@@ -74,6 +75,7 @@ const signals = [
     <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
     <input type="hidden" name="follow_up_sla" value="24h" />
+    <input type="hidden" name="follow_up_sequence" value="email_j0_diagnostic_then_j1_j3_relance" />
     {attributionFields.map((fieldName) => (
       <input type="hidden" name={fieldName} data-diagnostic-attribution={fieldName} />
     ))}
@@ -94,7 +96,7 @@ const signals = [
       <span>Volume mensuel</span>
       <select name="volume" required>
         <option value="">Sélectionner</option>
-        <option value="1-10">1-10 dossiers</option>
+        <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
         <option value="10-30">10-30 dossiers</option>
         <option value="+30">+30 dossiers</option>
       </select>
@@ -152,7 +154,7 @@ const signals = [
     <button class="btn btn-primary btn-accent blocked-diagnostic__submit" type="submit" data-track={`cta_${source}_diagnostic_submit`}>
       {submitLabel}
     </button>
-    <p class="blocked-diagnostic__note">On vous répond avec le premier périmètre à traiter, pas avec un questionnaire interminable.</p>
+    <p class="blocked-diagnostic__note">On vous répond avec le premier périmètre à déléguer, pas avec un questionnaire interminable.</p>
   </form>
 </section>
 
