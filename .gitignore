@@ -16,6 +16,7 @@ pnpm-debug.log*
 reports/marketing-agent/
 reports/google-ads-leads/
 tmp/
+outputs/
 
 # local private credentials
 secrets/

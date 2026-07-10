@@ -23,6 +23,7 @@
     "marketing:ads:leads": "node scripts/marketing-google-ads-leads.mjs",
     "marketing:leads:test": "node scripts/marketing-leads-test.mjs",
     "marketing:leads:normalize": "node scripts/marketing-leads-normalize.mjs",
+    "prospecting:score-ocean": "node scripts/prospecting-ocean-score.mjs",
     "marketing:pulse": "node scripts/marketing-pulse.mjs",
     "marketing:pulse:watch": "node scripts/marketing-pulse.mjs --watch --interval 360 --max-p0 2"
   },
