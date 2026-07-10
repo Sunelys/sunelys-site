@@ -188,7 +188,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <input type="hidden" name="lead_stage" value="service_hero_form_submitted" />
           <input type="hidden" name="service_interest" value={serviceInterest} />
           <input type="hidden" name="lead_source_detail" value={`${data.slug}_hero_form`} />
-          <input type="hidden" name="qualification_hint" value="email professionnel, volume mensuel et étape bloquée" />
+          <input type="hidden" name="qualification_hint" value="email professionnel, téléphone, volume mensuel et étape bloquée" />
           <input type="hidden" name="lead_status" value="Nouveau lead" />
           <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
           <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -200,6 +200,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <label>
             <span>Email professionnel</span>
             <input type="email" name="email" autocomplete="email" inputmode="email" required />
+          </label>
+          <label>
+            <span>Téléphone pour rappel</span>
+            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required />
           </label>
           <label>
             <span>Volume mensuel</span>
@@ -481,7 +485,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <input type="hidden" name="lead_stage" value="service_final_form_submitted" />
     <input type="hidden" name="service_interest" value={serviceInterest} />
     <input type="hidden" name="lead_source_detail" value={`${data.slug}_final_form`} />
-    <input type="hidden" name="qualification_hint" value="prenom, email professionnel, volume mensuel et étape bloquée" />
+    <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone, volume mensuel et étape bloquée" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Page service" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -497,6 +501,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <label>
       <span>Email professionnel</span>
       <input type="email" name="email" autocomplete="email" inputmode="email" required />
+    </label>
+    <label>
+      <span>Téléphone pour rappel</span>
+      <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required />
     </label>
     <label>
       <span>Volume mensuel</span>

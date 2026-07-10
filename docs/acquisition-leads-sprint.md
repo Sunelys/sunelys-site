@@ -16,6 +16,7 @@ Champs minimum a mesurer:
 - volume mensuel
 - besoin principal
 - etape bloquee
+- telephone pour rappel
 - landing page
 - source / medium / campaign
 - statut qualifie / hot dans Airtable
@@ -129,4 +130,4 @@ utm_campaign=search_consuel_raccordement
 
 ## Regle de pilotage
 
-Ne pas augmenter le budget tant que les champs `landing_page`, `utm_source`, `utm_medium`, `utm_campaign`, `volume`, `need` et `blocked_stage` ne remontent pas correctement dans Airtable.
+Ne pas augmenter le budget tant que les champs `landing_page`, `utm_source`, `utm_medium`, `utm_campaign`, `volume`, `need`, `blocked_stage` et `phone` ne remontent pas correctement dans Airtable.

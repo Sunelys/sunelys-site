@@ -101,7 +101,7 @@ Important: eviter les ancres `#contact-form` dans les URLs finales Google Ads. L
 - GA4 recoit `generate_lead`.
 - Le champ `utm_source=google` remonte dans Airtable.
 - Le champ `utm_campaign` remonte dans Airtable.
-- Les champs `volume`, `need`, `blocked_stage` sont presents.
+- Les champs `volume`, `need`, `blocked_stage` et `phone` sont presents.
 - Les mots-cles negatifs sont ajoutes avant mise en ligne.
 - Budget journalier confirme avant activation.
 
@@ -116,6 +116,7 @@ Jours 2-4:
 
 - Ajouter les mauvais termes de recherche en negatifs.
 - Verifier que les leads ont une landing page et une UTM.
+- Verifier que les leads paid chauds ont un telephone exploitable pour rappel rapide.
 - Ne pas juger uniquement au CTR.
 
 Jours 5-7:

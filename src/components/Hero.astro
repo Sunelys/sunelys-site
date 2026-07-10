@@ -68,7 +68,7 @@ const { data } = Astro.props;
             <input type="hidden" name="lead_stage" value="homepage_hero_form_submitted" />
             <input type="hidden" name="service_interest" value="Pilotage administratif photovoltaïque" />
             <input type="hidden" name="lead_source_detail" value="homepage_hero_form" />
-            <input type="hidden" name="qualification_hint" value="prenom, email professionnel, volume mensuel et étape bloquée" />
+            <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone, volume mensuel et étape bloquée" />
             <input type="hidden" name="lead_status" value="Nouveau lead" />
             <input type="hidden" name="lead_pipeline" value="Site web - Cadrage gratuit" />
             <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -92,6 +92,10 @@ const { data } = Astro.props;
               <label>
                 <span>Email professionnel</span>
                 <input type="email" name="email" autocomplete="email" inputmode="email" required />
+              </label>
+              <label>
+                <span>Téléphone pour rappel</span>
+                <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required />
               </label>
               <label>
                 <span>Volume mensuel</span>
