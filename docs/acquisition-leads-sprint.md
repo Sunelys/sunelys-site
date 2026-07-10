@@ -2,6 +2,24 @@
 
 Objectif: augmenter rapidement les demandes qualifiees sans degrader la qualite commerciale.
 
+## Positionnement communication
+
+Ne pas afficher `a partir de 10 dossiers/mois` comme barriere d'entree sur le site.
+
+Message retenu:
+
+```text
+Sunelys accompagne les installateurs photovoltaiques qui veulent deleguer un dossier ponctuel,
+un pic de charge ou un flux recurrent de demarches administratives.
+```
+
+Lecture commerciale:
+
+- le site garde la porte ouverte aux petits installateurs serieux;
+- Google Ads qualifie par le vocabulaire B2B: installateur, flux, sous-traitance, dossier bloque;
+- le formulaire trie ensuite avec `1-10`, `10-30` et `+30`;
+- les leads `10-30` et `+30` restent prioritaires, mais les `1-10` ne sont pas exclus s'ils ont un blocage concret.
+
 ## Offre centrale
 
 Proposition a pousser partout:

@@ -44,10 +44,10 @@ const { data } = Astro.props;
       data.leadForm ? (
         <div class="hero-intake-card">
           <div class="hero-intake-head">
-            <p class="hero-intake-kicker">Échange de 15 minutes</p>
+            <p class="hero-intake-kicker">Diagnostic sous 24h</p>
             <p class="hero-intake-copy">
-              Décrivez votre volume et vos blocages. On vous revient avec un cadrage clair, sans jargon ni friction
-              inutile.
+              Décrivez votre volume et vos blocages. On vous indique le premier périmètre à reprendre, sans jargon
+              ni friction inutile.
             </p>
           </div>
 
@@ -59,7 +59,7 @@ const { data } = Astro.props;
             data-lead-form
             data-conversion-type="form_contact"
           >
-            <input type="hidden" name="_subject" value="Nouveau cadrage gratuit - Hero Sunelys" />
+            <input type="hidden" name="_subject" value="Nouveau diagnostic gratuit - Hero Sunelys" />
             <input type="hidden" name="_captcha" value="false" />
             <input type="hidden" name="_template" value="table" />
             <input type="hidden" name="_next" value={data.leadForm.successUrl} />
@@ -70,7 +70,7 @@ const { data } = Astro.props;
             <input type="hidden" name="lead_source_detail" value="homepage_hero_form" />
             <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone, volume mensuel et étape bloquée" />
             <input type="hidden" name="lead_status" value="Nouveau lead" />
-            <input type="hidden" name="lead_pipeline" value="Site web - Cadrage gratuit" />
+            <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic gratuit" />
             <input type="hidden" name="lead_owner" value="Sunelys commercial" />
             <input type="hidden" name="follow_up_sla" value="24h" />
             <input type="hidden" name="landing_page" data-hero-attribution="landing_page" />
@@ -172,7 +172,7 @@ const { data } = Astro.props;
       const formData = new FormData(heroLeadForm);
       window.trackEvent?.("lead_hero_form_submit", {
         category: "form",
-        label: "Recevoir un cadrage gratuit",
+        label: "Recevoir un diagnostic gratuit",
         volume: String(formData.get("volume") || ""),
         blocked_stage: String(formData.get("blocked_stage") || ""),
         source: "homepage_hero",

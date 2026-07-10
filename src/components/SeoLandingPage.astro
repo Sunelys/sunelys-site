@@ -80,8 +80,8 @@ const successUrl = `https://sunelys.fr/merci?source=${data.slug}_service_form`;
 
 const heroBadges = [
   "Pour installateurs photovoltaïques",
-  "DP · Consuel · Raccordement",
-  "Cadrage de flux en 15 minutes",
+  "Dossier ponctuel ou flux récurrent",
+  "Diagnostic sous 24h",
 ];
 
 const serviceInterestBySlug: Record<string, string> = {
@@ -98,11 +98,33 @@ const isGestionLanding = data.slug === "gestion_administrative";
 const heroSecondaryCta = isGestionLanding
   ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
   : { label: "Voir les services", href: "/services" };
-const heroPrimaryLabel = isGestionLanding ? "Recevoir un cadrage pilotage complet" : "Recevoir un cadrage";
-const delegationLabel = isGestionLanding ? "Démarrer votre pilotage complet" : "Faire le point sur mes flux";
-const diagnosticPrimaryLabel = isGestionLanding ? "Demander un cadrage pilotage complet" : "Demander un diagnostic";
+const heroPrimaryLabel = "Recevoir un diagnostic sous 24h";
+const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
+const diagnosticPrimaryLabel = "Recevoir un diagnostic sous 24h";
 const diagnosticSecondaryLabel = isGestionLanding ? "Voir les offres pilotage complet" : "Voir les offres";
-const finalSubmitLabel = isGestionLanding ? "Recevoir mon cadrage de pilotage complet" : "Recevoir un cadrage";
+const finalSubmitLabel = isGestionLanding ? "Recevoir mon diagnostic complet" : "Recevoir mon diagnostic";
+
+const fastDiagnosticItems = [
+  {
+    title: "Dossier ponctuel",
+    text: "Pour reprendre une DP, un Consuel, un raccordement ou une aide qui consomme déjà trop de temps.",
+  },
+  {
+    title: "Pic de charge",
+    text: "Pour absorber une période dense sans mobiliser vos commerciaux ou conducteurs de travaux sur chaque relance.",
+  },
+  {
+    title: "Flux récurrent",
+    text: "Pour structurer un pilotage clair quand les dossiers reviennent tous les mois et que les statuts se dispersent.",
+  },
+];
+
+const concernSignals = [
+  "Un dossier client avance, mais personne ne sait exactement quelle action bloque.",
+  "Vos équipes relancent plusieurs interlocuteurs au lieu de vendre, poser ou suivre les chantiers.",
+  "Une pièce manquante, un retour mairie, Consuel ou Enedis décale la mise en service.",
+  "Vous voulez déléguer une brique précise avant de confier tout le flux administratif.",
+];
 
 const diagnosticItems = [
   {
@@ -170,8 +192,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     <aside class="hero-aside">
       <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
-        <p class="kicker">Cadrage rapide</p>
-        <h2>Recevez une première lecture de votre flux sous 24h.</h2>
+        <p class="kicker">Diagnostic sous 24h</p>
+        <h2>Recevez une première lecture de vos dossiers bloqués.</h2>
         <form
           class="hero-service-form"
           action={leadFormAction}
@@ -230,7 +252,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             </select>
           </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
-            Recevoir mon cadrage
+            Recevoir mon diagnostic
           </button>
           <small>Réponse sous 24h ouvrées. Sans engagement.</small>
         </form>
@@ -264,6 +286,41 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   showDpLeadMagnet && <LeadMagnetChecklist source={`${data.slug}_checklist_dp_inline`} />
 }
 
+<section class="seo-section seo-fast-diagnostic section-shell reveal">
+  <div class="split-head">
+    <div>
+      <p class="kicker">Offre d'entrée</p>
+      <h2>Diagnostic gratuit de vos dossiers administratifs bloqués.</h2>
+    </div>
+    <p>
+      Sunelys identifie le premier périmètre à reprendre pour récupérer du temps et de la visibilité:
+      DP, Consuel, raccordement Enedis, MaPrimeRénov' ou CEE.
+    </p>
+  </div>
+
+  <div class="fast-diagnostic-grid">
+    {fastDiagnosticItems.map((item) => (
+      <article class="fast-diagnostic-card">
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+      </article>
+    ))}
+  </div>
+
+  <div class="diagnostic-actions">
+    <a
+      class="btn btn-primary btn-accent"
+      href={`/contact?source=${data.slug}_diagnostic_24h#contact-form`}
+      data-track={`cta_${data.slug}_fast_diagnostic`}
+    >
+      Recevoir un diagnostic sous 24h
+    </a>
+    <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_fast_diagnostic_tarifs`}>
+      Voir les tarifs fixes
+    </a>
+  </div>
+</section>
+
 <section class="seo-section seo-problem section-shell reveal">
   <p class="kicker">Le problème</p>
   <h2>{data.problemTitle}</h2>
@@ -277,6 +334,22 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         </article>
       ))
     }
+  </div>
+</section>
+
+<section class="seo-section seo-concerned section-shell reveal">
+  <div class="split-head">
+    <div>
+      <p class="kicker">Vous êtes concerné si</p>
+      <h2>Le volume n'est pas le seul signal. Le vrai sujet, c'est la friction.</h2>
+    </div>
+    <p>
+      On ne ferme pas la porte aux petits installateurs. Le diagnostic sert justement à savoir
+      s'il faut traiter un dossier ponctuel, un pic de charge ou un flux récurrent.
+    </p>
+  </div>
+  <div class="concern-grid">
+    {concernSignals.map((signal) => <p>{signal}</p>)}
   </div>
 </section>
 
@@ -781,7 +854,9 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   .faq-grid,
   .signal-grid,
   .use-case-grid,
-  .diagnostic-grid {
+  .diagnostic-grid,
+  .fast-diagnostic-grid,
+  .concern-grid {
     margin-top: 0.9rem;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -792,8 +867,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   .detail-card,
   .faq-card,
   .diagnostic-card,
+  .fast-diagnostic-card,
   .scope-panel,
   .use-case-card,
+  .concern-grid p,
   .signal-grid p {
     border: 1px solid color-mix(in srgb, var(--line) 84%, white);
     border-radius: calc(var(--radius-md) - 4px);
@@ -809,6 +886,37 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
   .seo-use-cases {
     background: color-mix(in srgb, var(--surface-elevated) 82%, white);
+  }
+
+  .seo-fast-diagnostic {
+    background:
+      radial-gradient(
+        100% 120% at 100% 0%,
+        color-mix(in srgb, var(--accent-soft) 52%, transparent),
+        transparent 58%
+      ),
+      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+  }
+
+  .fast-diagnostic-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .fast-diagnostic-card {
+    align-content: start;
+  }
+
+  .seo-concerned {
+    background: color-mix(in srgb, var(--surface-elevated) 84%, white);
+  }
+
+  .concern-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .concern-grid p {
+    color: var(--text);
+    font-weight: 700;
   }
 
   .use-case-grid {
@@ -1083,6 +1191,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .signal-grid,
     .use-case-grid,
     .diagnostic-grid,
+    .fast-diagnostic-grid,
+    .concern-grid,
     .scope-layout,
     .case-layout,
     .split-head,

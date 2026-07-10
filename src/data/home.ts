@@ -4,34 +4,34 @@ const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque | Sunelys",
   description:
-    "Externalisez DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE : dossiers cadrés, suivi en temps réel et moins de retours.",
+    "Sunelys reprend vos dossiers administratifs photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, MaPrimeRénov' et CEE.",
 };
 
 export const heroData = {
-  kicker: "Pour installateurs photovoltaïques et structures qui traitent du volume",
-  title: "Pilotage complet : DP, Consuel, raccordement, aides\nreprenez la main sur vos dossiers.",
+  kicker: "Pour installateurs photovoltaïques",
+  title: "Reprenez la main sur vos dossiers administratifs PV bloqués.",
   subtitle:
-    "Sunelys pilote vos démarches administratives en flux continu pour fluidifier vos dépôts, aides MaPrimeRénov' et CEE, réduire les retours et redonner une vraie visibilité à vos équipes.",
+    "Sunelys reprend vos démarches DP, Consuel, raccordement, MaPrimeRénov' et CEE pour libérer vos équipes, accélérer les chantiers et sécuriser le suivi, du dossier ponctuel au flux récurrent.",
   primaryCta: {
-    label: "Recevoir un cadrage de pilotage complet",
+    label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=hero#contact-form",
     track: "cta_hero_primary_contact",
   },
   secondaryCta: {
-    label: "Réserver 15 min pilotage complet",
+    label: "Réserver 15 min",
     href: bookingUrl,
     track: "cta_hero_secondary_booking",
   },
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
-    submitLabel: "Recevoir mon cadrage complet",
+    submitLabel: "Recevoir mon diagnostic",
     note: "Réponse sous 24h ouvrées. Aucun engagement, aucun spam.",
   },
   proofs: [
     "Réponse sous 24h ouvrées",
-    "Pilotage complet DP, Consuel, raccordement et aides",
-    "Visibilité claire sur chaque dossier",
+    "Dossier ponctuel, pic de charge ou flux récurrent",
+    "DP, Consuel, raccordement et aides",
   ],
   portalDemo: {
     label: "Voir un aperçu du portail →",
@@ -202,27 +202,27 @@ export const benefitsSectionData = {
 
 export const audienceSectionData = {
   kicker: "Pour qui",
-  title: "Pensé pour les structures solaires qui veulent absorber plus de dossiers sans dégrader l'exécution.",
+  title: "Pensé pour les installateurs qui veulent déléguer sans se fermer de portes.",
   text:
-    "Sunelys s'impose quand l'administratif ralentit le commerce, brouille le suivi ou coûte trop de temps à vos équipes chantier et back-office.",
+    "Sunelys peut intervenir sur un dossier ponctuel, un pic de charge ou un flux récurrent. Le point commun n'est pas un volume minimum : c'est le besoin de reprendre le contrôle sur des démarches qui consomment trop de temps.",
   items: [
     {
-      title: "Sociétés commercialistes du solaire",
-      text: "Vous générez des ventes et souhaitez éviter que l'administratif ralentisse la transformation chantier.",
+      title: "Petit installateur en croissance",
+      text: "Vous avez quelques dossiers par mois, mais chaque blocage DP, Consuel ou raccordement vous coûte déjà du temps et de l'énergie.",
     },
     {
-      title: "Professionnels du photovoltaïque",
-      text: "Vous voulez sécuriser DP, Consuel et raccordement sans mobiliser vos équipes sur chaque relance.",
+      title: "Structure qui absorbe un pic de charge",
+      text: "Vous devez sortir des dossiers rapidement sans dégrader le suivi, la relation client ou la qualité documentaire.",
     },
     {
-      title: "Structures qui traitent du volume",
-      text: "Vous avez besoin d'un flux clair, répétable et traçable pour absorber davantage de dossiers.",
+      title: "Flux récurrent à structurer",
+      text: "Vous avez besoin d'un cadre clair, répétable et traçable pour déléguer plus largement sans perdre la maîtrise.",
     },
   ],
   note:
-    "Le bon moment pour nous parler : quand les relances, les pièces manquantes et le volume commencent à détériorer votre qualité d'exécution.",
+    "Le bon moment pour nous parler : quand les relances, les pièces manquantes ou les statuts flous commencent à ralentir vos ventes, vos chantiers ou vos mises en service.",
   cta: {
-    label: "Recevoir un cadrage pilotage complet",
+    label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=audience#contact-form",
     track: "cta_audience_primary",
   },
@@ -237,13 +237,13 @@ export const quizSectionData = {
       value: "1-10",
       label: "1-10 dossiers",
       message:
-        "Pour votre volume, un accompagnement ciblé DP + Consuel est le plus adapté. Vous avez besoin de méthode, pas d'une usine.",
+        "Même avec un petit volume, un dossier bloqué peut coûter cher en temps et en relation client. On peut cibler une brique précise plutôt que tout déléguer.",
     },
     {
       value: "10-30",
       label: "10-30 dossiers",
       message:
-        "C'est le volume où l'administratif commence vraiment à peser. Un pilotage structuré permet d'absorber 20% de volume en plus sans recruter.",
+        "C'est souvent le moment où l'administratif devient visible dans l'organisation. Un pilotage structuré aide à absorber plus de flux sans recruter trop vite.",
     },
     {
       value: "+30",
@@ -259,7 +259,7 @@ export const quizSectionData = {
   emailLabel: "Email professionnel",
   emailSubmitLabel: "Recevoir mon cadrage",
   emailNote: "Réponse sous 24h • Sans engagement",
-  resultCtaLabel: "Réserver un cadrage complet de 15 min →",
+  resultCtaLabel: "Réserver un diagnostic de 15 min →",
   ctaHref: bookingUrl,
   phoneLabel: "Ou on vous rappelle : 06 95 90 79 19",
   phoneHref: "tel:+33695907919",
