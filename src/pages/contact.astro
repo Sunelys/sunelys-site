@@ -8,22 +8,22 @@ const hasBookingUrl = Boolean(bookingUrl);
 
 const trustBullets = [
   "Réponse sous 24h ouvrées",
-  "Échange de cadrage sans engagement",
+  "Diagnostic administratif sans engagement",
   "DP, Consuel, raccordement et aides pilotés selon votre organisation",
 ];
 
 const contactReasons = [
   {
-    title: "Vous avez du volume",
-    text: "Vos équipes vendent, suivent et relancent déjà trop de dossiers pour garder un pilotage propre.",
+    title: "Un dossier vous bloque",
+    text: "Une DP, un Consuel, un raccordement ou une aide consomme déjà trop de temps et ralentit le chantier.",
   },
   {
     title: "Vous voulez moins de retours",
     text: "Pièces manquantes, relances et étapes floues finissent par ralentir vos mises en service.",
   },
   {
-    title: "Vous voulez une méthode sérieuse",
-    text: "Vous cherchez un partenaire administratif présentable, traçable et capable de tenir un flux récurrent.",
+    title: "Vous voulez déléguer sans flou",
+    text: "Vous cherchez un partenaire administratif présentable, traçable et capable d'intervenir sur un dossier ou un flux.",
   },
 ];
 
@@ -34,11 +34,11 @@ const whatYouGet = [
   },
   {
     title: "Priorités claires",
-    text: "Les étapes à déléguer en premier pour soulager vos équipes sans casser votre fonctionnement.",
+    text: "Le premier périmètre à reprendre pour soulager vos équipes sans casser votre fonctionnement.",
   },
   {
     title: "Recommandation exploitable",
-    text: "Un cadrage simple, lisible et aligné sur vos contraintes terrain, commerce et délais.",
+    text: "Une lecture simple, lisible et alignée sur vos contraintes terrain, commerce et délais.",
   },
 ];
 
@@ -69,15 +69,15 @@ const supportCards = [
 
 <BaseLayout
   title="Contact installateurs photovoltaïques | Sunelys"
-  description="Parlez à Sunelys de vos flux administratifs photovoltaïques et aides rénovation. Nous cadrons vos besoins en DP, Consuel, raccordement, MaPrimeRénov' et CEE."
+  description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, MaPrimeRénov' et CEE."
 >
   <section class="contact-hero section-shell reveal">
     <div class="hero-copy">
       <p class="eyebrow">Prise de contact</p>
-      <h1>Recevez un cadrage clair pour sécuriser votre pilotage complet.</h1>
+      <h1>Recevez un diagnostic sous 24h pour vos dossiers administratifs bloqués.</h1>
       <p class="hero-text">
-        Décrivez votre volume, vos blocages et vos priorités. Sunelys revient avec une lecture sérieuse du
-        pilotage DP, Consuel, raccordement, MaPrimeRénov' et CEE, sans jargon ni promesse floue.
+        Décrivez votre volume, vos blocages et vos priorités. Sunelys identifie le premier périmètre à reprendre:
+        DP, Consuel, raccordement, MaPrimeRénov' ou CEE, du dossier ponctuel au flux récurrent.
       </p>
 
       <ul class="trust-strip" aria-label="Réassurance contact">
@@ -86,7 +86,7 @@ const supportCards = [
 
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#contact-form" data-track="cta_contact_form_top">
-          Recevoir un cadrage pilotage complet
+          Recevoir un diagnostic sous 24h
         </a>
         {
           hasBookingUrl && (
@@ -116,7 +116,7 @@ const supportCards = [
     <aside class="hero-panel" aria-label="Réassurance Sunelys">
       <div class="hero-panel-card">
         <p class="panel-kicker">Ce que vous obtenez</p>
-        <h2>Un premier échange utile, pas un call de qualification vide.</h2>
+        <h2>Une première lecture utile, pas un call de qualification vide.</h2>
         <div class="what-grid">
           {whatYouGet.map((item, index) => (
             <article class="step-card">
@@ -150,7 +150,7 @@ const supportCards = [
         <h2>Décrivez votre contexte en quelques champs.</h2>
         <p>
           Le volume de dossiers est pré-rempli si vous venez du tunnel homepage. Plus votre contexte est clair,
-          plus notre retour est utile dès le premier échange.
+          plus le diagnostic permet d'identifier vite le bon périmètre à reprendre.
         </p>
       </div>
 
@@ -162,7 +162,7 @@ const supportCards = [
         data-lead-form
         data-conversion-type="form_contact"
       >
-        <input type="hidden" name="_subject" value="Nouvelle demande Sunelys" />
+        <input type="hidden" name="_subject" value="Nouveau diagnostic administratif Sunelys" />
         <input type="hidden" name="_captcha" value="false" />
         <input type="hidden" name="_template" value="table" />
         <input type="hidden" name="_next" value={successUrl} />
@@ -173,7 +173,7 @@ const supportCards = [
         <input type="hidden" name="lead_source_detail" id="lead-source-detail-field" />
         <input type="hidden" name="qualification_hint" value="formulaire contact avec volume, besoin, étape bloquée et message" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
-        <input type="hidden" name="lead_pipeline" value="Site web - Contact" />
+        <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic administratif" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
         <input type="hidden" name="follow_up_sla" value="24h" />
         <input type="hidden" name="landing_page" id="landing-page-field" />
@@ -245,7 +245,7 @@ const supportCards = [
           <textarea name="message" rows="6" placeholder="Contexte, zone, délais, organisation actuelle, irritants..."></textarea>
         </label>
         <button id="contact-form-submit" class="btn btn-primary btn-accent submit-btn" type="submit" data-track="cta_contact_form_submit">
-          Envoyer ma demande
+          Recevoir mon diagnostic
         </button>
         <p class="form-note full-width">
           Réponse sous 24h ouvrées. Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.

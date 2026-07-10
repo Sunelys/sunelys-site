@@ -418,16 +418,16 @@ export const faqSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Passage à l'action",
-  title: "Faites le point sur vos flux administratifs en 15 minutes.",
+  title: "Faites diagnostiquer vos dossiers administratifs bloqués.",
   text:
-    "Expliquez-nous votre volume, vos délais et vos blocages. Nous revenons vers vous avec un cadrage clair du périmètre à déléguer en priorité.",
+    "Expliquez-nous votre volume, vos délais et vos blocages. Nous revenons vers vous avec le premier périmètre à reprendre en priorité, sans vous imposer un flux complet si un dossier ponctuel suffit.",
   primaryCta: {
-    label: "Recevoir un cadrage pilotage complet",
+    label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=final#contact-form",
     track: "cta_final_form_primary",
   },
   secondaryCta: {
-    label: "Réserver un audit Calendly en option",
+    label: "Réserver 15 min en option",
     href: bookingUrl,
     track: "cta_final_calendar_secondary",
   },
@@ -440,7 +440,7 @@ export const finalCtaSectionData = {
     },
     {
       label: "Calendly",
-      value: "Créneau optionnel après cadrage",
+      value: "Créneau optionnel après diagnostic",
       href: bookingUrl,
       track: "cta_final_calendar",
     },
