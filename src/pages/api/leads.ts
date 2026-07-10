@@ -449,6 +449,8 @@ export const POST: APIRoute = async ({ request }) => {
   const qualificationHint = clean(formData.get("qualification_hint"));
   const rawNeed = firstClean(formData.get("need"), formData.get("service_interest"), sourcePage);
   const rawVolume = clean(formData.get("volume"));
+  const rawTeamContext = clean(formData.get("team_context"));
+  const rawUrgency = clean(formData.get("urgency"));
   const rawMessage = clean(formData.get("message"));
   const explicitBlockedStage = clean(formData.get("blocked_stage"));
   const serviceHint = firstClean(formData.get("service_interest"), rawNeed);
@@ -507,6 +509,8 @@ export const POST: APIRoute = async ({ request }) => {
     ["Conversion type", conversionType],
     ["Étape", leadStage],
     ["Blocage", blockedStage],
+    ["Situation", rawTeamContext],
+    ["Urgence", rawUrgency],
     ["Landing page", landingPageRaw],
     ["Volume", rawVolume],
     ["Source détail", leadSourceDetail],
@@ -529,6 +533,8 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_VOLUME", normalizeVolume(rawVolume), env, "Volume dossiers/mois");
   addOptionalField(fields, "AIRTABLE_FIELD_NEED", normalizeNeed(rawNeed), env, "Besoin principal");
   addOptionalField(fields, "AIRTABLE_FIELD_MESSAGE", comment, env, "Commentaire");
+  addOptionalField(fields, "AIRTABLE_FIELD_TEAM_CONTEXT", rawTeamContext, env);
+  addOptionalField(fields, "AIRTABLE_FIELD_URGENCY", rawUrgency, env);
   addOptionalField(fields, "AIRTABLE_FIELD_STATUS", clean(formData.get("lead_status")), env, "Statut");
   addOptionalField(fields, "AIRTABLE_FIELD_SOURCE", sourceValue, env, "Source");
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_SOURCE", utmSource, env, "UTM source");
@@ -575,6 +581,8 @@ export const POST: APIRoute = async ({ request }) => {
         phone: clean(formData.get("phone")),
         volume: normalizeVolume(rawVolume),
         need: normalizeNeed(rawNeed),
+        team_context: rawTeamContext,
+        urgency: rawUrgency,
         conversion_type: conversionType,
         lead_stage: leadStage,
         blocked_stage: blockedStage,

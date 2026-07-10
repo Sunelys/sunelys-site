@@ -133,6 +133,7 @@ Jours 8-14:
 
 - `docs/google-ads-search-keywords.csv`
 - `docs/google-ads-rsa-assets.csv`
+- `docs/google-ads-search-assets-2026-07-10.md`
 - `docs/google-ads-negative-keywords.csv`
 - `docs/google-ads-editor/`
 - `docs/google-ads-web-upload/`

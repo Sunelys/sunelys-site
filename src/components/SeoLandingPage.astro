@@ -126,6 +126,33 @@ const concernSignals = [
   "Vous voulez déléguer une brique précise avant de confier tout le flux administratif.",
 ];
 
+const handoverItems = [
+  {
+    label: "DP",
+    title: "Déclarations préalables",
+    text: "Contrôle des pièces, cohérence des informations, dépôt et suivi mairie jusqu'au retour.",
+    result: "Moins de compléments et une lecture claire de chaque statut.",
+  },
+  {
+    label: "Mise en service",
+    title: "Consuel et raccordement",
+    text: "Préparation administrative, suivi des portails, relances et demandes de complément.",
+    result: "Les dossiers proches mise en service ne restent plus sans pilote.",
+  },
+  {
+    label: "Aides",
+    title: "MaPrimeRénov' et CEE",
+    text: "Montage, pièces attendues, jalons et suivi pour éviter les dossiers qui dorment.",
+    result: "Un flux d'aides plus lisible pour vos équipes et vos clients.",
+  },
+  {
+    label: "Pilotage",
+    title: "Vision par dossier",
+    text: "Centralisation des actions, priorisation des urgences et point d'avancement exploitable.",
+    result: "Vous savez quoi relancer, quoi déléguer et quoi traiter en premier.",
+  },
+];
+
 const diagnosticItems = [
   {
     title: "Volume et sources",
@@ -210,7 +237,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <input type="hidden" name="lead_stage" value="service_hero_form_submitted" />
           <input type="hidden" name="service_interest" value={serviceInterest} />
           <input type="hidden" name="lead_source_detail" value={`${data.slug}_hero_form`} />
-          <input type="hidden" name="qualification_hint" value="email professionnel, téléphone, volume mensuel et étape bloquée" />
+          <input type="hidden" name="qualification_hint" value="email professionnel, téléphone, volume mensuel, urgence et étape bloquée" />
           <input type="hidden" name="lead_status" value="Nouveau lead" />
           <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
           <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -249,6 +276,16 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
               <option value="Mise en service bloquée">Mise en service bloquée</option>
               <option value="Pilotage global">Pilotage global</option>
               <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+            </select>
+          </label>
+          <label>
+            <span>Urgence</span>
+            <select name="urgency" required>
+              <option value="">Sélectionner</option>
+              <option value="Sous 48h">Sous 48h</option>
+              <option value="Cette semaine">Cette semaine</option>
+              <option value="Ce mois-ci">Ce mois-ci</option>
+              <option value="Pas urgent">Pas urgent</option>
             </select>
           </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
@@ -334,6 +371,30 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         </article>
       ))
     }
+  </div>
+</section>
+
+<section class="seo-section seo-handover section-shell reveal">
+  <div class="split-head">
+    <div>
+      <p class="kicker">Reprise opérationnelle</p>
+      <h2>Ce que Sunelys peut reprendre dès le premier échange.</h2>
+    </div>
+    <p>
+      Pas besoin d'attendre 10 dossiers par mois pour être aidé. On peut traiter un blocage ponctuel,
+      absorber un pic de charge ou structurer un flux récurrent quand le volume augmente.
+    </p>
+  </div>
+
+  <div class="handover-grid">
+    {handoverItems.map((item) => (
+      <article class="handover-card">
+        <span>{item.label}</span>
+        <h3>{item.title}</h3>
+        <p>{item.text}</p>
+        <strong>{item.result}</strong>
+      </article>
+    ))}
   </div>
 </section>
 
@@ -558,7 +619,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <input type="hidden" name="lead_stage" value="service_final_form_submitted" />
     <input type="hidden" name="service_interest" value={serviceInterest} />
     <input type="hidden" name="lead_source_detail" value={`${data.slug}_final_form`} />
-    <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone, volume mensuel et étape bloquée" />
+    <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone, volume mensuel, urgence et étape bloquée" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Page service" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -601,6 +662,16 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         <option value="Mise en service bloquée">Mise en service bloquée</option>
         <option value="Pilotage global">Pilotage global</option>
         <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+      </select>
+    </label>
+    <label>
+      <span>Urgence</span>
+      <select name="urgency" required>
+        <option value="">Sélectionner</option>
+        <option value="Sous 48h">Sous 48h</option>
+        <option value="Cette semaine">Cette semaine</option>
+        <option value="Ce mois-ci">Ce mois-ci</option>
+        <option value="Pas urgent">Pas urgent</option>
       </select>
     </label>
     <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
@@ -856,6 +927,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   .use-case-grid,
   .diagnostic-grid,
   .fast-diagnostic-grid,
+  .handover-grid,
   .concern-grid {
     margin-top: 0.9rem;
     display: grid;
@@ -868,6 +940,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   .faq-card,
   .diagnostic-card,
   .fast-diagnostic-card,
+  .handover-card,
   .scope-panel,
   .use-case-card,
   .concern-grid p,
@@ -904,6 +977,37 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
   .fast-diagnostic-card {
     align-content: start;
+  }
+
+  .seo-handover {
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+  }
+
+  .handover-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .handover-card {
+    align-content: start;
+  }
+
+  .handover-card span {
+    width: fit-content;
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-soft) 58%, white);
+    color: var(--text);
+    padding: 0.22rem 0.52rem;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .handover-card strong {
+    color: var(--text);
+    font-size: 0.92rem;
+    line-height: 1.35;
   }
 
   .seo-concerned {
@@ -1141,7 +1245,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     margin: 1rem auto 0;
     max-width: 1040px;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr)) auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 0.62rem;
     align-items: end;
   }
@@ -1174,6 +1278,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   }
 
   .service-lead-form .btn {
+    grid-column: 1 / -1;
+    width: 100%;
     margin-top: 0;
     white-space: nowrap;
   }
@@ -1192,6 +1298,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .use-case-grid,
     .diagnostic-grid,
     .fast-diagnostic-grid,
+    .handover-grid,
     .concern-grid,
     .scope-layout,
     .case-layout,

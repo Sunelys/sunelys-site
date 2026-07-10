@@ -34,6 +34,7 @@ const attributionFields = [
 
 const signals = [
   "Réponse sous 24h ouvrées",
+  "Dossier ponctuel ou flux récurrent",
   "Priorité aux dossiers à forte friction",
   "Aucun engagement",
 ];
@@ -68,7 +69,7 @@ const signals = [
     <input type="hidden" name="service_interest" value="Pilotage complet" data-diagnostic-service-interest />
     <input type="hidden" name="lead_source_detail" value={`${source}_form`} />
     <input type="hidden" name="message" value="Demande de diagnostic dossiers bloqués" />
-    <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec téléphone, volume, besoin et étape administrative" />
+    <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec téléphone, volume, besoin, situation, urgence et étape administrative" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -112,7 +113,27 @@ const signals = [
         <option value="Je ne sais pas encore">Je ne sais pas encore</option>
       </select>
     </label>
-    <label class="blocked-diagnostic__full">
+    <label>
+      <span>Situation</span>
+      <select name="team_context">
+        <option value="">Sélectionner</option>
+        <option value="Dossier ponctuel">Dossier ponctuel</option>
+        <option value="Pic de charge">Pic de charge</option>
+        <option value="Flux récurrent">Flux récurrent</option>
+        <option value="Reprise dossier bloqué">Reprise dossier bloqué</option>
+      </select>
+    </label>
+    <label>
+      <span>Urgence</span>
+      <select name="urgency" required>
+        <option value="">Sélectionner</option>
+        <option value="Sous 48h">Sous 48h</option>
+        <option value="Cette semaine">Cette semaine</option>
+        <option value="Ce mois-ci">Ce mois-ci</option>
+        <option value="Pas urgent">Pas urgent</option>
+      </select>
+    </label>
+    <label>
       <span>Étape bloquée</span>
       <select name="blocked_stage" required>
         <option value="">Sélectionner</option>
@@ -190,6 +211,8 @@ const signals = [
         source,
         volume: String(formData.get("volume") || ""),
         need: String(formData.get("need") || ""),
+        team_context: String(formData.get("team_context") || ""),
+        urgency: String(formData.get("urgency") || ""),
         blocked_stage: String(formData.get("blocked_stage") || ""),
         conversion_type: "form_contact",
         lead_stage: "blocked_diagnostic_form_submitted",
