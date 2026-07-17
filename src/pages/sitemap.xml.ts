@@ -13,6 +13,7 @@ const staticRoutes = [
   { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-06-22" },
   { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-06-22" },
   { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-06-22" },
+  { path: "/sous-traitance-administrative-photovoltaique-installateur", lastmod: "2026-07-17" },
   { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-07-09" },
 ];
 

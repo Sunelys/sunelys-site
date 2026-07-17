@@ -58,6 +58,21 @@ const proofItems = [
   "Production sous 48h lorsque le dossier est complet",
   "96 % de DP sans pièce complémentaire",
 ];
+
+const specialistReasons = [
+  {
+    title: "Spécialiste photovoltaïque",
+    text: "Sunelys parle DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE dans le contexte concret des installateurs solaires.",
+  },
+  {
+    title: "Périmètre clair",
+    text: "Vous déléguez une brique précise ou un flux complet, sans acheter une plateforme généraliste ni un accompagnement trop large.",
+  },
+  {
+    title: "Prix visibles",
+    text: "Les tarifs sont annoncés avant le contact pour filtrer les demandes peu qualifiées et cadrer vite le bon dossier.",
+  },
+];
 ---
 
 <BaseLayout
@@ -80,6 +95,12 @@ const proofItems = [
         <li>Prix fixes HT</li>
         <li>Réponse sous 24h</li>
       </ul>
+
+      <div class="hero-price-strip" aria-label="Tarifs principaux Sunelys">
+        <span>DP 119 € HT</span>
+        <span>Raccordement + Consuel 89 € HT</span>
+        <span>Aides dès 99 € HT</span>
+      </div>
 
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#diagnostic" data-track="cta_lp_admin_pv_hero_form">
@@ -193,6 +214,30 @@ const proofItems = [
         </article>
       ))}
     </div>
+  </section>
+
+  <section class="lp-section specialist-section" id="specialiste-pv">
+    <div class="section-head">
+      <p class="eyebrow">Positionnement</p>
+      <h2>Pourquoi choisir un spécialiste administratif PV.</h2>
+      <p>
+        Un prestataire ENR généraliste peut couvrir large. Sunelys choisit une promesse plus nette :
+        reprendre les dossiers photovoltaïques qui bloquent réellement vos équipes.
+      </p>
+    </div>
+
+    <div class="specialist-grid">
+      {specialistReasons.map((reason) => (
+        <article class="specialist-card">
+          <h3>{reason.title}</h3>
+          <p>{reason.text}</p>
+        </article>
+      ))}
+    </div>
+
+    <a class="btn btn-secondary" href="/sous-traitance-administrative-photovoltaique-installateur" data-track="cta_lp_specialist_seo_page">
+      Comprendre l'approche Sunelys
+    </a>
   </section>
 
   <section class="lp-section split-section">
@@ -357,6 +402,22 @@ const proofItems = [
     gap: 0.68rem;
   }
 
+  .hero-price-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+  }
+
+  .hero-price-strip span {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 14px;
+    background: color-mix(in srgb, var(--surface-elevated) 96%, white);
+    color: var(--accent-deep);
+    font-weight: 900;
+    line-height: 1.2;
+    padding: 0.7rem 0.72rem;
+  }
+
   .hero-intake {
     border: 1px solid color-mix(in srgb, var(--line) 82%, var(--accent-soft));
     border-radius: 22px;
@@ -425,6 +486,11 @@ const proofItems = [
     gap: 1rem;
   }
 
+  .specialist-section {
+    display: grid;
+    gap: 1rem;
+  }
+
   .price-grid {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -447,6 +513,27 @@ const proofItems = [
     font-size: clamp(1.7rem, 2vw, 2.2rem);
     line-height: 1;
     white-space: nowrap;
+  }
+
+  .specialist-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .specialist-card {
+    min-height: 10rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    padding: 1rem;
+    display: grid;
+    gap: 0.56rem;
+    align-content: start;
+  }
+
+  .specialist-card h3 {
+    color: var(--text);
   }
 
   .split-section,
@@ -534,7 +621,9 @@ const proofItems = [
       grid-template-columns: 1fr;
     }
 
+    .hero-price-strip,
     .price-grid,
+    .specialist-grid,
     .handover-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
@@ -552,7 +641,9 @@ const proofItems = [
       border-radius: 20px;
     }
 
+    .hero-price-strip,
     .price-grid,
+    .specialist-grid,
     .handover-grid {
       grid-template-columns: 1fr;
     }

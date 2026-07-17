@@ -1,0 +1,429 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+
+const canonicalUrl = "https://sunelys.fr/sous-traitance-administrative-photovoltaique-installateur";
+
+const scopeItems = [
+  "Déclaration préalable complète : pièces, dépôt mairie et suivi jusqu'au retour",
+  "Raccordement Enedis : demande, pièces, relances et lecture des statuts",
+  "Consuel photovoltaïque : contrôle administratif et suivi jusqu'à validation",
+  "Aides : MaPrimeRénov', CEE ou pack coordonné selon le chantier",
+];
+
+const priceItems = [
+  { label: "DP complète", value: "119 € HT" },
+  { label: "Raccordement + Consuel", value: "89 € HT" },
+  { label: "MaPrimeRénov'", value: "129 € HT" },
+  { label: "CEE", value: "99 € HT" },
+];
+
+const specialistItems = [
+  {
+    title: "Plus précis qu'une délégation administrative généraliste",
+    text: "Les dossiers solaires ont leurs propres pièces, portails, délais et blocages. Sunelys se concentre sur ce terrain plutôt que de vendre une assistance tous secteurs.",
+  },
+  {
+    title: "Plus souple qu'un recrutement",
+    text: "Vous pouvez commencer avec un dossier ponctuel, absorber un pic de charge, puis structurer un flux récurrent si le besoin est confirmé.",
+  },
+  {
+    title: "Plus lisible pour piloter la marge",
+    text: "Le prix au dossier évite de cacher le coût administratif dans les heures internes des commerciaux, ADV ou conducteurs de travaux.",
+  },
+];
+
+const warningItems = [
+  "Les commerciaux suivent des compléments mairie au lieu de traiter les nouveaux projets.",
+  "Le raccordement ou le Consuel reste bloqué parce que personne ne relance au bon moment.",
+  "Les dossiers d'aides demandent des pièces client plusieurs fois et fragilisent l'expérience.",
+  "Le volume augmente, mais les statuts restent dispersés entre mails, portails et tableaux.",
+];
+
+const faqItems = [
+  {
+    question: "Sunelys remplace-t-il totalement mon administratif interne ?",
+    answer:
+      "Pas forcément. Sunelys peut reprendre une brique précise, un dossier bloqué ou un flux régulier. L'objectif est de retirer la charge qui ralentit vraiment vos équipes.",
+  },
+  {
+    question: "Est-ce adapté aux petits installateurs ?",
+    answer:
+      "Oui. Le dossier ponctuel est accepté. Un installateur peut tester Sunelys sur une DP, un raccordement, un Consuel ou une aide avant de déléguer davantage.",
+  },
+  {
+    question: "Pourquoi afficher les prix avant le diagnostic ?",
+    answer:
+      "Parce qu'un installateur doit pouvoir juger rapidement si la délégation a du sens économiquement. Les tarifs publics filtrent les demandes peu qualifiées et accélèrent le cadrage.",
+  },
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Sous-traitance administrative photovoltaïque pour installateurs",
+    description:
+      "Sous-traitance des dossiers DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE pour installateurs photovoltaïques.",
+    serviceType: "Sous-traitance administrative photovoltaïque",
+    provider: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "France",
+    },
+    url: canonicalUrl,
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Sous-traitance administrative photovoltaïque installateur | Sunelys"
+  description="Externalisez DP, raccordement, Consuel, MaPrimeRénov' et CEE avec un spécialiste administratif photovoltaïque pour installateurs. Prix fixes HT et dossier ponctuel accepté."
+  structuredData={structuredData}
+>
+  <section class="subcontract-hero section-shell reveal">
+    <div class="subcontract-copy">
+      <p class="eyebrow">Sous-traitance administrative photovoltaïque</p>
+      <h1>Un relais spécialisé pour vos dossiers PV, sans recruter.</h1>
+      <p class="intro">
+        Sunelys reprend les démarches administratives qui bloquent les installateurs photovoltaïques :
+        DP, raccordement Enedis, Consuel, MaPrimeRénov' et CEE. Vous gardez la relation client,
+        nous cadrons les pièces, les dépôts et les relances.
+      </p>
+      <ul class="hero-badges" aria-label="Critères Sunelys">
+        <li>Installateurs PV uniquement</li>
+        <li>Dossier ponctuel accepté</li>
+        <li>Prix fixes HT</li>
+        <li>Réponse sous 24h</li>
+      </ul>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-accent" href="#blocked-diagnostic-sous_traitance_admin_pv_installateur" data-track="cta_subcontract_hero_diagnostic">
+          Cadrer un dossier
+        </a>
+        <a class="btn btn-secondary" href="/tarifs" data-track="cta_subcontract_hero_tarifs">
+          Voir les tarifs
+        </a>
+      </div>
+    </div>
+    <aside class="price-panel" aria-label="Tarifs Sunelys">
+      <p class="eyebrow">Repères tarifaires</p>
+      {priceItems.map((item) => (
+        <div class="price-row">
+          <span>{item.label}</span>
+          <strong>{item.value}</strong>
+        </div>
+      ))}
+    </aside>
+  </section>
+
+  <section class="subcontract-section split-section reveal">
+    <div>
+      <p class="eyebrow">Bon fit</p>
+      <h2>Quand la sous-traitance devient plus rentable que l'improvisation.</h2>
+      <p>
+        Le sujet n'est pas seulement de gagner du temps. C'est d'éviter que vos équipes les plus utiles
+        absorbent une charge administrative qui ralentit les ventes, la pose ou la mise en service.
+      </p>
+    </div>
+    <ul class="signal-list">
+      {warningItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="subcontract-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">Périmètre confiable</p>
+      <h2>Ce que vous pouvez déléguer sans perdre la maîtrise.</h2>
+    </div>
+    <div class="scope-grid">
+      {scopeItems.map((item) => (
+        <article class="scope-card">
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="subcontract-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">Différence Sunelys</p>
+      <h2>Une approche plus spécialisée, plus claire, plus actionnable.</h2>
+    </div>
+    <div class="specialist-grid">
+      {specialistItems.map((item) => (
+        <article class="specialist-card">
+          <h3>{item.title}</h3>
+          <p>{item.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <BlockedDiagnostic
+    source="sous_traitance_admin_pv_installateur"
+    kicker="Diagnostic sous-traitance PV"
+    title="Identifiez le premier dossier à sortir de vos équipes."
+    text="Indiquez votre besoin, votre volume et l'étape qui bloque. Sunelys vous répond sous 24h avec le périmètre le plus utile à déléguer."
+    submitLabel="Recevoir mon cadrage"
+  />
+
+  <section class="subcontract-section faq-section reveal">
+    <div class="section-head">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Avant de déléguer.</h2>
+    </div>
+    <div class="faq-grid">
+      {faqItems.map((item) => (
+        <article>
+          <h3>{item.question}</h3>
+          <p>{item.answer}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .subcontract-hero,
+  .subcontract-section {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(105% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.15rem, 3vw, 2.25rem);
+  }
+
+  .subcontract-section {
+    margin-top: 1.5rem;
+  }
+
+  .subcontract-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.48fr);
+    gap: clamp(1rem, 3vw, 2.2rem);
+    align-items: stretch;
+  }
+
+  .subcontract-copy,
+  .section-head {
+    display: grid;
+    gap: 0.82rem;
+  }
+
+  .eyebrow {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    margin: 0;
+  }
+
+  h1 {
+    max-width: 14ch;
+    font-size: clamp(2.35rem, 5vw, 5.2rem);
+    line-height: 0.92;
+  }
+
+  h2 {
+    max-width: 17ch;
+    font-size: clamp(1.55rem, 3.2vw, 3rem);
+    line-height: 0.98;
+  }
+
+  h3 {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.15;
+  }
+
+  p,
+  li {
+    color: var(--text-muted);
+    line-height: 1.58;
+  }
+
+  .intro {
+    max-width: 50rem;
+    color: var(--text);
+    font-size: clamp(1.02rem, 1.1vw, 1.18rem);
+  }
+
+  .hero-badges,
+  .signal-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .hero-badges li {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 0.42rem 0.72rem;
+    text-transform: uppercase;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.68rem;
+  }
+
+  .price-panel {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, var(--accent-soft));
+    border-radius: 22px;
+    background: rgba(255, 253, 248, 0.86);
+    box-shadow: 0 18px 44px rgba(20, 16, 10, 0.07);
+    display: grid;
+    gap: 0.72rem;
+    padding: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .price-row {
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 74%, transparent);
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.72rem;
+  }
+
+  .price-row:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .price-row span {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .price-row strong {
+    color: var(--accent-deep);
+    white-space: nowrap;
+  }
+
+  .split-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+  }
+
+  .signal-list {
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .signal-list li {
+    border-left: 3px solid var(--accent-strong);
+    background: color-mix(in srgb, var(--surface-elevated) 84%, transparent);
+    color: var(--text);
+    padding: 0.78rem 0.9rem;
+  }
+
+  .scope-grid,
+  .specialist-grid,
+  .faq-grid {
+    display: grid;
+    gap: 0.72rem;
+    margin-top: 1rem;
+  }
+
+  .scope-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .specialist-grid,
+  .faq-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .scope-card,
+  .specialist-card,
+  .faq-grid article {
+    min-height: 10rem;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+    display: grid;
+    gap: 0.55rem;
+    align-content: start;
+    padding: 1rem;
+  }
+
+  .scope-card p {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  @media (max-width: 1080px) {
+    .subcontract-hero,
+    .split-section {
+      grid-template-columns: 1fr;
+    }
+
+    .scope-grid,
+    .specialist-grid,
+    .faq-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 680px) {
+    .subcontract-hero,
+    .subcontract-section {
+      border-radius: 20px;
+    }
+
+    .scope-grid,
+    .specialist-grid,
+    .faq-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-actions,
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .hero-badges li {
+      width: 100%;
+      text-align: center;
+    }
+  }
+</style>

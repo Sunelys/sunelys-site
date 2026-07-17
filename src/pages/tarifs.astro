@@ -66,6 +66,13 @@ const pricingSignals = [
   "Garantie zéro pièce complémentaire applicable sur la formule DP complète avec dépôt et suivi assurés par Sunelys",
   "TVA 20 % en sus, facturation mensuelle selon les dossiers réellement traités",
 ];
+
+const specialistChecks = [
+  "Périmètre concentré sur les dossiers photovoltaïques installateurs",
+  "Prix publics avant diagnostic pour cadrer vite le bon niveau de délégation",
+  "Dossier ponctuel accepté avant de basculer un flux récurrent",
+  "Lecture opérationnelle des blocages : mairie, Consuel, Enedis, ANAH et CEE",
+];
 ---
 
 <BaseLayout
@@ -81,6 +88,20 @@ const pricingSignals = [
       ou dossiers d'aides à la rénovation MaPrimeRénov' et CEE. Vous pouvez démarrer par un dossier
       ponctuel, puis structurer un flux récurrent si le besoin se confirme.
     </p>
+  </section>
+
+  <section class="specialist-pricing-note">
+    <div>
+      <p class="eyebrow">Spécialiste PV</p>
+      <h2>Une tarification pensée pour déléguer sans se retrouver dans une offre généraliste.</h2>
+      <p>
+        Sunelys n'est pas une promesse administrative tous secteurs. L'offre est construite pour les
+        installateurs photovoltaïques qui veulent sortir DP, raccordement, Consuel et aides de leurs équipes.
+      </p>
+    </div>
+    <ul>
+      {specialistChecks.map((item) => <li>{item}</li>)}
+    </ul>
   </section>
 
   <section class="pricing-table-shell" id="tarifs-photovoltaique">
@@ -193,6 +214,7 @@ const pricingSignals = [
 <style>
   .pricing-hero,
   .pricing-table-shell,
+  .specialist-pricing-note,
   .pricing-note {
     border: 1px solid var(--line);
     border-radius: var(--radius-xl);
@@ -204,8 +226,36 @@ const pricingSignals = [
   }
 
   .pricing-table-shell,
+  .specialist-pricing-note,
   .pricing-note {
     margin-top: 1.5rem;
+  }
+
+  .specialist-pricing-note {
+    display: grid;
+    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+  }
+
+  .specialist-pricing-note h2 {
+    max-width: 18ch;
+  }
+
+  .specialist-pricing-note ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.65rem;
+  }
+
+  .specialist-pricing-note li {
+    border-left: 3px solid var(--accent-strong);
+    background: color-mix(in srgb, var(--surface-elevated) 84%, transparent);
+    color: var(--text);
+    line-height: 1.5;
+    padding: 0.78rem 0.9rem;
   }
 
   .eyebrow {
@@ -372,6 +422,10 @@ const pricingSignals = [
   }
 
   @media (max-width: 960px) {
+    .specialist-pricing-note {
+      grid-template-columns: 1fr;
+    }
+
     .offer-grid {
       grid-template-columns: 1fr;
     }
