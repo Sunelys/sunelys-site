@@ -1,0 +1,17 @@
+Action,Keyword status,Campaign,Ad group,Keyword,Match Type,Default max. CPC,Final URL,Label
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,sous traitance déclaration préalable photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,sous traitance déclaration préalable photovoltaïque,Exact match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,prestataire déclaration préalable photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,sous traitant dp photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,externaliser déclaration préalable panneaux solaires,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,gestion déclaration préalable installateur photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine DP
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,dossier consuel photovoltaïque installateur,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine consuel
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,prestataire consuel photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine consuel
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,sous traitance consuel photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine consuel
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,prestataire raccordement enedis photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine raccordement
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,suivi raccordement enedis installateur,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine raccordement
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,sous traitance raccordement enedis,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine raccordement
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,gestion administrative installateur photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine pilotage
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,prestataire dossier photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine pilotage
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,externalisation dossier photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine pilotage
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,sous traitance administratif photovoltaïque,Phrase match,1.50,https://sunelys.fr/lp/delegation-admin-pv,B2B base saine pilotage
