@@ -25,3 +25,32 @@ Volumes:
 - Mots-cles: 26
 - Annonces responsives Search: 6
 - Mots-cles negatifs: 21
+
+## Reset base saine - 2026-07-17
+
+Objectif: repartir sur une seule campagne Search B2B plus stricte, avec une landing SEA dediee:
+
+`https://sunelys.fr/lp/delegation-admin-pv`
+
+Fichiers prepares:
+
+1. `14-pause-current-search-campaigns-2026-07-17.csv`
+2. `15-base-saine-campaigns-2026-07-17.csv`
+3. `16-base-saine-ad-groups-2026-07-17.csv`
+4. `17-base-saine-keywords-2026-07-17.csv`
+5. `18-base-saine-responsive-search-ads-2026-07-17.csv`
+6. `19-base-saine-negative-keywords-2026-07-17.csv`
+
+La nouvelle campagne est importee en pause par defaut:
+
+- `Search - Delegation admin PV installateurs`
+- Budget: `10 EUR / jour`
+- Groupes: `Sous-traitance DP`, `Consuel Raccordement`, `Pilotage complet`
+- Cible: requetes B2B avec `sous-traitance`, `prestataire`, `externaliser`, `installateur`
+
+Ordre conseille pour appliquer le reset:
+
+1. Importer la campagne, les groupes, les mots-cles, les annonces et les negatifs en pause.
+2. Verifier la landing, les UTM et la conversion Google Ads.
+3. Importer le fichier de pause des anciennes campagnes Search.
+4. Activer la nouvelle campagne seulement apres verification.

@@ -446,6 +446,86 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         }
       };
 
+      const buildFormInteractionPayload = (form, fallbackStage) => {
+        const formData = new FormData(form);
+        const conversionType = String(
+          formData.get("conversion_type") ||
+            form.dataset.conversionType ||
+            "lead_form",
+        );
+        const normalizedConversionType = mapConversionType(conversionType);
+
+        return {
+          category: "form",
+          label: form.id || form.getAttribute("class") || "lead_form",
+          source: String(formData.get("source_page") || formData.get("source") || ""),
+          volume: String(formData.get("volume") || ""),
+          need: String(formData.get("need") || ""),
+          blocked_stage: String(formData.get("blocked_stage") || ""),
+          conversion_type: normalizedConversionType || conversionType,
+          lead_stage: String(formData.get("lead_stage") || fallbackStage),
+          service_interest: String(formData.get("service_interest") || ""),
+          form_id: form.id || "",
+        };
+      };
+
+      const startedLeadForms = new WeakSet();
+      document.addEventListener("focusin", (event) => {
+        if (!(event.target instanceof Element)) return;
+        const form = event.target.closest("form[data-lead-form]");
+        if (!(form instanceof HTMLFormElement) || startedLeadForms.has(form)) return;
+
+        startedLeadForms.add(form);
+        syncSunelysAttributionFields(form);
+        window.trackEvent?.("form_start", buildFormInteractionPayload(form, "form_started"));
+      });
+
+      const trackedViewElements = document.querySelectorAll("[data-track-view]");
+      const trackedViews = new WeakSet();
+      if (trackedViewElements.length > 0 && "IntersectionObserver" in window) {
+        const viewObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting || entry.intersectionRatio < 0.34) return;
+              if (!(entry.target instanceof HTMLElement) || trackedViews.has(entry.target)) return;
+
+              trackedViews.add(entry.target);
+              window.trackEvent?.(entry.target.dataset.trackView || "section_view", {
+                category: "engagement",
+                label: entry.target.dataset.trackLabel || entry.target.id || "tracked_section",
+                cta_group: entry.target.dataset.trackView || "",
+              });
+              observer.unobserve(entry.target);
+            });
+          },
+          { threshold: [0.34, 0.5, 0.75] }
+        );
+
+        trackedViewElements.forEach((element) => viewObserver.observe(element));
+      }
+
+      let scroll50Tracked = false;
+      const trackScrollDepth = () => {
+        if (scroll50Tracked) return;
+        const documentHeight = Math.max(
+          document.documentElement.scrollHeight,
+          document.body.scrollHeight,
+          window.innerHeight,
+        );
+        const scrollRatio = (window.scrollY + window.innerHeight) / documentHeight;
+        if (scrollRatio < 0.5) return;
+
+        scroll50Tracked = true;
+        window.trackEvent?.("scroll_50", {
+          category: "engagement",
+          label: window.location.pathname,
+        });
+      };
+
+      window.addEventListener("scroll", trackScrollDepth, { passive: true });
+      window.addEventListener("resize", trackScrollDepth);
+      trackScrollDepth();
+
       document.addEventListener("click", (event) => {
         if (!(event.target instanceof Element)) return;
         const element = event.target.closest("[data-track]");
