@@ -52,6 +52,15 @@ const renovationAidOffers = [
   },
 ];
 
+const edfOaOffer = {
+  service: "EDF OA - compte et contrat d'achat",
+  scope:
+    "Activation ou création de l'espace producteur, suivi du dossier EDF OA et accompagnement jusqu'à la signature électronique du client final.",
+  price: "49 €",
+  note: "HT / dossier",
+  badge: "Sans abonnement ni minimum",
+};
+
 const collaborationItems = [
   "Production sous 48h lorsque le dossier est complet",
   "Suivi en temps réel sur espace dédié",
@@ -71,21 +80,21 @@ const specialistChecks = [
   "Périmètre concentré sur les dossiers photovoltaïques installateurs",
   "Prix publics avant diagnostic pour cadrer vite le bon niveau de délégation",
   "Dossier ponctuel accepté avant de basculer un flux récurrent",
-  "Lecture opérationnelle des blocages : mairie, Consuel, Enedis, ANAH et CEE",
+  "Lecture opérationnelle des blocages : mairie, Consuel, Enedis, EDF OA, ANAH et CEE",
 ];
 ---
 
 <BaseLayout
   title="Tarifs gestion administrative photovoltaïque | Sunelys"
-  description="Tarifs unitaires au dossier pour DP, Consuel, raccordement, MaPrimeRénov' et CEE. Demandez un cadrage gratuit de 15 min."
+  description="Tarifs unitaires au dossier pour DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE. Demandez un cadrage gratuit de 15 min."
 >
   <section class="hero pricing-hero">
     <p class="eyebrow">Tarification Sunelys</p>
     <h1>Des tarifs uniques et clairs pour un pilotage complet par dossier.</h1>
     <p class="intro">
       Les montants ci-dessous sont les prix unitaires Sunelys pour les installateurs photovoltaïques.
-      Chaque tarif correspond à un périmètre précis : DP, raccordement + Consuel, chaîne complète
-      ou dossiers d'aides à la rénovation MaPrimeRénov' et CEE. Vous pouvez démarrer par un dossier
+      Chaque tarif correspond à un périmètre précis : DP, raccordement + Consuel, chaîne complète,
+      dossier EDF OA ou dossiers d'aides à la rénovation MaPrimeRénov' et CEE. Vous pouvez démarrer par un dossier
       ponctuel, puis structurer un flux récurrent si le besoin se confirme.
     </p>
   </section>
@@ -135,6 +144,46 @@ const specialistChecks = [
     <ul class="pricing-signals">
       {pricingSignals.map((item) => <li>{item}</li>)}
     </ul>
+  </section>
+
+  <section class="pricing-table-shell edf-oa-pricing" id="edf-oa">
+    <div class="table-head">
+      <p class="eyebrow">Contrat d'achat</p>
+      <h2>EDF OA : espace producteur et contrat d'achat.</h2>
+      <p>
+        Pour éviter que le dossier reste bloqué entre mise en service, mail d'activation et signature,
+        Sunelys prend en charge le cadrage administratif EDF OA jusqu'à l'invitation de signature.
+      </p>
+    </div>
+
+    <div class="offer-grid offer-grid-single" aria-label="Offre EDF OA Sunelys">
+      <article class="offer-card offer-card-edf">
+        <div class="offer-copy">
+          <p class="offer-badge">{edfOaOffer.badge}</p>
+          <h3>{edfOaOffer.service}</h3>
+          <p>{edfOaOffer.scope}</p>
+        </div>
+        <div class="offer-price">
+          <strong>{edfOaOffer.price}</strong>
+          <span>{edfOaOffer.note}</span>
+        </div>
+      </article>
+    </div>
+
+    <ul class="pricing-signals">
+      <li>Sunelys n'est pas EDF OA ni un service officiel EDF Obligation d'Achat</li>
+      <li>Le client final active son espace et signe depuis les liens sécurisés EDF OA</li>
+      <li>Enedis, Consuel et la facturation de production après signature restent des périmètres distincts</li>
+    </ul>
+
+    <div class="note-actions">
+      <a class="btn btn-primary btn-accent" href="/edf-oa" data-track="cta_edf_oa_tarifs">
+        Voir l'offre EDF OA
+      </a>
+      <a class="btn btn-secondary" href="/contact?source=edf-oa#contact-form" data-track="cta_edf_oa_contact">
+        Demander un cadrage
+      </a>
+    </div>
   </section>
 
   <section class="pricing-table-shell" id="aides-renovation">
@@ -203,6 +252,9 @@ const specialistChecks = [
       </a>
       <a class="btn btn-secondary" href="/services" data-track="cta_tarifs_services">
         Voir les services
+      </a>
+      <a class="btn btn-secondary" href="#edf-oa" data-track="cta_tarifs_edf_oa_anchor">
+        Tarif EDF OA
       </a>
       <a class="btn btn-secondary" href="#aides-renovation" data-track="cta_tarifs_aides_renovation">
         Tarifs MaPrimeRénov' + CEE
@@ -305,6 +357,10 @@ const specialistChecks = [
     gap: 0.72rem;
   }
 
+  .offer-grid-single {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .offer-card {
     min-height: 10rem;
     border: 1px solid color-mix(in srgb, var(--line) 82%, white);
@@ -320,6 +376,14 @@ const specialistChecks = [
   .offer-card-highlight {
     background: linear-gradient(165deg, #1b1712, #11100d);
     border-color: color-mix(in srgb, var(--line) 52%, var(--accent));
+  }
+
+  .offer-card-edf {
+    min-height: 12rem;
+    border-color: color-mix(in srgb, var(--accent) 38%, var(--line));
+    background:
+      linear-gradient(115deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface) 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 46%, transparent), transparent);
   }
 
   .offer-copy {

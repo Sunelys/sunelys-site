@@ -4,14 +4,14 @@ const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque | Sunelys",
   description:
-    "Sunelys reprend vos dossiers administratifs photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, MaPrimeRénov' et CEE.",
+    "Sunelys reprend vos dossiers administratifs photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE.",
 };
 
 export const heroData = {
   kicker: "Pour installateurs photovoltaïques",
   title: "Reprenez la main sur vos dossiers administratifs PV bloqués.",
   subtitle:
-    "Sunelys reprend vos démarches DP, Consuel, raccordement, MaPrimeRénov' et CEE pour libérer vos équipes, accélérer les chantiers et sécuriser le suivi, du dossier ponctuel au flux récurrent.",
+    "Sunelys reprend vos démarches DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE pour libérer vos équipes, accélérer les chantiers et sécuriser le suivi, du dossier ponctuel au flux récurrent.",
   expertLine:
     "Un pilotage administratif solaire exigeant, pensé pour les installateurs qui veulent grandir sans perdre le contrôle.",
   primaryCta: {
@@ -33,7 +33,7 @@ export const heroData = {
   proofs: [
     "Réponse sous 24h ouvrées",
     "Dossier ponctuel, pic de charge ou flux récurrent",
-    "DP, Consuel, raccordement et aides",
+    "DP, Consuel, raccordement, EDF OA et aides",
   ],
   portalDemo: {
     label: "Voir un aperçu du portail →",
@@ -326,6 +326,16 @@ export const servicesSectionData = {
     },
     {
       label: "Service 04",
+      title: "EDF OA",
+      benefit: "Un espace producteur activé et un contrat d'achat suivi jusqu'à signature.",
+      description:
+        "Vérification des références, accompagnement à l'activation, suivi du dossier EDF OA et sécurisation de la signature client.",
+      ctaLabel: "Voir l'offre",
+      href: "/edf-oa",
+      track: "cta_service_edf_oa",
+    },
+    {
+      label: "Service 05",
       title: "MaPrimeRénov' + CEE",
       benefit: "Des dossiers d'aides montés et suivis jusqu'à validation.",
       description:

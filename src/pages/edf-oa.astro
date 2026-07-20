@@ -1,0 +1,870 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const portalUrl = "https://portail.sunelys.fr/login";
+const contactUrl = "/contact?source=edf-oa#contact-form";
+const pricingUrl = "/tarifs#edf-oa";
+const canonicalUrl = "https://sunelys.fr/edf-oa";
+const pageTitle = "EDF OA photovoltaïque : compte et contrat | Sunelys";
+const pageDescription =
+  "Création de l'espace producteur EDF OA, suivi du dossier, compléments et signature du contrat d'achat. Offre installateurs PV à 49 € HT par dossier.";
+
+const includedItems = [
+  "Vérification des références EDF OA, PDL/PRM et titulaire du contrat",
+  "Accompagnement à l'activation ou à la création de l'espace producteur",
+  "Contrôle des informations contractuelles avant dépôt du dossier",
+  "Suivi des pièces demandées et des demandes de complément",
+  "Pilotage jusqu'à l'invitation de signature électronique",
+  "Accompagnement du client final jusqu'à la signature du contrat d'achat",
+];
+
+const journeySteps = [
+  {
+    label: "01",
+    title: "Demande créée",
+    text: "L'installateur ouvre une demande EDF OA depuis le portail Sunelys.",
+  },
+  {
+    label: "02",
+    title: "Références cadrées",
+    text: "Sunelys contrôle les références utiles, les pièces et les informations du titulaire.",
+  },
+  {
+    label: "03",
+    title: "Activation sécurisée",
+    text: "Le client final active son espace avec les liens EDF OA, sans transmettre son mot de passe.",
+  },
+  {
+    label: "04",
+    title: "Dossier suivi",
+    text: "Sunelys suit les compléments et garde une vue claire des actions attendues.",
+  },
+  {
+    label: "05",
+    title: "Contrat signé",
+    text: "Le client final signe électroniquement depuis le parcours sécurisé prévu par EDF OA.",
+  },
+];
+
+const responsibilityColumns = [
+  {
+    title: "Sunelys prépare et suit",
+    items: [
+      "Contrôle des références et de la cohérence du dossier",
+      "Préparation des informations nécessaires au parcours EDF OA",
+      "Suivi des compléments et relances utiles",
+      "Visibilité installateur sur le statut du dossier",
+    ],
+  },
+  {
+    title: "L'installateur fournit",
+    items: [
+      "Informations chantier et client final",
+      "Références Enedis disponibles après raccordement",
+      "Pièces techniques ou administratives déjà collectées",
+      "Coordination avec son client lorsque l'action lui revient",
+    ],
+  },
+  {
+    title: "Le client final valide",
+    items: [
+      "Activation de l'espace producteur avec ses accès personnels",
+      "Réception et vérification des liens sécurisés EDF OA",
+      "Signature électronique du contrat d'achat",
+      "Validation SMS uniquement dans le parcours officiel",
+    ],
+  },
+];
+
+const securityItems = [
+  "Sunelys ne demande jamais le mot de passe EDF OA du client.",
+  "Sunelys ne demande jamais un code reçu par SMS.",
+  "Le client final active son espace et signe depuis les liens sécurisés EDF OA.",
+  "Sunelys n'est pas EDF OA et ne se présente jamais comme un service officiel EDF Obligation d'Achat.",
+];
+
+const limitItems = [
+  "Les délais de traitement EDF OA ne peuvent pas être garantis par Sunelys.",
+  "Enedis et Consuel restent des prestations distinctes, même si elles peuvent être pilotées séparément.",
+  "La facturation de la production après signature du contrat n'est pas incluse.",
+  "Sunelys ne signe pas à la place du client sans mandat spécifique valide.",
+];
+
+const faqItems = [
+  {
+    question: "Comment créer son espace producteur EDF OA ?",
+    answer:
+      "Après la transmission du dossier par Enedis à EDF OA, le producteur reçoit normalement un email d'activation. Sunelys aide à vérifier les références, les informations du titulaire et les actions attendues, mais le client final garde ses accès personnels.",
+  },
+  {
+    question: "Quels documents sont nécessaires pour le dossier EDF OA ?",
+    answer:
+      "Le dossier dépend de la puissance et du projet. Les références Enedis, les informations du titulaire, les éléments de mise en service, le Consuel ou les compléments demandés peuvent être nécessaires. Sunelys contrôle le périmètre utile avant dépôt ou reprise du dossier.",
+  },
+  {
+    question: "Qui doit signer le contrat d'achat EDF OA ?",
+    answer:
+      "Le titulaire du contrat signe le contrat d'achat. Lorsqu'il existe plusieurs titulaires ou un mandat, le parcours de signature doit respecter les règles demandées par EDF OA et par l'outil de signature sécurisé.",
+  },
+  {
+    question: "Sunelys a-t-il besoin du mot de passe du client ?",
+    answer:
+      "Non. Sunelys ne demande jamais le mot de passe EDF OA, ni les codes SMS. Le client final active son espace et signe depuis ses propres liens sécurisés.",
+  },
+  {
+    question: "Que comprend le tarif de 49 € HT ?",
+    answer:
+      "Le tarif comprend le cadrage du dossier EDF OA, l'accompagnement à l'activation ou à la création de l'espace producteur, le suivi des compléments et l'accompagnement jusqu'à l'invitation de signature électronique.",
+  },
+  {
+    question: "Comment ouvrir une demande depuis le portail Sunelys ?",
+    answer:
+      "Connectez-vous au portail Sunelys, créez une nouvelle demande et choisissez le type exact « EDF OA – Compte et contrat d’achat ». Si vous n'êtes pas encore client, le formulaire de contact permet de qualifier le besoin avant ouverture.",
+  },
+  {
+    question: "Que faire si le mail d'activation EDF OA n'a pas été reçu ?",
+    answer:
+      "Il faut vérifier l'adresse transmise dans le dossier, les indésirables et le statut du parcours. Sunelys peut aider à diagnostiquer le blocage et à cadrer les informations nécessaires à la reprise.",
+  },
+];
+
+const structuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "EDF OA - compte et contrat d'achat",
+    serviceType: "Accompagnement EDF Obligation d'Achat photovoltaïque",
+    description: pageDescription,
+    provider: {
+      "@type": "Organization",
+      name: "Sunelys",
+      url: "https://sunelys.fr",
+    },
+    areaServed: {
+      "@type": "Country",
+      name: "France",
+    },
+    url: canonicalUrl,
+    offers: {
+      "@type": "Offer",
+      price: "49",
+      priceCurrency: "EUR",
+      availability: "https://schema.org/InStock",
+      url: portalUrl,
+      itemOffered: {
+        "@type": "Service",
+        name: "EDF OA - compte et contrat d'achat",
+      },
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} structuredData={structuredData}>
+  <section class="edf-hero section-shell" aria-labelledby="edf-oa-title">
+    <div class="hero-copy" data-reveal-item>
+      <p class="eyebrow">EDF OA pour installateurs photovoltaïques</p>
+      <h1 id="edf-oa-title">Activez l'espace producteur EDF OA sans laisser le contrat dormir.</h1>
+      <p class="hero-text">
+        Sunelys prend en charge le cadrage administratif EDF OA : création ou activation de l'espace producteur,
+        suivi du dossier, gestion des compléments et accompagnement jusqu'à la signature électronique par le client final.
+      </p>
+
+      <div class="hero-price-inline" aria-label="Tarif EDF OA Sunelys">
+        <strong>49 € HT</strong>
+        <span>/ dossier, sans abonnement</span>
+      </div>
+
+      <div class="hero-actions" aria-label="Actions EDF OA">
+        <a class="btn btn-primary btn-accent" href={portalUrl} data-track="cta_edf_oa_portal">
+          Créer une demande EDF OA
+        </a>
+        <a class="btn btn-secondary" href={contactUrl} data-track="cta_edf_oa_contact">
+          Demander un cadrage
+        </a>
+      </div>
+
+      <ul class="hero-assurance" aria-label="Réassurance offre EDF OA">
+        <li>Aucun abonnement</li>
+        <li>Aucun minimum de volume</li>
+        <li>Client final maître de ses accès</li>
+      </ul>
+    </div>
+
+    <aside class="hero-panel" aria-label="Tarif EDF OA Sunelys" data-reveal-item>
+      <div class="price-block">
+        <span>Offre dédiée</span>
+        <strong>49 € HT</strong>
+        <small>/ dossier</small>
+      </div>
+      <p>
+        Une demande ponctuelle suffit. Le parcours peut ensuite être intégré à votre flux Sunelys si vos dossiers EDF OA deviennent réguliers.
+      </p>
+      <img
+        src="/images/site/portal-overview-2026-04-23.png"
+        alt="Aperçu du portail Sunelys de suivi des dossiers administratifs"
+        width="960"
+        height="560"
+        loading="eager"
+        decoding="async"
+      />
+    </aside>
+  </section>
+
+  <section class="included-section section-shell reveal" aria-labelledby="included-title">
+    <div class="section-heading" data-reveal-item>
+      <p class="eyebrow">Périmètre inclus</p>
+      <h2 id="included-title">Le contrat d'achat suivi comme une étape critique du chantier.</h2>
+      <p>
+        EDF OA arrive après un parcours déjà dense. L'objectif Sunelys est d'éviter les angles morts :
+        références manquantes, mail d'activation oublié, complément non traité ou signature qui reste en attente.
+      </p>
+    </div>
+
+    <div class="included-grid">
+      {includedItems.map((item) => (
+        <article class="included-card" data-reveal-item>
+          <span aria-hidden="true">✓</span>
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="journey-section section-shell reveal" aria-labelledby="journey-title">
+    <div class="journey-head" data-reveal-item>
+      <p class="eyebrow">Parcours visuel</p>
+      <h2 id="journey-title">De la demande portail à la signature, chaque responsabilité est visible.</h2>
+    </div>
+
+    <div class="journey-track" aria-label="Parcours EDF OA Sunelys">
+      {journeySteps.map((step) => (
+        <article class="journey-step" data-reveal-item>
+          <span>{step.label}</span>
+          <h3>{step.title}</h3>
+          <p>{step.text}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="responsibility-section section-shell reveal" aria-labelledby="responsibility-title">
+    <div class="section-heading" data-reveal-item>
+      <p class="eyebrow">Répartition claire</p>
+      <h2 id="responsibility-title">Sunelys pilote le dossier, sans prendre la place du client final.</h2>
+      <p>
+        L'offre est conçue pour sécuriser le parcours sans demander d'accès sensible ni brouiller les rôles.
+      </p>
+    </div>
+
+    <div class="responsibility-grid">
+      {responsibilityColumns.map((column) => (
+        <article class="responsibility-card" data-reveal-item>
+          <h3>{column.title}</h3>
+          <ul>
+            {column.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="security-section section-shell reveal" aria-labelledby="security-title">
+    <div class="security-copy" data-reveal-item>
+      <p class="eyebrow">Sécurité des accès</p>
+      <h2 id="security-title">Aucun mot de passe, aucun code SMS, aucune ambiguïté.</h2>
+      <p>
+        Le pilotage Sunelys reste administratif. Les actions sensibles restent dans les mains du client final
+        et dans les parcours sécurisés prévus par EDF OA.
+      </p>
+    </div>
+
+    <ul class="security-list" data-reveal-item>
+      {securityItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section class="limits-section section-shell reveal" aria-labelledby="limits-title">
+    <div class="section-heading" data-reveal-item>
+      <p class="eyebrow">Limites assumées</p>
+      <h2 id="limits-title">Ce que l'offre ne promet pas.</h2>
+      <p>
+        Une offre premium est aussi une offre précise. Sunelys clarifie ce qui est suivi, ce qui dépend d'EDF OA
+        et ce qui relève d'un autre périmètre administratif.
+      </p>
+    </div>
+
+    <div class="limits-grid">
+      {limitItems.map((item) => (
+        <article class="limit-card" data-reveal-item>
+          <p>{item}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="faq-section section-shell reveal" aria-labelledby="faq-title">
+    <div class="section-heading" data-reveal-item>
+      <p class="eyebrow">FAQ EDF OA</p>
+      <h2 id="faq-title">Les questions que vos clients et vos équipes se posent avant signature.</h2>
+    </div>
+
+    <div class="faq-grid">
+      {faqItems.map((item) => (
+        <details class="faq-item" data-reveal-item>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
+      ))}
+    </div>
+
+    <div class="source-note" data-reveal-item>
+      <p>
+        Fonctionnement aligné sur les parcours EDF OA liés à l'espace producteur, au dossier de contrat
+        et à la signature électronique.
+      </p>
+      <a href="https://www.edf-oa.fr/" target="_blank" rel="noreferrer">Consulter EDF OA</a>
+    </div>
+  </section>
+
+  <section class="final-cta section-shell reveal" aria-labelledby="final-cta-title">
+    <div data-reveal-item>
+      <p class="eyebrow">Démarrer</p>
+      <h2 id="final-cta-title">Ouvrez votre demande EDF OA depuis le portail Sunelys.</h2>
+      <p>
+        49 € HT par dossier, sans abonnement ni minimum. Si vous n'êtes pas encore client,
+        passez par le formulaire pour qualifier le besoin et créer le bon parcours.
+      </p>
+    </div>
+    <div class="final-actions" data-reveal-item>
+      <a class="btn btn-primary btn-accent" href={portalUrl} data-track="cta_edf_oa_final_portal">
+        Créer une demande EDF OA
+      </a>
+      <a class="btn btn-secondary" href={contactUrl} data-track="cta_edf_oa_contact">
+        Parler à Sunelys
+      </a>
+      <a class="tarif-link" href={pricingUrl} data-track="cta_edf_oa_tarifs">
+        Voir le tarif dans la grille complète
+      </a>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .edf-hero,
+  .included-section,
+  .journey-section,
+  .responsibility-section,
+  .security-section,
+  .limits-section,
+  .faq-section,
+  .final-cta {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+  }
+
+  .edf-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.86fr);
+    gap: clamp(1rem, 3vw, 2.2rem);
+    align-items: stretch;
+    padding: clamp(1.2rem, 3vw, 2.4rem);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface) 56%),
+      linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 52%, transparent), transparent);
+  }
+
+  .hero-copy,
+  .hero-panel,
+  .section-heading,
+  .security-copy,
+  .journey-head {
+    min-width: 0;
+  }
+
+  .eyebrow {
+    margin: 0 0 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 750;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  h1,
+  h2,
+  h3,
+  p {
+    overflow-wrap: anywhere;
+  }
+
+  h1 {
+    margin: 0;
+    max-width: 13ch;
+    font-size: 5.2rem;
+    line-height: 0.9;
+  }
+
+  h2 {
+    margin: 0;
+    max-width: 20ch;
+    font-size: 2.8rem;
+    line-height: 0.98;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: 1.28rem;
+    line-height: 1.1;
+  }
+
+  .hero-text,
+  .section-heading p,
+  .security-copy p,
+  .final-cta p,
+  .journey-step p,
+  .included-card p,
+  .responsibility-card li,
+  .security-list li,
+  .limit-card p,
+  .faq-item p,
+  .source-note p,
+  .hero-panel p {
+    color: var(--text-muted);
+    line-height: 1.58;
+  }
+
+  .hero-text {
+    max-width: 43rem;
+    margin: 1rem 0 0;
+    font-size: var(--step-0);
+  }
+
+  .hero-actions,
+  .final-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.72rem;
+    margin-top: 1.25rem;
+  }
+
+  .hero-price-inline {
+    width: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.38rem;
+    margin-top: 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 32%, var(--line));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent-soft) 30%, var(--surface));
+    color: var(--text);
+    padding: 0.5rem 0.78rem;
+  }
+
+  .hero-price-inline strong {
+    font-family: var(--font-display);
+    font-size: 1.7rem;
+    line-height: 0.9;
+  }
+
+  .hero-price-inline span {
+    color: var(--text-muted);
+    font-weight: 800;
+  }
+
+  .hero-assurance {
+    margin: 1.2rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
+  }
+
+  .hero-assurance li {
+    min-height: 2.1rem;
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid color-mix(in srgb, var(--line) 76%, white);
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+    color: var(--text);
+    padding: 0.42rem 0.72rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+
+  .hero-panel {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+    border-radius: var(--radius-lg);
+    background: linear-gradient(180deg, #1b1712, #11100d);
+    padding: clamp(1rem, 2vw, 1.2rem);
+    overflow: hidden;
+  }
+
+  .hero-panel p {
+    margin: 0;
+    color: #d9cfbf;
+  }
+
+  .price-block {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .price-block span,
+  .price-block small {
+    color: #d9cfbf;
+    font-weight: 700;
+  }
+
+  .price-block strong {
+    color: #fbf5e9;
+    font-family: var(--font-display);
+    font-size: 5.6rem;
+    line-height: 0.88;
+  }
+
+  .hero-panel img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border: 1px solid color-mix(in srgb, #fbf5e9 24%, transparent);
+    border-radius: var(--radius-md);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.28);
+  }
+
+  .included-section,
+  .journey-section,
+  .responsibility-section,
+  .limits-section,
+  .faq-section {
+    padding: clamp(1.2rem, 3vw, 2rem);
+    background:
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 92%, white), var(--surface));
+  }
+
+  .section-heading {
+    display: grid;
+    gap: 0.65rem;
+    max-width: 50rem;
+  }
+
+  .included-grid,
+  .limits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .included-card,
+  .limit-card {
+    min-height: 8rem;
+    border: 1px solid color-mix(in srgb, var(--line) 84%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 1rem;
+  }
+
+  .included-card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+  }
+
+  .included-card span {
+    width: 1.65rem;
+    height: 1.65rem;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--accent) 70%, white);
+    color: var(--text);
+    font-weight: 900;
+  }
+
+  .included-card p,
+  .limit-card p {
+    margin: 0;
+  }
+
+  .journey-section {
+    overflow: hidden;
+  }
+
+  .journey-head {
+    display: grid;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .journey-track {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .journey-step {
+    min-height: 15rem;
+    display: grid;
+    align-content: start;
+    gap: 0.65rem;
+    border-top: 3px solid var(--accent-strong);
+    background: color-mix(in srgb, var(--surface-elevated) 88%, white);
+    padding: 0.95rem;
+  }
+
+  .journey-step span {
+    color: var(--accent-deep);
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    line-height: 0.9;
+  }
+
+  .journey-step p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+
+  .responsibility-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .responsibility-card {
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 1rem;
+  }
+
+  .responsibility-card ul,
+  .security-list {
+    margin: 0.9rem 0 0;
+    padding-left: 1.1rem;
+    display: grid;
+    gap: 0.52rem;
+  }
+
+  .security-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    background: linear-gradient(140deg, #1b1712, #11100d);
+  }
+
+  .security-section .eyebrow,
+  .security-section h2 {
+    color: #fbf5e9;
+  }
+
+  .security-copy p,
+  .security-list li {
+    color: #d9cfbf;
+  }
+
+  .security-list {
+    margin-top: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .security-list li {
+    border: 1px solid color-mix(in srgb, #fbf5e9 18%, transparent);
+    background: color-mix(in srgb, #fbf5e9 7%, transparent);
+    border-radius: var(--radius-md);
+    padding: 0.9rem 1rem;
+  }
+
+  .faq-grid {
+    display: grid;
+    gap: 0.65rem;
+    margin-top: 1rem;
+  }
+
+  .faq-item {
+    border: 1px solid color-mix(in srgb, var(--line) 84%, white);
+    border-radius: var(--radius-md);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.85rem 1rem;
+  }
+
+  .faq-item summary {
+    cursor: pointer;
+    color: var(--text);
+    font-weight: 800;
+    line-height: 1.35;
+  }
+
+  .faq-item p {
+    margin: 0.65rem 0 0;
+  }
+
+  .source-note {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1rem;
+    border-top: 1px solid var(--line);
+    padding-top: 1rem;
+  }
+
+  .source-note p {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9rem;
+  }
+
+  .source-note a,
+  .tarif-link {
+    color: var(--accent-deep);
+    font-weight: 800;
+    text-underline-offset: 0.18rem;
+  }
+
+  .final-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 1rem;
+    align-items: center;
+    padding: clamp(1.2rem, 3vw, 2rem);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--accent-soft) 44%, var(--surface)), var(--surface-elevated));
+  }
+
+  .final-cta h2 {
+    max-width: 18ch;
+  }
+
+  .final-cta p {
+    max-width: 44rem;
+  }
+
+  .final-actions {
+    justify-content: flex-end;
+    margin-top: 0;
+  }
+
+  .tarif-link {
+    width: 100%;
+    text-align: right;
+  }
+
+  @media (max-width: 1100px) {
+    .edf-hero,
+    .security-section,
+    .final-cta {
+      grid-template-columns: 1fr;
+    }
+
+    .final-actions {
+      justify-content: flex-start;
+    }
+
+    .tarif-link {
+      text-align: left;
+    }
+
+    .journey-track {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    h1 {
+      font-size: 4.2rem;
+    }
+
+    h2 {
+      font-size: 2.35rem;
+    }
+
+    .price-block strong {
+      font-size: 4.4rem;
+    }
+
+    .journey-step span {
+      font-size: 2.4rem;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .included-grid,
+    .limits-grid,
+    .responsibility-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .journey-track {
+      grid-template-columns: 1fr;
+    }
+
+    .journey-step,
+    .included-card,
+    .limit-card {
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .edf-hero,
+    .included-section,
+    .journey-section,
+    .responsibility-section,
+    .security-section,
+    .limits-section,
+    .faq-section,
+    .final-cta {
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+    }
+
+    h1 {
+      max-width: 11ch;
+      font-size: 3.12rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+
+    .hero-price-inline {
+      width: 100%;
+      justify-content: center;
+      border-radius: var(--radius-md);
+      text-align: center;
+    }
+
+    .price-block strong {
+      font-size: 3.5rem;
+    }
+
+    .hero-actions .btn,
+    .final-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

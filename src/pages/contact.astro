@@ -10,13 +10,13 @@ const trustBullets = [
   "Réponse sous 24h ouvrées",
   "Plan d'action administratif sans engagement",
   "Dossier ponctuel accepté",
-  "DP, Consuel, raccordement et aides pilotés selon votre organisation",
+  "DP, Consuel, raccordement, EDF OA et aides pilotés selon votre organisation",
 ];
 
 const contactReasons = [
   {
     title: "Un dossier vous bloque",
-    text: "Une DP, un Consuel, un raccordement ou une aide consomme déjà trop de temps et ralentit le chantier.",
+    text: "Une DP, un Consuel, un raccordement, un dossier EDF OA ou une aide consomme déjà trop de temps et ralentit le chantier.",
   },
   {
     title: "Vous voulez moins de retours",
@@ -70,7 +70,7 @@ const supportCards = [
 
 <BaseLayout
   title="Contact installateurs photovoltaïques | Sunelys"
-  description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, MaPrimeRénov' et CEE."
+  description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
 >
   <section class="contact-hero section-shell reveal">
     <div class="hero-copy">
@@ -78,7 +78,7 @@ const supportCards = [
       <h1>Recevez un diagnostic sous 24h pour vos dossiers administratifs bloqués.</h1>
       <p class="hero-text">
         Décrivez votre volume, vos blocages et vos priorités. Sunelys identifie le premier périmètre à déléguer:
-        DP, Consuel, raccordement, MaPrimeRénov' ou CEE, du dossier ponctuel au flux récurrent.
+        DP, Consuel, raccordement, EDF OA, MaPrimeRénov' ou CEE, du dossier ponctuel au flux récurrent.
       </p>
 
       <ul class="trust-strip" aria-label="Réassurance contact">
@@ -231,6 +231,7 @@ const supportCards = [
             <option value="Declaration prealable">Déclaration préalable</option>
             <option value="Consuel">Consuel</option>
             <option value="Raccordement Enedis">Raccordement Enedis</option>
+            <option value="EDF OA – Compte et contrat d’achat">EDF OA – Compte et contrat d’achat</option>
             <option value="MaPrimeRenov">MaPrimeRénov'</option>
             <option value="CEE">CEE</option>
             <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
@@ -255,6 +256,9 @@ const supportCards = [
             <option value="Complément mairie">Complément mairie</option>
             <option value="Consuel à préparer">Consuel à préparer</option>
             <option value="Raccordement en attente">Raccordement en attente</option>
+            <option value="Compte EDF OA à activer">Compte EDF OA à activer</option>
+            <option value="Dossier EDF OA à compléter">Dossier EDF OA à compléter</option>
+            <option value="Contrat EDF OA à signer">Contrat EDF OA à signer</option>
             <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
             <option value="Prime à suivre">Prime à suivre</option>
             <option value="Mise en service bloquée">Mise en service bloquée</option>
@@ -364,6 +368,12 @@ const supportCards = [
 
   if (needField instanceof HTMLSelectElement && sourceFromQuery) {
     const normalizedSource = sourceFromQuery.toLowerCase();
+    const isEdfOaSource =
+      normalizedSource.includes("edf-oa") ||
+      normalizedSource.includes("edf_oa") ||
+      normalizedSource.includes("edf oa") ||
+      (normalizedSource.includes("edf") && normalizedSource.includes("oa"));
+    if (isEdfOaSource) needField.value = "EDF OA – Compte et contrat d’achat";
     if (normalizedSource.includes("consuel")) needField.value = "Consuel";
     if (normalizedSource.includes("raccordement") || normalizedSource.includes("enedis")) {
       needField.value = "Raccordement Enedis";
@@ -388,6 +398,14 @@ const supportCards = [
       normalizedSource.includes("header")
     ) {
       needField.value = "Pilotage complet";
+    }
+
+    if (
+      blockedStageField instanceof HTMLSelectElement &&
+      isEdfOaSource &&
+      !blockedStageField.value
+    ) {
+      blockedStageField.value = "Compte EDF OA à activer";
     }
   }
 
