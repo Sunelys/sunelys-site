@@ -1,0 +1,15 @@
+Action,Keyword status,Campaign,Ad group,Keyword,Match Type,Default max. CPC,Final URL,Label
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,declaration prealable photovoltaique installateur,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,declaration prealable photovoltaique installateur,Exact match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,declaration prealable panneaux solaires installateur,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,dossier dp photovoltaique installateur,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,dossier declaration prealable photovoltaique installateur,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Sous-traitance DP,prestataire dossier dp photovoltaique,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,dossier consuel photovoltaique,Exact match,1.80,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,dossier consuel photovoltaique installateur,Exact match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,raccordement enedis photovoltaique installateur,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Consuel Raccordement,dossier raccordement enedis photovoltaique,Phrase match,1.80,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,prestataire administratif photovoltaique,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,sous traitance administrative solaire,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,externalisation administrative solaire,Phrase match,2.20,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20
+Add,Enabled,Search - Delegation admin PV installateurs,Pilotage complet,gestion dossier administratif photovoltaique,Phrase match,1.80,https://sunelys.fr/lp/delegation-admin-pv,B2B volume controle 2026-07-20

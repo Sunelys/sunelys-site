@@ -59,6 +59,12 @@ const proofItems = [
   "96 % de DP sans pièce complémentaire",
 ];
 
+const visualProofItems = [
+  "Un dossier reprend une action claire: pièce manquante, statut, relance ou dépôt.",
+  "Vos équipes voient ce qui bloque sans rouvrir tous les portails.",
+  "Le premier périmètre peut rester ponctuel avant d'élargir le flux.",
+];
+
 const specialistReasons = [
   {
     title: "Spécialiste photovoltaïque",
@@ -194,6 +200,44 @@ const specialistReasons = [
         <small>Service réservé aux installateurs, entreprises solaires et équipes administratives PV.</small>
       </form>
     </aside>
+  </section>
+
+  <section class="lp-section visual-proof-section" data-track-view="visual_proof_view" data-track-label="lp_admin_pv_visual_proof">
+    <figure class="visual-media">
+      <img
+        src="/images/site/solar-admin-coordination-2026.webp"
+        alt="Installateur photovoltaïque analysant des documents administratifs et plans solaires"
+        width="1320"
+        height="743"
+        loading="eager"
+        decoding="async"
+      />
+      <figcaption>Un service pensé pour les dossiers qui bloquent vraiment les équipes PV.</figcaption>
+    </figure>
+
+    <div class="visual-proof-copy">
+      <p class="eyebrow">Preuve visuelle</p>
+      <h2>Moins de relances invisibles, plus de statuts exploitables.</h2>
+      <p>
+        Le premium Sunelys doit se voir dans la clarté opérationnelle: un dossier, une étape,
+        une prochaine action et un interlocuteur qui suit.
+      </p>
+
+      <ul class="visual-proof-list">
+        {visualProofItems.map((item) => <li>{item}</li>)}
+      </ul>
+
+      <div class="portal-preview" aria-label="Aperçu du portail de suivi Sunelys">
+        <img
+          src="/images/site/portal-overview-2026-04-23.png"
+          alt="Aperçu anonymisé du portail Sunelys avec statuts de dossiers photovoltaïques"
+          width="2842"
+          height="1532"
+          loading="lazy"
+          decoding="async"
+        />
+      </div>
+    </div>
   </section>
 
   <section class="lp-section pricing-section" id="prix" data-track-view="pricing_view" data-track-label="lp_admin_pv_pricing">
@@ -486,6 +530,73 @@ const specialistReasons = [
     gap: 1rem;
   }
 
+  .visual-proof-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: center;
+  }
+
+  .visual-media {
+    margin: 0;
+    border-radius: 22px;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    box-shadow: 0 22px 54px rgba(20, 16, 10, 0.1);
+  }
+
+  .visual-media img {
+    display: block;
+    width: 100%;
+    height: clamp(16rem, 29vw, 27rem);
+    object-fit: cover;
+  }
+
+  .visual-media figcaption {
+    color: var(--text);
+    font-size: 0.82rem;
+    font-weight: 800;
+    line-height: 1.35;
+    padding: 0.78rem 0.92rem;
+  }
+
+  .visual-proof-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .visual-proof-list {
+    display: grid;
+    gap: 0.54rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .visual-proof-list li {
+    border-left: 3px solid var(--accent-strong);
+    background: color-mix(in srgb, var(--surface-elevated) 86%, transparent);
+    color: var(--text);
+    padding: 0.7rem 0.82rem;
+  }
+
+  .portal-preview {
+    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
+    border-radius: 18px;
+    background: #fffdfa;
+    box-shadow: 0 16px 42px rgba(20, 16, 10, 0.09);
+    overflow: hidden;
+  }
+
+  .portal-preview img {
+    display: block;
+    width: 100%;
+    height: clamp(12rem, 22vw, 18rem);
+    object-fit: cover;
+    object-position: top center;
+  }
+
   .specialist-section {
     display: grid;
     gap: 1rem;
@@ -615,6 +726,7 @@ const specialistReasons = [
 
   @media (max-width: 1120px) {
     .lp-hero,
+    .visual-proof-section,
     .split-section,
     .proof-section,
     .lp-final {
@@ -658,5 +770,6 @@ const specialistReasons = [
       width: 100%;
       text-align: center;
     }
+
   }
 </style>

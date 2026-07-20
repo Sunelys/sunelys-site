@@ -54,3 +54,26 @@ Ordre conseille pour appliquer le reset:
 2. Verifier la landing, les UTM et la conversion Google Ads.
 3. Importer le fichier de pause des anciennes campagnes Search.
 4. Activer la nouvelle campagne seulement apres verification.
+
+## Ajustement volume controle - 2026-07-20
+
+Objectif: faire prendre du volume a la campagne saine sans rouvrir les requetes bricolage, schema, formulaire, particulier ou gratuit.
+
+Fichiers prepares:
+
+1. `20-volume-controle-keywords-2026-07-20.csv`
+2. `21-volume-controle-negative-keywords-2026-07-20.csv`
+
+Regle d'application:
+
+- garder le budget global a 10 EUR / jour;
+- ajouter uniquement ces mots-cles B2B controles;
+- monter le CPC a 2,20 EUR sur les requetes clairement B2B: installateur, prestataire, sous-traitance, externalisation;
+- garder 1,80 EUR sur les requetes plus larges dossier Consuel / raccordement;
+- importer les negatifs au niveau groupe d'annonces, format Google Ads accepte;
+- verifier les termes de recherche apres les premiers clics.
+
+Application Google Ads:
+
+- `20-volume-controle-keywords-2026-07-20.csv`: applique le 2026-07-20 a 10:57, 14 lignes.
+- `21-volume-controle-negative-keywords-2026-07-20.csv`: applique le 2026-07-20 a 11:03, 66 lignes.

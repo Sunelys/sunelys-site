@@ -11,6 +11,7 @@ const CAMPAIGN_LABELS = new Map([
   ["search_pilotage_admin_pv", "Search - Pilotage admin PV"],
   ["search_sous_traitance_dp", "Search - Sous-traitance DP"],
   ["search_consuel_raccordement", "Search - Consuel Raccordement"],
+  ["search_delegation_admin_pv", "Search - Delegation admin PV installateurs"],
 ]);
 
 const args = process.argv.slice(2);
