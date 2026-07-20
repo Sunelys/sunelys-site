@@ -91,3 +91,31 @@ Application Google Ads:
 
 - `20-volume-controle-keywords-2026-07-20.csv`: applique le 2026-07-20 a 10:57, 14 lignes.
 - `21-volume-controle-negative-keywords-2026-07-20.csv`: applique le 2026-07-20 a 11:03, 66 lignes.
+
+## Ajustement volume probable - 2026-07-20 soir
+
+Objectif: sortir du 0 impression sur la campagne saine en ajoutant des requetes plus probables, tout en gardant un filtre strict contre les recherches de particuliers, tutoriels, schemas, formulaires et bricolage.
+
+Fichiers prepares:
+
+1. `22-volume-probable-keywords-2026-07-20.csv`
+2. `23-volume-probable-negative-keywords-2026-07-20.csv`
+
+Regle d'application:
+
+- garder le budget global a 10 EUR / jour;
+- ouvrir des requetes a volume probable: declaration prealable photovoltaique, DP panneau solaire, raccordement panneaux solaires, Consuel photovoltaique, gestion administrative photovoltaique;
+- rester en phrase/exact match, pas en broad match;
+- maintenir les CPC max entre 1,80 EUR et 2,50 EUR;
+- renforcer les exclusions: comment, schema, exemple, pdf, gratuit, formulaire, cerfa, branchement, brancher, cablage, particulier, maison, kit, impot, revenus, au sol, en parallele.
+
+Application Google Ads:
+
+- `23-volume-probable-negative-keywords-2026-07-20.csv`: applique le 2026-07-20 a 21:11, 81 lignes importees, 15 nouvelles exclusions ajoutees, 66 doublons deja presents.
+- `22-volume-probable-keywords-2026-07-20.csv`: applique le 2026-07-20 a 21:13, 23 lignes ajoutees, 0 erreur.
+
+Verification immediate:
+
+- total mots-cles de la campagne active passe de 122 a 145;
+- plusieurs nouveaux mots-cles sont visibles en `En attente / En cours d'examen`, ce qui est normal juste apres import;
+- prochaine verification utile: 24h puis 48h apres validation Google.

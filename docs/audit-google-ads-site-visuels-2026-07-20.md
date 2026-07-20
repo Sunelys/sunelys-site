@@ -196,6 +196,28 @@ Statut:
 - si clics qualifies mais 0 formulaire: probleme landing/confiance/friction;
 - si form_start mais 0 submit: probleme formulaire.
 
+### Action appliquee le 2026-07-20 soir
+
+Comme la campagne saine restait a 0 impression apres l'ajustement B2B strict, une couche supplementaire de volume probable a ete appliquee sans augmenter le budget:
+
+- budget maintenu a 10 EUR / jour;
+- 23 mots-cles ajoutes en phrase/exact match;
+- ciblage elargi vers les recherches plus probables: declaration prealable photovoltaique, DP panneau solaire, raccordement panneaux solaires, Consuel photovoltaique, gestion administrative photovoltaique;
+- CPC max maintenu entre 1,80 EUR et 2,50 EUR;
+- 15 nouvelles exclusions ajoutees, 66 autres lignes d'exclusion etaient deja presentes;
+- total mots-cles de la campagne active: 122 -> 145.
+
+Fichiers appliques:
+
+- `docs/google-ads-web-upload/22-volume-probable-keywords-2026-07-20.csv`;
+- `docs/google-ads-web-upload/23-volume-probable-negative-keywords-2026-07-20.csv`.
+
+Point de controle:
+
+- attendre la validation Google des nouveaux mots-cles;
+- verifier impressions, clics, cout et termes de recherche a J+1 puis J+2;
+- si encore 0 impression apres 48h, prochain levier: CPC sur les requetes prioritaires ou budget a 12-15 EUR / jour.
+
 ## Site / UX / conversion
 
 ### Landing Ads
