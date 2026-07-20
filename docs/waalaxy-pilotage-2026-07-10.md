@@ -14,6 +14,103 @@ Campagnes actives au premier audit: 3.
 
 Campagnes actives apres nettoyage du 2026-07-10 a 16:54 CEST: 1.
 
+### Point du 2026-07-14 a 15:59 CEST
+
+Vue globale Waalaxy:
+
+- Campagnes en cours: 1.
+- Campagnes en pause: 2.
+- Brouillons: 0.
+- Campagnes archivees: 3.
+- Credits visibles: 500.
+- Inbox: 4 non lus visibles.
+
+Campagne active:
+
+- `Dirigeants PV - Test diagnostic admin - 2026-07-10`
+- 14 prospects affiches dans la vue globale.
+- Statut: en cours.
+- Sequence: invitation + 2 messages.
+
+Statistiques campagne test sur les 30 derniers jours:
+
+- Invitations envoyees: 14.
+- Invitations acceptees: 1.
+- Taux d'acceptation: 7,1%.
+- Messages envoyes: 1.
+- Messages repondus: 0.
+- Taux de reponse: 0%.
+
+Etat prospects campagne test:
+
+- 14 prospects actifs.
+- 14 sont en attente d'une condition.
+- Les premiers prospects visibles sont a l'etape `Invitation envoyee`.
+- Tags visibles: `ICP_DIRIGEANT_PV` + tags additionnels compactes en `+2`.
+
+Campagnes en pause:
+
+- `Leads Dirigeants - DP offerte - Juin 2026`.
+- `DAF PV — Invit + 2 Msg + 2 Emails — Juin 2026`.
+
+Controle Inbox:
+
+- Les conversations visibles sont encore principalement issues des anciennes sequences.
+- Aucun signal de reponse chaude detecte pour le test dirigeants.
+- La conversation Pierre Halbeisen reste classee `process_internal / cloture polie`.
+
+Lecture:
+
+- Le test propre tourne bien seul.
+- Le volume envoye reste trop faible pour conclure definitivement.
+- Le taux d'acceptation de 7,1% est faible a ce stade, mais repose sur seulement 14 invitations.
+- Action recommandee: attendre un peu plus de volume avant de modifier la sequence, puis verifier si le probleme vient du ciblage, du profil LinkedIn ou de l'absence de note d'invitation.
+
+### Audit du 2026-07-20
+
+Les statistiques Waalaxy sur les 30 derniers jours donnent une lecture comparable des deux tests:
+
+| Campagne | Invitations | Acceptees | Taux d'acceptation | Messages envoyes | Reponses |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| `Dirigeants PV - Test diagnostic admin - 2026-07-10` | 14 | 2 | 14,3% | 3 | 0 |
+| `Dirigeants PV - A-fit strict - Sans note - 2026-07-14` | 14 | 2 | 14,3% | 1 | 0 |
+
+Constats:
+
+- Les 14 prospects de chaque campagne sont actifs et attendent une condition de sequence; ce statut n'est pas une erreur Waalaxy.
+- Le ciblage A-fit strict ne fait pas mieux que le lot initial sur l'acceptation, mais ne fait pas moins bien non plus.
+- Le signal faible est apres acceptation: 4 acceptations cumulees, 4 messages envoyes et aucune reponse. Le premier lot donne deja une alerte sur l'angle de message, mais le volume reste trop faible pour trancher.
+- Aucun changement n'est applique pendant cet audit. Les anciennes campagnes restent en pause.
+
+Decision:
+
+- Ne pas relancer un nouveau lot tant que les 4 acceptations n'ont pas recu la sequence complete.
+- Preparer ensuite une variante de premier message plus courte et plus orientee dirigeant, a tester sur un nouveau lot separe plutot que de modifier les campagnes en cours.
+
+### Test parallele A-fit strict lance le 2026-07-14
+
+Nom: `Dirigeants PV - A-fit strict - Sans note - 2026-07-14`
+
+URL Waalaxy: `https://app.waalaxy.com/campaigns/6a56486f19226da3fd17e3e7/prospects/details`
+
+Statut: en cours. Waalaxy affiche 14 prospects qui vont bientot recevoir une action.
+
+Objectif: isoler l'effet de la qualite de ciblage. La sequence reste volontairement identique au test initial; seule la cohorte change.
+
+- Liste source: `Dirigeants PV - A-fit strict - 2026-07-14`.
+- Sourcing Ocean puis verification manuelle: dirigeants, fondateurs ou gerants de societes francaises de 1 a 10 salaries avec activite photovoltaique d'installation clairement etablie.
+- Cohorte brute: 15 profils; 14 ajoutes a la campagne. Le quinzieme etait deja connecte sur LinkedIn et n'a donc pas recu d'invitation.
+- Tags: `A_FIT_STRICT`, `ICP_DIRIGEANT_PV`, `SOURCE_OCEAN`, `TEST_A_FIT_2026-07-14`.
+- Invitation: sans note, contrainte par l'abonnement Waalaxy.
+- Sequence: attente de 5 jours apres acceptation, message de diagnostic, attente de 5 jours, second message de qualification.
+- Integration CRM: non activee, car aucun connecteur n'est configure.
+
+Protocole de lecture:
+
+- Comparer le taux d'acceptation de ce lot au test initial apres 7 jours, sans modifier les messages entre-temps.
+- Lire les reponses et les demandes d'arret apres les premiers messages pour determiner si le gain vient du ciblage strict ou si l'angle doit evoluer.
+- Les anciennes campagnes en pause restent inchangees.
+
 ### Campagne test propre
 
 Nom: `Dirigeants PV - Test diagnostic admin - 2026-07-10`
@@ -291,10 +388,13 @@ Garde-fous:
 
 ## 9) Prochaine action recommandee
 
-Laisser tourner uniquement le test propre `Dirigeants PV - Test diagnostic admin - 2026-07-10`.
+Laisser tourner les deux tests propres, sans changer leurs sequences pendant la fenetre d'observation:
+
+- `Dirigeants PV - Test diagnostic admin - 2026-07-10`.
+- `Dirigeants PV - A-fit strict - Sans note - 2026-07-14`.
 
 Ne pas relancer les anciennes campagnes pendant la periode de test.
 
-Faire un premier point d'analyse apres les premieres acceptations ou dans 48 heures, selon ce qui arrive avant.
+Faire un premier point d'analyse apres les premieres acceptations ou dans 48 heures, selon ce qui arrive avant; comparer ensuite les deux cohortes au bout de 7 jours.
 
 Priorite operationnelle: surveiller l'Inbox et classer les reponses, sans envoyer de reponse manuelle sans validation.

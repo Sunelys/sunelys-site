@@ -80,7 +80,7 @@ export const seoPages: Record<string, SeoPageData> = {
     problemItems: [
       {
         title: "Complexité documentaire",
-        text: "Les pièces à collecter et à consolider varient selon les projets et créent des frictions récurrentes.",
+        text: "Les pièces à collecter et à consolider varient selon les projets: DP6, plans, Consuel, Enedis et aides créent des frictions récurrentes.",
       },
       {
         title: "Erreurs de dossier",
@@ -107,6 +107,10 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         title: "Chaîne administrative complète",
         text: "Sunelys peut piloter DP, raccordement, Consuel, MaPrimeRénov' et CEE dans le même parcours. Cette approche évite de disperser les échanges entre plusieurs interlocuteurs et permet de garder une lecture claire du statut de chaque dossier.",
+      },
+      {
+        title: "Pièces techniques qui bloquent les dossiers",
+        text: "Quand une DP bloque sur une pièce précise, Sunelys peut reprendre le contrôle documentaire: DP6 ou document graphique, plan de masse, plan de coupe, notice descriptive, insertion paysagère, pièces DP7/DP8 selon les demandes mairie, puis coordination avec Consuel et raccordement si la suite du parcours est concernée.",
       },
       {
         title: "Garantie zéro pièce complémentaire",
@@ -577,6 +581,7 @@ export const seoPages: Record<string, SeoPageData> = {
       "Vous déposez plusieurs DP par mois et chaque complément vous décale le chantier.",
       "Les plans, visuels ou informations projet sont récupérés dans l'urgence.",
       "Vous voulez fiabiliser vos dossiers avant mairie, sans dépendre d'une vérification tardive.",
+      "Les pièces sensibles comme le DP6, le plan de masse ou l'insertion paysagère prennent trop de temps à contrôler.",
     ],
     proof: {
       quote:
@@ -595,7 +600,11 @@ export const seoPages: Record<string, SeoPageData> = {
     problemItems: [
       {
         title: "Pièces manquantes",
-        text: "Les dossiers incomplets génèrent des demandes de compléments et des délais supplémentaires.",
+        text: "Les dossiers incomplets génèrent des demandes de compléments, notamment sur les pièces graphiques, les plans et les visuels d'insertion.",
+      },
+      {
+        title: "Pièces graphiques sensibles",
+        text: "Un DP6 peu lisible, un plan de masse imprécis ou une insertion paysagère incohérente suffit à ralentir l'instruction mairie.",
       },
       {
         title: "Dépôt non cadré",
@@ -627,6 +636,7 @@ export const seoPages: Record<string, SeoPageData> = {
     scopeItems: [
       "Constitution de la déclaration préalable panneaux solaires en toiture",
       "Vérification de la complétude des pièces du dossier",
+      "Contrôle des pièces sensibles: DP6/document graphique, plan de masse, plan de coupe, notice descriptive et insertion paysagère",
       "Gestion des échanges administratifs pendant l'instruction",
       "Suivi des étapes et relances si nécessaire",
       "Coordination jusqu'au retour administratif final",
@@ -635,6 +645,10 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         title: "Quels documents fournir ?",
         text: "Pour une déclaration préalable solaire, l'installateur doit généralement réunir les informations du propriétaire, l'adresse exacte, les caractéristiques du projet, les plans demandés, les visuels de toiture ou de façade, les éléments d'intégration et les pièces permettant à la mairie de comprendre l'impact visuel. Pour des panneaux solaires en toiture, la lisibilité de l'insertion, de la pente, de la couleur des modules et de la visibilité depuis l'espace public compte beaucoup. Selon la commune, la zone ou les contraintes patrimoniales, des éléments complémentaires peuvent être nécessaires. Sunelys vérifie la complétude du dossier, la cohérence entre le projet vendu et les pièces préparées, puis organise les échanges pour éviter que le client ou vos équipes terrain ne soient sollicités plusieurs fois pour la même information.",
+      },
+      {
+        title: "Pièces DP qui bloquent souvent",
+        text: "Les blocages viennent souvent de pièces très concrètes: DP6 ou document graphique, plan de masse, plan de coupe, notice descriptive, insertion paysagère, photos de l'environnement proche et lointain, ou pièces complémentaires DP7/DP8 selon les communes. Sunelys vérifie que ces éléments racontent le même projet: adresse, toiture, puissance, implantation, couleur des modules et visibilité depuis l'espace public. L'objectif est d'éviter qu'une secrétaire, un conducteur de travaux ou un commercial doive reprendre seul un visuel ou une pièce technique après retour mairie.",
       },
       {
         title: "Quel délai prévoir ?",
@@ -686,7 +700,7 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Quelles pièces faut-il pour une déclaration préalable solaire ?",
         answer:
-          "Les pièces dépendent du projet; Sunelys vérifie la complétude et la cohérence avant dépôt.",
+          "Les pièces dépendent du projet. Sunelys vérifie notamment les plans, le DP6 ou document graphique, l'insertion paysagère, la notice et la cohérence générale avant dépôt.",
       },
       {
         question: "Faut-il une déclaration préalable pour des panneaux solaires en toiture ?",
@@ -826,6 +840,7 @@ export const seoPages: Record<string, SeoPageData> = {
     scopeItems: [
       "Collecte et cadrage des informations nécessaires à la DP solaire",
       "Contrôle de cohérence entre projet vendu, toiture et pièces administratives",
+      "Relecture des pièces sensibles: DP6, document graphique, plan de masse, plan de coupe, notice et insertion paysagère",
       "Préparation des éléments attendus pour le dépôt mairie",
       "Suivi des retours et demandes de complément",
       "Traçabilité des statuts pour vos équipes commerciales et travaux",
@@ -834,6 +849,10 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         title: "Ce qui peut être sous-traité",
         text: "Sunelys peut prendre en charge le montage du dossier, la vérification des informations, la préparation des pièces administratives, le suivi mairie et la coordination des demandes de complément. Le périmètre exact dépend de votre organisation: certains installateurs délèguent uniquement les DP, d'autres intègrent aussi le Consuel et le raccordement.",
+      },
+      {
+        title: "Reprendre les pièces qui ralentissent la DP",
+        text: "La sous-traitance est utile quand la difficulté n'est pas seulement le Cerfa, mais les pièces qui demandent de la rigueur: DP6 ou document graphique, plan de masse, plan de coupe, notice descriptive, insertion paysagère et visuels demandés par la mairie. Sunelys peut reprendre ces points, vérifier la cohérence avec le projet vendu et organiser la réponse si la commune demande un complément.",
       },
       {
         title: "Comment transmettre les dossiers",

@@ -3,6 +3,7 @@ import type { APIRoute } from "astro";
 export const prerender = false;
 
 const AIRTABLE_API_URL = "https://api.airtable.com/v0";
+const RESEND_API_URL = "https://api.resend.com";
 const SITE_URL = "https://sunelys.fr";
 
 const SOURCE_LANDING_PATTERNS = [
@@ -36,6 +37,28 @@ function firstClean(...values: unknown[]) {
     if (cleaned) return cleaned;
   }
   return "";
+}
+
+function splitList(value: unknown) {
+  return clean(value)
+    .split(/[,;\n]/)
+    .map((item) => clean(item))
+    .filter(Boolean);
+}
+
+function truncate(value: unknown, maxLength = 700) {
+  const text = clean(value);
+  if (text.length <= maxLength) return text;
+  return `${text.slice(0, maxLength - 1)}…`;
+}
+
+function escapeHtml(value: unknown) {
+  return clean(value)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
 }
 
 function normalizeText(value: unknown) {
@@ -329,6 +352,135 @@ async function notifyLeadFailure(
   }
 }
 
+async function notifyNewLead(
+  env: Record<string, string | undefined>,
+  payload: {
+    recordId: string;
+    email: string;
+    firstName: string;
+    lastName: string;
+    displayName: string;
+    company: string;
+    phone: string;
+    volume: string;
+    need: string;
+    teamContext: string;
+    urgency: string;
+    conversionType: string;
+    leadStage: string;
+    blockedStage: string;
+    serviceInterest: string;
+    leadSourceDetail: string;
+    qualificationHint: string;
+    source: string;
+    firstReferrer: string;
+    landingPage: string;
+    utmSource: string;
+    utmMedium: string;
+    utmCampaign: string;
+    utmTerm: string;
+    utmContent: string;
+    gclid: string;
+    message: string;
+  },
+) {
+  const webhookUrl = clean(env.LEAD_NOTIFICATION_WEBHOOK_URL ?? "");
+  const resendApiKey = clean(env.RESEND_API_KEY ?? env.LEAD_NOTIFICATION_RESEND_API_KEY ?? "");
+  const from = clean(env.LEAD_NOTIFICATION_FROM ?? "");
+  const to = splitList(env.LEAD_NOTIFICATION_TO);
+
+  const rows: Array<[string, string]> = [
+    ["Nom", payload.displayName],
+    ["Societe", payload.company],
+    ["Email", payload.email],
+    ["Telephone", payload.phone],
+    ["Besoin", payload.serviceInterest || payload.need],
+    ["Volume", payload.volume],
+    ["Blocage", payload.blockedStage],
+    ["Urgence", payload.urgency],
+    ["Situation", payload.teamContext],
+    ["Message", payload.message],
+    ["Source", payload.source],
+    ["Landing page", payload.landingPage],
+    ["Campagne", payload.utmCampaign],
+    ["Terme", payload.utmTerm],
+    ["Contenu", payload.utmContent],
+    ["GCLID", payload.gclid],
+    ["Airtable record", payload.recordId],
+  ].filter(([, value]) => clean(value));
+
+  if (webhookUrl) {
+    try {
+      await fetch(webhookUrl, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          event: "sunelys_new_lead",
+          occurred_at: new Date().toISOString(),
+          lead: payload,
+        }),
+      });
+    } catch (error) {
+      console.error("Lead notification webhook failed", error);
+    }
+  }
+
+  if (!resendApiKey || !from || to.length === 0) return;
+
+  const subjectParts = [
+    "Nouveau lead Sunelys",
+    payload.serviceInterest || payload.need,
+    payload.volume,
+  ].filter(Boolean);
+  const subject = truncate(subjectParts.join(" - "), 140);
+  const text = [
+    "Nouveau lead entrant Sunelys",
+    "",
+    ...rows.map(([label, value]) => `${label}: ${truncate(value, 1200)}`),
+  ].join("\n");
+  const htmlRows = rows
+    .map(
+      ([label, value]) =>
+        `<tr><th align="left" style="padding:8px 12px;border-bottom:1px solid #eee;color:#6b6258;font-size:12px;text-transform:uppercase;">${escapeHtml(label)}</th><td style="padding:8px 12px;border-bottom:1px solid #eee;">${escapeHtml(truncate(value, 1200))}</td></tr>`,
+    )
+    .join("");
+  const html = `
+    <div style="font-family:Inter,Arial,sans-serif;color:#181510;line-height:1.5;">
+      <h1 style="font-size:22px;margin:0 0 12px;">Nouveau lead entrant Sunelys</h1>
+      <p style="margin:0 0 16px;color:#6b6258;">Un formulaire vient d'etre envoye depuis le site.</p>
+      <table style="border-collapse:collapse;width:100%;max-width:720px;background:#fff;border:1px solid #eee;">
+        ${htmlRows}
+      </table>
+    </div>
+  `;
+
+  try {
+    const response = await fetch(`${RESEND_API_URL}/emails`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${resendApiKey}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify({
+        from,
+        to,
+        subject,
+        text,
+        html,
+        reply_to: payload.email,
+      }),
+    });
+
+    if (!response.ok) {
+      console.error("Lead notification email failed", await response.text());
+    }
+  } catch (error) {
+    console.error("Lead notification email failed", error);
+  }
+}
+
 function jsonResponse(payload: unknown, status = 200) {
   return new Response(JSON.stringify(payload), {
     status,
@@ -364,10 +516,12 @@ async function createAirtableLead({
     });
 
     if (response.ok) {
+      const data = await response.json().catch(() => null);
       return {
         ok: true as const,
         status: response.status,
         details: "",
+        recordId: clean(data?.records?.[0]?.id),
         removedComputedFields,
       };
     }
@@ -611,6 +765,36 @@ export const POST: APIRoute = async ({ request }) => {
     });
     return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);
   }
+
+  await notifyNewLead(env, {
+    recordId: createResult.recordId,
+    email,
+    firstName,
+    lastName,
+    displayName,
+    company: clean(formData.get("company")),
+    phone: clean(formData.get("phone")),
+    volume: normalizeVolume(rawVolume),
+    need: normalizeNeed(rawNeed),
+    teamContext: rawTeamContext,
+    urgency: rawUrgency,
+    conversionType,
+    leadStage,
+    blockedStage,
+    serviceInterest: inferredServiceInterest || rawNeed,
+    leadSourceDetail,
+    qualificationHint,
+    source: sourceValue,
+    firstReferrer,
+    landingPage,
+    utmSource,
+    utmMedium,
+    utmCampaign: clean(formData.get("utm_campaign")),
+    utmTerm: clean(formData.get("utm_term")),
+    utmContent: clean(formData.get("utm_content")),
+    gclid,
+    message: rawMessage,
+  });
 
   if (wantsJson(request)) return jsonResponse({ ok: true });
 

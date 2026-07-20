@@ -117,3 +117,188 @@ Indicateurs prioritaires:
 - campagne, landing page, service, blocage et volume;
 - termes de recherche a exclure;
 - cout par lead qualifie, pas seulement clics.
+
+## Elargissement mots-cles - 2026-07-13
+
+Motif: apres activation, les campagnes Search etaient actives et les annonces eligibles, mais la diffusion restait quasi nulle (`1` impression Search, `0` clic, `0 EUR`).
+
+Action effectuee: ajout d'une couche de mots-cles plus probables et moins ultra-niche, sans changer le budget et sans changer les campagnes.
+
+Fichier applique dans Google Ads:
+
+- `docs/google-ads-web-upload/09-broaden-search-keywords-2026-07-13.csv`
+
+Resultat Google Ads:
+
+- apercu: `28` modifications acceptees, `0` erreur;
+- application: operation terminee, `62` modifications effectuees;
+- budget conserve: `10 EUR / jour` total;
+- CPC max conserve: `1,50 EUR`;
+- exemples ajoutes: `declaration prealable photovoltaique`, `declaration prealable panneaux solaires`, `dp photovoltaique`, `consuel photovoltaique`, `raccordement panneau solaire enedis`.
+
+Controle apres import:
+
+- les nouveaux mots-cles sont visibles dans Google Ads;
+- statut: `Active`;
+- certains mots-cles sont `En attente / En cours d'examen`, comportement normal juste apres ajout;
+- prochains points de controle: impressions, clics, termes de recherche et leads reels hors tests.
+
+## Nettoyage termes et mots-cles B2B - 2026-07-14
+
+Contexte: apres l'elargissement du 2026-07-13, les campagnes Search ont commence a diffuser mais les premiers termes de recherche contenaient des intentions trop particulieres/informatives (`branchement d un panneau solaire`, `comment remplir une declaration prealable`, `cerfa`, `pdf`, `plug and play`, petites installations).
+
+Etat lu avant action:
+
+- periode Google Ads visible: `14 juin - 13 juillet 2026`;
+- total compte: `286` impressions, `11` clics, `10,20 EUR`, `0` conversion;
+- Search visible:
+  - `Search - Sous-traitance DP`: `44` impressions, `4` clics, `5,83 EUR`;
+  - `Search - Consuel Raccordement`: `20` impressions, `2` clics, `2,98 EUR`;
+  - `Search - Pilotage admin PV`: `0` impression;
+- annonces Search: eligibles, pas de refus visible;
+- Airtable: `0` lead paid reel, `1` lead test exclu.
+
+Actions effectuees sans changement de budget:
+
+- ajout manuel de `10` nouveaux mots-cles negatifs sur chacune des 3 campagnes Search, soit `30` exclusions ajoutees;
+- compteur mots-cles negatifs verifie dans Google Ads: `63` -> `93`;
+- exclusions ajoutees: `branchement`, `comment remplir`, `pdf`, `cerfa`, `plug and play`, `inf a 3kw`, `moins de 3kw`, `quelle autorisation`, `soi meme`, `soi-meme`;
+- import applique du fichier `docs/google-ads-web-upload/11-high-intent-b2b-keywords-2026-07-14.csv`;
+- resultat Google Ads: apercu `18` modifications acceptees, `0` erreur; application terminee avec `42` modifications effectuees;
+- budget conserve: `10 EUR / jour` total;
+- CPC max conserve: `1,50 EUR`.
+
+Intention des mots-cles ajoutes:
+
+- renforcer les requetes B2B de delegation/prestataire/sous-traitance;
+- eviter de reouvrir trop largement les recherches de particuliers;
+- donner plus de chances a `Search - Pilotage admin PV`, encore sans impression.
+
+Prochain controle:
+
+- verifier demain les termes de recherche et exclure tout signal particulier/bricolage/information gratuite;
+- ne pas augmenter le budget tant qu'il n'y a pas au moins un signal de clic qualifie ou lead payant reel;
+- surveiller si les nouveaux mots-cles passent en `Eligible` ou restent bloques en volume trop faible.
+
+## Recherche Keyword Planner pieces DP / Consuel - 2026-07-14
+
+Objectif: verifier l'hypothese des recherches liees aux pieces complexes (`DP6`, `document graphique`, `plan de masse`, `insertion paysagere`) et trouver les expressions qui ont le plus de volume potentiel.
+
+Source:
+
+- Google Ads Keyword Planner;
+- compte `781-087-0154 Sunelys`;
+- zone France, langue francais, reseau Google;
+- historique `juillet 2025 - juin 2026`.
+
+Memo detaille:
+
+- `docs/google-ads-keyword-research-pieces-dp-2026-07-14.md`
+
+Constats principaux:
+
+- `consuel photovoltaique`: environ `320` recherches/mois, deja dans le compte;
+- `enedis raccordement photovoltaique`: environ `170` recherches/mois, deja dans le compte;
+- `dp panneaux solaires`: environ `110` recherches/mois, deja dans le compte;
+- `declaration prealable panneaux solaires`: environ `70` recherches/mois, deja dans le compte;
+- plusieurs variantes Consuel/raccordement ont un volume faible a moyen mais une intention claire;
+- les termes ultra-precis `DP6`, `DP7`, `DP8`, `document graphique`, `plan de masse`, `plan de coupe`, `notice descriptive`, `insertion paysagere` ne remontent pas avec un volume exact exploitable dans Keyword Planner.
+
+Decision recommandee:
+
+- ne pas augmenter le budget maintenant;
+- ne pas creer une grosse campagne dediee `DP6`;
+- renforcer legerement Consuel/raccordement avec quelques mots-cles exact/phrase supplementaires;
+- utiliser `DP6`, `document graphique`, `plan de masse`, `plan de coupe`, `notice descriptive` et `insertion paysagere` surtout en SEO et dans la landing page pour rassurer les assistantes/installateurs bloques sur une piece precise.
+
+## Renforcement Consuel / raccordement + SEO pieces DP - 2026-07-14
+
+Action Google Ads effectuee apres Keyword Planner, sans changement de budget:
+
+- fichier importe: `docs/google-ads-web-upload/12-consuel-raccordement-keyword-planner-2026-07-14.csv`;
+- compte Google Ads: `781-087-0154 Sunelys`;
+- campagnes concernees: `Search - Consuel Raccordement`;
+- apercu Google Ads: `21` modifications, `20` acceptees, `1` erreur;
+- application: operation terminee avec des erreurs, `43` modifications effectuees, `1` erreur;
+- erreur identifiee: doublon sur `dossier consuel photovoltaique`, deja present dans le compte;
+- budget conserve: `10 EUR / jour` total;
+- CPC max conserve: `1,50 EUR`.
+
+Mots-cles ajoutes ou renforces:
+
+- variantes Consuel: `consuel panneaux photovoltaiques`, `consuel installation photovoltaique`, `consuel photovoltaique autoconsommation`, `attestation consuel photovoltaique`, `attestation de conformite photovoltaique`;
+- variantes raccordement: `enedis photovoltaique`, `raccordement photovoltaique enedis`, `demande raccordement enedis photovoltaique`, `dossier raccordement photovoltaique`, `enedis raccordement panneaux photovoltaiques`;
+- variantes DP exactes: `dp panneau photovoltaique`, `dp panneaux photovoltaiques`, `dp pour panneaux photovoltaiques`.
+
+Action site / SEO effectuee:
+
+- enrichissement de la page `gestion-administrative-photovoltaique`;
+- enrichissement de la page `declaration-prealable-photovoltaique`;
+- enrichissement de la page `sous-traitance-declaration-prealable-photovoltaique`;
+- ajout de signaux de contenu autour des pieces qui bloquent souvent les dossiers: `DP6`, `document graphique`, `plan de masse`, `plan de coupe`, `notice descriptive`, `insertion paysagere`, `DP7` et `DP8`.
+
+Decision:
+
+- ne pas monter le budget pour l'instant;
+- laisser Google absorber les nouveaux mots-cles;
+- controler demain les termes de recherche et exclure rapidement tout signal particulier, bricolage, tutoriel ou recherche gratuite;
+- garder les requetes `DP6` et pieces techniques surtout en SEO tant que Keyword Planner ne montre pas un volume Ads suffisant.
+
+## Exclusions apres premiers clics hors sujet - 2026-07-14 soir
+
+Motif: le controle du jour a montre des termes de recherche encore trop informatifs ou bricolage, notamment autour de `brancher`, `comment brancher`, `en parallele` et `exemple`.
+
+Action effectuee:
+
+- ajout manuel dans Google Ads, onglet `Mots cles a exclure`;
+- niveau: campagne;
+- campagnes concernees:
+  - `Search - Pilotage admin PV`;
+  - `Search - Sous-traitance DP`;
+  - `Search - Consuel Raccordement`;
+- mots-cles ajoutes sur chaque campagne: `brancher`, `comment brancher`, `en parallele`, `exemple`;
+- total ajoute: `12` exclusions;
+- compteur Google Ads verifie: `93` -> `105` mots-cles negatifs.
+
+Note technique:
+
+- le fichier de trace est `docs/google-ads-web-upload/13-search-quality-negative-keywords-2026-07-14.csv`;
+- l'import CSV web a ete teste en apercu mais refuse par Google Ads sur le format des mots-cles negatifs campagne;
+- aucune ligne CSV refusee n'a ete appliquee;
+- les apercus CSV echoues ont ete supprimes des actions en attente;
+- l'ajout final a donc ete fait directement depuis l'interface Google Ads.
+
+Decision:
+
+- continuer a surveiller les termes de recherche avant toute hausse de budget;
+- exclure immediatement toute recherche de tutoriel, branchement, schema, exemple gratuit, bricolage ou particulier.
+
+## Exclusions tutoriel / schema / prix - 2026-07-16
+
+Motif: le controle du 2026-07-16 a montre un clic hors sujet clair sur `schema electrique raccordement panneau solaire` dans `Search - Consuel Raccordement`, ainsi que des impressions non qualifiees autour de prix maison, carport et entretien.
+
+Etat lu avant action:
+
+- Airtable: `0` lead paid reel sur les 14 derniers jours, `1` lead test exclu;
+- 2026-07-15: `122` impressions, `9` clics, `13,07 EUR`, `0` conversion;
+- 2026-07-16 partiel: `57` impressions, `4` clics, `5,85 EUR`, `0` conversion;
+- annonces Search: eligibles, pas de refus visible;
+- budget conserve: `10 EUR / jour` total.
+
+Action effectuee:
+
+- ajout manuel dans Google Ads, onglet `Mots cles a exclure`;
+- niveau: campagne;
+- campagnes concernees:
+  - `Search - Pilotage admin PV`;
+  - `Search - Sous-traitance DP`;
+  - `Search - Consuel Raccordement`;
+- mots-cles ajoutes sur chaque campagne: variantes accentuees et non accentuees de `schema`, `schema electrique` et `cablage`, plus `plan de branchement`, `prix panneau solaire`, `maison 150m2`, `carport solaire`, `contrat entretien`;
+- total ajoute: `39` exclusions;
+- compteur Google Ads verifie: `105` -> `144` mots-cles negatifs.
+
+Decision:
+
+- ne pas augmenter le budget tant que les clics tutoriel/bricolage ne sont pas stabilises;
+- verifier les termes de recherche au prochain controle et exclure toute requete schema, cablage, prix maison, carport ou entretien non B2B;
+- garder le suivi prioritaire sur les conversions et les leads reels, pas seulement sur le volume de clics.

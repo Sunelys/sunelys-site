@@ -137,6 +137,18 @@ LEAD_ALERT_WEBHOOK_URL=https://votre-webhook.example.com/leads-alert
 ```
 Le formulaire continue d'utiliser Airtable comme destination principale. Cette URL sert uniquement de filet de securite en cas d'erreur Airtable.
 
+### Alerte e-mail quand un nouveau lead arrive
+L'API `/api/leads` peut envoyer un e-mail apres creation reussie du lead dans Airtable. Le formulaire reste fonctionnel meme si l'alerte e-mail echoue.
+
+Dans Vercel > Project Settings > Environment Variables, ajouter:
+```bash
+RESEND_API_KEY=re_xxxxxxxxxxxxx
+LEAD_NOTIFICATION_FROM=Sunelys <alertes@sunelys.fr>
+LEAD_NOTIFICATION_TO=contact@sunelys.fr
+```
+
+`LEAD_NOTIFICATION_TO` accepte plusieurs destinataires separes par des virgules. Le domaine d'envoi doit etre valide dans Resend. Optionnellement, `LEAD_NOTIFICATION_WEBHOOK_URL` peut recevoir le meme evenement en JSON.
+
 ### Reporting leads qualifies
 `npm run marketing:audit` lit aussi Airtable en lecture pour produire un bloc `Lead quality reporting` dans `reports/marketing-agent/latest.md`.
 Le rapport agrège uniquement des données non personnelles: landing page, canal, service demandé, type de conversion, volume, score qualité et trous de qualification.

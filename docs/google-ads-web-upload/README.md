@@ -26,6 +26,20 @@ Volumes:
 - Annonces responsives Search: 6
 - Mots-cles negatifs: 21
 
+## Ajustements historiques avant reset - 2026-07-13/14
+
+Les fichiers `09` a `13` documentent les tests et elargissements faits avant la remise a plat du 2026-07-17. Ils servent de trace d'audit, pas de base de reimport prioritaire maintenant.
+
+Fichiers de trace:
+
+- `09-broaden-search-keywords-2026-07-13.csv`
+- `10-search-quality-negative-keywords-2026-07-14.csv`
+- `11-high-intent-b2b-keywords-2026-07-14.csv`
+- `12-consuel-raccordement-keyword-planner-2026-07-14.csv`
+- `13-search-quality-negative-keywords-2026-07-14.csv`
+
+Note: `13-search-quality-negative-keywords-2026-07-14.csv` a ete refuse en import web Google Ads au format campagne. Les exclusions correspondantes ont ete appliquees manuellement dans Google Ads; ne pas le reimporter tel quel.
+
 ## Reset base saine - 2026-07-17
 
 Objectif: repartir sur une seule campagne Search B2B plus stricte, avec une landing SEA dediee:
