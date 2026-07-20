@@ -17,6 +17,7 @@ const SOURCE_LANDING_PATTERNS = [
   { patterns: ["tarif-declaration-prealable"], path: "/tarif-declaration-prealable-photovoltaique" },
   { patterns: ["tarifs"], path: "/tarifs" },
   { patterns: ["services"], path: "/services" },
+  { patterns: ["edf-oa", "edf oa", "edf_oa", "obligation-achat", "contrat-achat"], path: "/edf-oa" },
   { patterns: ["maprimerenov", "ma-prime-renov", "cee", "aides-renovation", "pack-maprimerenov-cee"], path: "/tarifs#aides-renovation" },
   { patterns: ["gestion-administrative-photovoltaique"], path: "/gestion-administrative-photovoltaique" },
   { patterns: ["declaration-prealable-panneaux-solaires", "sous-traitance-declaration-prealable"], path: "/declaration-prealable-panneaux-solaires" },
@@ -108,6 +109,14 @@ function normalizeNeed(value: string) {
   const normalized = normalizeText(value);
   if (!normalized) return "";
   if (
+    (normalized.includes("edf") && normalized.includes("oa")) ||
+    normalized.includes("obligation d achat") ||
+    normalized.includes("contrat d achat") ||
+    normalized.includes("espace producteur")
+  ) {
+    return "EDF OA – Compte et contrat d’achat";
+  }
+  if (
     (normalized.includes("maprimerenov") || normalized.includes("ma prime renov") || normalized.includes("anah")) &&
     (normalized.includes("cee") || normalized.includes("certificat"))
   ) {
@@ -133,6 +142,7 @@ function normalizeSource(value: string) {
   const normalized = normalizeText(value);
   if (!normalized) return "";
   if (normalized.startsWith("/")) {
+    if (normalized.includes("edf-oa") || (normalized.includes("edf") && normalized.includes("oa"))) return "EDF OA service";
     if (normalized.includes("contact")) return "Contact";
     if (normalized.includes("tarifs")) return "Tarifs";
     if (normalized.includes("services")) return "Services";
@@ -146,6 +156,13 @@ function normalizeSource(value: string) {
   if (normalized.includes("quiz")) return "Quiz homepage";
   if (normalized.includes("homepage") || normalized.includes("home") || normalized.includes("hero")) return "Homepage hero";
   if (normalized.includes("contact") || normalized.includes("sticky")) return "Contact";
+  if (
+    (normalized.includes("edf") && normalized.includes("oa")) ||
+    normalized.includes("obligation d achat") ||
+    normalized.includes("contrat d achat")
+  ) {
+    return "EDF OA service";
+  }
   if (normalized.includes("calendly") || normalized.includes("booking")) return "Calendly";
   if (normalized.includes("phone") || normalized.includes("telephone")) return "Téléphone";
   if (
@@ -155,6 +172,7 @@ function normalizeSource(value: string) {
     normalized.includes("raccordement") ||
     normalized.includes("maprimerenov") ||
     normalized.includes("cee") ||
+    normalized.includes("edf") ||
     normalized.includes("aide") ||
     normalized.includes("tarif") ||
     normalized.includes("checklist") ||
@@ -196,6 +214,14 @@ function normalizeLandingPage(value: string, siteUrl: string) {
 function inferLandingPageFromService(value: string) {
   const normalized = normalizeText(value);
   if (!normalized) return "";
+  if (
+    (normalized.includes("edf") && normalized.includes("oa")) ||
+    normalized.includes("obligation d achat") ||
+    normalized.includes("contrat d achat") ||
+    normalized.includes("espace producteur")
+  ) {
+    return "/edf-oa";
+  }
   if (normalized.includes("declaration") || normalized.includes("prealable") || normalized.includes("dp") || normalized.includes("checklist")) {
     return "/declaration-prealable-panneaux-solaires";
   }
@@ -243,6 +269,9 @@ function inferConversionType(values: {
     signal.includes("prealable") ||
     signal.includes("maprimerenov") ||
     signal.includes("cee") ||
+    signal.includes("edf oa") ||
+    signal.includes("edf-oa") ||
+    signal.includes("obligation d achat") ||
     signal.includes("aide") ||
     signal.includes("prime")
   ) {
@@ -265,6 +294,7 @@ function inferBlockedStageFromSignals(values: {
   const signal = normalizeText(`${values.sourcePage} ${values.source} ${values.message} ${values.conversionType}`);
   if (signal.includes("checklist") || signal.includes("lead-magnet")) return "Avant dépôt";
   if (signal.includes("quiz")) return "Pilotage global";
+  if (values.serviceInterest.includes("EDF OA")) return "Compte EDF OA à activer";
   if (values.serviceInterest.includes("Consuel")) return "Consuel à préparer";
   if (values.serviceInterest.includes("Raccordement") || values.serviceInterest.includes("enedis")) return "Raccordement en attente";
   if (

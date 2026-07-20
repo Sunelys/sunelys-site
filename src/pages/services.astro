@@ -61,6 +61,21 @@ const services = [
     guideLabel: "Étapes raccordement",
   },
   {
+    title: "EDF OA - compte et contrat d'achat",
+    benefit: "Un parcours contractuel cadré jusqu'à la signature électronique du client final.",
+    description:
+      "Sunelys vérifie les références, accompagne l'activation de l'espace producteur, suit le dossier EDF OA et sécurise les demandes de complément.",
+    points: [
+      "Création ou activation de l'espace producteur",
+      "Suivi du dossier jusqu'à l'invitation de signature",
+      "Accompagnement sécurisé sans mot de passe ni code SMS",
+    ],
+    href: "/edf-oa",
+    guideHref: "",
+    guideLabel: "",
+    ctaLabel: "Voir l'offre EDF OA",
+  },
+  {
     title: "MaPrimeRénov' - montage & suivi",
     benefit: "Des dossiers d'aide structurés pour limiter les refus et sécuriser le versement.",
     description:
@@ -138,6 +153,7 @@ const completeChainItems = [
   "Un interlocuteur unique pour centraliser les échanges et les relances",
   "Pilotage intégral de A à Z, avec suivi en temps réel côté installateur",
   "199 € HT / dossier, tarif unitaire fixe",
+  "EDF OA peut être ajouté en dossier ponctuel à 49 € HT",
 ];
 
 const renovationAidItems = [
@@ -154,14 +170,14 @@ const visibleServices = services.map((service) => ({
 
 <BaseLayout
   title="Services administratifs photovoltaïques | Sunelys"
-  description="DP, Consuel, raccordement, MaPrimeRénov' et CEE : services administratifs délégables pour installateurs et structures ENR."
+  description="DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE : services administratifs délégables pour installateurs et structures ENR."
 >
   <section class="hero card">
     <p class="eyebrow">Services Sunelys</p>
     <h1>Externalisez le pilotage administratif photovoltaïque, sans perdre la maîtrise de vos dossiers.</h1>
     <p class="intro">
       Sunelys prend en charge le pilotage complet de vos dossiers administratifs qui ralentissent vos installations.
-      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire, les aides et les priorités.
+      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire, EDF OA, les aides et les priorités.
     </p>
     <div class="hero-actions">
       <a class="cta" href="/contact?source=services#contact-form" data-track="cta_services_hero_primary">Cadrer votre pilotage complet</a>
@@ -253,7 +269,7 @@ const visibleServices = services.map((service) => ({
   <section class="section">
     <div class="section-head">
       <p class="eyebrow">Offres spécialisées</p>
-      <h2>Huit blocs d'intervention selon votre organisation.</h2>
+      <h2>Neuf blocs d'intervention selon votre organisation.</h2>
     </div>
     <div class="grid">
       {
