@@ -19,10 +19,10 @@ Règles appliquées :
 | Mar. 25/08, 08:30 | DP, Consuel, raccordement : rendre la prochaine étape visible | `public/images/og/etapes-raccordement-enedis-panneaux-solaires.png` |
 | Jeu. 27/08, 08:30 | Quand structurer ou déléguer l'administratif | `public/images/og/externalisation-administrative-solaire-volume.png` |
 | Mar. 01/09, 08:30 | Sondage : temps passé en relances administratives | `public/images/og/cout-gestion-administrative-photovoltaique.png` |
-| Jeu. 03/09, 08:30 | Un portail ne remplace pas un pilotage humain | `public/images/site/portal-overview-2026-04-23.png` |
+| Jeu. 03/09, 08:30 | Un portail ne remplace pas un pilotage humain | `public/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg` |
 | Mar. 08/09, 08:30 | Ce que l'administratif solaire m'a appris | `public/images/myriam-zaoui.jpg` |
 | Jeu. 10/09, 08:30 | Un dossier bloqué peut redevenir pilotable | `public/images/og/dp-refusee-panneaux-solaires-que-faire.png` |
-| Mar. 15/09, 08:30 | Les indicateurs qui rendent un flux pilotable | `public/images/site/portal-dossiers-2026-04-23.png` |
+| Mar. 15/09, 08:30 | Les indicateurs qui rendent un flux pilotable | `public/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg` |
 | Jeu. 17/09, 08:30 | La meilleure réponse à « où en est mon dossier ? » | `public/images/og/gerer-soi-meme-ou-deleguer-administratif-solaire.png` |
 
 ## 1 — Mardi 11 août — Votre commercial vend, votre chantier attend une réponse

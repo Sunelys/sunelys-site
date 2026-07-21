@@ -37,7 +37,7 @@ export const heroData = {
   ],
   portalDemo: {
     label: "Voir un aperçu du portail →",
-    href: "/images/site/portal-overview-2026-04-23.png",
+    href: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
     track: "cta_hero_portal_demo",
   },
   preview: {
@@ -362,12 +362,12 @@ export const portalSectionData = {
     track: "cta_portal_section",
   },
   image: {
-    src: "/images/site/portal-overview-2026-04-23.png",
-    alt: "Vue d'ensemble du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
+    src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
+    alt: "Vue d'ensemble anonymisée du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
   },
   secondaryImage: {
-    src: "/images/site/portal-dossiers-2026-04-23.png",
-    alt: "Liste des dossiers existants dans le portail Sunelys avec progression et prochaine étape visibles.",
+    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+    alt: "Liste anonymisée des dossiers dans le portail Sunelys avec progression et prochaine étape visibles.",
   },
 };
 
