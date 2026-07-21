@@ -70,7 +70,7 @@ const signals = [
     <input type="hidden" name="service_interest" value="Pilotage complet" data-diagnostic-service-interest />
     <input type="hidden" name="lead_source_detail" value={`${source}_form`} />
     <input type="hidden" name="message" value="Demande de diagnostic dossiers bloqués" />
-    <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec téléphone, volume, besoin, situation, urgence et étape administrative" />
+    <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec téléphone optionnel, volume, besoin, situation, urgence et étape administrative" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
     <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -85,8 +85,8 @@ const signals = [
       <input type="email" name="email" autocomplete="email" inputmode="email" required />
     </label>
     <label>
-      <span>Téléphone pour rappel</span>
-      <input type="tel" name="phone" autocomplete="tel" inputmode="tel" required />
+      <span>Téléphone pour rappel <em>optionnel</em></span>
+      <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
     </label>
     <label>
       <span>Société</span>

@@ -1,21 +1,21 @@
 import { getPublicBlogPosts } from "../lib/blogPublication";
 
 const staticRoutes = [
-  { path: "", lastmod: "2026-07-09" },
+  { path: "", lastmod: "2026-07-21" },
   { path: "/services", lastmod: "2026-07-20" },
   { path: "/parcours", lastmod: "2026-06-22" },
   { path: "/tarifs", lastmod: "2026-07-20" },
   { path: "/contact", lastmod: "2026-07-20" },
-  { path: "/blog", lastmod: "2026-06-22" },
+  { path: "/blog", lastmod: "2026-07-21" },
   { path: "/a-propos", lastmod: "2026-06-22" },
-  { path: "/gestion-administrative-photovoltaique", lastmod: "2026-07-20" },
-  { path: "/dossier-consuel-photovoltaique", lastmod: "2026-07-20" },
-  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-07-20" },
-  { path: "/edf-oa", lastmod: "2026-07-20" },
-  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-06-22" },
-  { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-06-22" },
-  { path: "/sous-traitance-administrative-photovoltaique-installateur", lastmod: "2026-07-17" },
-  { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-07-09" },
+  { path: "/gestion-administrative-photovoltaique", lastmod: "2026-07-21" },
+  { path: "/dossier-consuel-photovoltaique", lastmod: "2026-07-21" },
+  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-07-21" },
+  { path: "/edf-oa", lastmod: "2026-07-21" },
+  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-07-21" },
+  { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-07-21" },
+  { path: "/sous-traitance-administrative-photovoltaique-installateur", lastmod: "2026-07-21" },
+  { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-07-21" },
 ];
 
 const blogPosts = getPublicBlogPosts() as Array<{
