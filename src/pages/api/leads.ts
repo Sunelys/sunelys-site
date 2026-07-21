@@ -701,6 +701,12 @@ export const POST: APIRoute = async ({ request }) => {
     ["Volume", rawVolume],
     ["Source détail", leadSourceDetail],
     ["Qualification", qualificationHint],
+    ["UTM source", utmSource],
+    ["UTM medium", utmMedium],
+    ["UTM campaign", clean(formData.get("utm_campaign"))],
+    ["UTM term", clean(formData.get("utm_term"))],
+    ["UTM content", clean(formData.get("utm_content"))],
+    ["GCLID", gclid],
   ]);
 
   if (!email) {
