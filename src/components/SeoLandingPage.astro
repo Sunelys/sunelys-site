@@ -242,6 +242,25 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         {heroBadges.map((badge) => <li>{badge}</li>)}
       </ul>
 
+      {
+        isGestionLanding && (
+          <ul class="hero-price-pills" aria-label="Tarifs principaux Sunelys">
+            <li>
+              <span>DP complète</span>
+              <strong>119 € HT</strong>
+            </li>
+            <li>
+              <span>Raccordement + Consuel</span>
+              <strong>89 € HT</strong>
+            </li>
+            <li>
+              <span>Pilotage complet</span>
+              <strong>199 € HT</strong>
+            </li>
+          </ul>
+        )
+      }
+
       <div class="hero-actions">
         <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
           {heroPrimaryLabel}
@@ -272,7 +291,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <input type="hidden" name="lead_stage" value="service_hero_form_submitted" />
           <input type="hidden" name="service_interest" value={serviceInterest} />
           <input type="hidden" name="lead_source_detail" value={`${data.slug}_hero_form`} />
-          <input type="hidden" name="qualification_hint" value="email professionnel, téléphone optionnel, volume mensuel, urgence et étape bloquée" />
+          <input type="hidden" name="qualification_hint" value="email professionnel, téléphone optionnel, volume mensuel et étape bloquée" />
           <input type="hidden" name="lead_status" value="Nouveau lead" />
           <input type="hidden" name="lead_pipeline" value="Site web - Page service hero" />
           <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -314,20 +333,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
               <option value="Je ne sais pas encore">Je ne sais pas encore</option>
             </select>
           </label>
-          <label>
-            <span>Urgence</span>
-            <select name="urgency" required>
-              <option value="">Sélectionner</option>
-              <option value="Sous 48h">Sous 48h</option>
-              <option value="Cette semaine">Cette semaine</option>
-              <option value="Ce mois-ci">Ce mois-ci</option>
-              <option value="Pas urgent">Pas urgent</option>
-            </select>
-          </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
             Recevoir mon plan d'action
           </button>
-          <small>Diagnostic gratuit sous 24h. Dossier ponctuel accepté, sans engagement.</small>
+          <small>3 champs essentiels. Téléphone optionnel. Dossier ponctuel accepté.</small>
         </form>
       </article>
 
@@ -968,6 +977,41 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     display: flex;
     flex-wrap: wrap;
     gap: 0.62rem;
+  }
+
+  .hero-price-pills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-price-pills li {
+    display: grid;
+    gap: 0.18rem;
+    min-height: 4.4rem;
+    border: 1px solid color-mix(in srgb, var(--line) 70%, var(--accent));
+    border-radius: 13px;
+    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
+    padding: 0.66rem 0.72rem;
+    box-shadow: 0 12px 26px rgba(20, 16, 10, 0.055);
+  }
+
+  .hero-price-pills span {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1.25;
+    text-transform: uppercase;
+  }
+
+  .hero-price-pills strong {
+    color: var(--accent-deep);
+    font-size: clamp(1.05rem, 1vw, 1.28rem);
+    line-height: 1.05;
   }
 
   .hero-fit-card,
@@ -1617,6 +1661,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     }
 
     .portal-proof-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-price-pills {
       grid-template-columns: 1fr;
     }
 

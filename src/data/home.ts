@@ -20,15 +20,15 @@ export const heroData = {
     track: "cta_hero_primary_contact",
   },
   secondaryCta: {
-    label: "Réserver 15 min",
-    href: bookingUrl,
-    track: "cta_hero_secondary_booking",
+    label: "Voir les tarifs fixes",
+    href: "/tarifs",
+    track: "cta_hero_secondary_pricing",
   },
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
     submitLabel: "Recevoir mon diagnostic",
-    note: "Réponse sous 24h ouvrées. Aucun engagement, aucun spam.",
+    note: "3 champs essentiels. Téléphone optionnel. Réponse sous 24h ouvrées.",
   },
   proofs: [
     "Réponse sous 24h ouvrées",

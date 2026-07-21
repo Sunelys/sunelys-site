@@ -23,6 +23,7 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
 ---
 
 <section class="hero section-shell" data-sticky-guard="hero">
@@ -72,7 +73,7 @@ const { data } = Astro.props;
             <input type="hidden" name="lead_stage" value="homepage_hero_form_submitted" />
             <input type="hidden" name="service_interest" value="Pilotage administratif photovoltaïque" />
             <input type="hidden" name="lead_source_detail" value="homepage_hero_form" />
-            <input type="hidden" name="qualification_hint" value="prenom, email professionnel, téléphone optionnel, volume mensuel et étape bloquée" />
+            <input type="hidden" name="qualification_hint" value="email professionnel, téléphone optionnel, volume mensuel et étape bloquée" />
             <input type="hidden" name="lead_status" value="Nouveau lead" />
             <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic gratuit" />
             <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -89,10 +90,6 @@ const { data } = Astro.props;
             <input type="hidden" name="msclkid" data-hero-attribution="msclkid" />
 
             <div class="hero-form-fields">
-              <label>
-                <span>Prénom</span>
-                <input type="text" name="first_name" autocomplete="given-name" required />
-              </label>
               <label>
                 <span>Email professionnel</span>
                 <input type="email" name="email" autocomplete="email" inputmode="email" required />
@@ -135,8 +132,8 @@ const { data } = Astro.props;
                 class="btn btn-secondary hero-secondary"
                 href={data.secondaryCta.href}
                 data-track={data.secondaryCta.track}
-                target="_blank"
-                rel="noreferrer"
+                target={secondaryIsExternal ? "_blank" : undefined}
+                rel={secondaryIsExternal ? "noreferrer" : undefined}
               >
                 {data.secondaryCta.label}
               </a>
@@ -150,7 +147,13 @@ const { data } = Astro.props;
           <a class="btn btn-primary btn-accent" href={data.primaryCta.href} data-track={data.primaryCta.track}>
             {data.primaryCta.label}
           </a>
-          <a class="btn btn-secondary hero-secondary" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>
+          <a
+            class="btn btn-secondary hero-secondary"
+            href={data.secondaryCta.href}
+            data-track={data.secondaryCta.track}
+            target={secondaryIsExternal ? "_blank" : undefined}
+            rel={secondaryIsExternal ? "noreferrer" : undefined}
+          >
             {data.secondaryCta.label}
           </a>
         </div>
