@@ -1,5 +1,6 @@
 ---
 import LeadMagnetChecklist from "./LeadMagnetChecklist.astro";
+import PremiumProofSection from "./PremiumProofSection.astro";
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 
 interface ProblemItem {
@@ -449,6 +450,15 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         </div>
       </div>
     </section>
+  )
+}
+
+{
+  isGestionLanding && (
+    <PremiumProofSection
+      source={`${data.slug}_premium_proof`}
+      ctaHref={`/contact?source=${data.slug}_premium_proof#contact-form`}
+    />
   )
 }
 

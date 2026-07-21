@@ -1,0 +1,368 @@
+---
+interface Props {
+  source?: string;
+  ctaHref?: string;
+  ctaLabel?: string;
+}
+
+const {
+  source = "premium_proof",
+  ctaHref = `/contact?source=${source}#contact-form`,
+  ctaLabel = "Recevoir mon diagnostic sous 24h",
+} = Astro.props;
+
+const proofCases = [
+  {
+    label: "Flux régulier",
+    title: "Installateur avec dossiers dispersés",
+    situation: "DP, Consuel et raccordement suivis entre plusieurs portails, mails et relances internes.",
+    handover: "Sunelys reprend la lecture des statuts, liste les pièces attendues et remet chaque dossier dans une séquence claire.",
+    result: "Moins de suivi artisanal, une vision exploitable par dossier et une charge commerciale mieux protégée.",
+  },
+  {
+    label: "Pic de charge",
+    title: "Série de DP à déposer rapidement",
+    situation: "Plusieurs dossiers photovoltaïques arrivent en même temps, avec des pièces techniques à contrôler avant dépôt mairie.",
+    handover: "Priorisation, vérification documentaire, préparation des pièces et suivi jusqu'au retour administratif.",
+    result: "Les équipes gardent le rythme sans transformer le pic de dossiers en désorganisation interne.",
+  },
+  {
+    label: "Mise en service",
+    title: "Consuel et raccordement à sécuriser",
+    situation: "Un chantier est prêt, mais la mise en service dépend encore des pièces, validations et relances administratives.",
+    handover: "Suivi coordonné Consuel, raccordement Enedis, compléments éventuels et prochaines actions visibles.",
+    result: "Le blocage est traité comme un flux piloté, pas comme une succession d'urgences isolées.",
+  },
+];
+
+const controlSteps = [
+  "Qualification du dossier et du blocage réel",
+  "Contrôle des pièces et des informations techniques",
+  "Production, dépôt ou reprise administrative",
+  "Relances structurées mairie, Consuel, Enedis ou aides",
+  "Statut clair et prochaine action visible",
+];
+
+const proofPoints = [
+  "1 357 dossiers pilotés",
+  "Production sous 48h si dossier complet",
+  "DP, Consuel, Enedis, MaPrimeRénov' et CEE",
+];
+---
+
+<section id="preuves" class="premium-proof section-shell reveal" aria-labelledby="premium-proof-title">
+  <div class="proof-header" data-reveal-item>
+    <div>
+      <p class="kicker">Preuves opérationnelles</p>
+      <h2 id="premium-proof-title">Un cabinet expert, une méthode visible, des dossiers qui restent pilotables.</h2>
+    </div>
+    <p>
+      Sunelys ne vend pas seulement une promesse administrative. Le service repose sur une méthode de reprise,
+      de suivi et de visibilité pensée pour les installateurs photovoltaïques.
+    </p>
+  </div>
+
+  <div class="proof-grid">
+    <figure class="proof-visual" data-reveal-item>
+      <img
+        src="/google-business-profile/sunelys-gbp-cover-portail-2026-07-21.jpg"
+        alt="Portail client Sunelys pour suivre les dossiers administratifs photovoltaïques"
+        width="1254"
+        height="705"
+        loading="lazy"
+        decoding="async"
+      />
+      <figcaption>
+        <strong>Portail client inclus</strong>
+        <span>Statuts, pièces attendues et prochaines actions centralisés.</span>
+      </figcaption>
+    </figure>
+
+    <div class="proof-control" data-reveal-item>
+      <p class="kicker">Contrôle qualité</p>
+      <h3>Ce qui se passe après votre demande.</h3>
+      <ol>
+        {controlSteps.map((step) => <li>{step}</li>)}
+      </ol>
+    </div>
+  </div>
+
+  <div class="case-strip" aria-label="Cas clients anonymisés">
+    {
+      proofCases.map((item) => (
+        <article class="case-item" data-reveal-item>
+          <span>{item.label}</span>
+          <h3>{item.title}</h3>
+          <dl>
+            <div>
+              <dt>Situation</dt>
+              <dd>{item.situation}</dd>
+            </div>
+            <div>
+              <dt>Reprise Sunelys</dt>
+              <dd>{item.handover}</dd>
+            </div>
+            <div>
+              <dt>Effet attendu</dt>
+              <dd>{item.result}</dd>
+            </div>
+          </dl>
+        </article>
+      ))
+    }
+  </div>
+
+  <div class="proof-footer" data-reveal-item>
+    <ul aria-label="Chiffres et périmètre Sunelys">
+      {proofPoints.map((point) => <li>{point}</li>)}
+    </ul>
+    <a class="btn btn-primary btn-accent" href={ctaHref} data-track={`cta_${source}`}>
+      {ctaLabel}
+    </a>
+  </div>
+</section>
+
+<style>
+  .premium-proof {
+    display: grid;
+    gap: 0.9rem;
+    padding: clamp(1rem, 2.5vw, 1.55rem);
+    border-top: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+  }
+
+  .proof-header,
+  .proof-grid,
+  .proof-footer {
+    display: grid;
+    gap: 0.86rem;
+  }
+
+  .proof-header {
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.62fr);
+    align-items: end;
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0.45rem 0 0;
+    max-width: 19ch;
+    font-size: clamp(1.95rem, 3.5vw, 3.65rem);
+    line-height: 1;
+  }
+
+  .proof-header > p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.58;
+    max-width: 46ch;
+  }
+
+  .proof-grid {
+    grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.52fr);
+    align-items: stretch;
+  }
+
+  .proof-visual,
+  .proof-control,
+  .case-item {
+    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
+    background:
+      radial-gradient(90% 110% at 100% 0%, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 58%),
+      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+    box-shadow: var(--shadow-sm);
+  }
+
+  .proof-visual {
+    margin: 0;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+  }
+
+  .proof-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    background: #fff;
+  }
+
+  .proof-visual figcaption {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.82rem 0.95rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 78%, white);
+  }
+
+  .proof-visual strong {
+    font-size: 0.84rem;
+    line-height: 1.35;
+  }
+
+  .proof-visual span {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.42;
+    text-align: right;
+  }
+
+  .proof-control {
+    border-radius: var(--radius-xl);
+    padding: clamp(1rem, 2.4vw, 1.42rem);
+  }
+
+  .proof-control h3,
+  .case-item h3 {
+    margin: 0.38rem 0 0;
+    font-size: clamp(1.12rem, 1.6vw, 1.55rem);
+    line-height: 1.1;
+  }
+
+  .proof-control ol {
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 0.52rem;
+    counter-reset: proof-step;
+  }
+
+  .proof-control li {
+    counter-increment: proof-step;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.55rem;
+    align-items: start;
+    color: var(--text);
+    font-size: 0.84rem;
+    line-height: 1.48;
+  }
+
+  .proof-control li::before {
+    content: counter(proof-step, decimal-leading-zero);
+    display: grid;
+    place-items: center;
+    min-height: 1.8rem;
+    border: 1px solid color-mix(in srgb, var(--line) 64%, var(--accent));
+    border-radius: 999px;
+    color: var(--accent-deep);
+    background: color-mix(in srgb, var(--accent-soft) 54%, white);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .case-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+  }
+
+  .case-item {
+    border-radius: calc(var(--radius-xl) - 8px);
+    padding: 1rem;
+  }
+
+  .case-item > span {
+    display: inline-flex;
+    width: fit-content;
+    border: 1px solid color-mix(in srgb, var(--line) 68%, var(--accent));
+    border-radius: var(--radius-pill);
+    padding: 0.34rem 0.56rem;
+    color: var(--accent-deep);
+    background: color-mix(in srgb, var(--accent-soft) 56%, white);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  dl {
+    display: grid;
+    gap: 0.56rem;
+    margin: 0.85rem 0 0;
+  }
+
+  dl div {
+    display: grid;
+    gap: 0.16rem;
+    padding-top: 0.56rem;
+    border-top: 1px solid color-mix(in srgb, var(--line) 82%, white);
+  }
+
+  dt {
+    color: var(--accent-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.48;
+  }
+
+  .proof-footer {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    padding: 0.86rem;
+    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
+    border-radius: calc(var(--radius-xl) - 10px);
+    background: color-mix(in srgb, var(--surface-elevated) 86%, white);
+  }
+
+  .proof-footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.44rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .proof-footer li {
+    border: 1px solid color-mix(in srgb, var(--line) 76%, white);
+    border-radius: var(--radius-pill);
+    padding: 0.44rem 0.66rem;
+    color: var(--text);
+    background: var(--surface);
+    font-size: 0.74rem;
+    font-weight: 700;
+  }
+
+  @media (max-width: 980px) {
+    .proof-header,
+    .proof-grid,
+    .proof-footer {
+      grid-template-columns: 1fr;
+    }
+
+    .case-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-footer .btn {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .proof-visual figcaption {
+      display: grid;
+    }
+
+    .proof-visual span {
+      text-align: left;
+    }
+  }
+</style>
