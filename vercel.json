@@ -98,16 +98,6 @@
       "permanent": true
     },
     {
-      "source": "/mentions-legales",
-      "destination": "/sunelys",
-      "permanent": true
-    },
-    {
-      "source": "/mentions-legales/",
-      "destination": "/sunelys",
-      "permanent": true
-    },
-    {
       "source": "/consuel",
       "destination": "/dossier-consuel-photovoltaique",
       "permanent": true

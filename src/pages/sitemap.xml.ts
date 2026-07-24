@@ -8,6 +8,8 @@ const staticRoutes = [
   { path: "/contact", lastmod: "2026-07-24" },
   { path: "/blog", lastmod: "2026-07-24" },
   { path: "/a-propos", lastmod: "2026-07-24" },
+  { path: "/mentions-legales", lastmod: "2026-07-24" },
+  { path: "/politique-confidentialite", lastmod: "2026-07-24" },
   { path: "/gestion-administrative-photovoltaique", lastmod: "2026-07-24" },
   { path: "/dossier-consuel-photovoltaique", lastmod: "2026-07-24" },
   { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-07-24" },
