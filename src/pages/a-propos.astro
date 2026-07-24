@@ -85,6 +85,33 @@ const heroTrustPoints = [
   },
 ];
 
+const expertDecisionItems = [
+  {
+    label: "Blocage réel",
+    title: "Identifier l’action qui débloque vraiment le dossier.",
+    text:
+      "Mairie, Enedis, Consuel, EDF OA ou aides : le premier travail consiste à savoir où se situe le frein et qui doit agir.",
+  },
+  {
+    label: "Pièce sensible",
+    title: "Repérer ce qui peut créer un retour ou un complément.",
+    text:
+      "Plans, photos, références techniques, cohérence chantier et informations client sont relus comme des points de risque.",
+  },
+  {
+    label: "Bon périmètre",
+    title: "Déléguer la bonne brique, pas forcément tout le flux.",
+    text:
+      "Un dossier ponctuel, une reprise urgente ou un pilotage complet n’impliquent pas le même niveau d’organisation.",
+  },
+  {
+    label: "Limite saine",
+    title: "Dire clairement ce qui dépend encore d’un organisme externe.",
+    text:
+      "Sunelys pilote, relance et structure ; les décisions finales des organismes restent identifiées sans promesse floue.",
+  },
+];
+
 const clientLogos = [
   { name: "SunWatt France", src: "/images/site/client-sunwatt-france.png", width: 222, height: 176 },
   { name: "Terra ENR", src: "/images/site/client-terra-enr.png", width: 338, height: 216 },
@@ -266,6 +293,43 @@ const commitments = [
         </div>
       </footer>
     </blockquote>
+  </section>
+
+  <section
+    class="expertise-section reveal"
+    aria-labelledby="expertise-title"
+    data-track-view="about_expertise_view"
+    data-track-label="about_founder_expertise"
+  >
+    <div class="expertise-head" data-reveal-item>
+      <p class="eyebrow">Lecture experte du dossier</p>
+      <h2 id="expertise-title">Ce qu’une demande Sunelys doit clarifier avant d’être traitée.</h2>
+      <p>
+        L’expertise ne se voit pas seulement dans l’exécution. Elle se voit dans les bonnes questions posées avant
+        d’agir : quel blocage, quelle pièce sensible, quel périmètre et quelle limite expliquer au client.
+      </p>
+    </div>
+
+    <div class="expertise-grid" aria-label="Décisions expertes Sunelys">
+      {
+        expertDecisionItems.map((item, index) => (
+          <article data-reveal-item>
+            <span>0{index + 1} · {item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <aside class="expertise-note" data-reveal-item>
+      <span>Position Sunelys</span>
+      <strong>Un pilotage humain, pas une promesse automatique.</strong>
+      <p>
+        La valeur de Sunelys est de rendre le dossier lisible, suivi et priorisé. C’est cette clarté qui protège
+        vos équipes lorsque le volume augmente.
+      </p>
+    </aside>
   </section>
 
   <section
@@ -592,6 +656,7 @@ const commitments = [
   }
 
   .credibility-section,
+  .expertise-section,
   .approach-section,
   .commitments-section {
     padding: clamp(1.3rem, 3vw, 2.6rem);
@@ -766,6 +831,126 @@ const commitments = [
     font-style: normal;
   }
 
+  .expertise-section {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(280px, 0.52fr) minmax(0, 1fr);
+    gap: 0.75rem;
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--system) 13%, var(--line));
+    background:
+      radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--system-soft) 78%, transparent), transparent 65%),
+      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
+      color-mix(in srgb, var(--surface) 97%, #ffffff);
+  }
+
+  .expertise-section::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--system), var(--accent));
+    content: "";
+  }
+
+  .expertise-head {
+    display: grid;
+    align-content: center;
+    gap: 0.7rem;
+    padding-right: clamp(0rem, 2vw, 1.4rem);
+  }
+
+  .expertise-head h2 {
+    max-width: 16ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 3.7vw, 3.7rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  .expertise-head > p:not(.eyebrow) {
+    max-width: 49ch;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    line-height: 1.62;
+  }
+
+  .expertise-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .expertise-grid article {
+    min-height: 15rem;
+    display: grid;
+    align-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.78);
+    box-shadow: 0 18px 45px rgba(14, 23, 38, 0.06);
+  }
+
+  .expertise-grid span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 820;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .expertise-grid strong {
+    max-width: 20ch;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.16;
+  }
+
+  .expertise-grid p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.52;
+  }
+
+  .expertise-note {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(120px, auto) minmax(220px, 0.45fr) minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
+    margin-top: 0.1rem;
+    padding: 0.95rem 1rem;
+    border-radius: 16px;
+    background:
+      radial-gradient(80% 120% at 100% 0%, rgba(54, 98, 227, 0.22), transparent 64%),
+      var(--ink);
+  }
+
+  .expertise-note span {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 820;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .expertise-note strong {
+    color: #ffffff;
+    font-size: 0.9rem;
+    line-height: 1.32;
+  }
+
+  .expertise-note p {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.74rem;
+    line-height: 1.55;
+  }
+
   .approach-section {
     display: grid;
     grid-template-columns: minmax(280px, 0.65fr) minmax(0, 1.35fr);
@@ -930,6 +1115,7 @@ const commitments = [
   @media (max-width: 1050px) {
     .about-hero,
     .founder-story,
+    .expertise-section,
     .approach-section,
     .commitments-section,
     .contact-direct {
@@ -948,6 +1134,15 @@ const commitments = [
 
     .approach-grid {
       grid-template-columns: 1fr;
+    }
+
+    .expertise-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .expertise-note {
+      grid-template-columns: 1fr;
+      align-items: start;
     }
 
     .approach-grid article {
@@ -969,6 +1164,7 @@ const commitments = [
     .about-copy,
     .credibility-section,
     .founder-story,
+    .expertise-section,
     .approach-section,
     .commitments-section,
     .contact-direct {
@@ -996,6 +1192,10 @@ const commitments = [
 
     .founder-photo {
       min-height: 28rem;
+    }
+
+    .expertise-grid article {
+      min-height: auto;
     }
 
     .metric-grid {
