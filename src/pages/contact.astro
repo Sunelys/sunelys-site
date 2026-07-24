@@ -323,6 +323,7 @@ const supportCards = [
             <option value="CEE">CEE</option>
             <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
             <option value="Pilotage complet">Pilotage complet</option>
+            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
           </select>
         </label>
         <label class="full-width">
@@ -407,12 +408,14 @@ const supportCards = [
     if (normalizedSource.includes("gestion") || normalizedSource.includes("administrative")) {
       needField.value = "Pilotage complet";
     }
-    if (
+    if (!needField.value && (
       normalizedSource.includes("diagnostic") ||
-      normalizedSource.includes("pilotage") ||
       normalizedSource.includes("sticky") ||
       normalizedSource.includes("header")
-    ) {
+    )) {
+      needField.value = "Je ne sais pas encore";
+    }
+    if (normalizedSource.includes("pilotage")) {
       needField.value = "Pilotage complet";
     }
   }

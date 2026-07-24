@@ -160,6 +160,21 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                   </span>
                   <em>199 € <small>HT / dossier</small></em>
                 </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="need"
+                    value="Je ne sais pas encore"
+                    data-service-interest="Diagnostic administratif photovoltaïque"
+                    data-blocked-stage="Je ne sais pas encore"
+                    data-offer-price="0"
+                  />
+                  <span>
+                    <small>Être orienté</small>
+                    <strong>Diagnostic gratuit</strong>
+                  </span>
+                  <em>24h <small>ouvrées</small></em>
+                </label>
               </fieldset>
 
               <div class="hero-form-fields">
@@ -193,6 +208,12 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                   rel={secondaryIsExternal ? "noreferrer" : undefined}
                 >
                   {data.secondaryCta.label}
+                </a>
+              </div>
+              <div class="hero-human-proof" aria-label="Réponse humaine Sunelys">
+                <span>Lu par Myriam Zaoui</span>
+                <a href="mailto:contact@sunelys.fr" data-track="cta_hero_email_reassurance">
+                  contact@sunelys.fr
                 </a>
               </div>
               <FormPrivacyNote />
@@ -234,15 +255,20 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     const serviceInterestField = heroLeadForm.querySelector("#hero-service-interest");
     const blockedStageField = heroLeadForm.querySelector("#hero-blocked-stage");
 
-    heroLeadForm.querySelectorAll("input[name='need']").forEach((field) => {
-      field.addEventListener("change", () => {
-        if (!(field instanceof HTMLInputElement) || !field.checked) return;
+    const syncHeroSelection = (field) => {
+      if (!(field instanceof HTMLInputElement) || !field.checked) return;
         if (serviceInterestField instanceof HTMLInputElement) {
           serviceInterestField.value = field.dataset.serviceInterest || field.value;
         }
         if (blockedStageField instanceof HTMLInputElement) {
           blockedStageField.value = field.dataset.blockedStage || "";
         }
+    };
+
+    heroLeadForm.querySelectorAll("input[name='need']").forEach((field) => {
+      field.addEventListener("change", () => {
+        syncHeroSelection(field);
+        if (!(field instanceof HTMLInputElement) || !field.checked) return;
 
         window.trackEvent?.("homepage_offer_selected", {
           category: "form",
@@ -260,6 +286,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     });
 
     heroLeadForm.addEventListener("submit", () => {
+      syncHeroSelection(heroLeadForm.querySelector("input[name='need']:checked"));
       const formData = new FormData(heroLeadForm);
       window.trackEvent?.("lead_hero_form_submit", {
         category: "form",
@@ -642,6 +669,36 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     font-weight: 720;
     text-underline-offset: 0.2rem;
     white-space: nowrap;
+  }
+
+  .hero-human-proof {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.45rem 0.9rem;
+    padding: 0.62rem 0.72rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 11px;
+    background: color-mix(in srgb, var(--system-soft) 50%, #ffffff);
+  }
+
+  .hero-human-proof span {
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 760;
+  }
+
+  .hero-human-proof a {
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    font-weight: 680;
+    text-decoration: none;
+  }
+
+  .hero-human-proof a:hover,
+  .hero-human-proof a:focus-visible {
+    color: var(--system);
   }
 
   .hero-actions {
