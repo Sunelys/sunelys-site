@@ -23,12 +23,39 @@ const structuredData = [
     },
   },
 ];
+
+const brandProofItems = [
+  {
+    label: "Spécialisation",
+    title: "Une marque concentrée sur le photovoltaïque.",
+    text:
+      "Sunelys ne traite pas l’administratif généraliste : le discours, les contrôles et les priorités restent alignés sur les dossiers solaires.",
+  },
+  {
+    label: "Lisibilité",
+    title: "Un dossier doit être compréhensible à tout moment.",
+    text:
+      "Le bon suivi n’est pas seulement de déposer une pièce : c’est savoir où le dossier en est, ce qui bloque et quelle action vient ensuite.",
+  },
+  {
+    label: "Sérieux",
+    title: "Des promesses cadrées, pas d’effet magique.",
+    text:
+      "Sunelys pilote, relance et structure. Les délais et décisions des organismes restent expliqués clairement, sans promesse floue.",
+  },
+  {
+    label: "Croissance",
+    title: "Une aide pensée pour absorber le volume.",
+    text:
+      "L’objectif est d’éviter que les équipes commerciales ou techniques redeviennent le service administratif dès que les chantiers accélèrent.",
+  },
+];
 ---
 
 <BaseLayout
   title="Sunelys | Site officiel de gestion administrative photovoltaïque"
   description="Sunelys est le site officiel de SUNELYS, société française spécialisée dans la gestion administrative photovoltaïque pour installateurs : DP, Consuel et raccordement Enedis."
-  robots="noindex,follow"
+  robots="index,follow"
   structuredData={structuredData}
 >
   <article class="brand-page section-shell">
@@ -41,8 +68,16 @@ const structuredData = [
           déclaration préalable, Consuel, raccordement Enedis et suivi documentaire.
         </p>
         <div class="actions">
-          <a class="btn btn-primary btn-accent" href="/contact">Contacter Sunelys</a>
-          <a class="brand-link" href="/services">Voir les services <span aria-hidden="true">↗</span></a>
+          <a
+            class="btn btn-primary btn-accent"
+            href="/contact?source=sunelys-brand#contact-form"
+            data-track="cta_sunelys_hero_contact"
+          >
+            Contacter Sunelys
+          </a>
+          <a class="brand-link" href="/services" data-track="cta_sunelys_hero_services">
+            Voir les services <span aria-hidden="true">↗</span>
+          </a>
         </div>
       </div>
 
@@ -70,6 +105,45 @@ const structuredData = [
         <span>Activité</span>
         <strong>Administratif photovoltaïque</strong>
       </article>
+      <article>
+        <span>Fondatrice</span>
+        <strong>Myriam Zaoui</strong>
+      </article>
+      <article>
+        <span>Contact officiel</span>
+        <strong><a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a></strong>
+      </article>
+    </section>
+
+    <section
+      class="brand-proof reveal"
+      aria-labelledby="brand-proof-title"
+      data-track-view="sunelys_brand_proof_view"
+      data-track-label="sunelys_brand_positioning"
+    >
+      <div class="brand-proof-head" data-reveal-item>
+        <p class="eyebrow">Ce que la marque doit signaler</p>
+        <h2 id="brand-proof-title">Sunelys doit inspirer confiance avant même le premier dossier.</h2>
+        <p>
+          Quand un installateur vérifie Sunelys, la page doit immédiatement répondre à trois questions :
+          est-ce spécialisé, est-ce sérieux, et est-ce capable de suivre un vrai volume de dossiers ?
+        </p>
+      </div>
+
+      <div class="brand-proof-grid" aria-label="Preuves de positionnement Sunelys">
+        {
+          brandProofItems.map((item, index) => (
+            <article data-reveal-item>
+              <span>0{index + 1}</span>
+              <strong>{item.label}</strong>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </section>
 
     <section class="brand-copy">
@@ -86,6 +160,27 @@ const structuredData = [
           Le site officiel est sunelys.fr et l'adresse de contact officielle est
           contact@sunelys.fr.
         </p>
+      </div>
+    </section>
+
+    <section class="brand-decision" aria-labelledby="brand-decision-title">
+      <div>
+        <p class="eyebrow">Prochaine étape</p>
+        <h2 id="brand-decision-title">Le meilleur test reste un dossier réel.</h2>
+        <p>
+          Si vous êtes en train de vérifier qui est derrière Sunelys, envoyez un premier cas concret :
+          dossier bloqué, volume à absorber ou flux administratif à déléguer.
+        </p>
+      </div>
+      <div class="brand-decision-actions">
+        <a
+          class="btn btn-primary btn-accent"
+          href="/contact?source=sunelys-brand-bottom#contact-form"
+          data-track="cta_sunelys_bottom_contact"
+        >
+          Présenter un dossier
+        </a>
+        <a href="/a-propos" data-track="cta_sunelys_bottom_about">Découvrir l’équipe</a>
       </div>
     </section>
   </article>
@@ -295,7 +390,7 @@ const structuredData = [
 
   .brand-grid {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0;
     margin: 0;
     border-top: 2px solid var(--ink);
@@ -328,6 +423,114 @@ const structuredData = [
     color: var(--ink);
     font-size: 0.95rem;
     line-height: 1.35;
+  }
+
+  .brand-grid a {
+    color: inherit;
+    text-decoration-color: color-mix(in srgb, var(--system) 35%, transparent);
+    text-underline-offset: 0.16em;
+  }
+
+  .brand-proof {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(260px, 0.58fr) minmax(0, 1.42fr);
+    gap: clamp(1.4rem, 5vw, 5rem);
+    overflow: hidden;
+    padding: clamp(1.35rem, 3.2vw, 3rem);
+    border: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(80% 120% at 100% 0%, rgba(54, 98, 227, 0.14), transparent 62%),
+      linear-gradient(90deg, rgba(14, 23, 38, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      #ffffff;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .brand-proof::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--system), var(--accent));
+    content: "";
+  }
+
+  .brand-proof-head {
+    display: grid;
+    align-content: start;
+    gap: 0.8rem;
+  }
+
+  .brand-proof-head .eyebrow,
+  .brand-decision .eyebrow {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .brand-proof-head h2 {
+    max-width: 13ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 3.9vw, 3.7rem);
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .brand-proof-head > p:not(.eyebrow) {
+    max-width: 42ch;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    line-height: 1.65;
+  }
+
+  .brand-proof-grid {
+    display: grid;
+    border-top: 1px solid color-mix(in srgb, var(--system) 15%, var(--line));
+  }
+
+  .brand-proof-grid article {
+    display: grid;
+    grid-template-columns: auto minmax(8rem, 0.32fr) minmax(0, 1fr);
+    gap: 1rem;
+    align-items: center;
+    min-height: 8.4rem;
+    padding: 1.05rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 15%, var(--line));
+  }
+
+  .brand-proof-grid article > span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 850;
+  }
+
+  .brand-proof-grid article > strong {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .brand-proof-grid h3 {
+    max-width: 28ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(1rem, 1.3vw, 1.2rem);
+    letter-spacing: -0.018em;
+    line-height: 1.22;
+  }
+
+  .brand-proof-grid p {
+    max-width: 58ch;
+    margin: 0.45rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.55;
   }
 
   .brand-copy {
@@ -377,9 +580,63 @@ const structuredData = [
     line-height: 1.7;
   }
 
+  .brand-decision {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+    overflow: hidden;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(70% 120% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      radial-gradient(70% 120% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      var(--ink);
+    color: #ffffff;
+    box-shadow: var(--shadow-md);
+  }
+
+  .brand-decision .eyebrow {
+    color: var(--accent);
+  }
+
+  .brand-decision h2 {
+    max-width: 14ch;
+    margin: 0.65rem 0 0;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 3.9rem);
+    letter-spacing: -0.055em;
+    line-height: 0.96;
+  }
+
+  .brand-decision p:not(.eyebrow) {
+    max-width: 55ch;
+    margin: 1rem 0 0;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.88rem;
+    line-height: 1.65;
+  }
+
+  .brand-decision-actions {
+    display: grid;
+    gap: 0.8rem;
+    min-width: min(100%, 17rem);
+  }
+
+  .brand-decision-actions a:not(.btn) {
+    display: inline-flex;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 820;
+    text-decoration: none;
+  }
+
   @media (max-width: 820px) {
     .brand-hero,
-    .brand-copy {
+    .brand-proof,
+    .brand-copy,
+    .brand-decision {
       grid-template-columns: 1fr;
     }
 
@@ -391,8 +648,17 @@ const structuredData = [
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .brand-grid article:nth-child(2) {
+    .brand-grid article:nth-child(even) {
       border-right: 0;
+    }
+
+    .brand-proof-grid article {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+    }
+
+    .brand-proof-grid article > div {
+      grid-column: 2;
     }
   }
 
@@ -417,8 +683,16 @@ const structuredData = [
       border-radius: var(--radius-md);
     }
 
+    .brand-proof,
+    .brand-decision {
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
     .brand-hero .actions,
-    .brand-hero .actions .btn {
+    .brand-hero .actions .btn,
+    .brand-decision-actions,
+    .brand-decision-actions .btn {
       width: 100%;
     }
 
