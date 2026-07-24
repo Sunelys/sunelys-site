@@ -1,4 +1,6 @@
 ---
+import SwipeCue from "./SwipeCue.astro";
+
 interface Testimonial {
   quote: string;
   author: string;
@@ -7,6 +9,10 @@ interface Testimonial {
   outcome?: string;
   logo?: string;
   logoAlt?: string;
+  journey?: {
+    label: string;
+    text: string;
+  }[];
 }
 
 interface Props {
@@ -40,7 +46,15 @@ const getInitials = (name: string) =>
     </div>
   </div>
 
-  <div class="testimonial-grid">
+  <SwipeCue label="2 retours terrain à parcourir" />
+
+  <div
+    class="testimonial-grid"
+    aria-label="Retours clients Sunelys — utilisez les flèches horizontales pour les parcourir"
+    tabindex="0"
+    data-scroll-rail
+    data-scroll-label="retours_clients"
+  >
     {
       data.testimonials.map((item, index) => (
         <article class:list={["testimonial-card", index === 0 && "is-primary"]} data-reveal-item>
@@ -55,6 +69,19 @@ const getInitials = (name: string) =>
                 {item.service && <span>{item.service}</span>}
                 <strong>{item.outcome}</strong>
               </div>
+            )
+          }
+
+          {
+            item.journey && (
+              <ol class="case-journey" aria-label={`Parcours du cas ${item.author}`}>
+                {item.journey.map((step) => (
+                  <li>
+                    <span>{step.label}</span>
+                    <strong>{step.text}</strong>
+                  </li>
+                ))}
+              </ol>
             )
           }
 
@@ -237,6 +264,64 @@ const getInitials = (name: string) =>
     color: #ffffff;
   }
 
+  .case-journey {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 1rem 0 0;
+    padding: 0;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-soft);
+    list-style: none;
+  }
+
+  .is-primary .case-journey {
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .case-journey li {
+    position: relative;
+    min-width: 0;
+    padding: 0.72rem;
+  }
+
+  .case-journey li + li {
+    border-left: 1px solid var(--line);
+  }
+
+  .is-primary .case-journey li + li {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+
+  .case-journey span,
+  .case-journey strong {
+    display: block;
+  }
+
+  .case-journey span {
+    color: var(--system);
+    font-size: 0.54rem;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .is-primary .case-journey span {
+    color: var(--accent);
+  }
+
+  .case-journey strong {
+    margin-top: 0.28rem;
+    color: var(--text);
+    font-size: 0.65rem;
+    line-height: 1.35;
+  }
+
+  .is-primary .case-journey strong {
+    color: rgba(255, 255, 255, 0.88);
+  }
+
   footer {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -325,7 +410,18 @@ const getInitials = (name: string) =>
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      scroll-padding-inline: 0.15rem;
       padding-bottom: 0.5rem;
+    }
+
+    .testimonial-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial-grid:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--system) 34%, transparent);
+      outline-offset: 3px;
     }
 
     .testimonial-card {

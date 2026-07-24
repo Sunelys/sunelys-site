@@ -101,6 +101,11 @@ export const proofSectionData = {
       note: "Témoignage nominatif publié avec accord.",
       service: "Déclarations préalables",
       outcome: "Des dossiers cadrés sérieusement et moins de pièces complémentaires.",
+      journey: [
+        { label: "Besoin", text: "Fiabiliser les DP" },
+        { label: "Relais", text: "Cadrage et dépôt" },
+        { label: "Effet cité", text: "Moins de compléments" },
+      ],
       logo: "/images/site/client-sunwatt-france.png",
       logoAlt: "Sun Watt France",
     },
@@ -111,6 +116,11 @@ export const proofSectionData = {
       note: "Retour terrain publié avec accord.",
       service: "Pilotage administratif",
       outcome: "Un suivi plus fluide pour protéger le rythme des installations.",
+      journey: [
+        { label: "Besoin", text: "Protéger les délais" },
+        { label: "Relais", text: "Suivi et réactivité" },
+        { label: "Effet cité", text: "Chantiers plus rapides" },
+      ],
       logo: "/images/site/client-betravaux.png",
       logoAlt: "Be Travaux",
     },

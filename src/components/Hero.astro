@@ -429,6 +429,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     border-radius: 50%;
     background: var(--success);
     box-shadow: 0 0 0 4px var(--success-soft);
+    animation: live-pulse 2.4s ease-out infinite;
   }
 
   .portal-snapshot-body {
@@ -474,6 +475,15 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     background: rgba(255, 255, 255, 0.72);
     font-size: 0.65rem;
     font-weight: 650;
+    animation: portal-row-enter 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .portal-progress > div:nth-child(2) {
+    animation-delay: 110ms;
+  }
+
+  .portal-progress > div:nth-child(3) {
+    animation-delay: 220ms;
   }
 
   .progress-track {
@@ -491,6 +501,9 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     height: 100%;
     border-radius: inherit;
     background: var(--system);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: portal-progress-fill 920ms cubic-bezier(0.22, 1, 0.36, 1) 260ms forwards;
   }
 
   .status {
@@ -514,6 +527,36 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
   .status-warning {
     background: var(--accent-soft);
     color: var(--accent-deep);
+  }
+
+  @keyframes portal-row-enter {
+    from {
+      opacity: 0;
+      transform: translateY(0.45rem);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes portal-progress-fill {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @keyframes live-pulse {
+    0%,
+    55% {
+      box-shadow: 0 0 0 4px var(--success-soft);
+    }
+
+    85%,
+    100% {
+      box-shadow: 0 0 0 8px transparent;
+    }
   }
 
   .hero-intake-card {
@@ -764,6 +807,18 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
       align-items: flex-start;
       flex-direction: column;
       gap: 0.42rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot,
+    .portal-progress > div,
+    .progress-track i {
+      animation: none;
+    }
+
+    .progress-track i {
+      transform: scaleX(1);
     }
   }
 </style>

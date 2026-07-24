@@ -1,4 +1,6 @@
 ---
+import SwipeCue from "./SwipeCue.astro";
+
 interface LogoItem {
   name: string;
   src: string;
@@ -35,7 +37,16 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     </p>
   </div>
 
-  <div class="trust-metrics" aria-label="Chiffres clés Sunelys" data-reveal-item>
+  <SwipeCue label="4 chiffres clés à parcourir" />
+
+  <div
+    class="trust-metrics"
+    aria-label="Chiffres clés Sunelys — utilisez les flèches horizontales pour les parcourir"
+    tabindex="0"
+    data-scroll-rail
+    data-scroll-label="chiffres_cles"
+    data-reveal-item
+  >
     {
       data.metrics.map((metric, index) => (
         <article class:list={["metric", index === 0 && "is-featured"]}>
@@ -245,6 +256,17 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      scroll-padding-inline: 0.15rem;
+    }
+
+    .trust-metrics::-webkit-scrollbar {
+      display: none;
+    }
+
+    .trust-metrics:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--system) 34%, transparent);
+      outline-offset: 3px;
     }
 
     .metric {

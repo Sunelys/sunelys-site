@@ -1,4 +1,6 @@
 ---
+import SwipeCue from "./SwipeCue.astro";
+
 interface MethodItem {
   label: string;
   text: string;
@@ -33,7 +35,15 @@ const { data } = Astro.props;
     <h2 id="method-title">{data.title}</h2>
     <p class="intro">{data.text}</p>
 
-    <div class="audience-list" aria-label="Formats de délégation Sunelys">
+    <SwipeCue label="3 façons de déléguer" />
+
+    <div
+      class="audience-list"
+      aria-label="Formats de délégation Sunelys — utilisez les flèches horizontales pour les parcourir"
+      tabindex="0"
+      data-scroll-rail
+      data-scroll-label="formats_delegation"
+    >
       {
         data.audiences.map((item, index) => (
           <article>
@@ -59,7 +69,14 @@ const { data } = Astro.props;
       <span>4 étapes</span>
     </div>
 
-    <ol aria-label="Parcours Sunelys en quatre étapes">
+    <SwipeCue label="Le parcours en 4 étapes" tone="dark" />
+
+    <ol
+      aria-label="Parcours Sunelys en quatre étapes — utilisez les flèches horizontales pour les parcourir"
+      tabindex="0"
+      data-scroll-rail
+      data-scroll-label="parcours_4_etapes"
+    >
       {
         data.steps.map((step, index) => (
           <li>
@@ -282,7 +299,24 @@ const { data } = Astro.props;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      scroll-padding-inline: 0.15rem;
       padding-bottom: 0.5rem;
+    }
+
+    .audience-list::-webkit-scrollbar,
+    .steps-panel ol::-webkit-scrollbar {
+      display: none;
+    }
+
+    .audience-list:focus-visible,
+    .steps-panel ol:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--system) 34%, transparent);
+      outline-offset: 3px;
+    }
+
+    .steps-panel ol:focus-visible {
+      outline-color: color-mix(in srgb, var(--accent) 64%, transparent);
     }
 
     .audience-list {

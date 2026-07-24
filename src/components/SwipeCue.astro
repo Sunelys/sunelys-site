@@ -1,0 +1,91 @@
+---
+interface Props {
+  label?: string;
+  tone?: "light" | "dark";
+}
+
+const { label = "Faites glisser pour explorer", tone = "light" } = Astro.props;
+---
+
+<div class:list={["swipe-cue", `is-${tone}`]} aria-hidden="true">
+  <span>{label}</span>
+  <i><b></b></i>
+  <strong>→</strong>
+</div>
+
+<style>
+  .swipe-cue {
+    display: none;
+  }
+
+  @media (max-width: 620px) {
+    .swipe-cue {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.45rem;
+      min-height: 1.35rem;
+      color: var(--text-muted);
+      font-size: 0.66rem;
+      font-weight: 720;
+      letter-spacing: 0.015em;
+    }
+
+    .swipe-cue i {
+      position: relative;
+      width: 2.25rem;
+      height: 2px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: color-mix(in srgb, var(--text-muted) 20%, transparent);
+    }
+
+    .swipe-cue i b {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 48%;
+      border-radius: inherit;
+      background: var(--system);
+      animation: swipe-cue 1.8s ease-in-out infinite;
+    }
+
+    .swipe-cue strong {
+      color: var(--system);
+      font-size: 0.88rem;
+    }
+
+    .swipe-cue.is-dark {
+      color: rgba(255, 255, 255, 0.58);
+    }
+
+    .swipe-cue.is-dark i {
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .swipe-cue.is-dark i b {
+      background: var(--accent);
+    }
+
+    .swipe-cue.is-dark strong {
+      color: var(--accent);
+    }
+  }
+
+  @keyframes swipe-cue {
+    0%,
+    15% {
+      transform: translateX(0);
+    }
+
+    65%,
+    100% {
+      transform: translateX(115%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .swipe-cue i b {
+      animation: none;
+    }
+  }
+</style>

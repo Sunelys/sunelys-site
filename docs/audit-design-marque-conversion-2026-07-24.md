@@ -1067,3 +1067,44 @@ Le neuvième lot transforme les recommandations de l’audit de production en am
 - menu mobile, sommaire, progression et ancre de formulaire testés ;
 - aucune erreur ni aucun avertissement dans la console ;
 - absence de débordement horizontal à 390 px et 1 512 px.
+
+## Prototype v10 publié le 24 juillet 2026
+
+Le dixième lot ajoute une couche d’interaction et de lisibilité sans déplacer les appels à l’action ni alourdir le parcours.
+
+### Portail plus vivant
+
+- progression des trois statuts animée à l’arrivée dans le premier écran ;
+- décalage très léger des lignes pour donner l’impression d’un pilotage actif ;
+- statut temps réel signalé par une pulsation sobre ;
+- toutes les animations sont neutralisées si l’utilisateur demande une réduction des mouvements.
+
+### Preuve client structurée
+
+- chaque témoignage est désormais lu comme un mini-parcours : besoin, relais Sunelys, effet cité ;
+- informations exclusivement dérivées des témoignages autorisés de SUN WATT FRANCE et Be Travaux ;
+- aucun volume, délai ou résultat chiffré supplémentaire inventé ;
+- composition compacte sur ordinateur et conservée dans la séquence horizontale mobile.
+
+### Guidage tactile
+
+- ajout d’un repère animé « faites glisser » avant les chiffres, formats, étapes, expertises et témoignages ;
+- prochaine carte volontairement visible pour rendre le geste évident ;
+- barres horizontales accessibles au clavier avec un focus visible ;
+- barres de défilement techniques masquées sans supprimer le défilement tactile ;
+- exploration des séquences suivie comme événement d’engagement, une seule fois par séquence.
+
+### Menu et accessibilité
+
+- arrière-plan rendu inerte lorsque la navigation plein écran est ouverte ;
+- focus envoyé sur le premier lien après l’ouverture ;
+- touche Échap testée avec retour du focus sur le bouton du menu ;
+- restauration correcte de la page et de la barre d’action après fermeture.
+
+### Vérifications
+
+- compilation Astro complète réussie ;
+- contrôles visuels des nouveaux cas clients sur ordinateur et mobile ;
+- premier écran, séquences tactiles et navigation plein écran vérifiés à 390 × 844 px ;
+- absence de débordement horizontal du document à 390 px ;
+- hauteur mobile de la home maintenue autour de 8 600 px malgré l’enrichissement des preuves.

@@ -103,11 +103,20 @@ const {
     const nav = header.querySelector("#main-navigation");
     if (!(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
 
-    const closeMenu = () => {
+    const pageSurfaces = document.querySelectorAll("body > main, body > footer, body > .sticky-lead-bar");
+    const setPageInert = (isInert) => {
+      pageSurfaces.forEach((surface) => {
+        if (surface instanceof HTMLElement) surface.inert = isInert;
+      });
+    };
+
+    const closeMenu = (restoreFocus = false) => {
       header.removeAttribute("data-menu-open");
       document.documentElement.classList.remove("menu-open");
       toggle.setAttribute("aria-expanded", "false");
       toggle.setAttribute("aria-label", "Ouvrir le menu");
+      setPageInert(false);
+      if (restoreFocus) toggle.focus({ preventScroll: true });
     };
 
     const openMenu = () => {
@@ -115,23 +124,29 @@ const {
       document.documentElement.classList.add("menu-open");
       toggle.setAttribute("aria-expanded", "true");
       toggle.setAttribute("aria-label", "Fermer le menu");
+      setPageInert(true);
+
+      const firstMenuLink = nav.querySelector("a");
+      if (firstMenuLink instanceof HTMLAnchorElement) {
+        window.setTimeout(() => firstMenuLink.focus({ preventScroll: true }), 220);
+      }
     };
 
     toggle.addEventListener("click", () => {
       if (toggle.getAttribute("aria-expanded") === "true") {
-        closeMenu();
+        closeMenu(false);
       } else {
         openMenu();
       }
     });
 
-    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu(false)));
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closeMenu();
+      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") closeMenu(true);
     });
 
-    window.matchMedia("(min-width: 1081px)").addEventListener?.("change", closeMenu);
+    window.matchMedia("(min-width: 1081px)").addEventListener?.("change", () => closeMenu(false));
   });
 </script>
 

@@ -1,4 +1,6 @@
 ---
+import SwipeCue from "./SwipeCue.astro";
+
 interface ServiceCard {
   label: string;
   title: string;
@@ -50,7 +52,15 @@ const { data } = Astro.props;
     }
   </div>
 
-  <div class="services-grid">
+  <SwipeCue label="5 expertises à parcourir" />
+
+  <div
+    class="services-grid"
+    aria-label="Expertises Sunelys — utilisez les flèches horizontales pour les parcourir"
+    tabindex="0"
+    data-scroll-rail
+    data-scroll-label="expertises"
+  >
     {
       data.cards.map((card, index) => (
         <article class="service-card" data-reveal-item>
@@ -286,8 +296,19 @@ const { data } = Astro.props;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       overscroll-behavior-inline: contain;
+      scrollbar-width: none;
+      scroll-padding-inline: 0.15rem;
       border: 0;
       padding-bottom: 0.5rem;
+    }
+
+    .services-grid::-webkit-scrollbar {
+      display: none;
+    }
+
+    .services-grid:focus-visible {
+      outline: 3px solid color-mix(in srgb, var(--system) 34%, transparent);
+      outline-offset: 3px;
     }
 
     .service-card,
