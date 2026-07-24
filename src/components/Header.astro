@@ -17,6 +17,9 @@ const {
   ctaHref = "/contact",
   ctaLabel = "Diagnostic sous 24h",
 } = Astro.props;
+
+const contactEmail = "contact@sunelys.fr";
+const founderName = "Myriam Zaoui";
 ---
 
 <header class="site-header" data-site-header>
@@ -66,6 +69,11 @@ const {
     </nav>
 
     <div class="header-actions">
+      <div class="header-contact-chip" aria-label={`Contact ${founderName}`}>
+        <span>{founderName}</span>
+        <a href={`mailto:${contactEmail}`} data-track="header_email">{contactEmail}</a>
+      </div>
+
       <a
         class="portal-link"
         href="https://portail.sunelys.fr/login"
@@ -240,6 +248,35 @@ const {
     gap: 0.72rem;
   }
 
+  .header-contact-chip {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.16rem;
+    min-height: 2.4rem;
+    padding: 0.1rem 0.6rem 0.1rem 0;
+    border-left: 1px solid color-mix(in srgb, var(--line) 55%, transparent);
+    color: var(--text-muted);
+  }
+
+  .header-contact-chip span {
+    font-size: 0.68rem;
+    font-weight: 680;
+    letter-spacing: 0.02em;
+  }
+
+  .header-contact-chip a {
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 710;
+    text-decoration: none;
+  }
+
+  .header-contact-chip a:hover,
+  .header-contact-chip a:focus-visible {
+    color: var(--accent);
+  }
+
   .portal-link {
     display: inline-flex;
     align-items: center;
@@ -277,6 +314,10 @@ const {
 
   @media (max-width: 1180px) {
     .portal-link {
+      display: none;
+    }
+
+    .header-contact-chip {
       display: none;
     }
   }
