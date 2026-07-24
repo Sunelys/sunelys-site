@@ -103,6 +103,72 @@ const heroBadges = [
   "Diagnostic gratuit sous 24h",
 ];
 
+const heroBadgesBySlug: Record<string, string[]> = {
+  gestion_administrative: [
+    "Pilotage opérationnel du flux dossier",
+    "Pilotage sous 48h sur dossier complet",
+    "Moins de points de friction manuels",
+  ],
+  consuel_photovoltaique: [
+    "Préparation de dossier en phase de chantier",
+    "Contrôle documentaire avant envoi",
+    "Relances structurées jusqu'à validation",
+  ],
+  raccordement_enedis: [
+    "Dossier raccordement Enedis clarifié",
+    "Statuts centralisés, relances suivies",
+    "Diminution des allers-retours",
+  ],
+  declaration_prealable: [
+    "DP propre dès la première soumission",
+    "Check-list pièces techniques + administratives",
+    "Moins d'aller-retour en mairie",
+  ],
+  sous_traitance_declaration_prealable: [
+    "Externalisation encadrée DP",
+    "Responsable Sunelys dédié au suivi",
+    "Pilotage humain au-delà du formulaire",
+  ],
+  tarif_declaration_prealable: [
+    "Tarification simple par dossier",
+    "Sans engagement caché",
+    "Transparence sur le périmètre",
+  ],
+};
+
+const decisionBySlug: Record<string, string[]> = {
+  gestion_administrative: [
+    "Quel flux vous coûte le plus de temps ?",
+    "Quel est votre volume de dossiers mensuel ?",
+    "Quels blocages vous coûtent le plus en production ?",
+  ],
+  consuel_photovoltaique: [
+    "La mise en service bloque vos chantiers ?",
+    "Vos pièces sont-elles validées avant envoi ?",
+    "Qui suit les demandes de complément ?",
+  ],
+  raccordement_enedis: [
+    "Vos demandes Enedis restent-elles sans réponse ?",
+    "Le dossier de raccordement manque-t-il de pièces ?",
+    "Vos statuts sont-ils visibles pour vos équipes ?",
+  ],
+  declaration_prealable: [
+    "Votre première DP a été refusée récemment ?",
+    "Vos pièces ont-elles été standardisées ?",
+    "Quelle étape bloque la signature client ?",
+  ],
+  sous_traitance_declaration_prealable: [
+    "Votre équipe peut-elle continuer à vendre sereinement ?",
+    "Quel délai de reprise voulez-vous gagner ?",
+    "Quels risques acceptez-vous de porter encore ?",
+  ],
+  tarif_declaration_prealable: [
+    "Vous cherchez une visibilité budgétaire simple ?",
+    "Quel volume avez-vous par mois ?",
+    "Vous préférez un coût par dossier stable ?",
+  ],
+};
+
 const serviceInterestBySlug: Record<string, string> = {
   gestion_administrative: "Pilotage complet DP, Consuel et raccordement",
   consuel_photovoltaique: "Dossier Consuel photovoltaïque",
@@ -124,10 +190,21 @@ const heroSecondaryCta =
   (isGestionLanding
     ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
     : { label: "Voir les services", href: "/services" });
-const heroPrimaryLabel = data.heroPrimaryLabel ?? "Recevoir mon diagnostic gratuit";
+const heroPrimaryLabel = data.heroPrimaryLabel ?? "Décrire mon dossier";
+const quickSubmitLabel = data.quickFormSubmitLabel ?? (isGestionLanding ? "Recevoir mon plan d'action" : "Décrire mon dossier");
 const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
 const finalSubmitLabel = isGestionLanding ? "Recevoir mon plan d'action" : "Recevoir mon diagnostic";
 const diagnosticLabel = data.diagnosticLabel ?? "Étape bloquée";
+const serviceBadges = heroBadgesBySlug[data.slug] || heroBadges;
+const decisionStrip = decisionBySlug[data.slug] || [
+  "Votre point de friction principal aujourd'hui",
+  "Le volume de dossiers à traiter",
+  "Le délai où ça coince le plus",
+];
+const quickFormPrompt =
+  isGestionLanding
+    ? "Choisissez la première étape et on vous renvoie un plan de priorisation par ordre de valeur."
+    : "En 2 minutes, on situe votre point de friction et on trace votre prochaine action.";
 const diagnosticOptions =
   data.diagnosticOptions ?? [
     { value: "Avant dépôt", label: "Avant dépôt" },
@@ -185,11 +262,11 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       {
         data.conversionOffer && (
           <div
-            class="hero-conversion-offer"
-            aria-label={`${data.conversionOffer.label} à ${data.conversionOffer.price} HT par dossier`}
-            data-track-view="service_offer_view"
-            data-track-label={data.slug}
-          >
+        class="hero-conversion-offer"
+        aria-label={`${data.conversionOffer.label} à ${data.conversionOffer.price} HT par dossier`}
+        data-track-view="service_offer_view"
+        data-track-label={data.slug}
+      >
             <div class="conversion-offer-head">
               <div>
                 <span>{data.conversionOffer.eyebrow}</span>
@@ -208,9 +285,17 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         )
       }
 
-      <ul class="hero-badges" aria-label="Informations clés Sunelys">
-        {heroBadges.map((badge) => <li>{badge}</li>)}
+        <ul class="hero-badges" aria-label="Informations clés Sunelys">
+        {serviceBadges.map((badge) => <li>{badge}</li>)}
       </ul>
+
+      <div class="hero-fit-card" data-track-view="service_decision_view" aria-label="Point de départ du diagnostic">
+        <p class="kicker">Décision rapide</p>
+        <p>{quickFormPrompt}</p>
+        <ul class="hero-badges" aria-label="Questions de cadrage">
+          {decisionStrip.map((item) => <li>{item}</li>)}
+        </ul>
+      </div>
 
       {
         isGestionLanding && (
@@ -301,10 +386,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
               {diagnosticOptions.map((option) => <option value={option.value}>{option.label}</option>)}
             </select>
           </label>
-          <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
-            {data.quickFormSubmitLabel ?? "Recevoir mon plan d'action"}
+        <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
+            {quickSubmitLabel}
           </button>
-          <small>{data.quickFormNote ?? "Email, volume et blocage. Téléphone optionnel."}</small>
+          <small>{data.quickFormNote ?? "Email requis. Volume et blocage obligatoires. Téléphone optionnel."}</small>
           <FormPrivacyNote />
         </form>
       </article>
