@@ -1464,3 +1464,28 @@ Le vingt-deuxième lot fiabilise la mesure avant toute nouvelle optimisation vis
 - conversion Google Ads déclenchée uniquement après création confirmée du lead ;
 - déduplication des confirmations sur une même page ;
 - aucune adresse, aucun nom, aucun téléphone et aucune valeur libre transmis aux outils d'audience.
+
+## Prototype v23 — pages transactionnelles Raccordement et DP
+
+Le vingt-troisième lot renforce les deux pages de service qui avaient reçu une intention forte sans demande identifiée sur la période de référence.
+
+### Offre visible dès le premier écran
+
+- tarif « Raccordement + Consuel » affiché à 89 € HT par dossier ;
+- tarif « Déclaration préalable complète » affiché à 119 € HT par dossier ;
+- périmètre, facturation au dossier, absence d'abonnement et acceptation d'un dossier ponctuel réunis avant le premier CTA ;
+- balisage d'offre ajouté aux données structurées des deux pages.
+
+### Diagnostic contextualisé
+
+- CTA principal relié directement au formulaire déjà présent dans le premier écran ;
+- intitulés et boutons adaptés à la démarche consultée ;
+- choix génériques remplacés par les situations réelles d'un raccordement ou d'une DP ;
+- tarif détaillé conservé en action secondaire pour les visiteurs qui veulent comparer avant de laisser leurs coordonnées.
+
+### Preuve et mesure
+
+- témoignage DP remplacé par le retour autorisé de SUN WATT FRANCE, directement lié aux déclarations préalables ;
+- aucun chiffre, tarif ou résultat supplémentaire inventé ;
+- exposition de l'offre et du formulaire rapide mesurée séparément ;
+- parcours désormais lisible de la vue de l'offre jusqu'au lead confirmé.

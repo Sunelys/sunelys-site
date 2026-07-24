@@ -15,6 +15,24 @@ export interface SeoPageData {
   metaDescription: string;
   heroTitle: string;
   heroSubtitle: string;
+  heroPrimaryLabel?: string;
+  heroSecondaryCta?: {
+    label: string;
+    href: string;
+  };
+  conversionOffer?: {
+    eyebrow: string;
+    label: string;
+    price: string;
+    priceNote: string;
+    scope: string;
+    terms: string[];
+  };
+  quickFormTitle?: string;
+  quickFormSubmitLabel?: string;
+  quickFormNote?: string;
+  diagnosticLabel?: string;
+  diagnosticOptions?: Array<{ value: string; label: string }>;
   fitTitle: string;
   fitIntro: string;
   fitItems: string[];
@@ -412,6 +430,35 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète",
     heroSubtitle:
       "Sunelys centralise les étapes administratives du raccordement Enedis pour sécuriser les délais et simplifier le pilotage de vos équipes.",
+    heroPrimaryLabel: "Faire cadrer mon raccordement",
+    heroSecondaryCta: {
+      label: "Voir le tarif détaillé",
+      href: "/tarifs#tarifs-photovoltaique",
+    },
+    conversionOffer: {
+      eyebrow: "Offre réseau",
+      label: "Raccordement + Consuel",
+      price: "89 €",
+      priceNote: "HT / dossier",
+      scope: "Demande, gestion des échanges, validation et mise en service.",
+      terms: [
+        "Dossier ponctuel accepté",
+        "Aucun abonnement",
+        "Facturation au réel",
+      ],
+    },
+    quickFormTitle: "Où votre raccordement bloque-t-il aujourd'hui ?",
+    quickFormSubmitLabel: "Recevoir mon plan de reprise",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier jalon à reprendre sous 24h.",
+    diagnosticLabel: "Situation raccordement",
+    diagnosticOptions: [
+      { value: "Raccordement à déposer", label: "Demande à déposer" },
+      { value: "Raccordement en attente", label: "Raccordement en attente" },
+      { value: "Consuel à préparer", label: "Consuel à préparer" },
+      { value: "Mise en service bloquée", label: "Mise en service bloquée" },
+      { value: "Pilotage global", label: "Plusieurs étapes à reprendre" },
+      { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
+    ],
     fitTitle: "Quand le raccordement devient une suite de jalons flous et de relances dispersées.",
     fitIntro:
       "Cette page est pensée pour les installateurs qui veulent sortir du brouillard sur les demandes Enedis, les pièces, les retours et les dépendances chantier.",
@@ -523,9 +570,9 @@ export const seoPages: Record<string, SeoPageData> = {
           "Oui, le modèle est conçu pour des flux centralisés ou répartis entre plusieurs équipes.",
       },
     ],
-    finalTitle: "Externalisez l'administratif photovoltaïque.",
+    finalTitle: "Quel raccordement faut-il reprendre en priorité ?",
     finalText:
-      "Recevez un cadrage gratuit pour sécuriser votre pilotage de raccordement Enedis.",
+      "Indiquez votre volume et le jalon concerné. Sunelys vous répond avec le premier périmètre utile, sans engagement.",
     guideLinks: [
       {
         href: "/blog/etapes-raccordement-enedis-panneaux-solaires",
@@ -577,6 +624,34 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Déclaration préalable panneaux solaires pour installateurs",
     heroSubtitle:
       "Sunelys gère le cadrage, les pièces, le dépôt mairie et le suivi des retours pour fiabiliser vos DP photovoltaïques sans charger vos équipes.",
+    heroPrimaryLabel: "Faire cadrer ma déclaration préalable",
+    heroSecondaryCta: {
+      label: "Voir le tarif détaillé",
+      href: "/tarifs#tarifs-photovoltaique",
+    },
+    conversionOffer: {
+      eyebrow: "Offre DP complète",
+      label: "Déclaration préalable complète",
+      price: "119 €",
+      priceNote: "HT / dossier",
+      scope: "Pièces, dépôt en mairie et suivi de l'instruction jusqu'à validation.",
+      terms: [
+        "Dossier ponctuel accepté",
+        "Aucun abonnement",
+        "Dépôt et suivi inclus",
+      ],
+    },
+    quickFormTitle: "Dans quelle situation se trouve votre DP ?",
+    quickFormSubmitLabel: "Recevoir mon cadrage DP",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique les pièces ou l'étape à reprendre sous 24h.",
+    diagnosticLabel: "Situation de la DP",
+    diagnosticOptions: [
+      { value: "Avant dépôt", label: "Dossier à préparer" },
+      { value: "Complément mairie", label: "Complément demandé par la mairie" },
+      { value: "DP refusée", label: "Déclaration préalable refusée" },
+      { value: "Flux DP à déléguer", label: "Flux régulier à déléguer" },
+      { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
+    ],
     fitTitle: "Quand chaque dépôt mairie doit partir propre du premier coup.",
     fitIntro:
       "Cette page est faite pour les installateurs qui veulent éviter les demandes de pièces complémentaires, lisser leurs délais et donner un vrai cadre à leurs dépôts de DP pour panneaux solaires en toiture.",
@@ -588,13 +663,13 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     proof: {
       quote:
-        "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
-      author: "Victorion Brice",
-      role: "gérant de Be Travaux",
+        "Nous sommes ravis des services de Sunelys. Les dossiers sont cadrés sérieusement, les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
+      author: "Damien Guillaume",
+      role: "dirigeant de SUN WATT FRANCE",
       highlights: [
-        "Délais mieux suivis dès le dépôt",
-        "Pilotage plus lisible pour les équipes",
-        "Chantiers installés plus rapidement",
+        "96 % de DP sans pièce complémentaire",
+        "Dossiers cadrés sérieusement",
+        "Témoignage publié avec accord",
       ],
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
@@ -731,9 +806,9 @@ export const seoPages: Record<string, SeoPageData> = {
           "Oui. L'objectif est de soulager vos équipes sans brouiller la relation client: les informations utiles sont centralisées et les retours sont suivis avec un statut lisible.",
       },
     ],
-    finalTitle: "Externalisez l'administratif photovoltaïque.",
+    finalTitle: "Quelle partie de vos DP faut-il sortir de l'équipe ?",
     finalText:
-      "Recevez un cadrage gratuit pour fiabiliser vos dépôts de déclaration préalable.",
+      "Indiquez votre volume et la situation actuelle. Sunelys vous répond avec les pièces ou le périmètre à reprendre en priorité.",
     guideLinks: [
       {
         href: "/blog/cerfa-declaration-prealable-panneaux-solaires",

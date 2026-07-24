@@ -44,6 +44,24 @@ interface SeoPageContent {
   slug: string;
   heroTitle: string;
   heroSubtitle: string;
+  heroPrimaryLabel?: string;
+  heroSecondaryCta?: {
+    label: string;
+    href: string;
+  };
+  conversionOffer?: {
+    eyebrow: string;
+    label: string;
+    price: string;
+    priceNote: string;
+    scope: string;
+    terms: string[];
+  };
+  quickFormTitle?: string;
+  quickFormSubmitLabel?: string;
+  quickFormNote?: string;
+  diagnosticLabel?: string;
+  diagnosticOptions?: Array<{ value: string; label: string }>;
   fitTitle: string;
   fitIntro: string;
   fitItems: string[];
@@ -101,12 +119,27 @@ const signatureVariant = data.slug.includes("tarif")
   : isGestionLanding
     ? "flow"
     : "editorial";
-const heroSecondaryCta = isGestionLanding
-  ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
-  : { label: "Voir les services", href: "/services" };
-const heroPrimaryLabel = "Recevoir mon diagnostic gratuit";
+const heroSecondaryCta =
+  data.heroSecondaryCta ??
+  (isGestionLanding
+    ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
+    : { label: "Voir les services", href: "/services" });
+const heroPrimaryLabel = data.heroPrimaryLabel ?? "Recevoir mon diagnostic gratuit";
 const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
 const finalSubmitLabel = isGestionLanding ? "Recevoir mon plan d'action" : "Recevoir mon diagnostic";
+const diagnosticLabel = data.diagnosticLabel ?? "Étape bloquée";
+const diagnosticOptions =
+  data.diagnosticOptions ?? [
+    { value: "Avant dépôt", label: "Avant dépôt" },
+    { value: "Complément mairie", label: "Complément mairie" },
+    { value: "Consuel à préparer", label: "Consuel à préparer" },
+    { value: "Raccordement en attente", label: "Raccordement en attente" },
+    { value: "Dossier d'aide à déposer", label: "Dossier d'aide à déposer" },
+    { value: "Prime à suivre", label: "Prime à suivre" },
+    { value: "Mise en service bloquée", label: "Mise en service bloquée" },
+    { value: "Pilotage global", label: "Pilotage global" },
+    { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
+  ];
 
 const outcomeItems = [
   "Moins de charge administrative pour vos équipes",
@@ -149,6 +182,32 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         Un pilotage administratif solaire exigeant, pensé pour les installateurs qui veulent grandir sans perdre le contrôle.
       </p>
 
+      {
+        data.conversionOffer && (
+          <div
+            class="hero-conversion-offer"
+            aria-label={`${data.conversionOffer.label} à ${data.conversionOffer.price} HT par dossier`}
+            data-track-view="service_offer_view"
+            data-track-label={data.slug}
+          >
+            <div class="conversion-offer-head">
+              <div>
+                <span>{data.conversionOffer.eyebrow}</span>
+                <strong>{data.conversionOffer.label}</strong>
+              </div>
+              <p>
+                <strong>{data.conversionOffer.price}</strong>
+                <span>{data.conversionOffer.priceNote}</span>
+              </p>
+            </div>
+            <p class="conversion-offer-scope">{data.conversionOffer.scope}</p>
+            <ul>
+              {data.conversionOffer.terms.map((term) => <li>{term}</li>)}
+            </ul>
+          </div>
+        )
+      }
+
       <ul class="hero-badges" aria-label="Informations clés Sunelys">
         {heroBadges.map((badge) => <li>{badge}</li>)}
       </ul>
@@ -173,7 +232,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       }
 
       <div class="hero-actions">
-        <a class="btn btn-accent" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
+        <a class="btn btn-accent" href={`#service-quick-${data.slug}`} data-track={`cta_${data.slug}_hero`}>
           {heroPrimaryLabel}
         </a>
         <a class="btn btn-secondary" href={heroSecondaryCta.href} data-track={`cta_${data.slug}_hero_services`}>
@@ -183,9 +242,15 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     </div>
 
     <aside class="hero-aside" data-reveal-item>
-      <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
-        <p class="kicker">Diagnostic sous 24h</p>
-        <h2>Identifiez le premier flux administratif à déléguer.</h2>
+      <article
+        id={`service-quick-${data.slug}`}
+        class="hero-lead-card"
+        aria-label="Demande de cadrage rapide"
+        data-track-view="service_quick_form_view"
+        data-track-label={data.slug}
+      >
+        <p class="kicker">Réponse personnalisée sous 24h</p>
+        <h2>{data.quickFormTitle ?? "Identifiez le premier flux administratif à déléguer."}</h2>
         <form
           class="hero-service-form"
           action={leadFormAction}
@@ -230,24 +295,16 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             </select>
           </label>
           <label>
-            <span>Étape bloquée</span>
+            <span>{diagnosticLabel}</span>
             <select name="blocked_stage" required>
               <option value="">Sélectionner</option>
-              <option value="Avant dépôt">Avant dépôt</option>
-              <option value="Complément mairie">Complément mairie</option>
-              <option value="Consuel à préparer">Consuel à préparer</option>
-              <option value="Raccordement en attente">Raccordement en attente</option>
-              <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
-              <option value="Prime à suivre">Prime à suivre</option>
-              <option value="Mise en service bloquée">Mise en service bloquée</option>
-              <option value="Pilotage global">Pilotage global</option>
-              <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+              {diagnosticOptions.map((option) => <option value={option.value}>{option.label}</option>)}
             </select>
           </label>
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
-            Recevoir mon plan d'action
+            {data.quickFormSubmitLabel ?? "Recevoir mon plan d'action"}
           </button>
-          <small>Email, volume et blocage. Téléphone optionnel.</small>
+          <small>{data.quickFormNote ?? "Email, volume et blocage. Téléphone optionnel."}</small>
           <FormPrivacyNote />
         </form>
       </article>
@@ -759,18 +816,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       </select>
     </label>
     <label>
-      <span>Étape bloquée</span>
+      <span>{diagnosticLabel}</span>
       <select name="blocked_stage" required>
         <option value="">Sélectionner</option>
-        <option value="Avant dépôt">Avant dépôt</option>
-        <option value="Complément mairie">Complément mairie</option>
-        <option value="Consuel à préparer">Consuel à préparer</option>
-        <option value="Raccordement en attente">Raccordement en attente</option>
-        <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
-        <option value="Prime à suivre">Prime à suivre</option>
-        <option value="Mise en service bloquée">Mise en service bloquée</option>
-        <option value="Pilotage global">Pilotage global</option>
-        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+        {diagnosticOptions.map((option) => <option value={option.value}>{option.label}</option>)}
       </select>
     </label>
     <label>
@@ -1807,6 +1856,98 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     font-size: 1rem;
   }
 
+  .hero-conversion-offer {
+    display: grid;
+    gap: 0.72rem;
+    max-width: 42rem;
+    margin-top: 1.15rem;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.045));
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .conversion-offer-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .conversion-offer-head > div,
+  .conversion-offer-head > p {
+    display: grid;
+    gap: 0.15rem;
+  }
+
+  .conversion-offer-head > div > span {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .conversion-offer-head > div > strong {
+    color: #ffffff;
+    font-size: clamp(1rem, 1.35vw, 1.3rem);
+    line-height: 1.1;
+  }
+
+  .conversion-offer-head > p {
+    flex: 0 0 auto;
+    margin: 0;
+    text-align: right;
+  }
+
+  .conversion-offer-head > p > strong {
+    color: var(--accent);
+    font-size: clamp(1.6rem, 3vw, 2.55rem);
+    letter-spacing: -0.045em;
+    line-height: 0.88;
+  }
+
+  .conversion-offer-head > p > span {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.58rem;
+    font-weight: 650;
+    text-transform: uppercase;
+  }
+
+  .seo-hero .hero-conversion-offer .conversion-offer-scope {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.76rem;
+    line-height: 1.5;
+  }
+
+  .hero-conversion-offer ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hero-conversion-offer li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    color: rgba(255, 255, 255, 0.56);
+    font-size: 0.62rem;
+    line-height: 1.3;
+  }
+
+  .hero-conversion-offer li::before {
+    content: "✓";
+    color: var(--success);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
   .seo-hero .hero-actions {
     margin-top: 1.35rem;
   }
@@ -1823,6 +1964,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
   .hero-lead-card {
     overflow: hidden;
+    scroll-margin-top: 6rem;
     padding: clamp(1rem, 2.2vw, 1.45rem);
     border-color: rgba(255, 255, 255, 0.16);
     border-radius: 16px;
@@ -3645,6 +3787,20 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     .seo-transformation {
       padding: 1rem;
+    }
+
+    .conversion-offer-head {
+      align-items: start;
+    }
+
+    .conversion-offer-head > p > strong {
+      font-size: 1.6rem;
+    }
+
+    .hero-conversion-offer ul {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.38rem;
     }
 
     .transformation-head > p {
