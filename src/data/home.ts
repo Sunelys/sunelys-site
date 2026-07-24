@@ -370,10 +370,10 @@ export const methodSectionData = {
 
 export const servicesSectionData = {
   kicker: "Services",
-  title: "Les démarches administratives photovoltaïques que vous pouvez déléguer.",
+  title: "La bonne brique administrative à déléguer au bon moment.",
   pricing: {
     eyebrow: "Tarifs fixes",
-    text: "Dossiers photovoltaïques à partir de 89 € HT, sans abonnement ni volume minimum.",
+    text: "Forfaits par dossier à partir de 89 € HT, sans abonnement ni volume minimum.",
     href: "/tarifs",
     label: "Comparer les tarifs",
     track: "cta_services_pricing",
@@ -382,6 +382,7 @@ export const servicesSectionData = {
     {
       label: "Service 01",
       title: "Déclaration préalable",
+      stage: "Avant dépôt",
       benefit: "Des dossiers complets pour limiter les refus et sécuriser le lancement chantier.",
       description:
         "Constitution, vérification des pièces, dépôt et suivi mairie jusqu'au retour administratif.",
@@ -392,6 +393,7 @@ export const servicesSectionData = {
     {
       label: "Service 02",
       title: "Consuel",
+      stage: "Mise en service",
       benefit: "Un suivi structuré pour réduire les retours et accélérer les mises en service.",
       description:
         "Préparation du dossier, coordination des pièces, suivi des demandes et accompagnement jusqu'à validation.",
@@ -402,6 +404,7 @@ export const servicesSectionData = {
     {
       label: "Service 03",
       title: "Raccordement",
+      stage: "Réseau",
       benefit: "Une coordination Enedis plus lisible pour mieux maîtriser les délais réseau.",
       description:
         "Suivi des étapes, relances, pièces attendues et traçabilité complète du parcours raccordement.",
@@ -412,6 +415,7 @@ export const servicesSectionData = {
     {
       label: "Service 04",
       title: "EDF OA",
+      stage: "Contrat d'achat",
       benefit: "Un espace producteur activé et un contrat d'achat suivi jusqu'à signature.",
       description:
         "Vérification des références, accompagnement à l'activation, suivi du dossier EDF OA et sécurisation de la signature client.",
@@ -422,6 +426,7 @@ export const servicesSectionData = {
     {
       label: "Service 05",
       title: "MaPrimeRénov' + CEE",
+      stage: "Aides",
       benefit: "Des dossiers d'aides montés et suivis jusqu'à validation.",
       description:
         "Éligibilité, dépôt ANAH, contrôle CEE, pièces client et suivi jusqu'au versement ou à la validation.",

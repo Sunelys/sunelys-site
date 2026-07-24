@@ -1598,3 +1598,28 @@ Le vingt-septième lot renforce la section « Portail Sunelys » pour en faire u
 - bénéfices reformulés autour de l'ouverture, de la centralisation et du partage d'avancement ;
 - événement `portal_demo_view` conservé sur les changements d'onglet ;
 - exposition de la section ajoutée avec `homepage_portal_view`.
+
+## Prototype v28 — services en matrice de délégation
+
+Le vingt-huitième lot retravaille la section « Services » pour que le visiteur identifie plus vite la brique administrative à déléguer.
+
+### Clarté commerciale
+
+- titre recentré sur le bon moment de délégation ;
+- note tarifaire reformulée en forfaits par dossier à partir de 89 € HT ;
+- lien de comparaison des tarifs conservé ;
+- aucune modification des pages de destination ni des périmètres de service.
+
+### Matrice de choix
+
+- les cinq services sont conservés : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' + CEE ;
+- chaque service reçoit un moment de lecture : avant dépôt, mise en service, réseau, contrat d'achat, aides ;
+- les trois briques photovoltaïques principales gardent une présence plus forte ;
+- EDF OA et aides restent visibles comme compléments de chaîne administrative.
+
+### Design et mesure
+
+- ancienne grille très homogène remplacée par une matrice plus éditoriale ;
+- cartes allégées, séparateurs plus fins et hiérarchie plus nette ;
+- rail mobile conservé pour parcourir les cinq briques ;
+- exposition de la section suivie avec `homepage_services_view`.
