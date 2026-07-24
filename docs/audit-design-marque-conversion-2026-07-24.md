@@ -1200,3 +1200,37 @@ Le treizième lot remplace les trois sections séparées « FAQ », « À lire a
 - hauteur mobile ramenée d'environ 11 993 à 11 491 px ;
 - absence de débordement horizontal à 390 px et 1 512 px ;
 - navigation clavier, ressources repliables et arrivée sur le formulaire testées.
+
+## Prototype v14 — harmonisation des pages spéciales
+
+Le quatorzième lot aligne les pages EDF OA et Sous-traitance administrative sur le langage visuel et commercial désormais utilisé par les pages de prestation détaillées.
+
+### FAQ partagée et orientée action
+
+- création d'un centre FAQ réutilisable pour les pages à parcours spécifique ;
+- première réponse ouverte par défaut et une seule réponse visible à la fois ;
+- panneau de décision adapté à chaque offre plutôt qu'une conclusion générique ;
+- lien d'action ajouté dans chaque réponse ;
+- réponses intégralement conservées dans les données structurées FAQ.
+
+### EDF OA
+
+- prix de 49 € HT rendu visible avant le premier appel à l'action sur mobile ;
+- FAQ reliée directement à la création d'une demande portail ou au cadrage Sunelys ;
+- rappels de sécurité et de périmètre regroupés dans le panneau de décision ;
+- source officielle EDF OA conservée.
+
+### Sous-traitance administrative
+
+- repère « dès 89 € HT » rendu visible dans le premier écran mobile ;
+- FAQ transformée en point de départ vers un premier dossier test ;
+- lien direct vers le diagnostic et accès secondaire aux tarifs ;
+- compensation de l'en-tête fixe ajoutée à l'ancre du formulaire.
+
+### Vérifications
+
+- compilation Astro complète réussie ;
+- absence de débordement horizontal à 390 px et 1 512 px ;
+- ouverture unique des réponses testée au clavier ;
+- liens portail, contact, tarifs et diagnostic contrôlés ;
+- arrivée sur le diagnostic sans masquage par l'en-tête fixe.

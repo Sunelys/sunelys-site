@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+import CompactFaqCenter from "../components/CompactFaqCenter.astro";
 
 const canonicalUrl = "https://sunelys.fr/sous-traitance-administrative-photovoltaique-installateur";
 
@@ -126,6 +127,10 @@ const structuredData = [
         DP, raccordement Enedis, Consuel, MaPrimeRénov' et CEE. Vous gardez la relation client,
         nous cadrons les pièces, les dépôts et les relances.
       </p>
+      <p class="hero-mobile-offer" aria-label="Repère tarifaire">
+        <strong>Dès 89 € HT</strong>
+        <span>par dossier · prix fixes</span>
+      </p>
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#blocked-diagnostic-sous_traitance_admin_pv_installateur" data-track="cta_subcontract_hero_diagnostic">
           Cadrer un dossier
@@ -214,20 +219,31 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="subcontract-section faq-section">
-    <div class="section-head">
-      <p class="eyebrow">Questions fréquentes</p>
-      <h2>Avant de déléguer.</h2>
-    </div>
-    <div class="faq-grid">
-      {faqItems.map((item) => (
-        <details data-reveal-item>
-          <summary>{item.question}</summary>
-          <p>{item.answer}</p>
-        </details>
-      ))}
-    </div>
-  </section>
+  <CompactFaqCenter
+    source="sous_traitance_admin_pv_installateur"
+    kicker="Avant de déléguer"
+    title="Trois réponses. Puis un premier dossier test."
+    intro="La sous-traitance peut commencer sur une seule brique, sans réorganisation lourde ni engagement de volume."
+    items={faqItems}
+    panelKicker="Point de départ"
+    panelTitle="Sortez d'abord le dossier qui ralentit le plus vos équipes."
+    panelText="Le diagnostic identifie le premier périmètre utile à déléguer selon votre volume, votre urgence et l'étape bloquée."
+    facts={[
+      "Dossier ponctuel accepté",
+      "Réponse sous 24h ouvrées",
+      "Prix fixes par prestation",
+    ]}
+    primaryAction={{
+      label: "Cadrer mon premier dossier",
+      href: "#blocked-diagnostic-sous_traitance_admin_pv_installateur",
+      track: "cta_subcontract_faq_diagnostic",
+    }}
+    secondaryAction={{
+      label: "Comparer les tarifs",
+      href: "/tarifs",
+      track: "cta_subcontract_faq_tarifs",
+    }}
+  />
 
   <BlockedDiagnostic
     source="sous_traitance_admin_pv_installateur"
@@ -913,6 +929,10 @@ const structuredData = [
     line-height: 1.65;
   }
 
+  .hero-mobile-offer {
+    display: none;
+  }
+
   @media (max-width: 980px) {
     .subcontract-hero,
     .split-section,
@@ -936,6 +956,30 @@ const structuredData = [
       margin-inline: calc(var(--container-padding) * -0.35);
       padding: 1.4rem;
       border-radius: var(--radius-md);
+    }
+
+    .hero-mobile-offer {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin: 0.2rem 0 0;
+      padding: 0.75rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-mobile-offer strong {
+      color: #ffffff;
+      font-size: 1.35rem;
+      line-height: 1;
+    }
+
+    .hero-mobile-offer span {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.67rem;
+      font-weight: 750;
+      text-align: right;
     }
 
     .hero-actions,

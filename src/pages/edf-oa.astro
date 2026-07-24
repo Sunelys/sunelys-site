@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import CompactFaqCenter from "../components/CompactFaqCenter.astro";
 
 const portalUrl = "https://portail.sunelys.fr/login";
 const contactUrl = "/contact?source=edf-oa#contact-form";
@@ -182,6 +183,11 @@ const structuredData = [
         suivi du dossier, gestion des compléments et accompagnement jusqu'à la signature électronique par le client final.
       </p>
 
+      <p class="hero-mobile-offer" aria-label="Tarif EDF OA">
+        <strong>49 € HT</strong>
+        <span>par dossier · sans abonnement</span>
+      </p>
+
       <div class="hero-actions" aria-label="Actions EDF OA">
         <a class="btn btn-primary btn-accent" href={portalUrl} data-track="cta_edf_oa_portal">
           Créer une demande EDF OA
@@ -310,29 +316,36 @@ const structuredData = [
     </div>
   </section>
 
-  <section class="faq-section section-shell reveal" aria-labelledby="faq-title">
-    <div class="section-heading" data-reveal-item>
-      <p class="eyebrow">FAQ EDF OA</p>
-      <h2 id="faq-title">Les questions que vos clients et vos équipes se posent avant signature.</h2>
-    </div>
-
-    <div class="faq-grid">
-      {faqItems.map((item) => (
-        <details class="faq-item" data-reveal-item>
-          <summary>{item.question}</summary>
-          <p>{item.answer}</p>
-        </details>
-      ))}
-    </div>
-
-    <div class="source-note" data-reveal-item>
-      <p>
-        Fonctionnement aligné sur les parcours EDF OA liés à l'espace producteur, au dossier de contrat
-        et à la signature électronique.
-      </p>
-      <a href="https://www.edf-oa.fr/" target="_blank" rel="noreferrer">Consulter EDF OA</a>
-    </div>
-  </section>
+  <CompactFaqCenter
+    source="edf_oa"
+    kicker="FAQ EDF OA"
+    title="Les réponses avant la signature. L'action juste après."
+    intro="Vos équipes gardent une lecture claire du parcours et votre client final conserve la maîtrise de ses accès sensibles."
+    items={faqItems}
+    panelKicker="Dossier prêt à avancer"
+    panelTitle="Votre demande EDF OA est déjà concrète ?"
+    panelText="Ouvrez directement le bon parcours depuis le portail, ou faites cadrer le dossier avant de démarrer."
+    facts={[
+      "49 € HT par dossier",
+      "Aucun abonnement ni minimum de volume",
+      "Aucun mot de passe ou code SMS demandé",
+    ]}
+    primaryAction={{
+      label: "Créer une demande EDF OA",
+      href: portalUrl,
+      track: "cta_edf_oa_faq_portal",
+    }}
+    secondaryAction={{
+      label: "Demander un cadrage",
+      href: contactUrl,
+      track: "cta_edf_oa_faq_contact",
+    }}
+    sourceNote="Fonctionnement aligné sur les parcours EDF OA liés à l'espace producteur, au contrat et à la signature électronique."
+    sourceLink={{
+      label: "Consulter EDF OA",
+      href: "https://www.edf-oa.fr/",
+    }}
+  />
 
   <section class="final-cta section-shell reveal" aria-labelledby="final-cta-title">
     <div data-reveal-item>
@@ -924,6 +937,10 @@ const structuredData = [
     margin-top: 1.5rem;
   }
 
+  .hero-mobile-offer {
+    display: none;
+  }
+
   .edf-hero .btn-secondary {
     border-color: rgba(255, 255, 255, 0.28);
     background: transparent;
@@ -1448,6 +1465,30 @@ const structuredData = [
       margin-inline: calc(var(--container-padding) * -0.35);
       padding: 1.4rem;
       border-radius: var(--radius-md);
+    }
+
+    .hero-mobile-offer {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 0.8rem;
+      margin: 1rem 0 0;
+      padding: 0.75rem 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.14);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    }
+
+    .hero-mobile-offer strong {
+      color: #ffffff;
+      font-size: 1.45rem;
+      line-height: 1;
+    }
+
+    .hero-mobile-offer span {
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.67rem;
+      font-weight: 750;
+      text-align: right;
     }
 
     .hero-assurance {
