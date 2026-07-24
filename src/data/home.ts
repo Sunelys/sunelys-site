@@ -35,6 +35,19 @@ export const heroData = {
     "96 % des DP sans pièce complémentaire",
     "Tarifs fixes dès 89 € HT / dossier",
   ],
+  operationsSnapshot: {
+    eyebrow: "Vue de pilotage",
+    title: "Chaque dossier garde une prochaine action visible.",
+    src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
+    avifSrcset:
+      "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-1280.avif 1280w",
+    alt: "Aperçu anonymisé du portail Sunelys avec synthèse de dossiers photovoltaïques",
+    items: [
+      { label: "DP", status: "Validée" },
+      { label: "Consuel", status: "À relancer" },
+      { label: "Raccordement", status: "Planifié" },
+    ],
+  },
 };
 
 export const trustSectionData = {
