@@ -1548,3 +1548,28 @@ Le vingt-cinquième lot retravaille la première section après le hero pour pro
 - panneau « après votre envoi » ajouté pour rendre la suite immédiatement compréhensible ;
 - typographie et séparateurs allégés pour réduire l'effet vieillissant ;
 - version mobile conservée avec défilement horizontal des preuves et empilement des engagements.
+
+## Prototype v26 — méthode en vue de pilotage
+
+Le vingt-sixième lot transforme la section « Méthode Sunelys » en une lecture plus opérationnelle, mieux alignée avec le nouveau hero et la passerelle de confiance.
+
+### Hiérarchie
+
+- titre recentré sur le périmètre clair et la visibilité du pilotage ;
+- paragraphe raccourci pour éviter l'effet explicatif ;
+- ancienne séparation « formats + étapes » remplacée par une vue de travail en deux panneaux ;
+- triptyque ajouté : choisir le périmètre, reprendre la production, garder la visibilité.
+
+### Parcours
+
+- les trois modes existants sont conservés : dossier ponctuel, pic de charge, flux récurrent ;
+- chaque mode reçoit un signal d'usage pour aider le visiteur à se reconnaître plus vite ;
+- les quatre étapes deviennent quatre temps de pilotage : entrée, cadrage, production, visibilité ;
+- CTA principal conservé vers le diagnostic.
+
+### Design et mesure
+
+- section rendue plus visuelle, avec une partie claire pour le choix et une partie sombre pour l'exécution ;
+- langage de tableau de bord utilisé sans dupliquer la démonstration du portail qui arrive ensuite ;
+- rails mobiles conservés pour les formats et les temps de pilotage ;
+- exposition de la section suivie avec `homepage_method_view`.

@@ -316,18 +316,22 @@ export const processSectionData = {
   title: "Un parcours simple, lisible, sans friction inutile.",
   steps: [
     {
+      phase: "Entrée",
       title: "Prise de contact",
       text: "Vous nous présentez votre volume, vos irritants et les démarches à externaliser.",
     },
     {
+      phase: "Cadrage",
       title: "Analyse du besoin",
       text: "Nous cadrons les flux, les pièces attendues, les priorités et les modes de suivi.",
     },
     {
+      phase: "Production",
       title: "Gestion des démarches",
       text: "Sunelys pilote DP, Consuel, raccordement et échanges administratifs selon le périmètre retenu.",
     },
     {
+      phase: "Visibilité",
       title: "Suivi continu",
       text: "Vous gardez une vision claire des statuts, des blocages et des prochaines actions.",
     },
@@ -336,21 +340,24 @@ export const processSectionData = {
 
 export const methodSectionData = {
   kicker: "La méthode Sunelys",
-  title: "Vous déléguez ce qui bloque. Vous gardez la visibilité.",
+  title: "Un périmètre clair, puis un pilotage visible.",
   text:
-    "Sunelys reprend le bon périmètre au bon moment : un dossier ponctuel, un pic de charge ou un flux récurrent. Chaque étape reste cadrée, suivie et visible.",
+    "Vous ne déléguez pas tout par défaut. Sunelys identifie la bonne reprise, lance la production administrative et garde les statuts lisibles pour vos équipes.",
   audiences: [
     {
       label: "Dossier ponctuel",
-      text: "Débloquer une démarche précise sans engager tout votre flux.",
+      signal: "Quand un dossier bloque",
+      text: "Sortir une DP, un raccordement ou un Consuel précis sans engager tout votre flux.",
     },
     {
       label: "Pic de charge",
-      text: "Absorber une série de dossiers sans désorganiser vos équipes.",
+      signal: "Quand le volume monte",
+      text: "Absorber une série de dossiers sans désorganiser vos équipes internes.",
     },
     {
       label: "Flux récurrent",
-      text: "Installer un cadre fiable, répétable et pilotable dans le temps.",
+      signal: "Quand il faut tenir le rythme",
+      text: "Installer une routine administrative fiable, répétable et pilotable dans le temps.",
     },
   ],
   steps: processSectionData.steps,

@@ -4,11 +4,13 @@ import SwipeCue from "./SwipeCue.astro";
 interface MethodItem {
   label: string;
   text: string;
+  signal?: string;
 }
 
 interface StepItem {
   title: string;
   text: string;
+  phase?: string;
 }
 
 interface Props {
@@ -27,34 +29,25 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 ---
 
-<section id="parcours" class="method-section section-shell reveal" aria-labelledby="method-title">
-  <div class="method-copy" data-reveal-item>
+<section
+  id="parcours"
+  class="method-section section-shell reveal"
+  aria-labelledby="method-title"
+  data-track-view="homepage_method_view"
+  data-track-label="homepage_method"
+>
+  <div class="method-lead" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2 id="method-title">{data.title}</h2>
     <p class="intro">{data.text}</p>
 
-    <SwipeCue label="3 façons de déléguer" />
-
-    <div
-      class="audience-list"
-      aria-label="Formats de délégation Sunelys — utilisez les flèches horizontales pour les parcourir"
-      tabindex="0"
-      data-scroll-rail
-      data-scroll-label="formats_delegation"
-    >
-      {
-        data.audiences.map((item, index) => (
-          <article>
-            <span>0{index + 1}</span>
-            <div>
-              <h3>{item.label}</h3>
-              <p>{item.text}</p>
-            </div>
-          </article>
-        ))
-      }
+    <div class="method-promises" aria-label="Principe de pilotage Sunelys">
+      <span>Vous choisissez le périmètre</span>
+      <span>Sunelys reprend la production</span>
+      <span>Vous gardez la visibilité</span>
     </div>
 
     <a class="method-link" href={data.cta.href} data-track={data.cta.track}>
@@ -63,49 +56,97 @@ const { data } = Astro.props;
     </a>
   </div>
 
-  <div class="steps-panel" data-reveal-item>
-    <div class="steps-head">
-      <p>De la demande au suivi</p>
-      <span>4 étapes</span>
+  <div class="method-workspace" data-reveal-item>
+    <div class="mode-panel">
+      <div class="panel-head">
+        <div>
+          <p>Modes de reprise</p>
+          <h3>Trois niveaux, un même cadre.</h3>
+        </div>
+        <span>3 formats</span>
+      </div>
+
+      <SwipeCue label="3 formats de délégation" />
+
+      <div
+        class="audience-list"
+        aria-label="Formats de délégation Sunelys — utilisez les flèches horizontales pour les parcourir"
+        tabindex="0"
+        data-scroll-rail
+        data-scroll-label="formats_delegation"
+      >
+        {
+          data.audiences.map((item, index) => (
+            <article>
+              <span class="mode-index">0{index + 1}</span>
+              <div>
+                <h4>{item.label}</h4>
+                {item.signal && <strong>{item.signal}</strong>}
+                <p>{item.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
     </div>
 
-    <SwipeCue label="Le parcours en 4 étapes" tone="dark" />
+    <div class="operations-panel">
+      <div class="panel-head panel-head-dark">
+        <div>
+          <p>Vue de pilotage</p>
+          <h3>Ce qui avance après le cadrage.</h3>
+        </div>
+        <span>4 temps</span>
+      </div>
 
-    <ol
-      aria-label="Parcours Sunelys en quatre étapes — utilisez les flèches horizontales pour les parcourir"
-      tabindex="0"
-      data-scroll-rail
-      data-scroll-label="parcours_4_etapes"
-    >
-      {
-        data.steps.map((step, index) => (
-          <li>
-            <span class="step-index">0{index + 1}</span>
-            <div>
-              <h3>{step.title}</h3>
-              <p>{step.text}</p>
-            </div>
-          </li>
-        ))
-      }
-    </ol>
+      <SwipeCue label="Le parcours en 4 temps" tone="dark" />
+
+      <ol
+        class="steps-board"
+        aria-label="Parcours Sunelys en quatre temps — utilisez les flèches horizontales pour les parcourir"
+        tabindex="0"
+        data-scroll-rail
+        data-scroll-label="parcours_4_temps"
+      >
+        {
+          data.steps.map((step, index) => (
+            <li>
+              <div class="step-meta">
+                <span>0{index + 1}</span>
+                <strong>{step.phase ?? fallbackPhases[index] ?? "Étape"}</strong>
+              </div>
+              <div>
+                <h4>{step.title}</h4>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
   </div>
 </section>
 
 <style>
   .method-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
-    gap: 0.8rem;
-    padding: 0.8rem;
+    gap: 0.9rem;
+    padding: 1rem;
+    overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
     border-radius: var(--radius-xl);
-    background: var(--system-soft);
+    background:
+      linear-gradient(90deg, rgba(14, 23, 38, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, white), color-mix(in srgb, var(--system-soft) 54%, white));
     box-shadow: var(--shadow-sm);
   }
 
-  .method-copy {
-    padding: clamp(1.2rem, 2.8vw, 2.4rem);
+  .method-lead {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 1fr);
+    gap: 1.2rem 2rem;
+    align-items: end;
+    padding: 1.45rem 1.55rem 1rem;
   }
 
   .kicker {
@@ -113,187 +154,346 @@ const { data } = Astro.props;
     color: var(--system);
     font-size: 0.72rem;
     font-weight: 760;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   h2 {
     max-width: 18ch;
-    margin: 0.65rem 0 0;
-    font-size: clamp(2rem, 3.7vw, 3.6rem);
+    margin: 0.58rem 0 0;
+    font-size: 3rem;
+    letter-spacing: 0;
   }
 
   .intro {
-    max-width: 58ch;
-    margin: 1rem 0 0;
+    max-width: 62ch;
+    margin: 0;
     color: var(--text-muted);
-    font-size: 0.98rem;
+    font-size: 1rem;
     line-height: 1.62;
   }
 
-  .audience-list {
+  .method-promises {
+    grid-column: 1 / -1;
     display: grid;
-    gap: 0.42rem;
-    margin-top: 1.35rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
   }
 
-  .audience-list article {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.75rem;
-    align-items: start;
-    padding: 0.75rem 0;
-    border-top: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+  .method-promises span {
+    min-width: 0;
+    padding: 0.85rem 1rem;
+    color: var(--text);
+    font-size: 0.84rem;
+    font-weight: 740;
+    line-height: 1.35;
   }
 
-  .audience-list article > span {
-    color: var(--system);
-    font-size: 0.68rem;
-    font-weight: 780;
-  }
-
-  .audience-list h3,
-  .audience-list p {
-    margin: 0;
-  }
-
-  .audience-list h3 {
-    font-size: 0.94rem;
-    letter-spacing: -0.01em;
-  }
-
-  .audience-list p {
-    margin-top: 0.18rem;
-    color: var(--text-muted);
-    font-size: 0.8rem;
-    line-height: 1.48;
+  .method-promises span + span {
+    border-left: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
   }
 
   .method-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    margin-top: 1rem;
-    color: var(--text);
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: fit-content;
+    min-height: 2.75rem;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid var(--ink);
+    border-radius: 12px;
+    background: var(--ink);
+    color: #ffffff;
     font-size: 0.84rem;
-    font-weight: 740;
-    text-underline-offset: 0.25rem;
+    font-weight: 760;
+    text-decoration: none;
   }
 
   .method-link span {
-    color: var(--system);
-    font-size: 1.1rem;
+    color: var(--accent);
+    font-size: 1rem;
   }
 
-  .steps-panel {
-    padding: clamp(1.2rem, 2.8vw, 2.4rem);
+  .method-workspace {
+    display: grid;
+    grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
+    gap: 0.8rem;
+  }
+
+  .mode-panel,
+  .operations-panel {
+    min-width: 0;
     border-radius: calc(var(--radius-xl) - 6px);
+  }
+
+  .mode-panel {
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    padding: 1.2rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .operations-panel {
+    display: grid;
+    gap: 1rem;
+    padding: 1.2rem;
     background:
-      radial-gradient(80% 80% at 100% 0%, rgba(54, 98, 227, 0.32), transparent 62%),
-      var(--ink);
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px,
+      linear-gradient(180deg, var(--ink-soft), var(--ink));
     color: #ffffff;
   }
 
-  .steps-head {
+  .panel-head {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     gap: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   }
 
-  .steps-head p {
+  .panel-head p,
+  .panel-head h3 {
     margin: 0;
-    font-size: 0.82rem;
-    font-weight: 740;
   }
 
-  .steps-head span {
-    padding: 0.3rem 0.55rem;
+  .panel-head p {
+    color: var(--system);
+    font-size: 0.72rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .panel-head h3 {
+    max-width: 18ch;
+    margin-top: 0.38rem;
+    font-size: 1.34rem;
+    letter-spacing: 0;
+    line-height: 1.12;
+  }
+
+  .panel-head > span {
+    flex: 0 0 auto;
+    padding: 0.33rem 0.55rem;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.72);
+    background: var(--system-soft);
+    color: var(--system);
     font-size: 0.68rem;
-    font-weight: 700;
+    font-weight: 760;
   }
 
-  .steps-panel ol {
+  .panel-head-dark p {
+    color: var(--accent);
+  }
+
+  .panel-head-dark h3 {
+    color: #ffffff;
+  }
+
+  .panel-head-dark > span {
+    background: rgba(255, 255, 255, 0.09);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .audience-list {
     display: grid;
     gap: 0;
+    border-top: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+  }
+
+  .audience-list article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    min-width: 0;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+  }
+
+  .mode-index {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  .audience-list h4,
+  .audience-list p {
+    margin: 0;
+  }
+
+  .audience-list h4 {
+    color: var(--text);
+    font-size: 0.96rem;
+    letter-spacing: 0;
+    line-height: 1.2;
+  }
+
+  .audience-list strong {
+    display: block;
+    margin-top: 0.28rem;
+    color: var(--accent-deep);
+    font-size: 0.72rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .audience-list p {
+    margin-top: 0.28rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.48;
+  }
+
+  .steps-board {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.55rem;
     margin: 0;
     padding: 0;
     list-style: none;
   }
 
-  .steps-panel li {
+  .steps-board li {
     position: relative;
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.9rem;
-    padding: 1.15rem 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-content: space-between;
+    gap: 1.4rem;
+    min-height: 17rem;
+    min-width: 0;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
   }
 
-  .steps-panel li:last-child {
-    border-bottom: 0;
+  .steps-board li + li::before {
+    content: "";
+    position: absolute;
+    top: 2.1rem;
+    left: -0.57rem;
+    width: 0.58rem;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.22);
   }
 
-  .step-index {
+  .step-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+  }
+
+  .step-meta span {
     display: inline-grid;
     place-items: center;
-    width: 2.15rem;
-    height: 2.15rem;
+    width: 2.1rem;
+    height: 2.1rem;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.07);
     color: var(--accent);
-    font-size: 0.7rem;
-    font-weight: 780;
+    font-size: 0.68rem;
+    font-weight: 800;
   }
 
-  .steps-panel h3,
-  .steps-panel p {
+  .step-meta strong {
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.7rem;
+    font-weight: 760;
+    text-transform: uppercase;
+  }
+
+  .steps-board h4,
+  .steps-board p {
     margin: 0;
   }
 
-  .steps-panel h3 {
+  .steps-board h4 {
     color: #ffffff;
-    font-size: 1rem;
-    letter-spacing: -0.015em;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    line-height: 1.16;
   }
 
-  .steps-panel p {
-    max-width: 54ch;
-    margin-top: 0.28rem;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.82rem;
+  .steps-board p {
+    margin-top: 0.42rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.8rem;
     line-height: 1.5;
   }
 
-  @media (max-width: 900px) {
-    .method-section {
+  @media (max-width: 1040px) {
+    .method-lead,
+    .method-workspace {
       grid-template-columns: 1fr;
+    }
+
+    .steps-board {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .steps-board li {
+      min-height: 12.5rem;
+    }
+
+    .steps-board li + li::before {
+      display: none;
     }
   }
 
   @media (max-width: 620px) {
     .method-section {
-      padding: 0.55rem;
+      padding: 0.72rem;
       border-radius: 18px;
     }
 
-    .method-copy,
-    .steps-panel {
-      padding: 1.15rem;
+    .method-lead {
+      padding: 0.7rem 0.38rem 0.8rem;
     }
 
-    .steps-panel {
-      border-radius: 14px;
+    h2 {
+      font-size: 2.12rem;
+    }
+
+    .intro {
+      font-size: 0.94rem;
+    }
+
+    .method-promises {
+      grid-template-columns: 1fr;
+      border-bottom: 0;
+    }
+
+    .method-promises span,
+    .method-promises span + span {
+      padding: 0.72rem 0;
+      border-left: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    }
+
+    .method-link {
+      width: 100%;
+    }
+
+    .mode-panel,
+    .operations-panel {
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .panel-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .panel-head h3 {
+      font-size: 1.2rem;
     }
 
     .audience-list,
-    .steps-panel ol {
+    .steps-board {
       grid-template-columns: none;
       grid-auto-flow: column;
       overflow-x: auto;
@@ -301,51 +501,48 @@ const { data } = Astro.props;
       overscroll-behavior-inline: contain;
       scrollbar-width: none;
       scroll-padding-inline: 0.15rem;
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.45rem;
     }
 
     .audience-list::-webkit-scrollbar,
-    .steps-panel ol::-webkit-scrollbar {
+    .steps-board::-webkit-scrollbar {
       display: none;
     }
 
     .audience-list:focus-visible,
-    .steps-panel ol:focus-visible {
+    .steps-board:focus-visible {
       outline: 3px solid color-mix(in srgb, var(--system) 34%, transparent);
       outline-offset: 3px;
     }
 
-    .steps-panel ol:focus-visible {
+    .steps-board:focus-visible {
       outline-color: color-mix(in srgb, var(--accent) 64%, transparent);
     }
 
     .audience-list {
-      grid-auto-columns: min(78vw, 20rem);
       gap: 0.65rem;
+      border-top: 0;
     }
 
     .audience-list article {
-      min-height: 8.5rem;
+      grid-template-columns: auto 1fr;
+      grid-auto-flow: initial;
+      width: min(78vw, 20rem);
+      min-height: 9.6rem;
       padding: 0.9rem;
-      border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+      border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
       border-radius: 12px;
-      background: rgba(255, 255, 255, 0.58);
+      background: rgba(255, 255, 255, 0.64);
       scroll-snap-align: start;
     }
 
-    .steps-panel ol {
-      grid-auto-columns: min(76vw, 19rem);
+    .steps-board {
       gap: 0.65rem;
-      padding-top: 0.65rem;
     }
 
-    .steps-panel li {
-      min-height: 10rem;
-      align-content: start;
-      padding: 1rem;
-      border: 1px solid rgba(255, 255, 255, 0.11);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.045);
+    .steps-board li {
+      width: min(76vw, 19rem);
+      min-height: 12rem;
       scroll-snap-align: start;
     }
   }
