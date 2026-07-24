@@ -1623,3 +1623,28 @@ Le vingt-huitième lot retravaille la section « Services » pour que le visiteu
 - cartes allégées, séparateurs plus fins et hiérarchie plus nette ;
 - rail mobile conservé pour parcourir les cinq briques ;
 - exposition de la section suivie avec `homepage_services_view`.
+
+## Prototype v29 — preuve client plus lisible
+
+Le vingt-neuvième lot renforce la section « Preuves clients » sans modifier les citations ni ajouter de résultats non vérifiés.
+
+### Crédibilité
+
+- les deux retours nominatifs publiés avec accord sont conservés ;
+- résumé de preuve ajouté : deux retours, deux contextes terrain, effets cités sans extrapolation ;
+- logos, auteurs, notes d'accord et parcours « besoin, relais, effet cité » conservés ;
+- aucune nouvelle donnée chiffrée, aucun nouveau résultat et aucune nouvelle citation ajoutés.
+
+### Conversion
+
+- exposition de la section suivie avec `homepage_client_proof_view` ;
+- consultation des dossiers clients toujours suivie avec `client_proof_view` ;
+- sortie douce ajoutée vers le diagnostic via `cta_client_proof_contact` ;
+- la preuve devient un pont vers l'action plutôt qu'un bloc isolé.
+
+### Design
+
+- résumé compact placé avant l'expérience de cas client ;
+- typographie harmonisée avec les dernières sections modernisées ;
+- CTA final léger pour ne pas concurrencer les témoignages ;
+- comportement mobile conservé avec panneaux empilés et navigation accessible.

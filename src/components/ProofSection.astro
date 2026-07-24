@@ -32,14 +32,26 @@ const getInitials = (name: string) =>
     .join("")
     .slice(0, 2)
     .toUpperCase();
+
+const proofHighlights = [
+  { label: `${data.testimonials.length} retours`, text: "publiés avec accord" },
+  { label: "DP + pilotage", text: "deux contextes terrain" },
+  { label: "Effets cités", text: "sans extrapolation" },
+];
 ---
 
-<section class="section-shell proof-section reveal" aria-labelledby="proof-title">
+<section
+  class="section-shell proof-section reveal"
+  aria-labelledby="proof-title"
+  data-track-view="homepage_client_proof_view"
+  data-track-label="homepage_client_proof"
+>
   <header class="proof-head" data-reveal-item>
     <div>
       <p class="kicker">{data.kicker}</p>
       <h2 id="proof-title">{data.title}</h2>
     </div>
+
     <div class="proof-intro">
       <p>
         Deux retours nominatifs publiés avec accord : le besoin, le relais Sunelys et l’effet décrit par chaque
@@ -48,6 +60,17 @@ const getInitials = (name: string) =>
       <span><i aria-hidden="true"></i> Paroles de professionnels accompagnés</span>
     </div>
   </header>
+
+  <div class="proof-highlights" aria-label="Résumé des preuves client" data-reveal-item>
+    {
+      proofHighlights.map((item) => (
+        <article>
+          <strong>{item.label}</strong>
+          <p>{item.text}</p>
+        </article>
+      ))
+    }
+  </div>
 
   <div class="case-experience" data-client-proof data-reveal-item>
     <div class="case-tabs" role="tablist" aria-label="Choisir un retour client Sunelys">
@@ -151,6 +174,14 @@ const getInitials = (name: string) =>
       }
     </div>
   </div>
+
+  <div class="proof-next" data-reveal-item>
+    <p>Vous avez le même type de blocage administratif ?</p>
+    <a href="/contact?source=client-proof#contact-form" data-track="cta_client_proof_contact">
+      Recevoir un cadrage adapté
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
 </section>
 
 <script>
@@ -213,6 +244,8 @@ const getInitials = (name: string) =>
   .proof-section {
     position: relative;
     overflow: hidden;
+    display: grid;
+    gap: 1rem;
     padding: clamp(1.3rem, 3vw, 2.6rem);
     border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
     border-radius: var(--radius-xl);
@@ -227,21 +260,21 @@ const getInitials = (name: string) =>
     grid-template-columns: minmax(0, 1fr) minmax(280px, 0.55fr);
     gap: clamp(1.5rem, 4vw, 4rem);
     align-items: end;
-    margin-bottom: clamp(1.4rem, 2.6vw, 2.2rem);
   }
 
   .kicker {
     color: var(--system);
     font-size: 0.72rem;
     font-weight: 780;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   h2 {
     max-width: 18ch;
     margin-top: 0.65rem;
-    font-size: clamp(2.1rem, 4vw, 4rem);
+    font-size: 3.18rem;
+    letter-spacing: 0;
   }
 
   .proof-intro {
@@ -270,6 +303,37 @@ const getInitials = (name: string) =>
     border-radius: 50%;
     background: var(--success);
     box-shadow: 0 0 0 4px var(--success-soft);
+  }
+
+  .proof-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .proof-highlights article {
+    display: grid;
+    gap: 0.24rem;
+    min-width: 0;
+    padding: 0.85rem 1rem;
+  }
+
+  .proof-highlights article + article {
+    border-left: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+  }
+
+  .proof-highlights strong {
+    color: var(--text);
+    font-size: 0.86rem;
+    line-height: 1.25;
+  }
+
+  .proof-highlights p {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.42;
   }
 
   .case-experience {
@@ -588,6 +652,38 @@ const getInitials = (name: string) =>
     font-style: normal;
   }
 
+  .proof-next {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .proof-next p {
+    color: var(--text);
+    font-size: 0.9rem;
+    font-weight: 720;
+  }
+
+  .proof-next a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--ink);
+    font-size: 0.8rem;
+    font-weight: 780;
+    text-decoration: none;
+  }
+
+  .proof-next a span {
+    color: var(--system);
+    font-size: 1rem;
+  }
+
   @media (max-width: 900px) {
     .proof-head,
     .case-panel {
@@ -634,6 +730,19 @@ const getInitials = (name: string) =>
   @media (max-width: 620px) {
     .proof-section {
       padding: 1.1rem;
+    }
+
+    h2 {
+      font-size: 2.15rem;
+    }
+
+    .proof-highlights {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-highlights article + article {
+      border-top: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+      border-left: 0;
     }
 
     .case-tabs {
@@ -696,6 +805,11 @@ const getInitials = (name: string) =>
     }
 
     footer {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .proof-next {
       align-items: flex-start;
       flex-direction: column;
     }
