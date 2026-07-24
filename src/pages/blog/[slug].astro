@@ -81,6 +81,71 @@ const categoryBrief = categoryBriefs[String(frontmatter.category)] ?? {
   check: "Pièces, étapes et points de vigilance à contrôler avant d’avancer.",
   action: "Transformer le sujet du guide en prochain dossier cadré.",
 };
+const delegationBridgeByCategory: Record<
+  string,
+  { title: string; intro: string; signals: string[]; href: string; label: string }
+> = {
+  "Déclaration préalable": {
+    title: "Quand déléguer une déclaration préalable ?",
+    intro:
+      "Le bon moment n’est pas seulement quand le dossier est bloqué. C’est aussi quand la préparation commence à ralentir la vente, la pose ou la relation client.",
+    signals: [
+      "La mairie demande un complément ou un refus doit être compris.",
+      "Les pièces chantier, toiture ou client sont dispersées entre plusieurs personnes.",
+      "Les DP deviennent récurrentes et consomment du temps commercial.",
+    ],
+    href: primaryServiceHref,
+    label: "Voir l’accompagnement DP",
+  },
+  Consuel: {
+    title: "Quand déléguer un dossier Consuel ?",
+    intro:
+      "Le Consuel devient sensible dès que la mise en service dépend d’un dossier technique propre, relu et suivi sans angle mort.",
+    signals: [
+      "Une incohérence technique ou documentaire peut déclencher un retour.",
+      "La mise en service approche et le dossier n’est pas encore sécurisé.",
+      "Les équipes perdent du temps à reconstituer les informations.",
+    ],
+    href: primaryServiceHref,
+    label: "Voir l’accompagnement Consuel",
+  },
+  "Raccordement Enedis": {
+    title: "Quand déléguer le suivi Enedis ?",
+    intro:
+      "Le raccordement mérite d’être piloté dès que le statut devient flou, que les relances s’empilent ou que le client attend une date lisible.",
+    signals: [
+      "Le prochain statut ou la prochaine pièce à fournir n’est pas clair.",
+      "Les relances Enedis prennent le pas sur le suivi chantier.",
+      "Le client demande des réponses que l’équipe n’a pas immédiatement.",
+    ],
+    href: primaryServiceHref,
+    label: "Voir l’accompagnement Enedis",
+  },
+  Organisation: {
+    title: "Quand déléguer l’administratif solaire ?",
+    intro:
+      "Le signal n’est pas toujours un blocage : parfois, c’est simplement le volume qui rend l’organisation trop dépendante de quelques personnes.",
+    signals: [
+      "Les commerciaux ou conducteurs de travaux traitent encore les relances.",
+      "Les dossiers avancent, mais sans vision claire des priorités.",
+      "Le volume augmente plus vite que la capacité administrative interne.",
+    ],
+    href: articleContactHref,
+    label: "Cadrer le premier flux",
+  },
+};
+const delegationBridge = delegationBridgeByCategory[String(frontmatter.category)] ?? {
+  title: "Quand déléguer ce dossier ?",
+  intro:
+    "Si le guide permet de comprendre le sujet mais que l’exécution reste incertaine, Sunelys peut aider à cadrer la prochaine action.",
+  signals: [
+    "Le dossier dépend de plusieurs pièces ou organismes.",
+    "La prochaine action n’est pas suffisamment claire.",
+    "Le suivi administratif prend le pas sur le temps chantier ou commercial.",
+  ],
+  href: articleContactHref,
+  label: "Demander un cadrage",
+};
 const readerBrief = [
   {
     label: "Décider",
@@ -326,6 +391,39 @@ const breadcrumbs = [
         <div class="article-content">
           <Content />
         </div>
+
+        <section
+          class="article-delegation-bridge"
+          aria-labelledby="delegation-bridge-title"
+          data-track-view="article_delegation_bridge_view"
+          data-track-label={frontmatter.slug}
+        >
+          <div class="delegation-bridge-copy">
+            <p class="section-kicker">Quand déléguer ?</p>
+            <h2 id="delegation-bridge-title">{delegationBridge.title}</h2>
+            <p>{delegationBridge.intro}</p>
+          </div>
+
+          <ul aria-label="Signaux de délégation">
+            {
+              delegationBridge.signals.map((signal, index) => (
+                <li>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <strong>{signal}</strong>
+                </li>
+              ))
+            }
+          </ul>
+
+          <a
+            href={delegationBridge.href}
+            data-track="cta_article_delegation_bridge"
+            data-track-label={frontmatter.title}
+          >
+            {delegationBridge.label}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </section>
 
         <section
           class="article-author"
@@ -1465,6 +1563,119 @@ const breadcrumbs = [
     color: var(--ink);
   }
 
+  .article-delegation-bridge {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    gap: 1rem;
+    overflow: hidden;
+    margin-top: clamp(3rem, 7vw, 5.8rem);
+    padding: clamp(1.4rem, 3.2vw, 2.6rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(54, 98, 227, 0.25), transparent 62%),
+      radial-gradient(80% 100% at 0% 100%, rgba(212, 130, 42, 0.16), transparent 62%),
+      var(--ink);
+    box-shadow: var(--shadow-md);
+  }
+
+  .article-delegation-bridge::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 2.8rem 2.8rem;
+    mask-image: radial-gradient(70% 80% at 20% 18%, #000 0%, transparent 75%);
+    content: "";
+    opacity: 0.5;
+  }
+
+  .delegation-bridge-copy {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .article-delegation-bridge .section-kicker {
+    color: var(--accent);
+  }
+
+  .delegation-bridge-copy h2 {
+    max-width: 16ch;
+    color: #ffffff;
+    font-size: clamp(1.8rem, 3.2vw, 3rem);
+    letter-spacing: -0.05em;
+    line-height: 0.98;
+  }
+
+  .delegation-bridge-copy p:not(.section-kicker) {
+    max-width: 58ch;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.86rem;
+    line-height: 1.62;
+  }
+
+  .article-delegation-bridge ul {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.58rem;
+    margin: 0.2rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .article-delegation-bridge li {
+    display: grid;
+    align-content: space-between;
+    gap: 0.85rem;
+    min-height: 9rem;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(10px);
+  }
+
+  .article-delegation-bridge li span {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 850;
+  }
+
+  .article-delegation-bridge li strong {
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .article-delegation-bridge > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    justify-self: start;
+    gap: 0.55rem;
+    min-height: 2.9rem;
+    margin-top: 0.2rem;
+    padding: 0.84rem 1rem;
+    border-radius: 13px;
+    background: var(--accent);
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-decoration: none;
+    box-shadow: var(--shadow-accent);
+  }
+
+  .article-delegation-bridge > a span {
+    transition: transform 160ms ease;
+  }
+
+  .article-delegation-bridge > a:hover span,
+  .article-delegation-bridge > a:focus-visible span {
+    transform: translate(0.12rem, -0.12rem);
+  }
+
   .article-author {
     display: grid;
     grid-template-columns: 5.2rem minmax(0, 1fr);
@@ -1810,6 +2021,10 @@ const breadcrumbs = [
     .related-guides {
       grid-template-columns: 1fr;
     }
+
+    .article-delegation-bridge ul {
+      grid-template-columns: 1fr;
+    }
   }
 
   @media (max-width: 720px) {
@@ -1888,6 +2103,20 @@ const breadcrumbs = [
     .article-resources {
       padding: 1.4rem;
       border-radius: var(--radius-md);
+    }
+
+    .article-delegation-bridge {
+      padding: 1.25rem;
+      border-radius: var(--radius-md);
+    }
+
+    .article-delegation-bridge li {
+      min-height: auto;
+    }
+
+    .article-delegation-bridge > a {
+      justify-self: stretch;
+      width: 100%;
     }
 
     .article-conclusion {
