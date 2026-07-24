@@ -401,26 +401,45 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Un portail utile, mais au service d'un vrai pilotage humain.",
-  text: "Le portail centralise les dossiers, les pièces et les validations pour rendre l'administratif plus lisible, plus traçable et plus simple à piloter au quotidien.",
+  title: "Votre administratif devient visible. Et donc pilotable.",
+  text: "Le portail rend immédiatement lisibles les dossiers, les pièces attendues et la prochaine action. Vous gardez la vue d'ensemble sans relancer Sunelys pour savoir où en est chaque démarche.",
   benefits: [
-    "Suivi des dossiers en temps réel",
-    "Centralisation des pièces administratives",
-    "Traçabilité complète des actions",
+    "Priorités visibles en un coup d'œil",
+    "Pièces et échanges centralisés",
+    "Avancement partagé avec vos équipes",
   ],
   cta: {
-    label: "Découvrir le portail",
+    label: "Voir comment ça fonctionne",
+    href: "/parcours?source=portail",
+    track: "cta_portal_section_process",
+  },
+  clientAccess: {
+    label: "Déjà client ? Accéder au portail",
     href: "https://portail.sunelys.fr/login",
-    track: "cta_portal_section",
+    track: "cta_portal_section_login",
   },
-  image: {
-    src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
-    alt: "Vue d'ensemble anonymisée du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
-  },
-  secondaryImage: {
-    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
-    alt: "Liste anonymisée des dossiers dans le portail Sunelys avec progression et prochaine étape visibles.",
-  },
+  views: [
+    {
+      id: "priorites",
+      label: "Vue des priorités",
+      eyebrow: "À traiter maintenant",
+      title: "Chaque priorité ressort immédiatement.",
+      text: "Les pièces manquantes, les demandes récentes et les dossiers actifs sont réunis dans la même lecture.",
+      src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
+      alt: "Vue d'ensemble anonymisée du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
+      signal: "1 pièce attendue",
+    },
+    {
+      id: "avancement",
+      label: "Dossiers & étapes",
+      eyebrow: "Suivi partagé",
+      title: "L'avancement se comprend sans relance.",
+      text: "DP, raccordement, Consuel et aides restent lisibles avec leur statut, leur progression et la prochaine étape.",
+      src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+      alt: "Liste anonymisée des dossiers dans le portail Sunelys avec progression et prochaine étape visibles.",
+      signal: "4 flux centralisés",
+    },
+  ],
 };
 
 export const caseStudySectionData = {

@@ -1304,3 +1304,29 @@ Le seizième lot traite les éléments de réassurance qui entourent la conversi
 - notices de confidentialité présentes sur les formulaires principaux et spécialisés ;
 - pages de conformité exclues des sollicitations commerciales flottantes et de la fenêtre de sortie ;
 - contrôle des liens du pied de page et des ancres internes réalisé sur la sortie compilée.
+
+## Prototype v17 — démonstration produit du portail
+
+Le dix-septième lot transforme le portail, principal différenciateur de Sunelys, en une véritable séquence de démonstration sur la page d'accueil.
+
+### Preuve produit
+
+- ancienne juxtaposition de deux captures remplacée par une démonstration structurée ;
+- deux vues consultables : priorités immédiates, puis dossiers et étapes ;
+- bénéfice, contexte et signal opérationnel associés à chaque capture ;
+- exemples explicitement présentés comme anonymisés ;
+- discours recentré sur la visibilité, les prochaines actions et la réduction des relances.
+
+### Conversion
+
+- appel prospect redirigé vers le fonctionnement du service plutôt que vers une page de connexion ;
+- accès au portail conservé comme action secondaire clairement réservée aux clients ;
+- aucun formulaire supplémentaire ajouté ;
+- consultation des vues suivie comme signal d'engagement.
+
+### Expérience
+
+- navigation par boutons, flèches du clavier, début et fin ;
+- état actif exposé aux technologies d'assistance ;
+- composition adaptée aux écrans étroits sans carrousel imposé ;
+- transition courte et statut temps réel neutralisables par la préférence de réduction des mouvements.
