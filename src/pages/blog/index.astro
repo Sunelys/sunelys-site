@@ -50,6 +50,45 @@ const resourcePaths = [
   },
 ];
 
+const decisionPaths = [
+  {
+    label: "DP mairie",
+    title: "Le dépôt ou le complément bloque le chantier.",
+    text: "Commencez par vérifier les pièces, les erreurs fréquentes et le bon niveau de reprise.",
+    guideHref: "/blog/declaration-prealable-panneaux-solaires-erreurs",
+    guideLabel: "Lire les erreurs DP",
+    actionHref: "/declaration-prealable-panneaux-solaires",
+    actionLabel: "Voir le service DP",
+  },
+  {
+    label: "Consuel",
+    title: "Le dossier technique doit être fiabilisé.",
+    text: "Clarifiez les points de contrôle avant l’envoi ou la reprise d’un dossier retourné.",
+    guideHref: "/blog/attestation-consuel-photovoltaique",
+    guideLabel: "Lire le guide Consuel",
+    actionHref: "/dossier-consuel-photovoltaique",
+    actionLabel: "Voir le service Consuel",
+  },
+  {
+    label: "Enedis",
+    title: "Le raccordement manque de visibilité.",
+    text: "Identifiez les étapes, les relances et ce qui doit rester visible côté équipe.",
+    guideHref: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+    guideLabel: "Lire les étapes Enedis",
+    actionHref: "/raccordement-enedis-photovoltaique",
+    actionLabel: "Voir le service raccordement",
+  },
+  {
+    label: "Volume",
+    title: "L’équipe n’absorbe plus l’administratif.",
+    text: "Décidez quoi déléguer en premier sans sortir tout le flux d’un seul coup.",
+    guideHref: "/blog/externalisation-administrative-solaire-volume",
+    guideLabel: "Lire le guide volume",
+    actionHref: "/contact?source=blog-decision-hub#contact-form",
+    actionLabel: "Demander un cadrage",
+  },
+];
+
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -184,6 +223,43 @@ const structuredData = [
     <div data-reveal-item>
       <span>04</span>
       <strong>{posts.length} guides publics</strong>
+    </div>
+  </section>
+
+  <section
+    class="decision-hub reveal"
+    aria-labelledby="decision-hub-title"
+    data-track-view="blog_decision_hub_view"
+    data-track-label="blog_decision_paths"
+  >
+    <div class="decision-hub-head" data-reveal-item>
+      <p class="kicker">Hub de décision</p>
+      <h2 id="decision-hub-title">Vous savez déjà où ça bloque ? Allez directement au bon chemin.</h2>
+      <p>
+        Le blog sert à comprendre. Mais si un dossier est déjà en cours, l’enjeu est surtout de choisir la prochaine
+        action : lire le bon guide, comparer le service ou demander un cadrage.
+      </p>
+    </div>
+
+    <div class="decision-paths" aria-label="Chemins de décision administratif photovoltaïque">
+      {
+        decisionPaths.map((item, index) => (
+          <article data-reveal-item>
+            <span>{String(index + 1).padStart(2, "0")} · {item.label}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div>
+              <a href={item.guideHref} data-track="cta_blog_decision_guide" data-track-label={item.label}>
+                {item.guideLabel}
+              </a>
+              <a href={item.actionHref} data-track="cta_blog_decision_action" data-track-label={item.label}>
+                {item.actionLabel}
+                <span aria-hidden="true">↗</span>
+              </a>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
@@ -536,6 +612,121 @@ const structuredData = [
     line-height: 1.42;
   }
 
+  .decision-hub {
+    display: grid;
+    grid-template-columns: minmax(260px, 0.58fr) minmax(0, 1.42fr);
+    gap: clamp(1.4rem, 4.5vw, 4.8rem);
+    overflow: hidden;
+    padding: clamp(1.35rem, 3.2vw, 3rem);
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(90% 120% at 100% 0%, rgba(54, 98, 227, 0.13), transparent 64%),
+      linear-gradient(90deg, rgba(14, 23, 38, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
+      color-mix(in srgb, var(--surface) 96%, #ffffff);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .decision-hub-head {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .decision-hub-head h2 {
+    max-width: 13ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 3.7vw, 3.65rem);
+    letter-spacing: -0.055em;
+    line-height: 0.98;
+  }
+
+  .decision-hub-head > p:not(.kicker) {
+    max-width: 43ch;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    line-height: 1.65;
+  }
+
+  .decision-paths {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+  }
+
+  .decision-paths article {
+    display: grid;
+    align-content: space-between;
+    min-height: 16.4rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.76);
+    box-shadow: 0 18px 44px rgba(14, 23, 38, 0.055);
+  }
+
+  .decision-paths article > span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .decision-paths h3 {
+    max-width: 18ch;
+    margin-top: 0.8rem;
+    color: var(--ink);
+    font-size: clamp(1.05rem, 1.5vw, 1.32rem);
+    letter-spacing: -0.02em;
+    line-height: 1.13;
+  }
+
+  .decision-paths p {
+    margin-top: 0.58rem;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.52;
+  }
+
+  .decision-paths article > div {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.46rem;
+    margin-top: 1.05rem;
+  }
+
+  .decision-paths a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    min-height: 2.45rem;
+    padding: 0.68rem 0.74rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 850;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .decision-paths a:first-child {
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    background: color-mix(in srgb, var(--system-soft) 38%, #ffffff);
+    color: var(--text);
+  }
+
+  .decision-paths a:last-child {
+    background: var(--ink);
+    color: #ffffff;
+  }
+
+  .decision-paths a span {
+    color: var(--accent);
+  }
+
   .guide-library {
     padding: clamp(1.3rem, 3vw, 2.6rem);
     border: 1px solid var(--line);
@@ -647,6 +838,7 @@ const structuredData = [
 
   @media (max-width: 1050px) {
     .blog-hero,
+    .decision-hub,
     .blog-cta {
       grid-template-columns: 1fr;
     }
@@ -658,6 +850,7 @@ const structuredData = [
 
   @media (max-width: 720px) {
     .blog-hero,
+    .decision-hub,
     .guide-library,
     .blog-cta {
       padding: 1.2rem;
@@ -683,9 +876,14 @@ const structuredData = [
     }
 
     .editorial-strip,
+    .decision-paths,
     .blog-grid,
     .library-head {
       grid-template-columns: 1fr;
+    }
+
+    .decision-paths article {
+      min-height: auto;
     }
 
     .editorial-strip > div {
