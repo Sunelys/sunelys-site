@@ -1108,3 +1108,36 @@ Le dixième lot ajoute une couche d’interaction et de lisibilité sans déplac
 - premier écran, séquences tactiles et navigation plein écran vérifiés à 390 × 844 px ;
 - absence de débordement horizontal du document à 390 px ;
 - hauteur mobile de la home maintenue autour de 8 600 px malgré l’enrichissement des preuves.
+
+## Prototype v11 — transformation des pages de prestation
+
+Le onzième lot corrige le principal écart encore visible entre les premiers écrans, devenus premium, et le milieu des pages de prestation, encore trop proche d’une succession de tableaux génériques.
+
+### Valeur rendue visuelle
+
+- fusion des anciens blocs « problème » et « périmètre » en une seule scène de transformation ;
+- lecture immédiate en trois temps : charge dispersée dans l’équipe, reprise par Sunelys, flux piloté ;
+- déclinaison automatique sur toutes les pages de prestation détaillées à partir de leur contenu existant ;
+- aucun chiffre, délai ou résultat ajouté pour renforcer artificiellement la promesse.
+
+### Conversion
+
+- bénéfices opérationnels regroupés juste après la comparaison ;
+- appel à l’action contextuel « Faire reprendre ce flux » ;
+- descente directe vers le formulaire final de la prestation, sans changement de page ;
+- affichage de la transformation suivi comme signal d’engagement.
+
+### Design et accessibilité
+
+- contraste clair / sombre pour matérialiser le passage du désordre au pilotage ;
+- relais Sunelys orange utilisé comme pivot de lecture et non comme simple décoration ;
+- séquence empilée sur mobile, sans défilement horizontal ni contenu masqué ;
+- animations désactivées lorsque la réduction des mouvements est demandée ;
+- titres, listes et région nommée conservés pour une lecture correcte par les technologies d’assistance.
+
+### Impact mesuré
+
+- environ 740 px supprimés sur la page Déclaration préalable au format ordinateur ;
+- disparition des deux grandes grilles pâles qui rallongeaient la lecture ;
+- absence de débordement horizontal à 390 px ;
+- ancre de conversion mobile testée avec arrivée correcte sur le formulaire.

@@ -353,19 +353,88 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   )
 }
 
-<section class="seo-section seo-problem section-shell reveal">
-  <p class="kicker">Le problème</p>
-  <h2>{data.problemTitle}</h2>
-  <p class="problem-intro">{data.problemIntro}</p>
-  <div class="problem-grid">
-    {
-      data.problemItems.map((item) => (
-        <article class="problem-card">
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
-        </article>
-      ))
-    }
+<section
+  class="seo-section seo-transformation section-shell reveal"
+  aria-labelledby={`transformation-${data.slug}`}
+  data-track-view="service_transformation_view"
+  data-track-label={data.slug}
+>
+  <div class="transformation-head" data-reveal-item>
+    <div>
+      <p class="kicker">Avant / Avec Sunelys</p>
+      <h2 id={`transformation-${data.slug}`}>Le même dossier. Pas la même charge administrative.</h2>
+    </div>
+    <p>
+      <strong>{data.problemTitle}</strong>
+      <span>{data.problemIntro}</span>
+    </p>
+  </div>
+
+  <div class="transformation-stage">
+    <article class="workflow-panel workflow-before" data-reveal-item>
+      <header>
+        <div>
+          <span>Dans votre équipe</span>
+          <strong>Le flux se disperse</strong>
+        </div>
+        <em>Sans relais dédié</em>
+      </header>
+      <ol>
+        {
+          data.problemItems.map((item, index) => (
+            <li>
+              <span>0{index + 1}</span>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </div>
+              <i>À traiter</i>
+            </li>
+          ))
+        }
+      </ol>
+    </article>
+
+    <div class="workflow-handoff" aria-hidden="true" data-reveal-item>
+      <span>Sunelys reprend</span>
+      <strong>→</strong>
+    </div>
+
+    <article class="workflow-panel workflow-after" data-reveal-item>
+      <header>
+        <div>
+          <span>Avec Sunelys</span>
+          <strong>Le flux devient piloté</strong>
+        </div>
+        <em><i></i> Suivi actif</em>
+      </header>
+      <ol>
+        {
+          data.scopeItems.map((item, index) => (
+            <li>
+              <span aria-hidden="true">✓</span>
+              <p>{item}</p>
+              <i>{index === data.scopeItems.length - 1 ? "Visible" : "Suivi"}</i>
+            </li>
+          ))
+        }
+      </ol>
+    </article>
+  </div>
+
+  <div class="transformation-outcomes" data-reveal-item>
+    <p>Ce que vos équipes récupèrent</p>
+    <ul>
+      {outcomeItems.map((item) => <li>{item}</li>)}
+    </ul>
+    <a
+      class="btn btn-accent"
+      href={`#service-final-${data.slug}`}
+      data-track={`cta_${data.slug}_transformation`}
+    >
+      Faire reprendre ce flux
+      <span aria-hidden="true">→</span>
+    </a>
   </div>
 </section>
 
@@ -394,35 +463,6 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     </section>
   )
 }
-
-<section class="seo-section seo-scope section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Ce que Sunelys prend en charge</p>
-      <h2>Pilotage administratif de bout en bout</h2>
-    </div>
-    <p>
-      L'objectif n'est pas seulement de déposer un dossier. C'est de rendre le flux plus fiable,
-      plus lisible et moins consommateur de temps pour vos équipes.
-    </p>
-  </div>
-
-  <div class="scope-layout">
-    <article class="scope-panel">
-      <h3>Prise en charge opérationnelle</h3>
-      <ul>
-        {data.scopeItems.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-
-    <article class="scope-panel scope-panel-dark">
-      <h3>Résultats attendus</h3>
-      <ul>
-        {outcomeItems.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-  </div>
-</section>
 
 {
   data.detailBlocks && data.detailBlocks.length > 0 && (
@@ -524,7 +564,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   )
 }
 
-<section class="seo-section seo-final section-shell reveal">
+<section id={`service-final-${data.slug}`} class="seo-section seo-final section-shell reveal">
   <h2>{data.finalTitle}</h2>
   <p>{data.finalText}</p>
   <form
@@ -1812,6 +1852,347 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     color: var(--system);
   }
 
+  .seo-transformation {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border-color: color-mix(in srgb, var(--system) 12%, var(--line));
+    background:
+      radial-gradient(75% 90% at 100% 0%, rgba(54, 98, 227, 0.12), transparent 64%),
+      var(--system-soft);
+  }
+
+  .transformation-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.64fr);
+    gap: clamp(1.2rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .transformation-head h2 {
+    max-width: 17ch;
+    margin-top: 0.65rem;
+    font-size: clamp(2rem, 3.8vw, 3.8rem);
+    line-height: 0.98;
+  }
+
+  .transformation-head > p {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  .transformation-head > p strong {
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .transformation-head > p span {
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.55;
+  }
+
+  .transformation-stage {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) 6.2rem minmax(0, 1.08fr);
+    gap: 0.55rem;
+    align-items: stretch;
+    margin-top: clamp(1.4rem, 3vw, 2.2rem);
+  }
+
+  .workflow-panel {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    background: #ffffff;
+  }
+
+  .workflow-panel header {
+    min-height: 6.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workflow-panel header > div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .workflow-panel header span,
+  .workflow-panel header em {
+    color: var(--text-muted);
+    font-size: 0.58rem;
+    font-style: normal;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .workflow-panel header strong {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.2;
+  }
+
+  .workflow-panel header em {
+    flex: 0 0 auto;
+    padding: 0.32rem 0.5rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    letter-spacing: 0.03em;
+  }
+
+  .workflow-panel ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .workflow-panel li {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.72rem;
+    align-items: center;
+    min-height: 5.35rem;
+    padding: 0.82rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .workflow-panel li:last-child {
+    border-bottom: 0;
+  }
+
+  .workflow-panel li > span {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9px;
+    background: var(--system-soft);
+    color: var(--system);
+    font-size: 0.61rem;
+    font-weight: 800;
+  }
+
+  .workflow-panel li h3,
+  .workflow-panel li p {
+    margin: 0;
+  }
+
+  .workflow-panel li h3 {
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.35;
+  }
+
+  .workflow-panel li div p {
+    margin-top: 0.16rem;
+    color: var(--text-muted);
+    font-size: 0.66rem;
+    line-height: 1.46;
+  }
+
+  .workflow-panel li > i {
+    padding: 0.26rem 0.42rem;
+    border-radius: 999px;
+    background: var(--bg-soft);
+    color: var(--text-muted);
+    font-size: 0.54rem;
+    font-style: normal;
+    font-weight: 750;
+    white-space: nowrap;
+  }
+
+  .workflow-after {
+    border-color: var(--ink);
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      var(--ink);
+  }
+
+  .workflow-after header,
+  .workflow-after li {
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .workflow-after header span {
+    color: var(--accent);
+  }
+
+  .workflow-after header strong {
+    color: #ffffff;
+  }
+
+  .workflow-after header em {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.7);
+  }
+
+  .workflow-after header em i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 4px rgba(29, 155, 117, 0.16);
+    animation: workflow-live 2.4s ease-out infinite;
+  }
+
+  .workflow-after li > span {
+    background: rgba(212, 130, 42, 0.14);
+    color: var(--accent);
+  }
+
+  .workflow-after li > p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.72rem;
+    font-weight: 620;
+    line-height: 1.48;
+  }
+
+  .workflow-after li > i {
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.48);
+  }
+
+  .workflow-handoff {
+    position: relative;
+    display: grid;
+    place-content: center;
+    justify-items: center;
+    gap: 0.5rem;
+    min-width: 0;
+  }
+
+  .workflow-handoff::before {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    inset: 0 50%;
+    width: 1px;
+    background: linear-gradient(transparent, color-mix(in srgb, var(--accent) 46%, var(--line)), transparent);
+  }
+
+  .workflow-handoff span,
+  .workflow-handoff strong {
+    position: relative;
+    z-index: 1;
+  }
+
+  .workflow-handoff span {
+    padding: 0.3rem 0.45rem;
+    border-radius: 999px;
+    background: var(--system-soft);
+    color: var(--text-muted);
+    font-size: 0.53rem;
+    font-weight: 800;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .workflow-handoff strong {
+    display: inline-grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 14px;
+    background: var(--accent);
+    color: #ffffff;
+    font-size: 1.15rem;
+    box-shadow: 0 14px 30px rgba(212, 130, 42, 0.26);
+    animation: workflow-transfer 2.2s ease-in-out infinite;
+  }
+
+  .transformation-outcomes {
+    display: grid;
+    grid-template-columns: minmax(130px, 0.35fr) minmax(0, 1fr) auto;
+    gap: clamp(1rem, 2.5vw, 2rem);
+    align-items: center;
+    margin-top: 0.7rem;
+    padding: 1rem 1.1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .transformation-outcomes > p {
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 800;
+    line-height: 1.4;
+  }
+
+  .transformation-outcomes ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.4rem 0.8rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .transformation-outcomes li {
+    display: flex;
+    gap: 0.45rem;
+    color: var(--text-muted);
+    font-size: 0.63rem;
+    line-height: 1.4;
+  }
+
+  .transformation-outcomes li::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 0.36rem;
+    height: 0.36rem;
+    margin-top: 0.25rem;
+    border-radius: 50%;
+    background: var(--success);
+  }
+
+  .transformation-outcomes .btn {
+    min-height: 2.8rem;
+    white-space: nowrap;
+  }
+
+  .seo-final[id] {
+    scroll-margin-top: 6rem;
+  }
+
+  @keyframes workflow-transfer {
+    0%,
+    20% {
+      transform: translateX(-0.14rem);
+    }
+
+    70%,
+    100% {
+      transform: translateX(0.14rem);
+    }
+  }
+
+  @keyframes workflow-live {
+    0%,
+    55% {
+      box-shadow: 0 0 0 4px rgba(29, 155, 117, 0.16);
+    }
+
+    85%,
+    100% {
+      box-shadow: 0 0 0 8px transparent;
+    }
+  }
+
   .split-head {
     gap: clamp(1.2rem, 4vw, 4rem);
   }
@@ -2229,6 +2610,25 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       grid-template-columns: 1fr;
     }
 
+    .transformation-head,
+    .transformation-stage,
+    .transformation-outcomes {
+      grid-template-columns: 1fr;
+    }
+
+    .workflow-handoff {
+      min-height: 5rem;
+    }
+
+    .workflow-handoff strong {
+      transform: rotate(90deg);
+      animation: none;
+    }
+
+    .transformation-outcomes ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .hero-service-form {
       grid-template-columns: 1fr;
     }
@@ -2251,6 +2651,38 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .seo-hero,
     .seo-final {
       padding: 1.2rem;
+    }
+
+    .seo-transformation {
+      padding: 1rem;
+    }
+
+    .transformation-head > p {
+      padding-left: 0.8rem;
+    }
+
+    .workflow-panel header {
+      min-height: 5.5rem;
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .workflow-panel li {
+      grid-template-columns: 2rem minmax(0, 1fr);
+      min-height: 5rem;
+      padding: 0.75rem 0.8rem;
+    }
+
+    .workflow-panel li > i {
+      display: none;
+    }
+
+    .transformation-outcomes ul {
+      grid-template-columns: 1fr;
+    }
+
+    .transformation-outcomes .btn {
+      width: 100%;
     }
 
     .seo-context {
@@ -2284,6 +2716,13 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .faq-card > p {
       padding-left: 0;
       padding-right: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .workflow-after header em i,
+    .workflow-handoff strong {
+      animation: none;
     }
   }
 </style>
