@@ -1749,3 +1749,30 @@ Le trente-troisième lot modernise la page Merci, c'est-à-dire l'écran post-co
 - exposition de la page suivie avec `thanks_confirmation_view` ;
 - exposition de la zone de préparation suivie avec `thanks_prep_view` ;
 - exposition de la livraison checklist suivie avec `thanks_checklist_delivery_view`.
+
+## Prototype v34 — page À propos renforcée comme preuve humaine
+
+Le trente-quatrième lot ajuste la page À propos après la mise en production de la nouvelle séquence Accueil → Contact → Merci. L'objectif est de mieux relier la confiance humaine, la méthode et la conversion vers le brief de diagnostic.
+
+### Message
+
+- titre du hero recentré sur une expertise incarnée, pas seulement métier ;
+- ajout de trois repères de confiance : photovoltaïque uniquement, statuts visibles, démarrage possible avec un seul dossier ;
+- CTA final aligné avec la nouvelle page Contact : « Décrire mon premier dossier » ;
+- aucun nouveau chiffre, logo ou résultat non vérifié ajouté.
+
+### Mesure
+
+- exposition du hero suivie avec `about_hero_view` ;
+- exposition des preuves client suivie avec `about_credibility_view` ;
+- exposition du récit fondatrice suivie avec `about_founder_story_view` ;
+- exposition de la méthode suivie avec `about_method_view` ;
+- exposition des engagements suivie avec `about_commitments_view` ;
+- exposition du contact final suivie avec `about_contact_view`.
+
+### Design
+
+- ajout d'un rail de confiance dans le premier écran ;
+- motif de grille subtil aligné avec Contact et Merci ;
+- rendu mobile conservé avec les repères empilés ;
+- structure existante préservée pour ne pas diluer la preuve humaine déjà en place.

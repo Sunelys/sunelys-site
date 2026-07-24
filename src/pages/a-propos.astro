@@ -67,6 +67,24 @@ const metrics = [
   { value: "48 h", label: "de production sur dossier complet" },
 ];
 
+const heroTrustPoints = [
+  {
+    label: "Métier",
+    value: "PV uniquement",
+    text: "Sunelys reste concentrée sur les démarches solaires des installateurs.",
+  },
+  {
+    label: "Suivi",
+    value: "Statuts visibles",
+    text: "Les dossiers, relances et prochaines actions restent lisibles.",
+  },
+  {
+    label: "Départ",
+    value: "1 dossier suffit",
+    text: "La collaboration peut commencer sans basculer tout le flux.",
+  },
+];
+
 const clientLogos = [
   { name: "SunWatt France", src: "/images/site/client-sunwatt-france.png", width: 222, height: 176 },
   { name: "Terra ENR", src: "/images/site/client-terra-enr.png", width: 338, height: 216 },
@@ -98,10 +116,15 @@ const commitments = [
 ---
 
 <BaseLayout title={title} description={description} structuredData={structuredData}>
-  <section class="about-hero reveal" aria-labelledby="about-title">
+  <section
+    class="about-hero reveal"
+    aria-labelledby="about-title"
+    data-track-view="about_hero_view"
+    data-track-label="about_founder_hero"
+  >
     <div class="about-copy" data-reveal-item>
       <p class="eyebrow">À propos de Sunelys</p>
-      <h1 id="about-title">L’administratif solaire mérite une vraie expertise métier.</h1>
+      <h1 id="about-title">L’administratif solaire mérite une expertise incarnée.</h1>
       <p class="hero-intro">
         Sunelys est née d’un constat simple : les installateurs perdent trop de temps, de visibilité et parfois des
         chantiers sur des démarches qui devraient être pilotables. Notre rôle est de transformer cette charge en
@@ -129,6 +152,18 @@ const commitments = [
         <strong>Myriam Zaoui</strong>
         Fondatrice de Sunelys
       </p>
+
+      <div class="hero-trust-strip" aria-label="Repères de confiance Sunelys">
+        {
+          heroTrustPoints.map((point) => (
+            <article>
+              <span>{point.label}</span>
+              <strong>{point.value}</strong>
+              <p>{point.text}</p>
+            </article>
+          ))
+        }
+      </div>
     </div>
 
     <figure class="founder-photo" data-reveal-item>
@@ -152,7 +187,12 @@ const commitments = [
     </figure>
   </section>
 
-  <section class="credibility-section reveal" aria-labelledby="credibility-title">
+  <section
+    class="credibility-section reveal"
+    aria-labelledby="credibility-title"
+    data-track-view="about_credibility_view"
+    data-track-label="about_client_proof"
+  >
     <div class="credibility-head" data-reveal-item>
       <div>
         <p class="eyebrow">Preuves terrain</p>
@@ -193,7 +233,12 @@ const commitments = [
     </div>
   </section>
 
-  <section class="founder-story reveal" aria-labelledby="founder-title">
+  <section
+    class="founder-story reveal"
+    aria-labelledby="founder-title"
+    data-track-view="about_founder_story_view"
+    data-track-label="about_founder_story"
+  >
     <div class="story-copy" data-reveal-item>
       <p class="eyebrow">La fondatrice</p>
       <h2 id="founder-title">Rendre l’administratif suffisamment clair pour qu’il ne ralentisse plus la croissance.</h2>
@@ -223,7 +268,12 @@ const commitments = [
     </blockquote>
   </section>
 
-  <section class="approach-section reveal" aria-labelledby="approach-title">
+  <section
+    class="approach-section reveal"
+    aria-labelledby="approach-title"
+    data-track-view="about_method_view"
+    data-track-label="about_method"
+  >
     <div class="approach-head" data-reveal-item>
       <p class="eyebrow">La méthode Sunelys</p>
       <h2 id="approach-title">De la rigueur, sans rigidité.</h2>
@@ -246,7 +296,12 @@ const commitments = [
     </div>
   </section>
 
-  <section class="commitments-section reveal" aria-labelledby="commitments-title">
+  <section
+    class="commitments-section reveal"
+    aria-labelledby="commitments-title"
+    data-track-view="about_commitments_view"
+    data-track-label="about_commitments"
+  >
     <div class="commitments-head" data-reveal-item>
       <p class="eyebrow">Notre position</p>
       <h2 id="commitments-title">Ce que Sunelys choisit de faire différemment.</h2>
@@ -266,7 +321,12 @@ const commitments = [
     </div>
   </section>
 
-  <section class="contact-direct reveal" aria-labelledby="about-contact-title">
+  <section
+    class="contact-direct reveal"
+    aria-labelledby="about-contact-title"
+    data-track-view="about_contact_view"
+    data-track-label="about_contact_final"
+  >
     <div data-reveal-item>
       <p class="eyebrow">Contact direct</p>
       <h2 id="about-contact-title">Parlons du premier dossier à sortir de votre équipe.</h2>
@@ -293,7 +353,7 @@ const commitments = [
         <i aria-hidden="true">↗</i>
       </a>
       <a class="contact-cta btn btn-accent" href="/contact?source=a-propos-final#contact-form" data-track="cta_about_contact">
-        Recevoir un cadrage sous 24h
+        Décrire mon premier dossier
       </a>
     </div>
   </section>
@@ -301,6 +361,8 @@ const commitments = [
 
 <style>
   .about-hero {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.72fr);
     gap: clamp(1.2rem, 3vw, 2.5rem);
@@ -315,7 +377,23 @@ const commitments = [
     box-shadow: var(--shadow-md);
   }
 
+  .about-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: radial-gradient(68% 78% at 20% 30%, #000 0%, transparent 78%);
+    opacity: 0.44;
+  }
+
   .about-copy {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -389,8 +467,50 @@ const commitments = [
     font-size: 0.76rem;
   }
 
+  .hero-trust-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+    width: 100%;
+    max-width: 45rem;
+    margin-top: 1.4rem;
+  }
+
+  .hero-trust-strip article {
+    min-height: 8.2rem;
+    padding: 0.88rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(14px);
+  }
+
+  .hero-trust-strip span {
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-trust-strip strong {
+    display: block;
+    margin-top: 0.5rem;
+    color: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.15;
+  }
+
+  .hero-trust-strip p {
+    margin-top: 0.5rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.67rem;
+    line-height: 1.46;
+  }
+
   .founder-photo {
     position: relative;
+    z-index: 1;
     min-height: 38rem;
     margin: 0;
     overflow: hidden;
@@ -864,6 +984,14 @@ const commitments = [
     .hero-link {
       width: 100%;
       justify-content: center;
+    }
+
+    .hero-trust-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-trust-strip article {
+      min-height: auto;
     }
 
     .founder-photo {
