@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BlogCard from "../../components/blog/BlogCard.astro";
+import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import { getPublicBlogPosts } from "../../lib/blogPublication";
 
 const posts = getPublicBlogPosts().sort(
@@ -75,11 +76,15 @@ const structuredData = [
             aria-label={`Lire : ${featuredPost.frontmatter.title}`}
           >
             {featuredPost.frontmatter.coverImage && (
-              <img
+              <ResponsiveImage
                 src={featuredPost.frontmatter.coverImage}
                 alt={featuredPost.frontmatter.coverAlt || featuredPost.frontmatter.title}
                 loading="eager"
                 decoding="async"
+                width="1280"
+                height="720"
+                sizes="(max-width: 1040px) 100vw, 42vw"
+                fetchpriority="high"
               />
             )}
             <span>À lire</span>
@@ -284,6 +289,10 @@ const structuredData = [
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  .featured-visual :global(.responsive-picture) {
+    height: 100%;
   }
 
   .featured-visual > span {

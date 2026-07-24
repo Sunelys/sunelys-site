@@ -4,7 +4,7 @@ const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 export const homeSeo = {
   title: "Gestion administrative photovoltaïque | Sunelys",
   description:
-    "Sunelys reprend vos dossiers administratifs photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE.",
+    "Sunelys reprend vos dossiers administratifs photovoltaïques : DP, Consuel, raccordement et aides. Tarifs fixes par dossier.",
 };
 
 export const heroData = {
@@ -99,12 +99,20 @@ export const proofSectionData = {
         "Nous sommes ravis des services de Sunelys. Les dossiers sont cadrés sérieusement, les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
       author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
       note: "Témoignage nominatif publié avec accord.",
+      service: "Déclarations préalables",
+      outcome: "Des dossiers cadrés sérieusement et moins de pièces complémentaires.",
+      logo: "/images/site/client-sunwatt-france.png",
+      logoAlt: "Sun Watt France",
     },
     {
       quote:
         "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
       author: "Victorion Brice - gérant, Be Travaux",
       note: "Retour terrain publié avec accord.",
+      service: "Pilotage administratif",
+      outcome: "Un suivi plus fluide pour protéger le rythme des installations.",
+      logo: "/images/site/client-betravaux.png",
+      logoAlt: "Be Travaux",
     },
   ],
 };
@@ -446,8 +454,7 @@ export const faqSectionData = {
     },
     {
       question: "Comment fonctionne la tarification ?",
-      answer:
-        "Les tarifs transmis sont des prix unitaires par dossier selon le périmètre confié : DP complète, raccordement + Consuel, chaîne administrative complète, MaPrimeRénov', CEE ou pack MaPrimeRénov' + CEE.",
+      answer: "Les tarifs Sunelys sont fixes par dossier.",
     },
     {
       question: "Quels types de clients accompagnez-vous ?",

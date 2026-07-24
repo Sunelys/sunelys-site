@@ -1,0 +1,70 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  width?: number | string;
+  height?: number | string;
+  loading?: "eager" | "lazy";
+  decoding?: "async" | "auto" | "sync";
+  sizes?: string;
+  fetchpriority?: "high" | "low" | "auto";
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  loading = "lazy",
+  decoding = "async",
+  sizes = "100vw",
+  fetchpriority,
+} = Astro.props;
+
+const supportsResponsiveSources = src.endsWith("-photo.jpg");
+const base = supportsResponsiveSources ? src.replace(/\.jpg$/, "") : "";
+---
+
+{
+  supportsResponsiveSources ? (
+    <picture class="responsive-picture">
+      <source
+        type="image/avif"
+        srcset={`${base}-640.avif 640w, ${base}-1280.avif 1280w`}
+        sizes={sizes}
+      />
+      <source
+        type="image/webp"
+        srcset={`${base}-640.webp 640w, ${base}-1280.webp 1280w`}
+        sizes={sizes}
+      />
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={loading}
+        decoding={decoding}
+        fetchpriority={fetchpriority}
+      />
+    </picture>
+  ) : (
+    <img
+      src={src}
+      alt={alt}
+      width={width}
+      height={height}
+      loading={loading}
+      decoding={decoding}
+      fetchpriority={fetchpriority}
+    />
+  )
+}
+
+<style>
+  .responsive-picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

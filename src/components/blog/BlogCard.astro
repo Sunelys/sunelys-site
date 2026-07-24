@@ -1,4 +1,6 @@
 ---
+import ResponsiveImage from "../ResponsiveImage.astro";
+
 interface Props {
   post: {
     frontmatter: {
@@ -34,11 +36,14 @@ const date = new Intl.DateTimeFormat("fr-FR", {
   >
     {
       post.frontmatter.coverImage ? (
-        <img
+        <ResponsiveImage
           src={post.frontmatter.coverImage}
           alt={post.frontmatter.coverAlt || post.frontmatter.title}
           loading="lazy"
           decoding="async"
+          width="1280"
+          height="720"
+          sizes="(max-width: 700px) 88vw, (max-width: 1100px) 44vw, 30vw"
         />
       ) : (
         <span aria-hidden="true">SUNELYS</span>
@@ -102,6 +107,10 @@ const date = new Intl.DateTimeFormat("fr-FR", {
     height: 100%;
     object-fit: cover;
     transition: transform 350ms ease;
+  }
+
+  .blog-visual :global(.responsive-picture) {
+    height: 100%;
   }
 
   .blog-card:hover .blog-visual img {

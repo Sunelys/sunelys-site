@@ -992,3 +992,78 @@ L’article audité dépasse environ 10 800 px sur ordinateur et 14 000 px sur m
 2. consolidation des composants et suppression du CSS historique ;
 3. sitemap plus précis ;
 4. contrôle final d’accessibilité, de performance et de conversion.
+
+## Prototype v9 publié le 24 juillet 2026
+
+Le neuvième lot transforme les recommandations de l’audit de production en améliorations directement visibles.
+
+### Partage social sécurisé
+
+- ancienne capture de portail retirée de l’aperçu social principal ;
+- nouvelle carte Open Graph 1200 × 630 conçue pour Sunelys ;
+- aucun nom, aucune adresse e-mail, aucun numéro de dossier et aucune donnée client ;
+- promesse reprise dans le visuel : « Vos dossiers solaires. Enfin sous contrôle. » ;
+- version JPEG optimisée à environ 65 Ko pour les aperçus sociaux.
+
+### Signature visuelle Sunelys
+
+- création d’un motif propriétaire fondé sur les chemins de dossier, les jalons et une trame solaire ;
+- motif décliné différemment sur Services, Tarifs, Contact, les pages de service détaillées et les articles ;
+- animation très légère uniquement lorsque l’utilisateur n’a pas demandé de réduction des mouvements ;
+- maintien d’une hiérarchie conversion d’abord : la signature reste en arrière-plan.
+
+### Contact plus humain et plus direct
+
+- capture fonctionnelle remplacée par le portrait de Myriam ;
+- promesse de réponse humaine installée dans le premier écran ;
+- formulaire placé avant les informations secondaires sur mobile ;
+- début du formulaire remonté d’environ 1 820 px à environ 880 px du haut ;
+- ancrage du formulaire corrigé pour tenir compte de l’en-tête fixe.
+
+### Navigation mobile
+
+- menu plein écran entièrement recomposé ;
+- promesse Sunelys visible dès l’ouverture ;
+- liens organisés comme une navigation éditoriale plutôt que comme une pile de boutons ;
+- accès portail clairement séparé ;
+- blocage du défilement de la page lorsque le menu est ouvert ;
+- en-tête compacté grâce à un recadrage correct du véritable wordmark.
+
+### Preuve terrain
+
+- témoignage SUN WATT FRANCE transformé en cas client mis en avant ;
+- logo, prestation concernée, bénéfice cité et mention d’accord réunis dans le même bloc ;
+- second retour Be Travaux conservé avec son logo et son contexte ;
+- aucune statistique nouvelle ni donnée client inventée.
+
+### Lecture éditoriale
+
+- progression de lecture ajoutée à tous les articles ;
+- sommaire fixe sur ordinateur ;
+- sommaire repliable sur mobile ;
+- surbrillance de la section active ;
+- ancrages compensés pour l’en-tête fixe.
+
+### Mobile plus court
+
+- chiffres clés, formats de délégation, étapes, services et témoignages convertis en séquences horizontales tactiles ;
+- hauteur de la home réduite d’environ 10 000 px à environ 8 500 px au format 390 × 844 px ;
+- correction d’un débordement intrinsèque du premier écran qui pouvait couper un titre long ;
+- absence de débordement horizontal après correction.
+
+### Images et robustesse
+
+- créations AVIF et WebP responsives en 640 et 1 280 px pour les cinq grandes familles de couvertures du blog ;
+- portrait de Myriam disponible en AVIF et WebP ;
+- composant d’image responsive partagé entre la bibliothèque du blog, la mise en avant et les articles ;
+- carte sociale réduite d’environ 790 Ko à environ 65 Ko pour la version réellement servie aux plateformes ;
+- système d’apparition au scroll rendu progressif : si un script échoue avant son initialisation, le contenu reste visible ;
+- dates des pages principales du sitemap alignées sur la vraie refonte du 24 juillet 2026.
+
+### Vérifications
+
+- compilation Astro complète réussie ;
+- contrôles visuels ordinateur et mobile sur Accueil, Services, Contact et un article long ;
+- menu mobile, sommaire, progression et ancre de formulaire testés ;
+- aucune erreur ni aucun avertissement dans la console ;
+- absence de débordement horizontal à 390 px et 1 512 px.

@@ -4,7 +4,7 @@ title: "Prix Consuel photovoltaïque : attestation bleue, violette et coûts à 
 seoTitle: "Prix Consuel photovoltaïque : tarifs 2026"
 description: "Tarifs Consuel photovoltaïque 2026 : attestation bleue ou violette, format papier ou électronique, visites et coûts cachés à anticiper."
 pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+updatedDate: "2026-07-24"
 category: "Consuel"
 readingTime: "8 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -38,9 +38,9 @@ relatedLinks:
     description: "Piloter DP, Consuel et raccordement dans un même flux."
 faqItems:
   - question: "Quel est le prix d'une attestation Consuel photovoltaïque bleue ?"
-    answer: "Pour la métropole, le tarif Consuel applicable à partir du 2 septembre 2025 indique 201,17 € TTC en format électronique pour les trois premiers formulaires des nouveaux professionnels, puis une formule professionnelle selon le nombre de formulaires commandés."
+    answer: "Le barème officiel Consuel, indépendant des tarifs Sunelys, indique en métropole 201,17 € TTC en format électronique pour les trois premiers formulaires des nouveaux professionnels, puis applique sa propre formule professionnelle."
   - question: "Quel est le prix d'une attestation Consuel photovoltaïque violette ?"
-    answer: "Pour la métropole, le tarif officiel indique 230,32 € TTC en format électronique pour les trois premiers formulaires des nouveaux professionnels, puis une formule professionnelle selon le nombre de formulaires commandés."
+    answer: "Le barème officiel Consuel, indépendant des tarifs Sunelys, indique en métropole 230,32 € TTC en format électronique pour les trois premiers formulaires des nouveaux professionnels, puis applique sa propre formule professionnelle."
   - question: "Le format papier coûte-t-il plus cher que le format électronique ?"
     answer: "Oui, sur le tarif métropole Consuel, le format papier est légèrement plus cher que le format électronique pour les attestations bleues et violettes."
   - question: "Une visite Consuel peut-elle ajouter un coût ?"
@@ -49,7 +49,9 @@ faqItems:
 
 ## La réponse courte
 
-Au 22 juin 2026, Consuel indique que ses tarifs en vigueur ont été revalorisés le 2 septembre 2025. Pour une installation photovoltaïque en métropole, les repères à retenir sont les suivants : l'attestation **bleue** concerne la production sans stockage, l'attestation **violette** concerne la production avec stockage, et le prix dépend du statut de l'installateur, du format électronique ou papier, du nombre de formulaires commandés et du lieu du chantier.
+Au 24 juillet 2026, Consuel indique que ses tarifs en vigueur ont été revalorisés le 2 septembre 2025. Pour une installation photovoltaïque en métropole, les repères à retenir sont les suivants : l'attestation **bleue** concerne la production sans stockage et l'attestation **violette** la production avec stockage. Le barème de l'organisme Consuel varie selon le statut de l'installateur, le format, la commande et le lieu du chantier.
+
+> **À ne pas confondre :** les montants détaillés dans cet article sont les prix officiels des attestations vendues par l'organisme Consuel. Les [tarifs Sunelys](/tarifs) restent fixes par dossier.
 
 Pour les nouveaux professionnels en électricité, le tarif métropole officiel indique notamment, pour les **trois premiers formulaires** :
 
@@ -94,14 +96,14 @@ Pour les nouveaux professionnels en électricité, Consuel indique que les trois
 | Électronique | 201,17 € TTC |
 | Papier | 202,62 € TTC |
 
-Ensuite, le tarif professionnel s'applique selon une formule qui dépend du nombre de formulaires commandés.
+Ensuite, Consuel applique son propre tarif professionnel selon une formule qui utilise le nombre de formulaires commandés.
 
 | Format | Formule professionnelle métropole |
 |---|---|
 | Électronique | (121,20 € + (40,09 € x N)) x 1,20 |
 | Papier | (121,20 € + (41,31 € x N)) x 1,20 |
 
-Avec N = nombre de formulaires commandés. Pour un seul formulaire au tarif professionnel, cela donne environ **193,55 € TTC** en électronique et **195,01 € TTC** en papier. Le calcul change si vous commandez plusieurs formulaires en même temps.
+Avec N = nombre de formulaires commandés auprès de Consuel. Pour un seul formulaire au tarif professionnel, cela donne environ **193,55 € TTC** en électronique et **195,01 € TTC** en papier. Les tarifs Sunelys restent fixes par dossier.
 
 ## Prix de l'attestation Consuel violette
 
@@ -114,7 +116,7 @@ Pour les nouveaux professionnels en électricité, les trois premiers formulaire
 | Électronique | 230,32 € TTC |
 | Papier | 231,78 € TTC |
 
-Ensuite, le tarif professionnel métropole dépend aussi du nombre de formulaires commandés.
+Ensuite, Consuel calcule aussi son tarif professionnel métropole à partir du nombre de formulaires commandés.
 
 | Format | Formule professionnelle métropole |
 |---|---|
@@ -129,7 +131,7 @@ La FAQ Consuel précise qu'après le passage en tant que professionnel de l'éle
 
 Pour bénéficier du tarif professionnel, Consuel demande aussi des justificatifs d'activité en électricité, par exemple Kbis, extrait RNE, assurance décennale ou qualification. La FAQ précise que le tarif appliqué avant confirmation par Consuel reste le tarif non-professionnel.
 
-Pour un installateur photovoltaïque, cela veut dire qu'il ne faut pas construire un prix interne avec un seul montant figé. Le coût dépend du stade de votre compte Consuel, de votre justificatif professionnel et de votre volume.
+Pour un installateur photovoltaïque, ce mécanisme concerne uniquement l'achat des attestations auprès de Consuel. Les tarifs Sunelys restent fixes par dossier.
 
 ## Les coûts qui s'ajoutent au formulaire
 

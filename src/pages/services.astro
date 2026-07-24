@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+import BrandSignature from "../components/BrandSignature.astro";
 import { isVisibleHref, publicBlogSlugs } from "../lib/blogPublication";
 
 const services = [
@@ -177,6 +178,7 @@ const structuredData = {
   structuredData={[structuredData]}
 >
   <section class="services-hero reveal" aria-labelledby="services-title">
+    <BrandSignature variant="flow" />
     <div class="hero-copy" data-reveal-item>
       <p class="eyebrow">Services Sunelys</p>
       <h1 id="services-title">Déléguez l’administratif. Gardez la maîtrise du chantier.</h1>
@@ -427,6 +429,8 @@ const structuredData = {
 
 <style>
   .services-hero {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
     gap: clamp(1.5rem, 4vw, 4.2rem);
@@ -439,6 +443,12 @@ const structuredData = {
       radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
       var(--ink);
     box-shadow: var(--shadow-md);
+  }
+
+  .services-hero > .hero-copy,
+  .services-hero > .service-map {
+    position: relative;
+    z-index: 1;
   }
 
   .eyebrow {

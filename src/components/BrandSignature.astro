@@ -1,0 +1,208 @@
+---
+interface Props {
+  variant?: "flow" | "pricing" | "human" | "editorial";
+  compact?: boolean;
+}
+
+const {
+  variant = "flow",
+  compact = false,
+} = Astro.props;
+---
+
+<div class:list={["brand-signature", `is-${variant}`, compact && "is-compact"]} aria-hidden="true">
+  <span class="signature-orbit"></span>
+  <span class="signature-path path-one"></span>
+  <span class="signature-path path-two"></span>
+  <span class="signature-path path-three"></span>
+  <span class="signature-node node-one"></span>
+  <span class="signature-node node-two"></span>
+  <span class="signature-node node-three"></span>
+  <span class="signature-node node-four"></span>
+</div>
+
+<style>
+  .brand-signature {
+    position: absolute;
+    z-index: 0;
+    right: clamp(-7rem, -4vw, -2rem);
+    bottom: clamp(-7rem, -5vw, -3rem);
+    width: clamp(23rem, 42vw, 43rem);
+    aspect-ratio: 1.22;
+    overflow: hidden;
+    opacity: 0.82;
+    pointer-events: none;
+    mask-image: linear-gradient(130deg, transparent 2%, #000 28%, #000 100%);
+  }
+
+  .signature-orbit {
+    position: absolute;
+    right: 2%;
+    bottom: -18%;
+    width: 62%;
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 3.5rem rgba(255, 255, 255, 0.024),
+      0 0 0 7rem rgba(255, 255, 255, 0.016);
+  }
+
+  .signature-orbit::before,
+  .signature-orbit::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+  }
+
+  .signature-orbit::before {
+    width: 140%;
+    height: 1px;
+  }
+
+  .signature-orbit::after {
+    width: 1px;
+    height: 140%;
+  }
+
+  .signature-path {
+    position: absolute;
+    left: 2%;
+    right: 15%;
+    bottom: 18%;
+    height: 1px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--signature-color, var(--system)) 28%, var(--signature-color, var(--system)));
+    transform-origin: right;
+  }
+
+  .path-one {
+    --signature-color: var(--accent);
+    transform: rotate(-18deg);
+    box-shadow: 0 0 18px color-mix(in srgb, var(--accent) 42%, transparent);
+  }
+
+  .path-two {
+    bottom: 26%;
+    transform: rotate(-12deg);
+  }
+
+  .path-three {
+    bottom: 34%;
+    opacity: 0.48;
+    transform: rotate(-7deg);
+  }
+
+  .signature-node {
+    position: absolute;
+    width: 0.72rem;
+    height: 0.72rem;
+    border: 2px solid var(--system);
+    border-radius: 0.18rem;
+    background: var(--ink);
+    box-shadow: 0 0 0 0.35rem rgba(54, 98, 227, 0.08);
+  }
+
+  .node-one {
+    left: 23%;
+    bottom: 24%;
+  }
+
+  .node-two {
+    left: 42%;
+    bottom: 34%;
+  }
+
+  .node-three {
+    left: 61%;
+    bottom: 43%;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 0.35rem rgba(255, 107, 44, 0.08);
+  }
+
+  .node-four {
+    right: 18%;
+    bottom: 51%;
+    border-radius: 50%;
+    background: var(--system);
+  }
+
+  .is-pricing {
+    transform: rotate(5deg) scale(0.96);
+  }
+
+  .is-pricing .signature-path {
+    background: linear-gradient(90deg, transparent, var(--accent) 30%, var(--accent));
+  }
+
+  .is-pricing .node-two,
+  .is-pricing .node-four {
+    border-color: var(--accent);
+  }
+
+  .is-human {
+    right: auto;
+    left: -9rem;
+    bottom: -8rem;
+    opacity: 0.5;
+    transform: scaleX(-1);
+  }
+
+  .is-editorial {
+    right: -10rem;
+    bottom: -10rem;
+    opacity: 0.52;
+    transform: rotate(-6deg);
+  }
+
+  .is-compact {
+    width: clamp(18rem, 34vw, 32rem);
+    opacity: 0.58;
+  }
+
+  @media (max-width: 760px) {
+    .brand-signature {
+      right: -10rem;
+      bottom: -7rem;
+      width: 30rem;
+      opacity: 0.48;
+    }
+
+    .is-human {
+      right: auto;
+      left: -14rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .signature-node {
+      animation: signature-pulse 4.8s ease-in-out infinite;
+    }
+
+    .node-two {
+      animation-delay: 0.6s;
+    }
+
+    .node-three {
+      animation-delay: 1.2s;
+    }
+
+    .node-four {
+      animation-delay: 1.8s;
+    }
+  }
+
+  @keyframes signature-pulse {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 0.72;
+    }
+    50% {
+      transform: scale(1.18);
+      opacity: 1;
+    }
+  }
+</style>

@@ -1,5 +1,6 @@
 ---
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
+import BrandSignature from "./BrandSignature.astro";
 
 interface ProblemItem {
   title: string;
@@ -94,6 +95,11 @@ const serviceInterestBySlug: Record<string, string> = {
 
 const serviceInterest = serviceInterestBySlug[data.slug] || data.heroTitle;
 const isGestionLanding = data.slug === "gestion_administrative";
+const signatureVariant = data.slug.includes("tarif")
+  ? "pricing"
+  : isGestionLanding
+    ? "flow"
+    : "editorial";
 const heroSecondaryCta = isGestionLanding
   ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
   : { label: "Voir les services", href: "/services" };
@@ -132,6 +138,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 ---
 
 <section class="seo-section seo-hero section-shell reveal">
+  <BrandSignature variant={signatureVariant} compact />
   <div class="hero-layout">
     <div class="hero-copy" data-reveal-item>
       <p class="kicker">Service administratif photovoltaïque</p>
@@ -661,6 +668,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   }
 
   .seo-hero {
+    position: relative;
+    isolation: isolate;
     background:
       radial-gradient(
         110% 130% at 100% 0%,
@@ -1489,6 +1498,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   }
 
   .hero-layout {
+    position: relative;
+    z-index: 1;
     grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
     gap: clamp(1.5rem, 4vw, 4.2rem);
     align-items: center;

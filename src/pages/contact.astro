@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BrandSignature from "../components/BrandSignature.astro";
 
 const successUrl = "https://sunelys.fr/merci?source=contact_form";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
@@ -10,21 +11,6 @@ const trustBullets = [
   "Réponse sous 24h ouvrées",
   "Dossier ponctuel accepté",
   "Aucun engagement",
-];
-
-const whatYouGet = [
-  {
-    title: "Lecture du contexte",
-    text: "Volume, besoin, urgence et organisation actuelle.",
-  },
-  {
-    title: "Priorité claire",
-    text: "Le premier périmètre à sortir de votre équipe.",
-  },
-  {
-    title: "Recommandation exploitable",
-    text: "Un niveau de délégation et un tarif adaptés.",
-  },
 ];
 
 const supportCards = [
@@ -54,6 +40,7 @@ const supportCards = [
   description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
 >
   <section class="contact-hero reveal" aria-labelledby="contact-title">
+    <BrandSignature variant="human" />
     <div class="hero-copy" data-reveal-item>
       <p class="eyebrow">Diagnostic administratif</p>
       <h1 id="contact-title">Parlons du dossier qui ralentit votre équipe.</h1>
@@ -95,43 +82,30 @@ const supportCards = [
       </ul>
     </div>
 
-    <aside class="diagnostic-preview" aria-label="Contenu du diagnostic Sunelys" data-reveal-item>
-      <div class="preview-head">
+    <aside class="contact-person" aria-label="Votre interlocutrice Sunelys" data-reveal-item>
+      <picture>
+        <source srcset="/images/myriam-zaoui.avif" type="image/avif" />
+        <source srcset="/images/myriam-zaoui.webp" type="image/webp" />
+        <img
+          src="/images/myriam-zaoui.jpg"
+          alt="Myriam Zaoui, fondatrice de Sunelys"
+          width="768"
+          height="768"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+      <div class="person-overlay">
+        <span><i aria-hidden="true"></i> Votre demande est lue par une experte</span>
+        <blockquote>
+          « Je vous réponds avec un premier périmètre concret, pas avec une relance commerciale générique. »
+        </blockquote>
         <div>
-          <p>Votre demande</p>
-          <strong>Une réponse réellement utile</strong>
+          <strong>Myriam Zaoui</strong>
+          <p>Fondatrice de Sunelys</p>
         </div>
-        <span>Sous 24h</span>
       </div>
-
-      <div class="preview-steps">
-        {
-          whatYouGet.map((item, index) => (
-            <article>
-              <span>0{index + 1}</span>
-              <div>
-                <strong>{item.title}</strong>
-                <p>{item.text}</p>
-              </div>
-              <i aria-hidden="true"></i>
-            </article>
-          ))
-        }
-      </div>
-
-      <blockquote>
-        <p>
-          Les déclarations préalables avancent avec un très haut niveau d’acceptation, et nous gardons la
-          tranquillité d’esprit d’être en règle.
-        </p>
-        <footer>
-          <span>DG</span>
-          <div>
-            <strong>Damien Guillaume</strong>
-            <cite>Dirigeant, SUN WATT FRANCE</cite>
-          </div>
-        </footer>
-      </blockquote>
     </aside>
   </section>
 
@@ -418,6 +392,8 @@ const supportCards = [
 
 <style>
   .contact-hero {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
     gap: clamp(1.5rem, 4vw, 4.2rem);
@@ -430,6 +406,12 @@ const supportCards = [
       radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
       var(--ink);
     box-shadow: var(--shadow-md);
+  }
+
+  .contact-hero > .hero-copy,
+  .contact-hero > .contact-person {
+    position: relative;
+    z-index: 1;
   }
 
   .eyebrow {
@@ -511,135 +493,99 @@ const supportCards = [
     box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
   }
 
-  .diagnostic-preview {
+  .contact-person {
+    position: relative;
+    min-height: 31rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 16px;
-    background: #f8fafc;
+    background: var(--ink-soft);
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
   }
 
-  .preview-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    padding: 1rem;
-    border-bottom: 1px solid var(--line);
-    background: #ffffff;
+  .contact-person picture,
+  .contact-person img {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
 
-  .preview-head > div {
+  .contact-person picture {
+    position: absolute;
+    inset: 0;
+  }
+
+  .contact-person img {
+    object-fit: cover;
+    object-position: center 28%;
+    filter: saturate(0.78) contrast(1.04);
+  }
+
+  .contact-person::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, transparent 30%, rgba(6, 13, 25, 0.16) 50%, rgba(6, 13, 25, 0.94) 100%),
+      linear-gradient(90deg, rgba(14, 23, 38, 0.08), transparent 55%);
+  }
+
+  .person-overlay {
+    position: absolute;
+    z-index: 1;
+    inset: auto 1.15rem 1.15rem;
     display: grid;
-    gap: 0.12rem;
+    gap: 0.72rem;
+    color: #ffffff;
   }
 
-  .preview-head p,
-  .preview-head > span {
-    color: var(--text-muted);
-    font-size: 0.62rem;
-    font-weight: 700;
-  }
-
-  .preview-head strong {
-    color: var(--text);
-    font-size: 0.86rem;
-  }
-
-  .preview-head > span {
-    padding: 0.28rem 0.48rem;
+  .person-overlay > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    width: fit-content;
+    padding: 0.36rem 0.58rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 999px;
-    background: var(--success-soft);
-    color: var(--success);
-  }
-
-  .preview-steps article {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.75rem;
-    align-items: center;
-    min-height: 4.5rem;
-    padding: 0.7rem 1rem;
-    border-bottom: 1px solid var(--line);
-  }
-
-  .preview-steps article > span {
-    color: var(--system);
+    background: rgba(6, 13, 25, 0.56);
+    backdrop-filter: blur(12px);
+    color: rgba(255, 255, 255, 0.72);
     font-size: 0.62rem;
-    font-weight: 800;
+    font-weight: 720;
   }
 
-  .preview-steps article > div {
-    display: grid;
-    gap: 0.12rem;
-  }
-
-  .preview-steps strong {
-    color: var(--text);
-    font-size: 0.74rem;
-  }
-
-  .preview-steps p {
-    color: var(--text-muted);
-    font-size: 0.61rem;
-  }
-
-  .preview-steps article > i {
-    width: 0.5rem;
-    height: 0.5rem;
+  .person-overlay > span i {
+    width: 0.42rem;
+    height: 0.42rem;
     border-radius: 50%;
     background: var(--success);
-    box-shadow: 0 0 0 3px var(--success-soft);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.18);
   }
 
-  blockquote {
-    margin: 0.8rem;
-    padding: 1rem;
-    border-radius: 12px;
-    background: var(--ink);
+  .person-overlay blockquote {
+    max-width: 31ch;
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(1rem, 1.4vw, 1.3rem);
+    font-weight: 720;
+    line-height: 1.42;
   }
 
-  blockquote > p {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.72rem;
-    font-weight: 620;
-    line-height: 1.58;
-  }
-
-  blockquote footer {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 0.6rem;
-    align-items: center;
-    margin-top: 0.8rem;
-    padding-top: 0.8rem;
+  .person-overlay > div {
+    padding-top: 0.7rem;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  blockquote footer > span {
-    display: inline-grid;
-    place-items: center;
-    width: 2.15rem;
-    height: 2.15rem;
-    border-radius: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    color: var(--accent);
-    font-size: 0.62rem;
-    font-weight: 800;
-  }
-
-  blockquote footer strong {
+  .person-overlay strong {
     display: block;
     color: #ffffff;
-    font-size: 0.68rem;
+    font-size: 0.76rem;
   }
 
-  blockquote cite {
-    display: block;
-    margin-top: 0.1rem;
-    color: rgba(255, 255, 255, 0.44);
-    font-size: 0.58rem;
-    font-style: normal;
+  .person-overlay p {
+    margin-top: 0.12rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.64rem;
   }
 
   .contact-main {
@@ -790,6 +736,7 @@ const supportCards = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.75rem;
     padding: clamp(1rem, 2.4vw, 1.7rem);
+    scroll-margin-top: 6.5rem;
   }
 
   label {
@@ -867,6 +814,11 @@ const supportCards = [
 
     .form-intro {
       position: static;
+      order: 2;
+    }
+
+    .form-card {
+      order: 1;
     }
   }
 
@@ -885,6 +837,46 @@ const supportCards = [
     .hero-link {
       width: 100%;
       justify-content: center;
+    }
+
+    .contact-person {
+      min-height: 11rem;
+    }
+
+    .contact-person picture {
+      width: 42%;
+    }
+
+    .contact-person img {
+      object-position: center 24%;
+    }
+
+    .contact-person::after {
+      background:
+        linear-gradient(90deg, transparent 22%, rgba(6, 13, 25, 0.82) 48%, rgba(6, 13, 25, 0.98) 100%),
+        linear-gradient(180deg, transparent, rgba(6, 13, 25, 0.34));
+    }
+
+    .person-overlay {
+      inset: 1rem 1rem 1rem 38%;
+      align-content: center;
+      gap: 0.46rem;
+    }
+
+    .person-overlay > span {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      backdrop-filter: none;
+    }
+
+    .person-overlay blockquote {
+      font-size: 0.86rem;
+      line-height: 1.38;
+    }
+
+    .person-overlay > div {
+      padding-top: 0.45rem;
     }
 
     .form-grid {
