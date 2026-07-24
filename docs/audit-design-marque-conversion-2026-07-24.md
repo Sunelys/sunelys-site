@@ -1141,3 +1141,32 @@ Le onzième lot corrige le principal écart encore visible entre les premiers é
 - disparition des deux grandes grilles pâles qui rallongeaient la lecture ;
 - absence de débordement horizontal à 390 px ;
 - ancre de conversion mobile testée avec arrivée correcte sur le formulaire.
+
+## Prototype v12 — lecture progressive et parcours d'action
+
+Le douzième lot réduit la longueur perçue de la seconde moitié des pages de prestation sans supprimer le contenu utile au référencement ni les réponses attendues par un prospect.
+
+### Guide de décision
+
+- remplacement de la grande grille documentaire par un guide consultable à la demande ;
+- première réponse ouverte par défaut, puis une seule réponse visible à la fois ;
+- contenu intégral conservé dans la page et accessible sans interface complexe ;
+- accès direct au diagnostic depuis l'introduction et depuis chaque réponse ;
+- affichage du guide suivi comme signal d'engagement.
+
+### Méthode et déclencheur réunis
+
+- fusion des anciennes sections « Process » et « Quand déléguer » ;
+- quatre étapes présentées comme une séquence opérationnelle compacte ;
+- signaux d'alerte regroupés dans un panneau de décision contrasté ;
+- appel à l'action relié directement au formulaire final de la prestation ;
+- affichage du parcours suivi comme signal d'engagement.
+
+### Impact mesuré
+
+- environ 640 px supplémentaires supprimés sur ordinateur sur la page Déclaration préalable ;
+- environ 900 px supplémentaires supprimés sur mobile au format 390 × 844 px ;
+- hauteur de la page ramenée d'environ 9 100 à 8 465 px sur ordinateur ;
+- hauteur mobile ramenée d'environ 12 900 à 11 993 px ;
+- absence de débordement horizontal à 390 px et 1 512 px ;
+- ouverture unique des réponses et arrivée sur le formulaire testées.
