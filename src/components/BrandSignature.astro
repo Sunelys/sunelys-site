@@ -2,15 +2,17 @@
 interface Props {
   variant?: "flow" | "pricing" | "human" | "editorial";
   compact?: boolean;
+  tone?: "dark" | "light";
 }
 
 const {
   variant = "flow",
   compact = false,
+  tone = "dark",
 } = Astro.props;
 ---
 
-<div class:list={["brand-signature", `is-${variant}`, compact && "is-compact"]} aria-hidden="true">
+<div class:list={["brand-signature", `is-${variant}`, `is-on-${tone}`, compact && "is-compact"]} aria-hidden="true">
   <span class="signature-orbit"></span>
   <span class="signature-path path-one"></span>
   <span class="signature-path path-two"></span>
@@ -140,6 +142,22 @@ const {
   .is-pricing .node-two,
   .is-pricing .node-four {
     border-color: var(--accent);
+  }
+
+  .is-on-light .signature-orbit {
+    border-color: rgba(14, 23, 38, 0.1);
+    box-shadow:
+      0 0 0 3.5rem rgba(14, 23, 38, 0.018),
+      0 0 0 7rem rgba(14, 23, 38, 0.012);
+  }
+
+  .is-on-light .signature-orbit::before,
+  .is-on-light .signature-orbit::after {
+    background: rgba(14, 23, 38, 0.08);
+  }
+
+  .is-on-light .signature-node {
+    background: var(--surface);
   }
 
   .is-human {

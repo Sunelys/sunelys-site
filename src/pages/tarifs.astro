@@ -80,10 +80,16 @@ const pricingSignals = [
 ];
 
 const snapshotPrices = [
-  { label: "EDF OA", price: "49 €" },
-  { label: "Raccordement + Consuel", price: "89 €" },
-  { label: "DP complète", price: "119 €" },
-  { label: "Chaîne complète", price: "199 €" },
+  { need: "Activer le contrat", label: "EDF OA", price: "49 €", href: "#edf-oa" },
+  { need: "Finaliser le réseau", label: "Raccordement + Consuel", price: "89 €", href: "#tarifs-photovoltaique" },
+  { need: "Sécuriser le départ", label: "DP complète", price: "119 €", href: "#tarifs-photovoltaique" },
+  {
+    need: "Tout déléguer",
+    label: "Chaîne complète",
+    price: "199 €",
+    href: "#tarifs-photovoltaique",
+    highlighted: true,
+  },
 ];
 
 const structuredData = {
@@ -135,28 +141,40 @@ const structuredData = {
       </div>
     </div>
 
-    <aside class="price-snapshot" aria-label="Aperçu des principaux tarifs" data-reveal-item>
-      <div class="snapshot-head">
+    <aside class="price-matrix" aria-label="Matrice de choix des principaux tarifs" data-reveal-item>
+      <div class="matrix-head">
         <div>
-          <p>Grille publique</p>
-          <strong>Prix unitaires</strong>
+          <p>Matrice de décision</p>
+          <strong>Choisissez selon ce qu'il faut sortir de votre équipe</strong>
         </div>
         <span>HT / dossier</span>
       </div>
 
-      <div class="snapshot-list">
+      <div class="matrix-list">
         {
           snapshotPrices.map((item, index) => (
-            <div class:list={["snapshot-row", index === snapshotPrices.length - 1 && "is-featured"]}>
+            <a
+              class:list={["matrix-row", item.highlighted && "is-featured"]}
+              href={item.href}
+              data-track="cta_tarifs_hero_matrix"
+              data-track-label={item.label}
+            >
               <span>0{index + 1}</span>
-              <p>{item.label}</p>
+              <div>
+                <small>{item.need}</small>
+                <p>{item.label}</p>
+              </div>
               <strong>{item.price}</strong>
-            </div>
+              <i aria-hidden="true">→</i>
+            </a>
           ))
         }
       </div>
 
-      <p class="snapshot-note">Aucun abonnement · aucun minimum de volume</p>
+      <div class="matrix-foot">
+        <span>Aucun abonnement</span>
+        <span>Aucun minimum de volume</span>
+      </div>
     </aside>
   </section>
 
@@ -307,7 +325,7 @@ const structuredData = {
     position: relative;
     isolation: isolate;
     display: grid;
-    grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.74fr);
+    grid-template-columns: minmax(0, 0.88fr) minmax(400px, 1.12fr);
     gap: clamp(1.5rem, 4vw, 4.2rem);
     align-items: center;
     overflow: hidden;
@@ -321,7 +339,7 @@ const structuredData = {
   }
 
   .pricing-hero > .hero-copy,
-  .pricing-hero > .price-snapshot {
+  .pricing-hero > .price-matrix {
     position: relative;
     z-index: 1;
   }
@@ -339,7 +357,7 @@ const structuredData = {
   }
 
   h1 {
-    max-width: 13ch;
+    max-width: 11ch;
     margin-top: 0.7rem;
     color: #ffffff;
     font-size: clamp(2.4rem, 5vw, 5.2rem);
@@ -410,80 +428,159 @@ const structuredData = {
     box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
   }
 
-  .price-snapshot {
+  .price-matrix {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 16px;
+    border-radius: 18px;
     background: #f8fafc;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
   }
 
-  .snapshot-head {
+  .matrix-head {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1rem;
-    padding: 1rem;
+    padding: 1.05rem 1.15rem;
     border-bottom: 1px solid var(--line);
     background: #ffffff;
   }
 
-  .snapshot-head div {
+  .matrix-head div {
     display: grid;
-    gap: 0.12rem;
+    gap: 0.18rem;
   }
 
-  .snapshot-head p,
-  .snapshot-head > span {
+  .matrix-head p,
+  .matrix-head > span {
     color: var(--text-muted);
-    font-size: 0.64rem;
+    font-size: 0.6rem;
     font-weight: 700;
   }
 
-  .snapshot-head strong {
+  .matrix-head p {
+    color: var(--system);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .matrix-head strong {
+    max-width: 32ch;
     color: var(--text);
     font-size: 0.88rem;
+    line-height: 1.25;
   }
 
-  .snapshot-row {
+  .matrix-list {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.75rem;
+  }
+
+  .matrix-row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    gap: 0.85rem;
     align-items: center;
-    min-height: 4.25rem;
-    padding: 0.65rem 1rem;
+    min-height: 4.55rem;
+    padding: 0.65rem 1.15rem;
     border-bottom: 1px solid var(--line);
     color: var(--text);
+    text-decoration: none;
+    transition:
+      background-color 160ms ease,
+      transform 160ms ease;
   }
 
-  .snapshot-row > span {
+  .matrix-row:hover,
+  .matrix-row:focus-visible {
+    background: var(--system-soft);
+  }
+
+  .matrix-row > span {
     color: var(--system);
     font-size: 0.63rem;
     font-weight: 800;
   }
 
-  .snapshot-row p {
-    font-size: 0.76rem;
-    font-weight: 720;
+  .matrix-row > div {
+    min-width: 0;
   }
 
-  .snapshot-row strong {
+  .matrix-row small {
+    display: block;
+    color: var(--text-muted);
+    font-size: 0.57rem;
+    font-weight: 680;
+  }
+
+  .matrix-row p {
+    margin-top: 0.14rem;
+    overflow: hidden;
+    font-size: 0.78rem;
+    font-weight: 720;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .matrix-row strong {
     font-size: 1.3rem;
     letter-spacing: -0.04em;
+    white-space: nowrap;
   }
 
-  .snapshot-row.is-featured {
-    background: var(--system-soft);
-  }
-
-  .snapshot-row.is-featured strong {
+  .matrix-row > i {
     color: var(--system);
+    font-size: 0.82rem;
+    font-style: normal;
   }
 
-  .snapshot-note {
-    padding: 0.75rem 1rem;
+  .matrix-row.is-featured {
+    background:
+      radial-gradient(100% 90% at 100% 0%, rgba(54, 98, 227, 0.25), transparent 62%),
+      var(--ink);
+    color: #ffffff;
+  }
+
+  .matrix-row.is-featured:hover,
+  .matrix-row.is-featured:focus-visible {
+    background:
+      radial-gradient(100% 90% at 100% 0%, rgba(54, 98, 227, 0.34), transparent 62%),
+      #15213a;
+  }
+
+  .matrix-row.is-featured > span,
+  .matrix-row.is-featured small,
+  .matrix-row.is-featured > i {
+    color: var(--accent);
+  }
+
+  .matrix-row.is-featured strong {
+    color: #ffffff;
+  }
+
+  .matrix-foot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem 1.2rem;
+    min-height: 2.85rem;
+    padding: 0.6rem 1rem;
     color: var(--text-muted);
-    font-size: 0.64rem;
-    text-align: center;
+    font-size: 0.6rem;
+    font-weight: 680;
+  }
+
+  .matrix-foot span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
+  }
+
+  .matrix-foot span::before {
+    content: "";
+    width: 0.38rem;
+    height: 0.38rem;
+    border-radius: 50%;
+    background: var(--success);
   }
 
   .specialist-strip {
@@ -994,8 +1091,33 @@ const structuredData = {
       padding: 1.2rem;
     }
 
-    .price-snapshot {
+    .price-matrix {
       margin-top: 0.4rem;
+    }
+
+    .matrix-head strong {
+      max-width: 24ch;
+      font-size: 0.78rem;
+    }
+
+    .matrix-row {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      min-height: 4.2rem;
+      padding-inline: 0.85rem;
+    }
+
+    .matrix-row > i {
+      display: none;
+    }
+
+    .matrix-row strong {
+      font-size: 1.12rem;
+    }
+
+    .matrix-foot {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
     .specialist-strip {

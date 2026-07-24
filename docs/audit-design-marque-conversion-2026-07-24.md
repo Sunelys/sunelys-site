@@ -1330,3 +1330,31 @@ Le dix-septième lot transforme le portail, principal différenciateur de Sunely
 - état actif exposé aux technologies d'assistance ;
 - composition adaptée aux écrans étroits sans carrousel imposé ;
 - transition courte et statut temps réel neutralisables par la préférence de réduction des mouvements.
+
+## Prototype v18 — premiers écrans différenciés
+
+Le dix-huitième lot rompt la répétition visuelle entre les pages Services et Tarifs en donnant à chacune un outil de décision propre dès le premier écran.
+
+### Services : cartographie du flux
+
+- premier écran clair et technique, distinct des autres pages sombres ;
+- trame de fond inspirée d'un plan de pilotage ;
+- chemin du dossier rendu visible depuis le projet vendu jusqu'à EDF OA ;
+- DP, raccordement Enedis, Consuel et contrat d'achat organisés comme des jalons ;
+- aides MaPrimeRénov' et CEE représentées comme un flux parallèle ;
+- portail partagé présenté comme la lecture commune de toutes les étapes.
+
+### Tarifs : matrice de décision
+
+- ancienne liste de prix transformée en quatre niveaux de délégation ;
+- lecture par besoin : activer le contrat, finaliser le réseau, sécuriser le départ ou tout déléguer ;
+- prix et périmètres accessibles directement depuis le premier écran ;
+- chaîne complète différenciée comme solution de pilotage global ;
+- absence d'abonnement et de minimum de volume conservée à proximité de la matrice.
+
+### Conversion et cohérence
+
+- CTA principaux et secondaires conservés ;
+- chaque ligne tarifaire mène vers le bon périmètre détaillé ;
+- aucune nouvelle promesse, aucun tarif et aucun chiffre inventés ;
+- identité Sunelys maintenue par l'encre, l'orange solaire, le bleu système et le motif de flux.

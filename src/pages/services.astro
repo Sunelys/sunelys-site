@@ -139,6 +139,29 @@ const partnerMetrics = [
   { value: "24 h", label: "pour recevoir un cadrage" },
 ];
 
+const serviceFlow = [
+  {
+    label: "Déclaration préalable",
+    meta: "Autorisation mairie",
+    tone: "system",
+  },
+  {
+    label: "Raccordement Enedis",
+    meta: "Demande réseau",
+    tone: "success",
+  },
+  {
+    label: "Consuel",
+    meta: "Conformité électrique",
+    tone: "accent",
+  },
+  {
+    label: "EDF OA",
+    meta: "Contrat d'achat",
+    tone: "system",
+  },
+];
+
 const completeChainItems = [
   "Déclaration préalable, raccordement réseau et Consuel dans le même flux",
   "Un interlocuteur unique pour centraliser les échanges et les relances",
@@ -178,7 +201,7 @@ const structuredData = {
   structuredData={[structuredData]}
 >
   <section class="services-hero reveal" aria-labelledby="services-title">
-    <BrandSignature variant="flow" />
+    <BrandSignature variant="flow" tone="light" />
     <div class="hero-copy" data-reveal-item>
       <p class="eyebrow">Services Sunelys</p>
       <h1 id="services-title">Déléguez l’administratif. Gardez la maîtrise du chantier.</h1>
@@ -208,30 +231,43 @@ const structuredData = {
       </div>
     </div>
 
-    <aside class="service-map" aria-label="Périmètre des services Sunelys" data-reveal-item>
+    <aside class="service-map" aria-label="Cartographie du flux administratif photovoltaïque" data-reveal-item>
       <div class="map-head">
         <div>
-          <p>Périmètre administratif</p>
-          <strong>Un suivi de bout en bout</strong>
+          <p>Cartographie du flux</p>
+          <strong>Du projet vendu au contrat d'achat</strong>
         </div>
-        <span>5 expertises</span>
+        <span><i aria-hidden="true"></i> Piloté</span>
       </div>
-      <div class="map-list">
+
+      <div class="flow-origin">
+        <span>Point de départ</span>
+        <strong>Projet photovoltaïque vendu</strong>
+      </div>
+
+      <ol class="map-flow">
         {
-          ["Déclaration préalable", "Consuel", "Raccordement Enedis", "EDF OA", "MaPrimeRénov' + CEE"].map(
-            (label, index) => (
-              <div class:list={["map-row", index === 4 && "is-aid"]}>
-                <span>0{index + 1}</span>
-                <p>{label}</p>
-                <strong><i aria-hidden="true"></i> Délégable</strong>
+          serviceFlow.map((step, index) => (
+            <li class={`is-${step.tone}`}>
+              <span class="flow-node">0{index + 1}</span>
+              <div>
+                <p>{step.meta}</p>
+                <strong>{step.label}</strong>
               </div>
-            ),
-          )
+              <em>Sunelys suit</em>
+            </li>
+          ))
         }
+      </ol>
+
+      <div class="map-branch">
+        <span>En parallèle</span>
+        <strong>MaPrimeRénov' + CEE</strong>
       </div>
+
       <div class="map-foot">
-        <span>Portail de suivi</span>
-        <span>Interlocuteur humain</span>
+        <span><i aria-hidden="true"></i> Portail de suivi partagé</span>
+        <strong>Une seule lecture du dossier</strong>
       </div>
     </aside>
   </section>
@@ -437,11 +473,14 @@ const structuredData = {
     align-items: center;
     overflow: hidden;
     padding: clamp(1.5rem, 3.8vw, 4rem);
+    border: 1px solid var(--line);
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
-      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
-      var(--ink);
+      linear-gradient(rgba(14, 23, 38, 0.025) 1px, transparent 1px) 0 0 / 34px 34px,
+      linear-gradient(90deg, rgba(14, 23, 38, 0.025) 1px, transparent 1px) 0 0 / 34px 34px,
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.13), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.12), transparent 62%),
+      var(--surface);
     box-shadow: var(--shadow-md);
   }
 
@@ -460,13 +499,13 @@ const structuredData = {
   }
 
   .hero-copy .eyebrow {
-    color: var(--accent);
+    color: var(--system);
   }
 
   h1 {
     max-width: 14ch;
     margin-top: 0.7rem;
-    color: #ffffff;
+    color: var(--ink);
     font-size: clamp(2.4rem, 5vw, 5.15rem);
     line-height: 0.94;
   }
@@ -474,7 +513,7 @@ const structuredData = {
   .hero-intro {
     max-width: 62ch;
     margin-top: 1.15rem;
-    color: rgba(255, 255, 255, 0.64);
+    color: var(--text-muted);
     font-size: 0.96rem;
     line-height: 1.65;
   }
@@ -506,7 +545,7 @@ const structuredData = {
   }
 
   .hero-link {
-    color: rgba(255, 255, 255, 0.76);
+    color: var(--ink);
   }
 
   .hero-link span,
@@ -529,13 +568,12 @@ const structuredData = {
     display: inline-flex;
     align-items: center;
     gap: 0.45rem;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-muted);
     font-size: 0.69rem;
     font-weight: 650;
   }
 
-  .hero-assurance i,
-  .map-row strong i {
+  .hero-assurance i {
     width: 0.42rem;
     height: 0.42rem;
     border-radius: 50%;
@@ -546,9 +584,11 @@ const structuredData = {
   .service-map {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 16px;
-    background: #f8fafc;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+    border-radius: 18px;
+    background:
+      radial-gradient(100% 80% at 100% 0%, rgba(54, 98, 227, 0.2), transparent 56%),
+      var(--ink);
+    box-shadow: 0 30px 80px rgba(14, 23, 38, 0.24);
   }
 
   .map-head {
@@ -557,8 +597,8 @@ const structuredData = {
     gap: 1rem;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid var(--line);
-    background: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.045);
   }
 
   .map-head > div {
@@ -568,68 +608,193 @@ const structuredData = {
 
   .map-head p,
   .map-head > span {
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.5);
     font-size: 0.62rem;
     font-weight: 700;
   }
 
   .map-head strong {
-    color: var(--text);
+    color: #ffffff;
     font-size: 0.86rem;
   }
 
   .map-head > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.38rem;
     padding: 0.28rem 0.48rem;
     border-radius: 999px;
-    background: var(--system-soft);
-    color: var(--system);
+    background: rgba(29, 155, 117, 0.12);
+    color: #aee7d3;
   }
 
-  .map-row {
+  .map-head > span i,
+  .map-foot span i {
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.12);
+  }
+
+  .flow-origin {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.75rem;
-    align-items: center;
-    min-height: 3.7rem;
-    padding: 0.65rem 1rem;
-    border-bottom: 1px solid var(--line);
+    gap: 0.22rem;
+    margin: 0.8rem 1rem 0;
+    padding: 0.72rem 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.055);
   }
 
-  .map-row > span {
-    color: var(--system);
-    font-size: 0.62rem;
+  .flow-origin span {
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .flow-origin strong {
+    color: #ffffff;
+    font-size: 0.76rem;
+  }
+
+  .map-flow {
+    position: relative;
+    display: grid;
+    gap: 0.35rem;
+    margin: 0;
+    padding: 0.8rem 1rem;
+    list-style: none;
+  }
+
+  .map-flow::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 2.18rem;
+    width: 1px;
+    background: linear-gradient(var(--accent), var(--system), var(--success));
+    opacity: 0.55;
+  }
+
+  .map-flow li {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2.15rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 3.45rem;
+    padding: 0.55rem 0.7rem 0.55rem 0;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 11px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .flow-node {
+    z-index: 1;
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    place-items: center;
+    justify-self: center;
+    border: 1px solid var(--system);
+    border-radius: 0.42rem;
+    background: var(--ink);
+    color: #aebfff;
+    font-size: 0.54rem;
     font-weight: 800;
   }
 
-  .map-row p {
-    color: var(--text);
-    font-size: 0.74rem;
-    font-weight: 720;
+  .map-flow .is-success .flow-node {
+    border-color: var(--success);
+    color: #aee7d3;
   }
 
-  .map-row strong {
-    display: inline-flex;
+  .map-flow .is-accent .flow-node {
+    border-color: var(--accent);
+    color: #ffd2a8;
+  }
+
+  .map-flow li > div {
+    min-width: 0;
+  }
+
+  .map-flow p {
+    color: rgba(255, 255, 255, 0.44);
+    font-size: 0.56rem;
+  }
+
+  .map-flow strong {
+    display: block;
+    margin-top: 0.12rem;
+    overflow: hidden;
+    color: #ffffff;
+    font-size: 0.72rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .map-flow em {
+    padding: 0.25rem 0.42rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.54rem;
+    font-style: normal;
+    font-weight: 680;
+    white-space: nowrap;
+  }
+
+  .map-branch {
+    display: flex;
     align-items: center;
-    gap: 0.42rem;
-    color: var(--text-muted);
-    font-size: 0.6rem;
+    justify-content: space-between;
+    gap: 0.8rem;
+    margin: 0 1rem 0.8rem;
+    padding: 0.62rem 0.75rem;
+    border: 1px dashed rgba(212, 130, 42, 0.42);
+    border-radius: 10px;
+    background: rgba(212, 130, 42, 0.07);
   }
 
-  .map-row.is-aid {
-    background: var(--system-soft);
+  .map-branch span {
+    color: var(--accent);
+    font-size: 0.56rem;
+    font-weight: 780;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .map-branch strong {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.66rem;
   }
 
   .map-foot {
     display: flex;
-    justify-content: center;
+    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
-    padding: 0.72rem 1rem;
+    padding: 0.78rem 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.035);
   }
 
   .map-foot span {
-    color: var(--text-muted);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255, 255, 255, 0.55);
     font-size: 0.59rem;
     font-weight: 680;
+  }
+
+  .map-foot strong {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.6rem;
   }
 
   .proof-strip {
@@ -1204,8 +1369,8 @@ const structuredData = {
       justify-content: center;
     }
 
-    .map-row strong {
-      font-size: 0;
+    .map-flow em {
+      display: none;
     }
 
     .proof-strip,
