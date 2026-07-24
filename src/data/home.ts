@@ -411,11 +411,32 @@ export const servicesSectionData = {
     label: "Comparer les tarifs",
     track: "cta_services_pricing",
   },
+  buyingSignals: [
+    {
+      label: "Prix lisibles",
+      text: "De 49 € à 199 € HT par dossier selon la brique déléguée.",
+      href: "/tarifs",
+      track: "cta_services_signal_pricing",
+    },
+    {
+      label: "Sans engagement",
+      text: "Un dossier ponctuel suffit pour tester le niveau d'exécution Sunelys.",
+    },
+    {
+      label: "Décision simple",
+      text: "Vous envoyez le blocage, Sunelys cadre la bonne offre sous 24h.",
+      href: "/contact?source=services_decision#contact-form",
+      track: "cta_services_signal_contact",
+    },
+  ],
   cards: [
     {
       label: "Service 01",
       title: "Déclaration préalable",
       stage: "Avant dépôt",
+      price: "119 € HT",
+      priceNote: "par dossier",
+      decisionHint: "À choisir quand il faut sécuriser le dépôt mairie et le suivi d'instruction.",
       benefit: "Des dossiers complets pour limiter les refus et sécuriser le lancement chantier.",
       description:
         "Constitution, vérification des pièces, dépôt et suivi mairie jusqu'au retour administratif.",
@@ -427,6 +448,9 @@ export const servicesSectionData = {
       label: "Service 02",
       title: "Consuel",
       stage: "Mise en service",
+      price: "Pack 89 € HT",
+      priceNote: "raccordement + Consuel",
+      decisionHint: "Pensé pour sortir la phase technique des relances internes.",
       benefit: "Un suivi structuré pour réduire les retours et accélérer les mises en service.",
       description:
         "Préparation du dossier, coordination des pièces, suivi des demandes et accompagnement jusqu'à validation.",
@@ -438,6 +462,9 @@ export const servicesSectionData = {
       label: "Service 03",
       title: "Raccordement",
       stage: "Réseau",
+      price: "Pack 89 € HT",
+      priceNote: "raccordement + Consuel",
+      decisionHint: "À activer quand Enedis et les pièces de mise en service doivent avancer ensemble.",
       benefit: "Une coordination Enedis plus lisible pour mieux maîtriser les délais réseau.",
       description:
         "Suivi des étapes, relances, pièces attendues et traçabilité complète du parcours raccordement.",
@@ -449,6 +476,9 @@ export const servicesSectionData = {
       label: "Service 04",
       title: "EDF OA",
       stage: "Contrat d'achat",
+      price: "49 € HT",
+      priceNote: "par dossier",
+      decisionHint: "Utile dès que l'espace producteur ou la signature du contrat d'achat bloque.",
       benefit: "Un espace producteur activé et un contrat d'achat suivi jusqu'à signature.",
       description:
         "Vérification des références, accompagnement à l'activation, suivi du dossier EDF OA et sécurisation de la signature client.",
@@ -460,6 +490,9 @@ export const servicesSectionData = {
       label: "Service 05",
       title: "MaPrimeRénov' + CEE",
       stage: "Aides",
+      price: "199 € HT",
+      priceNote: "pack MPR + CEE",
+      decisionHint: "Pour éviter que les aides restent dispersées entre devis, pièces client et organismes.",
       benefit: "Des dossiers d'aides montés et suivis jusqu'à validation.",
       description:
         "Éligibilité, dépôt ANAH, contrôle CEE, pièces client et suivi jusqu'au versement ou à la validation.",
