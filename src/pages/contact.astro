@@ -14,6 +14,57 @@ const trustBullets = [
   "Aucun engagement",
 ];
 
+const heroProofPoints = [
+  {
+    label: "Temps",
+    value: "Brief en 3 min",
+    text: "juste le contexte utile pour cadrer la reprise",
+  },
+  {
+    label: "Retour",
+    value: "24h ouvrées",
+    text: "une réponse humaine, orientée dossier",
+  },
+  {
+    label: "Départ",
+    value: "1 dossier suffit",
+    text: "pas besoin d’un flux complet pour commencer",
+  },
+];
+
+const diagnosticDeliverables = [
+  {
+    tag: "Périmètre",
+    title: "Ce que Sunelys peut reprendre",
+    text: "Démarche, pièces attendues, niveau de délégation possible.",
+  },
+  {
+    tag: "Priorité",
+    title: "Le dossier à traiter d’abord",
+    text: "Selon l’urgence, le blocage et le temps perdu côté équipe.",
+  },
+  {
+    tag: "Suite",
+    title: "Une réponse exploitable",
+    text: "Réponse directe ou échange court si le contexte mérite d’être précisé.",
+  },
+];
+
+const formAssurances = [
+  {
+    title: "Champs ciblés",
+    text: "Le message reste optionnel : le formulaire sert surtout à orienter le dossier.",
+  },
+  {
+    title: "Contact direct",
+    text: "Vous pouvez aussi écrire, appeler ou réserver un échange court.",
+  },
+  {
+    title: "Usage clair",
+    text: "Vos informations servent uniquement à traiter votre demande.",
+  },
+];
+
 const supportCards = [
   {
     title: "Email",
@@ -40,19 +91,24 @@ const supportCards = [
   title="Contact installateurs photovoltaïques | Sunelys"
   description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
 >
-  <section class="contact-hero reveal" aria-labelledby="contact-title">
+  <section
+    class="contact-hero reveal"
+    aria-labelledby="contact-title"
+    data-track-view="contact_hero_view"
+    data-track-label="contact_diagnostic_hero"
+  >
     <BrandSignature variant="human" />
     <div class="hero-copy" data-reveal-item>
       <p class="eyebrow">Diagnostic administratif</p>
-      <h1 id="contact-title">Parlons du dossier qui ralentit votre équipe.</h1>
+      <h1 id="contact-title">Le bon point d’entrée pour reprendre vos dossiers.</h1>
       <p class="hero-text">
-        Décrivez votre volume, votre besoin et votre urgence. Sunelys identifie le premier périmètre à déléguer,
-        qu’il s’agisse d’un dossier ponctuel ou d’un flux récurrent.
+        En quelques minutes, donnez le contexte essentiel. Sunelys vous répond avec le premier périmètre utile à
+        déléguer : dossier ponctuel, reprise d’un blocage ou flux récurrent.
       </p>
 
       <div class="hero-actions">
         <a class="btn btn-accent" href="#contact-form" data-track="cta_contact_form_top">
-          Recevoir un diagnostic sous 24h
+          Décrire mon dossier
           <span aria-hidden="true">→</span>
         </a>
         {
@@ -81,6 +137,18 @@ const supportCards = [
           ))
         }
       </ul>
+
+      <div class="hero-proof-strip" aria-label="Repères du diagnostic">
+        {
+          heroProofPoints.map((point) => (
+            <article>
+              <span>{point.label}</span>
+              <strong>{point.value}</strong>
+              <p>{point.text}</p>
+            </article>
+          ))
+        }
+      </div>
     </div>
 
     <aside class="contact-person" aria-label="Votre interlocutrice Sunelys" data-reveal-item>
@@ -100,7 +168,8 @@ const supportCards = [
       <div class="person-overlay">
         <span><i aria-hidden="true"></i> Votre demande est lue par une experte</span>
         <blockquote>
-          « Je vous réponds avec un premier périmètre concret, pas avec une relance commerciale générique. »
+          « Je lis votre demande comme un brief : objectif, urgence, pièces disponibles, puis je vous indique la
+          meilleure suite. »
         </blockquote>
         <div>
           <strong>Myriam Zaoui</strong>
@@ -110,14 +179,31 @@ const supportCards = [
     </aside>
   </section>
 
-  <section class="contact-main reveal" aria-labelledby="form-title">
+  <section
+    class="contact-main reveal"
+    aria-labelledby="form-title"
+    data-track-view="contact_intake_view"
+    data-track-label="contact_diagnostic_intake"
+  >
     <div class="form-intro" data-reveal-item>
       <p class="eyebrow">Votre contexte</p>
-      <h2 id="form-title">Quelques informations suffisent pour commencer.</h2>
+      <h2 id="form-title">Un brief court, une réponse directement exploitable.</h2>
       <p>
-        Le formulaire se concentre sur ce qui permet d’orienter la demande : qui vous êtes, le volume concerné, la
-        démarche et le niveau d’urgence.
+        Le formulaire se concentre sur ce qui permet d’orienter la demande : votre volume, la démarche concernée,
+        l’urgence et le premier blocage à lever.
       </p>
+
+      <div class="diagnostic-deliverables" aria-label="Ce que le diagnostic clarifie">
+        {
+          diagnosticDeliverables.map((item) => (
+            <article>
+              <span>{item.tag}</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
 
       <div class="response-flow">
         <p>Après l’envoi</p>
@@ -149,8 +235,8 @@ const supportCards = [
     <div class="form-card" data-reveal-item>
       <div class="form-card-head">
         <div>
-          <p>Diagnostic Sunelys</p>
-          <strong>Réponse sous 24h ouvrées</strong>
+          <p>Brief de diagnostic</p>
+          <strong>3 minutes pour cadrer la reprise</strong>
         </div>
         <span><i aria-hidden="true"></i> Disponible</span>
       </div>
@@ -172,7 +258,7 @@ const supportCards = [
         <input type="hidden" name="lead_stage" value="contact_form_submitted" />
         <input type="hidden" name="service_interest" id="service-interest-field" />
         <input type="hidden" name="lead_source_detail" id="lead-source-detail-field" />
-        <input type="hidden" name="qualification_hint" value="formulaire contact avec volume, besoin, urgence et message" />
+        <input type="hidden" name="qualification_hint" value="brief contact avec volume, besoin, urgence et message" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic administratif" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -188,6 +274,17 @@ const supportCards = [
         <input type="hidden" name="gclid" id="gclid-field" />
         <input type="hidden" name="fbclid" id="fbclid-field" />
         <input type="hidden" name="msclkid" id="msclkid-field" />
+
+        <div class="form-assurances full-width" aria-label="Repères du formulaire">
+          {
+            formAssurances.map((item) => (
+              <article>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+              </article>
+            ))
+          }
+        </div>
 
         <label>
           <span>Nom</span>
@@ -248,7 +345,7 @@ const supportCards = [
         </label>
 
         <button id="contact-form-submit" class="btn btn-accent submit-btn" type="submit" data-track="cta_contact_form_submit">
-          Recevoir mon diagnostic
+          Envoyer mon brief de diagnostic
           <span aria-hidden="true">→</span>
         </button>
         <p class="form-note full-width">
@@ -410,6 +507,20 @@ const supportCards = [
     box-shadow: var(--shadow-md);
   }
 
+  .contact-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+    background-size: 3.1rem 3.1rem;
+    mask-image: radial-gradient(70% 80% at 18% 30%, #000 0%, transparent 78%);
+    opacity: 0.42;
+  }
+
   .contact-hero > .hero-copy,
   .contact-hero > .contact-person {
     position: relative;
@@ -429,7 +540,7 @@ const supportCards = [
   }
 
   h1 {
-    max-width: 13ch;
+    max-width: 14ch;
     margin-top: 0.7rem;
     color: #ffffff;
     font-size: clamp(2.4rem, 5vw, 5.15rem);
@@ -495,6 +606,46 @@ const supportCards = [
     box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
   }
 
+  .hero-proof-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.72rem;
+    max-width: 45rem;
+    margin-top: 1.45rem;
+  }
+
+  .hero-proof-strip article {
+    min-height: 8.4rem;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(14px);
+  }
+
+  .hero-proof-strip span {
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero-proof-strip strong {
+    display: block;
+    margin-top: 0.55rem;
+    color: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.15;
+  }
+
+  .hero-proof-strip p {
+    margin-top: 0.55rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.68rem;
+    line-height: 1.46;
+  }
+
   .contact-person {
     position: relative;
     min-height: 31rem;
@@ -520,7 +671,7 @@ const supportCards = [
   .contact-person img {
     object-fit: cover;
     object-position: center 28%;
-    filter: saturate(0.78) contrast(1.04);
+    filter: saturate(0.9) contrast(1.03);
   }
 
   .contact-person::after {
@@ -597,7 +748,9 @@ const supportCards = [
     align-items: start;
     padding: clamp(1.3rem, 3vw, 2.6rem);
     border-radius: var(--radius-xl);
-    background: var(--system-soft);
+    background:
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.11), transparent 56%),
+      linear-gradient(135deg, #ffffff 0%, var(--system-soft) 58%, color-mix(in srgb, var(--accent) 8%, #ffffff));
   }
 
   .form-intro {
@@ -617,6 +770,43 @@ const supportCards = [
     color: var(--text-muted);
     font-size: 0.84rem;
     line-height: 1.62;
+  }
+
+  .diagnostic-deliverables {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 1.35rem;
+  }
+
+  .diagnostic-deliverables article {
+    padding: 0.88rem;
+    border: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 0 12px 36px rgba(19, 38, 78, 0.06);
+  }
+
+  .diagnostic-deliverables span {
+    color: var(--system);
+    font-size: 0.56rem;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .diagnostic-deliverables strong {
+    display: block;
+    margin-top: 0.38rem;
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.25;
+  }
+
+  .diagnostic-deliverables p {
+    margin-top: 0.38rem;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    line-height: 1.5;
   }
 
   .response-flow {
@@ -693,9 +883,9 @@ const supportCards = [
   .form-card {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
-    border-radius: 16px;
+    border-radius: 20px;
     background: #ffffff;
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 24px 90px rgba(19, 38, 78, 0.13);
   }
 
   .form-card-head {
@@ -705,6 +895,9 @@ const supportCards = [
     align-items: center;
     padding: 1rem 1.2rem;
     border-bottom: 1px solid var(--line);
+    background:
+      radial-gradient(70% 100% at 100% 0%, color-mix(in srgb, var(--system) 11%, transparent), transparent 68%),
+      linear-gradient(135deg, #ffffff, #f8fafc);
   }
 
   .form-card-head > div {
@@ -739,6 +932,34 @@ const supportCards = [
     gap: 0.75rem;
     padding: clamp(1rem, 2.4vw, 1.7rem);
     scroll-margin-top: 6.5rem;
+  }
+
+  .form-assurances {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .form-assurances article {
+    padding: 0.78rem;
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    border-radius: 12px;
+    background: color-mix(in srgb, var(--system-soft) 44%, #ffffff);
+  }
+
+  .form-assurances strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.69rem;
+    line-height: 1.25;
+  }
+
+  .form-assurances p {
+    margin-top: 0.32rem;
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    line-height: 1.4;
   }
 
   label {
@@ -839,6 +1060,15 @@ const supportCards = [
     .hero-link {
       width: 100%;
       justify-content: center;
+    }
+
+    .hero-proof-strip,
+    .form-assurances {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-proof-strip article {
+      min-height: auto;
     }
 
     .contact-person {

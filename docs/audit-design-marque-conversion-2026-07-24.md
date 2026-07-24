@@ -1698,3 +1698,28 @@ Le trente-et-unième lot retravaille le dernier appel à l'action pour conclure 
 - suppression de l'effet décoratif massif au profit d'une grille sobre ;
 - panneau de contact conservé mais mieux relié à l'action principale ;
 - version mobile clarifiée avec les repères empilés et les actions pleine largeur.
+
+## Prototype v32 — page Contact transformée en brief de diagnostic
+
+Le trente-deuxième lot reprend la page Contact, car tous les CTA modernisés convergent vers elle. L'objectif est de réduire la sensation de formulaire classique et d'installer une entrée plus experte, plus directe et plus premium.
+
+### Message
+
+- promesse reformulée autour du « bon point d’entrée » pour reprendre les dossiers ;
+- CTA principal raccourci en « Décrire mon dossier » pour diminuer l'effort perçu ;
+- le formulaire devient un « brief de diagnostic » plutôt qu'une simple demande de contact ;
+- prise de parole de Myriam ajustée vers une lecture experte du brief : objectif, urgence, pièces disponibles et meilleure suite.
+
+### Conversion
+
+- champs, obligations, préremplissage, attribution et qualification lead conservés ;
+- suivi d'exposition ajouté sur le hero avec `contact_hero_view` ;
+- suivi d'exposition ajouté sur la zone de brief avec `contact_intake_view` ;
+- événements existants `contact_form_viewed`, `contact_form_submit` et `cta_contact_form_submit` conservés.
+
+### Design
+
+- ajout d'un rail de preuves dans le hero : brief en 3 minutes, réponse sous 24h ouvrées, possibilité de commencer avec un seul dossier ;
+- zone d'introduction remplacée par trois livrables de diagnostic : périmètre, priorité, suite ;
+- carte formulaire rendue plus premium avec tête de section, repères de réassurance et ombre plus maîtrisée ;
+- version mobile conservée avec le formulaire en priorité et les repères empilés.
