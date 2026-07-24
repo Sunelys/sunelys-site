@@ -23,6 +23,13 @@ interface HandoffItem {
   text: string;
 }
 
+interface DecisionPathItem {
+  title: string;
+  text: string;
+  href: string;
+  track: string;
+}
+
 interface Props {
   data: {
     kicker: string;
@@ -41,6 +48,7 @@ interface Props {
         track: string;
       };
     };
+    decisionPath?: DecisionPathItem[];
   };
 }
 
@@ -77,6 +85,26 @@ const handoff = data.handoff ?? {
     track: "cta_trust_bridge_hero_form",
   },
 };
+const decisionPath = data.decisionPath ?? [
+  {
+    title: "Cadrer le blocage",
+    text: "Vous indiquez le dossier ou le flux qui vous ralentit.",
+    href: "#hero-lead-form",
+    track: "cta_trust_path_diagnostic",
+  },
+  {
+    title: "Choisir la reprise",
+    text: "Sunelys identifie le bon niveau de délégation.",
+    href: "#parcours",
+    track: "cta_trust_path_method",
+  },
+  {
+    title: "Lancer le service",
+    text: "DP, Consuel, raccordement ou pilotage complet.",
+    href: "#services",
+    track: "cta_trust_path_services",
+  },
+];
 ---
 
 <section
@@ -131,6 +159,30 @@ const handoff = data.handoff ?? {
         <span aria-hidden="true">→</span>
       </a>
     </aside>
+  </div>
+
+  <div class="decision-path" aria-label="Chemin de décision Sunelys" data-reveal-item>
+    <header>
+      <span>Suite naturelle</span>
+      <strong>Du diagnostic au bon service, sans deviner.</strong>
+    </header>
+
+    <ol>
+      {
+        decisionPath.map((item, index) => (
+          <li>
+            <a href={item.href} data-track={item.track}>
+              <span>0{index + 1}</span>
+              <div>
+                <strong>{item.title}</strong>
+                <p>{item.text}</p>
+              </div>
+              <em aria-hidden="true">→</em>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
   </div>
 
   <SwipeCue label="4 preuves opérationnelles à parcourir" />
@@ -365,6 +417,105 @@ const handoff = data.handoff ?? {
     font-size: 1rem;
   }
 
+  .decision-path {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.34fr) minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: stretch;
+    padding: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    border-radius: calc(var(--radius-xl) - 6px);
+    background:
+      radial-gradient(85% 100% at 100% 0%, color-mix(in srgb, var(--accent) 13%, transparent), transparent 60%),
+      rgba(255, 255, 255, 0.76);
+  }
+
+  .decision-path header {
+    display: grid;
+    align-content: center;
+    gap: 0.34rem;
+    padding: 0.8rem 0.95rem;
+    border-radius: 10px;
+    background: color-mix(in srgb, var(--system-soft) 58%, #ffffff);
+  }
+
+  .decision-path header span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .decision-path header strong {
+    color: var(--text);
+    font-size: 1rem;
+    line-height: 1.28;
+    text-wrap: balance;
+  }
+
+  .decision-path ol {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .decision-path li {
+    min-width: 0;
+  }
+
+  .decision-path a {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.64rem;
+    align-items: center;
+    min-height: 100%;
+    padding: 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--system) 11%, var(--line));
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.72);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+  }
+
+  .decision-path a:hover,
+  .decision-path a:focus-visible {
+    border-color: color-mix(in srgb, var(--system) 38%, var(--line));
+    background: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  .decision-path a > span {
+    color: var(--accent-deep);
+    font-size: 0.68rem;
+    font-weight: 820;
+  }
+
+  .decision-path a strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.25;
+  }
+
+  .decision-path a p {
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.66rem;
+    line-height: 1.38;
+  }
+
+  .decision-path a em {
+    color: var(--system);
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 800;
+  }
+
   .trust-metrics {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -495,6 +646,10 @@ const handoff = data.handoff ?? {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .decision-path {
+      grid-template-columns: 1fr;
+    }
+
     .metric:nth-child(2) {
       border-right: 0;
     }
@@ -549,6 +704,18 @@ const handoff = data.handoff ?? {
 
     .handoff-panel h3 {
       font-size: 1.44rem;
+    }
+
+    .decision-path {
+      padding: 0.62rem;
+    }
+
+    .decision-path ol {
+      grid-template-columns: 1fr;
+    }
+
+    .decision-path a {
+      min-height: 4.35rem;
     }
 
     .trust-metrics {

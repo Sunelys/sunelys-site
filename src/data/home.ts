@@ -121,6 +121,26 @@ export const trustSectionData = {
       track: "cta_trust_bridge_hero_form",
     },
   },
+  decisionPath: [
+    {
+      title: "Exprimer le blocage",
+      text: "Vous indiquez la démarche, le volume ou l'étape qui ralentit vos équipes.",
+      href: "#hero-lead-form",
+      track: "cta_trust_path_diagnostic",
+    },
+    {
+      title: "Choisir la reprise",
+      text: "Sunelys propose le bon niveau de délégation: ponctuel, pic de charge ou flux.",
+      href: "#parcours",
+      track: "cta_trust_path_method",
+    },
+    {
+      title: "Lancer le service",
+      text: "DP, Consuel, raccordement ou pilotage complet avancent avec un cadre clair.",
+      href: "#services",
+      track: "cta_trust_path_services",
+    },
+  ],
 };
 
 export const proofSectionData = {
