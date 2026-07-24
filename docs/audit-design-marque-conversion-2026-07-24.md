@@ -1412,3 +1412,27 @@ Le vingtième lot corrige les derniers frottements liés aux éléments fixes, a
 - pages Contact, Merci, légales et sans index débarrassées de l'espace mobile inutile ;
 - arrêt de défilement renforcé sur chaque carte des séquences horizontales ;
 - défilement contenu à l'intérieur du panneau de consentement sur les petits écrans.
+
+## Prototype v21 — performance visuelle et garde-fous qualité
+
+Le vingt-et-unième lot consolide la qualité perçue sans modifier le design, les contenus ni les parcours de conversion.
+
+### Médias du portail
+
+- captures du portail déclinées en AVIF responsive avec conservation du JPEG comme solution de repli ;
+- poids de chaque visuel ramené d'environ 207–217 Ko à 12–39 Ko selon la largeur d'écran ;
+- dimensions intrinsèques déclarées pour réserver l'espace avant le chargement ;
+- chargement différé conservé pour ne pas concurrencer le premier écran.
+
+### Stabilité de l'interface
+
+- dimensions explicites ajoutées à tous les logos clients et visuels éditoriaux ;
+- réduction du risque de décalage de mise en page pendant l'affichage des images ;
+- aucune modification visible des compositions, des proportions ou de la hiérarchie commerciale.
+
+### Contrôle automatique
+
+- audit reproductible ajouté au projet et exécuté après la construction ;
+- 32 pages statiques contrôlées ;
+- présence d'un H1 unique, des textes alternatifs et des dimensions d'images vérifiée ;
+- type des boutons, liens non vides, langue, contenu principal, description et URL canonique vérifiés.

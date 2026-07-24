@@ -4,6 +4,8 @@ import SwipeCue from "./SwipeCue.astro";
 interface LogoItem {
   name: string;
   src: string;
+  width: number;
+  height: number;
 }
 
 interface MetricItem {
@@ -69,7 +71,14 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
           {
             visibleLogos.map((logo) => (
               <div class="logo-slot" title={logo.name}>
-                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" />
+                <img
+                  src={logo.src}
+                  alt={logo.name}
+                  width={logo.width}
+                  height={logo.height}
+                  loading="lazy"
+                  decoding="async"
+                />
               </div>
             ))
           }

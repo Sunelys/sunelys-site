@@ -7,10 +7,11 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node scripts/audit-static-html.mjs",
     "build:ci": "CI=1 ASTRO_TELEMETRY_DISABLED=1 astro build",
     "preview": "astro preview",
     "astro": "astro",
+    "audit:static": "node scripts/audit-static-html.mjs",
     "marketing:audit": "node scripts/marketing-agent.mjs",
     "marketing:audit:no-ai": "node scripts/marketing-agent.mjs --no-ai",
     "marketing:apply": "node scripts/marketing-agent.mjs --apply",

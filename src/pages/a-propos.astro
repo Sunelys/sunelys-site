@@ -68,11 +68,11 @@ const metrics = [
 ];
 
 const clientLogos = [
-  { name: "SunWatt France", src: "/images/site/client-sunwatt-france.png" },
-  { name: "Terra ENR", src: "/images/site/client-terra-enr.png" },
-  { name: "Groupe Solarenov", src: "/images/site/client-groupe-solarenov.png" },
-  { name: "Ensol", src: "/images/site/client-ensol.webp" },
-  { name: "Be Travaux", src: "/images/site/client-betravaux.png" },
+  { name: "SunWatt France", src: "/images/site/client-sunwatt-france.png", width: 222, height: 176 },
+  { name: "Terra ENR", src: "/images/site/client-terra-enr.png", width: 338, height: 216 },
+  { name: "Groupe Solarenov", src: "/images/site/client-groupe-solarenov.png", width: 486, height: 360 },
+  { name: "Ensol", src: "/images/site/client-ensol.webp", width: 910, height: 323 },
+  { name: "Be Travaux", src: "/images/site/client-betravaux.png", width: 512, height: 512 },
 ];
 
 const commitments = [
@@ -179,7 +179,14 @@ const commitments = [
       {
         clientLogos.map((logo) => (
           <div title={logo.name}>
-            <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" />
+            <img
+              src={logo.src}
+              alt={logo.name}
+              width={logo.width}
+              height={logo.height}
+              loading="lazy"
+              decoding="async"
+            />
           </div>
         ))
       }

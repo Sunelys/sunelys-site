@@ -62,22 +62,32 @@ export const trustSectionData = {
     {
       name: "Sunwatt France",
       src: "/images/site/client-sunwatt-france.png",
+      width: 222,
+      height: 176,
     },
     {
       name: "Terra ENR",
       src: "/images/site/client-terra-enr.png",
+      width: 338,
+      height: 216,
     },
     {
       name: "Groupe Solarenov",
       src: "/images/site/client-groupe-solarenov.png",
+      width: 486,
+      height: 360,
     },
     {
       name: "Ensol",
       src: "/images/site/client-ensol.webp",
+      width: 910,
+      height: 323,
     },
     {
       name: "Be Travaux",
       src: "/images/site/client-betravaux.png",
+      width: 512,
+      height: 512,
     },
   ],
   trustNote:
@@ -109,6 +119,8 @@ export const proofSectionData = {
       ],
       logo: "/images/site/client-sunwatt-france.png",
       logoAlt: "Sun Watt France",
+      logoWidth: 222,
+      logoHeight: 176,
     },
     {
       tabLabel: "Be Travaux",
@@ -125,6 +137,8 @@ export const proofSectionData = {
       ],
       logo: "/images/site/client-betravaux.png",
       logoAlt: "Be Travaux",
+      logoWidth: 512,
+      logoHeight: 512,
     },
   ],
 };
@@ -428,7 +442,12 @@ export const portalSectionData = {
       title: "Chaque priorité ressort immédiatement.",
       text: "Les pièces manquantes, les demandes récentes et les dossiers actifs sont réunis dans la même lecture.",
       src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
+      avifSrcset:
+        "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-1280.avif 1280w",
       alt: "Vue d'ensemble anonymisée du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
+      width: 1600,
+      height: 900,
+      sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
       signal: "1 pièce attendue",
     },
     {
@@ -438,7 +457,12 @@ export const portalSectionData = {
       title: "L'avancement se comprend sans relance.",
       text: "DP, raccordement, Consuel et aides restent lisibles avec leur statut, leur progression et la prochaine étape.",
       src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+      avifSrcset:
+        "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
       alt: "Liste anonymisée des dossiers dans le portail Sunelys avec progression et prochaine étape visibles.",
+      width: 1600,
+      height: 900,
+      sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
       signal: "4 flux centralisés",
     },
   ],

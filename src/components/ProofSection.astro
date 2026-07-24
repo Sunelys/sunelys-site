@@ -8,6 +8,8 @@ interface Testimonial {
   outcome?: string;
   logo?: string;
   logoAlt?: string;
+  logoWidth?: number;
+  logoHeight?: number;
   journey?: {
     label: string;
     text: string;
@@ -90,7 +92,14 @@ const getInitials = (name: string) =>
               <div class="company-mark">
                 {
                   item.logo ? (
-                    <img src={item.logo} alt={item.logoAlt || ""} loading="lazy" decoding="async" />
+                    <img
+                      src={item.logo}
+                      alt={item.logoAlt || ""}
+                      width={item.logoWidth}
+                      height={item.logoHeight}
+                      loading="lazy"
+                      decoding="async"
+                    />
                   ) : (
                     <span aria-hidden="true">{getInitials(item.author)}</span>
                   )

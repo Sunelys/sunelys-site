@@ -6,7 +6,11 @@ interface PortalView {
   title: string;
   text: string;
   src: string;
+  avifSrcset?: string;
   alt: string;
+  width: number;
+  height: number;
+  sizes?: string;
   signal: string;
 }
 
@@ -118,7 +122,26 @@ const { data } = Astro.props;
           >
             <div class="portal-visual">
               <figure>
-                <img src={view.src} alt={view.alt} loading="lazy" decoding="async" />
+                <picture>
+                  {
+                    view.avifSrcset && (
+                      <source
+                        type="image/avif"
+                        srcset={view.avifSrcset}
+                        sizes={view.sizes}
+                      />
+                    )
+                  }
+                  <img
+                    src={view.src}
+                    alt={view.alt}
+                    width={view.width}
+                    height={view.height}
+                    loading="lazy"
+                    decoding="async"
+                    fetchpriority="low"
+                  />
+                </picture>
               </figure>
               <div class="visual-signal">
                 <span aria-hidden="true"></span>
@@ -502,6 +525,10 @@ const { data } = Astro.props;
     aspect-ratio: 16 / 9;
     object-fit: cover;
     background: #ffffff;
+  }
+
+  .portal-visual picture {
+    display: block;
   }
 
   .visual-signal {
