@@ -1170,3 +1170,33 @@ Le douzième lot réduit la longueur perçue de la seconde moitié des pages de 
 - hauteur mobile ramenée d'environ 12 900 à 11 993 px ;
 - absence de débordement horizontal à 390 px et 1 512 px ;
 - ouverture unique des réponses et arrivée sur le formulaire testées.
+
+## Prototype v13 — centre de décision
+
+Le treizième lot remplace les trois sections séparées « FAQ », « À lire aussi » et « Guides associés » par un seul centre de décision plus compact et plus orienté vers la prochaine action.
+
+### Réponses hiérarchisées
+
+- questions fréquentes réunies dans une interface progressive ;
+- première réponse ouverte par défaut et une seule réponse visible à la fois ;
+- lien vers le diagnostic ajouté dans chaque réponse ;
+- réponses intégralement conservées dans la page et dans les données structurées FAQ ;
+- interactions FAQ suivies comme signaux d'engagement.
+
+### Ressources organisées
+
+- trois guides prioritaires immédiatement visibles ;
+- guides supplémentaires regroupés dans une ouverture dédiée ;
+- toutes les démarches et tous les services connexes conservés dans un répertoire compact ;
+- liens intégralement présents dans le document pour la navigation interne et le référencement ;
+- appel à l'action final maintenu dans le panneau de ressources.
+
+### Impact mesuré
+
+- huit questions, onze liens internes et cinq guides réunis dans une seule section sur la page Déclaration préalable ;
+- environ 680 px supplémentaires supprimés sur ordinateur ;
+- environ 500 px supplémentaires supprimés sur mobile au format 390 × 844 px ;
+- hauteur de la page ramenée d'environ 8 465 à 7 784 px sur ordinateur ;
+- hauteur mobile ramenée d'environ 11 993 à 11 491 px ;
+- absence de débordement horizontal à 390 px et 1 512 px ;
+- navigation clavier, ressources repliables et arrivée sur le formulaire testées.

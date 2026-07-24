@@ -581,55 +581,130 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   </div>
 </section>
 
-<section class="seo-section seo-faq section-shell reveal">
-  <p class="kicker">FAQ</p>
-  <h2>Questions fréquentes</h2>
-  <div class="faq-grid">
-    {
-      data.faqItems.map((item, index) => (
-        <details class="faq-card">
-          <summary>
-            <span>0{index + 1}</span>
-            <strong>{item.question}</strong>
-            <i aria-hidden="true"></i>
-          </summary>
-          <p>{item.answer}</p>
-        </details>
-      ))
-    }
+<section
+  class="seo-section seo-support-center section-shell reveal"
+  aria-labelledby={`support-center-${data.slug}`}
+  data-track-view="service_support_center_view"
+  data-track-label={data.slug}
+>
+  <div class="support-center-head">
+    <div>
+      <p class="kicker">Centre de décision</p>
+      <h2 id={`support-center-${data.slug}`}>Une réponse claire. Puis le bon prochain pas.</h2>
+    </div>
+    <p>
+      Retrouvez les réponses les plus demandées, les guides utiles et les démarches connexes sans
+      quitter votre parcours.
+    </p>
   </div>
-</section>
 
-<section class="seo-section seo-links section-shell reveal">
-  <p class="kicker">À lire aussi</p>
-  <h2>Explorer les autres démarches</h2>
-      <div class="links-grid">
-    {
-      visibleInternalLinks.map((link) => (
-        <a class="link-pill" href={link.href} data-track={`link_${data.slug}_${link.href}`}>
-          {link.label}
-        </a>
-      ))
-    }
-  </div>
-</section>
+  <div class="support-center-layout">
+    <div class="support-faq">
+      <header>
+        <span>Réponses directes</span>
+        <strong>{data.faqItems.length} questions traitées</strong>
+      </header>
+      {
+        data.faqItems.map((item, index) => (
+          <details class="support-faq-item" open={index === 0}>
+            <summary data-track={`faq_${data.slug}_${index + 1}`}>
+              <span>0{index + 1}</span>
+              <strong>{item.question}</strong>
+              <i aria-hidden="true"></i>
+            </summary>
+            <div>
+              <p>{item.answer}</p>
+              <a
+                href={`#service-final-${data.slug}`}
+                data-track={`cta_${data.slug}_faq_${index + 1}`}
+              >
+                Parler de mon dossier
+                <span aria-hidden="true">→</span>
+              </a>
+            </div>
+          </details>
+        ))
+      }
+    </div>
 
-{
-  visibleGuideLinks.length > 0 && (
-    <section class="seo-section seo-guides section-shell reveal">
-      <p class="kicker">Guides associés</p>
-      <h2>Approfondir ce sujet</h2>
-      <div class="guide-grid">
-        {visibleGuideLinks.map((link) => (
-          <a class="guide-link" href={link.href} data-track={`guide_${data.slug}_${link.href}`}>
-            <span>{link.label}</span>
-            <small>{link.description}</small>
-          </a>
-        ))}
+    <aside class="support-resources">
+      <div class="resource-intro">
+        <p class="kicker">Ressources utiles</p>
+        <h3>Continuez avec le bon niveau de détail.</h3>
+        <p>
+          Un guide pour approfondir, une démarche connexe pour élargir le périmètre, ou un échange
+          direct si votre cas est déjà concret.
+        </p>
       </div>
-    </section>
-  )
-}
+
+      {
+        visibleGuideLinks.length > 0 && (
+          <div class="resource-guides">
+            {visibleGuideLinks.slice(0, 3).map((link, index) => (
+              <a
+                class="resource-guide"
+                href={link.href}
+                data-track={`guide_${data.slug}_${link.href}`}
+              >
+                <span>Guide 0{index + 1}</span>
+                <strong>{link.label}</strong>
+                <small>{link.description}</small>
+                <i aria-hidden="true">→</i>
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        visibleGuideLinks.length > 3 && (
+          <details class="resource-more">
+            <summary data-track={`guide_${data.slug}_more`}>
+              {visibleGuideLinks.length - 3} guides supplémentaires
+              <i aria-hidden="true"></i>
+            </summary>
+            <div>
+              {visibleGuideLinks.slice(3).map((link) => (
+                <a href={link.href} data-track={`guide_${data.slug}_${link.href}`}>
+                  <span>{link.label}</span>
+                  <small>{link.description}</small>
+                  <i aria-hidden="true">→</i>
+                </a>
+              ))}
+            </div>
+          </details>
+        )
+      }
+
+      <details class="resource-directory">
+        <summary data-track={`link_${data.slug}_directory`}>
+          Démarches et services connexes
+          <span>{visibleInternalLinks.length}</span>
+          <i aria-hidden="true"></i>
+        </summary>
+        <div class="resource-links">
+          {
+            visibleInternalLinks.map((link) => (
+              <a href={link.href} data-track={`link_${data.slug}_${link.href}`}>
+                {link.label}
+                <span aria-hidden="true">↗</span>
+              </a>
+            ))
+          }
+        </div>
+      </details>
+
+      <a
+        class="btn btn-accent support-center-cta"
+        href={`#service-final-${data.slug}`}
+        data-track={`cta_${data.slug}_support_center`}
+      >
+        Obtenir une réponse sur mon dossier
+        <span aria-hidden="true">→</span>
+      </a>
+    </aside>
+  </div>
+</section>
 
 <section id={`service-final-${data.slug}`} class="seo-section seo-final section-shell reveal">
   <h2>{data.finalTitle}</h2>
@@ -723,6 +798,22 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
   document.querySelectorAll(".knowledge-accordion").forEach((accordion) => {
     const items = Array.from(accordion.querySelectorAll(".knowledge-item"));
+
+    items.forEach((item) => {
+      item.addEventListener("toggle", () => {
+        if (!(item instanceof HTMLDetailsElement) || !item.open) return;
+
+        items.forEach((sibling) => {
+          if (sibling instanceof HTMLDetailsElement && sibling !== item) {
+            sibling.open = false;
+          }
+        });
+      });
+    });
+  });
+
+  document.querySelectorAll(".support-faq").forEach((faq) => {
+    const items = Array.from(faq.querySelectorAll(".support-faq-item"));
 
     items.forEach((item) => {
       item.addEventListener("toggle", () => {
@@ -3081,6 +3172,409 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     margin-top: 1rem;
   }
 
+  .seo-support-center {
+    overflow: hidden;
+    border-color: color-mix(in srgb, var(--system) 12%, var(--line));
+    background:
+      radial-gradient(70% 100% at 100% 0%, rgba(54, 98, 227, 0.12), transparent 64%),
+      var(--system-soft);
+  }
+
+  .support-center-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.62fr);
+    gap: clamp(1rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .support-center-head h2 {
+    max-width: 16ch;
+    font-size: clamp(2rem, 3.7vw, 3.7rem);
+    line-height: 0.98;
+  }
+
+  .support-center-head > p {
+    max-width: 48ch;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+
+  .support-center-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.18fr) minmax(330px, 0.82fr);
+    gap: 0.75rem;
+    align-items: start;
+    margin-top: 1.5rem;
+  }
+
+  .support-faq {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 18px;
+    background: #ffffff;
+  }
+
+  .support-faq > header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 4.5rem;
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--line);
+    background: color-mix(in srgb, var(--system-soft) 74%, white);
+  }
+
+  .support-faq > header span,
+  .support-faq > header strong {
+    font-size: 0.62rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .support-faq > header span {
+    color: var(--system);
+  }
+
+  .support-faq > header strong {
+    color: var(--text-muted);
+  }
+
+  .support-faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .support-faq-item:last-child {
+    border-bottom: 0;
+  }
+
+  .support-faq-item summary {
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: 2.1rem minmax(0, 1fr) 2.2rem;
+    gap: 0.75rem;
+    align-items: center;
+    min-height: 4.7rem;
+    padding: 0.72rem 0.9rem;
+    list-style: none;
+    transition: background 180ms ease;
+  }
+
+  .support-faq-item summary::-webkit-details-marker,
+  .resource-more summary::-webkit-details-marker,
+  .resource-directory summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .support-faq-item summary:hover,
+  .support-faq-item[open] summary {
+    background: color-mix(in srgb, var(--system-soft) 78%, white);
+  }
+
+  .support-faq-item summary > span {
+    display: inline-grid;
+    place-items: center;
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 9px;
+    background: var(--system-soft);
+    color: var(--system);
+    font-size: 0.61rem;
+    font-weight: 800;
+  }
+
+  .support-faq-item summary strong {
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.42;
+  }
+
+  .support-faq-item summary i,
+  .resource-more summary i,
+  .resource-directory summary > i {
+    position: relative;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #ffffff;
+  }
+
+  .support-faq-item summary i::before,
+  .support-faq-item summary i::after,
+  .resource-more summary i::before,
+  .resource-more summary i::after,
+  .resource-directory summary > i::before,
+  .resource-directory summary > i::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.62rem;
+    height: 1px;
+    background: var(--text);
+    transform: translate(-50%, -50%);
+    transition: transform 180ms ease;
+  }
+
+  .support-faq-item summary i::after,
+  .resource-more summary i::after,
+  .resource-directory summary > i::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .support-faq-item[open] summary i::after,
+  .resource-more[open] summary i::after,
+  .resource-directory[open] summary > i::after {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  .support-faq-item > div {
+    padding: 0.1rem 4rem 1rem;
+    background: color-mix(in srgb, var(--system-soft) 78%, white);
+  }
+
+  .support-faq-item > div p {
+    max-width: 72ch;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.62;
+  }
+
+  .support-faq-item > div a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-top: 0.72rem;
+    color: var(--accent-deep);
+    font-size: 0.64rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .support-resources {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    align-content: start;
+    padding: clamp(1rem, 2.5vw, 1.5rem);
+    border: 1px solid var(--ink);
+    border-radius: 18px;
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
+  }
+
+  .support-resources::after {
+    content: "";
+    position: absolute;
+    right: -4rem;
+    bottom: -5rem;
+    width: 13rem;
+    height: 13rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 3rem rgba(255, 255, 255, 0.022),
+      0 0 0 6rem rgba(255, 255, 255, 0.014);
+    pointer-events: none;
+  }
+
+  .resource-intro,
+  .resource-guides,
+  .resource-more,
+  .resource-directory,
+  .support-center-cta {
+    position: relative;
+    z-index: 1;
+  }
+
+  .resource-intro .kicker {
+    color: var(--accent);
+  }
+
+  .resource-intro h3 {
+    max-width: 15ch;
+    margin-top: 0.6rem;
+    color: #ffffff;
+    font-size: clamp(1.45rem, 2.4vw, 2.35rem);
+    line-height: 1.02;
+  }
+
+  .resource-intro > p:not(.kicker) {
+    max-width: 46ch;
+    margin-top: 0.7rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.7rem;
+    line-height: 1.55;
+  }
+
+  .resource-guides {
+    display: grid;
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .resource-guide {
+    position: relative;
+    display: grid;
+    gap: 0.18rem;
+    min-height: 5.7rem;
+    padding: 0.72rem 2.6rem 0.72rem 0.78rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.055);
+    text-decoration: none;
+    transition:
+      border-color 180ms ease,
+      background 180ms ease;
+  }
+
+  .resource-guide:hover {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .resource-guide > span {
+    color: var(--accent);
+    font-size: 0.54rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .resource-guide strong {
+    color: #ffffff;
+    font-size: 0.72rem;
+    line-height: 1.35;
+  }
+
+  .resource-guide small {
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.61rem;
+    line-height: 1.42;
+  }
+
+  .resource-guide > i {
+    position: absolute;
+    right: 0.85rem;
+    top: 50%;
+    color: var(--accent);
+    font-size: 0.9rem;
+    font-style: normal;
+    transform: translateY(-50%);
+  }
+
+  .resource-more,
+  .resource-directory {
+    margin-top: 0.45rem;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .resource-more summary,
+  .resource-directory summary {
+    cursor: pointer;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 2rem;
+    gap: 0.6rem;
+    align-items: center;
+    min-height: 3.5rem;
+    padding: 0.62rem 0.72rem;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.64rem;
+    font-weight: 800;
+    list-style: none;
+  }
+
+  .resource-more summary {
+    grid-template-columns: minmax(0, 1fr) 2rem;
+  }
+
+  .resource-more summary i,
+  .resource-directory summary > i {
+    width: 2rem;
+    height: 2rem;
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .resource-more summary i::before,
+  .resource-more summary i::after,
+  .resource-directory summary > i::before,
+  .resource-directory summary > i::after {
+    background: rgba(255, 255, 255, 0.72);
+  }
+
+  .resource-directory summary > span {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.65rem;
+    height: 1.65rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--accent);
+    font-size: 0.56rem;
+  }
+
+  .resource-more > div,
+  .resource-links {
+    display: grid;
+    gap: 0.38rem;
+    padding: 0 0.65rem 0.65rem;
+  }
+
+  .resource-more > div a,
+  .resource-links a {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.6rem 0.68rem;
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.055);
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.63rem;
+    font-weight: 720;
+    line-height: 1.4;
+    text-decoration: none;
+  }
+
+  .resource-more > div a {
+    position: relative;
+    padding-right: 2.3rem;
+  }
+
+  .resource-more > div a small {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.58rem;
+    font-weight: 500;
+  }
+
+  .resource-more > div a i {
+    position: absolute;
+    right: 0.72rem;
+    top: 50%;
+    color: var(--accent);
+    font-style: normal;
+    transform: translateY(-50%);
+  }
+
+  .resource-links a {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+  }
+
+  .resource-links a span {
+    color: var(--accent);
+  }
+
+  .support-center-cta {
+    width: 100%;
+    margin-top: 0.55rem;
+  }
+
   @media (max-width: 900px) {
     .hero-layout,
     .seo-context {
@@ -3108,12 +3602,18 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     .knowledge-layout,
     .action-path-head,
-    .action-path-layout {
+    .action-path-layout,
+    .support-center-head,
+    .support-center-layout {
       grid-template-columns: 1fr;
     }
 
     .knowledge-intro h2 {
       max-width: 16ch;
+    }
+
+    .support-center-head h2 {
+      max-width: 18ch;
     }
 
     .hero-service-form {
@@ -3194,6 +3694,10 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       padding-left: 0.8rem;
     }
 
+    .support-center-head > p {
+      padding-left: 0.8rem;
+    }
+
     .action-steps li {
       min-height: 8.5rem;
       padding: 0.85rem;
@@ -3201,6 +3705,11 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     .action-steps li strong {
       font-size: 0.82rem;
+    }
+
+    .support-faq-item > div {
+      padding-right: 1rem;
+      padding-left: 3.7rem;
     }
 
     .seo-context {
