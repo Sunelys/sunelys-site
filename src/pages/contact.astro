@@ -89,7 +89,7 @@ const diagnosticDeliverables = [
 const formAssurances = [
   {
     title: "Champs ciblés",
-    text: "Le message reste optionnel : le formulaire sert surtout à orienter le dossier.",
+    text: "Le formulaire qualifie le besoin sans imposer un long message.",
   },
   {
     title: "Contact direct",
@@ -99,6 +99,15 @@ const formAssurances = [
     title: "Usage clair",
     text: "Vos informations servent uniquement à traiter votre demande.",
   },
+];
+
+const blockedStageOptions = [
+  "Dossier bloqué / reprise urgente",
+  "Pièce ou complément à sécuriser",
+  "Volume à absorber",
+  "Suivi organisme à relancer",
+  "Choix du périmètre à déléguer",
+  "Je ne sais pas encore",
 ];
 
 const supportCards = [
@@ -332,7 +341,7 @@ const supportCards = [
         <input type="hidden" name="lead_stage" value="contact_form_submitted" />
         <input type="hidden" name="service_interest" id="service-interest-field" />
         <input type="hidden" name="lead_source_detail" id="lead-source-detail-field" />
-        <input type="hidden" name="qualification_hint" value="brief contact avec volume, besoin, urgence et message" />
+        <input type="hidden" name="qualification_hint" value="brief contact avec volume, besoin, blocage, urgence et message" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic administratif" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -401,6 +410,17 @@ const supportCards = [
           </select>
         </label>
         <label class="full-width">
+          <span>Où ça bloque aujourd’hui ?</span>
+          <select name="blocked_stage" id="blocked-stage-field" required>
+            <option value="">Sélectionner</option>
+            {
+              blockedStageOptions.map((option) => (
+                <option value={option}>{option}</option>
+              ))
+            }
+          </select>
+        </label>
+        <label class="full-width">
           <span>Urgence</span>
           <select name="urgency" id="urgency-field" required>
             <option value="">Sélectionner</option>
@@ -441,6 +461,7 @@ const supportCards = [
 
   const volumeField = document.querySelector("#volume-field");
   const needField = document.querySelector("#need-field");
+  const blockedStageField = document.querySelector("#blocked-stage-field");
   const urgencyField = document.querySelector("#urgency-field");
   const sourcePageField = document.querySelector("#source-page-field");
   const serviceInterestField = document.querySelector("#service-interest-field");
@@ -494,6 +515,55 @@ const supportCards = [
     }
   }
 
+  const inferBlockedStageFromSource = (source) => {
+    const normalizedSource = source.toLowerCase();
+    if (!normalizedSource) return "";
+    if (
+      normalizedSource.includes("contact_triage_raccordement_consuel") ||
+      normalizedSource.includes("bloque") ||
+      normalizedSource.includes("blocked") ||
+      normalizedSource.includes("reprise") ||
+      normalizedSource.includes("urgent")
+    ) {
+      return "Dossier bloqué / reprise urgente";
+    }
+    if (normalizedSource.includes("piece") || normalizedSource.includes("pièce") || normalizedSource.includes("complement")) {
+      return "Pièce ou complément à sécuriser";
+    }
+    if (
+      normalizedSource.includes("volume") ||
+      normalizedSource.includes("flow") ||
+      normalizedSource.includes("gestion") ||
+      normalizedSource.includes("administrative") ||
+      normalizedSource.includes("pilotage")
+    ) {
+      return "Volume à absorber";
+    }
+    if (
+      normalizedSource.includes("raccordement") ||
+      normalizedSource.includes("enedis") ||
+      normalizedSource.includes("consuel") ||
+      normalizedSource.includes("edf") ||
+      normalizedSource.includes("aides") ||
+      normalizedSource.includes("maprimerenov") ||
+      normalizedSource.includes("cee")
+    ) {
+      return "Suivi organisme à relancer";
+    }
+    if (normalizedSource.includes("diagnostic") || normalizedSource.includes("blog-decision-hub")) {
+      return "Choix du périmètre à déléguer";
+    }
+    if (normalizedSource.includes("sticky") || normalizedSource.includes("header")) {
+      return "Je ne sais pas encore";
+    }
+    return "";
+  };
+
+  if (blockedStageField instanceof HTMLSelectElement && sourceFromQuery) {
+    const inferredBlockedStage = inferBlockedStageFromSource(sourceFromQuery);
+    if (inferredBlockedStage) blockedStageField.value = inferredBlockedStage;
+  }
+
   if (sourcePageField instanceof HTMLInputElement) {
     sourcePageField.value = sourceFromQuery || document.referrer || window.location.pathname;
   }
@@ -535,6 +605,7 @@ const supportCards = [
     source: sourceFromQuery,
     volume: volumeField instanceof HTMLSelectElement ? volumeField.value : "",
     need: needField instanceof HTMLSelectElement ? needField.value : "",
+    blocked_stage: blockedStageField instanceof HTMLSelectElement ? blockedStageField.value : "",
     urgency: urgencyField instanceof HTMLSelectElement ? urgencyField.value : "",
   });
 
