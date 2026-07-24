@@ -40,6 +40,12 @@ interface UseCaseItem {
   text: string;
 }
 
+interface DecisionRecapItem {
+  label: string;
+  title: string;
+  text: string;
+}
+
 interface SeoPageContent {
   slug: string;
   heroTitle: string;
@@ -61,6 +67,20 @@ interface SeoPageContent {
     eyebrow: string;
     title: string;
     items: Array<{ label: string; status: string }>;
+  };
+  decisionRecap?: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    priceLabel: string;
+    price: string;
+    priceNote: string;
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+    items: DecisionRecapItem[];
   };
   quickFormTitle?: string;
   quickFormSubmitLabel?: string;
@@ -478,6 +498,43 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     <span aria-hidden="true">→</span>
   </a>
 </section>
+
+{
+  data.decisionRecap && (
+    <section
+      class="service-decision-recap section-shell reveal"
+      aria-labelledby={`service-decision-${data.slug}`}
+      data-track-view="service_decision_recap_view"
+      data-track-label={data.slug}
+    >
+      <div class="decision-recap-head" data-reveal-item>
+        <p class="kicker">{data.decisionRecap.eyebrow}</p>
+        <h2 id={`service-decision-${data.slug}`}>{data.decisionRecap.title}</h2>
+        <p>{data.decisionRecap.text}</p>
+      </div>
+
+      <aside class="decision-recap-price" aria-label="Repère tarifaire" data-reveal-item>
+        <span>{data.decisionRecap.priceLabel}</span>
+        <strong>{data.decisionRecap.price}</strong>
+        <small>{data.decisionRecap.priceNote}</small>
+        <a href={data.decisionRecap.cta.href} data-track={data.decisionRecap.cta.track}>
+          {data.decisionRecap.cta.label}
+          <span aria-hidden="true">→</span>
+        </a>
+      </aside>
+
+      <div class="decision-recap-grid">
+        {data.decisionRecap.items.map((item, index) => (
+          <article class="decision-recap-card" data-reveal-item>
+            <span>0{index + 1} · {item.label}</span>
+            <strong>{item.title}</strong>
+            <p>{item.text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
 
 {
   isGestionLanding && (
@@ -2431,6 +2488,150 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     color: var(--system);
   }
 
+  .service-decision-recap {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.34fr);
+    gap: clamp(1rem, 2vw, 1.35rem);
+    overflow: hidden;
+    padding: clamp(1.1rem, 3vw, 1.65rem);
+    border-color: color-mix(in srgb, var(--system) 13%, var(--line));
+    background:
+      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 38px 38px,
+      radial-gradient(90% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 54%, transparent), transparent 62%),
+      color-mix(in srgb, var(--surface) 96%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .service-decision-recap::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--system), var(--accent));
+  }
+
+  .decision-recap-head {
+    display: grid;
+    align-content: center;
+    gap: 0.65rem;
+  }
+
+  .decision-recap-head h2 {
+    max-width: 18ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+  }
+
+  .decision-recap-head > p:not(.kicker) {
+    max-width: 58ch;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.62;
+  }
+
+  .decision-recap-price {
+    display: grid;
+    align-content: space-between;
+    gap: 0.8rem;
+    min-height: 13.4rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--accent) 26%, var(--line));
+    border-radius: 18px;
+    background:
+      radial-gradient(70% 110% at 100% 0%, color-mix(in srgb, var(--accent-soft) 70%, transparent), transparent 68%),
+      rgba(255, 255, 255, 0.82);
+  }
+
+  .decision-recap-price > span {
+    color: var(--accent-strong);
+    font-size: 0.66rem;
+    font-weight: 820;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .decision-recap-price strong {
+    color: var(--ink);
+    font-size: clamp(2.1rem, 4vw, 3rem);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+  }
+
+  .decision-recap-price small {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    font-weight: 720;
+  }
+
+  .decision-recap-price a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    padding: 0.78rem 0.9rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: #fff;
+    font-size: 0.74rem;
+    font-weight: 790;
+    text-decoration: none;
+  }
+
+  .decision-recap-price a span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .decision-recap-price a:hover span {
+    transform: translateX(3px);
+  }
+
+  .decision-recap-grid {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .decision-recap-card {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+    min-height: 12rem;
+    padding: 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.76);
+  }
+
+  .decision-recap-card > span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 820;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .decision-recap-card strong {
+    max-width: 20ch;
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.18;
+  }
+
+  .decision-recap-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
   .seo-transformation {
     position: relative;
     overflow: hidden;
@@ -4008,6 +4209,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .knowledge-layout,
     .action-path-head,
     .action-path-layout,
+    .service-decision-recap,
     .support-center-head,
     .support-center-layout {
       grid-template-columns: 1fr;
@@ -4034,6 +4236,14 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     }
 
     .seo-process ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .decision-recap-price {
+      min-height: 0;
+    }
+
+    .decision-recap-grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
@@ -4155,6 +4365,18 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
     .service-pricing-strip {
       align-items: flex-start;
       flex-direction: column;
+    }
+
+    .service-decision-recap {
+      padding: 1rem;
+    }
+
+    .decision-recap-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .decision-recap-card {
+      min-height: 0;
     }
 
     .seo-process ol,

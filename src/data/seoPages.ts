@@ -33,6 +33,20 @@ export interface SeoPageData {
     title: string;
     items: Array<{ label: string; status: string }>;
   };
+  decisionRecap?: {
+    eyebrow: string;
+    title: string;
+    text: string;
+    priceLabel: string;
+    price: string;
+    priceNote: string;
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+    items: Array<{ label: string; title: string; text: string }>;
+  };
   quickFormTitle?: string;
   quickFormSubmitLabel?: string;
   quickFormNote?: string;
@@ -292,6 +306,71 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Consuel photovoltaïque : préparation et suivi des dossiers",
     heroSubtitle:
       "Sunelys prend en charge le volet administratif Consuel pour sécuriser vos dossiers et accélérer la mise en service de vos installations.",
+    heroPrimaryLabel: "Faire cadrer mon Consuel",
+    heroSecondaryCta: {
+      label: "Voir le tarif détaillé",
+      href: "/tarifs#tarifs-photovoltaique",
+    },
+    conversionOffer: {
+      eyebrow: "Offre mise en service",
+      label: "Raccordement + Consuel",
+      price: "89 €",
+      priceNote: "HT / dossier",
+      scope: "Demande, gestion des échanges, validation et mise en service.",
+      terms: [
+        "Dossier ponctuel accepté",
+        "Aucun abonnement",
+        "Facturation au réel",
+      ],
+    },
+    quickFormTitle: "Où votre Consuel bloque-t-il aujourd'hui ?",
+    quickFormSubmitLabel: "Recevoir mon plan Consuel",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier point à reprendre sous 24h.",
+    diagnosticLabel: "Situation Consuel",
+    diagnosticOptions: [
+      { value: "Consuel à préparer", label: "Dossier à préparer" },
+      { value: "Pièces à vérifier", label: "Pièces ou photos à vérifier" },
+      { value: "Complément demandé", label: "Complément demandé" },
+      { value: "Mise en service bloquée", label: "Mise en service bloquée" },
+      { value: "Pilotage global", label: "Plusieurs étapes à reprendre" },
+      { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
+    ],
+    decisionRecap: {
+      eyebrow: "Décision Consuel",
+      title: "À choisir quand la mise en service risque de décrocher.",
+      text:
+        "Le pack rattache le Consuel à la logique de raccordement pour éviter les validations isolées, les pièces oubliées et les relances tardives.",
+      priceLabel: "Repère offre",
+      price: "89 € HT",
+      priceNote: "pack raccordement + Consuel",
+      cta: {
+        label: "Faire cadrer mon Consuel",
+        href: "#service-quick-consuel_photovoltaique",
+        track: "cta_consuel_decision_recap",
+      },
+      items: [
+        {
+          label: "Bon moment",
+          title: "Chantier terminé ou presque",
+          text: "Le dossier doit avancer vers validation sans laisser les pièces techniques dormir dans les échanges.",
+        },
+        {
+          label: "Sunelys reprend",
+          title: "Contrôle et suivi documentaire",
+          text: "Les pièces, demandes de complément et statuts sont cadrés pour rendre la prochaine action visible.",
+        },
+        {
+          label: "Limite claire",
+          title: "Décision organisme externe",
+          text: "Sunelys sécurise la préparation et le suivi, mais ne garantit pas les délais propres au Consuel.",
+        },
+        {
+          label: "Action",
+          title: "Envoyer le point bloquant",
+          text: "Un diagnostic rapide suffit pour savoir si le dossier est à préparer, compléter ou relancer.",
+        },
+      ],
+    },
     fitTitle: "Quand le Consuel devient le point de blocage entre chantier terminé et mise en service.",
     fitIntro:
       "Cette page s'adresse aux installateurs qui veulent éviter les allers-retours inutiles, mieux préparer leurs pièces et garder de la visibilité sur les validations.",
@@ -490,6 +569,42 @@ export const seoPages: Record<string, SeoPageData> = {
         { label: "Mise en service", status: "À suivre" },
       ],
     },
+    decisionRecap: {
+      eyebrow: "Décision raccordement",
+      title: "À choisir quand le réseau devient le point aveugle du chantier.",
+      text:
+        "L'offre raccordement + Consuel est pensée pour reprendre les jalons, les pièces et les relances dans une même logique de mise en service.",
+      priceLabel: "Repère offre",
+      price: "89 € HT",
+      priceNote: "raccordement + Consuel par dossier",
+      cta: {
+        label: "Faire cadrer mon raccordement",
+        href: "#service-quick-raccordement_enedis",
+        track: "cta_raccordement_decision_recap",
+      },
+      items: [
+        {
+          label: "Bon moment",
+          title: "Statut Enedis flou",
+          text: "La demande est déposée ou à déposer, mais personne ne sait précisément quelle action débloque la suite.",
+        },
+        {
+          label: "Sunelys reprend",
+          title: "Jalons et pièces sensibles",
+          text: "Le dossier est relu, les manquants sont identifiés et les relances utiles sont suivies dans le temps.",
+        },
+        {
+          label: "Limite claire",
+          title: "Délais réseau externes",
+          text: "Sunelys pilote le dossier et les échanges, mais les délais de traitement Enedis restent indépendants.",
+        },
+        {
+          label: "Action",
+          title: "Qualifier le blocage",
+          text: "Le formulaire suffit pour distinguer demande à déposer, complément, Consuel ou mise en service bloquée.",
+        },
+      ],
+    },
     quickFormTitle: "Où votre raccordement bloque-t-il aujourd'hui ?",
     quickFormSubmitLabel: "Recevoir mon plan de reprise",
     quickFormNote: "3 informations suffisent. Sunelys vous indique le premier jalon à reprendre sous 24h.",
@@ -682,6 +797,42 @@ export const seoPages: Record<string, SeoPageData> = {
         "Dossier ponctuel accepté",
         "Aucun abonnement",
         "Dépôt et suivi inclus",
+      ],
+    },
+    decisionRecap: {
+      eyebrow: "Décision DP",
+      title: "À choisir quand la mairie ne doit pas devenir un frein commercial.",
+      text:
+        "La DP complète est pensée pour transformer un dossier vendu en dossier déposable, suivi et compréhensible par vos équipes jusqu'au retour mairie.",
+      priceLabel: "Repère offre",
+      price: "119 € HT",
+      priceNote: "déclaration préalable complète par dossier",
+      cta: {
+        label: "Faire cadrer ma DP",
+        href: "#service-quick-declaration_prealable",
+        track: "cta_declaration_prealable_decision_recap",
+      },
+      items: [
+        {
+          label: "Bon moment",
+          title: "Avant dépôt ou après complément",
+          text: "Le dossier doit partir propre, ou une mairie demande une pièce, un visuel ou une précision à reprendre vite.",
+        },
+        {
+          label: "Sunelys reprend",
+          title: "Pièces, dépôt et suivi",
+          text: "Le cadrage administratif, les pièces sensibles, le dépôt mairie et les retours d'instruction sont centralisés.",
+        },
+        {
+          label: "Preuve",
+          title: "96 % de DP sans complément",
+          text: "La méthode vise d'abord la qualité du dossier initial pour éviter les allers-retours évitables.",
+        },
+        {
+          label: "Action",
+          title: "Envoyer la situation",
+          text: "Dossier à préparer, complément, refus ou flux régulier : Sunelys indique l'étape à reprendre sous 24h.",
+        },
       ],
     },
     quickFormTitle: "Dans quelle situation se trouve votre DP ?",
