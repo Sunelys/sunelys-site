@@ -59,6 +59,42 @@ const articleBusinessLinks = [
     description: "Cadrer votre volume, vos blocages et le bon périmètre à déléguer.",
   },
 ].filter((link, index, links) => links.findIndex((candidate) => candidate.href === link.href) === index);
+const categoryBriefs: Record<string, { check: string; action: string }> = {
+  "Déclaration préalable": {
+    check: "Cerfa, pièces, toiture, dépôt et points qui déclenchent les compléments.",
+    action: "Préparer un dépôt plus lisible ou cadrer une reprise DP.",
+  },
+  Consuel: {
+    check: "Attestation, dossier technique, cohérence des pièces et motifs de retour.",
+    action: "Sécuriser la préparation avant envoi ou reprise d’un dossier bloqué.",
+  },
+  "Raccordement Enedis": {
+    check: "Étapes, pièces, délais et relances à garder visibles côté équipe.",
+    action: "Clarifier la prochaine action ou déléguer le suivi administratif.",
+  },
+  Organisation: {
+    check: "Volume, coût interne, charge équipe et périmètre à externaliser.",
+    action: "Décider quoi sortir de vos équipes sans tout basculer.",
+  },
+};
+const categoryBrief = categoryBriefs[String(frontmatter.category)] ?? {
+  check: "Pièces, étapes et points de vigilance à contrôler avant d’avancer.",
+  action: "Transformer le sujet du guide en prochain dossier cadré.",
+};
+const readerBrief = [
+  {
+    label: "Décider",
+    text: frontmatter.businessOutcome || "Identifier le bon périmètre administratif à sécuriser.",
+  },
+  {
+    label: "Vérifier",
+    text: categoryBrief.check,
+  },
+  {
+    label: "Agir",
+    text: categoryBrief.action,
+  },
+];
 const date = new Intl.DateTimeFormat("fr-FR", {
   day: "2-digit",
   month: "long",
@@ -156,7 +192,11 @@ const breadcrumbs = [
   </div>
 
   <article class="article-shell">
-    <header class="article-hero">
+    <header
+      class="article-hero"
+      data-track-view="article_hero_view"
+      data-track-label={frontmatter.slug}
+    >
       <BrandSignature variant="editorial" />
       <div class="article-hero-copy" data-reveal-item>
         <a class="back-link" href="/blog" data-track="cta_article_back_blog">
@@ -170,9 +210,19 @@ const breadcrumbs = [
         </div>
         <h1>{frontmatter.title}</h1>
         <p class="article-lead">{frontmatter.description}</p>
+        <div class="article-brief" aria-label="Ce que ce guide permet de faire">
+          {
+            readerBrief.map((item) => (
+              <article>
+                <span>{item.label}</span>
+                <p>{item.text}</p>
+              </article>
+            ))
+          }
+        </div>
         <div class="article-actions">
           <a class="btn btn-primary btn-accent" href={articleContactHref} data-track="cta_article_header_primary" data-track-label={frontmatter.title}>
-            Recevoir un cadrage
+            Décrire mon dossier
           </a>
           <a class="article-service-link" href={primaryServiceHref} data-track="cta_article_header_services" data-track-label={frontmatter.title}>
             {primaryServiceLabel}
@@ -199,7 +249,11 @@ const breadcrumbs = [
       </figure>
     </header>
 
-    <div class="article-reading-layout">
+    <div
+      class="article-reading-layout"
+      data-track-view="article_reading_view"
+      data-track-label={frontmatter.slug}
+    >
       <aside class="article-aside" aria-label="Repères de lecture">
         <div class="aside-kicker">
           <span aria-hidden="true">01</span>
@@ -264,7 +318,12 @@ const breadcrumbs = [
           <Content />
         </div>
 
-        <section class="article-author" aria-label="Auteur de l'article">
+        <section
+          class="article-author"
+          aria-label="Auteur de l'article"
+          data-track-view="article_author_view"
+          data-track-label={frontmatter.slug}
+        >
           <picture>
             <source srcset="/images/myriam-zaoui.avif" type="image/avif" />
             <source srcset="/images/myriam-zaoui.webp" type="image/webp" />
@@ -283,7 +342,12 @@ const breadcrumbs = [
       </div>
     </div>
 
-    <section class="article-resources" aria-labelledby="article-resources-title">
+    <section
+      class="article-resources"
+      aria-labelledby="article-resources-title"
+      data-track-view="article_resources_view"
+      data-track-label={frontmatter.slug}
+    >
       <div class="resources-heading">
         <p class="section-kicker">Pour aller plus loin</p>
         <h2 id="article-resources-title">Continuez avec la bonne ressource.</h2>
@@ -307,7 +371,12 @@ const breadcrumbs = [
 
     {
       relatedLinks.length > 0 && (
-        <section class="related-guides" aria-labelledby="related-guides-title">
+        <section
+          class="related-guides"
+          aria-labelledby="related-guides-title"
+          data-track-view="article_related_view"
+          data-track-label={frontmatter.slug}
+        >
           <div>
             <p class="section-kicker">À lire aussi</p>
             <h2 id="related-guides-title">Continuer dans le même sujet.</h2>
@@ -328,7 +397,11 @@ const breadcrumbs = [
       )
     }
 
-    <section class="article-conclusion">
+    <section
+      class="article-conclusion"
+      data-track-view="article_final_cta_view"
+      data-track-label={frontmatter.slug}
+    >
       <div class="article-conclusion-copy">
         <p class="section-kicker">Passer à l’action</p>
         <h2>Le sujet est clair. Le prochain dossier peut l’être aussi.</h2>
@@ -804,11 +877,11 @@ const breadcrumbs = [
     isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.7fr);
-    gap: clamp(2rem, 5vw, 5.5rem);
+    gap: clamp(1.6rem, 4vw, 4.4rem);
     align-items: center;
     overflow: hidden;
-    min-height: min(47rem, calc(100vh - 8rem));
-    padding: clamp(2rem, 5vw, 5rem);
+    min-height: min(39rem, calc(100vh - 8rem));
+    padding: clamp(1.7rem, 4vw, 4.2rem);
     border-radius: var(--radius-xl);
     background:
       radial-gradient(circle at 86% 8%, rgba(54, 98, 227, 0.34), transparent 31%),
@@ -817,10 +890,24 @@ const breadcrumbs = [
     color: #f8fafc;
   }
 
+  .article-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: radial-gradient(68% 76% at 18% 28%, #000 0%, transparent 78%);
+    opacity: 0.42;
+  }
+
   .article-hero::after {
     content: "";
     position: absolute;
-    z-index: -1;
+    z-index: 0;
     width: clamp(16rem, 33vw, 32rem);
     aspect-ratio: 1;
     right: clamp(-9rem, -8vw, -4rem);
@@ -842,7 +929,7 @@ const breadcrumbs = [
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    margin: 0 0 clamp(2.2rem, 5vw, 4.6rem);
+    margin: 0 0 clamp(1.4rem, 3vw, 2.7rem);
     color: #cdd6e4;
     font-size: 0.72rem;
     font-weight: 800;
@@ -895,19 +982,52 @@ const breadcrumbs = [
   }
 
   .article-hero h1 {
-    max-width: 15ch;
+    max-width: 16ch;
     color: #ffffff;
-    font-size: clamp(2.45rem, 5.15vw, 5.25rem);
-    line-height: 0.96;
+    font-size: clamp(2.2rem, 4.2vw, 4.55rem);
+    line-height: 0.98;
     letter-spacing: -0.055em;
   }
 
   .article-lead {
     max-width: 42rem;
-    margin-top: 1.35rem;
+    margin-top: 1.05rem;
     color: #cbd5e1;
-    font-size: clamp(1rem, 1.25vw, 1.22rem);
+    font-size: clamp(0.96rem, 0.98vw, 1.08rem);
     line-height: 1.65;
+  }
+
+  .article-brief {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.68rem;
+    max-width: 48rem;
+    margin-top: 1.25rem;
+  }
+
+  .article-brief article {
+    min-height: 7.5rem;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(14px);
+  }
+
+  .article-brief span {
+    color: var(--accent);
+    font-size: 0.56rem;
+    font-weight: 850;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .article-brief p {
+    margin-top: 0.45rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.66rem;
+    font-weight: 650;
+    line-height: 1.45;
   }
 
   .article-actions {
@@ -915,7 +1035,7 @@ const breadcrumbs = [
     flex-wrap: wrap;
     align-items: center;
     gap: 0.9rem 1.25rem;
-    margin-top: 1.7rem;
+    margin-top: 1.35rem;
   }
 
   .article-service-link,
@@ -947,7 +1067,7 @@ const breadcrumbs = [
     z-index: 1;
     margin: 0;
     align-self: stretch;
-    min-height: 28rem;
+    min-height: 23rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-md);
@@ -958,7 +1078,7 @@ const breadcrumbs = [
   .article-cover img {
     width: 100%;
     height: 100%;
-    min-height: 28rem;
+    min-height: 23rem;
     object-fit: cover;
     filter: saturate(0.84) contrast(1.03);
   }
@@ -1532,7 +1652,7 @@ const breadcrumbs = [
 
     .article-cover,
     .article-cover img {
-      min-height: 22rem;
+      min-height: 20rem;
     }
 
     .article-reading-layout {
@@ -1630,7 +1750,7 @@ const breadcrumbs = [
     }
 
     .back-link {
-      margin-bottom: 2.3rem;
+      margin-bottom: 1.7rem;
     }
 
     .article-meta span:not(:last-child)::after {
@@ -1640,6 +1760,14 @@ const breadcrumbs = [
     .article-actions,
     .article-actions .btn {
       width: 100%;
+    }
+
+    .article-brief {
+      grid-template-columns: 1fr;
+    }
+
+    .article-brief article {
+      min-height: auto;
     }
 
     .article-service-link {

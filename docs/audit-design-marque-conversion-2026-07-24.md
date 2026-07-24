@@ -1803,3 +1803,31 @@ Le trente-cinquième lot reprend l'index du blog. L'objectif est de réduire l'e
 - anciennes catégories en ligne remplacées par une navigation par besoin ;
 - cartes d'articles rendues plus compactes et plus cohérentes avec les autres cartes premium ;
 - motif de grille subtil appliqué au hero et au CTA final pour harmoniser avec Contact, Merci et À propos.
+
+## Prototype v36 — articles blog transformés en guides de décision
+
+Le trente-sixième lot reprend le template des articles publics. L'objectif est de conserver le contenu SEO long, mais de rendre le premier écran plus utile, plus compact et plus proche d'un guide opérationnel.
+
+### Message
+
+- CTA de premier écran aligné avec la page Contact : « Décrire mon dossier » ;
+- ajout d'un brief lecteur en trois repères : décider, vérifier, agir ;
+- repère « vérifier » adapté à la catégorie de l'article : DP, Consuel, Raccordement ou Organisation ;
+- texte des articles conservé sans réécriture de fond.
+
+### Conversion
+
+- exposition du hero article suivie avec `article_hero_view` ;
+- exposition de la zone de lecture suivie avec `article_reading_view` ;
+- exposition de l'auteur suivie avec `article_author_view` ;
+- exposition des ressources de suite suivie avec `article_resources_view` ;
+- exposition des articles liés suivie avec `article_related_view` ;
+- exposition du CTA final suivie avec `article_final_cta_view`.
+
+### Design
+
+- hauteur du hero réduite pour limiter l'effet couverture de magazine ;
+- titre et chapô légèrement réduits pour améliorer la lisibilité ;
+- carte image moins dominante ;
+- motif de grille subtil ajouté au hero pour harmoniser avec Blog, Contact, Merci et À propos ;
+- version mobile conservée avec le brief empilé.
