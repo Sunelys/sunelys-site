@@ -39,7 +39,7 @@ export const heroData = {
 
 export const trustSectionData = {
   kicker: "Déjà sur le terrain",
-  title: "Des dossiers solaires suivis pour des installateurs qui avancent.",
+  title: "La preuve qu'un dossier peut sortir de vos équipes sans perdre le fil.",
   logos: [
     {
       name: "Sunwatt France",
@@ -74,12 +74,40 @@ export const trustSectionData = {
   ],
   trustNote:
     "Sunelys accompagne des installateurs et structures solaires qui veulent garder des dossiers propres, des dépôts mieux cadrés et des clients informés sans mobiliser leurs équipes à chaque relance.",
+  assurances: [
+    {
+      label: "Dossier ponctuel accepté",
+      text: "Vous pouvez tester sur une DP, un raccordement ou une chaîne complète sans lancer tout un flux.",
+    },
+    {
+      label: "Prix annoncé dès le départ",
+      text: "Les forfaits visibles dans le premier écran servent de base au cadrage.",
+    },
+    {
+      label: "Suivi partagé ensuite",
+      text: "Les dossiers actifs restent lisibles dans le portail, avec un interlocuteur unique.",
+    },
+  ],
   metrics: [
-    { value: "1357", label: "Dossiers ENR pilotés avec traçabilité" },
+    { value: "1 357", label: "Dossiers ENR pilotés avec traçabilité" },
     { value: "28", label: "Partenaires et installateurs déjà accompagnés" },
     { value: "2 jours", label: "Pour cadrer une demande complète et exploitable" },
-    { value: "96%", label: "Taux d'acceptation des déclarations préalables sans pièce complémentaire" },
+    { value: "96%", label: "De déclarations préalables acceptées sans pièce complémentaire" },
   ],
+  handoff: {
+    kicker: "Après votre envoi",
+    title: "Vous recevez un premier cadrage exploitable.",
+    items: [
+      { label: "Périmètre", text: "La démarche à reprendre en priorité." },
+      { label: "Pièces", text: "Les éléments manquants ou à vérifier." },
+      { label: "Suite", text: "Le forfait et le mode de suivi adaptés." },
+    ],
+    cta: {
+      label: "Choisir mon périmètre",
+      href: "#hero-lead-form",
+      track: "cta_trust_bridge_hero_form",
+    },
+  },
 };
 
 export const proofSectionData = {

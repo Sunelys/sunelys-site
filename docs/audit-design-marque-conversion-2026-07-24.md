@@ -1523,3 +1523,28 @@ Le vingt-quatrième lot retravaille le premier écran à partir des comportement
 - sélection d'une offre suivie avec `homepage_offer_selected` ;
 - démarrage, tentative, erreur et confirmation serveur conservés dans le tunnel commun ;
 - aucune donnée personnelle transmise aux outils d'audience.
+
+## Prototype v25 — passerelle de confiance sous le hero
+
+Le vingt-cinquième lot retravaille la première section après le hero pour prolonger la décision prise dans le formulaire rapide.
+
+### Rôle dans le parcours
+
+- ancienne lecture « logos + chiffres clés » remplacée par une passerelle de confiance ;
+- promesse recentrée sur la sortie du dossier des équipes sans perte de visibilité ;
+- CTA ajouté vers le formulaire rapide du hero pour récupérer les visiteurs qui scrollent avant d'agir ;
+- section mesurée avec `homepage_trust_bridge_view`.
+
+### Preuve et réassurance
+
+- chiffres existants conservés : 1 357 dossiers, 28 partenaires, 2 jours de cadrage et 96 % de DP sans pièce complémentaire ;
+- nouveaux engagements éditoriaux : dossier ponctuel accepté, prix annoncé dès le départ, suivi partagé ensuite ;
+- logos clients conservés mais rendus plus sobres pour éviter l'effet mur de marques trop promotionnel ;
+- aucune nouvelle promesse commerciale, aucun nouveau résultat et aucun nouveau client inventé.
+
+### Design
+
+- bande sombre remplacée par une composition plus claire et plus premium ;
+- panneau « après votre envoi » ajouté pour rendre la suite immédiatement compréhensible ;
+- typographie et séparateurs allégés pour réduire l'effet vieillissant ;
+- version mobile conservée avec défilement horizontal des preuves et empilement des engagements.

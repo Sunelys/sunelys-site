@@ -13,45 +13,140 @@ interface MetricItem {
   label: string;
 }
 
+interface AssuranceItem {
+  label: string;
+  text: string;
+}
+
+interface HandoffItem {
+  label: string;
+  text: string;
+}
+
 interface Props {
   data: {
     kicker: string;
     title: string;
     logos: LogoItem[];
     metrics: MetricItem[];
+    assurances?: AssuranceItem[];
     trustNote?: string;
+    handoff?: {
+      kicker: string;
+      title: string;
+      items: HandoffItem[];
+      cta: {
+        label: string;
+        href: string;
+        track: string;
+      };
+    };
   };
 }
 
 const { data } = Astro.props;
 const visibleLogos = data.logos.filter((logo) => logo.src);
+const assurances =
+  data.assurances && data.assurances.length > 0
+    ? data.assurances
+    : [
+        {
+          label: "Cadre clair",
+          text: "Vous savez quelle démarche reprendre en priorité avant de lancer la suite.",
+        },
+        {
+          label: "Suivi lisible",
+          text: "Les pièces, les relances et les statuts restent visibles pour vos équipes.",
+        },
+        {
+          label: "Délégation souple",
+          text: "Un dossier ponctuel, un pic de charge ou un flux récurrent peuvent être cadrés.",
+        },
+      ];
+const handoff = data.handoff ?? {
+  kicker: "Après votre envoi",
+  title: "Un premier cadrage exploitable, pas un échange flou.",
+  items: [
+    { label: "Périmètre", text: "La démarche à reprendre en priorité." },
+    { label: "Pièces", text: "Les points à vérifier avant dépôt ou relance." },
+    { label: "Suite", text: "Le forfait et le suivi adaptés à votre contexte." },
+  ],
+  cta: {
+    label: "Choisir mon périmètre",
+    href: "#hero-lead-form",
+    track: "cta_trust_bridge_hero_form",
+  },
+};
 ---
 
-<section class="section-shell trust-section reveal" aria-labelledby="trust-title">
-  <div class="trust-head" data-reveal-item>
-    <div>
+<section
+  class="section-shell trust-section reveal"
+  aria-labelledby="trust-title"
+  data-track-view="homepage_trust_bridge_view"
+  data-track-label="homepage_trust_bridge"
+>
+  <div class="trust-bridge">
+    <div class="trust-story" data-reveal-item>
       <p class="kicker">{data.kicker}</p>
       <h2 id="trust-title">{data.title}</h2>
+
+      <p class="trust-note">
+        {data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}
+      </p>
+
+      <div class="assurance-grid" aria-label="Engagements Sunelys">
+        {
+          assurances.map((item) => (
+            <article>
+              <strong>{item.label}</strong>
+              <p>{item.text}</p>
+            </article>
+          ))
+        }
+      </div>
     </div>
 
-    <p class="trust-note">
-      {data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}
-    </p>
+    <aside class="handoff-panel" aria-label="Ce que Sunelys vous renvoie après votre demande" data-reveal-item>
+      <div>
+        <p class="panel-kicker">{handoff.kicker}</p>
+        <h3>{handoff.title}</h3>
+      </div>
+
+      <ol class="handoff-list">
+        {
+          handoff.items.map((item, index) => (
+            <li>
+              <span>0{index + 1}</span>
+              <div>
+                <strong>{item.label}</strong>
+                <p>{item.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+
+      <a class="handoff-link" href={handoff.cta.href} data-track={handoff.cta.track}>
+        {handoff.cta.label}
+        <span aria-hidden="true">→</span>
+      </a>
+    </aside>
   </div>
 
-  <SwipeCue label="4 chiffres clés à parcourir" />
+  <SwipeCue label="4 preuves opérationnelles à parcourir" />
 
   <div
     class="trust-metrics"
-    aria-label="Chiffres clés Sunelys — utilisez les flèches horizontales pour les parcourir"
+    aria-label="Preuves opérationnelles Sunelys — utilisez les flèches horizontales pour les parcourir"
     tabindex="0"
     data-scroll-rail
-    data-scroll-label="chiffres_cles"
+    data-scroll-label="preuves_operationnelles"
     data-reveal-item
   >
     {
       data.metrics.map((metric, index) => (
         <article class:list={["metric", index === 0 && "is-featured"]}>
+          <span class="metric-index">0{index + 1}</span>
           <strong>{metric.value}</strong>
           <p>{metric.label}</p>
         </article>
@@ -63,8 +158,8 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     visibleLogos.length > 0 && (
       <div class="logo-wall" aria-label="Clients Sunelys" data-reveal-item>
         <div class="logo-wall-head">
-          <p>Structures accompagnées</p>
-          <span>Des installateurs qui nous confient tout ou partie de leur administratif.</span>
+          <p>Installateurs accompagnés</p>
+          <span>Des structures qui nous confient tout ou partie de leur administratif solaire.</span>
         </div>
 
         <div class="logo-row">
@@ -91,19 +186,31 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
 <style>
   .trust-section {
     display: grid;
-    gap: 1rem;
-    padding: clamp(1.3rem, 3vw, 2.4rem);
-    border: 1px solid var(--line);
+    gap: 0.85rem;
+    padding: 1.45rem;
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
     border-radius: var(--radius-xl);
-    background: var(--surface);
+    background:
+      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 38px 38px,
+      linear-gradient(rgba(54, 98, 227, 0.035) 1px, transparent 1px) 0 0 / 38px 38px,
+      linear-gradient(145deg, color-mix(in srgb, var(--surface) 92%, white), color-mix(in srgb, var(--system-soft) 48%, white));
     box-shadow: var(--shadow-sm);
   }
 
-  .trust-head {
+  .trust-bridge {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
-    gap: clamp(1.2rem, 4vw, 4rem);
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.46fr);
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+
+  .trust-story {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    min-height: 24rem;
+    padding: 2rem;
   }
 
   .kicker {
@@ -111,72 +218,209 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     color: var(--system);
     font-size: 0.72rem;
     font-weight: 760;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   h2 {
-    max-width: 18ch;
-    margin: 0.6rem 0 0;
-    font-size: clamp(2rem, 3.7vw, 3.6rem);
+    max-width: 19ch;
+    margin: 0;
+    font-size: 3.05rem;
+    letter-spacing: 0;
   }
 
   .trust-note {
+    max-width: 62ch;
     margin: 0;
-    padding-left: 1rem;
-    border-left: 3px solid var(--accent);
     color: var(--text-muted);
-    font-size: 0.96rem;
+    font-size: 1rem;
     line-height: 1.62;
+  }
+
+  .assurance-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 0.35rem;
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .assurance-grid article {
+    display: grid;
+    gap: 0.32rem;
+    min-width: 0;
+    padding: 0.95rem 1rem 0.95rem 0;
+  }
+
+  .assurance-grid article + article {
+    padding-left: 1rem;
+    border-left: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .assurance-grid strong {
+    color: var(--text);
+    font-size: 0.88rem;
+    line-height: 1.25;
+  }
+
+  .assurance-grid p {
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.48;
+  }
+
+  .handoff-panel {
+    display: grid;
+    align-content: space-between;
+    gap: 1.1rem;
+    min-height: 24rem;
+    padding: 1.8rem;
+    border-radius: calc(var(--radius-xl) - 6px);
+    background:
+      radial-gradient(88% 92% at 100% 0%, rgba(54, 98, 227, 0.34), transparent 58%),
+      linear-gradient(160deg, var(--ink-soft), var(--ink));
+    color: #ffffff;
+  }
+
+  .panel-kicker {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 780;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .handoff-panel h3 {
+    max-width: 18ch;
+    margin: 0.55rem 0 0;
+    color: #ffffff;
+    font-size: 1.72rem;
+    letter-spacing: 0;
+    line-height: 1.12;
+  }
+
+  .handoff-list {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .handoff-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    padding: 0.8rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .handoff-list li:last-child {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .handoff-list span {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 780;
+  }
+
+  .handoff-list strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+
+  .handoff-list p {
+    margin-top: 0.14rem;
+    color: rgba(255, 255, 255, 0.66);
+    font-size: 0.78rem;
+    line-height: 1.46;
+  }
+
+  .handoff-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    min-height: 2.9rem;
+    padding: 0.78rem 0.95rem;
+    border-radius: 12px;
+    background: var(--accent);
+    color: var(--ink);
+    font-size: 0.84rem;
+    font-weight: 780;
+    text-decoration: none;
+  }
+
+  .handoff-link span {
+    font-size: 1rem;
   }
 
   .trust-metrics {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     overflow: hidden;
-    border-radius: 16px;
-    background:
-      radial-gradient(60% 140% at 0% 100%, rgba(212, 130, 42, 0.22), transparent 68%),
-      var(--ink);
+    border: 1px solid color-mix(in srgb, var(--system) 11%, var(--line));
+    border-radius: calc(var(--radius-xl) - 6px);
+    background: color-mix(in srgb, var(--surface) 94%, white);
   }
 
   .metric {
-    min-height: 9.5rem;
-    padding: 1.2rem;
+    min-height: 8.7rem;
+    padding: 1rem;
     display: grid;
-    align-content: end;
-    gap: 0.45rem;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    align-content: space-between;
+    gap: 0.6rem;
+    border-right: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    background: rgba(255, 255, 255, 0.58);
   }
 
   .metric:last-child {
     border-right: 0;
   }
 
+  .metric-index {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 780;
+  }
+
   .metric strong {
-    color: #ffffff;
-    font-size: clamp(2rem, 3vw, 3.2rem);
+    color: var(--text);
+    font-size: 2.6rem;
     font-weight: 720;
-    letter-spacing: -0.055em;
+    letter-spacing: 0;
     line-height: 0.95;
   }
 
   .metric.is-featured strong {
-    color: var(--accent);
+    color: var(--accent-deep);
   }
 
   .metric p {
     max-width: 24ch;
     margin: 0;
-    color: rgba(255, 255, 255, 0.58);
+    color: var(--text-muted);
     font-size: 0.78rem;
     line-height: 1.46;
   }
 
   .logo-wall {
     display: grid;
-    gap: 0.8rem;
-    padding-top: 0.2rem;
+    gap: 0.7rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    border-radius: calc(var(--radius-xl) - 6px);
+    background: rgba(255, 255, 255, 0.72);
   }
 
   .logo-wall-head {
@@ -205,16 +449,19 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   .logo-row {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.55rem;
+    gap: 0;
   }
 
   .logo-slot {
-    min-height: 4.3rem;
+    min-height: 3.8rem;
     display: grid;
     place-items: center;
-    padding: 0.65rem;
-    border-radius: 11px;
-    background: var(--bg-soft);
+    padding: 0.55rem;
+    border-left: 1px solid color-mix(in srgb, var(--system) 9%, var(--line));
+  }
+
+  .logo-slot:first-child {
+    border-left: 0;
   }
 
   .logo-slot img {
@@ -231,8 +478,17 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
   }
 
   @media (max-width: 920px) {
-    .trust-head {
+    .trust-bridge {
       grid-template-columns: 1fr;
+    }
+
+    .trust-story,
+    .handoff-panel {
+      min-height: 0;
+    }
+
+    h2 {
+      font-size: 2.55rem;
     }
 
     .trust-metrics {
@@ -250,12 +506,49 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     .logo-row {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .logo-slot:nth-child(4) {
+      border-left: 0;
+    }
   }
 
   @media (max-width: 620px) {
     .trust-section {
       padding: 1rem;
       border-radius: 18px;
+    }
+
+    .trust-story {
+      padding: 0.4rem 0.1rem 0.6rem;
+    }
+
+    h2 {
+      font-size: 2.15rem;
+    }
+
+    .trust-note {
+      font-size: 0.94rem;
+    }
+
+    .assurance-grid {
+      grid-template-columns: 1fr;
+      border-bottom: 0;
+    }
+
+    .assurance-grid article,
+    .assurance-grid article + article {
+      padding: 0.78rem 0;
+      border-left: 0;
+      border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    }
+
+    .handoff-panel {
+      padding: 1rem;
+      border-radius: 16px;
+    }
+
+    .handoff-panel h3 {
+      font-size: 1.44rem;
     }
 
     .trust-metrics {
@@ -281,14 +574,14 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
     .metric {
       min-height: 7.8rem;
       padding: 0.9rem;
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
       border-bottom: 0;
       scroll-snap-align: start;
     }
 
     .metric:nth-child(2),
     .metric:nth-child(-n + 2) {
-      border-right: 1px solid rgba(255, 255, 255, 0.1);
+      border-right: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
       border-bottom: 0;
     }
 
@@ -304,6 +597,15 @@ const visibleLogos = data.logos.filter((logo) => logo.src);
 
     .logo-row {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .logo-slot,
+    .logo-slot:nth-child(4) {
+      border-left: 1px solid color-mix(in srgb, var(--system) 9%, var(--line));
+    }
+
+    .logo-slot:nth-child(odd) {
+      border-left: 0;
     }
   }
 </style>
