@@ -1723,3 +1723,29 @@ Le trente-deuxième lot reprend la page Contact, car tous les CTA modernisés co
 - zone d'introduction remplacée par trois livrables de diagnostic : périmètre, priorité, suite ;
 - carte formulaire rendue plus premium avec tête de section, repères de réassurance et ombre plus maîtrisée ;
 - version mobile conservée avec le formulaire en priorité et les repères empilés.
+
+## Prototype v33 — page Merci comme continuité de diagnostic
+
+Le trente-troisième lot modernise la page Merci, c'est-à-dire l'écran post-conversion. L'objectif est de prolonger la confiance après l'envoi du formulaire et de confirmer que la demande entre dans un vrai cadrage, pas dans une boîte de réception anonyme.
+
+### Message
+
+- titre reformulé en « C’est reçu. On passe au cadrage. » ;
+- promesse clarifiée autour de la première lecture du besoin, du volume et du périmètre utile ;
+- la demande est présentée comme un brief traité par Sunelys ;
+- ajout d'une zone « Pendant ce temps » pour préparer les informations qui peuvent accélérer la réponse.
+
+### Conversion
+
+- redirection et script de confirmation lead conservés avec `trackLeadSuccess` ;
+- logique checklist conservée pour les arrivées depuis une ressource DP ;
+- CTA Calendly conservé et suivi avec `cta_thanks_booking` ;
+- liens de sortie ajoutés ou tracés : `cta_thanks_services` et `cta_thanks_email_precision`.
+
+### Design et mesure
+
+- confirmation visuelle renforcée : demande reçue, réponse sous 24h ouvrées, sans engagement ;
+- carte de prochaines étapes transformée en panneau de cadrage ;
+- exposition de la page suivie avec `thanks_confirmation_view` ;
+- exposition de la zone de préparation suivie avec `thanks_prep_view` ;
+- exposition de la livraison checklist suivie avec `thanks_checklist_delivery_view`.

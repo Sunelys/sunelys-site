@@ -2,6 +2,36 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
+
+const confirmationSignals = [
+  "Demande reçue",
+  "Réponse sous 24h ouvrées",
+  "Sans engagement",
+];
+
+const nextSteps = [
+  {
+    number: "01",
+    title: "Lecture de votre contexte",
+    text: "Sunelys vérifie la démarche, le volume, l’urgence et le premier blocage à lever.",
+  },
+  {
+    number: "02",
+    title: "Cadrage du périmètre",
+    text: "Vous recevez une réponse claire sur ce qui peut être repris en priorité.",
+  },
+  {
+    number: "03",
+    title: "Démarrage ciblé",
+    text: "Si le besoin correspond, on démarre par un dossier ou un périmètre précis.",
+  },
+];
+
+const prepItems = [
+  "La démarche concernée : DP, Consuel, raccordement, EDF OA ou aides.",
+  "Le volume approximatif et les dossiers les plus urgents.",
+  "Les pièces déjà disponibles ou le point exact qui bloque.",
+];
 ---
 
 <BaseLayout
@@ -9,42 +39,57 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
   description="Votre demande a bien été transmise à Sunelys."
   robots="noindex,nofollow"
 >
-  <section class="thanks-card">
+  <section
+    class="thanks-card"
+    data-track-view="thanks_confirmation_view"
+    data-track-label="lead_thank_you_confirmation"
+  >
     <div class="thanks-copy">
       <span class="success-mark" aria-hidden="true">✓</span>
       <p class="eyebrow">Demande envoyée</p>
-      <h1>Merci, votre message est bien parti.</h1>
+      <h1>C’est reçu. On passe au cadrage.</h1>
       <p class="intro">
-        Votre demande est enregistrée. Sunelys revient vers vous sous 24h pour cadrer le besoin,
-        le volume et le premier périmètre utile à déléguer.
+        Votre demande est enregistrée. Sunelys revient vers vous sous 24h ouvrées avec une première lecture du
+        besoin, du volume et du périmètre utile à déléguer.
       </p>
+
+      <ul class="confirmation-strip" aria-label="Confirmation de prise en charge">
+        {
+          confirmationSignals.map((signal) => (
+            <li>
+              <i aria-hidden="true"></i>
+              {signal}
+            </li>
+          ))
+        }
+      </ul>
     </div>
 
-    <ol class="thanks-steps" aria-label="Prochaines étapes">
-      <li>
-        <span>01</span>
-        <div>
-          <strong>Lecture de votre contexte</strong>
-          <p>Nous vérifions la démarche, le volume et le niveau d’urgence.</p>
-        </div>
-      </li>
-      <li>
-        <span>02</span>
-        <div>
-          <strong>Réponse sous 24h</strong>
-          <p>Vous recevez un premier cadrage clair, sans engagement.</p>
-        </div>
-      </li>
-      <li>
-        <span>03</span>
-        <div>
-          <strong>Démarrage ciblé</strong>
-          <p>Si le besoin correspond, nous identifions le premier dossier à reprendre.</p>
-        </div>
-      </li>
-    </ol>
+    <aside class="thanks-panel" aria-label="Prochaines étapes">
+      <p class="panel-kicker">Prochaine étape</p>
+      <h2>Votre demande est traitée comme un brief, pas comme un ticket perdu.</h2>
+      <ol class="thanks-steps">
+        {
+          nextSteps.map((step) => (
+            <li>
+              <span>{step.number}</span>
+              <div>
+                <strong>{step.title}</strong>
+                <p>{step.text}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </aside>
 
-    <div class="delivery-card" id="checklist-delivery" hidden>
+    <div
+      class="delivery-card"
+      id="checklist-delivery"
+      data-track-view="thanks_checklist_delivery_view"
+      data-track-label="thanks_checklist_delivery"
+      hidden
+    >
       <p class="delivery-kicker">Checklist disponible</p>
       <h2>Votre ressource DP est prête.</h2>
       <p>
@@ -59,11 +104,38 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
       </a>
     </div>
 
+    <div
+      class="prep-card"
+      aria-labelledby="prep-title"
+      data-track-view="thanks_prep_view"
+      data-track-label="thanks_prepare_next_step"
+    >
+      <div>
+        <p class="panel-kicker">Pendant ce temps</p>
+        <h2 id="prep-title">Si vous voulez accélérer la réponse, préparez simplement ces éléments.</h2>
+      </div>
+      <ul>
+        {
+          prepItems.map((item) => (
+            <li>
+              <span aria-hidden="true">→</span>
+              {item}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
     <div class="actions">
-      <a class="btn btn-primary btn-accent" href={bookingUrl} target="_blank" rel="noreferrer">
+      <a class="btn btn-primary btn-accent" href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_thanks_booking">
         Réserver un créneau optionnel
       </a>
-      <a class="thanks-link" href="/services">Découvrir les services <span aria-hidden="true">→</span></a>
+      <a class="thanks-link" href="/services" data-track="cta_thanks_services">
+        Découvrir les services <span aria-hidden="true">→</span>
+      </a>
+      <a class="thanks-link muted" href="mailto:contact@sunelys.fr?subject=Pr%C3%A9cision%20pour%20mon%20diagnostic%20Sunelys" data-track="cta_thanks_email_precision">
+        Ajouter une précision <span aria-hidden="true">→</span>
+      </a>
     </div>
   </section>
 </BaseLayout>
@@ -244,6 +316,20 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
       0 0 0 8rem rgba(255, 255, 255, 0.018);
   }
 
+  .thanks-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: radial-gradient(64% 70% at 30% 28%, #000 0%, transparent 78%);
+    opacity: 0.45;
+  }
+
   .thanks-copy {
     display: grid;
     align-content: start;
@@ -285,10 +371,71 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     line-height: 1.65;
   }
 
+  .confirmation-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin: 1rem 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .confirmation-strip li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.46rem;
+    padding: 0.5rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.055);
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.7rem;
+    font-weight: 760;
+  }
+
+  .confirmation-strip i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: #7de0bd;
+    box-shadow: 0 0 0 3px rgba(125, 224, 189, 0.14);
+  }
+
+  .thanks-panel,
+  .prep-card {
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, 0.18);
+    backdrop-filter: blur(16px);
+  }
+
+  .thanks-panel {
+    padding: clamp(1rem, 2vw, 1.35rem);
+  }
+
+  .panel-kicker {
+    margin: 0;
+    color: #7de0bd;
+    font-size: 0.62rem;
+    font-weight: 860;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .thanks-panel h2,
+  .prep-card h2 {
+    margin: 0.55rem 0 0;
+    color: #ffffff;
+    font-size: clamp(1.25rem, 2.1vw, 1.95rem);
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+  }
+
   .thanks-steps {
     display: grid;
     gap: 0;
-    margin: 4.2rem 0 0;
+    margin: 1.15rem 0 0;
     padding: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.2);
     list-style: none;
@@ -322,6 +469,38 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     color: #aebbcf;
     font-size: 0.82rem;
     line-height: 1.45;
+  }
+
+  .prep-card {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.74fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2.4rem);
+    align-items: start;
+    padding: clamp(1rem, 2.5vw, 1.45rem);
+  }
+
+  .prep-card ul {
+    display: grid;
+    gap: 0.65rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .prep-card li {
+    display: grid;
+    grid-template-columns: 1.2rem minmax(0, 1fr);
+    gap: 0.55rem;
+    align-items: start;
+    color: #cbd5e1;
+    font-size: 0.82rem;
+    line-height: 1.48;
+  }
+
+  .prep-card li span {
+    color: #7da1ff;
+    font-weight: 850;
   }
 
   .delivery-card {
@@ -370,6 +549,10 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     transition: transform 160ms ease;
   }
 
+  .thanks-link.muted {
+    color: rgba(255, 255, 255, 0.7);
+  }
+
   .thanks-link:hover span,
   .thanks-link:focus-visible span {
     transform: translateX(0.2rem);
@@ -381,8 +564,12 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
       min-height: 0;
     }
 
+    .prep-card {
+      grid-template-columns: 1fr;
+    }
+
     .thanks-steps {
-      margin-top: 0;
+      margin-top: 1rem;
     }
   }
 
@@ -401,6 +588,14 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     .thanks-link {
       justify-content: center;
       width: 100%;
+    }
+
+    .confirmation-strip {
+      display: grid;
+    }
+
+    .confirmation-strip li {
+      justify-content: center;
     }
   }
 </style>
