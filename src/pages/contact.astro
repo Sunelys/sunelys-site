@@ -32,6 +32,42 @@ const heroProofPoints = [
   },
 ];
 
+const triagePaths = [
+  {
+    signal: "Dossier bloqué",
+    title: "Je dois reprendre une DP, un Consuel ou un raccordement.",
+    text: "Sunelys identifie le premier point à débloquer et le périmètre réellement utile.",
+    meta: "Réponse orientée dossier",
+    href: "/contact?source=contact_triage_raccordement_consuel#contact-form",
+    track: "cta_contact_triage_blocked",
+  },
+  {
+    signal: "Choix d'offre",
+    title: "Je ne sais pas encore quelle formule choisir.",
+    text: "Vous décrivez la situation, Sunelys vous oriente sans empiler les prestations.",
+    meta: "Cadrage sans engagement",
+    href: "/contact?source=contact_triage_diagnostic#contact-form",
+    track: "cta_contact_triage_diagnostic",
+  },
+  {
+    signal: "Flux récurrent",
+    title: "Je veux sortir l'administratif de mon équipe.",
+    text: "On regarde le volume, les étapes concernées et la façon de reprendre le flux proprement.",
+    meta: "Pilotage complet possible",
+    href: "/contact?source=contact_triage_gestion_administrative#contact-form",
+    track: "cta_contact_triage_flow",
+    featured: true,
+  },
+  {
+    signal: "Après-chantier",
+    title: "EDF OA, MaPrimeRénov' ou CEE restent à suivre.",
+    text: "Le brief permet de distinguer le bon dossier complémentaire à ouvrir ou reprendre.",
+    meta: "Dès 49 € HT selon dossier",
+    href: "/contact?source=contact_triage_edf_oa_aides_renovation#contact-form",
+    track: "cta_contact_triage_aftercare",
+  },
+];
+
 const diagnosticDeliverables = [
   {
     tag: "Périmètre",
@@ -177,6 +213,44 @@ const supportCards = [
         </div>
       </div>
     </aside>
+  </section>
+
+  <section
+    class="contact-triage reveal"
+    aria-labelledby="contact-triage-title"
+    data-track-view="contact_triage_view"
+    data-track-label="contact_triage_paths"
+  >
+    <div class="triage-head" data-reveal-item>
+      <p class="eyebrow">Orientation rapide</p>
+      <h2 id="contact-triage-title">Vous n’avez pas besoin de tout expliquer pour commencer.</h2>
+      <p>
+        Choisissez la situation la plus proche : le formulaire s’ouvre avec le bon angle de diagnostic,
+        puis Sunelys confirme le périmètre utile sous 24h.
+      </p>
+    </div>
+
+    <div class="triage-grid" aria-label="Situations de contact fréquentes">
+      {
+        triagePaths.map((path, index) => (
+          <a
+            class:list={["triage-card", path.featured && "is-featured"]}
+            href={path.href}
+            data-track={path.track}
+            data-track-label={path.signal}
+            data-reveal-item
+          >
+            <span>0{index + 1} · {path.signal}</span>
+            <strong>{path.title}</strong>
+            <p>{path.text}</p>
+            <small>
+              {path.meta}
+              <i aria-hidden="true">→</i>
+            </small>
+          </a>
+        ))
+      }
+    </div>
   </section>
 
   <section
@@ -744,6 +818,154 @@ const supportCards = [
     font-size: 0.64rem;
   }
 
+  .contact-triage {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(270px, 0.46fr) minmax(0, 1fr);
+    gap: clamp(1rem, 2.8vw, 1.7rem);
+    padding: clamp(1.2rem, 3vw, 2rem);
+    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--system-soft) 78%, transparent), transparent 65%),
+      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
+      color-mix(in srgb, var(--surface) 97%, white);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .contact-triage::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    background: linear-gradient(90deg, var(--system), var(--accent));
+  }
+
+  .triage-head {
+    display: grid;
+    align-content: center;
+    gap: 0.7rem;
+  }
+
+  .triage-head h2 {
+    max-width: 15ch;
+    margin: 0;
+    color: var(--ink);
+    font-size: clamp(2rem, 3.7vw, 3.6rem);
+    line-height: 0.96;
+    letter-spacing: -0.05em;
+  }
+
+  .triage-head > p:not(.eyebrow) {
+    max-width: 45ch;
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.86rem;
+    line-height: 1.62;
+  }
+
+  .triage-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .triage-card {
+    min-height: 14.5rem;
+    display: grid;
+    align-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.78);
+    color: var(--text);
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      background-color 160ms ease,
+      transform 160ms ease;
+  }
+
+  .triage-card:hover,
+  .triage-card:focus-visible {
+    border-color: color-mix(in srgb, var(--system) 26%, var(--line));
+    background: #ffffff;
+    transform: translateY(-2px);
+  }
+
+  .triage-card > span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 820;
+    letter-spacing: 0;
+    text-transform: uppercase;
+  }
+
+  .triage-card strong {
+    max-width: 20ch;
+    color: var(--ink);
+    font-size: 1.05rem;
+    line-height: 1.16;
+  }
+
+  .triage-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.52;
+  }
+
+  .triage-card small {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    align-items: center;
+    padding-top: 0.72rem;
+    border-top: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    color: var(--text);
+    font-size: 0.65rem;
+    font-weight: 760;
+  }
+
+  .triage-card i {
+    color: var(--accent-strong);
+    font-style: normal;
+    transition: transform 160ms ease;
+  }
+
+  .triage-card:hover i,
+  .triage-card:focus-visible i {
+    transform: translateX(3px);
+  }
+
+  .triage-card.is-featured {
+    background:
+      radial-gradient(90% 90% at 100% 0%, rgba(212, 130, 42, 0.18), transparent 62%),
+      var(--ink);
+    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+    color: #ffffff;
+  }
+
+  .triage-card.is-featured > span,
+  .triage-card.is-featured i {
+    color: var(--accent);
+  }
+
+  .triage-card.is-featured strong,
+  .triage-card.is-featured small {
+    color: #ffffff;
+  }
+
+  .triage-card.is-featured p {
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .triage-card.is-featured small {
+    border-top-color: rgba(255, 255, 255, 0.12);
+  }
+
   .contact-main {
     display: grid;
     grid-template-columns: minmax(280px, 0.66fr) minmax(0, 1.34fr);
@@ -1034,6 +1256,7 @@ const supportCards = [
 
   @media (max-width: 980px) {
     .contact-hero,
+    .contact-triage,
     .contact-main {
       grid-template-columns: 1fr;
     }
@@ -1050,6 +1273,7 @@ const supportCards = [
 
   @media (max-width: 620px) {
     .contact-hero,
+    .contact-triage,
     .contact-main {
       padding: 1.2rem;
     }
@@ -1066,8 +1290,13 @@ const supportCards = [
     }
 
     .hero-proof-strip,
+    .triage-grid,
     .form-assurances {
       grid-template-columns: 1fr;
+    }
+
+    .triage-card {
+      min-height: 12rem;
     }
 
     .hero-proof-strip article {
