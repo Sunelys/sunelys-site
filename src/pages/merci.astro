@@ -77,18 +77,28 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     checklistDelivery.hidden = false;
   }
 
-  window.trackEvent?.("lead_converted", {
-    category: "lead",
-    label: source,
-    source,
-    conversion_type: source.toLowerCase().includes("checklist")
-      ? "checklist_download"
-      : "form_contact",
-    lead_stage: "lead_confirmed",
-    ...(source.toLowerCase().includes("checklist")
-      ? { service_interest: "Déclaration préalable panneaux solaires" }
-      : { service_interest: "Pilotage administratif photovoltaïque" }),
-  });
+  let pendingLead = null;
+  try {
+    pendingLead = JSON.parse(sessionStorage.getItem("sunelys_pending_lead") || "null");
+  } catch (_error) {
+    pendingLead = null;
+  }
+
+  if (pendingLead && typeof pendingLead === "object") {
+    window.trackLeadSuccess?.({
+      ...pendingLead,
+      label: pendingLead.label || source,
+      source: pendingLead.source || source,
+      conversion_type:
+        pendingLead.conversion_type ||
+        (source.toLowerCase().includes("checklist") ? "checklist_download" : "form_contact"),
+      service_interest:
+        pendingLead.service_interest ||
+        (source.toLowerCase().includes("checklist")
+          ? "Déclaration préalable panneaux solaires"
+          : "Pilotage administratif photovoltaïque"),
+    });
+  }
 </script>
 
 <style>

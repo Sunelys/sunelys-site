@@ -61,6 +61,9 @@ for (const file of htmlFiles) {
   const images = openingTags(html, "img");
   const buttons = openingTags(html, "button");
   const anchors = openingTags(html, "a");
+  const leadForms = openingTags(html, "form").filter((tag) =>
+    /\bdata-lead-form(?:\s|=|>)/i.test(tag),
+  );
   const htmlTag = openingTags(html, "html")[0] ?? "";
   const mains = openingTags(html, "main");
   const metas = openingTags(html, "meta");
@@ -81,6 +84,18 @@ for (const file of htmlFiles) {
 
   anchors.forEach((tag, index) => {
     if (hasAttribute(tag, "href", "")) report(`lien ${index + 1} avec href vide`);
+  });
+
+  leadForms.forEach((tag, index) => {
+    if (!hasAttribute(tag, "action") || hasAttribute(tag, "action", "")) {
+      report(`formulaire lead ${index + 1} sans destination`);
+    }
+    if (!hasAttribute(tag, "method", "post")) {
+      report(`formulaire lead ${index + 1} sans méthode POST`);
+    }
+    if (!hasAttribute(tag, "data-conversion-type")) {
+      report(`formulaire lead ${index + 1} sans type de conversion`);
+    }
   });
 
   if (!hasAttribute(htmlTag, "lang", "fr")) report("langue de page différente de fr");

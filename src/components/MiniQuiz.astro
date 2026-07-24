@@ -70,7 +70,8 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       hidden
       data-reveal-item
       data-lead-form
-          data-conversion-type="quiz_submit"
+      data-async-lead-form
+      data-conversion-type="quiz_submit"
     >
       <input type="hidden" name="_subject" value="Nouveau lead quiz Sunelys" />
       <input type="hidden" name="_captcha" value="false" />
@@ -251,20 +252,31 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
             service_interest: "Pilotage administratif photovoltaïque",
           });
 
-          window.trackEvent("lead_converted", {
-            category: "lead",
+          window.trackLeadSuccess?.({
             volume: selectedQuizVolume,
             label: "Quiz email capture",
             source: "quiz-homepage",
             conversion_type: "quiz_submit",
-            lead_stage: "lead_confirmed",
             service_interest: "Pilotage administratif photovoltaïque",
+            form_id: "quiz-email-form",
+            form_location: "homepage_quiz",
+            lead_source_detail: "homepage_quiz",
           });
         }
 
         quizEmailForm.hidden = true;
         showQuizResult(selectedQuizVolume);
       } catch (_error) {
+        window.trackLeadError?.({
+          label: "Quiz email capture",
+          source: "quiz-homepage",
+          volume: selectedQuizVolume,
+          conversion_type: "quiz_submit",
+          service_interest: "Pilotage administratif photovoltaïque",
+          form_id: "quiz-email-form",
+          form_location: "homepage_quiz",
+          error_type: "submission_failed",
+        });
         if (quizEmailStatus) {
           quizEmailStatus.textContent =
             "L'envoi n'a pas abouti. Vous pouvez réessayer ou passer par le formulaire de contact.";

@@ -531,7 +531,12 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         lead_stage: params.lead_stage || "",
         service_interest: params.service_interest || "",
         form_id: params.form_id || "",
+        form_location: params.form_location || "",
+        lead_source_detail: params.lead_source_detail || "",
+        field_name: params.field_name || "",
+        error_type: params.error_type || "",
         cta_group: params.cta_group || "",
+        transport_type: params.transport_type || "",
         utm_source: currentAttribution.utm_source || "",
         utm_medium: currentAttribution.utm_medium || "",
         utm_campaign: currentAttribution.utm_campaign || "",
@@ -579,6 +584,44 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         }
       };
 
+      const confirmedLeadKeys = new Set();
+      window.trackLeadSuccess = (params = {}) => {
+        if (!window.sunelysAnalyticsEnabled) return;
+
+        const successPayload = {
+          ...params,
+          category: "lead",
+          lead_stage: "lead_confirmed",
+        };
+        const confirmationKey = [
+          successPayload.form_id || "",
+          successPayload.source || "",
+          successPayload.conversion_type || "form_contact",
+        ].join("|");
+
+        if (confirmedLeadKeys.has(confirmationKey)) return;
+        confirmedLeadKeys.add(confirmationKey);
+
+        window.trackEvent?.("lead_form_success", successPayload);
+        window.trackEvent?.("generate_lead", successPayload);
+        window.trackEvent?.("lead_converted", successPayload);
+
+        try {
+          sessionStorage.setItem("sunelys_form_submitted", "true");
+          sessionStorage.removeItem("sunelys_pending_lead");
+        } catch (_error) {
+          // La confirmation reste mesurée si le stockage de session est indisponible.
+        }
+      };
+
+      window.trackLeadError = (params = {}) => {
+        window.trackEvent?.("form_error", {
+          ...params,
+          category: "form",
+          lead_stage: "submission_error",
+        });
+      };
+
       const buildFormInteractionPayload = (form, fallbackStage) => {
         const formData = new FormData(form);
         const conversionType = String(
@@ -587,30 +630,94 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             "lead_form",
         );
         const normalizedConversionType = mapConversionType(conversionType);
+        const source = String(formData.get("source_page") || formData.get("source") || "");
+        const formLocation = String(
+          formData.get("lead_source_detail") ||
+            form.dataset.formLocation ||
+            form.id ||
+            source ||
+            "lead_form",
+        );
 
         return {
           category: "form",
-          label: form.id || form.getAttribute("class") || "lead_form",
-          source: String(formData.get("source_page") || formData.get("source") || ""),
+          label: formLocation,
+          source,
           volume: String(formData.get("volume") || ""),
           need: String(formData.get("need") || ""),
           blocked_stage: String(formData.get("blocked_stage") || ""),
           conversion_type: normalizedConversionType || conversionType,
           lead_stage: String(formData.get("lead_stage") || fallbackStage),
           service_interest: String(formData.get("service_interest") || ""),
-          form_id: form.id || "",
+          form_id: form.id || formLocation,
+          form_location: formLocation,
+          lead_source_detail: String(formData.get("lead_source_detail") || formLocation),
         };
       };
 
-      const startedLeadForms = new WeakSet();
+      const startedLeadForms = new Set();
+      const submittedLeadForms = new Set();
       document.addEventListener("focusin", (event) => {
         if (!(event.target instanceof Element)) return;
         const form = event.target.closest("form[data-lead-form]");
         if (!(form instanceof HTMLFormElement) || startedLeadForms.has(form)) return;
+        if (!window.sunelysAnalyticsEnabled) return;
 
         startedLeadForms.add(form);
         syncSunelysAttributionFields(form);
         window.trackEvent?.("form_start", buildFormInteractionPayload(form, "form_started"));
+      });
+
+      const lastValidationErrorAt = new WeakMap();
+      document.addEventListener(
+        "invalid",
+        (event) => {
+          const field = event.target;
+          if (
+            !(
+              field instanceof HTMLInputElement ||
+              field instanceof HTMLSelectElement ||
+              field instanceof HTMLTextAreaElement
+            )
+          ) {
+            return;
+          }
+
+          const form = field.closest("form[data-lead-form]");
+          if (!(form instanceof HTMLFormElement)) return;
+
+          const now = Date.now();
+          const lastTrackedAt = lastValidationErrorAt.get(form) || 0;
+          if (now - lastTrackedAt < 800) return;
+          lastValidationErrorAt.set(form, now);
+
+          const errorType = field.validity.valueMissing
+            ? "required"
+            : field.validity.typeMismatch
+              ? "format"
+              : field.validity.patternMismatch
+                ? "pattern"
+                : "invalid";
+
+          window.trackEvent?.("form_validation_error", {
+            ...buildFormInteractionPayload(form, "validation_error"),
+            field_name: field.name || field.type || "unknown",
+            error_type: errorType,
+            lead_stage: "validation_error",
+          });
+        },
+        true,
+      );
+
+      window.addEventListener("pagehide", () => {
+        startedLeadForms.forEach((form) => {
+          if (submittedLeadForms.has(form)) return;
+          window.trackEvent?.("form_abandon", {
+            ...buildFormInteractionPayload(form, "form_abandoned"),
+            lead_stage: "form_abandoned",
+            transport_type: "beacon",
+          });
+        });
       });
 
       const trackedViewElements = document.querySelectorAll("[data-track-view]");
@@ -724,14 +831,6 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             lead_stage: "booking_click",
             source: "calendly",
           });
-
-          window.trackEvent("lead_converted", {
-            ...clickPayload,
-            category: "lead",
-            source: "calendly",
-            conversion_type: "booking",
-            lead_stage: "booking_click",
-          });
         }
       });
 
@@ -753,7 +852,6 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
       document.addEventListener("submit", (event) => {
         if (!(event.target instanceof HTMLFormElement)) return;
-        if (event.target.id === "exit-intent-form") return;
         const submittedForm = event.target;
         syncSunelysAttributionFields(submittedForm);
         const submittedFormData = new FormData(submittedForm);
@@ -768,18 +866,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         const normalizedFallbackConversionType = mapConversionType([conversionType, sourcePageValue].filter(Boolean).join(" "));
         const finalConversionType = normalizedConversionType || normalizedFallbackConversionType;
         const leadStage = String(submittedFormData.get("lead_stage") || "form_submitted");
-        const serviceInterest = String(submittedFormData.get("service_interest") || "");
         const formPayload = {
-          category: "form",
-          label: submittedForm.id || submittedForm.getAttribute("class") || "lead_form",
-          source: String(submittedFormData.get("source_page") || submittedFormData.get("source") || ""),
-          volume: String(submittedFormData.get("volume") || ""),
-          need: String(submittedFormData.get("need") || ""),
-          blocked_stage: String(submittedFormData.get("blocked_stage") || ""),
+          ...buildFormInteractionPayload(submittedForm, leadStage),
           conversion_type: finalConversionType,
           lead_stage: leadStage,
-          service_interest: serviceInterest,
-          form_id: submittedForm.id || "",
         };
 
         if (finalConversionType !== conversionType) {
@@ -789,9 +879,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
           }
         }
 
-        window.trackEvent?.("form_submit", formPayload);
-
-        if (submittedForm.hasAttribute("data-lead-form") || submittedFormData.has("email")) {
+        const isLeadForm = submittedForm.hasAttribute("data-lead-form") || submittedFormData.has("email");
+        if (isLeadForm) {
+          submittedLeadForms.add(submittedForm);
+          window.trackEvent?.("form_submit", formPayload);
           window.trackEvent?.("lead_form_submit", {
             ...formPayload,
             category: "lead",
@@ -799,26 +890,23 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             lead_stage: leadStage,
           });
 
-          window.trackEvent?.("generate_lead", {
-            ...formPayload,
-            category: "lead",
-            conversion_type: finalConversionType,
-            lead_stage: leadStage,
-          });
-
-          window.trackEvent?.("lead_converted", {
-            ...formPayload,
-            category: "lead",
-            source: sourcePageValue || formPayload.source || "lead_form",
-            conversion_type: finalConversionType,
-            lead_stage: leadStage || "form_submitted",
-          });
-        }
-
-        try {
-          sessionStorage.setItem("sunelys_form_submitted", "true");
-        } catch (_error) {
-          // Storage can be unavailable in some private browsing contexts.
+          if (
+            !submittedForm.hasAttribute("data-async-lead-form") &&
+            window.sunelysAnalyticsEnabled
+          ) {
+            try {
+              sessionStorage.setItem(
+                "sunelys_pending_lead",
+                JSON.stringify({
+                  ...formPayload,
+                  category: "lead",
+                  source: sourcePageValue || formPayload.source || "lead_form",
+                }),
+              );
+            } catch (_error) {
+              // La redirection reste fonctionnelle si le stockage de session est indisponible.
+            }
+          }
         }
       });
 

@@ -1436,3 +1436,31 @@ Le vingt-et-unième lot consolide la qualité perçue sans modifier le design, l
 - 32 pages statiques contrôlées ;
 - présence d'un H1 unique, des textes alternatifs et des dimensions d'images vérifiée ;
 - type des boutons, liens non vides, langue, contenu principal, description et URL canonique vérifiés.
+
+## Prototype v22 — tunnel de conversion fiable
+
+Le vingt-deuxième lot fiabilise la mesure avant toute nouvelle optimisation visuelle ou commerciale.
+
+### Base de comparaison sur 30 jours
+
+- 214 sessions mesurées dans GA4 après consentement ;
+- 16 démarrages de formulaire, 2 envois, 3 événements `generate_lead` et 2 `lead_converted` ;
+- 12 demandes enregistrées dans le suivi commercial, dont 7 qualifiées et 3 à fort potentiel ;
+- écart constaté entre l'outil d'audience soumis au consentement et la source commerciale de référence.
+
+### Définition du tunnel
+
+- `form_start` reste le signal de démarrage ;
+- `form_validation_error` identifie le type de blocage sans enregistrer la valeur saisie ;
+- `form_submit` et `lead_form_submit` décrivent désormais une tentative valide, pas une conversion ;
+- `form_error` distingue un échec d'envoi côté formulaire asynchrone ;
+- `form_abandon` mesure une sortie après démarrage sans tentative ;
+- `lead_form_success`, `generate_lead` et `lead_converted` ne sont émis qu'après confirmation du serveur.
+
+### Qualité de la mesure
+
+- clic Calendly conservé comme intention de prise de rendez-vous, sans le compter comme lead confirmé ;
+- variantes de formulaires distinguées par leur emplacement et leur source détaillée ;
+- conversion Google Ads déclenchée uniquement après création confirmée du lead ;
+- déduplication des confirmations sur une même page ;
+- aucune adresse, aucun nom, aucun téléphone et aucune valeur libre transmis aux outils d'audience.

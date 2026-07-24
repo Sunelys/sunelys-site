@@ -38,6 +38,7 @@ const { action, path } = Astro.props;
       action={action}
       method="POST"
       data-lead-form
+      data-async-lead-form
       data-conversion-type="form_contact"
     >
       <input type="hidden" name="_subject" value="Nouveau diagnostic dossiers bloqués Sunelys" />
@@ -282,39 +283,18 @@ const { action, path } = Astro.props;
         if (!response.ok) throw new Error("Lead magnet submit failed");
 
         writeSessionFlag(submittedKey);
-          window.trackEvent?.("lead_form_submit", {
-            category: "lead",
-            label: "Diagnostic dossiers bloqués",
-            source: "exit-intent-diagnostic-dossiers-bloques",
-            volume: String(exitFormData.get("volume") || ""),
-            need: String(exitFormData.get("need") || ""),
-            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
-            conversion_type: "form_contact",
-            lead_stage: "exit_intent_form_submitted",
-            service_interest: "Pilotage complet",
-          });
-          window.trackEvent?.("generate_lead", {
-            category: "lead",
-            label: "Diagnostic dossiers bloqués",
-            source: "exit-intent-diagnostic-dossiers-bloques",
-            volume: String(exitFormData.get("volume") || ""),
-            need: String(exitFormData.get("need") || ""),
-            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
-            conversion_type: "form_contact",
-            lead_stage: "exit_intent_form_submitted",
-            service_interest: "Pilotage complet",
-          });
-          window.trackEvent?.("lead_converted", {
-            category: "lead",
-            label: "Diagnostic dossiers bloqués",
-            source: "exit-intent-diagnostic-dossiers-bloques",
-            volume: String(exitFormData.get("volume") || ""),
-            need: String(exitFormData.get("need") || ""),
-            blocked_stage: String(exitFormData.get("blocked_stage") || ""),
-            conversion_type: "form_contact",
-            lead_stage: "lead_confirmed",
-            service_interest: "Pilotage complet",
-          });
+        window.trackLeadSuccess?.({
+          label: "Diagnostic dossiers bloqués",
+          source: "exit-intent-diagnostic-dossiers-bloques",
+          volume: String(exitFormData.get("volume") || ""),
+          need: String(exitFormData.get("need") || ""),
+          blocked_stage: String(exitFormData.get("blocked_stage") || ""),
+          conversion_type: "form_contact",
+          service_interest: "Pilotage complet",
+          form_id: "exit-intent-form",
+          form_location: "exit_intent_diagnostic_modal",
+          lead_source_detail: "exit_intent_diagnostic_modal",
+        });
 
         if (exitStatus) {
           exitStatus.textContent = "Merci, votre demande est bien prise en compte. On vous revient avec une première lecture.";
@@ -324,6 +304,18 @@ const { action, path } = Astro.props;
           exitDownload.focus();
         }
       } catch (_error) {
+        window.trackLeadError?.({
+          label: "Diagnostic dossiers bloqués",
+          source: "exit-intent-diagnostic-dossiers-bloques",
+          volume: String(exitFormData.get("volume") || ""),
+          need: String(exitFormData.get("need") || ""),
+          blocked_stage: String(exitFormData.get("blocked_stage") || ""),
+          conversion_type: "form_contact",
+          service_interest: "Pilotage complet",
+          form_id: "exit-intent-form",
+          form_location: "exit_intent_diagnostic_modal",
+          error_type: "submission_failed",
+        });
         if (exitStatus) {
           exitStatus.textContent =
             "L'envoi n'a pas abouti. Vous pouvez réessayer ou passer par le formulaire de contact.";
