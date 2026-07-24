@@ -280,6 +280,15 @@ const breadcrumbs = [
             <dd>{frontmatter.readingTime}</dd>
           </div>
         </dl>
+        <div class="aside-decision-card">
+          <span>Dossier en cours ?</span>
+          <strong>Sunelys peut cadrer la prochaine action sous 24h.</strong>
+          <p>Décrivez le blocage, le volume ou la démarche à reprendre.</p>
+          <a href={articleContactHref} data-track="cta_article_aside_diagnostic" data-track-label={frontmatter.title}>
+            Demander un cadrage
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
         {
           tocHeadings.length > 1 && (
             <>
@@ -1196,6 +1205,67 @@ const breadcrumbs = [
     text-align: right;
   }
 
+  .aside-decision-card {
+    display: grid;
+    gap: 0.55rem;
+    margin-top: 0.25rem;
+    padding: 0.85rem;
+    border: 1px solid color-mix(in srgb, var(--system) 16%, var(--line));
+    border-radius: 15px;
+    background:
+      radial-gradient(90% 110% at 100% 0%, color-mix(in srgb, var(--accent-soft) 55%, transparent), transparent 64%),
+      color-mix(in srgb, var(--surface) 94%, #ffffff);
+    box-shadow: 0 18px 42px rgba(14, 23, 38, 0.06);
+  }
+
+  .aside-decision-card > span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .aside-decision-card strong {
+    color: var(--ink);
+    font-size: 0.9rem;
+    line-height: 1.28;
+  }
+
+  .aside-decision-card p {
+    margin: 0;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .aside-decision-card a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.65rem;
+    min-height: 2.5rem;
+    margin-top: 0.15rem;
+    padding: 0.72rem 0.78rem;
+    border-radius: 12px;
+    background: var(--ink);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 850;
+    line-height: 1.2;
+    text-decoration: none;
+  }
+
+  .aside-decision-card a span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .aside-decision-card a:hover span,
+  .aside-decision-card a:focus-visible span {
+    transform: translateX(0.18rem);
+  }
+
   .aside-link {
     display: flex;
     justify-content: space-between;
@@ -1677,6 +1747,10 @@ const breadcrumbs = [
       margin: 0;
     }
 
+    .aside-decision-card {
+      grid-column: 1;
+    }
+
     .article-toc {
       display: none;
     }
@@ -1787,6 +1861,7 @@ const breadcrumbs = [
     .aside-kicker,
     .article-aside > p,
     .article-aside dl,
+    .aside-decision-card,
     .aside-link {
       grid-column: 1;
       grid-row: auto;
