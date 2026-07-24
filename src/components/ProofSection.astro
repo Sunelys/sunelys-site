@@ -420,6 +420,10 @@ const proofHighlights = [
     outline: none;
   }
 
+  .case-panel[hidden] {
+    display: none;
+  }
+
   .case-context,
   .case-voice {
     min-width: 0;
@@ -457,22 +461,34 @@ const proofHighlights = [
   }
 
   .company-mark {
+    --logo-inset: 0.95rem;
+    position: relative;
     display: grid;
-    width: clamp(7.5rem, 14vw, 10.5rem);
-    height: 6.3rem;
+    width: min(100%, 12rem);
+    height: 7.2rem;
     place-items: center;
     margin-top: clamp(1.5rem, 3vw, 2.6rem);
-    padding: 0.7rem;
+    overflow: hidden;
+    padding: 0;
     border: 1px solid var(--line);
     border-radius: 15px;
     background: var(--bg-soft);
   }
 
   .company-mark img {
+    position: absolute;
+    inset: var(--logo-inset);
     display: block;
-    max-width: 100%;
-    max-height: 100%;
+    width: calc(100% - var(--logo-inset) * 2);
+    height: calc(100% - var(--logo-inset) * 2);
+    max-width: none;
+    max-height: none;
     object-fit: contain;
+    object-position: center;
+  }
+
+  .company-mark img[alt="Be Travaux"] {
+    object-fit: cover;
   }
 
   .company-mark > span {
@@ -778,8 +794,9 @@ const proofHighlights = [
     }
 
     .company-mark {
-      width: 7.5rem;
-      height: 5.2rem;
+      --logo-inset: 0.7rem;
+      width: 8.6rem;
+      height: 5.6rem;
       margin-top: 1.3rem;
     }
 
