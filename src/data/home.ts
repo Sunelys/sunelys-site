@@ -531,7 +531,8 @@ export const faqSectionData = {
     },
     {
       question: "Comment fonctionne la tarification ?",
-      answer: "Les tarifs Sunelys sont fixes par dossier.",
+      answer:
+        "Les tarifs Sunelys sont fixes par dossier, à partir de 89 € HT selon la démarche. Vous pouvez déléguer une brique précise ou cadrer une chaîne plus complète.",
     },
     {
       question: "Quels types de clients accompagnez-vous ?",
@@ -541,7 +542,7 @@ export const faqSectionData = {
     {
       question: "Pouvez-vous reprendre des dossiers déjà en cours ?",
       answer:
-        "Oui, selon l'état du dossier et les pièces disponibles. Nous commençons par analyser le contexte pour identifier ce qui peut être repris proprement.",
+        "Oui, selon l'état du dossier et les pièces disponibles. Nous commençons par analyser le contexte pour identifier ce qui peut être repris proprement et ce qui doit être sécurisé avant la suite.",
     },
   ],
 };

@@ -1648,3 +1648,28 @@ Le vingt-neuvième lot renforce la section « Preuves clients » sans modifier l
 - typographie harmonisée avec les dernières sections modernisées ;
 - CTA final léger pour ne pas concurrencer les témoignages ;
 - comportement mobile conservé avec panneaux empilés et navigation accessible.
+
+## Prototype v30 — FAQ orientée objections
+
+Le trentième lot transforme la FAQ de l'accueil en centre d'objections, placé juste avant le dernier appel à l'action.
+
+### Rôle commercial
+
+- la FAQ ne sert plus seulement à informer, elle aide à lever les derniers freins avant le diagnostic ;
+- carte de décision ajoutée pour cadrer les trois sujets sensibles : périmètre, prix et reprise possible ;
+- CTA discret ajouté vers le formulaire de contact avec `cta_faq_contact` ;
+- ouverture de chaque question suivie avec `faq_homepage_1` à `faq_homepage_5`.
+
+### Contenu
+
+- les cinq questions existantes sont conservées ;
+- réponse tarifaire rendue plus concrète avec les forfaits à partir de 89 € HT ;
+- reprise de dossiers en cours clarifiée autour de l'analyse du contexte et de la sécurisation avant la suite ;
+- données structurées FAQ conservées sur la page d'accueil.
+
+### Design et mesure
+
+- ancienne liste simple remplacée par une lecture d'objections : périmètre, rôle, tarifs, profil client, reprise ;
+- bloc visuel plus premium, aligné avec les dernières sections de l'accueil ;
+- exposition de la section suivie avec `homepage_faq_view` ;
+- comportement mobile simplifié avec les signaux masqués pour préserver la lisibilité.

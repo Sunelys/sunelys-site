@@ -15,21 +15,43 @@ interface Props {
 }
 
 const { data } = Astro.props;
+const objectionSignals = [
+  "Périmètre",
+  "Rôle",
+  "Tarifs",
+  "Profil client",
+  "Reprise",
+];
 ---
 
-<section class="section-shell faq-section reveal" aria-labelledby="faq-title">
+<section
+  class="section-shell faq-section reveal"
+  aria-labelledby="faq-title"
+  data-track-view="homepage_faq_view"
+  data-track-label="homepage_faq"
+>
   <div class="faq-head" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2 id="faq-title">{data.title}</h2>
-    <p>Les informations essentielles pour savoir si la délégation correspond à votre organisation.</p>
+    <p class="faq-intro">Les informations essentielles pour savoir si la délégation correspond à votre organisation.</p>
+
+    <div class="faq-decision-card" aria-label="À quoi sert cette FAQ">
+      <span>Avant de déléguer</span>
+      <strong>Valider le cadre, le prix et la reprise possible.</strong>
+      <a href="/contact?source=faq#contact-form" data-track="cta_faq_contact">
+        Poser ma question
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 
   <div class="faq-list" data-reveal-item>
     {
       data.items.map((item, index) => (
         <details class="faq-item">
-          <summary>
+          <summary data-track={`faq_homepage_${index + 1}`} data-track-label={item.question}>
             <span class="faq-number">0{index + 1}</span>
+            <span class="faq-signal">{objectionSignals[index] ?? "Question"}</span>
             <span class="faq-question">{item.question}</span>
             <span class="faq-icon" aria-hidden="true"></span>
           </summary>
@@ -42,44 +64,97 @@ const { data } = Astro.props;
 
 <style>
   .faq-section {
+    position: relative;
     display: grid;
-    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
-    gap: clamp(1.5rem, 5vw, 5rem);
+    grid-template-columns: minmax(280px, 0.62fr) minmax(0, 1.38fr);
+    gap: 1rem;
     align-items: start;
-    padding: clamp(1.3rem, 3vw, 2.6rem);
+    overflow: hidden;
+    padding: 1.25rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
     border-radius: var(--radius-xl);
-    background: color-mix(in srgb, var(--system-soft) 60%, var(--surface));
+    background:
+      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
+      linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, white), color-mix(in srgb, var(--system-soft) 54%, white));
   }
 
   .faq-head {
     position: sticky;
     top: 6.5rem;
+    display: grid;
+    align-content: start;
+    gap: 1rem;
+    min-width: 0;
+    padding: 1.05rem;
   }
 
   .kicker {
+    margin: 0;
     color: var(--system);
     font-size: 0.72rem;
     font-weight: 780;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   h2 {
     max-width: 17ch;
-    margin-top: 0.65rem;
-    font-size: clamp(2rem, 3.5vw, 3.45rem);
+    margin: 0;
+    font-size: 2.9rem;
+    letter-spacing: 0;
   }
 
-  .faq-head > p:last-child {
+  .faq-intro {
     max-width: 48ch;
-    margin-top: 1rem;
+    margin: 0;
     color: var(--text-muted);
     font-size: 0.88rem;
     line-height: 1.6;
   }
 
+  .faq-decision-card {
+    display: grid;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.74);
+  }
+
+  .faq-decision-card > span {
+    color: var(--accent-deep);
+    font-size: 0.68rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .faq-decision-card strong {
+    color: var(--text);
+    font-size: 0.98rem;
+    line-height: 1.38;
+  }
+
+  .faq-decision-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    color: var(--ink);
+    font-size: 0.78rem;
+    font-weight: 780;
+    text-decoration: none;
+  }
+
+  .faq-decision-card a span {
+    color: var(--system);
+  }
+
   .faq-list {
-    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.76);
   }
 
   .faq-item {
@@ -90,10 +165,10 @@ const { data } = Astro.props;
     cursor: pointer;
     list-style: none;
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.85rem;
+    grid-template-columns: auto minmax(84px, 0.26fr) 1fr auto;
+    gap: 0.75rem;
     align-items: center;
-    padding: 1.15rem 0;
+    padding: 1rem;
   }
 
   summary::-webkit-details-marker {
@@ -104,6 +179,16 @@ const { data } = Astro.props;
     color: var(--system);
     font-size: 0.66rem;
     font-weight: 800;
+  }
+
+  .faq-signal {
+    width: fit-content;
+    padding: 0.32rem 0.52rem;
+    border-radius: 999px;
+    background: var(--system-soft);
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 780;
   }
 
   .faq-question {
@@ -150,7 +235,7 @@ const { data } = Astro.props;
 
   .faq-item > p {
     max-width: 70ch;
-    margin: -0.15rem 2.65rem 1.2rem 1.78rem;
+    margin: -0.25rem 3rem 1.1rem calc(1rem + 2rem + 0.75rem + min(26%, 11rem) + 0.75rem);
     color: var(--text-muted);
     font-size: 0.84rem;
     line-height: 1.62;
@@ -168,12 +253,30 @@ const { data } = Astro.props;
 
   @media (max-width: 520px) {
     .faq-section {
-      padding: 1.15rem;
+      padding: 1rem;
+      border-radius: 18px;
+    }
+
+    .faq-head {
+      padding: 0.35rem 0.1rem 0.2rem;
+    }
+
+    h2 {
+      font-size: 2.12rem;
+    }
+
+    summary {
+      grid-template-columns: auto 1fr auto;
+      gap: 0.62rem;
+      padding: 0.9rem;
+    }
+
+    .faq-signal {
+      display: none;
     }
 
     .faq-item > p {
-      margin-left: 0;
-      margin-right: 0;
+      margin: -0.15rem 0.9rem 1rem;
     }
   }
 </style>
