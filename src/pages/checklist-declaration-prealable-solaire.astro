@@ -50,6 +50,8 @@ const checklistGroups = [
     ],
   },
 ];
+
+const checklistItemCount = checklistGroups.reduce((total, group) => total + group.items.length, 0);
 ---
 
 <BaseLayout
@@ -65,20 +67,63 @@ const checklistGroups = [
         Une grille de contrôle simple pour repérer les oublis qui ralentissent le plus souvent les dossiers en mairie.
       </p>
     </div>
-    <button class="btn btn-primary btn-accent print-button" type="button" data-track="cta_checklist_print">
-      Imprimer / enregistrer en PDF
-    </button>
+    <aside class="checklist-toolbox" aria-label="Progression de la checklist">
+      <div class="progress-heading">
+        <span data-progress-status>Dossier à cadrer</span>
+        <strong><span data-progress-count>0</span> / {checklistItemCount}</strong>
+      </div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-label="Points vérifiés"
+        aria-valuemin="0"
+        aria-valuemax={checklistItemCount}
+        aria-valuenow="0"
+        data-progress-track
+      >
+        <span data-progress-bar></span>
+      </div>
+      <p>Votre progression reste enregistrée sur cet appareil.</p>
+      <div class="toolbox-actions">
+        <button class="btn btn-primary btn-accent print-button" type="button" data-track="cta_checklist_print">
+          Imprimer / enregistrer en PDF
+        </button>
+        <button class="reset-button" type="button" data-checklist-reset disabled>
+          Réinitialiser
+        </button>
+      </div>
+      <a
+        class="checklist-complete-link"
+        href="/contact?source=checklist_complete#contact-form"
+        data-track="cta_checklist_complete"
+        data-checklist-complete
+        hidden
+      >
+        Faire relire ce flux par Sunelys <span aria-hidden="true">→</span>
+      </a>
+    </aside>
   </section>
 
   <section class="checklist-grid section-shell" aria-label="Checklist déclaration préalable">
-    {checklistGroups.map((group) => (
+    {checklistGroups.map((group, groupIndex) => (
       <article class="checklist-card">
-        <h2>{group.title}</h2>
-        <ul>
-          {group.items.map((item) => (
+        <div class="checklist-card-heading">
+          <h2>{group.title}</h2>
+          <span><strong data-group-count>0</strong> / {group.items.length}</span>
+        </div>
+        <ul data-checklist-group>
+          {group.items.map((item, itemIndex) => (
             <li>
-              <span aria-hidden="true"></span>
-              <p>{item}</p>
+              <label>
+                <input
+                  class="checklist-input"
+                  type="checkbox"
+                  name={`checklist-${groupIndex + 1}-${itemIndex + 1}`}
+                  data-checklist-item
+                />
+                <span class="check-control" aria-hidden="true"></span>
+                <p>{item}</p>
+              </label>
             </li>
           ))}
         </ul>
@@ -105,9 +150,104 @@ const checklistGroups = [
 </BaseLayout>
 
 <script>
+  const storageKey = "sunelys-dp-checklist-v1";
+  const checklistInputs = Array.from(document.querySelectorAll("[data-checklist-item]"));
+  const progressCount = document.querySelector("[data-progress-count]");
+  const progressStatus = document.querySelector("[data-progress-status]");
+  const progressTrack = document.querySelector("[data-progress-track]");
+  const progressBar = document.querySelector("[data-progress-bar]");
+  const resetButton = document.querySelector("[data-checklist-reset]");
+  const completeLink = document.querySelector("[data-checklist-complete]");
+  let furthestMilestone = 0;
+
+  try {
+    const savedState = JSON.parse(localStorage.getItem(storageKey) || "[]");
+    checklistInputs.forEach((input, index) => {
+      if (input instanceof HTMLInputElement) input.checked = savedState[index] === true;
+    });
+  } catch {
+    // La checklist reste pleinement utilisable si le stockage local est indisponible.
+  }
+
+  const updateChecklist = (trackProgress = false) => {
+    const checkedCount = checklistInputs.filter(
+      (input) => input instanceof HTMLInputElement && input.checked,
+    ).length;
+    const totalCount = checklistInputs.length;
+    const percentage = totalCount > 0 ? Math.round((checkedCount / totalCount) * 100) : 0;
+
+    if (progressCount) progressCount.textContent = String(checkedCount);
+    if (progressBar instanceof HTMLElement) progressBar.style.width = `${percentage}%`;
+    if (progressTrack) progressTrack.setAttribute("aria-valuenow", String(checkedCount));
+    if (resetButton instanceof HTMLButtonElement) resetButton.disabled = checkedCount === 0;
+    if (completeLink instanceof HTMLElement) completeLink.hidden = checkedCount !== totalCount;
+
+    if (progressStatus) {
+      progressStatus.textContent =
+        percentage === 100
+          ? "Prêt pour la relecture finale"
+          : percentage >= 70
+            ? "Derniers contrôles"
+            : percentage >= 30
+              ? "Contrôle en cours"
+              : "Dossier à cadrer";
+    }
+
+    document.querySelectorAll("[data-checklist-group]").forEach((group) => {
+      const groupInputs = Array.from(group.querySelectorAll("[data-checklist-item]"));
+      const groupChecked = groupInputs.filter(
+        (input) => input instanceof HTMLInputElement && input.checked,
+      ).length;
+      const groupCount = group.closest(".checklist-card")?.querySelector("[data-group-count]");
+      if (groupCount) groupCount.textContent = String(groupChecked);
+    });
+
+    try {
+      localStorage.setItem(
+        storageKey,
+        JSON.stringify(
+          checklistInputs.map((input) => input instanceof HTMLInputElement && input.checked),
+        ),
+      );
+    } catch {
+      // Aucun blocage de l'interface si le stockage local est indisponible.
+    }
+
+    if (trackProgress) {
+      [25, 50, 75, 100].forEach((milestone) => {
+        if (percentage >= milestone && milestone > furthestMilestone) {
+          furthestMilestone = milestone;
+          window.trackEvent?.("checklist_progress", {
+            checklist_name: "declaration_prealable_solaire",
+            percent: milestone,
+            completed_items: checkedCount,
+            total_items: totalCount,
+          });
+        }
+      });
+    }
+  };
+
+  checklistInputs.forEach((input) => {
+    input.addEventListener("change", () => updateChecklist(true));
+  });
+
+  resetButton?.addEventListener("click", () => {
+    checklistInputs.forEach((input) => {
+      if (input instanceof HTMLInputElement) input.checked = false;
+    });
+    furthestMilestone = 0;
+    updateChecklist();
+    window.trackEvent?.("checklist_reset", {
+      checklist_name: "declaration_prealable_solaire",
+    });
+  });
+
   document.querySelector(".print-button")?.addEventListener("click", () => {
     window.print();
   });
+
+  updateChecklist();
 </script>
 
 <style>
@@ -314,6 +454,113 @@ const checklistGroups = [
     white-space: nowrap;
   }
 
+  .checklist-toolbox {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0.8rem;
+    width: min(100%, 21rem);
+    padding: 1.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 22px 48px rgba(0, 0, 0, 0.22);
+    backdrop-filter: blur(16px);
+  }
+
+  .progress-heading {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
+  }
+
+  .progress-heading > span {
+    color: #ffffff;
+    font-size: 0.76rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  .progress-heading strong {
+    color: var(--accent);
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  .progress-track {
+    height: 0.4rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+  }
+
+  .progress-track > span {
+    display: block;
+    width: 0;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--accent), #f2b664);
+    transition: width 220ms ease;
+  }
+
+  .checklist-toolbox > p {
+    margin: 0;
+    color: #aebdd0;
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .toolbox-actions {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.55rem;
+  }
+
+  .toolbox-actions .btn {
+    min-height: 2.9rem;
+    padding-inline: 0.9rem;
+    font-size: 0.78rem;
+  }
+
+  .reset-button {
+    min-height: 2.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: var(--radius-sm);
+    background: transparent;
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.72rem;
+    font-weight: 750;
+    padding-inline: 0.8rem;
+  }
+
+  .reset-button:disabled {
+    cursor: default;
+    opacity: 0.4;
+  }
+
+  .checklist-complete-link {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.2rem;
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .checklist-complete-link[hidden] {
+    display: none;
+  }
+
+  .checklist-complete-link span {
+    color: var(--accent);
+  }
+
   .checklist-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -332,9 +579,23 @@ const checklistGroups = [
     box-shadow: none;
   }
 
-  .checklist-card h2 {
+  .checklist-card-heading {
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    justify-content: space-between;
     padding-bottom: 0.75rem;
     border-bottom: 1px solid var(--line);
+  }
+
+  .checklist-card-heading > span {
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .checklist-card h2 {
     color: var(--ink);
     font-size: clamp(1.25rem, 2vw, 1.65rem);
     letter-spacing: -0.035em;
@@ -346,19 +607,79 @@ const checklistGroups = [
   }
 
   .checklist-card li {
-    grid-template-columns: 1.2rem minmax(0, 1fr);
-    gap: 0.7rem;
+    display: block;
     padding: 0.85rem 0;
     border-bottom: 1px solid var(--line);
   }
 
-  .checklist-card li span {
+  .checklist-card label {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.2rem minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: start;
+    cursor: pointer;
+  }
+
+  .checklist-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .check-control {
+    position: relative;
     width: 1.05rem;
     height: 1.05rem;
     margin-top: 0.22rem;
     border: 1.5px solid var(--system);
     border-radius: 3px;
     background: transparent;
+    transition:
+      border-color 160ms ease,
+      background 160ms ease,
+      transform 160ms ease;
+  }
+
+  .check-control::after {
+    content: "";
+    position: absolute;
+    left: 0.3rem;
+    top: 0.08rem;
+    width: 0.28rem;
+    height: 0.56rem;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    opacity: 0;
+    transform: rotate(45deg) scale(0.7);
+    transition:
+      opacity 160ms ease,
+      transform 160ms ease;
+  }
+
+  .checklist-input:focus-visible + .check-control {
+    outline: 3px solid color-mix(in srgb, var(--system-soft) 88%, transparent);
+    outline-offset: 3px;
+  }
+
+  .checklist-input:checked + .check-control {
+    border-color: var(--system);
+    background: var(--system);
+    transform: scale(1.04);
+  }
+
+  .checklist-input:checked + .check-control::after {
+    opacity: 1;
+    transform: rotate(45deg) scale(1);
+  }
+
+  .checklist-input:checked ~ p {
+    color: color-mix(in srgb, var(--text-muted) 72%, white);
+    text-decoration: line-through;
+    text-decoration-color: color-mix(in srgb, var(--system) 38%, transparent);
   }
 
   .checklist-card li p {
@@ -430,6 +751,10 @@ const checklistGroups = [
       grid-row: auto;
       width: 100%;
     }
+
+    .checklist-toolbox {
+      width: 100%;
+    }
   }
 
   @media (max-width: 640px) {
@@ -447,6 +772,14 @@ const checklistGroups = [
 
     .print-button,
     .checklist-cta .btn {
+      width: 100%;
+    }
+
+    .toolbox-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .reset-button {
       width: 100%;
     }
 
@@ -476,6 +809,10 @@ const checklistGroups = [
       gap: 1rem;
       padding: 0;
       border-radius: 0;
+    }
+
+    .checklist-toolbox {
+      display: none !important;
     }
   }
 </style>

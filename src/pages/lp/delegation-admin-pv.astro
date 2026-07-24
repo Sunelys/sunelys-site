@@ -240,6 +240,53 @@ const specialistReasons = [
     </div>
   </section>
 
+  <section
+    class="client-proof-section"
+    data-track-view="client_proof_view"
+    data-track-label="lp_admin_pv_client_proof"
+    aria-labelledby="client-proof-title"
+  >
+    <div class="client-proof-quote">
+      <p class="eyebrow">Retour terrain</p>
+      <blockquote id="client-proof-title">
+        « Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide,
+        les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement. »
+      </blockquote>
+      <div class="client-proof-author">
+        <img
+          src="/images/site/client-betravaux.png"
+          alt="Be Travaux"
+          width="512"
+          height="512"
+          loading="lazy"
+          decoding="async"
+        />
+        <p><strong>Victorion Brice</strong><span>Gérant · Be Travaux</span></p>
+      </div>
+    </div>
+
+    <aside class="client-proof-impact" aria-label="Effets cités par le client">
+      <p class="eyebrow">Du besoin à l'effet</p>
+      <ol>
+        <li>
+          <span>01</span>
+          <div><strong>Délais et suivi</strong><p>Le point de départ à fiabiliser.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><strong>Pilotage plus fluide</strong><p>Des réponses qui arrivent vite.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><strong>Chantiers installés plus vite</strong><p>L'effet opérationnel cité par Be Travaux.</p></div>
+        </li>
+      </ol>
+      <a class="btn btn-primary btn-accent" href="#diagnostic" data-track="cta_lp_client_proof">
+        Tester sur un dossier
+      </a>
+    </aside>
+  </section>
+
   <section class="lp-section pricing-section" id="prix" data-track-view="pricing_view" data-track-label="lp_admin_pv_pricing">
     <div class="section-head">
       <p class="eyebrow">Prix fixes</p>
@@ -1278,6 +1325,147 @@ const specialistReasons = [
     filter: saturate(0.76) contrast(1.02);
   }
 
+  .client-proof-section {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.12fr) minmax(20rem, 0.88fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    overflow: hidden;
+    padding: clamp(2.2rem, 5vw, 4.6rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 92% 2%, rgba(54, 98, 227, 0.38), transparent 32%),
+      radial-gradient(circle at 0% 100%, rgba(212, 130, 42, 0.2), transparent 34%),
+      var(--ink);
+  }
+
+  .client-proof-section::after {
+    content: "“";
+    position: absolute;
+    z-index: -1;
+    right: 40%;
+    top: -4.8rem;
+    color: rgba(255, 255, 255, 0.035);
+    font-family: Georgia, serif;
+    font-size: clamp(18rem, 31vw, 34rem);
+    line-height: 1;
+  }
+
+  .client-proof-quote {
+    display: grid;
+    gap: 1.25rem;
+    align-content: start;
+  }
+
+  .client-proof-section .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .client-proof-quote blockquote {
+    max-width: 24ch;
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(1.65rem, 3vw, 3rem);
+    font-weight: 760;
+    letter-spacing: -0.045em;
+    line-height: 1.08;
+  }
+
+  .client-proof-author {
+    display: flex;
+    gap: 0.85rem;
+    align-items: center;
+  }
+
+  .client-proof-author img {
+    width: 7.4rem;
+    height: 2.8rem;
+    padding: 0.4rem 0.6rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.65rem;
+    background: #ffffff;
+    object-fit: contain;
+  }
+
+  .client-proof-author p {
+    display: grid;
+    gap: 0.15rem;
+    margin: 0;
+  }
+
+  .client-proof-author strong {
+    color: #ffffff;
+    font-size: 0.92rem;
+  }
+
+  .client-proof-author span {
+    color: #aebdd0;
+    font-size: 0.78rem;
+  }
+
+  .client-proof-impact {
+    display: grid;
+    gap: 0.9rem;
+    align-content: start;
+    padding: clamp(1.1rem, 2.5vw, 1.65rem);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.07);
+    backdrop-filter: blur(14px);
+  }
+
+  .client-proof-impact ol {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.17);
+    list-style: none;
+  }
+
+  .client-proof-impact li {
+    display: grid;
+    grid-template-columns: 2.1rem minmax(0, 1fr);
+    gap: 0.75rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.17);
+  }
+
+  .client-proof-impact li > span {
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .client-proof-impact li div {
+    display: grid;
+    gap: 0.2rem;
+  }
+
+  .client-proof-impact strong {
+    color: #ffffff;
+    font-size: 0.9rem;
+  }
+
+  .client-proof-impact li p {
+    margin: 0;
+    color: #aebdd0;
+    font-size: 0.78rem;
+    line-height: 1.45;
+  }
+
+  .client-proof-impact .btn {
+    justify-self: start;
+    margin-top: 0.2rem;
+  }
+
+  .hero-intake[id],
+  .pricing-section[id] {
+    scroll-margin-top: 6rem;
+  }
+
   .pricing-section {
     display: grid;
     grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
@@ -1455,6 +1643,7 @@ const specialistReasons = [
   @media (max-width: 980px) {
     .lp-hero,
     .visual-proof-section,
+    .client-proof-section,
     .pricing-section,
     .specialist-section,
     .lp-final {
@@ -1535,6 +1724,7 @@ const specialistReasons = [
     }
 
     .pricing-section,
+    .client-proof-section,
     .specialist-section,
     .lp-final {
       padding: 1.4rem;
@@ -1550,6 +1740,10 @@ const specialistReasons = [
     }
 
     .lp-final .btn {
+      width: 100%;
+    }
+
+    .client-proof-impact .btn {
       width: 100%;
     }
   }

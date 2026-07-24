@@ -1234,3 +1234,34 @@ Le quatorzième lot aligne les pages EDF OA et Sous-traitance administrative sur
 - ouverture unique des réponses testée au clavier ;
 - liens portail, contact, tarifs et diagnostic contrôlés ;
 - arrivée sur le diagnostic sans masquage par l'en-tête fixe.
+
+## Prototype v15 — ressource interactive et preuve client
+
+Le quinzième lot transforme la checklist Déclaration préalable en outil de travail réel et renforce la landing de délégation avec une preuve client placée juste avant les tarifs.
+
+### Checklist Déclaration préalable
+
+- vingt-deux contrôles désormais réellement cochables au clavier, à la souris et au toucher ;
+- progression globale et compteur par groupe mis à jour en temps réel ;
+- quatre états de lecture : dossier à cadrer, contrôle en cours, derniers contrôles et relecture finale ;
+- sauvegarde de la progression sur l'appareil, sans donnée personnelle ;
+- réinitialisation explicite et appel à l'action révélé lorsque tous les points sont vérifiés ;
+- version imprimable conservée pour l'enregistrement en PDF ;
+- jalons de progression suivis à 25 %, 50 %, 75 % et 100 %.
+
+### Landing délégation administrative
+
+- ajout d'un retour terrain Be Travaux avant la grille tarifaire ;
+- citation, identité et logo exclusivement repris des témoignages déjà autorisés sur le site ;
+- bénéfices organisés selon la séquence « besoin, effet opérationnel, résultat cité » ;
+- appel à l'action direct vers le diagnostic après la preuve ;
+- compensation de l'en-tête fixe ajoutée aux ancres Diagnostic et Prix.
+
+### Vérifications
+
+- compilation Astro complète réussie ;
+- progression, persistance après rechargement et réinitialisation testées ;
+- compteurs global et par groupe synchronisés ;
+- absence de débordement horizontal à 390 px et 1 440 px ;
+- bloc de preuve limité à environ 791 px de haut sur mobile ;
+- retour vers le diagnostic testé avec un dégagement de plus de 30 px sous l'en-tête fixe.
