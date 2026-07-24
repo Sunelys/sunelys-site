@@ -40,19 +40,6 @@ const offers = [
   },
 ];
 
-const pains = [
-  "Vos commerciaux ou conducteurs de travaux relancent mairie, Enedis, Consuel ou client au lieu d'avancer les chantiers.",
-  "Une pièce DP, un retour Consuel ou un statut Enedis bloque la mise en service.",
-  "Vous voulez déléguer un dossier ponctuel avant de confier un flux complet.",
-];
-
-const handover = [
-  "Déclarations préalables: DP6, plans, dépôt et suivi mairie.",
-  "Raccordement Enedis: demande, pièces, relances et suivi des statuts.",
-  "Consuel: dossier administratif, contrôle des pièces et suivi jusqu'à validation.",
-  "Aides: MaPrimeRénov' et CEE selon le chantier et les pièces disponibles.",
-];
-
 const proofItems = [
   "1 357 dossiers pilotés",
   "Production sous 48h lorsque le dossier est complet",
@@ -102,32 +89,6 @@ const specialistReasons = [
         Sunelys ne vend pas de panneaux et ne traite pas les demandes de pose particuliers.
       </p>
 
-      <figure class="hero-portal-proof">
-        <img
-          src="/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg"
-          alt="Aperçu anonymisé du portail Sunelys avec statuts de dossiers photovoltaïques"
-          loading="eager"
-          decoding="async"
-        />
-        <figcaption>
-          <span>Preuve de pilotage</span>
-          <strong>Vos dossiers, statuts et pièces suivis dans un portail lisible.</strong>
-        </figcaption>
-      </figure>
-
-      <ul class="hero-filters" aria-label="Filtres de qualification">
-        <li>Installateurs PV uniquement</li>
-        <li>Dossier ponctuel accepté</li>
-        <li>Prix fixes HT</li>
-        <li>Réponse sous 24h</li>
-      </ul>
-
-      <div class="hero-price-strip" aria-label="Tarifs principaux Sunelys">
-        <span>DP 119 € HT</span>
-        <span>Raccordement + Consuel 89 € HT</span>
-        <span>Aides dès 99 € HT</span>
-      </div>
-
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#diagnostic" data-track="cta_lp_admin_pv_hero_form">
           Recevoir mon diagnostic sous 24h
@@ -136,6 +97,12 @@ const specialistReasons = [
           Voir les prix
         </a>
       </div>
+
+      <ul class="hero-filters" aria-label="Filtres de qualification">
+        <li>Installateurs PV uniquement</li>
+        <li>Dossier ponctuel accepté</li>
+        <li>Prix fixes HT</li>
+      </ul>
     </div>
 
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
@@ -199,27 +166,40 @@ const specialistReasons = [
         </button>
         <small>3 champs suffisent pour lancer le cadrage. Les précisions ci-dessous restent optionnelles.</small>
 
-        <label>
-          <span>Téléphone pour rappel <em>optionnel</em></span>
-          <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-        </label>
+        <details class="form-more">
+          <summary>Ajouter un téléphone ou préciser le blocage <span>optionnel</span></summary>
+          <div>
+            <label>
+              <span>Téléphone pour rappel <em>optionnel</em></span>
+              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
+            </label>
 
-        <label>
-          <span>Blocage actuel <em>optionnel</em></span>
-          <select name="blocked_stage">
-            <option value="">Sélectionner</option>
-            <option value="Avant depot">Avant dépôt</option>
-            <option value="Complement mairie">Complément mairie</option>
-            <option value="Consuel a preparer">Consuel à préparer</option>
-            <option value="Raccordement en attente">Raccordement en attente</option>
-            <option value="Dossier d'aide a deposer">Dossier d'aide à déposer</option>
-            <option value="Mise en service bloquee">Mise en service bloquée</option>
-            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-          </select>
-        </label>
-        <small>Service réservé aux installateurs, entreprises solaires et équipes administratives PV.</small>
+            <label>
+              <span>Blocage actuel <em>optionnel</em></span>
+              <select name="blocked_stage">
+                <option value="">Sélectionner</option>
+                <option value="Avant depot">Avant dépôt</option>
+                <option value="Complement mairie">Complément mairie</option>
+                <option value="Consuel a preparer">Consuel à préparer</option>
+                <option value="Raccordement en attente">Raccordement en attente</option>
+                <option value="Dossier d'aide a deposer">Dossier d'aide à déposer</option>
+                <option value="Mise en service bloquee">Mise en service bloquée</option>
+                <option value="Je ne sais pas encore">Je ne sais pas encore</option>
+              </select>
+            </label>
+          </div>
+        </details>
       </form>
     </aside>
+  </section>
+
+  <section class="lp-proof-band" aria-label="Preuves Sunelys">
+    {proofItems.map((item, index) => (
+      <div>
+        <span>{String(index + 1).padStart(2, "0")}</span>
+        <strong>{item}</strong>
+      </div>
+    ))}
   </section>
 
   <section class="lp-section visual-proof-section" data-track-view="visual_proof_view" data-track-label="lp_admin_pv_visual_proof">
@@ -239,7 +219,7 @@ const specialistReasons = [
       <p class="eyebrow">Preuve visuelle</p>
       <h2>Moins de relances invisibles, plus de statuts exploitables.</h2>
       <p>
-        Le premium Sunelys doit se voir dans la clarté opérationnelle: un dossier, une étape,
+        La valeur Sunelys se voit dans la clarté opérationnelle : un dossier, une étape,
         une prochaine action et un interlocuteur qui suit.
       </p>
 
@@ -270,11 +250,14 @@ const specialistReasons = [
     </div>
 
     <div class="price-grid">
-      {offers.map((offer) => (
+      {offers.map((offer, index) => (
         <article class="price-card">
-          <h3>{offer.title}</h3>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{offer.title}</h3>
+            <p>{offer.text}</p>
+          </div>
           <strong>{offer.price}</strong>
-          <p>{offer.text}</p>
         </article>
       ))}
     </div>
@@ -291,10 +274,13 @@ const specialistReasons = [
     </div>
 
     <div class="specialist-grid">
-      {specialistReasons.map((reason) => (
+      {specialistReasons.map((reason, index) => (
         <article class="specialist-card">
-          <h3>{reason.title}</h3>
-          <p>{reason.text}</p>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{reason.title}</h3>
+            <p>{reason.text}</p>
+          </div>
         </article>
       ))}
     </div>
@@ -302,41 +288,6 @@ const specialistReasons = [
     <a class="btn btn-secondary" href="/sous-traitance-administrative-photovoltaique-installateur" data-track="cta_lp_specialist_seo_page">
       Comprendre l'approche Sunelys
     </a>
-  </section>
-
-  <section class="lp-section split-section">
-    <div>
-      <p class="eyebrow">Pourquoi déléguer</p>
-      <h2>Votre marge se perd souvent dans les relances invisibles.</h2>
-    </div>
-    <ul class="plain-list">
-      {pains.map((pain) => <li>{pain}</li>)}
-    </ul>
-  </section>
-
-  <section class="lp-section handover-section" data-track-view="handover_view" data-track-label="lp_admin_pv_handover">
-    <div class="section-head">
-      <p class="eyebrow">Périmètre</p>
-      <h2>Ce que Sunelys peut reprendre.</h2>
-    </div>
-    <div class="handover-grid">
-      {handover.map((item, index) => (
-        <article class="handover-card">
-          <span>{index + 1}</span>
-          <p>{item}</p>
-        </article>
-      ))}
-    </div>
-  </section>
-
-  <section class="lp-section proof-section">
-    <div>
-      <p class="eyebrow">Preuve terrain</p>
-      <h2>Un pilotage administratif déjà structuré pour des installateurs.</h2>
-    </div>
-    <ul class="proof-list">
-      {proofItems.map((item) => <li>{item}</li>)}
-    </ul>
   </section>
 
   <section class="lp-final">
@@ -965,5 +916,641 @@ const specialistReasons = [
       line-height: 1.35;
     }
 
+  }
+
+  /* Direction visuelle 2026 */
+  .lp-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(21rem, 0.58fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: center;
+    overflow: hidden;
+    min-height: min(45rem, calc(100vh - 8rem));
+    padding: clamp(2rem, 5vw, 5rem);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 88% 4%, rgba(54, 98, 227, 0.42), transparent 31%),
+      radial-gradient(circle at 5% 100%, rgba(212, 130, 42, 0.24), transparent 32%),
+      var(--ink);
+    box-shadow: none;
+  }
+
+  .lp-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -13rem;
+    width: clamp(20rem, 36vw, 35rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .hero-copy {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .lp-hero .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .lp-hero h1 {
+    max-width: 13ch;
+    color: #ffffff;
+    font-size: clamp(2.55rem, 5.2vw, 5.35rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .lp-hero .hero-text {
+    max-width: 43rem;
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.15vw, 1.18rem);
+    line-height: 1.65;
+  }
+
+  .intent-guard {
+    max-width: 44rem;
+    padding: 0 0 0 0.9rem;
+    border-left: 3px solid var(--accent);
+    background: transparent;
+    color: #aebbcf;
+    font-size: 0.86rem;
+    font-weight: 650;
+    line-height: 1.5;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.4rem;
+  }
+
+  .lp-hero .btn-secondary {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: transparent;
+    color: #ffffff;
+  }
+
+  .hero-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 0.35rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-filters li {
+    width: auto;
+    padding: 0 1rem 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #aebbcf;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+  }
+
+  .hero-filters li:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-left: 1rem;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: middle;
+  }
+
+  .hero-intake {
+    position: relative;
+    z-index: 1;
+    padding: clamp(1.25rem, 2.6vw, 2rem);
+    border: 0;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.23);
+  }
+
+  .hero-intake > .eyebrow {
+    color: var(--system);
+  }
+
+  .hero-intake h2 {
+    max-width: 14ch;
+    margin-top: 0.45rem;
+    color: var(--ink);
+    font-size: clamp(1.5rem, 2.5vw, 2.35rem);
+    line-height: 1;
+    letter-spacing: -0.045em;
+  }
+
+  .lp-form {
+    gap: 0.7rem;
+    margin-top: 1.15rem;
+  }
+
+  .lp-form label {
+    gap: 0.32rem;
+    color: var(--text-muted);
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+  }
+
+  .lp-form input,
+  .lp-form select,
+  .lp-form textarea {
+    min-height: 2.9rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    color: var(--ink);
+    padding: 0.72rem 0.78rem;
+  }
+
+  .lp-form input:focus,
+  .lp-form select:focus,
+  .lp-form textarea:focus {
+    border-color: var(--system);
+    outline: 3px solid color-mix(in srgb, var(--system-soft) 80%, transparent);
+  }
+
+  .lp-form > small {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  .form-more {
+    padding-top: 0.15rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .form-more summary {
+    cursor: pointer;
+    padding: 0.75rem 1.6rem 0.1rem 0;
+    color: var(--system);
+    font-size: 0.74rem;
+    font-weight: 800;
+    list-style: none;
+  }
+
+  .form-more summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .form-more summary::after {
+    content: "+";
+    float: right;
+    margin-right: -1.5rem;
+    color: var(--system);
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .form-more[open] summary::after {
+    content: "−";
+  }
+
+  .form-more summary span {
+    color: var(--text-muted);
+    font-size: 0.66rem;
+    font-weight: 600;
+  }
+
+  .form-more > div {
+    display: grid;
+    gap: 0.7rem;
+    margin-top: 0.75rem;
+  }
+
+  .lp-proof-band {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0;
+    border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .lp-proof-band div {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    gap: 0.7rem;
+    align-items: baseline;
+    padding: 1rem clamp(0.7rem, 2vw, 1.4rem);
+    border-right: 1px solid var(--line);
+  }
+
+  .lp-proof-band div:first-child {
+    padding-left: 0;
+  }
+
+  .lp-proof-band div:last-child {
+    border-right: 0;
+  }
+
+  .lp-proof-band span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .lp-proof-band strong {
+    color: var(--ink);
+    font-size: clamp(0.82rem, 1vw, 0.95rem);
+    line-height: 1.35;
+  }
+
+  .lp-section,
+  .lp-final {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .visual-proof-section {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(0, 0.94fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+  }
+
+  .visual-media {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: var(--ink);
+    box-shadow: none;
+  }
+
+  .visual-media img {
+    width: 100%;
+    height: clamp(22rem, 42vw, 38rem);
+    object-fit: cover;
+    filter: saturate(0.82) contrast(1.04);
+  }
+
+  .visual-media figcaption {
+    position: absolute;
+    inset: auto 1rem 1rem;
+    max-width: 30rem;
+    padding: 0.7rem 0.85rem;
+    border-radius: var(--radius-sm);
+    background: rgba(14, 23, 38, 0.84);
+    color: #ffffff;
+    font-size: 0.78rem;
+    backdrop-filter: blur(8px);
+  }
+
+  .visual-proof-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .visual-proof-copy .eyebrow,
+  .pricing-section .eyebrow {
+    color: var(--system);
+    letter-spacing: 0.11em;
+  }
+
+  .visual-proof-copy h2,
+  .pricing-section h2,
+  .specialist-section h2,
+  .lp-final h2 {
+    max-width: 17ch;
+    color: var(--ink);
+    font-size: clamp(1.85rem, 3.55vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .visual-proof-copy > p:not(.eyebrow),
+  .section-head > p:last-child {
+    max-width: 48ch;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .visual-proof-list {
+    display: grid;
+    gap: 0;
+    margin-top: 0.25rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .visual-proof-list li {
+    padding: 0.8rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+    color: var(--text);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .portal-preview {
+    margin-top: 0.3rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .portal-preview img {
+    height: clamp(10rem, 18vw, 15rem);
+    filter: saturate(0.76) contrast(1.02);
+  }
+
+  .pricing-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2rem, 4.5vw, 4rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .section-head {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .price-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+  }
+
+  .price-card {
+    display: grid;
+    grid-template-columns: 2.1rem minmax(0, 1fr) auto;
+    gap: 0.8rem;
+    align-items: start;
+    min-height: 0;
+    padding: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .price-card > span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .price-card div {
+    display: grid;
+    gap: 0.28rem;
+  }
+
+  .price-card h3 {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 850;
+  }
+
+  .price-card p {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .price-card > strong {
+    color: var(--ink);
+    font-size: 0.9rem;
+    white-space: nowrap;
+  }
+
+  .specialist-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.68fr) minmax(0, 1.32fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    padding: clamp(2.2rem, 5vw, 4.5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 95% 5%, rgba(54, 98, 227, 0.34), transparent 32%),
+      var(--ink);
+  }
+
+  .specialist-section .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .specialist-section h2 {
+    color: #ffffff;
+  }
+
+  .specialist-section .section-head > p:last-child {
+    color: #b9c5d5;
+  }
+
+  .specialist-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .specialist-card {
+    display: grid;
+    grid-template-columns: 2.3rem minmax(0, 1fr);
+    gap: 0.9rem;
+    min-height: 0;
+    padding: 1.05rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .specialist-card > span {
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .specialist-card div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .specialist-card h3 {
+    color: #ffffff;
+    font-size: 1.05rem;
+  }
+
+  .specialist-card p {
+    max-width: 56ch;
+    color: #b9c5d5;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .specialist-section > .btn {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0.2rem;
+    border-color: rgba(255, 255, 255, 0.28);
+    background: transparent;
+    color: #ffffff;
+  }
+
+  .lp-final {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(2rem, 5vw, 5rem);
+    align-items: end;
+    padding: clamp(2.2rem, 5vw, 4.5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 90% 0%, rgba(54, 98, 227, 0.35), transparent 34%),
+      var(--ink);
+  }
+
+  .lp-final > div {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .lp-final .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .lp-final h2 {
+    max-width: 16ch;
+    color: #ffffff;
+  }
+
+  .lp-final p {
+    max-width: 48ch;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 980px) {
+    .lp-hero,
+    .visual-proof-section,
+    .pricing-section,
+    .specialist-section,
+    .lp-final {
+      grid-template-columns: 1fr;
+    }
+
+    .lp-hero {
+      min-height: 0;
+    }
+
+    .hero-intake {
+      width: min(36rem, 100%);
+    }
+
+    .specialist-section > .btn {
+      grid-column: 1;
+    }
+  }
+
+  @media (max-width: 680px) {
+    .lp-hero {
+      gap: 1.2rem;
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .hero-copy {
+      gap: 0.75rem;
+    }
+
+    .lp-hero h1 {
+      max-width: 10ch;
+      font-size: clamp(2.35rem, 11vw, 3.15rem);
+    }
+
+    .hero-actions {
+      display: none;
+    }
+
+    .hero-filters {
+      display: grid;
+      gap: 0.4rem;
+    }
+
+    .hero-filters li {
+      width: 100%;
+      padding: 0;
+      text-align: left;
+    }
+
+    .hero-filters li:not(:last-child)::after {
+      display: none;
+    }
+
+    .hero-intake {
+      padding: 1rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .lp-proof-band {
+      grid-template-columns: 1fr;
+    }
+
+    .lp-proof-band div,
+    .lp-proof-band div:first-child {
+      padding: 0.85rem 0;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .lp-proof-band div:last-child {
+      border-bottom: 0;
+    }
+
+    .visual-media img {
+      height: 21rem;
+    }
+
+    .pricing-section,
+    .specialist-section,
+    .lp-final {
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .price-card {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+
+    .price-card > strong {
+      grid-column: 2;
+    }
+
+    .lp-final .btn {
+      width: 100%;
+    }
   }
 </style>

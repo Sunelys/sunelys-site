@@ -1,0 +1,278 @@
+---
+interface MethodItem {
+  label: string;
+  text: string;
+}
+
+interface StepItem {
+  title: string;
+  text: string;
+}
+
+interface Props {
+  data: {
+    kicker: string;
+    title: string;
+    text: string;
+    audiences: MethodItem[];
+    steps: StepItem[];
+    cta: {
+      label: string;
+      href: string;
+      track: string;
+    };
+  };
+}
+
+const { data } = Astro.props;
+---
+
+<section id="parcours" class="method-section section-shell reveal" aria-labelledby="method-title">
+  <div class="method-copy" data-reveal-item>
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="method-title">{data.title}</h2>
+    <p class="intro">{data.text}</p>
+
+    <div class="audience-list" aria-label="Formats de délégation Sunelys">
+      {
+        data.audiences.map((item, index) => (
+          <article>
+            <span>0{index + 1}</span>
+            <div>
+              <h3>{item.label}</h3>
+              <p>{item.text}</p>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <a class="method-link" href={data.cta.href} data-track={data.cta.track}>
+      {data.cta.label}
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+
+  <div class="steps-panel" data-reveal-item>
+    <div class="steps-head">
+      <p>De la demande au suivi</p>
+      <span>4 étapes</span>
+    </div>
+
+    <ol aria-label="Parcours Sunelys en quatre étapes">
+      {
+        data.steps.map((step, index) => (
+          <li>
+            <span class="step-index">0{index + 1}</span>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .method-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(360px, 1.08fr);
+    gap: 0.8rem;
+    padding: 0.8rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .method-copy {
+    padding: clamp(1.2rem, 2.8vw, 2.4rem);
+  }
+
+  .kicker {
+    margin: 0;
+    color: var(--system);
+    font-size: 0.72rem;
+    font-weight: 760;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    max-width: 18ch;
+    margin: 0.65rem 0 0;
+    font-size: clamp(2rem, 3.7vw, 3.6rem);
+  }
+
+  .intro {
+    max-width: 58ch;
+    margin: 1rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.98rem;
+    line-height: 1.62;
+  }
+
+  .audience-list {
+    display: grid;
+    gap: 0.42rem;
+    margin-top: 1.35rem;
+  }
+
+  .audience-list article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    padding: 0.75rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+  }
+
+  .audience-list article > span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 780;
+  }
+
+  .audience-list h3,
+  .audience-list p {
+    margin: 0;
+  }
+
+  .audience-list h3 {
+    font-size: 0.94rem;
+    letter-spacing: -0.01em;
+  }
+
+  .audience-list p {
+    margin-top: 0.18rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.48;
+  }
+
+  .method-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 1rem;
+    color: var(--text);
+    font-size: 0.84rem;
+    font-weight: 740;
+    text-underline-offset: 0.25rem;
+  }
+
+  .method-link span {
+    color: var(--system);
+    font-size: 1.1rem;
+  }
+
+  .steps-panel {
+    padding: clamp(1.2rem, 2.8vw, 2.4rem);
+    border-radius: calc(var(--radius-xl) - 6px);
+    background:
+      radial-gradient(80% 80% at 100% 0%, rgba(54, 98, 227, 0.32), transparent 62%),
+      var(--ink);
+    color: #ffffff;
+  }
+
+  .steps-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .steps-head p {
+    margin: 0;
+    font-size: 0.82rem;
+    font-weight: 740;
+  }
+
+  .steps-head span {
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .steps-panel ol {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .steps-panel li {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.9rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .steps-panel li:last-child {
+    border-bottom: 0;
+  }
+
+  .step-index {
+    display: inline-grid;
+    place-items: center;
+    width: 2.15rem;
+    height: 2.15rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 780;
+  }
+
+  .steps-panel h3,
+  .steps-panel p {
+    margin: 0;
+  }
+
+  .steps-panel h3 {
+    color: #ffffff;
+    font-size: 1rem;
+    letter-spacing: -0.015em;
+  }
+
+  .steps-panel p {
+    max-width: 54ch;
+    margin-top: 0.28rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 900px) {
+    .method-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .method-section {
+      padding: 0.55rem;
+      border-radius: 18px;
+    }
+
+    .method-copy,
+    .steps-panel {
+      padding: 1.15rem;
+    }
+
+    .steps-panel {
+      border-radius: 14px;
+    }
+  }
+</style>

@@ -1,28 +1,21 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import Hero from "../components/Hero.astro";
-import AudienceSection from "../components/AudienceSection.astro";
 import TrustSection from "../components/TrustSection.astro";
+import MethodSection from "../components/MethodSection.astro";
 import ProofSection from "../components/ProofSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
-import MiniQuiz from "../components/MiniQuiz.astro";
-import LeadMagnetChecklist from "../components/LeadMagnetChecklist.astro";
-import ProcessSection from "../components/ProcessSection.astro";
-import PremiumProofSection from "../components/PremiumProofSection.astro";
 import FAQ from "../components/FAQ.astro";
 import FinalCTASection from "../components/FinalCTASection.astro";
 import {
-  audienceSectionData,
   faqSectionData,
   finalCtaSectionData,
   heroData,
   homeSeo,
+  methodSectionData,
   portalSectionData,
   proofSectionData,
-  processSectionData,
-  quizSectionData,
   servicesSectionData,
   trustSectionData,
 } from "../data/home";
@@ -70,18 +63,9 @@ const structuredData = [
 <BaseLayout title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
   <Hero data={heroData} />
   <TrustSection data={trustSectionData} />
-  <AudienceSection data={audienceSectionData} />
-  <BlockedDiagnostic
-    source="homepage_diagnostic_dossiers_bloques"
-    title="Vos dossiers bloquent quelque part ? Faites diagnostiquer le bon premier périmètre."
-    text="Le diagnostic relie votre volume, vos blocages DP/Consuel/raccordement et l'offre Sunelys la plus utile pour créer des leads mieux qualifiés."
-  />
+  <MethodSection data={methodSectionData} />
   <PortalSection data={portalSectionData} />
-  <PremiumProofSection source="homepage_premium_proof" />
-  <MiniQuiz data={quizSectionData} />
-  <LeadMagnetChecklist source="homepage_checklist_dp_inline" />
   <ServicesSection data={servicesSectionData} />
-  <ProcessSection data={processSectionData} />
   <ProofSection data={proofSectionData} />
   <FAQ data={faqSectionData} />
   <FinalCTASection data={finalCtaSectionData} />

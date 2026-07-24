@@ -18,16 +18,21 @@ const { data } = Astro.props;
 ---
 
 <section class="section-shell faq-section reveal" aria-labelledby="faq-title">
-  <div class="faq-head">
+  <div class="faq-head" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2 id="faq-title">{data.title}</h2>
+    <p>Les informations essentielles pour savoir si la délégation correspond à votre organisation.</p>
   </div>
 
-  <div class="faq-list">
+  <div class="faq-list" data-reveal-item>
     {
-      data.items.map((item) => (
+      data.items.map((item, index) => (
         <details class="faq-item">
-          <summary>{item.question}</summary>
+          <summary>
+            <span class="faq-number">0{index + 1}</span>
+            <span class="faq-question">{item.question}</span>
+            <span class="faq-icon" aria-hidden="true"></span>
+          </summary>
           <p>{item.answer}</p>
         </details>
       ))
@@ -38,102 +43,117 @@ const { data } = Astro.props;
 <style>
   .faq-section {
     display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-    gap: 0.75rem;
+    grid-template-columns: minmax(280px, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
     align-items: start;
-    border: 1px solid var(--line);
+    padding: clamp(1.3rem, 3vw, 2.6rem);
     border-radius: var(--radius-xl);
-    background: linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface));
-    box-shadow: var(--shadow-sm);
-    padding: clamp(1.15rem, 2.6vw, 2.1rem);
+    background: color-mix(in srgb, var(--system-soft) 60%, var(--surface));
   }
 
   .faq-head {
     position: sticky;
-    top: 6rem;
+    top: 6.5rem;
   }
 
   .kicker {
-    margin: 0;
+    color: var(--system);
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: var(--text-muted);
-    font-weight: 700;
   }
 
   h2 {
-    margin: 0.55rem 0 0;
-    font-size: clamp(1.65rem, 2.8vw, 2.8rem);
-    line-height: 1.04;
-    max-width: 22ch;
-    text-wrap: balance;
+    max-width: 17ch;
+    margin-top: 0.65rem;
+    font-size: clamp(2rem, 3.5vw, 3.45rem);
+  }
+
+  .faq-head > p:last-child {
+    max-width: 48ch;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.6;
   }
 
   .faq-list {
-    display: grid;
-    gap: 0.55rem;
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
   }
 
   .faq-item {
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: calc(var(--radius-md) - 6px);
-    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
-    box-shadow: 0 10px 22px rgba(22, 17, 11, 0.045);
-    padding: 0.08rem 0.82rem;
-    transition: border-color 180ms ease, box-shadow 180ms ease;
-  }
-
-  .faq-item[open] {
-    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
-    box-shadow: var(--shadow-sm);
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
   }
 
   summary {
     cursor: pointer;
     list-style: none;
-    font-size: 0.95rem;
-    color: var(--text);
-    font-weight: 700;
-    padding: 0.86rem 0;
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.85rem;
     align-items: center;
-    gap: 1rem;
+    padding: 1.15rem 0;
   }
 
   summary::-webkit-details-marker {
     display: none;
   }
 
-  summary::after {
-    content: "+";
-    display: inline-grid;
-    place-items: center;
-    width: 1.55rem;
-    height: 1.55rem;
-    flex: 0 0 auto;
-    border-radius: 999px;
-    border: 1px solid var(--line);
-    color: var(--text-muted);
-    background: var(--surface);
-    font-size: 1rem;
-    line-height: 1;
+  .faq-number {
+    color: var(--system);
+    font-size: 0.66rem;
+    font-weight: 800;
   }
 
-  .faq-item[open] summary::after {
-    content: "-";
+  .faq-question {
     color: var(--text);
-    border-color: color-mix(in srgb, var(--line) 62%, var(--accent));
-    background: color-mix(in srgb, var(--accent-soft) 68%, white);
+    font-size: 0.92rem;
+    font-weight: 740;
+    line-height: 1.4;
   }
 
-  .faq-item p {
-    margin: 0 0 0.9rem;
+  .faq-icon {
+    position: relative;
+    width: 1.8rem;
+    height: 1.8rem;
+    border: 1px solid color-mix(in srgb, var(--system) 16%, var(--line));
+    border-radius: 9px;
+    background: rgba(255, 255, 255, 0.66);
+  }
+
+  .faq-icon::before,
+  .faq-icon::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.65rem;
+    height: 1px;
+    background: var(--text);
+    transform: translate(-50%, -50%);
+    transition: transform 160ms ease;
+  }
+
+  .faq-icon::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .faq-item[open] .faq-icon {
+    border-color: color-mix(in srgb, var(--system) 46%, var(--line));
+    background: #ffffff;
+  }
+
+  .faq-item[open] .faq-icon::after {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+
+  .faq-item > p {
+    max-width: 70ch;
+    margin: -0.15rem 2.65rem 1.2rem 1.78rem;
     color: var(--text-muted);
-    font-size: 0.86rem;
-    line-height: 1.58;
-    max-width: 74ch;
+    font-size: 0.84rem;
+    line-height: 1.62;
   }
 
   @media (max-width: 860px) {
@@ -143,6 +163,17 @@ const { data } = Astro.props;
 
     .faq-head {
       position: static;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .faq-section {
+      padding: 1.15rem;
+    }
+
+    .faq-item > p {
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 </style>

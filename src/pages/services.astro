@@ -6,70 +6,55 @@ import { isVisibleHref, publicBlogSlugs } from "../lib/blogPublication";
 const services = [
   {
     title: "Déclaration préalable panneaux solaires",
-    benefit: "Des dossiers plus cadrés pour limiter les refus et sécuriser le lancement chantier.",
+    shortTitle: "Déclaration préalable",
+    benefit: "Des dossiers mieux cadrés pour limiter les refus et sécuriser le lancement chantier.",
     description:
-      "Sunelys constitue, vérifie et suit la déclaration préalable jusqu'au retour administratif afin de réduire les retours et les délais cachés.",
-    points: [
-      "Montage administratif du dossier",
-      "Contrôle des pièces et cohérence documentaire",
-      "Suivi mairie et relances utiles",
-    ],
+      "Sunelys constitue, vérifie et suit la déclaration préalable jusqu'au retour administratif afin de réduire les compléments et les délais cachés.",
+    points: ["Montage du dossier", "Contrôle documentaire", "Dépôt et suivi mairie"],
     href: "/declaration-prealable-panneaux-solaires",
     guideHref: "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
     guideLabel: "Lire le guide DP",
   },
   {
     title: "Sous-traitance DP solaire",
+    shortTitle: "Sous-traitance DP",
     benefit: "Un relais dédié pour absorber vos déclarations préalables sans mobiliser vos équipes.",
     description:
-      "Nous cadrons, contrôlons et suivons vos DP solaires dans une logique de flux régulier, avec visibilité sur les statuts et les points manquants.",
-    points: [
-      "Traitement récurrent des dossiers DP",
-      "Contrôle qualité avant dépôt",
-      "Organisation adaptée à votre flux",
-    ],
+      "Nous cadrons, contrôlons et suivons vos DP solaires dans une logique de flux régulier, avec une visibilité claire sur les statuts.",
+    points: ["Traitement récurrent", "Contrôle avant dépôt", "Organisation adaptée au flux"],
     href: "/sous-traitance-declaration-prealable-solaire",
     guideHref: "/blog/sous-traiter-declaration-prealable-photovoltaique",
     guideLabel: "Sous-traiter ses DP",
   },
   {
     title: "Dossier Consuel photovoltaïque",
+    shortTitle: "Consuel",
     benefit: "Une conformité mieux anticipée pour accélérer la mise en service.",
     description:
-      "Nous préparons les pièces, suivons les échanges et pilotons le dossier Consuel pour garder de la visibilité jusqu'à validation.",
-    points: [
-      "Préparation des pièces administratives",
-      "Pilotage des compléments demandés",
-      "Suivi jusqu'à validation finale",
-    ],
+      "Nous préparons les pièces, suivons les échanges et pilotons le dossier Consuel jusqu'à validation.",
+    points: ["Préparation des pièces", "Gestion des compléments", "Suivi jusqu'à validation"],
     href: "/dossier-consuel-photovoltaique",
     guideHref: "/blog/attestation-consuel-photovoltaique",
     guideLabel: "Attestation Consuel",
   },
   {
     title: "Raccordement Enedis photovoltaïque",
-    benefit: "Un suivi réseau centralisé pour mieux tenir vos délais de chantier.",
+    shortTitle: "Raccordement Enedis",
+    benefit: "Un suivi réseau centralisé pour mieux tenir les délais de chantier.",
     description:
-      "Sunelys prend en charge le volet administratif du raccordement Enedis et coordonne les jalons pour réduire les angles morts.",
-    points: [
-      "Constitution du dossier de raccordement",
-      "Suivi des échanges administratifs",
-      "Traçabilité des jalons et blocages",
-    ],
+      "Sunelys prend en charge le volet administratif du raccordement et coordonne les jalons pour réduire les angles morts.",
+    points: ["Constitution du dossier", "Suivi des échanges", "Traçabilité des jalons"],
     href: "/raccordement-enedis-photovoltaique",
     guideHref: "/blog/etapes-raccordement-enedis-panneaux-solaires",
     guideLabel: "Étapes raccordement",
   },
   {
     title: "EDF OA - compte et contrat d'achat",
+    shortTitle: "EDF OA",
     benefit: "Un parcours contractuel cadré jusqu'à la signature électronique du client final.",
     description:
-      "Sunelys vérifie les références, accompagne l'activation de l'espace producteur, suit le dossier EDF OA et sécurise les demandes de complément.",
-    points: [
-      "Création ou activation de l'espace producteur",
-      "Suivi du dossier jusqu'à l'invitation de signature",
-      "Accompagnement sécurisé sans mot de passe ni code SMS",
-    ],
+      "Sunelys accompagne l'activation de l'espace producteur, suit le dossier et sécurise les demandes de complément.",
+    points: ["Activation du compte", "Suivi du dossier", "Invitation de signature"],
     href: "/edf-oa",
     guideHref: "",
     guideLabel: "",
@@ -77,510 +62,1196 @@ const services = [
   },
   {
     title: "MaPrimeRénov' - montage & suivi",
+    shortTitle: "MaPrimeRénov'",
     benefit: "Des dossiers d'aide structurés pour limiter les refus et sécuriser le versement.",
     description:
       "Sunelys vérifie l'éligibilité, monte le dossier, prépare le dépôt ANAH et suit les échanges jusqu'à la décision.",
-    points: [
-      "Contrôle des informations client et chantier",
-      "Montage conforme du dossier MaPrimeRénov'",
-      "Suivi administratif jusqu'au versement",
-    ],
+    points: ["Contrôle d'éligibilité", "Montage et dépôt", "Suivi jusqu'au versement"],
     href: "/contact?source=maprimerenov#contact-form",
     guideHref: "",
     guideLabel: "",
     ctaLabel: "Cadrer MaPrimeRénov'",
+    price: "129 €",
   },
   {
     title: "CEE - certificats d'économies d'énergie",
-    benefit: "Un contrôle administratif pour éviter les dossiers CEE rejetés ou incomplets.",
+    shortTitle: "CEE",
+    benefit: "Un contrôle administratif pour éviter les dossiers rejetés ou incomplets.",
     description:
       "Nous contrôlons les devis et factures, montons le dossier CEE et suivons la validation avec les éléments attendus.",
-    points: [
-      "Contrôle devis, facture et cohérence documentaire",
-      "Montage du dossier CEE",
-      "Suivi jusqu'à validation",
-    ],
+    points: ["Contrôle documentaire", "Montage du dossier", "Suivi jusqu'à validation"],
     href: "/contact?source=cee#contact-form",
     guideHref: "",
     guideLabel: "",
     ctaLabel: "Cadrer les CEE",
+    price: "99 €",
   },
   {
     title: "Pack MaPrimeRénov' + CEE",
+    shortTitle: "Pack aides",
     benefit: "Les deux aides pilotées ensemble sur un même chantier.",
     description:
-      "Sunelys coordonne le montage MaPrimeRénov' et CEE pour éviter les doublons, les oublis et les allers-retours dispersés.",
-    points: [
-      "Gestion des deux dossiers d'aides",
-      "Suivi coordonné jusqu'aux validations",
-      "Lecture claire des pièces manquantes",
-    ],
+      "Sunelys coordonne les deux montages pour éviter les doublons, les oublis et les allers-retours dispersés.",
+    points: ["Deux dossiers coordonnés", "Suivi des validations", "Pièces manquantes visibles"],
     href: "/contact?source=pack-maprimerenov-cee#contact-form",
     guideHref: "",
     guideLabel: "",
     ctaLabel: "Cadrer le pack aides",
+    price: "199 €",
   },
   {
     title: "Gestion administrative photovoltaïque",
+    shortTitle: "Pilotage multi-dossiers",
     benefit: "Un pilotage global pour alléger vos équipes et industrialiser vos flux.",
     description:
-      "Quand vos volumes montent, Sunelys structure l'ensemble du parcours administratif pour préserver la qualité d'exécution.",
-    points: [
-      "Prise en charge multi-dossiers",
-      "Méthode documentaire standardisée",
-      "Coordination continue avec vos équipes",
-    ],
+      "Quand les volumes montent, Sunelys structure l'ensemble du parcours administratif pour préserver la qualité d'exécution.",
+    points: ["Prise en charge multi-dossiers", "Méthode standardisée", "Coordination continue"],
     href: "/gestion-administrative-photovoltaique",
     guideHref: "/blog/externaliser-administratif-photovoltaique",
     guideLabel: "Externaliser l'admin PV",
   },
 ];
 
-const fitItems = [
-  "Vous voulez réduire la charge administrative de vos équipes commerciales ou travaux.",
-  "Vous cherchez plus de visibilité sur les dossiers en cours et les points de blocage.",
-  "Vous voulez absorber plus de volume sans dégrader l'expérience client.",
+const coreServices = [services[0], services[2], services[3], services[4]];
+const flowServices = [services[1], services[8]];
+const aidServices = [services[5], services[6], services[7]];
+
+const delegationModes = [
+  {
+    label: "Dossier ponctuel",
+    text: "Une démarche précise ou un dossier déjà bloqué à reprendre proprement.",
+  },
+  {
+    label: "Pic de charge",
+    text: "Un volume temporaire à absorber sans dégrader vos délais internes.",
+  },
+  {
+    label: "Flux récurrent",
+    text: "Une organisation stable pour déléguer chaque nouveau dossier.",
+  },
 ];
 
 const partnerMetrics = [
   { value: "96 %", label: "DP sans pièce complémentaire" },
-  { value: "48 h", label: "production lorsque le dossier est complet" },
+  { value: "48 h", label: "production sur dossier complet" },
   { value: "1 357", label: "dossiers pilotés" },
+  { value: "24 h", label: "pour recevoir un cadrage" },
 ];
 
 const completeChainItems = [
   "Déclaration préalable, raccordement réseau et Consuel dans le même flux",
   "Un interlocuteur unique pour centraliser les échanges et les relances",
-  "Pilotage intégral de A à Z, avec suivi en temps réel côté installateur",
-  "199 € HT / dossier, tarif unitaire fixe",
-  "EDF OA peut être ajouté en dossier ponctuel à 49 € HT",
+  "Suivi en temps réel côté installateur",
+  "199 € HT par dossier, sans abonnement",
 ];
 
-const renovationAidItems = [
-  "MaPrimeRénov' : montage et suivi à 129 € HT / dossier",
-  "CEE : contrôle, montage et validation à 99 € HT / dossier",
-  "Pack MaPrimeRénov' + CEE : gestion des deux dossiers à 199 € HT / dossier",
-];
-
-const visibleServices = services.map((service) => ({
+const visibleCoreServices = coreServices.map((service) => ({
   ...service,
   showGuide: Boolean(service.guideHref) && isVisibleHref(service.guideHref, publicBlogSlugs),
 }));
+
+const visibleFlowServices = flowServices.map((service) => ({
+  ...service,
+  showGuide: Boolean(service.guideHref) && isVisibleHref(service.guideHref, publicBlogSlugs),
+}));
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Services administratifs Sunelys",
+  itemListElement: services.map((service) => ({
+    "@type": "Offer",
+    itemOffered: {
+      "@type": "Service",
+      name: service.title,
+      description: service.description,
+      url: new URL(service.href, "https://sunelys.fr").toString(),
+    },
+  })),
+};
 ---
 
 <BaseLayout
   title="Services administratifs photovoltaïques | Sunelys"
   description="DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE : services administratifs délégables pour installateurs et structures ENR."
+  structuredData={[structuredData]}
 >
-  <section class="hero card">
-    <p class="eyebrow">Services Sunelys</p>
-    <h1>Externalisez le pilotage administratif photovoltaïque, sans perdre la maîtrise de vos dossiers.</h1>
-    <p class="intro">
-      Sunelys prend en charge le pilotage complet de vos dossiers administratifs qui ralentissent vos installations.
-      Vos équipes gardent la relation commerciale, nous sécurisons l'exécution documentaire, EDF OA, les aides et les priorités.
-    </p>
-    <div class="hero-actions">
-      <a class="cta" href="/contact?source=services#contact-form" data-track="cta_services_hero_primary">Cadrer votre pilotage complet</a>
-      <a class="cta cta-secondary" href="/parcours" data-track="cta_services_hero_secondary">Voir le fonctionnement</a>
-    </div>
-  </section>
+  <section class="services-hero reveal" aria-labelledby="services-title">
+    <div class="hero-copy" data-reveal-item>
+      <p class="eyebrow">Services Sunelys</p>
+      <h1 id="services-title">Déléguez l’administratif. Gardez la maîtrise du chantier.</h1>
+      <p class="hero-intro">
+        Sunelys reprend une démarche précise ou pilote l’ensemble du flux administratif photovoltaïque. Vos équipes
+        conservent la relation client ; nous sécurisons les pièces, les échanges et les prochaines actions.
+      </p>
 
-  <section class="section proof-strip" aria-label="Preuves opérationnelles Sunelys">
-    {partnerMetrics.map((metric) => (
-      <article class="proof-metric">
-        <strong>{metric.value}</strong>
-        <span>{metric.label}</span>
-      </article>
-    ))}
-  </section>
-
-  <section class="section fit-grid">
-    <article class="card fit-card">
-      <p class="eyebrow">Pour qui</p>
-      <h2>Le bon fit pour les installateurs qui veulent industrialiser sans rigidifier.</h2>
-      <ul>
-        {fitItems.map((item) => <li>{item}</li>)}
-      </ul>
-    </article>
-
-    <article class="card fit-card highlight-card">
-      <p class="eyebrow">Bénéfices métier</p>
-      <h2>Moins de charge interne. Plus de dossiers bien pilotés.</h2>
-      <div class="benefit-list">
-        <p>Moins de retours documentaires</p>
-        <p>Plus de visibilité sur les étapes</p>
-        <p>Des délais mieux tenus côté client</p>
+      <div class="hero-actions">
+        <a
+          class="btn btn-accent"
+          href="#blocked-diagnostic-services_diagnostic_dossiers_bloques"
+          data-track="cta_services_hero_primary"
+        >
+          Faire cadrer mon besoin
+          <span aria-hidden="true">→</span>
+        </a>
+        <a class="hero-link" href="/tarifs" data-track="cta_services_hero_pricing">
+          Voir les tarifs fixes
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
-    </article>
+
+      <div class="hero-assurance">
+        <span><i aria-hidden="true"></i> Dossier ponctuel accepté</span>
+        <span><i aria-hidden="true"></i> Aucun abonnement</span>
+      </div>
+    </div>
+
+    <aside class="service-map" aria-label="Périmètre des services Sunelys" data-reveal-item>
+      <div class="map-head">
+        <div>
+          <p>Périmètre administratif</p>
+          <strong>Un suivi de bout en bout</strong>
+        </div>
+        <span>5 expertises</span>
+      </div>
+      <div class="map-list">
+        {
+          ["Déclaration préalable", "Consuel", "Raccordement Enedis", "EDF OA", "MaPrimeRénov' + CEE"].map(
+            (label, index) => (
+              <div class:list={["map-row", index === 4 && "is-aid"]}>
+                <span>0{index + 1}</span>
+                <p>{label}</p>
+                <strong><i aria-hidden="true"></i> Délégable</strong>
+              </div>
+            ),
+          )
+        }
+      </div>
+      <div class="map-foot">
+        <span>Portail de suivi</span>
+        <span>Interlocuteur humain</span>
+      </div>
+    </aside>
   </section>
 
-  <section class="section card complete-chain">
-    <div>
-      <p class="eyebrow">Recommandé</p>
-      <h2>Chaîne administrative complète : le choix des installateurs qui veulent piloter sans recruter.</h2>
+  <section class="proof-strip reveal" aria-label="Preuves opérationnelles Sunelys">
+    {
+      partnerMetrics.map((metric, index) => (
+        <article class:list={[index === 0 && "is-featured"]} data-reveal-item>
+          <strong>{metric.value}</strong>
+          <span>{metric.label}</span>
+        </article>
+      ))
+    }
+  </section>
+
+  <section class="delegation-section reveal" aria-labelledby="delegation-title">
+    <div class="delegation-copy" data-reveal-item>
+      <p class="eyebrow">Votre organisation</p>
+      <h2 id="delegation-title">Trois façons simples de commencer.</h2>
       <p>
-        Sunelys peut piloter toute la chaîne DP, raccordement et Consuel avec un seul interlocuteur,
-        une production sous 48h lorsque le dossier est complet, une visibilité continue sur les statuts
-        et un tarif unique par dossier.
+        La délégation n’impose pas de basculer tout votre process. Le périmètre peut évoluer au rythme de vos
+        dossiers et de votre charge interne.
+      </p>
+
+      <div class="delegation-list">
+        {
+          delegationModes.map((mode, index) => (
+            <article>
+              <span>0{index + 1}</span>
+              <div>
+                <h3>{mode.label}</h3>
+                <p>{mode.text}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+
+    <aside class="complete-chain" data-reveal-item>
+      <div class="chain-head">
+        <p>Solution recommandée</p>
+        <span>DP + Enedis + Consuel</span>
+      </div>
+      <h2>La chaîne administrative complète.</h2>
+      <p>
+        Un seul flux, un seul interlocuteur et une visibilité continue, sans recruter une ressource administrative
+        supplémentaire.
+      </p>
+      <ul>
+        {completeChainItems.map((item) => <li>{item}</li>)}
+      </ul>
+      <div class="chain-price">
+        <div>
+          <strong>199 €</strong>
+          <span>HT / dossier</span>
+        </div>
+        <a href="/tarifs#tarifs-photovoltaique" data-track="cta_services_complete_chain_tarifs">
+          Voir le détail
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </aside>
+  </section>
+
+  <section class="core-services reveal" aria-labelledby="core-services-title">
+    <div class="section-head" data-reveal-item>
+      <div>
+        <p class="eyebrow">Démarches photovoltaïques</p>
+        <h2 id="core-services-title">Déléguez l’étape qui ralentit vos installations.</h2>
+      </div>
+      <p>
+        Chaque service dispose d’un périmètre précis. Vous pouvez commencer par une seule étape avant d’élargir la
+        prise en charge.
       </p>
     </div>
-    <ul>
-      {completeChainItems.map((item) => <li>{item}</li>)}
-    </ul>
-    <div class="box-actions">
-      <a class="cta" href="/contact?source=services-pilotage-complet#contact-form" data-track="cta_services_complete_chain">
-        Cadrer un pilotage complet
-      </a>
-      <a class="cta cta-secondary" href="/tarifs" data-track="cta_services_complete_chain_tarifs">
-        Voir les tarifs
-      </a>
-    </div>
-  </section>
 
-  <section class="section card complete-chain aid-chain">
-    <div>
-      <p class="eyebrow">Nouveau</p>
-      <h2>Aides à la rénovation : MaPrimeRénov' et CEE pilotés sans dispersion.</h2>
-      <p>
-        Les dossiers d'aides demandent autant de rigueur que les démarches photovoltaïques :
-        éligibilité, pièces client, devis, factures, dépôt et suivi jusqu'à validation.
-        Sunelys peut gérer MaPrimeRénov', les CEE ou les deux ensemble.
-      </p>
-    </div>
-    <ul>
-      {renovationAidItems.map((item) => <li>{item}</li>)}
-    </ul>
-    <div class="box-actions">
-      <a class="cta" href="/contact?source=aides-renovation#contact-form" data-track="cta_services_aides_renovation">
-        Cadrer vos aides
-      </a>
-      <a class="cta cta-secondary" href="/tarifs#aides-renovation" data-track="cta_services_aides_tarifs">
-        Voir les tarifs aides
-      </a>
-    </div>
-  </section>
-
-  <BlockedDiagnostic
-    source="services_diagnostic_dossiers_bloques"
-    title="Vous avez plusieurs dossiers à débloquer ? On identifie le flux à reprendre en premier."
-    text="Le diagnostic aide à prioriser entre DP, Consuel, raccordement et pilotage global, sans transformer tout votre process d'un coup."
-  />
-
-  <section class="section">
-    <div class="section-head">
-      <p class="eyebrow">Offres spécialisées</p>
-      <h2>Neuf blocs d'intervention selon votre organisation.</h2>
-    </div>
-    <div class="grid">
+    <div class="core-service-list">
       {
-        visibleServices.map((service) => (
-          <article class="card service-card">
-            <div class="service-copy">
-              <h3>{service.title}</h3>
-              <p class="benefit">{service.benefit}</p>
-              <p>{service.description}</p>
+        visibleCoreServices.map((service, index) => (
+          <article data-reveal-item>
+            <div class="service-index">
+              <span>0{index + 1}</span>
+              <i aria-hidden="true"></i>
+            </div>
+            <div class="service-main">
+              <h3>{service.shortTitle}</h3>
+              <p class="service-benefit">{service.benefit}</p>
+              <p class="service-description">{service.description}</p>
             </div>
             <ul>
               {service.points.map((point) => <li>{point}</li>)}
             </ul>
-            <a
-              class="cta cta-secondary"
-              href={service.href}
-              data-track="cta_services_detail"
-              data-track-label={service.title}
-            >
-              {service.ctaLabel ?? "Voir le détail"}
-            </a>
-            {
-              service.showGuide && (
-                <a
-                  class="service-guide-link"
-                  href={service.guideHref}
-                  data-track="cta_services_guide"
-                  data-track-label={service.title}
-                >
-                  {service.guideLabel}
-                </a>
-              )
-            }
+            <div class="service-actions">
+              <a href={service.href} data-track="cta_services_detail" data-track-label={service.title}>
+                {service.ctaLabel ?? "Voir le service"}
+                <span aria-hidden="true">→</span>
+              </a>
+              {
+                service.showGuide && (
+                  <a href={service.guideHref} data-track="cta_services_guide" data-track-label={service.title}>
+                    {service.guideLabel}
+                  </a>
+                )
+              }
+            </div>
           </article>
         ))
       }
     </div>
   </section>
 
-  <section class="section card box">
-    <p class="eyebrow">Accompagnement</p>
-    <h2>Vous voulez piloter votre administratif au complet ?</h2>
-    <p>
-      Nous adaptons le niveau de prise en charge à votre organisation, à votre structure et à la
-      maturité de vos flux administratifs.
-    </p>
-    <div class="box-actions">
-      <a class="cta" href="/contact?source=services-final#contact-form" data-track="cta_services_contact">Démarrer un cadrage complet</a>
-      <a class="cta cta-secondary" href="/tarifs" data-track="cta_services_pricing">Comprendre les offres</a>
+  <section class="flow-services reveal" aria-labelledby="flow-services-title">
+    <div class="flow-head" data-reveal-item>
+      <p class="eyebrow">Organisation des flux</p>
+      <h2 id="flow-services-title">Quand le problème n’est plus un dossier, mais le volume.</h2>
+      <p>
+        Sunelys peut devenir le relais administratif régulier de vos équipes, sur les seules DP ou sur l’ensemble
+        du parcours photovoltaïque.
+      </p>
+    </div>
+
+    <div class="flow-grid">
+      {
+        visibleFlowServices.map((service, index) => (
+          <article class:list={[index === 1 && "is-primary"]} data-reveal-item>
+            <div class="flow-card-head">
+              <span>0{index + 1}</span>
+              <p>{index === 0 ? "Spécialisation DP" : "Pilotage global"}</p>
+            </div>
+            <h3>{service.shortTitle}</h3>
+            <p class="flow-benefit">{service.benefit}</p>
+            <p class="flow-description">{service.description}</p>
+            <ul>
+              {service.points.map((point) => <li>{point}</li>)}
+            </ul>
+            <a href={service.href} data-track="cta_services_flow_detail">
+              Explorer cette organisation
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
     </div>
   </section>
+
+  <section class="aid-services reveal" aria-labelledby="aid-services-title">
+    <div class="section-head" data-reveal-item>
+      <div>
+        <p class="eyebrow">Aides à la rénovation</p>
+        <h2 id="aid-services-title">MaPrimeRénov’ et CEE, sans dispersion documentaire.</h2>
+      </div>
+      <p>
+        Éligibilité, devis, factures, dépôt et suivi : les deux aides peuvent être confiées séparément ou pilotées
+        ensemble.
+      </p>
+    </div>
+
+    <div class="aid-grid">
+      {
+        aidServices.map((service, index) => (
+          <article class:list={[index === 2 && "is-featured"]} data-reveal-item>
+            <div class="aid-top">
+              <span>0{index + 1}</span>
+              {index === 2 && <p>Le plus demandé</p>}
+            </div>
+            <h3>{service.shortTitle}</h3>
+            <p>{service.benefit}</p>
+            <div class="aid-price">
+              <strong>{service.price}</strong>
+              <span>HT / dossier</span>
+            </div>
+            <a href={service.href} data-track="cta_services_aid_detail">
+              {service.ctaLabel}
+              <span aria-hidden="true">→</span>
+            </a>
+          </article>
+        ))
+      }
+    </div>
+
+    <a class="pricing-link" href="/tarifs#aides-renovation" data-track="cta_services_aides_tarifs">
+      Comparer les tarifs des aides
+      <span aria-hidden="true">↗</span>
+    </a>
+  </section>
+
+  <BlockedDiagnostic
+    source="services_diagnostic_dossiers_bloques"
+    title="Quel flux faut-il sortir de votre équipe en premier ?"
+    text="Indiquez votre volume, l'étape qui bloque et votre urgence. Sunelys vous répond avec un premier périmètre concret, sans transformer tout votre process."
+    submitLabel="Recevoir mon cadrage sous 24h"
+  />
 </BaseLayout>
 
 <style>
-  .section {
-    margin-top: 1.8rem;
-  }
-
-  .card {
-    background: linear-gradient(
-      170deg,
-      color-mix(in srgb, var(--surface-elevated) 95%, white),
-      var(--surface)
-    );
-    border: 1px solid var(--line);
+  .services-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
+    gap: clamp(1.5rem, 4vw, 4.2rem);
+    align-items: center;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3.8vw, 4rem);
     border-radius: var(--radius-xl);
-    padding: clamp(1.15rem, 2.6vw, 2rem);
+    background:
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
     box-shadow: var(--shadow-md);
   }
 
   .eyebrow {
-    margin: 0 0 0.7rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 700;
+  }
+
+  .hero-copy .eyebrow {
+    color: var(--accent);
   }
 
   h1 {
-    margin: 0;
     max-width: 14ch;
-    font-size: clamp(2rem, 4.8vw, 4.4rem);
-    line-height: 0.95;
+    margin-top: 0.7rem;
+    color: #ffffff;
+    font-size: clamp(2.4rem, 5vw, 5.15rem);
+    line-height: 0.94;
   }
 
-  h2 {
-    margin: 0;
-    font-size: clamp(1.45rem, 3vw, 2.4rem);
-    line-height: 1.02;
-  }
-
-  h3 {
-    margin: 0;
-    font-size: clamp(1.15rem, 1.4vw, 1.45rem);
-    line-height: 1.12;
-  }
-
-  p,
-  li {
-    margin: 0;
-    color: var(--text-muted);
-  }
-
-  .intro {
+  .hero-intro {
     max-width: 62ch;
-    font-size: var(--step-0);
-    line-height: 1.6;
+    margin-top: 1.15rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.96rem;
+    line-height: 1.65;
   }
 
-  .hero {
-    display: grid;
-    gap: 1rem;
-  }
-
-  .hero-actions,
-  .box-actions {
+  .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  .fit-grid {
+  .hero-link,
+  .core-service-list a,
+  .flow-grid a,
+  .aid-grid a,
+  .pricing-link,
+  .chain-price a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    color: inherit;
+    font-size: 0.76rem;
+    font-weight: 760;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 28%, transparent);
+    text-underline-offset: 0.28rem;
+  }
+
+  .hero-link {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .hero-link span,
+  .core-service-list a span,
+  .flow-grid a span,
+  .aid-grid a span,
+  .pricing-link span,
+  .chain-price a span {
+    color: var(--accent);
+  }
+
+  .hero-assurance {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.2rem;
+    margin-top: 1.35rem;
+  }
+
+  .hero-assurance span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.69rem;
+    font-weight: 650;
+  }
+
+  .hero-assurance i,
+  .map-row strong i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  }
+
+  .service-map {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: #f8fafc;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  .map-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid var(--line);
+    background: #ffffff;
+  }
+
+  .map-head > div {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 0.85rem;
+    gap: 0.12rem;
+  }
+
+  .map-head p,
+  .map-head > span {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+  }
+
+  .map-head strong {
+    color: var(--text);
+    font-size: 0.86rem;
+  }
+
+  .map-head > span {
+    padding: 0.28rem 0.48rem;
+    border-radius: 999px;
+    background: var(--system-soft);
+    color: var(--system);
+  }
+
+  .map-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    min-height: 3.7rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .map-row > span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 800;
+  }
+
+  .map-row p {
+    color: var(--text);
+    font-size: 0.74rem;
+    font-weight: 720;
+  }
+
+  .map-row strong {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.42rem;
+    color: var(--text-muted);
+    font-size: 0.6rem;
+  }
+
+  .map-row.is-aid {
+    background: var(--system-soft);
+  }
+
+  .map-foot {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    padding: 0.72rem 1rem;
+  }
+
+  .map-foot span {
+    color: var(--text-muted);
+    font-size: 0.59rem;
+    font-weight: 680;
   }
 
   .proof-strip {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.85rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border-radius: 16px;
+    background: var(--ink);
   }
 
-  .proof-metric {
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
-    box-shadow: var(--shadow-sm);
-    padding: 1rem;
+  .proof-strip article {
+    min-height: 8rem;
     display: grid;
-    gap: 0.28rem;
+    align-content: end;
+    gap: 0.4rem;
+    padding: 1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .proof-metric strong {
-    color: var(--text);
-    font-size: clamp(1.8rem, 3vw, 3rem);
+  .proof-strip article:last-child {
+    border-right: 0;
+  }
+
+  .proof-strip strong {
+    color: #ffffff;
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    letter-spacing: -0.055em;
     line-height: 0.95;
   }
 
-  .proof-metric span {
+  .proof-strip .is-featured strong {
+    color: var(--accent);
+  }
+
+  .proof-strip span {
+    max-width: 22ch;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .delegation-section {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.78fr) minmax(0, 1.22fr);
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .delegation-copy {
+    padding: clamp(1rem, 2.8vw, 2.2rem);
+  }
+
+  .delegation-copy h2,
+  .section-head h2,
+  .flow-head h2 {
+    max-width: 18ch;
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 3.6vw, 3.6rem);
+  }
+
+  .delegation-copy > p:last-of-type,
+  .section-head > p,
+  .flow-head > p {
+    max-width: 53ch;
+    margin-top: 1rem;
     color: var(--text-muted);
-    line-height: 1.35;
+    font-size: 0.87rem;
+    line-height: 1.62;
+  }
+
+  .delegation-list {
+    display: grid;
+    margin-top: 1.3rem;
+  }
+
+  .delegation-list article {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .delegation-list article > span {
+    color: var(--system);
+    font-size: 0.65rem;
+    font-weight: 800;
+  }
+
+  .delegation-list h3 {
+    font-size: 0.88rem;
+  }
+
+  .delegation-list p {
+    margin-top: 0.2rem;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.5;
   }
 
   .complete-chain {
-    display: grid;
-    gap: 1rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.3rem, 3vw, 2.7rem);
+    border-radius: 17px;
     background:
-      radial-gradient(100% 140% at 100% 0%, color-mix(in srgb, var(--accent-soft) 38%, transparent), transparent 58%),
-      linear-gradient(165deg, #1b1712, #11100d);
-    border-color: color-mix(in srgb, var(--line) 58%, var(--accent));
+      radial-gradient(85% 80% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      var(--ink);
+    color: #ffffff;
   }
 
-  .complete-chain h2,
-  .complete-chain p,
-  .complete-chain li,
-  .complete-chain .eyebrow {
-    color: #f7f2e8;
+  .chain-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
   }
 
-  .complete-chain p,
-  .complete-chain li {
-    color: #ded2c1;
+  .chain-head p,
+  .chain-head span {
+    font-size: 0.64rem;
+    font-weight: 780;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+  }
+
+  .chain-head p {
+    color: var(--accent);
+  }
+
+  .chain-head span {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .complete-chain h2 {
+    max-width: 15ch;
+    margin-top: clamp(2rem, 4vw, 4rem);
+    color: #ffffff;
+    font-size: clamp(2rem, 3.8vw, 4rem);
+  }
+
+  .complete-chain > p {
+    max-width: 56ch;
+    margin-top: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.85rem;
+    line-height: 1.6;
   }
 
   .complete-chain ul {
-    margin: 0;
-    padding-left: 1.1rem;
     display: grid;
-    gap: 0.46rem;
+    gap: 0.5rem;
+    margin: 1.2rem 0 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .fit-card {
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .fit-card ul,
-  .service-card ul {
-    margin: 0;
-    padding-left: 1.1rem;
-    display: grid;
-    gap: 0.42rem;
-  }
-
-  .service-guide-link {
-    width: fit-content;
-    color: var(--text);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-
-  .service-guide-link:hover,
-  .service-guide-link:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 0.25rem;
-  }
-
-  .highlight-card {
-    background:
-      radial-gradient(
-        120% 110% at 100% 0%,
-        color-mix(in srgb, var(--accent-soft) 58%, transparent),
-        transparent 58%
-      ),
-      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
-  }
-
-  .benefit-list {
-    display: grid;
+  .complete-chain li {
+    display: flex;
     gap: 0.55rem;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.73rem;
+    line-height: 1.45;
   }
 
-  .benefit-list p,
-  .benefit {
-    color: var(--text);
-    font-weight: 600;
+  .complete-chain li::before {
+    content: "";
+    width: 0.38rem;
+    height: 0.38rem;
+    flex: 0 0 auto;
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .chain-price {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: end;
+    margin-top: auto;
+    padding-top: 1.6rem;
+  }
+
+  .chain-price > div {
+    display: grid;
+    gap: 0.12rem;
+  }
+
+  .chain-price strong {
+    color: var(--accent);
+    font-size: clamp(2.8rem, 5vw, 5rem);
+    letter-spacing: -0.065em;
+    line-height: 0.9;
+  }
+
+  .chain-price > div span {
+    color: rgba(255, 255, 255, 0.42);
+    font-size: 0.65rem;
+    font-weight: 700;
+  }
+
+  .chain-price a {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .core-services,
+  .aid-services {
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
   .section-head {
     display: grid;
-    gap: 0.35rem;
-    margin-bottom: 0.9rem;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
+    gap: clamp(1.2rem, 4vw, 4rem);
+    align-items: end;
   }
 
-  .grid {
+  .section-head > p {
+    margin-top: 0;
+  }
+
+  .core-service-list {
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .core-service-list > article {
+    display: grid;
+    grid-template-columns: auto minmax(260px, 1.15fr) minmax(200px, 0.85fr) minmax(130px, auto);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    align-items: center;
+    min-height: 13rem;
+    padding: 1.3rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .service-index {
+    display: grid;
+    justify-items: center;
+    gap: 0.5rem;
+  }
+
+  .service-index span {
+    color: var(--system);
+    font-size: 0.66rem;
+    font-weight: 800;
+  }
+
+  .service-index i {
+    width: 0.5rem;
+    height: 0.5rem;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+  }
+
+  .service-main h3 {
+    max-width: 18ch;
+    font-size: clamp(1.45rem, 2.2vw, 2.2rem);
+  }
+
+  .service-benefit {
+    max-width: 47ch;
+    margin-top: 0.65rem;
+    color: var(--text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .service-description {
+    max-width: 54ch;
+    margin-top: 0.42rem;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.52;
+  }
+
+  .core-service-list ul,
+  .flow-grid ul {
+    display: grid;
+    gap: 0.45rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .core-service-list li,
+  .flow-grid li {
+    display: flex;
+    gap: 0.48rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .core-service-list li::before,
+  .flow-grid li::before {
+    content: "";
+    width: 0.36rem;
+    height: 0.36rem;
+    flex: 0 0 auto;
+    margin-top: 0.28rem;
+    border-radius: 50%;
+    background: var(--system);
+  }
+
+  .service-actions {
+    display: grid;
+    justify-items: start;
+    gap: 0.75rem;
+  }
+
+  .service-actions a:last-child:not(:first-child) {
+    color: var(--text-muted);
+    font-size: 0.64rem;
+  }
+
+  .flow-services {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.64fr) minmax(0, 1.36fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .flow-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.85rem;
+    gap: 0.65rem;
   }
 
-  .service-card {
-    display: grid;
+  .flow-grid article {
+    min-height: 29rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1rem, 2.2vw, 1.6rem);
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .flow-grid article.is-primary {
+    border-color: var(--ink);
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.24), transparent 62%),
+      var(--ink);
+    color: #ffffff;
+  }
+
+  .flow-card-head {
+    display: flex;
+    justify-content: space-between;
     gap: 1rem;
-    align-content: start;
   }
 
-  .service-copy {
-    display: grid;
-    gap: 0.55rem;
+  .flow-card-head span,
+  .flow-card-head p {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 780;
+    text-transform: uppercase;
   }
 
-  .box {
-    display: grid;
-    gap: 1rem;
-    justify-items: start;
+  .is-primary .flow-card-head span,
+  .is-primary .flow-card-head p {
+    color: var(--accent);
   }
 
-  .cta {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 3rem;
-    padding: 0.78rem 1.22rem;
-    border-radius: 999px;
-    text-decoration: none;
+  .flow-grid h3 {
+    max-width: 16ch;
+    margin-top: 2.5rem;
+    font-size: clamp(1.6rem, 2.4vw, 2.4rem);
+  }
+
+  .is-primary h3 {
+    color: #ffffff;
+  }
+
+  .flow-benefit {
+    margin-top: 0.9rem;
+    color: var(--text);
+    font-size: 0.8rem;
     font-weight: 700;
-    color: #f7f3ec;
-    background: var(--text);
-    transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease;
+    line-height: 1.5;
   }
 
-  .cta:hover,
-  .cta:focus-visible {
-    color: #fff;
-    background: #0f0d0a;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-sm);
+  .flow-description {
+    margin-top: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+    line-height: 1.55;
   }
 
-  .cta-secondary {
+  .flow-grid ul {
+    margin-top: 1.2rem;
+  }
+
+  .is-primary .flow-benefit {
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .is-primary .flow-description,
+  .is-primary li {
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .is-primary li::before {
+    background: var(--accent);
+  }
+
+  .flow-grid a {
+    margin-top: auto;
+    padding-top: 1.2rem;
+  }
+
+  .is-primary a {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .aid-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .aid-grid article {
+    min-height: 22rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1rem, 2.2vw, 1.5rem);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .aid-grid article.is-featured {
+    background: var(--system-soft);
+  }
+
+  .aid-top {
+    min-height: 1.8rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .aid-top > span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .aid-top p {
+    padding: 0.26rem 0.46rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    font-size: 0.55rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .aid-grid h3 {
+    margin-top: 2rem;
+    font-size: clamp(1.4rem, 2.2vw, 2.1rem);
+  }
+
+  .aid-grid article > p {
+    margin-top: 0.75rem;
+    color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.54;
+  }
+
+  .aid-price {
+    display: grid;
+    gap: 0.12rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
+  }
+
+  .aid-price strong {
     color: var(--text);
-    background: transparent;
-    border: 1px solid var(--line);
+    font-size: clamp(2.6rem, 4vw, 4.2rem);
+    letter-spacing: -0.06em;
+    line-height: 0.9;
   }
 
-  .cta-secondary:hover,
-  .cta-secondary:focus-visible {
+  .aid-price span {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    font-weight: 700;
+  }
+
+  .aid-grid a {
+    margin-top: 1.1rem;
+  }
+
+  .pricing-link {
+    margin-top: 1rem;
     color: var(--text);
-    background: color-mix(in srgb, var(--accent-soft) 55%, white);
   }
 
-  @media (max-width: 900px) {
-    .fit-grid,
-    .proof-strip,
-    .grid {
+  @media (max-width: 1050px) {
+    .services-hero,
+    .delegation-section,
+    .flow-services {
       grid-template-columns: 1fr;
     }
 
-    .hero-actions,
-    .box-actions {
-      display: grid;
+    .core-service-list > article {
+      grid-template-columns: auto 1fr;
     }
 
-    .hero-actions .cta,
-    .box-actions .cta {
+    .core-service-list ul,
+    .service-actions {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .proof-strip,
+    .section-head,
+    .flow-grid,
+    .aid-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .proof-strip article:nth-child(2) {
+      border-right: 0;
+    }
+
+    .proof-strip article:nth-child(-n + 2) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .section-head {
+      grid-template-columns: 1fr;
+    }
+
+    .aid-grid article:last-child {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .services-hero,
+    .core-services,
+    .flow-services,
+    .aid-services {
+      padding: 1.2rem;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .hero-actions .btn,
+    .hero-link {
       width: 100%;
+      justify-content: center;
+    }
+
+    .map-row strong {
+      font-size: 0;
+    }
+
+    .proof-strip,
+    .flow-grid,
+    .aid-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .proof-strip article {
+      min-height: 6.6rem;
+      border-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .proof-strip article:last-child {
+      border-bottom: 0;
+    }
+
+    .delegation-section {
+      padding: 0.55rem;
+    }
+
+    .delegation-copy,
+    .complete-chain {
+      padding: 1.2rem;
+    }
+
+    .chain-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .chain-price {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .core-service-list > article {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+      min-height: 0;
+    }
+
+    .core-service-list ul,
+    .service-actions {
+      grid-column: 1 / -1;
+      padding-left: 2rem;
+    }
+
+    .flow-grid article,
+    .aid-grid article {
+      min-height: 22rem;
+    }
+
+    .aid-grid article:last-child {
+      grid-column: 1;
     }
   }
 </style>

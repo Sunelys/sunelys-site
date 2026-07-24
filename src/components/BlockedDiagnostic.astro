@@ -42,7 +42,7 @@ const signals = [
 ---
 
 <section class="blocked-diagnostic section-shell reveal" id={formId}>
-  <div class="blocked-diagnostic__copy">
+  <div class="blocked-diagnostic__copy" data-reveal-item>
     <p class="blocked-diagnostic__kicker">{kicker}</p>
     <h2>{title}</h2>
     <p>{text}</p>
@@ -58,6 +58,7 @@ const signals = [
     data-lead-form
     data-blocked-diagnostic-form
     data-conversion-type="form_contact"
+    data-reveal-item
   >
     <input type="hidden" name="_subject" value="Nouveau diagnostic dossiers bloqués Sunelys" />
     <input type="hidden" name="_captcha" value="false" />
@@ -151,7 +152,7 @@ const signals = [
       </select>
     </label>
 
-    <button class="btn btn-primary btn-accent blocked-diagnostic__submit" type="submit" data-track={`cta_${source}_diagnostic_submit`}>
+    <button class="btn btn-accent blocked-diagnostic__submit" type="submit" data-track={`cta_${source}_diagnostic_submit`}>
       {submitLabel}
     </button>
     <p class="blocked-diagnostic__note">On vous répond avec le premier périmètre à déléguer, pas avec un questionnaire interminable.</p>
@@ -228,108 +229,125 @@ const signals = [
 <style>
   .blocked-diagnostic {
     display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(320px, 1.08fr);
-    gap: clamp(1rem, 2.4vw, 1.6rem);
-    align-items: start;
-    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
+    grid-template-columns: minmax(290px, 0.72fr) minmax(0, 1.28fr);
+    gap: 0;
+    overflow: hidden;
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(95% 120% at 100% 0%, color-mix(in srgb, var(--accent-soft) 58%, transparent), transparent 58%),
-      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 96%, white), var(--surface));
+      radial-gradient(75% 92% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 60%),
+      var(--ink);
     box-shadow: var(--shadow-md);
-    padding: clamp(1.2rem, 2.8vw, 2.2rem);
   }
 
   .blocked-diagnostic__copy,
   .blocked-diagnostic__form {
     display: grid;
-    gap: 0.9rem;
+    gap: 0.8rem;
+  }
+
+  .blocked-diagnostic__copy {
+    align-content: start;
+    padding: clamp(1.4rem, 3.5vw, 3.2rem);
   }
 
   .blocked-diagnostic__kicker {
-    margin: 0;
-    color: var(--text-muted);
+    color: var(--accent);
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 780;
   }
 
   h2 {
-    margin: 0;
-    max-width: 19ch;
-    font-size: clamp(1.65rem, 3.1vw, 2.85rem);
-    line-height: 0.98;
-    text-wrap: balance;
+    max-width: 16ch;
+    margin-top: 0.15rem;
+    color: #ffffff;
+    font-size: clamp(2rem, 3.6vw, 3.7rem);
   }
 
-  p {
-    margin: 0;
-    color: var(--text-muted);
+  .blocked-diagnostic__copy > p:not(.blocked-diagnostic__kicker) {
+    margin-top: 0.25rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.88rem;
     line-height: 1.62;
   }
 
-  ul {
-    margin: 0;
+  .blocked-diagnostic__copy ul {
+    margin: 0.8rem 0 0;
     padding: 0;
     list-style: none;
     display: grid;
+    gap: 0.6rem;
+  }
+
+  .blocked-diagnostic__copy li {
+    display: flex;
+    align-items: center;
     gap: 0.55rem;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.76rem;
+    font-weight: 680;
   }
 
-  li {
-    color: var(--text);
-    font-weight: 700;
-  }
-
-  li::before {
+  .blocked-diagnostic__copy li::before {
     content: "";
-    display: inline-block;
-    width: 0.45rem;
-    height: 0.45rem;
-    margin-right: 0.55rem;
-    border-radius: 999px;
-    background: var(--accent);
-    transform: translateY(-0.08rem);
+    width: 0.42rem;
+    height: 0.42rem;
+    flex: 0 0 auto;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.13);
   }
 
   .blocked-diagnostic__form {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: end;
-    gap: 0.72rem;
+    gap: 0.7rem;
+    margin: clamp(0.65rem, 1.2vw, 1rem);
+    padding: clamp(1.1rem, 2.4vw, 1.8rem);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 16px;
+    background: #f8fafc;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
   }
 
   label {
     display: grid;
     gap: 0.38rem;
     color: var(--text);
-    font-size: 0.72rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: 0.68rem;
+    font-weight: 740;
+  }
+
+  label em {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    font-style: normal;
+    font-weight: 600;
   }
 
   input,
   select {
     width: 100%;
-    min-height: 3rem;
-    border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
-    border-radius: var(--radius-sm);
-    background: #fffefa;
+    min-height: 2.9rem;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: #ffffff;
     color: var(--text);
-    padding: 0.76rem 0.9rem;
+    padding: 0.7rem 0.8rem;
     font: inherit;
     letter-spacing: 0;
-    text-transform: none;
+    transition: border-color 160ms ease, box-shadow 160ms ease;
   }
 
   input:focus-visible,
   select:focus-visible {
-    outline: 2px solid color-mix(in srgb, var(--accent) 70%, #111);
-    outline-offset: 2px;
+    border-color: color-mix(in srgb, var(--system) 70%, var(--line));
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--system-soft) 72%, transparent);
   }
 
-  .blocked-diagnostic__full,
   .blocked-diagnostic__submit,
   .blocked-diagnostic__note {
     grid-column: 1 / -1;
@@ -338,21 +356,39 @@ const signals = [
   .blocked-diagnostic__submit {
     width: 100%;
     border: 0;
+    margin-top: 0.15rem;
   }
 
   .blocked-diagnostic__note {
+    color: var(--text-muted);
     font-size: var(--step--1);
     text-align: center;
   }
 
   @media (max-width: 860px) {
-    .blocked-diagnostic,
-    .blocked-diagnostic__form {
+    .blocked-diagnostic {
       grid-template-columns: 1fr;
     }
 
-    h2 {
-      max-width: 20ch;
+    .blocked-diagnostic__copy {
+      padding-bottom: 1.2rem;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .blocked-diagnostic__copy {
+      padding: 1.3rem;
+    }
+
+    .blocked-diagnostic__form {
+      grid-template-columns: 1fr;
+      margin: 0 0.55rem 0.55rem;
+      padding: 1rem;
+    }
+
+    .blocked-diagnostic__submit,
+    .blocked-diagnostic__note {
+      grid-column: 1;
     }
   }
 </style>

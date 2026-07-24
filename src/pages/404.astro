@@ -17,25 +17,31 @@ const quickLinks = [
   robots="noindex,follow"
 >
   <section class="not-found section-shell">
-    <p class="eyebrow">Erreur 404</p>
-    <h1>Cette page n'existe pas ou a changé d'adresse.</h1>
-    <p class="intro">
-      Retrouvez les ressources utiles pour cadrer vos démarches administratives photovoltaïques,
-      ou contactez Sunelys pour orienter votre demande.
-    </p>
-    <div class="actions">
-      <a class="btn btn-primary btn-accent" href="/contact?source=404#contact-form" data-track="cta_404_contact">
-        Recevoir un cadrage
-      </a>
-      <a class="btn btn-secondary" href="/" data-track="cta_404_home">Retour à l'accueil</a>
+    <div class="not-found-copy">
+      <span class="error-code" aria-hidden="true">404</span>
+      <p class="eyebrow">Page introuvable</p>
+      <h1>Cette page n'existe pas ou a changé d'adresse.</h1>
+      <p class="intro">
+        Retrouvez les ressources utiles pour cadrer vos démarches administratives photovoltaïques,
+        ou revenez à l'accueil Sunelys.
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary btn-accent" href="/" data-track="cta_404_home">Retour à l'accueil</a>
+        <a class="not-found-link" href="/contact?source=404#contact-form" data-track="cta_404_contact">
+          Contacter Sunelys <span aria-hidden="true">→</span>
+        </a>
+      </div>
     </div>
-    <div class="quick-links" aria-label="Pages utiles">
+
+    <nav class="quick-links" aria-label="Pages utiles">
+      <p>Continuer vers</p>
       {quickLinks.map((link) => (
         <a href={link.href} data-track="cta_404_quick_link" data-track-label={link.label}>
-          {link.label}
+          <span>{link.label}</span>
+          <b aria-hidden="true">→</b>
         </a>
       ))}
-    </div>
+    </nav>
   </section>
 </BaseLayout>
 
@@ -104,5 +110,176 @@ const quickLinks = [
   .quick-links a:focus-visible {
     text-decoration: underline;
     text-underline-offset: 0.25rem;
+  }
+
+  /* Direction visuelle 2026 */
+  .not-found {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.58fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: center;
+    overflow: hidden;
+    max-width: none;
+    min-height: min(42rem, calc(100vh - 8rem));
+    padding: clamp(2rem, 5vw, 5rem);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 88% 4%, rgba(54, 98, 227, 0.42), transparent 31%),
+      radial-gradient(circle at 5% 100%, rgba(212, 130, 42, 0.24), transparent 32%),
+      var(--ink);
+    box-shadow: none;
+  }
+
+  .not-found::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -13rem;
+    width: clamp(20rem, 36vw, 35rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .not-found-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .error-code {
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+    color: rgba(255, 255, 255, 0.1);
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 850;
+    letter-spacing: -0.08em;
+    line-height: 0.7;
+  }
+
+  .not-found .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .not-found h1 {
+    max-width: 13ch;
+    color: #ffffff;
+    font-size: clamp(2.55rem, 5.2vw, 5.35rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .not-found .intro {
+    max-width: 45rem;
+    color: #cbd5e1;
+    line-height: 1.65;
+  }
+
+  .not-found .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.15rem;
+    margin-top: 0.55rem;
+  }
+
+  .not-found-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .not-found-link span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .not-found-link:hover span,
+  .not-found-link:focus-visible span {
+    transform: translateX(0.2rem);
+  }
+
+  .quick-links {
+    display: grid;
+    gap: 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .quick-links > p {
+    padding: 0.9rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    color: #7da1ff;
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .quick-links a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 0;
+    padding: 0.9rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0;
+    background: transparent;
+    color: #ffffff;
+    font-size: 0.84rem;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .quick-links b {
+    color: #7da1ff;
+    transition: transform 160ms ease;
+  }
+
+  .quick-links a:hover,
+  .quick-links a:focus-visible {
+    text-decoration: none;
+  }
+
+  .quick-links a:hover b,
+  .quick-links a:focus-visible b {
+    transform: translateX(0.2rem);
+  }
+
+  @media (max-width: 860px) {
+    .not-found {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .not-found {
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .not-found .actions,
+    .not-found .actions .btn {
+      width: 100%;
+    }
+
+    .not-found-link {
+      justify-content: center;
+      width: 100%;
+    }
   }
 </style>

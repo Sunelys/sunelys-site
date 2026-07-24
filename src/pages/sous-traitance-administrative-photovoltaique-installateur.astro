@@ -5,10 +5,30 @@ import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 const canonicalUrl = "https://sunelys.fr/sous-traitance-administrative-photovoltaique-installateur";
 
 const scopeItems = [
-  "Déclaration préalable complète : pièces, dépôt mairie et suivi jusqu'au retour",
-  "Raccordement Enedis : demande, pièces, relances et lecture des statuts",
-  "Consuel photovoltaïque : contrôle administratif et suivi jusqu'à validation",
-  "Aides : MaPrimeRénov', CEE ou pack coordonné selon le chantier",
+  {
+    index: "01",
+    title: "Déclaration préalable",
+    text: "Pièces, dépôt mairie et suivi jusqu'au retour.",
+    price: "119 € HT",
+  },
+  {
+    index: "02",
+    title: "Raccordement + Consuel",
+    text: "Demandes, pièces, relances et lecture des statuts jusqu'à la mise en service.",
+    price: "89 € HT",
+  },
+  {
+    index: "03",
+    title: "MaPrimeRénov'",
+    text: "Montage, dépôt ANAH et suivi administratif du dossier.",
+    price: "129 € HT",
+  },
+  {
+    index: "04",
+    title: "CEE",
+    text: "Contrôle des pièces et suivi jusqu'à validation.",
+    price: "99 € HT",
+  },
 ];
 
 const priceItems = [
@@ -97,8 +117,8 @@ const structuredData = [
   description="Externalisez DP, raccordement, Consuel, MaPrimeRénov' et CEE avec un spécialiste administratif photovoltaïque pour installateurs. Prix fixes HT et dossier ponctuel accepté."
   structuredData={structuredData}
 >
-  <section class="subcontract-hero section-shell reveal">
-    <div class="subcontract-copy">
+  <section class="subcontract-hero section-shell">
+    <div class="subcontract-copy" data-reveal-item>
       <p class="eyebrow">Sous-traitance administrative photovoltaïque</p>
       <h1>Un relais spécialisé pour vos dossiers PV, sans recruter.</h1>
       <p class="intro">
@@ -106,34 +126,39 @@ const structuredData = [
         DP, raccordement Enedis, Consuel, MaPrimeRénov' et CEE. Vous gardez la relation client,
         nous cadrons les pièces, les dépôts et les relances.
       </p>
-      <ul class="hero-badges" aria-label="Critères Sunelys">
-        <li>Installateurs PV uniquement</li>
-        <li>Dossier ponctuel accepté</li>
-        <li>Prix fixes HT</li>
-        <li>Réponse sous 24h</li>
-      </ul>
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#blocked-diagnostic-sous_traitance_admin_pv_installateur" data-track="cta_subcontract_hero_diagnostic">
           Cadrer un dossier
         </a>
-        <a class="btn btn-secondary" href="/tarifs" data-track="cta_subcontract_hero_tarifs">
+        <a class="hero-secondary-link" href="/tarifs" data-track="cta_subcontract_hero_tarifs">
           Voir les tarifs
+          <span aria-hidden="true">↗</span>
         </a>
       </div>
+      <ul class="hero-badges" aria-label="Critères Sunelys">
+        <li>Installateurs PV uniquement</li>
+        <li>Dossier ponctuel accepté</li>
+        <li>Réponse sous 24h</li>
+      </ul>
     </div>
-    <aside class="price-panel" aria-label="Tarifs Sunelys">
-      <p class="eyebrow">Repères tarifaires</p>
+    <aside class="price-panel" aria-label="Tarifs Sunelys" data-reveal-item>
+      <div class="price-panel-head">
+        <p class="eyebrow">Repères tarifaires</p>
+        <strong>Prix fixes</strong>
+        <span>par dossier, sans abonnement</span>
+      </div>
       {priceItems.map((item) => (
         <div class="price-row">
           <span>{item.label}</span>
           <strong>{item.value}</strong>
         </div>
       ))}
+      <a href="/tarifs" data-track="cta_subcontract_price_panel">Comparer toutes les offres <span aria-hidden="true">→</span></a>
     </aside>
   </section>
 
-  <section class="subcontract-section split-section reveal">
-    <div>
+  <section class="subcontract-section split-section">
+    <div data-reveal-item>
       <p class="eyebrow">Bon fit</p>
       <h2>Quand la sous-traitance devient plus rentable que l'improvisation.</h2>
       <p>
@@ -141,36 +166,65 @@ const structuredData = [
         absorbent une charge administrative qui ralentit les ventes, la pose ou la mise en service.
       </p>
     </div>
-    <ul class="signal-list">
-      {warningItems.map((item) => <li>{item}</li>)}
+    <ul class="signal-list" data-reveal-item>
+      {warningItems.map((item, index) => (
+        <li>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <p>{item}</p>
+        </li>
+      ))}
     </ul>
   </section>
 
-  <section class="subcontract-section reveal">
+  <section class="subcontract-section scope-section">
     <div class="section-head">
       <p class="eyebrow">Périmètre confiable</p>
       <h2>Ce que vous pouvez déléguer sans perdre la maîtrise.</h2>
+      <p>Chaque prestation peut démarrer seule, puis s'intégrer à un flux plus large si votre volume évolue.</p>
     </div>
     <div class="scope-grid">
       {scopeItems.map((item) => (
-        <article class="scope-card">
-          <p>{item}</p>
+        <article class="scope-card" data-reveal-item>
+          <span>{item.index}</span>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+          <strong>{item.price}</strong>
         </article>
       ))}
     </div>
   </section>
 
-  <section class="subcontract-section reveal">
-    <div class="section-head">
+  <section class="subcontract-section specialist-section">
+    <div class="section-head" data-reveal-item>
       <p class="eyebrow">Différence Sunelys</p>
       <h2>Une approche plus spécialisée, plus claire, plus actionnable.</h2>
     </div>
     <div class="specialist-grid">
-      {specialistItems.map((item) => (
-        <article class="specialist-card">
-          <h3>{item.title}</h3>
-          <p>{item.text}</p>
+      {specialistItems.map((item, index) => (
+        <article class="specialist-card" data-reveal-item>
+          <span>{String(index + 1).padStart(2, "0")}</span>
+          <div>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
         </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="subcontract-section faq-section">
+    <div class="section-head">
+      <p class="eyebrow">Questions fréquentes</p>
+      <h2>Avant de déléguer.</h2>
+    </div>
+    <div class="faq-grid">
+      {faqItems.map((item) => (
+        <details data-reveal-item>
+          <summary>{item.question}</summary>
+          <p>{item.answer}</p>
+        </details>
       ))}
     </div>
   </section>
@@ -182,21 +236,6 @@ const structuredData = [
     text="Indiquez votre besoin, votre volume et l'étape qui bloque. Sunelys vous répond sous 24h avec le périmètre le plus utile à déléguer."
     submitLabel="Recevoir mon cadrage"
   />
-
-  <section class="subcontract-section faq-section reveal">
-    <div class="section-head">
-      <p class="eyebrow">Questions fréquentes</p>
-      <h2>Avant de déléguer.</h2>
-    </div>
-    <div class="faq-grid">
-      {faqItems.map((item) => (
-        <article>
-          <h3>{item.question}</h3>
-          <p>{item.answer}</p>
-        </article>
-      ))}
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
@@ -424,6 +463,517 @@ const structuredData = [
     .hero-badges li {
       width: 100%;
       text-align: center;
+    }
+  }
+
+  /* Direction visuelle 2026 */
+  .subcontract-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.08fr) minmax(20rem, 0.58fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    align-items: center;
+    overflow: hidden;
+    min-height: min(43rem, calc(100vh - 8rem));
+    padding: clamp(2rem, 5vw, 5rem);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 88% 6%, rgba(54, 98, 227, 0.4), transparent 32%),
+      radial-gradient(circle at 5% 100%, rgba(212, 130, 42, 0.24), transparent 33%),
+      var(--ink);
+    box-shadow: none;
+  }
+
+  .subcontract-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -13rem;
+    width: clamp(20rem, 36vw, 35rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .subcontract-copy {
+    display: grid;
+    gap: 1rem;
+    min-width: 0;
+  }
+
+  .subcontract-hero .eyebrow {
+    color: var(--accent);
+    letter-spacing: 0.11em;
+  }
+
+  .subcontract-hero h1 {
+    max-width: 13ch;
+    color: #ffffff;
+    font-size: clamp(2.55rem, 5.4vw, 5.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .subcontract-hero .intro {
+    max-width: 46rem;
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.15vw, 1.18rem);
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.15rem;
+    margin-top: 0.45rem;
+  }
+
+  .hero-secondary-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .hero-secondary-link span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .hero-secondary-link:hover span,
+  .hero-secondary-link:focus-visible span {
+    transform: translate(0.12rem, -0.12rem);
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0;
+    margin-top: 0.35rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+  }
+
+  .hero-badges li {
+    position: relative;
+    width: auto;
+    padding: 0 1rem 0 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #aebbcf;
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-align: left;
+  }
+
+  .hero-badges li:not(:last-child)::after {
+    content: "";
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    margin-left: 1rem;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: middle;
+  }
+
+  .price-panel {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    gap: 0;
+    padding: clamp(1.25rem, 2.6vw, 2rem);
+    border: 0;
+    border-radius: var(--radius-md);
+    background: #ffffff;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+  }
+
+  .price-panel-head {
+    display: grid;
+    gap: 0.15rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .price-panel-head .eyebrow {
+    margin: 0;
+    color: var(--system);
+  }
+
+  .price-panel-head strong {
+    color: var(--ink);
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .price-panel-head span {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .price-row {
+    align-items: baseline;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .price-row:last-of-type {
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 0.85rem;
+  }
+
+  .price-row span {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+  }
+
+  .price-row strong {
+    color: var(--ink);
+    font-size: 0.92rem;
+  }
+
+  .price-panel > a {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.8rem;
+    padding-top: 1rem;
+    color: var(--system);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .subcontract-section {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .split-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.74fr) minmax(0, 1.26fr);
+    gap: clamp(2.5rem, 7vw, 7rem);
+    align-items: start;
+    width: min(72rem, 100%);
+    margin-inline: auto;
+  }
+
+  .split-section > div {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .subcontract-section .eyebrow {
+    color: var(--system);
+    letter-spacing: 0.11em;
+  }
+
+  .subcontract-section h2 {
+    max-width: 17ch;
+    color: var(--ink);
+    font-size: clamp(1.85rem, 3.5vw, 3.35rem);
+    line-height: 1;
+    letter-spacing: -0.05em;
+  }
+
+  .split-section > div > p:last-child,
+  .section-head > p:last-child {
+    max-width: 46ch;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  .signal-list {
+    display: grid;
+    gap: 0;
+    border-top: 2px solid var(--ink);
+  }
+
+  .signal-list li {
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+  }
+
+  .signal-list span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .signal-list p {
+    color: var(--text);
+    font-size: 0.96rem;
+    line-height: 1.5;
+  }
+
+  .scope-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2rem, 4.5vw, 4rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .section-head {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .scope-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+  }
+
+  .scope-card {
+    display: grid;
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    gap: 0.8rem;
+    align-items: start;
+    min-height: 0;
+    padding: 1rem 0;
+    border: 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .scope-card > span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .scope-card div {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .scope-card h3 {
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 850;
+  }
+
+  .scope-card p {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    font-weight: 400;
+    line-height: 1.45;
+  }
+
+  .scope-card > strong {
+    color: var(--ink);
+    font-size: 0.84rem;
+    white-space: nowrap;
+  }
+
+  .specialist-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    padding: clamp(2.2rem, 5vw, 4.5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 95% 5%, rgba(54, 98, 227, 0.34), transparent 32%),
+      var(--ink);
+  }
+
+  .specialist-section .eyebrow {
+    color: var(--accent);
+  }
+
+  .specialist-section h2 {
+    color: #ffffff;
+  }
+
+  .specialist-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .specialist-card {
+    display: grid;
+    grid-template-columns: 2.4rem minmax(0, 1fr);
+    gap: 0.9rem;
+    min-height: 0;
+    padding: 1.1rem 0;
+    border: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .specialist-card > span {
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .specialist-card div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .specialist-card h3 {
+    color: #ffffff;
+    font-size: 1.08rem;
+  }
+
+  .specialist-card p {
+    max-width: 56ch;
+    color: #b9c5d5;
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .faq-section {
+    display: grid;
+    grid-template-columns: minmax(0, 0.58fr) minmax(0, 1.42fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    width: min(72rem, 100%);
+    margin-inline: auto;
+  }
+
+  .faq-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 0;
+    border-top: 2px solid var(--ink);
+  }
+
+  .faq-grid details {
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+  }
+
+  .faq-grid summary {
+    position: relative;
+    cursor: pointer;
+    padding: 1.15rem 2.5rem 1.15rem 0;
+    color: var(--ink);
+    font-size: 1rem;
+    font-weight: 850;
+    list-style: none;
+  }
+
+  .faq-grid summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-grid summary::after {
+    content: "+";
+    position: absolute;
+    top: 1rem;
+    right: 0;
+    color: var(--system);
+    font-size: 1.35rem;
+    font-weight: 400;
+  }
+
+  .faq-grid details[open] summary::after {
+    content: "−";
+  }
+
+  .faq-grid details p {
+    max-width: 65ch;
+    padding: 0 2.5rem 1.2rem 0;
+    color: var(--text-muted);
+    line-height: 1.65;
+  }
+
+  @media (max-width: 980px) {
+    .subcontract-hero,
+    .split-section,
+    .scope-section,
+    .specialist-section,
+    .faq-section {
+      grid-template-columns: 1fr;
+    }
+
+    .subcontract-hero {
+      min-height: 0;
+    }
+
+    .price-panel {
+      width: min(34rem, 100%);
+    }
+  }
+
+  @media (max-width: 680px) {
+    .subcontract-hero {
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .hero-actions,
+    .hero-actions .btn {
+      width: 100%;
+    }
+
+    .hero-secondary-link {
+      justify-content: center;
+    }
+
+    .hero-badges {
+      display: grid;
+      gap: 0.45rem;
+    }
+
+    .hero-badges li {
+      width: 100%;
+      padding: 0;
+      text-align: left;
+    }
+
+    .hero-badges li:not(:last-child)::after {
+      display: none;
+    }
+
+    .scope-section,
+    .specialist-section {
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .scope-card {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+
+    .scope-card > strong {
+      grid-column: 2;
     }
   }
 </style>

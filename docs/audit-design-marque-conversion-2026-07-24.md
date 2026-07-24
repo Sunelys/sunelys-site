@@ -1,0 +1,994 @@
+# Audit design, perception de marque et conversion — Sunelys
+
+Date : 24 juillet 2026  
+Périmètre : site en ligne `sunelys.fr`, rendu local actuel, accueil, tarifs, À propos, blog, desktop et mobile.
+
+## Verdict
+
+L’intuition de départ est juste : le site ne fait pas amateur et sa mécanique de conversion est sérieuse, mais son langage visuel vieillit la marque.
+
+Le décalage vient surtout de l’association suivante :
+
+- Didot / Bodoni très présente ;
+- ivoire, beige et bronze sur presque toutes les surfaces ;
+- grandes cartes blanches bordées et fortement arrondies ;
+- nombreux labels en capitales ;
+- visuels génériques ou artificiels ;
+- rythme long, répétitif et très « blocs marketing ».
+
+Cet ensemble raconte « cabinet élégant et classique ». Or Sunelys vend surtout de la vitesse, du pilotage, de la traçabilité, du solaire et un portail. La perception cible devrait être « cabinet opérationnel augmenté par la technologie ».
+
+Le site n’est donc pas à refaire parce qu’il serait inefficace. Il faut le faire évoluer parce que sa forme ne porte pas encore assez sa promesse.
+
+### Note synthétique
+
+| Dimension | Note | Lecture |
+| --- | ---: | --- |
+| Clarté de l’offre | 8,5 / 10 | Cible, problèmes traités et périmètre sont immédiatement compréhensibles. |
+| Fondations de conversion | 8 / 10 | Formulaire visible, tarifs accessibles, CTA nombreux, tracking déjà structuré. |
+| Preuve et réassurance | 7 / 10 | Chiffres, logos, portail et témoignages existent, mais leur traitement visuel limite leur impact. |
+| Modernité visuelle | 5,5 / 10 | L’esthétique est cohérente mais trop classique et monochrome. |
+| Authenticité des images | 4,5 / 10 | Les images paraissent générées ou génériques ; la photo fondatrice contient un pictogramme parasite. |
+| Hiérarchie et respiration | 6 / 10 | Les sections sont lisibles isolément, mais leur accumulation fatigue. |
+| Expérience mobile | 5 / 10 | Conversion présente, mais header, navigation, longueur de page et CTA fixes réduisent fortement l’espace utile. |
+| Perception premium contemporaine | 6 / 10 | Sérieux réel, mais pas encore de sensation de marque forte, actuelle et incarnée. |
+
+Note de design globale : **6,4 / 10**.
+
+Cette note évalue la perception visuelle et l’expérience, pas le taux de conversion réel.
+
+## Ce qu’il faut absolument conserver
+
+### 1. Le positionnement est clair
+
+Le visiteur comprend rapidement :
+
+- que Sunelys travaille pour les installateurs photovoltaïques ;
+- que le service reprend les dossiers administratifs ;
+- que DP, Consuel, Enedis, EDF OA et aides peuvent être traités ;
+- qu’un dossier ponctuel comme un flux récurrent sont possibles ;
+- qu’une réponse est promise sous 24 heures ouvrées.
+
+Ce socle est précieux. La refonte ne doit pas diluer cette précision dans une promesse de marque trop abstraite.
+
+### 2. Le formulaire au-dessus de la ligne de flottaison
+
+Sur desktop, le formulaire du hero est visible et directement actionnable. C’est une bonne décision de conversion.
+
+Il ne faut pas le supprimer sans test. Il faut le rendre plus léger, plus contemporain et mieux connecté à une preuve visuelle.
+
+### 3. La transparence tarifaire
+
+La page tarifs est l’une des parties les plus convaincantes du site. Les gros montants, la carte noire « recommandée » et les périmètres précis donnent une lecture directe.
+
+La carte noire est aussi l’un des rares moments où le design gagne vraiment en contraste et en modernité. Ce principe peut être étendu avec mesure.
+
+### 4. La preuve produit
+
+Le portail est un vrai différenciateur. Il transforme une prestation administrative invisible en système pilotable.
+
+Le problème n’est pas sa présence, mais son traitement : captures trop pâles, texte trop petit et trop de cadres imbriqués. Il faut le rendre plus net, plus grand et plus démonstratif.
+
+### 5. Le fond de marque chaud
+
+L’ivoire peut rester. Il évite le blanc clinique et donne une personnalité plus humaine.
+
+En revanche, il doit devenir une base neutre et non la couleur de presque tout le site. Il lui faut un contraste technique et un accent énergétique plus franc.
+
+## Pourquoi le site paraît vieillot
+
+### 1. La typographie envoie le mauvais signal
+
+La police d’affichage actuelle est :
+
+`Didot, Bodoni MT, Times New Roman, serif`
+
+Elle porte des codes luxe, mode, presse et institution. Utilisée sur presque tous les grands titres, les cartes, les chiffres et le portail, elle prend le dessus sur le caractère opérationnel de l’offre.
+
+Elle pose aussi un problème de stabilité : ces polices système ne sont pas identiques selon les appareils. Un visiteur peut voir Didot, Bodoni ou Times, avec des césures et proportions différentes.
+
+Recommandation :
+
+- conserver le wordmark Sunelys ;
+- passer les titres et l’interface en sans-serif variable moderne ;
+- réserver éventuellement une serif contemporaine à une citation, un chiffre ou un détail éditorial ;
+- éviter la serif sur les intitulés de services, le portail et les éléments de décision.
+
+Choix recommandé : **Manrope Variable** pour toute l’interface, ou **Inter Variable** si la priorité est la neutralité et la robustesse.
+
+### 2. La palette est trop monochrome
+
+Palette actuelle dominante :
+
+- fond `#F4F0E7` ;
+- surface `#FFFDF8` ;
+- texte `#14110D` ;
+- accent bronze `#A9783D`.
+
+Elle est élégante, mais presque tout appartient à la même famille chaude. Il manque une couleur qui dise :
+
+- système ;
+- statut ;
+- vitesse ;
+- énergie ;
+- technologie.
+
+Le bronze actuel évoque davantage l’artisanat premium ou l’hôtellerie que le solaire et le pilotage.
+
+### 3. Trop de cartes, trop de bordures, trop de grands rayons
+
+Presque chaque idée devient une carte. Plusieurs sections sont elles-mêmes de grandes cartes contenant d’autres cartes.
+
+À force, la carte ne hiérarchise plus rien. Elle devient un bruit de fond.
+
+Les rayons allant jusqu’à 30 px, les bordures beiges et les ombres diffuses répètent un vocabulaire très utilisé dans les templates marketing des années précédentes.
+
+À faire :
+
+- limiter les cartes aux preuves, aux offres et aux actions ;
+- utiliser davantage de sections ouvertes, de colonnes et de bandes de couleur ;
+- réduire les grands rayons à 16–20 px ;
+- garder des rayons plus petits sur les champs et boutons ;
+- remplacer une partie des bordures par de vrais contrastes de fond.
+
+### 4. Le site manque de contraste de rythme
+
+Le rendu alterne peu :
+
+- fond chaud ;
+- grand cadre blanc ;
+- titre noir ;
+- cartes blanches ;
+- espace vertical ;
+- nouveau grand cadre blanc.
+
+Même lorsque le contenu change, la sensation visuelle reste identique.
+
+Une marque contemporaine doit faire varier le rythme :
+
+- une section très claire et éditoriale ;
+- une section produit plus dense et technique ;
+- une bande de preuve sombre ;
+- une photographie réelle en grand ;
+- une section tarifaire très rationnelle ;
+- une respiration sans cadre.
+
+### 5. Les images ne construisent pas encore la confiance
+
+#### Photo de Myriam
+
+La photo utilisée sur la page À propos contient un pictogramme de recadrage incrusté dans le coin supérieur droit. Son rendu paraît également très artificiel.
+
+Pour une page qui s’appelle « Qui est derrière Sunelys », c’est le défaut visuel le plus critique du site.
+
+Action immédiate :
+
+- retirer cette image ;
+- la remplacer par une vraie photographie de Myriam ;
+- utiliser une lumière naturelle, un décor de travail réel et un cadrage moins figé ;
+- produire aussi une version horizontale pour le hero et une version verticale pour les témoignages ou contenus.
+
+#### Photo métier
+
+La grande image de l’installateur avec des documents et des panneaux est propre, mais très générique. Elle illustre « quelqu’un travaille » sans prouver Sunelys.
+
+À terme, elle doit être remplacée par une scène réelle :
+
+- Myriam ou une collaboratrice face au portail ;
+- document technique réel anonymisé ;
+- échange avec un installateur ;
+- vérification d’une pièce ou d’un statut ;
+- environnement solaire en arrière-plan, sans cliché de catalogue.
+
+#### Portail
+
+Les captures du portail sont pertinentes mais trop délavées et trop petites. Sur mobile, le texte devient décoratif plutôt qu’informatif.
+
+Il faut créer trois recadrages ciblés :
+
+1. vue d’ensemble et volume de dossiers ;
+2. pièce manquante et prochaine action ;
+3. progression et statut d’un dossier.
+
+Chaque recadrage doit avoir un message unique, lisible sans zoom.
+
+#### Logos clients
+
+Les logos mélangent fonds colorés, PNG, tailles et proportions très différentes. Certains sont presque invisibles.
+
+À faire :
+
+- récupérer des SVG ou PNG haute définition ;
+- normaliser la hauteur optique ;
+- utiliser soit les couleurs d’origine dans des cadres neutres, soit une version monochrome homogène ;
+- ne pas étirer les petits fichiers.
+
+### 6. L’interface utilise trop de capitales
+
+Kickers, navigation, labels, boutons et badges utilisent fréquemment les capitales. Cela peut fonctionner pour un micro-label, mais devient autoritaire et ancien quand tout l’utilise.
+
+Recommandation :
+
+- boutons en casse phrase : « Recevoir mon diagnostic » ;
+- navigation en casse normale ;
+- capitales réservées aux petits labels de catégorie ;
+- tracking légèrement positif uniquement sur les micro-labels.
+
+### 7. Les animations nuisent parfois à la preuve
+
+Les chiffres clés comptent de zéro jusqu’à leur valeur. Pendant l’animation, un visiteur peut voir temporairement « 68 % » avant « 96 % ».
+
+Les éléments révélés au scroll passent également par un état très pâle. Lors d’un scroll rapide, des cartes importantes peuvent sembler désactivées.
+
+Recommandation :
+
+- afficher immédiatement les chiffres de confiance ;
+- supprimer l’animation des compteurs ;
+- réduire le mouvement à un fondu de 150–250 ms et 8–12 px maximum ;
+- supprimer les délais en cascade sur mobile ;
+- ne jamais animer une information de crédibilité à partir d’une valeur fausse.
+
+## Diagnostic de conversion
+
+### Ce qui fonctionne
+
+- un formulaire est présent dès le hero desktop ;
+- le CTA principal est très visible ;
+- la promesse de délai est répétée ;
+- les tarifs sont proches de l’action ;
+- le portail et les témoignages rassurent ;
+- la barre mobile garde une action disponible.
+
+### Ce qui dilue la conversion
+
+Sur l’accueil observé :
+
+- environ 13 grandes sections ;
+- environ 9 800 à 10 100 px de hauteur sur desktop ;
+- environ 15 500 px sur mobile ;
+- 5 formulaires ;
+- 14 contrôles visibles ;
+- 31 titres `h1/h2/h3` ;
+- 22 cartes de type `article` ;
+- au moins 9 liens formulés comme actions de diagnostic, contact, tarif ou portail.
+
+Le problème n’est pas l’absence d’opportunités de conversion. C’est leur concurrence.
+
+Le premium convertit par la maîtrise :
+
+- un message ;
+- une action principale ;
+- une preuve ;
+- un parcours court ;
+- des alternatives visibles mais secondaires.
+
+### Le header
+
+Sur desktop inférieur à 1320 px, le header passe sur deux lignes.
+
+Sur mobile, il occupe trois rangées :
+
+1. logo et portail ;
+2. gros bouton diagnostic ;
+3. navigation horizontale.
+
+À cela s’ajoute la barre d’action fixe en bas. Sur un écran de 390 × 844 px, le header mesure environ 139 px et la barre basse consomme encore près de 70 px. Environ un quart de l’écran est donc occupé par la navigation et les CTA.
+
+La navigation horizontale peut aussi apparaître tronquée pendant le scroll.
+
+Recommandation mobile :
+
+- ligne unique : logo, bouton menu, CTA compact ;
+- menu dans un panneau ;
+- retirer la navigation horizontale ;
+- afficher la barre basse uniquement après la sortie du hero ;
+- masquer la barre basse lorsqu’un formulaire ou un CTA équivalent est visible.
+
+### Le hero
+
+Le hero actuel est bon sur la clarté mais trop chargé :
+
+- gros titre serif ;
+- paragraphe long ;
+- ligne experte ;
+- trois badges ;
+- formulaire à quatre champs ;
+- deux actions ;
+- note de formulaire.
+
+Sur mobile, le hero atteint environ 1 390 px de hauteur.
+
+Recommandation :
+
+- H1 en trois lignes maximum ;
+- sous-titre réduit à deux ou trois lignes desktop ;
+- une seule rangée de trois preuves chiffrées ;
+- formulaire à trois champs visibles : email, volume, blocage ;
+- téléphone demandé après soumission ou clairement optionnel dans une seconde étape ;
+- miniature du portail ou preuve produit intégrée au bloc formulaire ;
+- CTA secondaire traité comme lien, pas comme second bouton de même poids.
+
+### L’exit intent
+
+La fenêtre de sortie est visuellement cohérente, mais elle ajoute encore un formulaire complet à une page qui en contient déjà plusieurs.
+
+Elle peut s’ouvrir sur un mouvement de souris vers le haut, après 30 secondes ou après retour en arrière dans la page. Lors de l’audit, elle est apparue très tôt dans le parcours.
+
+Recommandation :
+
+- desktop uniquement ;
+- au moins 45 secondes et 50 % de page parcourue ;
+- aucune ouverture si un champ a reçu le focus ;
+- une seule question + email, pas un nouveau formulaire complet ;
+- test A/B avec suppression totale sur la home ;
+- conservation possible sur les pages SEO à forte intention.
+
+## Direction artistique recommandée
+
+### Concept
+
+**Sunelys — le cabinet opérationnel du solaire, piloté comme une plateforme.**
+
+Quatre attributs :
+
+- précis ;
+- rapide ;
+- humain ;
+- traçable.
+
+Le site doit ressembler moins à une brochure de cabinet classique et davantage à la rencontre entre :
+
+- une équipe experte ;
+- un outil de pilotage ;
+- une entreprise de l’énergie.
+
+### Palette cible
+
+| Rôle | Couleur proposée | Usage |
+| --- | --- | --- |
+| Encre technique | `#0E1726` | Titres, navigation, sections sombres |
+| Ivoire moderne | `#F7F6F2` | Fond principal |
+| Blanc | `#FFFFFF` | Formulaires et surfaces utiles |
+| Orange solaire | `#D4822A` | CTA principal et points d’énergie |
+| Bleu système | `#3662E3` | Statuts, liens produit, données |
+| Vert validation | `#1D9B75` | Dossiers validés, succès, progression |
+| Gris texte | `#536071` | Paragraphes secondaires |
+| Bordure froide | `#DDE3EA` | Séparation légère |
+
+Le orange `#D4822A` existe déjà dans la direction artistique Instagram de Sunelys. L’utiliser plus franchement permettrait d’unifier les supports sans inventer une nouvelle marque.
+
+Principe :
+
+- 70 % ivoire / blanc ;
+- 20 % encre / bleu sombre ;
+- 10 % orange, bleu système et vert de statut.
+
+### Typographie
+
+Système recommandé :
+
+- Manrope Variable 650–750 pour les titres ;
+- Manrope Variable 400–550 pour le texte ;
+- chiffres tabulaires pour les données et tarifs ;
+- serif optionnelle uniquement pour une citation forte ou un détail de marque.
+
+Le logo peut rester serif. C’est même plus intéressant s’il devient une signature face à une interface moderne.
+
+### Boutons
+
+CTA principal :
+
+- fond orange solaire plat ;
+- texte en casse phrase ;
+- pas de dégradé bronze ;
+- ombre courte et nette ;
+- rayon 12–14 px.
+
+CTA secondaire :
+
+- lien encre avec flèche ;
+- ou bouton blanc avec bordure froide ;
+- jamais autant de poids que le CTA principal.
+
+Libellé principal stable sur tout le site :
+
+**Recevoir mon diagnostic sous 24h**
+
+### Photographie
+
+Direction :
+
+- lumière naturelle ;
+- scènes documentaires ;
+- vrais gestes ;
+- vrais écrans ;
+- cadres légèrement imparfaits ;
+- couleurs chaudes mais neutres ;
+- aucun décor de banque d’images trop parfait.
+
+Plan photo minimum :
+
+1. portrait réel de Myriam face caméra ;
+2. Myriam de trois-quarts devant le portail ;
+3. vue par-dessus l’épaule sur une vérification de dossier ;
+4. main, document anonymisé et écran avec statut ;
+5. échange téléphonique ou visioconférence avec un installateur ;
+6. contexte photovoltaïque réel en arrière-plan.
+
+### Iconographie
+
+Créer un petit système d’icônes ligne :
+
+- dossier ;
+- mairie ;
+- validation ;
+- branchement réseau ;
+- pièce manquante ;
+- horloge ;
+- portail ;
+- relance.
+
+Épaisseur constante, angles légèrement arrondis, une couleur par statut. Pas d’icônes 3D ni d’illustrations génériques.
+
+## Nouvelle architecture de la home
+
+Objectif : passer de 13 grandes sections à 7 ou 8 séquences fortes.
+
+| Séquence cible | Contenu | Décision sur l’existant |
+| --- | --- | --- |
+| 1. Hero conversion | Promesse, formulaire court, preuve portail | Conserver et moderniser |
+| 2. Bande de confiance | 1 357 dossiers, 96 %, 28 partenaires, logos normalisés | Compacter |
+| 3. Problème + méthode | Trois blocages, quatre étapes, photo réelle | Fusionner « Pour qui » et « Process » |
+| 4. Portail | Trois vues ciblées, statuts et prochaine action | Conserver, agrandir, renforcer le contraste |
+| 5. Offres + prix | DP, Consuel/Enedis, complet, EDF OA/aides | Fusionner services et aperçu tarifs |
+| 6. Preuve humaine | Myriam, témoignage nominatif, cas client | Fusionner les preuves dispersées |
+| 7. FAQ courte | Cinq objections business maximum | Réduire |
+| 8. CTA final | Un formulaire ou une prise de rendez-vous | Conserver un seul mécanisme |
+
+À déplacer :
+
+- quiz volume : landing dédiée ou ouverture progressive du formulaire ;
+- checklist : blog et pages SEO ;
+- second formulaire diagnostic complet : page contact ;
+- cas clients longs : page « Méthode » ou « Résultats ».
+
+## Recommandations par page
+
+### Accueil
+
+Priorité maximale :
+
+- réduire la longueur de 35 à 45 % ;
+- renforcer la preuve produit au-dessus de la ligne de flottaison ;
+- passer les titres en sans-serif ;
+- retirer les doublons de formulaire ;
+- introduire une bande sombre ou bleu système ;
+- remplacer l’image générique par du réel.
+
+### Tarifs
+
+À conserver :
+
+- montants très visibles ;
+- carte recommandée sombre ;
+- comparaison au coût d’une ADV.
+
+À améliorer :
+
+- utiliser l’espace vide du hero pour un mini-tableau comparatif ;
+- afficher « à partir de 89 € HT / dossier » au premier écran ;
+- ajouter une preuve client près des tarifs ;
+- raccourcir les longues introductions ;
+- transformer les notes contractuelles en accordéon ou bloc secondaire.
+
+### À propos
+
+Priorité critique :
+
+- remplacer immédiatement la photo actuelle ;
+- montrer Myriam dans un contexte réel ;
+- ajouter une courte chronologie ou trois preuves d’expérience ;
+- utiliser la citation comme moment éditorial fort ;
+- faire de cette page une page de confiance, pas une simple présentation.
+
+### Blog
+
+Le hero est trop grand et trop serif. Il ressemble davantage à une couverture de magazine qu’à un centre de ressources opérationnel.
+
+À faire :
+
+- réduire le H1 d’environ 30 % ;
+- intégrer filtres ou catégories lisibles ;
+- créer des couvertures distinctes par article ;
+- éviter la répétition des mêmes trois photos ;
+- utiliser le système visuel déjà défini pour Instagram : grand titre sans-serif, une idée, une couleur d’accent, un schéma ou un statut ;
+- mettre une preuve ou un CTA service contextuel sans transformer chaque article en landing.
+
+### Pages SEO
+
+Conserver leur richesse de contenu, mais appliquer un template plus simple :
+
+- hero court ;
+- sommaire ;
+- une image ou un schéma utile ;
+- blocs de contenu sans cadre systématique ;
+- preuve métier ;
+- CTA principal stable ;
+- formulaire complet uniquement en fin de page.
+
+## Références de direction
+
+Ces références ne sont pas des modèles à copier, mais des principes utiles :
+
+- [Sweep](https://www.sweep.net/) : langage B2B greentech, typographie sans-serif, place centrale donnée au produit et aux données ;
+- [Enpal](https://www.enpal.com/) : contexte solaire immédiatement visible, photographie très présente, promesse simple et contraste fort.
+
+Pour Sunelys, la bonne synthèse serait :
+
+- la précision produit de Sweep ;
+- l’incarnation solaire d’Enpal ;
+- la chaleur ivoire propre à Sunelys ;
+- une présence humaine plus forte que les deux.
+
+## Plan d’action priorisé
+
+### P0 — 3 à 7 jours
+
+1. Retirer la photo actuelle de Myriam et son pictogramme de recadrage.
+2. Simplifier le header mobile en une ligne avec menu.
+3. Supprimer l’animation des chiffres.
+4. Stabiliser un seul libellé CTA principal.
+5. Réduire ou désactiver l’exit intent sur la home.
+6. Remplacer la police de titre par une sans-serif moderne.
+7. Passer l’accent bronze au orange solaire déjà utilisé dans la direction Instagram.
+
+### P1 — 1 à 3 semaines
+
+1. Recomposer le hero sans perdre le formulaire visible.
+2. Ramener la home à 7–8 séquences.
+3. Refaire la section portail avec trois recadrages lisibles.
+4. Normaliser les logos clients.
+5. Créer le nouveau système de cartes, boutons, statuts et icônes.
+6. Organiser une mini séance photo réelle.
+7. Repenser la page À propos autour de la fondatrice et de la méthode.
+
+### P2 — 3 à 6 semaines
+
+1. Décliner le système sur tarifs, services et pages SEO.
+2. Créer les couvertures blog cohérentes avec Instagram.
+3. Construire une page « Méthode / portail / résultats ».
+4. Tester deux variantes du hero.
+5. Mesurer la conversion avant et après par appareil.
+
+## Mesure : protéger la conversion pendant la refonte
+
+Ne pas juger la refonte uniquement au ressenti.
+
+Événements à comparer avant/après :
+
+- clic CTA hero ;
+- démarrage formulaire ;
+- abandon par champ ;
+- soumission formulaire ;
+- clic tarifs ;
+- clic téléphone mobile ;
+- clic portail ;
+- profondeur 25 %, 50 %, 75 % ;
+- conversion par desktop et mobile ;
+- qualité du lead, pas seulement volume.
+
+Tests recommandés :
+
+### Test A — Typographie et palette
+
+Structure identique, nouveau système visuel seulement.
+
+Mesure : clic CTA, démarrage formulaire, perception qualitative.
+
+### Test B — Hero
+
+- Variante actuelle modernisée avec formulaire complet ;
+- variante compacte avec trois champs et preuve portail.
+
+Mesure : taux de démarrage, taux de soumission et qualification.
+
+### Test C — Longueur de home
+
+- version longue actuelle ;
+- version condensée à huit séquences.
+
+Mesure : conversion totale, profondeur de scroll, temps avant première action.
+
+## Ce qu’il ne faut pas faire
+
+- remplacer le beige par un site entièrement noir ;
+- ajouter des dégradés technologiques partout ;
+- adopter un vert « écologique » générique comme couleur principale ;
+- supprimer tous les formulaires en une fois ;
+- utiliser encore plus de photos de panneaux de banque d’images ;
+- ajouter des animations pour donner une impression de modernité ;
+- reconstruire toutes les pages avant d’avoir validé le nouveau hero et le nouveau système visuel.
+
+## Conclusion
+
+Sunelys n’a pas besoin d’une identité plus décorative. Elle a besoin d’une identité plus nette, plus contemporaine et plus incarnée.
+
+La meilleure évolution n’est pas « luxe minimaliste ». C’est :
+
+**ivoire chaleureux + encre technique + orange solaire + preuve produit + vraies personnes.**
+
+En conservant la clarté commerciale, les tarifs et le formulaire visible, cette direction peut améliorer simultanément :
+
+- la perception de modernité ;
+- la crédibilité ;
+- la différenciation ;
+- la qualité des leads ;
+- et la conversion mobile.
+
+## Prototype v1 engagé le 24 juillet 2026
+
+Le premier lot de transformation applique la direction « cabinet opérationnel + plateforme solaire » sur le système global, le header et le hero de l’accueil.
+
+Éléments réalisés :
+
+- palette ivoire, encre technique, orange solaire, bleu système et vert de statut ;
+- passage des titres et de l’interface à une pile sans-serif moderne ;
+- header ramené à une seule ligne sur tous les formats ;
+- menu compact sur tablette et mobile à la place de la navigation horizontale ;
+- hero sombre à fort contraste ;
+- promesse raccourcie et recentrée sur la reprise de contrôle ;
+- preuve portail intégrée directement au premier écran ;
+- formulaire ramené à trois informations visibles ;
+- preuves `1 357 dossiers`, `96 %` et `24h` remontées dans le hero ;
+- CTA principal stabilisé autour du diagnostic sous 24h ;
+- exit intent supprimé de l’accueil ;
+- compteurs animés supprimés pour afficher immédiatement les vraies valeurs.
+
+Cette première direction a été validée comme une amélioration par rapport à la version initiale.
+
+## Prototype v2 engagé le 24 juillet 2026
+
+Le deuxième lot applique le même langage visuel à l’ensemble de l’accueil et réduit la longueur perçue de la page.
+
+Éléments réalisés :
+
+- home ramenée de treize à huit séquences utiles ;
+- suppression des blocs redondants et des routes de conversion concurrentes ;
+- création d’une section méthode qui réunit les formats de délégation et le parcours en quatre étapes ;
+- chiffres clés regroupés dans une bande de preuve immédiatement lisible ;
+- logos clients présentés dans un mur plus neutre et plus homogène ;
+- portail traité comme une vraie interface produit, avec deux vues du logiciel ;
+- services recomposés dans une grille éditoriale, avec tarifs fixes visibles sans ajouter un CTA principal ;
+- témoignages hiérarchisés dans un système de preuve plus crédible et moins décoratif ;
+- FAQ allégée, sans empilement de cartes ;
+- bloc final recentré sur un seul diagnostic principal, avec Calendly en option ;
+- animations d’apparition raccourcies et rendues plus discrètes.
+
+La nouvelle séquence de lecture est désormais :
+
+1. promesse et diagnostic ;
+2. preuve chiffrée et clients ;
+3. méthode de délégation ;
+4. portail et suivi ;
+5. périmètre des services ;
+6. retours clients ;
+7. objections fréquentes ;
+8. passage à l’action.
+
+Cette architecture conserve les leviers de conversion essentiels tout en installant une perception plus actuelle : cabinet opérationnel, outil métier et accompagnement humain.
+
+## Prototype v3 engagé le 24 juillet 2026
+
+Le troisième lot étend le système visuel à la page Tarifs et au pied de page global.
+
+Éléments réalisés :
+
+- premier écran Tarifs reconstruit autour d’une lecture immédiate des prix ;
+- aperçu des quatre principaux tarifs avant le premier défilement ;
+- suppression des répétitions et des CTA concurrents ;
+- trois offres photovoltaïques rendues directement comparables ;
+- offre recommandée différenciée sans surcharger toute la grille ;
+- EDF OA et aides à la rénovation réunis dans une seule séquence complémentaire ;
+- conditions tarifaires déplacées dans un niveau de lecture secondaire ;
+- formulaire de diagnostic harmonisé avec le nouveau système visuel ;
+- informations et champs existants conservés pour ne pas dégrader la qualification ;
+- pied de page global restructuré autour de la marque, du contact, du portail et des expertises.
+
+La page Tarifs suit désormais une logique de décision :
+
+1. comprendre le modèle de prix ;
+2. voir les montants ;
+3. comparer les trois niveaux de délégation ;
+4. identifier les prestations complémentaires ;
+5. vérifier ce que le prix comprend ;
+6. demander un cadrage.
+
+## Prototype v4 engagé le 24 juillet 2026
+
+Le quatrième lot modernise les pages Services et À propos pour assurer la continuité du nouveau positionnement.
+
+### Page Services
+
+- neuf offres auparavant équivalentes regroupées en trois familles lisibles ;
+- premier écran centré sur le résultat métier plutôt que sur un catalogue ;
+- périmètre des expertises résumé dans une vue opérationnelle ;
+- preuves chiffrées rendues immédiatement visibles ;
+- trois modes de délégation explicités : ponctuel, pic de charge et flux récurrent ;
+- chaîne administrative complète installée comme solution recommandée ;
+- quatre démarches photovoltaïques présentées dans des lignes comparables ;
+- sous-traitance DP et pilotage multi-dossiers regroupés dans une section dédiée au volume ;
+- MaPrimeRénov’ et CEE réunis dans une famille distincte avec prix visibles ;
+- formulaire de diagnostic conservé comme conversion finale principale.
+
+### Page À propos
+
+- portrait de la fondatrice placé au centre du premier écran ;
+- histoire de Sunelys recentrée sur le problème terrain des installateurs ;
+- preuves chiffrées et logos clients intégrés à la narration de marque ;
+- parole de Myriam Zaoui mise en valeur dans un témoignage éditorial ;
+- méthode résumée en trois principes simples ;
+- positionnement clarifié autour de la spécialisation, de la continuité et de la souplesse ;
+- contact final plus direct et plus humain.
+
+Ce lot renforce l’incarnation de la marque sans sacrifier la lisibilité commerciale : la home porte la promesse, Services organise l’offre, Tarifs aide à décider et À propos crédibilise l’interlocuteur.
+
+## Prototype v5 engagé le 24 juillet 2026
+
+Le cinquième lot modernise les pages Parcours et Contact comme une seule séquence de décision.
+
+### Page Parcours
+
+- premier écran recentré sur la simplicité d’intégration ;
+- aperçu du parcours en quatre étapes dès le premier regard ;
+- dossier ponctuel, pic de charge et flux récurrent présentés comme trois portes d’entrée ;
+- chaque étape associée à un responsable et à un résultat concret ;
+- répartition des responsabilités explicitée entre l’installateur et Sunelys ;
+- chaîne de collaboration rendue plus lisible sans répéter les bénéfices commerciaux ;
+- garanties regroupées autour du cadre, de la visibilité, de la souplesse et de la continuité ;
+- diagnostic conservé comme action finale principale.
+
+### Page Contact
+
+- page ramenée à deux séquences : compréhension du diagnostic, puis formulaire ;
+- calendrier embarqué supprimé pour éviter deux parcours de conversion concurrents ;
+- lien Calendly conservé comme option secondaire ;
+- formulaire réduit aux informations réellement nécessaires au premier cadrage ;
+- champs de situation et d’étape bloquée retirés du premier contact ;
+- attribution marketing, préremplissage et suivi des conversions conservés ;
+- coordonnées directes intégrées à proximité du formulaire ;
+- déroulé de la réponse sous 24h rendu visible avant l’envoi ;
+- témoignage client conservé comme réassurance.
+
+Cette évolution réduit la charge cognitive au moment le plus sensible du parcours : l’utilisateur comprend ce qu’il va recevoir, remplit moins de champs et conserve une alternative humaine s’il préfère appeler ou réserver un échange.
+
+## Prototype v6 engagé le 24 juillet 2026
+
+Le sixième lot modernise le modèle partagé des pages de service détaillées et transforme le blog en véritable porte d’entrée éditoriale.
+
+### Pages de service détaillées
+
+- six routes harmonisées à partir d’un même modèle de page ;
+- premier écran sombre recentré sur la promesse, le contexte et un diagnostic compact ;
+- profil client et preuve terrain sortis du formulaire pour améliorer la lecture ;
+- tarifs fixes rendus visibles dans une bande de réassurance dédiée ;
+- suppression des lead magnets, checklists et diagnostics génériques qui répétaient les mêmes arguments ;
+- conservation du contenu métier propre à chaque prestation : problème, périmètre, pièces, processus, signaux de délégation, cas client et liens utiles ;
+- FAQ transformée en accordéons pour réduire la longueur perçue ;
+- formulaire final conservé comme conversion principale ;
+- hiérarchie visuelle alignée avec la home, Services, Tarifs, Parcours et Contact.
+
+### Blog
+
+- article le plus récent mis en avant dès le premier écran ;
+- catégories rendues visibles comme repères de navigation éditoriale ;
+- cartes d’articles recomposées autour des vraies couvertures, du temps de lecture et de la date ;
+- bibliothèque de guides plus aérée et plus proche d’un média professionnel ;
+- discours recentré sur des contenus directement applicables par les installateurs ;
+- diagnostic Sunelys réintroduit en fin de parcours sans concurrencer la lecture des articles.
+
+Ce lot réduit les traces les plus visibles de l’ancien design — empilement de cartes, répétitions commerciales et multiplication des formulaires — tout en préservant le référencement et les leviers de qualification.
+
+## Prototype v7 engagé le 24 juillet 2026
+
+Le septième lot traite les contenus éditoriaux et les deux pages de service qui ne dépendaient pas du modèle partagé.
+
+### Articles du blog
+
+- gabarit commun entièrement recomposé autour d’une lecture éditoriale ;
+- premier écran sombre avec couverture réelle, métadonnées et promesse de l’article ;
+- suppression de la checklist générique injectée dans tous les articles ;
+- réduction des appels à l’action concurrents dans la partie haute ;
+- colonne de repères dédiée au résultat métier, à la date et au temps de lecture ;
+- corps de texte libéré de la grande carte blanche pour améliorer le confort de lecture ;
+- tableaux, listes, citations et liens harmonisés avec le système 2026 ;
+- bloc auteur simplifié et davantage incarné ;
+- services, tarifs et guides complémentaires organisés dans des parcours distincts ;
+- conversion finale conservée dans un seul bloc sombre.
+
+### Sous-traitance administrative photovoltaïque
+
+- premier écran aligné avec le reste du site : fond sombre, promesse claire et prix fixes visibles ;
+- quatre prestations présentées dans une liste opérationnelle plutôt que dans des cartes équivalentes ;
+- signaux de délégation transformés en diagnostic de situation ;
+- différence Sunelys rendue plus lisible dans un bloc de positionnement sombre ;
+- FAQ convertie en accordéons ;
+- diagnostic replacé en conclusion du parcours.
+
+### EDF OA
+
+- répétition du tarif supprimée dans le premier écran ;
+- offre à 49 € HT installée dans un panneau de décision unique ;
+- périmètre inclus, étapes et responsabilités présentés comme des séquences de travail ;
+- sécurité des accès et limites de l’offre conservées comme preuves de sérieux ;
+- FAQ allégée visuellement ;
+- conversion portail maintenue comme action principale, avec le contact en alternative.
+
+Ce lot rapproche le site d’une image de cabinet opérationnel et de média métier : le contenu gagne en crédibilité, tandis que la conversion intervient au moment où le lecteur dispose enfin du contexte nécessaire pour décider.
+
+## Prototype v8 engagé le 24 juillet 2026
+
+Le huitième lot clôt l’harmonisation des écrans d’acquisition, de confirmation et de service secondaire.
+
+### Landing publicitaire
+
+- premier écran simplifié autour de la promesse et du formulaire ;
+- image portail, filtres et tarifs redondants retirés de la zone de conversion ;
+- trois champs essentiels maintenus pour la qualification ;
+- téléphone et étape bloquée conservés dans un niveau facultatif replié ;
+- attribution publicitaire, champs cachés et événements de conversion préservés ;
+- preuves terrain regroupées dans une seule bande immédiatement lisible ;
+- offres présentées comme quatre lignes de décision, avec prix fixes visibles ;
+- section de positionnement transformée en preuve de spécialisation ;
+- séquences « pourquoi déléguer », « périmètre » et « preuve terrain » supprimées lorsqu’elles répétaient les mêmes arguments ;
+- conversion finale conservée.
+
+### Checklist
+
+- ressource transformée en document de travail plutôt qu’en grille de cartes ;
+- cases de contrôle et sections rendues plus lisibles à l’écran ;
+- comportement d’impression et d’enregistrement PDF conservé ;
+- appel à l’action final aligné avec les autres pages.
+
+### Confirmation, marque et erreur
+
+- page Merci recentrée sur la confirmation et les trois prochaines étapes ;
+- réservation Calendly maintenue comme option, sans remettre en doute l’envoi du formulaire ;
+- page officielle Sunelys harmonisée et balisage principal corrigé ;
+- page 404 transformée en orientation utile vers les services et les guides ;
+- identité sombre, bleu système et orange de conversion appliqués à ces écrans secondaires.
+
+### Conversion globale
+
+- fenêtre de sortie visuellement alignée avec le nouveau site ;
+- ouverture automatique après trente secondes supprimée ;
+- affichage réservé à un signal réel de sortie ou à un retour marqué vers le haut après 65 % de lecture ;
+- formulaire, attribution et mesure de conversion conservés.
+
+Le site dispose désormais d’un langage visuel cohérent sur l’ensemble des routes visibles : pages commerciales, contenus éditoriaux, acquisition payante et écrans de service. La conversion reste structurante, mais elle n’interrompt plus artificiellement la lecture.
+
+## Audit de production — version publiée le 24 juillet 2026
+
+La refonte a été construite puis vérifiée sur la version réellement publiée à l’adresse `https://sunelys.fr`, sur ordinateur et sur mobile.
+
+### Contrôles effectués
+
+- compilation Astro complète réussie avant la mise en production ;
+- 25 URL publiques issues du sitemap contrôlées avec une réponse HTTP 200 ;
+- absence d’erreur ou d’avertissement dans la console sur les principaux parcours ;
+- absence de débordement horizontal sur la home, Services, Tarifs, Contact, Blog et un article long ;
+- navigation mobile, menu, formulaires et accordéons fonctionnels ;
+- métadonnées principales présentes : canonical, description, Open Graph, Twitter Card et données structurées ;
+- sitemap, robots.txt et mesure GA4 présents en production ;
+- contrôles visuels représentatifs réalisés à 1512 × 748 px et 390 × 844 px.
+
+### Évaluation synthétique
+
+| Dimension | Note | Lecture |
+| --- | ---: | --- |
+| Clarté de l’offre | 9/10 | L’activité, les prix et la spécialisation photovoltaïque sont compris immédiatement. |
+| Efficacité de conversion | 8,5/10 | Les actions principales sont visibles et la qualification reste structurée. |
+| Cohérence visuelle | 9/10 | La marque dispose maintenant d’un véritable système commun. |
+| Perception premium | 8/10 | Le rendu est nettement plus actuel, mais peut encore gagner en incarnation. |
+| Preuve humaine et terrain | 6,5/10 | Les preuves existent, mais un cas client complet manque encore. |
+| Différenciation de marque | 7/10 | Le site est solide, mais certaines compositions restent proches des codes SaaS et conseil. |
+| Efficacité mobile | 7,5/10 | Le rendu est propre, avec encore quelques parcours trop longs. |
+| Confort éditorial | 7,5/10 | Les articles sont lisibles, mais les plus longs manquent de navigation interne. |
+| Fondations techniques et SEO | 9/10 | Les routes, métadonnées et données structurées sont correctement exposées. |
+
+L’ensemble atteint environ **8,3/10** : le site est désormais crédible, moderne et orienté conversion. Pour dépasser réellement le seuil « waouh », la prochaine étape doit moins porter sur de nouveaux blocs que sur une identité plus propriétaire, davantage de preuve réelle et des parcours mobiles plus courts.
+
+### Ce qui fonctionne particulièrement bien
+
+- le premier écran de la home associe promesse, preuve produit et diagnostic sans diluer l’action ;
+- la combinaison bleu nuit, bleu système et orange crée une hiérarchie claire et professionnelle ;
+- les prix fixes sont visibles suffisamment tôt sur les pages où ils aident la décision ;
+- les pages détaillées conservent leur profondeur SEO tout en paraissant moins chargées ;
+- le portail apporte une preuve concrète et différencie Sunelys d’un simple prestataire administratif ;
+- les espacements, rayons, contrastes et typographies sont cohérents d’une page à l’autre ;
+- aucun problème critique de responsive n’a été observé sur les écrans audités.
+
+### P0 — correction immédiate avant toute campagne ou partage social
+
+L’image Open Graph actuellement utilisée est une capture du portail et non une carte sociale conçue pour la marque. Elle laisse apparaître une adresse e-mail professionnelle et plusieurs noms lisibles. Même si ces données sont des exemples, elles ne doivent pas se retrouver dans l’aperçu public partagé sur LinkedIn, WhatsApp ou les moteurs.
+
+Actions recommandées :
+
+- remplacer cette image par une carte sociale dédiée au format 1200 × 630 px ;
+- reprendre la nouvelle identité : fond bleu nuit, promesse courte, logo, accent orange et détail graphique propriétaire ;
+- ne conserver aucune donnée de dossier, aucun nom et aucune adresse e-mail ;
+- vérifier également toutes les captures du portail exposées publiquement et anonymiser explicitement leurs contenus.
+
+### P1 — leviers prioritaires pour créer davantage d’effet « waouh »
+
+#### 1. Rendre les premiers écrans plus distinctifs selon la page
+
+Services, Tarifs et Contact utilisent volontairement un langage commun, mais leur composition sombre avec panneau clair à droite devient répétitive. Le système doit rester cohérent tout en produisant trois moments différents :
+
+- Services : une cartographie visuelle du flux administratif ;
+- Tarifs : une matrice de décision très graphique ;
+- Contact : une entrée plus humaine autour de Myriam et de la conversation ;
+- pages de prestation : une chronologie de dossier ou un avant/après opérationnel.
+
+#### 2. Ajouter une preuve client complète et incarnée
+
+Les logos et citations rassurent, mais ne suffisent pas encore à installer une perception premium. Un seul cas client fort pourrait réunir :
+
+- profil réel de l’installateur ;
+- volume de dossiers ;
+- situation avant Sunelys ;
+- délai ou charge récupérée ;
+- résultat chiffré ;
+- citation, portrait et logo autorisés.
+
+Ce module devrait apparaître sur la home puis être décliné sur Services, avec une page de cas dédiée si la matière le permet.
+
+#### 3. Raccourcir les parcours mobiles
+
+- sur Contact, le formulaire débute à environ 1 820 px du haut : il doit suivre immédiatement la promesse sur mobile ou être intégré au premier écran ;
+- la home dépasse environ 10 000 px de hauteur sur mobile : certaines preuves et étapes peuvent devenir des accordéons ou des séquences horizontales ;
+- le menu mobile fonctionne, mais son empilement de petites cartes manque de présence : une navigation plein écran, plus éditoriale, renforcerait la marque.
+
+#### 4. Créer une signature graphique propre à Sunelys
+
+Le système actuel est professionnel, mais reste proche des codes du conseil et des produits SaaS. Une signature visuelle dérivée du photovoltaïque et du logo — lignes de plan, trames solaires, chemins de dossier ou motif modulaire — permettrait de rendre la marque reconnaissable sans logo. Elle doit rester rare, utile et associée aux moments importants.
+
+#### 5. Mieux guider la lecture des articles longs
+
+L’article audité dépasse environ 10 800 px sur ordinateur et 14 000 px sur mobile. Il gagnerait à intégrer :
+
+- une progression de lecture discrète ;
+- un sommaire fixe sur ordinateur ;
+- un sommaire repliable sur mobile ;
+- une sélection plus courte de contenus liés en fin de lecture.
+
+### P2 — consolidation technique et éditoriale
+
+- convertir les grandes images éditoriales en formats AVIF/WebP et fournir des tailles responsives ; certaines couvertures sources approchent actuellement 840 Ko ;
+- générer des dates `lastmod` de sitemap correspondant aux vraies mises à jour ;
+- extraire les styles partagés de Hero, listes, sections et accordéons, puis supprimer les anciennes règles désormais masquées par les surcharges 2026 ;
+- sécuriser le système d’apparition au scroll pour que le contenu reste visible même si un script client échoue avant l’initialisation de l’observateur ;
+- installer une micro-animation utile autour du parcours d’un dossier ou de l’état du portail, sans multiplier les effets décoratifs ;
+- constituer une petite bibliothèque de portraits, gestes métier et situations réelles afin de réduire la dépendance aux interfaces et aux formes abstraites.
+
+### Roadmap recommandée
+
+#### Sprint 1 — impact immédiat
+
+1. nouvelle carte Open Graph et anonymisation des visuels ;
+2. formulaire Contact remonté sur mobile ;
+3. menu mobile plus immersif ;
+4. compression des images les plus lourdes.
+
+#### Sprint 2 — différenciation de marque
+
+1. signature graphique propriétaire ;
+2. variations de premiers écrans selon les intentions de page ;
+3. cas client complet, humain et chiffré ;
+4. bibliothèque photographique cohérente.
+
+#### Sprint 3 — profondeur et pérennité
+
+1. sommaire et progression des articles ;
+2. consolidation des composants et suppression du CSS historique ;
+3. sitemap plus précis ;
+4. contrôle final d’accessibilité, de performance et de conversion.

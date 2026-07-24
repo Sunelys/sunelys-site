@@ -49,6 +49,7 @@ const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
 const isContactPage = path === "/contact";
 const showLeadCaptureShell = path !== "/merci" && !isNoindex && !isContactPage;
+const showExitIntent = showLeadCaptureShell && path !== "/";
 
 const routeLabels: Record<string, string> = {
   "/services": "Services",
@@ -103,7 +104,7 @@ const breadcrumbSchema =
       }
     : null;
 
-const BRANDING_INTENSITY: "subtle" | "bold" = "bold";
+const BRANDING_INTENSITY: "subtle" | "bold" = "subtle";
 const brandingVars =
   BRANDING_INTENSITY === "subtle"
     ? "--shape-opacity:0.08; --shape-blur:16px; --shape-scale:1.02; --shape-x:110%; --shape-y:10vh; --shape-secondary-opacity:0.05;"
@@ -182,7 +183,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
-    <meta name="theme-color" content="#c9ac85" />
+    <meta name="theme-color" content="#0e1726" />
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
@@ -252,7 +253,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic gratuit" />
+    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic sous 24h" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">
@@ -262,7 +263,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
     <Footer links={footerLinks} />
 
-    {showLeadCaptureShell && <ExitIntentModal action={leadFormAction} path={path} />}
+    {showExitIntent && <ExitIntentModal action={leadFormAction} path={path} />}
 
     {
       showLeadCaptureShell && (
@@ -271,7 +272,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             Appeler
           </a>
           <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
-            Diagnostic gratuit
+            Diagnostic 24h
           </a>
         </div>
       )
@@ -746,34 +747,38 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
 <style is:global>
   :root {
-    --bg: #f4f0e7;
-    --bg-soft: #fbf7ef;
-    --surface: #fffdf8;
+    --bg: #f7f6f2;
+    --bg-soft: #fbfbf8;
+    --surface: #ffffff;
     --surface-elevated: #ffffff;
-    --text: #14110d;
-    --text-muted: #5d5548;
-    --line: #ded3c1;
-    --accent: #a9783d;
-    --accent-strong: #8e592b;
-    --accent-deep: #6f431f;
-    --accent-soft: #eadcc1;
-    --ink: #12100d;
-    --ink-soft: #201b15;
+    --text: #0e1726;
+    --text-muted: #536071;
+    --line: #dde3ea;
+    --accent: #d4822a;
+    --accent-strong: #b96513;
+    --accent-deep: #8f490d;
+    --accent-soft: #f6e4cf;
+    --ink: #0e1726;
+    --ink-soft: #152238;
+    --system: #3662e3;
+    --system-soft: #eef2ff;
+    --success: #1d9b75;
+    --success-soft: #e9f7f1;
 
-    --shadow-sm: 0 10px 28px rgba(20, 16, 10, 0.055);
-    --shadow-md: 0 24px 70px rgba(20, 16, 10, 0.11);
-    --shadow-accent: 0 18px 42px rgba(111, 67, 31, 0.22);
+    --shadow-sm: 0 10px 30px rgba(14, 23, 38, 0.055);
+    --shadow-md: 0 24px 68px rgba(14, 23, 38, 0.11);
+    --shadow-accent: 0 16px 36px rgba(185, 101, 19, 0.24);
 
     --radius-sm: 10px;
-    --radius-md: 18px;
-    --radius-xl: 30px;
+    --radius-md: 16px;
+    --radius-xl: 22px;
 
     --max-width: 1320px;
     --section-gap: clamp(3.2rem, 7vw, 7rem);
     --container-padding: clamp(1rem, 3.2vw, 2.4rem);
 
-    --font-display: "Didot", "Bodoni MT", "Times New Roman", serif;
-    --font-sans: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+    --font-sans: "Avenir Next", "Segoe UI Variable", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --font-display: var(--font-sans);
 
     --step--1: clamp(0.78rem, 0.14vw + 0.74rem, 0.9rem);
     --step-0: clamp(0.98rem, 0.24vw + 0.92rem, 1.12rem);
@@ -822,9 +827,9 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     color: var(--text);
     line-height: 1.5;
     background:
-      radial-gradient(120% 100% at -18% -35%, color-mix(in srgb, var(--accent-soft) 56%, transparent), transparent 58%),
-      radial-gradient(100% 86% at 120% 116%, color-mix(in srgb, #d6e0d7 26%, transparent), transparent 58%),
-      linear-gradient(180deg, #f8f4ec, var(--bg) 44%, #f1eadf),
+      radial-gradient(105% 82% at 100% 0%, color-mix(in srgb, var(--system-soft) 62%, transparent), transparent 54%),
+      radial-gradient(95% 78% at 0% 100%, color-mix(in srgb, var(--accent-soft) 42%, transparent), transparent 58%),
+      linear-gradient(180deg, var(--bg-soft), var(--bg)),
       var(--bg);
     position: relative;
   }
@@ -879,7 +884,8 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     margin: 0;
     font-family: var(--font-display);
     color: var(--text);
-    letter-spacing: 0;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
     text-wrap: balance;
   }
 
@@ -894,13 +900,13 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     gap: 0.4rem;
     min-height: 2.72rem;
     padding: 0.74rem 1.22rem;
-    border-radius: 13px;
+    border-radius: 12px;
     border: 1px solid transparent;
     text-decoration: none;
-    font-size: 0.77rem;
-    text-transform: uppercase;
+    font-size: 0.84rem;
+    text-transform: none;
     letter-spacing: 0;
-    font-weight: 600;
+    font-weight: 700;
     transition: transform 170ms ease, box-shadow 170ms ease, background-color 170ms ease,
       color 170ms ease, border-color 170ms ease;
   }
@@ -911,28 +917,28 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
   }
 
   .btn-primary {
-    background: linear-gradient(180deg, var(--ink-soft), #080706);
-    color: #fffdfa;
-    border-color: #0f0c09;
+    background: var(--ink);
+    color: #ffffff;
+    border-color: var(--ink);
   }
 
   .btn-primary:hover,
   .btn-primary:focus-visible {
-    background: linear-gradient(180deg, #221d16, #0c0a08);
+    background: var(--ink-soft);
   }
 
   .btn.btn-accent {
-    background: linear-gradient(180deg, #b98547, var(--accent-strong));
-    color: #ffffff;
-    border-color: color-mix(in srgb, var(--accent-strong) 86%, #f0d7ad);
+    background: var(--accent);
+    color: var(--ink);
+    border-color: var(--accent);
     box-shadow: var(--shadow-accent);
   }
 
   .btn.btn-accent:hover,
   .btn.btn-accent:focus-visible {
-    background: linear-gradient(180deg, #c18d4f, var(--accent-deep));
-    color: #ffffff;
-    border-color: color-mix(in srgb, var(--accent-deep) 86%, #f0d7ad);
+    background: #e09647;
+    color: var(--ink);
+    border-color: #e09647;
   }
 
   .btn-secondary {
@@ -977,10 +983,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
   .js .reveal {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
     transition:
-      opacity 0.6s ease,
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.36s ease,
+      transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
     will-change: opacity, transform;
   }
 
@@ -991,10 +997,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
   .js .reveal [data-reveal-item] {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
     transition:
-      opacity 0.6s ease,
-      transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.36s ease,
+      transform 0.36s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .js .reveal.is-visible [data-reveal-item] {
@@ -1003,23 +1009,23 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
   }
 
   .js .reveal.is-visible [data-reveal-item]:nth-child(1) {
-    transition-delay: 0.08s;
+    transition-delay: 0.04s;
   }
 
   .js .reveal.is-visible [data-reveal-item]:nth-child(2) {
-    transition-delay: 0.18s;
+    transition-delay: 0.08s;
   }
 
   .js .reveal.is-visible [data-reveal-item]:nth-child(3) {
-    transition-delay: 0.28s;
+    transition-delay: 0.12s;
   }
 
   .js .reveal.is-visible [data-reveal-item]:nth-child(4) {
-    transition-delay: 0.38s;
+    transition-delay: 0.16s;
   }
 
   .js .reveal.is-visible [data-reveal-item]:nth-child(5) {
-    transition-delay: 0.48s;
+    transition-delay: 0.2s;
   }
 
   @media (max-width: 760px) {
@@ -1076,8 +1082,8 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
     .sticky-lead-primary {
       padding: 0.84rem 1rem;
-      background: linear-gradient(180deg, #b98547, var(--accent-strong));
-      color: #ffffff;
+      background: var(--accent);
+      color: var(--ink);
       box-shadow: var(--shadow-accent);
     }
 

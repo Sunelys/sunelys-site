@@ -1,6 +1,4 @@
 ---
-import LeadMagnetChecklist from "./LeadMagnetChecklist.astro";
-import PremiumProofSection from "./PremiumProofSection.astro";
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 
 interface ProblemItem {
@@ -101,102 +99,7 @@ const heroSecondaryCta = isGestionLanding
   : { label: "Voir les services", href: "/services" };
 const heroPrimaryLabel = "Recevoir mon diagnostic gratuit";
 const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
-const diagnosticPrimaryLabel = "Recevoir un diagnostic sous 24h";
-const diagnosticSecondaryLabel = isGestionLanding ? "Voir les offres pilotage complet" : "Voir les offres";
 const finalSubmitLabel = isGestionLanding ? "Recevoir mon plan d'action" : "Recevoir mon diagnostic";
-
-const pricingHighlights = [
-  {
-    service: "DP complète",
-    price: "119 € HT",
-    text: "Pièces, dépôt mairie et suivi jusqu'à validation.",
-  },
-  {
-    service: "Raccordement + Consuel",
-    price: "89 € HT",
-    text: "Dossier suivi, relances et mise en service plus lisible.",
-  },
-  {
-    service: "MaPrimeRénov'",
-    price: "129 € HT",
-    text: "Montage, dépôt ANAH et suivi administratif.",
-  },
-  {
-    service: "CEE",
-    price: "99 € HT",
-    text: "Contrôle des pièces et suivi jusqu'à validation.",
-  },
-];
-
-const adminChecklistItems = [
-  "Pièces à réunir selon le blocage: DP, Consuel, Enedis ou aides",
-  "Signaux qui indiquent quoi déléguer en premier",
-  "Réponse Sunelys sous 24h pour cadrer le prochain dossier",
-];
-
-const fastDiagnosticItems = [
-  {
-    title: "Dossier ponctuel",
-    text: "Pour reprendre une DP, un Consuel, un raccordement ou une aide qui consomme déjà trop de temps.",
-  },
-  {
-    title: "Pic de charge",
-    text: "Pour absorber une période dense sans mobiliser vos commerciaux ou conducteurs de travaux sur chaque relance.",
-  },
-  {
-    title: "Flux récurrent",
-    text: "Pour structurer un pilotage clair quand les dossiers reviennent tous les mois et que les statuts se dispersent.",
-  },
-];
-
-const concernSignals = [
-  "Un dossier client avance, mais personne ne sait exactement quelle action bloque.",
-  "Vos équipes relancent plusieurs interlocuteurs au lieu de vendre, poser ou suivre les chantiers.",
-  "Une pièce manquante, un retour mairie, Consuel ou Enedis décale la mise en service.",
-  "Vous voulez déléguer une brique précise avant de confier tout le flux administratif.",
-];
-
-const handoverItems = [
-  {
-    label: "DP",
-    title: "Déclarations préalables",
-    text: "Contrôle des pièces, cohérence des informations, dépôt et suivi mairie jusqu'au retour.",
-    result: "Moins de compléments et une lecture claire de chaque statut.",
-  },
-  {
-    label: "Mise en service",
-    title: "Consuel et raccordement",
-    text: "Préparation administrative, suivi des portails, relances et demandes de complément.",
-    result: "Les dossiers proches mise en service ne restent plus sans pilote.",
-  },
-  {
-    label: "Aides",
-    title: "MaPrimeRénov' et CEE",
-    text: "Montage, pièces attendues, jalons et suivi pour éviter les dossiers qui dorment.",
-    result: "Un flux d'aides plus lisible pour vos équipes et vos clients.",
-  },
-  {
-    label: "Pilotage",
-    title: "Vision par dossier",
-    text: "Centralisation des actions, priorisation des urgences et point d'avancement exploitable.",
-    result: "Vous savez quoi relancer, quoi déléguer et quoi traiter en premier.",
-  },
-];
-
-const diagnosticItems = [
-  {
-    title: "Volume et sources",
-    text: "Identifier d'où viennent les demandes, combien de dossiers arrivent chaque mois et quelles pages génèrent les leads utiles.",
-  },
-  {
-    title: "Blocages réels",
-    text: "Séparer les irritants DP, Consuel, raccordement, relances client et suivi interne pour prioriser sans tout déléguer d'un coup.",
-  },
-  {
-    title: "Plan d'action",
-    text: "Définir le premier périmètre à confier, les statuts à suivre et les indicateurs qui diront si la délégation crée vraiment du revenu.",
-  },
-];
 
 const outcomeItems = [
   "Moins de charge administrative pour vos équipes",
@@ -230,7 +133,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
 <section class="seo-section seo-hero section-shell reveal">
   <div class="hero-layout">
-    <div class="hero-copy">
+    <div class="hero-copy" data-reveal-item>
       <p class="kicker">Service administratif photovoltaïque</p>
       <h1>{data.heroTitle}</h1>
       <p>{data.heroSubtitle}</p>
@@ -262,7 +165,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       }
 
       <div class="hero-actions">
-        <a class="btn btn-primary" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
+        <a class="btn btn-accent" href={`/contact?source=${data.slug}`} data-track={`cta_${data.slug}_hero`}>
           {heroPrimaryLabel}
         </a>
         <a class="btn btn-secondary" href={heroSecondaryCta.href} data-track={`cta_${data.slug}_hero_services`}>
@@ -271,7 +174,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       </div>
     </div>
 
-    <aside class="hero-aside">
+    <aside class="hero-aside" data-reveal-item>
       <article class="hero-lead-card" aria-label="Demande de cadrage rapide">
         <p class="kicker">Diagnostic sous 24h</p>
         <h2>Identifiez le premier flux administratif à déléguer.</h2>
@@ -336,64 +239,45 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
             Recevoir mon plan d'action
           </button>
-          <small>3 champs essentiels. Téléphone optionnel. Dossier ponctuel accepté.</small>
+          <small>Email, volume et blocage. Téléphone optionnel.</small>
         </form>
-      </article>
-
-      <article class="hero-fit-card">
-        <p class="kicker">Quand cette page vous concerne</p>
-        <h2>{data.fitTitle}</h2>
-        <p>{data.fitIntro}</p>
-        <ul>
-          {data.fitItems.map((item) => <li>{item}</li>)}
-        </ul>
-      </article>
-
-      <article class="hero-proof-card">
-        <p class="kicker">Retour terrain</p>
-        <blockquote>{data.proof.quote}</blockquote>
-        <p class="proof-signature">
-          {data.proof.author}
-          <span>{data.proof.role}</span>
-        </p>
-        <ul class="proof-highlights">
-          {data.proof.highlights.map((highlight) => <li>{highlight}</li>)}
-        </ul>
       </article>
     </aside>
   </div>
 </section>
 
-<section class="seo-section seo-offer-snapshot section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Offre claire</p>
-      <h2>Tarifs visibles, diagnostic gratuit, pas de minimum bloquant.</h2>
-    </div>
-    <p>
-      Vous pouvez commencer par un dossier ponctuel, un blocage urgent ou un flux récurrent.
-      Le diagnostic sert à choisir le premier périmètre rentable à déléguer.
+<section class="seo-context section-shell reveal" aria-label="Contexte et preuve">
+  <article class="hero-fit-card" data-reveal-item>
+    <p class="kicker">Quand ce service vous concerne</p>
+    <h2>{data.fitTitle}</h2>
+    <p>{data.fitIntro}</p>
+    <ul>
+      {data.fitItems.map((item) => <li>{item}</li>)}
+    </ul>
+  </article>
+
+  <article class="hero-proof-card" data-reveal-item>
+    <p class="kicker">Retour terrain</p>
+    <blockquote>{data.proof.quote}</blockquote>
+    <p class="proof-signature">
+      {data.proof.author}
+      <span>{data.proof.role}</span>
     </p>
-  </div>
+    <ul class="proof-highlights">
+      {data.proof.highlights.map((highlight) => <li>{highlight}</li>)}
+    </ul>
+  </article>
+</section>
 
-  <div class="offer-snapshot-grid" aria-label="Tarifs Sunelys principaux">
-    {pricingHighlights.map((item) => (
-      <article class="offer-snapshot-item">
-        <span>{item.service}</span>
-        <strong>{item.price}</strong>
-        <p>{item.text}</p>
-      </article>
-    ))}
+<section class="service-pricing-strip section-shell reveal" aria-label="Tarification Sunelys">
+  <div data-reveal-item>
+    <p class="kicker">Tarifs fixes</p>
+    <strong>Dossier ponctuel accepté · aucun abonnement · facturation au réel</strong>
   </div>
-
-  <div class="offer-snapshot-actions">
-    <a class="btn btn-primary btn-accent" href={`/contact?source=${data.slug}_pricing_snapshot#contact-form`} data-track={`cta_${data.slug}_pricing_snapshot`}>
-      Recevoir mon diagnostic gratuit
-    </a>
-    <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_pricing_snapshot_tarifs`}>
-      Voir tous les tarifs
-    </a>
-  </div>
+  <a href="/tarifs" data-track={`cta_${data.slug}_pricing_strip`}>
+    Consulter tous les tarifs
+    <span aria-hidden="true">→</span>
+  </a>
 </section>
 
 {
@@ -462,64 +346,6 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   )
 }
 
-{
-  isGestionLanding && (
-    <PremiumProofSection
-      source={`${data.slug}_premium_proof`}
-      ctaHref={`/contact?source=${data.slug}_premium_proof#contact-form`}
-    />
-  )
-}
-
-<LeadMagnetChecklist
-  source={`${data.slug}_checklist_admin_inline`}
-  kicker="Checklist de reprise"
-  title="Recevez la checklist des pièces à fournir selon votre blocage."
-  text="Une ressource courte pour savoir quoi préparer avant de confier une DP, un Consuel, un raccordement Enedis, MaPrimeRénov' ou CEE."
-  items={adminChecklistItems}
-  need={serviceInterest}
-  blockedStage="Pilotage global"
-  message="Demande de checklist administrative selon blocage"
-  serviceInterest={serviceInterest}
-  qualificationHint="email professionnel demandeur checklist administrative DP Consuel Enedis aides"
-  submitLabel="Recevoir la checklist"
-/>
-
-<section class="seo-section seo-fast-diagnostic section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Offre d'entrée</p>
-      <h2>Diagnostic gratuit sous 24h de vos dossiers administratifs bloqués.</h2>
-    </div>
-    <p>
-      Sunelys identifie le premier périmètre à déléguer pour récupérer du temps et de la visibilité:
-      DP, Consuel, raccordement Enedis, MaPrimeRénov' ou CEE.
-    </p>
-  </div>
-
-  <div class="fast-diagnostic-grid">
-    {fastDiagnosticItems.map((item) => (
-      <article class="fast-diagnostic-card">
-        <h3>{item.title}</h3>
-        <p>{item.text}</p>
-      </article>
-    ))}
-  </div>
-
-  <div class="diagnostic-actions">
-    <a
-      class="btn btn-primary btn-accent"
-      href={`/contact?source=${data.slug}_diagnostic_24h#contact-form`}
-      data-track={`cta_${data.slug}_fast_diagnostic`}
-    >
-      Recevoir un diagnostic sous 24h
-    </a>
-    <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_fast_diagnostic_tarifs`}>
-      Voir les tarifs fixes
-    </a>
-  </div>
-</section>
-
 <section class="seo-section seo-problem section-shell reveal">
   <p class="kicker">Le problème</p>
   <h2>{data.problemTitle}</h2>
@@ -533,46 +359,6 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         </article>
       ))
     }
-  </div>
-</section>
-
-<section class="seo-section seo-handover section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Reprise opérationnelle</p>
-      <h2>Ce que Sunelys peut reprendre dès le premier échange.</h2>
-    </div>
-    <p>
-      Pas besoin d'attendre 10 dossiers par mois pour être aidé. On peut traiter un blocage ponctuel,
-      absorber un pic de charge ou structurer un flux récurrent quand le volume augmente.
-    </p>
-  </div>
-
-  <div class="handover-grid">
-    {handoverItems.map((item) => (
-      <article class="handover-card">
-        <span>{item.label}</span>
-        <h3>{item.title}</h3>
-        <p>{item.text}</p>
-        <strong>{item.result}</strong>
-      </article>
-    ))}
-  </div>
-</section>
-
-<section class="seo-section seo-concerned section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Vous êtes concerné si</p>
-      <h2>Le volume n'est pas le seul signal. Le vrai sujet, c'est la friction.</h2>
-    </div>
-    <p>
-      On ne ferme pas la porte aux petits installateurs. Le diagnostic sert justement à savoir
-      s'il faut traiter un dossier ponctuel, un pic de charge ou un flux récurrent.
-    </p>
-  </div>
-  <div class="concern-grid">
-    {concernSignals.map((signal) => <p>{signal}</p>)}
   </div>
 </section>
 
@@ -681,51 +467,20 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   </div>
 </section>
 
-<section class="seo-section seo-diagnostic section-shell reveal">
-  <div class="split-head">
-    <div>
-      <p class="kicker">Diagnostic installateur</p>
-      <h2>Savoir quoi déléguer avant de changer votre organisation</h2>
-    </div>
-    <p>
-      Le premier échange sert à relier vos pages d'entrée, vos demandes commerciales et vos dossiers signés.
-      L'objectif est de repérer le périmètre le plus rentable à traiter en premier.
-    </p>
-  </div>
-
-  <div class="diagnostic-grid">
-    {diagnosticItems.map((item) => (
-      <article class="diagnostic-card">
-        <h3>{item.title}</h3>
-        <p>{item.text}</p>
-      </article>
-    ))}
-  </div>
-
-  <div class="diagnostic-actions">
-      <a
-        class="btn btn-primary btn-accent"
-        href={`/contact?source=${data.slug}_diagnostic#contact-form`}
-        data-track={`cta_${data.slug}_diagnostic`}
-      >
-        {diagnosticPrimaryLabel}
-      </a>
-      <a class="btn btn-secondary" href="/tarifs" data-track={`cta_${data.slug}_diagnostic_tarifs`}>
-        {diagnosticSecondaryLabel}
-      </a>
-  </div>
-</section>
-
 <section class="seo-section seo-faq section-shell reveal">
   <p class="kicker">FAQ</p>
   <h2>Questions fréquentes</h2>
   <div class="faq-grid">
     {
-      data.faqItems.map((item) => (
-        <article class="faq-card">
-          <h3>{item.question}</h3>
+      data.faqItems.map((item, index) => (
+        <details class="faq-card">
+          <summary>
+            <span>0{index + 1}</span>
+            <strong>{item.question}</strong>
+            <i aria-hidden="true"></i>
+          </summary>
           <p>{item.answer}</p>
-        </article>
+        </details>
       ))
     }
   </div>
@@ -837,7 +592,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
         <option value="Pas urgent">Pas urgent</option>
       </select>
     </label>
-    <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
+    <button class="btn btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
       {finalSubmitLabel}
     </button>
     <small>Réponse sous 24h • Sans engagement</small>
@@ -1693,6 +1448,831 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 
     .service-lead-form {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* Direction visuelle 2026 */
+  .seo-section {
+    border-color: var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+  }
+
+  .seo-section > .kicker,
+  .split-head .kicker,
+  .seo-context .kicker,
+  .service-pricing-strip .kicker {
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+  }
+
+  .seo-section h2,
+  .seo-context h2 {
+    max-width: 18ch;
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 3.6vw, 3.6rem);
+    letter-spacing: -0.035em;
+  }
+
+  .seo-hero {
+    overflow: hidden;
+    border-color: var(--ink);
+    background:
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
+    box-shadow: var(--shadow-md);
+    padding: clamp(1.5rem, 3.8vw, 4rem);
+  }
+
+  .hero-layout {
+    grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
+    gap: clamp(1.5rem, 4vw, 4.2rem);
+    align-items: center;
+  }
+
+  .seo-hero .hero-copy {
+    gap: 0;
+  }
+
+  .seo-hero .hero-copy > .kicker {
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+  }
+
+  .seo-hero h1 {
+    max-width: 14ch;
+    margin-top: 0.7rem;
+    color: #ffffff;
+    font-size: clamp(2.4rem, 5vw, 5.1rem);
+    letter-spacing: -0.045em;
+    line-height: 0.94;
+  }
+
+  .seo-hero .hero-copy > p:not(.kicker):not(.expert-line) {
+    max-width: 62ch;
+    margin-top: 1.05rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.92rem;
+    line-height: 1.64;
+  }
+
+  .seo-hero .expert-line {
+    max-width: 59ch;
+    margin-top: 1rem;
+    padding: 0.1rem 0 0.1rem 0.8rem;
+    border-left-color: var(--accent);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.8rem;
+    font-weight: 680;
+  }
+
+  .seo-hero .hero-badges {
+    gap: 0.55rem 1rem;
+    margin-top: 1.15rem;
+  }
+
+  .seo-hero .hero-badges li {
+    min-height: 0;
+    gap: 0.42rem;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.65rem;
+    font-weight: 650;
+    text-transform: none;
+  }
+
+  .seo-hero .hero-badges li::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  }
+
+  .seo-hero .hero-price-pills {
+    margin-top: 1rem;
+  }
+
+  .seo-hero .hero-price-pills li {
+    min-height: 4rem;
+    border-color: rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.06);
+    box-shadow: none;
+  }
+
+  .seo-hero .hero-price-pills span {
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.58rem;
+  }
+
+  .seo-hero .hero-price-pills strong {
+    color: var(--accent);
+    font-size: 1rem;
+  }
+
+  .seo-hero .hero-actions {
+    margin-top: 1.35rem;
+  }
+
+  .seo-hero .hero-actions .btn-secondary {
+    border-color: rgba(255, 255, 255, 0.16);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.82);
+  }
+
+  .hero-aside {
+    display: block;
+  }
+
+  .hero-lead-card {
+    overflow: hidden;
+    padding: clamp(1rem, 2.2vw, 1.45rem);
+    border-color: rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: #f8fafc;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.28);
+  }
+
+  .hero-lead-card::before {
+    display: none;
+  }
+
+  .hero-lead-card > .kicker {
+    color: var(--system);
+  }
+
+  .hero-lead-card h2 {
+    max-width: 18ch;
+    font-size: clamp(1.35rem, 2.2vw, 1.9rem);
+  }
+
+  .hero-service-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+    margin-top: 0.4rem;
+  }
+
+  .hero-service-form label {
+    color: var(--text);
+    font-size: 0.64rem;
+    font-weight: 740;
+    text-transform: none;
+  }
+
+  .hero-service-form label:nth-of-type(1),
+  .hero-service-form label:nth-of-type(2),
+  .hero-service-form .btn,
+  .hero-service-form small {
+    grid-column: 1 / -1;
+  }
+
+  .hero-service-form input,
+  .hero-service-form select {
+    min-height: 2.85rem;
+    border-color: var(--line);
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 0.82rem;
+  }
+
+  .hero-service-form input:focus-visible,
+  .hero-service-form select:focus-visible {
+    border-color: color-mix(in srgb, var(--system) 70%, var(--line));
+    outline: none;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--system-soft) 72%, transparent);
+  }
+
+  .hero-service-form small {
+    color: var(--text-muted);
+    font-size: 0.63rem;
+    text-align: center;
+  }
+
+  .seo-context {
+    display: grid;
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    gap: 0.7rem;
+    padding: 0.7rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .seo-context .hero-fit-card,
+  .seo-context .hero-proof-card {
+    min-height: 25rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.2rem, 3vw, 2.5rem);
+    border-radius: 16px;
+    box-shadow: none;
+  }
+
+  .seo-context .hero-fit-card {
+    border-color: transparent;
+    background: transparent;
+  }
+
+  .seo-context .hero-fit-card h2 {
+    margin-top: 0.65rem;
+  }
+
+  .seo-context .hero-fit-card > p:not(.kicker) {
+    max-width: 56ch;
+    margin-top: 0.8rem;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    line-height: 1.55;
+  }
+
+  .seo-context .hero-fit-card ul {
+    display: grid;
+    gap: 0.55rem;
+    margin: auto 0 0;
+    padding: 1.2rem 0 0;
+    list-style: none;
+  }
+
+  .seo-context .hero-fit-card li,
+  .seo-context .proof-highlights li {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.72rem;
+    line-height: 1.45;
+  }
+
+  .seo-context .hero-fit-card li::before,
+  .seo-context .proof-highlights li::before {
+    content: "";
+    width: 0.38rem;
+    height: 0.38rem;
+    flex: 0 0 auto;
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    background: var(--system);
+  }
+
+  .seo-context .hero-proof-card {
+    border-color: var(--ink);
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.24), transparent 62%),
+      var(--ink);
+  }
+
+  .seo-context .hero-proof-card .kicker {
+    color: var(--accent);
+  }
+
+  .seo-context .hero-proof-card blockquote {
+    margin-top: clamp(1.5rem, 4vw, 3rem);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    font-weight: 650;
+    line-height: 1.65;
+  }
+
+  .seo-context .proof-signature {
+    margin-top: auto;
+    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 0.7rem;
+    text-transform: none;
+  }
+
+  .seo-context .proof-highlights {
+    gap: 0.35rem;
+    margin-top: 0.8rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .seo-context .proof-highlights li {
+    color: rgba(255, 255, 255, 0.52);
+  }
+
+  .seo-context .proof-highlights li::before {
+    background: var(--accent);
+  }
+
+  .service-pricing-strip {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+  }
+
+  .service-pricing-strip > div {
+    display: grid;
+    gap: 0.22rem;
+  }
+
+  .service-pricing-strip strong {
+    color: var(--text);
+    font-size: 0.76rem;
+    line-height: 1.45;
+  }
+
+  .service-pricing-strip > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+    color: var(--text);
+    font-size: 0.72rem;
+    font-weight: 760;
+    text-underline-offset: 0.25rem;
+  }
+
+  .service-pricing-strip > a span {
+    color: var(--system);
+  }
+
+  .split-head {
+    gap: clamp(1.2rem, 4vw, 4rem);
+  }
+
+  .split-head > p {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .problem-intro {
+    max-width: 70ch;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .problem-grid,
+  .details-grid,
+  .use-case-grid,
+  .signal-grid {
+    gap: 0;
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
+  }
+
+  .problem-card,
+  .detail-card,
+  .use-case-card,
+  .signal-grid p {
+    min-height: 11rem;
+    align-content: end;
+    padding: 1rem;
+    border: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .problem-card h3,
+  .detail-card h3,
+  .use-case-card h3 {
+    font-size: 0.9rem;
+  }
+
+  .problem-card p,
+  .detail-card p,
+  .use-case-card p,
+  .signal-grid p {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.52;
+  }
+
+  .seo-problem {
+    background: var(--system-soft);
+  }
+
+  .seo-use-cases,
+  .seo-details {
+    background: var(--surface);
+  }
+
+  .scope-layout {
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+  }
+
+  .scope-panel {
+    min-height: 24rem;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.1rem, 2.5vw, 1.8rem);
+    border-color: var(--line);
+    border-radius: 16px;
+    background: var(--system-soft);
+  }
+
+  .scope-panel h3 {
+    font-size: 1.1rem;
+  }
+
+  .scope-panel ul {
+    display: grid;
+    gap: 0.6rem;
+    margin-top: auto;
+    padding: 1.2rem 0 0;
+    list-style: none;
+  }
+
+  .scope-panel li {
+    display: flex;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+  }
+
+  .scope-panel li::before {
+    content: "";
+    width: 0.38rem;
+    height: 0.38rem;
+    flex: 0 0 auto;
+    margin-top: 0.3rem;
+    border-radius: 50%;
+    background: var(--system);
+  }
+
+  .scope-panel-dark {
+    border-color: var(--ink);
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.24), transparent 62%),
+      var(--ink);
+  }
+
+  .scope-panel-dark li {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  .scope-panel-dark li::before {
+    background: var(--accent);
+  }
+
+  .seo-process {
+    background: var(--system-soft);
+  }
+
+  .seo-process ol {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin-top: 1.5rem;
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-left: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .seo-process li {
+    min-height: 12rem;
+    display: flex;
+    align-items: end;
+    padding: 3.2rem 1rem 1rem;
+    border: 0;
+    border-right: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: 0;
+    background: transparent;
+    color: var(--text);
+    font-size: 0.74rem;
+    line-height: 1.5;
+  }
+
+  .seo-process li::before {
+    left: 1rem;
+    top: 1rem;
+    width: auto;
+    height: auto;
+    border: 0;
+    background: transparent;
+    color: var(--system);
+    font-size: 0.65rem;
+    transform: none;
+  }
+
+  .seo-delegation {
+    background: var(--surface);
+  }
+
+  .seo-delegation .signal-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .seo-delegation .btn {
+    margin-top: 1rem;
+  }
+
+  .seo-case {
+    border-color: var(--ink);
+    background:
+      radial-gradient(80% 100% at 100% 0%, rgba(54, 98, 227, 0.25), transparent 62%),
+      var(--ink);
+  }
+
+  .seo-case .kicker {
+    color: var(--accent);
+  }
+
+  .seo-case h2 {
+    color: #ffffff;
+  }
+
+  .seo-case .volume {
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.75rem;
+  }
+
+  .seo-case ul {
+    display: grid;
+    gap: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .seo-case li {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.74rem;
+  }
+
+  .faq-grid {
+    display: block;
+    margin-top: 1.4rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .faq-card {
+    padding: 0;
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .faq-card summary {
+    cursor: pointer;
+    list-style: none;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 1rem 0;
+  }
+
+  .faq-card summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-card summary > span {
+    color: var(--system);
+    font-size: 0.63rem;
+    font-weight: 800;
+  }
+
+  .faq-card summary strong {
+    color: var(--text);
+    font-size: 0.82rem;
+    line-height: 1.4;
+  }
+
+  .faq-card summary i {
+    position: relative;
+    width: 1.7rem;
+    height: 1.7rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+  }
+
+  .faq-card summary i::before,
+  .faq-card summary i::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0.6rem;
+    height: 1px;
+    background: var(--text);
+    transform: translate(-50%, -50%);
+  }
+
+  .faq-card summary i::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+
+  .faq-card[open] summary i::after {
+    transform: translate(-50%, -50%) rotate(0);
+  }
+
+  .faq-card > p {
+    max-width: 76ch;
+    padding: 0 2.5rem 1rem 1.7rem;
+    color: var(--text-muted);
+    font-size: 0.76rem;
+    line-height: 1.6;
+  }
+
+  .seo-links,
+  .seo-guides {
+    background: var(--system-soft);
+  }
+
+  .link-pill {
+    min-height: 2.4rem;
+    border-color: color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 0.66rem;
+    text-transform: none;
+  }
+
+  .guide-grid {
+    gap: 0;
+    margin-top: 1.3rem;
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-left: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .guide-link {
+    min-height: 9rem;
+    padding: 1rem;
+    border: 0;
+    border-right: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .guide-link span {
+    font-size: 0.82rem;
+  }
+
+  .guide-link small {
+    font-size: 0.7rem;
+  }
+
+  .seo-portal-proof {
+    border-color: var(--ink);
+    background:
+      radial-gradient(80% 100% at 100% 0%, rgba(54, 98, 227, 0.25), transparent 62%),
+      var(--ink);
+  }
+
+  .seo-portal-proof .kicker {
+    color: var(--accent);
+  }
+
+  .seo-portal-proof h2 {
+    color: #ffffff;
+  }
+
+  .seo-portal-proof .split-head > p {
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .portal-proof-cover,
+  .portal-proof-stack figure {
+    border-color: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+  }
+
+  .portal-proof-copy {
+    border-color: rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .portal-proof-copy li {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.74rem;
+  }
+
+  .seo-final {
+    padding: clamp(1.5rem, 3.8vw, 3.8rem);
+    border-color: var(--ink);
+    background:
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      var(--ink);
+  }
+
+  .seo-final h2 {
+    max-width: 17ch;
+    color: #ffffff;
+    font-size: clamp(2.1rem, 4vw, 4.1rem);
+  }
+
+  .seo-final > p {
+    max-width: 64ch;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .service-lead-form {
+    max-width: 920px;
+    gap: 0.65rem;
+    margin-top: 1.4rem;
+  }
+
+  .service-lead-form label {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: none;
+  }
+
+  .service-lead-form input,
+  .service-lead-form select {
+    min-height: 2.85rem;
+    border-color: rgba(255, 255, 255, 0.16);
+    border-radius: 10px;
+    background: #ffffff;
+    font-size: 0.8rem;
+  }
+
+  .service-lead-form small {
+    color: rgba(255, 255, 255, 0.46);
+    font-size: 0.64rem;
+  }
+
+  @media (max-width: 900px) {
+    .hero-layout,
+    .seo-context {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-service-form {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-service-form label,
+    .hero-service-form label:nth-of-type(1),
+    .hero-service-form label:nth-of-type(2),
+    .hero-service-form .btn,
+    .hero-service-form small {
+      grid-column: 1;
+    }
+
+    .seo-process ol {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 620px) {
+    .seo-section,
+    .seo-hero,
+    .seo-final {
+      padding: 1.2rem;
+    }
+
+    .seo-context {
+      padding: 0.55rem;
+    }
+
+    .seo-context .hero-fit-card,
+    .seo-context .hero-proof-card {
+      min-height: 21rem;
+      padding: 1.2rem;
+    }
+
+    .service-pricing-strip {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .seo-process ol,
+    .seo-delegation .signal-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .seo-process li {
+      min-height: 8.5rem;
+    }
+
+    .service-lead-form {
+      grid-template-columns: 1fr;
+    }
+
+    .faq-card > p {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 </style>

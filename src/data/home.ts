@@ -8,12 +8,12 @@ export const homeSeo = {
 };
 
 export const heroData = {
-  kicker: "Pour installateurs photovoltaïques",
-  title: "Reprenez la main sur vos dossiers administratifs PV bloqués.",
+  kicker: "Cabinet administratif photovoltaïque",
+  title: "Reprenez le contrôle de vos dossiers administratifs PV.",
   subtitle:
-    "Sunelys reprend vos démarches DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE pour libérer vos équipes, accélérer les chantiers et sécuriser le suivi, du dossier ponctuel au flux récurrent.",
+    "DP, Consuel, raccordement, EDF OA et aides : Sunelys reprend les démarches qui ralentissent vos équipes et vos chantiers.",
   expertLine:
-    "Un pilotage administratif solaire exigeant, pensé pour les installateurs qui veulent grandir sans perdre le contrôle.",
+    "Dossier ponctuel, pic de charge ou flux récurrent, avec un portail et un interlocuteur unique.",
   primaryCta: {
     label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=hero#contact-form",
@@ -27,13 +27,13 @@ export const heroData = {
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
-    submitLabel: "Recevoir mon diagnostic",
-    note: "3 champs essentiels. Téléphone optionnel. Réponse sous 24h ouvrées.",
+    submitLabel: "Recevoir mon diagnostic sous 24h",
+    note: "3 informations essentielles. Aucun engagement.",
   },
   proofs: [
+    "1 357 dossiers ENR pilotés",
+    "96 % des DP sans pièce complémentaire",
     "Réponse sous 24h ouvrées",
-    "Dossier ponctuel, pic de charge ou flux récurrent",
-    "DP, Consuel, raccordement, EDF OA et aides",
   ],
   portalDemo: {
     label: "Voir un aperçu du portail →",
@@ -290,9 +290,43 @@ export const processSectionData = {
   ],
 };
 
+export const methodSectionData = {
+  kicker: "La méthode Sunelys",
+  title: "Vous déléguez ce qui bloque. Vous gardez la visibilité.",
+  text:
+    "Sunelys reprend le bon périmètre au bon moment : un dossier ponctuel, un pic de charge ou un flux récurrent. Chaque étape reste cadrée, suivie et visible.",
+  audiences: [
+    {
+      label: "Dossier ponctuel",
+      text: "Débloquer une démarche précise sans engager tout votre flux.",
+    },
+    {
+      label: "Pic de charge",
+      text: "Absorber une série de dossiers sans désorganiser vos équipes.",
+    },
+    {
+      label: "Flux récurrent",
+      text: "Installer un cadre fiable, répétable et pilotable dans le temps.",
+    },
+  ],
+  steps: processSectionData.steps,
+  cta: {
+    label: "Recevoir un diagnostic sous 24h",
+    href: "/contact?source=method#contact-form",
+    track: "cta_method_primary",
+  },
+};
+
 export const servicesSectionData = {
   kicker: "Services",
   title: "Les démarches administratives photovoltaïques que vous pouvez déléguer.",
+  pricing: {
+    eyebrow: "Tarifs fixes",
+    text: "Dossiers photovoltaïques à partir de 89 € HT, sans abonnement ni volume minimum.",
+    href: "/tarifs",
+    label: "Comparer les tarifs",
+    track: "cta_services_pricing",
+  },
   cards: [
     {
       label: "Service 01",

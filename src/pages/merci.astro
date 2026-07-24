@@ -10,16 +10,39 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
   robots="noindex,nofollow"
 >
   <section class="thanks-card">
-    <p class="eyebrow">Demande envoyee</p>
-    <h1>Merci, votre message est bien parti.</h1>
-    <p class="intro">
-      Nous revenons vers vous rapidement pour cadrer votre besoin et voir si Sunelys peut
-      absorber votre flux administratif.
-    </p>
-    <p class="intro">
-      Si vous souhaitez avancer plus vite, vous pouvez aussi choisir un créneau Calendly.
-      C'est optionnel : votre demande a déjà bien été envoyée.
-    </p>
+    <div class="thanks-copy">
+      <span class="success-mark" aria-hidden="true">✓</span>
+      <p class="eyebrow">Demande envoyée</p>
+      <h1>Merci, votre message est bien parti.</h1>
+      <p class="intro">
+        Votre demande est enregistrée. Sunelys revient vers vous sous 24h pour cadrer le besoin,
+        le volume et le premier périmètre utile à déléguer.
+      </p>
+    </div>
+
+    <ol class="thanks-steps" aria-label="Prochaines étapes">
+      <li>
+        <span>01</span>
+        <div>
+          <strong>Lecture de votre contexte</strong>
+          <p>Nous vérifions la démarche, le volume et le niveau d’urgence.</p>
+        </div>
+      </li>
+      <li>
+        <span>02</span>
+        <div>
+          <strong>Réponse sous 24h</strong>
+          <p>Vous recevez un premier cadrage clair, sans engagement.</p>
+        </div>
+      </li>
+      <li>
+        <span>03</span>
+        <div>
+          <strong>Démarrage ciblé</strong>
+          <p>Si le besoin correspond, nous identifions le premier dossier à reprendre.</p>
+        </div>
+      </li>
+    </ol>
 
     <div class="delivery-card" id="checklist-delivery" hidden>
       <p class="delivery-kicker">Checklist disponible</p>
@@ -37,11 +60,10 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     </div>
 
     <div class="actions">
-      <a class="btn btn-primary" href="/services">Voir les services</a>
-      <a class="btn btn-secondary" href={bookingUrl} target="_blank" rel="noreferrer">
+      <a class="btn btn-primary btn-accent" href={bookingUrl} target="_blank" rel="noreferrer">
         Réserver un créneau optionnel
       </a>
-      <a class="btn btn-secondary" href="/contact">Envoyer une autre demande</a>
+      <a class="thanks-link" href="/services">Découvrir les services <span aria-hidden="true">→</span></a>
     </div>
   </section>
 </BaseLayout>
@@ -172,6 +194,203 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
     .delivery-card .btn {
       width: 100%;
       justify-self: stretch;
+    }
+  }
+
+  /* Direction visuelle 2026 */
+  .thanks-card {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.62fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: start;
+    overflow: hidden;
+    max-width: none;
+    min-height: min(39rem, calc(100vh - 8rem));
+    padding: clamp(2rem, 5vw, 5rem);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 88% 4%, rgba(54, 98, 227, 0.42), transparent 31%),
+      radial-gradient(circle at 5% 100%, rgba(29, 155, 117, 0.23), transparent 32%),
+      var(--ink);
+    box-shadow: none;
+    color: #ffffff;
+  }
+
+  .thanks-card::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -13rem;
+    width: clamp(20rem, 36vw, 35rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .thanks-copy {
+    display: grid;
+    align-content: start;
+    gap: 0.85rem;
+  }
+
+  .success-mark {
+    width: 3.2rem;
+    height: 3.2rem;
+    display: grid;
+    place-items: center;
+    margin-bottom: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 50%;
+    background: rgba(29, 155, 117, 0.18);
+    color: #7de0bd;
+    font-size: 1.3rem;
+    font-weight: 850;
+  }
+
+  .thanks-card .eyebrow {
+    color: #7de0bd;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+  }
+
+  .thanks-card h1 {
+    max-width: 12ch;
+    color: #ffffff;
+    font-size: clamp(2.6rem, 5.5vw, 5.6rem);
+    line-height: 0.95;
+    letter-spacing: -0.055em;
+  }
+
+  .thanks-card .intro {
+    max-width: 44rem;
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.15vw, 1.18rem);
+    line-height: 1.65;
+  }
+
+  .thanks-steps {
+    display: grid;
+    gap: 0;
+    margin: 4.2rem 0 0;
+    padding: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    list-style: none;
+  }
+
+  .thanks-steps li {
+    display: grid;
+    grid-template-columns: 2.3rem minmax(0, 1fr);
+    gap: 0.8rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .thanks-steps > li > span {
+    color: #7da1ff;
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .thanks-steps div {
+    display: grid;
+    gap: 0.3rem;
+  }
+
+  .thanks-steps strong {
+    color: #ffffff;
+    font-size: 0.94rem;
+  }
+
+  .thanks-steps p {
+    color: #aebbcf;
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .delivery-card {
+    grid-column: 1 / -1;
+    padding: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+    backdrop-filter: blur(8px);
+  }
+
+  .delivery-card .delivery-kicker {
+    color: #7de0bd;
+  }
+
+  .delivery-card h2 {
+    color: #ffffff;
+  }
+
+  .delivery-card p {
+    color: #cbd5e1;
+  }
+
+  .actions {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.85rem 1.2rem;
+    padding-top: 0.35rem;
+  }
+
+  .thanks-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .thanks-link span {
+    color: #7da1ff;
+    transition: transform 160ms ease;
+  }
+
+  .thanks-link:hover span,
+  .thanks-link:focus-visible span {
+    transform: translateX(0.2rem);
+  }
+
+  @media (max-width: 840px) {
+    .thanks-card {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .thanks-steps {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .thanks-card {
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .actions,
+    .actions .btn {
+      width: 100%;
+    }
+
+    .thanks-link {
+      justify-content: center;
+      width: 100%;
     }
   }
 </style>

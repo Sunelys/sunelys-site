@@ -7,6 +7,17 @@ const posts = getPublicBlogPosts().sort(
   (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime(),
 );
 
+const featuredPost = posts[0];
+const remainingPosts = posts.slice(1);
+const categories = [...new Set(posts.map((post) => String(post.frontmatter.category)))];
+const featuredDate = featuredPost
+  ? new Intl.DateTimeFormat("fr-FR", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    }).format(new Date(featuredPost.frontmatter.pubDate))
+  : "";
+
 const structuredData = [
   {
     "@context": "https://schema.org",
@@ -29,105 +40,481 @@ const structuredData = [
   description="Guides pratiques pour installateurs photovoltaïques : gestion administrative solaire, déclaration préalable, Consuel, raccordement Enedis et organisation des dossiers."
   structuredData={structuredData}
 >
-  <section class="blog-hero section-shell reveal">
-    <div class="blog-hero-copy">
+  <section class="blog-hero reveal" aria-labelledby="blog-title">
+    <div class="blog-hero-copy" data-reveal-item>
       <p class="kicker">Ressources photovoltaïques</p>
-      <h1>Des guides clairs pour mieux piloter l'administratif solaire.</h1>
+      <h1 id="blog-title">L’administratif solaire, expliqué pour agir.</h1>
       <p>
-        Conseils opérationnels pour réduire les retours, mieux préparer les pièces et structurer vos flux DP,
-        Consuel et raccordement Enedis.
+        Des guides opérationnels pour préparer les bonnes pièces, anticiper les blocages et rendre vos flux DP,
+        Consuel et raccordement plus prévisibles.
       </p>
+
+      <div class="category-list" aria-label="Thématiques du blog">
+        {categories.map((category) => <span>{category}</span>)}
+      </div>
+
       <div class="hero-actions">
-        <a class="btn btn-primary" href="/contact?source=blog-hero#contact-form" data-track="cta_blog_hero_primary">Recevoir un cadrage</a>
-        <a class="btn btn-secondary" href="/services" data-track="cta_blog_hero_services">Voir les services</a>
+        <a class="btn btn-accent" href="#guides" data-track="cta_blog_hero_guides">
+          Explorer les guides
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a class="hero-link" href="/services" data-track="cta_blog_hero_services">
+          Voir les services Sunelys
+          <span aria-hidden="true">↗</span>
+        </a>
       </div>
     </div>
-    <div class="blog-hero-visual" aria-hidden="true">
-      <img src="/google-business-profile/sunelys-gbp-cover-portail-2026-07-21.jpg" alt="" loading="eager" decoding="async" />
+
+    {
+      featuredPost && (
+        <article class="featured-article" data-reveal-item>
+          <a
+            class="featured-visual"
+            href={`/blog/${featuredPost.frontmatter.slug}`}
+            data-track="cta_blog_featured_visual"
+            aria-label={`Lire : ${featuredPost.frontmatter.title}`}
+          >
+            {featuredPost.frontmatter.coverImage && (
+              <img
+                src={featuredPost.frontmatter.coverImage}
+                alt={featuredPost.frontmatter.coverAlt || featuredPost.frontmatter.title}
+                loading="eager"
+                decoding="async"
+              />
+            )}
+            <span>À lire</span>
+          </a>
+          <div class="featured-copy">
+            <div class="featured-meta">
+              <span>{featuredPost.frontmatter.category}</span>
+              <span>{featuredPost.frontmatter.readingTime}</span>
+            </div>
+            <h2>
+              <a href={`/blog/${featuredPost.frontmatter.slug}`} data-track="cta_blog_featured">
+                {featuredPost.frontmatter.title}
+              </a>
+            </h2>
+            <p>{featuredPost.frontmatter.description}</p>
+            <footer>
+              <time datetime={featuredPost.frontmatter.pubDate}>{featuredDate}</time>
+              <a href={`/blog/${featuredPost.frontmatter.slug}`} data-track="cta_blog_featured_read">
+                Lire le guide
+                <span aria-hidden="true">→</span>
+              </a>
+            </footer>
+          </div>
+        </article>
+      )
+    }
+  </section>
+
+  <section class="editorial-strip reveal" aria-label="Principes éditoriaux Sunelys">
+    <div data-reveal-item>
+      <span>01</span>
+      <strong>Écrit pour les installateurs</strong>
+    </div>
+    <div data-reveal-item>
+      <span>02</span>
+      <strong>Orienté pièces et étapes</strong>
+    </div>
+    <div data-reveal-item>
+      <span>03</span>
+      <strong>Des réponses directement applicables</strong>
+    </div>
+    <div data-reveal-item>
+      <span>04</span>
+      <strong>{posts.length} guides publics</strong>
     </div>
   </section>
 
-  <section class="blog-grid section-shell" aria-label="Articles Sunelys">
-    {posts.map((post) => <BlogCard post={post} />)}
+  <section id="guides" class="guide-library reveal" aria-labelledby="library-title">
+    <div class="library-head" data-reveal-item>
+      <div>
+        <p class="kicker">Bibliothèque</p>
+        <h2 id="library-title">Tous les guides Sunelys.</h2>
+      </div>
+      <p>
+        Déclaration préalable, Consuel, raccordement et organisation : choisissez le sujet qui correspond au dossier
+        que vous devez faire avancer.
+      </p>
+    </div>
+
+    <div class="blog-grid">
+      {remainingPosts.map((post, index) => <BlogCard post={post} index={index} />)}
+    </div>
+  </section>
+
+  <section class="blog-cta reveal" aria-labelledby="blog-cta-title">
+    <div data-reveal-item>
+      <p class="kicker">Besoin d’aller plus vite ?</p>
+      <h2 id="blog-cta-title">Le guide explique. Sunelys peut aussi reprendre le dossier.</h2>
+      <p>
+        Décrivez la démarche, le volume et le blocage. Vous recevez un premier périmètre de délégation sous 24h.
+      </p>
+    </div>
+    <div class="cta-actions" data-reveal-item>
+      <a class="btn btn-accent" href="/contact?source=blog-final#contact-form" data-track="cta_blog_final_contact">
+        Recevoir un diagnostic
+        <span aria-hidden="true">→</span>
+      </a>
+      <a href="/tarifs" data-track="cta_blog_final_pricing">
+        Voir les tarifs fixes
+        <span aria-hidden="true">↗</span>
+      </a>
+    </div>
   </section>
 </BaseLayout>
 
 <style>
   .blog-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
-    gap: clamp(1rem, 2vw, 1.4rem);
+    grid-template-columns: minmax(0, 0.92fr) minmax(380px, 0.78fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
     align-items: center;
-    padding: clamp(2rem, 5vw, 4.6rem);
-    border: 1px solid var(--line);
+    overflow: hidden;
+    padding: clamp(1.5rem, 3.8vw, 4rem);
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(circle at 82% 12%, color-mix(in srgb, var(--accent-soft) 70%, transparent), transparent 34%),
-      linear-gradient(145deg, color-mix(in srgb, var(--surface-elevated) 92%, white), color-mix(in srgb, var(--bg-soft) 76%, white));
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
     box-shadow: var(--shadow-md);
   }
 
   .kicker {
-    margin: 0 0 0.7rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+  }
+
+  .blog-hero-copy .kicker,
+  .blog-cta .kicker {
+    color: var(--accent);
   }
 
   .blog-hero h1 {
     max-width: 11ch;
-    font-size: clamp(3rem, 7vw, 6.8rem);
+    margin-top: 0.7rem;
+    color: #ffffff;
+    font-size: clamp(2.6rem, 5.4vw, 5.6rem);
     line-height: 0.92;
   }
 
-  .blog-hero p:not(.kicker) {
-    max-width: 58rem;
+  .blog-hero-copy > p:not(.kicker) {
+    max-width: 58ch;
+    margin-top: 1.1rem;
+    color: rgba(255, 255, 255, 0.62);
+    font-size: 0.9rem;
+    line-height: 1.64;
+  }
+
+  .category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
     margin-top: 1.2rem;
-    color: var(--text-muted);
-    font-size: clamp(1.04rem, 1.1vw, 1.35rem);
-    line-height: 1.65;
+  }
+
+  .category-list span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.65rem;
+    font-weight: 650;
+  }
+
+  .category-list span::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
   }
 
   .hero-actions {
-    margin-top: 1.55rem;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  .blog-hero-visual {
-    border: 1px solid color-mix(in srgb, var(--line) 80%, white);
-    border-radius: calc(var(--radius-xl) - 6px);
+  .hero-link,
+  .featured-copy footer a,
+  .cta-actions > a:not(.btn) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 0.74rem;
+    font-weight: 740;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.22);
+    text-underline-offset: 0.28rem;
+  }
+
+  .hero-link span,
+  .featured-copy footer a span,
+  .cta-actions > a:not(.btn) span {
+    color: var(--accent);
+  }
+
+  .featured-article {
     overflow: hidden;
-    box-shadow: var(--shadow-sm);
-    background: color-mix(in srgb, var(--surface-elevated) 96%, white);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
   }
 
-  .blog-hero-visual img {
+  .featured-visual {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .featured-visual img {
     display: block;
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .featured-visual > span {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.32rem 0.55rem;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--ink);
+    font-size: 0.58rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .featured-copy {
+    padding: 1rem;
+  }
+
+  .featured-meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    color: var(--system);
+    font-size: 0.6rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .featured-meta span:last-child {
+    color: var(--text-muted);
+  }
+
+  .featured-copy h2 {
+    margin-top: 1rem;
+    font-size: clamp(1.4rem, 2vw, 1.9rem);
+    line-height: 1.06;
+  }
+
+  .featured-copy h2 a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .featured-copy > p {
+    margin-top: 0.65rem;
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.55;
+  }
+
+  .featured-copy footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .featured-copy time {
+    color: var(--text-muted);
+    font-size: 0.6rem;
+  }
+
+  .featured-copy footer a {
+    color: var(--text);
+    text-decoration-color: var(--line);
+  }
+
+  .editorial-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .editorial-strip > div {
+    min-height: 6.2rem;
+    display: grid;
+    align-content: space-between;
+    gap: 0.6rem;
+    padding: 1rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .editorial-strip > div:last-child {
+    border-right: 0;
+  }
+
+  .editorial-strip span {
+    color: var(--system);
+    font-size: 0.62rem;
+    font-weight: 800;
+  }
+
+  .editorial-strip strong {
+    max-width: 20ch;
+    color: var(--text);
+    font-size: 0.76rem;
+    line-height: 1.42;
+  }
+
+  .guide-library {
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+    scroll-margin-top: 6rem;
+  }
+
+  .library-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
+    gap: clamp(1.2rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .library-head h2 {
+    max-width: 17ch;
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 3.7vw, 3.7rem);
+  }
+
+  .library-head > p {
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.62;
   }
 
   .blog-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: clamp(0.8rem, 1.4vw, 1.1rem);
+    gap: 0.75rem;
+    margin-top: 1.8rem;
   }
 
-  @media (max-width: 980px) {
-    .blog-hero {
+  .blog-cta {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+    padding: clamp(1.5rem, 3.8vw, 3.8rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      var(--ink);
+    box-shadow: var(--shadow-md);
+  }
+
+  .blog-cta h2 {
+    max-width: 18ch;
+    margin-top: 0.6rem;
+    color: #ffffff;
+    font-size: clamp(2rem, 3.7vw, 3.7rem);
+  }
+
+  .blog-cta > div:first-child > p:last-child {
+    max-width: 60ch;
+    margin-top: 0.9rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (max-width: 1050px) {
+    .blog-hero,
+    .blog-cta {
       grid-template-columns: 1fr;
     }
 
     .blog-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .blog-hero,
+    .guide-library,
+    .blog-cta {
+      padding: 1.2rem;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .hero-actions .btn,
+    .hero-link {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .editorial-strip,
+    .blog-grid,
+    .library-head {
       grid-template-columns: 1fr;
     }
 
-    .blog-hero h1 {
-      max-width: 12ch;
+    .editorial-strip > div {
+      min-height: 4.7rem;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .editorial-strip > div:last-child {
+      border-bottom: 0;
+    }
+
+    .cta-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .cta-actions .btn,
+    .cta-actions > a {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>

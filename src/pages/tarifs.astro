@@ -22,116 +22,174 @@ const pricingOffers = [
     scope: "DP, raccordement et Consuel avec interlocuteur unique et pilotage intégral de A à Z.",
     price: "199 €",
     note: "HT / dossier",
-    badge: "Recommandé - le choix des pros",
+    badge: "Le choix des pros",
     highlighted: true,
   },
 ];
 
 const renovationAidOffers = [
   {
-    service: "MaPrimeRénov' - montage & suivi",
-    scope: "Éligibilité, montage conforme, dépôt ANAH et suivi jusqu'au versement de la prime.",
+    service: "MaPrimeRénov'",
+    scope: "Éligibilité, montage conforme, dépôt ANAH et suivi jusqu'au versement.",
     price: "129 €",
     note: "HT / dossier",
-    badge: "Mandat administratif possible",
   },
   {
-    service: "CEE - certificats d'économies d'énergie",
-    scope: "Contrôle devis et factures, montage du dossier CEE et suivi jusqu'à validation.",
+    service: "CEE",
+    scope: "Contrôle devis et factures, montage du dossier et suivi jusqu'à validation.",
     price: "99 €",
     note: "HT / dossier",
-    badge: "",
   },
   {
     service: "Pack MaPrimeRénov' + CEE",
-    scope: "Les deux dossiers montés et suivis ensemble, sur un même chantier.",
+    scope: "Les deux dossiers montés et suivis ensemble sur un même chantier.",
     price: "199 €",
     note: "HT / dossier",
     badge: "Le plus demandé",
-    highlighted: true,
   },
 ];
 
 const edfOaOffer = {
-  service: "EDF OA - compte et contrat d'achat",
+  service: "EDF OA",
   scope:
-    "Activation ou création de l'espace producteur, suivi du dossier EDF OA et accompagnement jusqu'à la signature électronique du client final.",
+    "Activation ou création de l'espace producteur, suivi du dossier et accompagnement jusqu'à la signature électronique du client final.",
   price: "49 €",
   note: "HT / dossier",
-  badge: "Sans abonnement ni minimum",
 };
+
+const specialistChecks = [
+  "100 % dossiers photovoltaïques",
+  "Sans abonnement",
+  "Sans minimum de volume",
+  "Facturation au réel",
+];
 
 const collaborationItems = [
   "Production sous 48h lorsque le dossier est complet",
-  "Suivi en temps réel sur espace dédié",
-  "Interlocuteur unique dédié",
-  "Facturation mensuelle sur les dossiers réellement traités",
+  "Suivi en temps réel sur un espace dédié",
+  "Interlocuteur unique pour vos équipes",
+  "Facturation mensuelle des dossiers traités",
 ];
 
 const pricingSignals = [
-  "Tarifs unitaires en euros HT",
-  "Prix unitaires fixes par dossier",
-  "Dossier ponctuel accepté, flux récurrent possible",
-  "Garantie zéro pièce complémentaire applicable sur la formule DP complète avec dépôt et suivi assurés par Sunelys",
-  "TVA 20 % en sus, facturation mensuelle selon les dossiers réellement traités",
+  "Tarifs unitaires en euros HT, TVA 20 % en sus.",
+  "Dossier ponctuel accepté avant un éventuel flux récurrent.",
+  "La garantie zéro pièce complémentaire s'applique à la DP complète lorsque le dépôt et le suivi sont assurés par Sunelys.",
+  "Les décisions des organismes tiers — mairie, Enedis, Consuel, EDF OA, ANAH ou obligés CEE — restent indépendantes de Sunelys.",
 ];
 
-const specialistChecks = [
-  "Périmètre concentré sur les dossiers photovoltaïques installateurs",
-  "Prix publics avant diagnostic pour cadrer vite le bon niveau de délégation",
-  "Dossier ponctuel accepté avant de basculer un flux récurrent",
-  "Lecture opérationnelle des blocages : mairie, Consuel, Enedis, EDF OA, ANAH et CEE",
+const snapshotPrices = [
+  { label: "EDF OA", price: "49 €" },
+  { label: "Raccordement + Consuel", price: "89 €" },
+  { label: "DP complète", price: "119 €" },
+  { label: "Chaîne complète", price: "199 €" },
 ];
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "OfferCatalog",
+  name: "Tarifs Sunelys par dossier",
+  itemListElement: [...pricingOffers, edfOaOffer, ...renovationAidOffers].map((offer) => ({
+    "@type": "Offer",
+    price: offer.price.replace(/[^\d]/g, ""),
+    priceCurrency: "EUR",
+    itemOffered: {
+      "@type": "Service",
+      name: offer.service,
+      description: offer.scope,
+    },
+  })),
+};
 ---
 
 <BaseLayout
   title="Tarifs gestion administrative photovoltaïque | Sunelys"
-  description="Tarifs unitaires au dossier pour DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE. Demandez un cadrage gratuit de 15 min."
+  description="Tarifs unitaires au dossier pour DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE. Demandez un cadrage gratuit."
+  structuredData={[structuredData]}
 >
-  <section class="hero pricing-hero">
-    <p class="eyebrow">Tarification Sunelys</p>
-    <h1>Des tarifs uniques et clairs pour un pilotage complet par dossier.</h1>
-    <p class="intro">
-      Les montants ci-dessous sont les prix unitaires Sunelys pour les installateurs photovoltaïques.
-      Chaque tarif correspond à un périmètre précis : DP, raccordement + Consuel, chaîne complète,
-      dossier EDF OA ou dossiers d'aides à la rénovation MaPrimeRénov' et CEE. Vous pouvez démarrer par un dossier
-      ponctuel, puis structurer un flux récurrent si le besoin se confirme.
-    </p>
-  </section>
-
-  <section class="specialist-pricing-note">
-    <div>
-      <p class="eyebrow">Spécialiste PV</p>
-      <h2>Une tarification pensée pour déléguer sans se retrouver dans une offre généraliste.</h2>
-      <p>
-        Sunelys n'est pas une promesse administrative tous secteurs. L'offre est construite pour les
-        installateurs photovoltaïques qui veulent sortir DP, raccordement, Consuel et aides de leurs équipes.
+  <section class="pricing-hero reveal" aria-labelledby="pricing-title">
+    <div class="hero-copy" data-reveal-item>
+      <p class="eyebrow">Tarifs Sunelys · 2026</p>
+      <h1 id="pricing-title">Un prix clair par dossier. Pas de coût caché.</h1>
+      <p class="hero-intro">
+        Déléguez une démarche ponctuelle ou un flux complet avec le même principe : un périmètre précis, un tarif
+        fixe et une facturation sur les dossiers réellement traités.
       </p>
-    </div>
-    <ul>
-      {specialistChecks.map((item) => <li>{item}</li>)}
-    </ul>
-  </section>
 
-  <section class="pricing-table-shell" id="tarifs-photovoltaique">
-    <div class="table-head">
-      <p class="eyebrow">Prix par dossier</p>
-      <h2>Photovoltaïque : DP, raccordement et Consuel.</h2>
-      <p>
-        Une assistante ADV dédiée représente souvent plus de 2 000 € par mois de charges.
-        Un dossier piloté par Sunelys démarre à 89 € HT. Le calcul reste lisible dossier par dossier.
-      </p>
+      <div class="hero-actions">
+        <a class="btn btn-accent" href="#tarifs-photovoltaique" data-track="cta_tarifs_hero_compare">
+          Comparer les offres
+          <span aria-hidden="true">↓</span>
+        </a>
+        <a class="hero-link" href="#blocked-diagnostic-tarifs_diagnostic_dossiers_bloques" data-track="cta_tarifs_hero_diagnostic">
+          Faire cadrer mon besoin
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <div class="hero-assurance" aria-label="Conditions principales">
+        <span><i aria-hidden="true"></i> Dossier ponctuel accepté</span>
+        <span><i aria-hidden="true"></i> Réponse sous 24h</span>
+      </div>
     </div>
 
-    <div class="offer-grid" aria-label="Offres Sunelys">
-      {
-        pricingOffers.map((offer) => (
-          <article class:list={["offer-card", { "offer-card-highlight": offer.highlighted }]}>
-            <div class="offer-copy">
-              {offer.badge && <p class="offer-badge">{offer.badge}</p>}
-              <h3>{offer.service}</h3>
-              <p>{offer.scope}</p>
+    <aside class="price-snapshot" aria-label="Aperçu des principaux tarifs" data-reveal-item>
+      <div class="snapshot-head">
+        <div>
+          <p>Grille publique</p>
+          <strong>Prix unitaires</strong>
+        </div>
+        <span>HT / dossier</span>
+      </div>
+
+      <div class="snapshot-list">
+        {
+          snapshotPrices.map((item, index) => (
+            <div class:list={["snapshot-row", index === snapshotPrices.length - 1 && "is-featured"]}>
+              <span>0{index + 1}</span>
+              <p>{item.label}</p>
+              <strong>{item.price}</strong>
             </div>
+          ))
+        }
+      </div>
+
+      <p class="snapshot-note">Aucun abonnement · aucun minimum de volume</p>
+    </aside>
+  </section>
+
+  <section class="specialist-strip reveal" aria-label="Principes de tarification Sunelys">
+    {
+      specialistChecks.map((item, index) => (
+        <div data-reveal-item>
+          <span>0{index + 1}</span>
+          <strong>{item}</strong>
+        </div>
+      ))
+    }
+  </section>
+
+  <section class="solar-pricing reveal" id="tarifs-photovoltaique" aria-labelledby="solar-pricing-title">
+    <div class="section-head" data-reveal-item>
+      <div>
+        <p class="eyebrow">Cœur de l’offre</p>
+        <h2 id="solar-pricing-title">DP, raccordement et Consuel.</h2>
+      </div>
+      <p>
+        Choisissez la démarche à sortir de vos équipes ou confiez la chaîne complète à un interlocuteur unique.
+      </p>
+    </div>
+
+    <div class="offer-grid" aria-label="Offres photovoltaïques Sunelys">
+      {
+        pricingOffers.map((offer, index) => (
+          <article class:list={["offer-card", offer.highlighted && "is-highlighted"]} data-reveal-item>
+            <div class="offer-top">
+              <span>0{index + 1}</span>
+              {offer.badge && <p>{offer.badge}</p>}
+            </div>
+            <h3>{offer.service}</h3>
+            <p class="offer-scope">{offer.scope}</p>
             <div class="offer-price">
               <strong>{offer.price}</strong>
               <span>{offer.note}</span>
@@ -141,353 +199,768 @@ const specialistChecks = [
       }
     </div>
 
-    <ul class="pricing-signals">
-      {pricingSignals.map((item) => <li>{item}</li>)}
-    </ul>
+    <div class="pricing-guidance" data-reveal-item>
+      <p>
+        <strong>Vous ne savez pas quelle formule choisir ?</strong>
+        Décrivez le dossier : Sunelys vous indique le premier périmètre utile, sans empiler les prestations.
+      </p>
+      <a href="#blocked-diagnostic-tarifs_diagnostic_dossiers_bloques" data-track="cta_tarifs_offers_guidance">
+        Être orienté
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </section>
 
-  <section class="pricing-table-shell edf-oa-pricing" id="edf-oa">
-    <div class="table-head">
-      <p class="eyebrow">Contrat d'achat</p>
-      <h2>EDF OA : espace producteur et contrat d'achat.</h2>
-      <p>
-        Pour éviter que le dossier reste bloqué entre mise en service, mail d'activation et signature,
-        Sunelys prend en charge le cadrage administratif EDF OA jusqu'à l'invitation de signature.
-      </p>
+  <section class="complementary-pricing reveal" aria-labelledby="complementary-title">
+    <div class="section-head" data-reveal-item>
+      <div>
+        <p class="eyebrow">Dossiers complémentaires</p>
+        <h2 id="complementary-title">EDF OA et aides à la rénovation.</h2>
+      </div>
+      <p>Deux périmètres distincts, avec la même transparence tarifaire et le même suivi opérationnel.</p>
     </div>
 
-    <div class="offer-grid offer-grid-single" aria-label="Offre EDF OA Sunelys">
-      <article class="offer-card offer-card-edf">
-        <div class="offer-copy">
-          <p class="offer-badge">{edfOaOffer.badge}</p>
-          <h3>{edfOaOffer.service}</h3>
-          <p>{edfOaOffer.scope}</p>
+    <div class="complementary-layout">
+      <article class="edf-offer" id="edf-oa" data-reveal-item>
+        <div class="complementary-label">
+          <span>Contrat d’achat</span>
+          <i aria-hidden="true"></i>
         </div>
-        <div class="offer-price">
+        <h3>{edfOaOffer.service}</h3>
+        <p>{edfOaOffer.scope}</p>
+        <div class="complementary-price">
           <strong>{edfOaOffer.price}</strong>
           <span>{edfOaOffer.note}</span>
         </div>
+        <a href="/edf-oa" data-track="cta_edf_oa_tarifs">
+          Voir le périmètre EDF OA
+          <span aria-hidden="true">→</span>
+        </a>
       </article>
-    </div>
 
-    <ul class="pricing-signals">
-      <li>Sunelys n'est pas EDF OA ni un service officiel EDF Obligation d'Achat</li>
-      <li>Le client final active son espace et signe depuis les liens sécurisés EDF OA</li>
-      <li>Enedis, Consuel et la facturation de production après signature restent des périmètres distincts</li>
-    </ul>
-
-    <div class="note-actions">
-      <a class="btn btn-primary btn-accent" href="/edf-oa" data-track="cta_edf_oa_tarifs">
-        Voir l'offre EDF OA
-      </a>
-      <a class="btn btn-secondary" href="/contact?source=edf-oa#contact-form" data-track="cta_edf_oa_contact">
-        Demander un cadrage
-      </a>
+      <div class="aid-panel" id="aides-renovation" data-reveal-item>
+        <div class="aid-panel-head">
+          <p>Aides à la rénovation</p>
+          <span>Montage + suivi</span>
+        </div>
+        <div class="aid-list">
+          {
+            renovationAidOffers.map((offer, index) => (
+              <article>
+                <span>0{index + 1}</span>
+                <div>
+                  <div class="aid-title">
+                    <h3>{offer.service}</h3>
+                    {offer.badge && <small>{offer.badge}</small>}
+                  </div>
+                  <p>{offer.scope}</p>
+                </div>
+                <div class="aid-price">
+                  <strong>{offer.price}</strong>
+                  <span>{offer.note}</span>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </section>
 
-  <section class="pricing-table-shell" id="aides-renovation">
-    <div class="table-head">
-      <p class="eyebrow">Aides à la rénovation</p>
-      <h2>MaPrimeRénov' et CEE sécurisés jusqu'au versement.</h2>
+  <section class="pricing-conditions reveal" aria-labelledby="conditions-title">
+    <div class="conditions-copy" data-reveal-item>
+      <p class="eyebrow">Collaboration</p>
+      <h2 id="conditions-title">Ce que le prix comprend vraiment.</h2>
       <p>
-        Un dossier d'aide refusé peut bloquer la prime du client final et fragiliser le chantier.
-        Sunelys monte, dépose et suit les dossiers d'aides pour garder le flux administratif sous contrôle.
+        Le tarif rémunère le pilotage du dossier : contrôle des pièces, production, échanges, suivi et visibilité
+        jusqu’à l’étape prévue dans l’offre.
       </p>
     </div>
 
-    <div class="offer-grid" aria-label="Offres aides à la rénovation Sunelys">
-      {
-        renovationAidOffers.map((offer) => (
-          <article class:list={["offer-card", { "offer-card-highlight": offer.highlighted }]}>
-            <div class="offer-copy">
-              {offer.badge && <p class="offer-badge">{offer.badge}</p>}
-              <h3>{offer.service}</h3>
-              <p>{offer.scope}</p>
-            </div>
-            <div class="offer-price">
-              <strong>{offer.price}</strong>
-              <span>{offer.note}</span>
-            </div>
-          </article>
-        ))
-      }
-    </div>
+    <div class="conditions-content" data-reveal-item>
+      <ul class="collaboration-list">
+        {collaborationItems.map((item) => <li>{item}</li>)}
+      </ul>
 
-    <ul class="pricing-signals">
-      <li>Prestation de montage et de suivi administratif</li>
-      <li>Versement des primes soumis à la décision de l'ANAH et des obligés CEE</li>
-      <li>Pack disponible lorsque MaPrimeRénov' et CEE sont gérés ensemble sur le même chantier</li>
-    </ul>
+      <details>
+        <summary>Conditions et périmètre détaillés <span aria-hidden="true">+</span></summary>
+        <ul class="legal-list">
+          {pricingSignals.map((item) => <li>{item}</li>)}
+        </ul>
+      </details>
+    </div>
   </section>
 
   <BlockedDiagnostic
     source="tarifs_diagnostic_dossiers_bloques"
-    title="Vous hésitez sur le bon périmètre ? Faites cadrer vos dossiers avant de choisir l'offre."
-    text="Indiquez votre volume, le blocage principal et le service concerné. Sunelys vous oriente vers le tarif utile sans empiler les prestations."
+    kicker="Diagnostic tarifaire"
+    title="Le bon tarif dépend surtout du premier blocage à sortir de votre équipe."
+    text="Indiquez votre volume, votre urgence et le service concerné. Sunelys vous répond avec un périmètre concret, sans abonnement imposé."
+    submitLabel="Recevoir mon cadrage sous 24h"
   />
-
-  <section class="pricing-note">
-    <div>
-      <p class="eyebrow">Pack stratégique</p>
-      <h2>Chaîne administrative complète</h2>
-      <p>
-        Déclaration préalable, raccordement réseau et Consuel peuvent être pilotés ensemble
-        avec un interlocuteur unique, une production sous 48h lorsque les pièces sont complètes
-        et un tarif unitaire fixe par dossier.
-      </p>
-      <ul class="collaboration-list">
-        {collaborationItems.map((item) => <li>{item}</li>)}
-      </ul>
-    </div>
-    <div class="note-actions">
-      <a class="btn btn-primary btn-accent" href="/contact?source=tarifs#contact-form" data-track="cta_tarifs_primary">
-        Cadrer un pilotage complet
-      </a>
-      <a class="btn btn-secondary" href="/tarif-declaration-prealable-photovoltaique" data-track="cta_tarifs_dp_detail">
-        Tarif DP détaillé
-      </a>
-      <a class="btn btn-secondary" href="/gestion-administrative-photovoltaique" data-track="cta_tarifs_cost_guide">
-        Pilotage complet
-      </a>
-      <a class="btn btn-secondary" href="/services" data-track="cta_tarifs_services">
-        Voir les services
-      </a>
-      <a class="btn btn-secondary" href="#edf-oa" data-track="cta_tarifs_edf_oa_anchor">
-        Tarif EDF OA
-      </a>
-      <a class="btn btn-secondary" href="#aides-renovation" data-track="cta_tarifs_aides_renovation">
-        Tarifs MaPrimeRénov' + CEE
-      </a>
-    </div>
-  </section>
 </BaseLayout>
 
 <style>
-  .pricing-hero,
-  .pricing-table-shell,
-  .specialist-pricing-note,
-  .pricing-note {
-    border: 1px solid var(--line);
+  .pricing-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(360px, 0.74fr);
+    gap: clamp(1.5rem, 4vw, 4.2rem);
+    align-items: center;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3.8vw, 4rem);
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
-      linear-gradient(165deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
     box-shadow: var(--shadow-md);
-    padding: clamp(1.2rem, 2.8vw, 2rem);
-  }
-
-  .pricing-table-shell,
-  .specialist-pricing-note,
-  .pricing-note {
-    margin-top: 1.5rem;
-  }
-
-  .specialist-pricing-note {
-    display: grid;
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 1fr);
-    gap: clamp(1rem, 3vw, 2rem);
-    align-items: center;
-  }
-
-  .specialist-pricing-note h2 {
-    max-width: 18ch;
-  }
-
-  .specialist-pricing-note ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: grid;
-    gap: 0.65rem;
-  }
-
-  .specialist-pricing-note li {
-    border-left: 3px solid var(--accent-strong);
-    background: color-mix(in srgb, var(--surface-elevated) 84%, transparent);
-    color: var(--text);
-    line-height: 1.5;
-    padding: 0.78rem 0.9rem;
   }
 
   .eyebrow {
-    margin: 0 0 0.7rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 700;
+  }
+
+  .hero-copy .eyebrow {
+    color: var(--accent);
   }
 
   h1 {
-    margin: 0;
-    max-width: 14ch;
-    font-size: clamp(2rem, 4.8vw, 4.3rem);
-    line-height: 0.95;
+    max-width: 13ch;
+    margin-top: 0.7rem;
+    color: #ffffff;
+    font-size: clamp(2.4rem, 5vw, 5.2rem);
+    line-height: 0.94;
   }
 
-  h2 {
-    margin: 0;
-    font-size: clamp(1.4rem, 3vw, 2.3rem);
-    line-height: 1.04;
+  .hero-intro {
+    max-width: 63ch;
+    margin-top: 1.15rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.96rem;
+    line-height: 1.65;
   }
 
-  .intro,
-  .pricing-note p,
-  .pricing-cell {
-    color: var(--text-muted);
-    line-height: 1.6;
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  .intro {
-    margin-top: 1rem;
-    max-width: 48rem;
-    font-size: var(--step-0);
+  .hero-link,
+  .pricing-guidance a,
+  .edf-offer > a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.52rem;
+    color: inherit;
+    font-size: 0.78rem;
+    font-weight: 760;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, currentColor 28%, transparent);
+    text-underline-offset: 0.28rem;
   }
 
-  .table-head {
+  .hero-link {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .hero-link span,
+  .pricing-guidance a span,
+  .edf-offer > a span {
+    color: var(--accent);
+  }
+
+  .hero-assurance {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.7rem 1.2rem;
+    margin-top: 1.35rem;
+  }
+
+  .hero-assurance span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.69rem;
+    font-weight: 650;
+  }
+
+  .hero-assurance i {
+    width: 0.42rem;
+    height: 0.42rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  }
+
+  .price-snapshot {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 16px;
+    background: #f8fafc;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
+  }
+
+  .snapshot-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--line);
+    background: #ffffff;
+  }
+
+  .snapshot-head div {
     display: grid;
-    gap: 0.35rem;
-    margin-bottom: 1rem;
+    gap: 0.12rem;
+  }
+
+  .snapshot-head p,
+  .snapshot-head > span {
+    color: var(--text-muted);
+    font-size: 0.64rem;
+    font-weight: 700;
+  }
+
+  .snapshot-head strong {
+    color: var(--text);
+    font-size: 0.88rem;
+  }
+
+  .snapshot-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.75rem;
+    align-items: center;
+    min-height: 4.25rem;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+  }
+
+  .snapshot-row > span {
+    color: var(--system);
+    font-size: 0.63rem;
+    font-weight: 800;
+  }
+
+  .snapshot-row p {
+    font-size: 0.76rem;
+    font-weight: 720;
+  }
+
+  .snapshot-row strong {
+    font-size: 1.3rem;
+    letter-spacing: -0.04em;
+  }
+
+  .snapshot-row.is-featured {
+    background: var(--system-soft);
+  }
+
+  .snapshot-row.is-featured strong {
+    color: var(--system);
+  }
+
+  .snapshot-note {
+    padding: 0.75rem 1rem;
+    color: var(--text-muted);
+    font-size: 0.64rem;
+    text-align: center;
+  }
+
+  .specialist-strip {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .specialist-strip > div {
+    min-height: 6.4rem;
+    display: grid;
+    align-content: space-between;
+    gap: 0.65rem;
+    padding: 1rem;
+    border-right: 1px solid var(--line);
+  }
+
+  .specialist-strip > div:last-child {
+    border-right: 0;
+  }
+
+  .specialist-strip span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .specialist-strip strong {
+    max-width: 18ch;
+    color: var(--text);
+    font-size: 0.8rem;
+    line-height: 1.4;
+  }
+
+  .solar-pricing,
+  .complementary-pricing,
+  .pricing-conditions {
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .section-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
+    gap: clamp(1.2rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .section-head h2,
+  .pricing-conditions h2 {
+    max-width: 18ch;
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 3.6vw, 3.6rem);
+  }
+
+  .section-head > p,
+  .conditions-copy > p:last-child {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.62;
   }
 
   .offer-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.72rem;
-  }
-
-  .offer-grid-single {
-    grid-template-columns: minmax(0, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 1.8rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
 
   .offer-card {
-    min-height: 10rem;
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: 24px;
-    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
-    padding: 1rem;
+    min-height: 25rem;
     display: flex;
-    gap: 1rem;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    padding: clamp(1rem, 2.2vw, 1.6rem);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  .offer-card-highlight {
-    background: linear-gradient(165deg, #1b1712, #11100d);
-    border-color: color-mix(in srgb, var(--line) 52%, var(--accent));
-  }
-
-  .offer-card-edf {
-    min-height: 12rem;
-    border-color: color-mix(in srgb, var(--accent) 38%, var(--line));
+  .offer-card.is-highlighted {
     background:
-      linear-gradient(115deg, color-mix(in srgb, var(--surface-elevated) 94%, white), var(--surface) 58%),
-      linear-gradient(180deg, color-mix(in srgb, var(--accent-soft) 46%, transparent), transparent);
+      radial-gradient(90% 75% at 100% 0%, rgba(54, 98, 227, 0.22), transparent 60%),
+      var(--ink);
   }
 
-  .offer-copy {
-    display: grid;
-    gap: 0.44rem;
+  .offer-top {
+    min-height: 2rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: start;
   }
 
-  .offer-copy h3 {
-    margin: 0;
-    color: var(--text);
-    font-size: clamp(1.1rem, 1.4vw, 1.35rem);
-    line-height: 1.12;
-  }
-
-  .offer-copy p {
-    margin: 0;
-  }
-
-  .offer-card-highlight h3,
-  .offer-card-highlight p,
-  .offer-card-highlight .offer-price strong,
-  .offer-card-highlight .offer-price span {
-    color: #f7f2e8;
-  }
-
-  .offer-card-highlight .offer-copy p,
-  .offer-card-highlight .offer-price span {
-    color: #d9cfbf;
-  }
-
-  .offer-card-highlight .offer-badge {
-    color: var(--text);
-  }
-
-  .offer-badge {
-    width: fit-content;
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--accent) 72%, white);
-    color: var(--text);
-    padding: 0.28rem 0.64rem;
+  .offer-top > span {
+    color: var(--system);
     font-size: 0.68rem;
     font-weight: 800;
-    letter-spacing: 0.06em;
+  }
+
+  .offer-top p {
+    max-width: 21ch;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    font-size: 0.58rem;
+    font-weight: 800;
+    line-height: 1.35;
+    text-align: center;
     text-transform: uppercase;
   }
 
+  .is-highlighted .offer-top > span,
+  .is-highlighted .offer-top p {
+    color: var(--accent);
+  }
+
+  .is-highlighted .offer-top p {
+    background: rgba(212, 130, 42, 0.12);
+  }
+
+  .offer-card h3 {
+    max-width: 14ch;
+    margin-top: 2.5rem;
+    font-size: clamp(1.5rem, 2.3vw, 2.25rem);
+  }
+
+  .offer-scope {
+    max-width: 40ch;
+    margin-top: 0.9rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    line-height: 1.56;
+  }
+
+  .is-highlighted h3 {
+    color: #ffffff;
+  }
+
+  .is-highlighted .offer-scope {
+    color: rgba(255, 255, 255, 0.58);
+  }
+
   .offer-price {
-    min-width: 9.5rem;
     display: grid;
-    justify-items: end;
-    gap: 0.12rem;
-    color: var(--text);
+    gap: 0.2rem;
+    margin-top: auto;
+    padding-top: 1.5rem;
   }
 
   .offer-price strong {
-    font-size: clamp(2.3rem, 4vw, 4rem);
-    line-height: 0.95;
-    white-space: nowrap;
+    color: var(--text);
+    font-size: clamp(2.7rem, 4.5vw, 4.6rem);
+    letter-spacing: -0.065em;
+    line-height: 0.9;
   }
 
   .offer-price span {
     color: var(--text-muted);
+    font-size: 0.7rem;
     font-weight: 700;
   }
 
-  .pricing-signals {
-    margin: 1rem 0 0;
-    padding-left: 1.1rem;
-    display: grid;
-    gap: 0.36rem;
+  .is-highlighted .offer-price strong {
+    color: var(--accent);
   }
 
-  .pricing-signals li {
+  .is-highlighted .offer-price span {
+    color: rgba(255, 255, 255, 0.48);
+  }
+
+  .pricing-guidance {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    background: var(--system-soft);
+  }
+
+  .pricing-guidance p {
     color: var(--text-muted);
+    font-size: 0.78rem;
+    line-height: 1.52;
+  }
+
+  .pricing-guidance strong {
+    color: var(--text);
+  }
+
+  .pricing-guidance a {
+    flex: 0 0 auto;
+    color: var(--text);
+  }
+
+  .complementary-pricing {
+    background: var(--system-soft);
+  }
+
+  .complementary-layout {
+    display: grid;
+    grid-template-columns: minmax(270px, 0.62fr) minmax(0, 1.38fr);
+    gap: 0.7rem;
+    margin-top: 1.8rem;
+  }
+
+  .edf-offer {
+    display: flex;
+    flex-direction: column;
+    min-height: 28rem;
+    padding: clamp(1.1rem, 2.5vw, 1.8rem);
+    border-radius: 16px;
+    background:
+      radial-gradient(100% 80% at 100% 0%, rgba(54, 98, 227, 0.24), transparent 62%),
+      var(--ink);
+    color: #ffffff;
+  }
+
+  .complementary-label,
+  .aid-panel-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .complementary-label span,
+  .aid-panel-head p,
+  .aid-panel-head span {
+    font-size: 0.66rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .complementary-label span {
+    color: var(--accent);
+  }
+
+  .complementary-label i {
+    width: 0.52rem;
+    height: 0.52rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 4px rgba(29, 155, 117, 0.12);
+  }
+
+  .edf-offer h3 {
+    margin-top: 2.7rem;
+    color: #ffffff;
+    font-size: clamp(2rem, 3vw, 3.2rem);
+  }
+
+  .edf-offer > p {
+    max-width: 44ch;
+    margin-top: 0.85rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.82rem;
+    line-height: 1.58;
+  }
+
+  .complementary-price {
+    display: grid;
+    gap: 0.15rem;
+    margin-top: auto;
+  }
+
+  .complementary-price strong {
+    color: var(--accent);
+    font-size: clamp(3rem, 5vw, 5rem);
+    letter-spacing: -0.065em;
+    line-height: 0.9;
+  }
+
+  .complementary-price span {
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.68rem;
+    font-weight: 700;
+  }
+
+  .edf-offer > a {
+    margin-top: 1.2rem;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .aid-panel {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 16px;
+    background: #ffffff;
+  }
+
+  .aid-panel-head {
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .aid-panel-head p {
+    color: var(--text);
+  }
+
+  .aid-panel-head span {
+    color: var(--system);
+  }
+
+  .aid-list article {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    gap: 0.85rem;
+    align-items: center;
+    min-height: 8.4rem;
+    padding: 1rem 1.1rem;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .aid-list article:last-child {
+    border-bottom: 0;
+  }
+
+  .aid-list article > span {
+    color: var(--system);
+    font-size: 0.66rem;
+    font-weight: 800;
+  }
+
+  .aid-title {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .aid-title h3 {
+    font-size: 1rem;
+  }
+
+  .aid-title small {
+    padding: 0.22rem 0.42rem;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+    font-size: 0.55rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+
+  .aid-list article p {
+    max-width: 53ch;
+    margin-top: 0.32rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .aid-price {
+    display: grid;
+    justify-items: end;
+    gap: 0.1rem;
+  }
+
+  .aid-price strong {
+    color: var(--text);
+    font-size: 1.55rem;
+    letter-spacing: -0.045em;
+  }
+
+  .aid-price span {
+    color: var(--text-muted);
+    font-size: 0.58rem;
+    font-weight: 700;
+  }
+
+  .pricing-conditions {
+    display: grid;
+    grid-template-columns: minmax(270px, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    background: var(--surface);
+  }
+
+  .conditions-copy > p:last-child {
+    max-width: 48ch;
+    margin-top: 1rem;
+  }
+
+  .collaboration-list,
+  .legal-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
   .collaboration-list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-    margin: 1rem 0 0;
-    padding: 0;
-    list-style: none;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
 
   .collaboration-list li {
-    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
-    border-radius: 18px;
-    background: color-mix(in srgb, var(--surface-elevated) 92%, white);
-    color: var(--text-muted);
-    padding: 0.85rem 0.9rem;
+    min-height: 6.2rem;
+    display: flex;
+    align-items: end;
+    padding: 0.9rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    font-size: 0.76rem;
+    font-weight: 700;
     line-height: 1.45;
   }
 
-  .note-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
-    margin-top: 1rem;
+  .conditions-content details {
+    margin-top: 0.8rem;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
   }
 
-  @media (max-width: 960px) {
-    .specialist-pricing-note {
+  .conditions-content summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    color: var(--text);
+    font-size: 0.76rem;
+    font-weight: 740;
+  }
+
+  .conditions-content summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .conditions-content summary span {
+    color: var(--system);
+    font-size: 1rem;
+  }
+
+  .legal-list {
+    display: grid;
+    gap: 0.55rem;
+    padding: 0 0 1rem;
+  }
+
+  .legal-list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.55rem;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    line-height: 1.5;
+  }
+
+  .legal-list li::before {
+    content: "";
+    width: 0.4rem;
+    height: 0.4rem;
+    margin-top: 0.33rem;
+    border-radius: 50%;
+    background: var(--system);
+  }
+
+  @media (max-width: 980px) {
+    .pricing-hero,
+    .section-head,
+    .pricing-conditions {
       grid-template-columns: 1fr;
+    }
+
+    .specialist-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .specialist-strip > div:nth-child(2) {
+      border-right: 0;
+    }
+
+    .specialist-strip > div:nth-child(-n + 2) {
+      border-bottom: 1px solid var(--line);
     }
 
     .offer-grid {
@@ -495,11 +968,52 @@ const specialistChecks = [
     }
 
     .offer-card {
+      min-height: 21rem;
+    }
+
+    .complementary-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .pricing-hero,
+    .solar-pricing,
+    .complementary-pricing,
+    .pricing-conditions {
+      padding: 1.2rem;
+    }
+
+    .price-snapshot {
+      margin-top: 0.4rem;
+    }
+
+    .specialist-strip {
+      grid-template-columns: 1fr;
+    }
+
+    .specialist-strip > div {
+      min-height: 4.8rem;
+      border-right: 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .specialist-strip > div:last-child {
+      border-bottom: 0;
+    }
+
+    .pricing-guidance {
       align-items: flex-start;
       flex-direction: column;
     }
 
-    .offer-price {
+    .aid-list article {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+    }
+
+    .aid-price {
+      grid-column: 2;
       justify-items: start;
     }
 

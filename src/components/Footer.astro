@@ -10,17 +10,61 @@ interface Props {
 
 const { links } = Astro.props;
 const founderLinkedinUrl = "https://www.linkedin.com/in/myriam-zaoui-2baa501b9/";
-const companyLinkedinUrl = "https://www.linkedin.com/company/sunelys/"; // TODO: confirmer URL LinkedIn entreprise avec Myriam.
+const companyLinkedinUrl = "https://www.linkedin.com/company/sunelys/";
+const currentYear = new Date().getFullYear();
+const linkColumns = [links.slice(0, Math.ceil(links.length / 2)), links.slice(Math.ceil(links.length / 2))];
 ---
 
 <footer class="site-footer">
-  <div class="container footer-grid">
-    <div class="footer-primary">
-      <p>contact@sunelys.fr</p>
-      <p>06 95 90 79 19</p>
-      <a href="https://portail.sunelys.fr/login" data-track="cta_footer_portal">Portail client</a>
-      <div class="social-links" aria-label="Suivez-nous">
-        <span>Suivez-nous</span>
+  <div class="container">
+    <div class="footer-cta">
+      <div>
+        <a class="footer-brand" href="/" aria-label="Sunelys — Accueil">
+          <span aria-hidden="true"></span>
+          SUNELYS
+        </a>
+        <p>Le partenaire administratif des professionnels du solaire.</p>
+      </div>
+
+      <a class="btn btn-accent" href="/contact?source=footer#contact-form" data-track="cta_footer_diagnostic">
+        Diagnostic sous 24h
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="footer-main">
+      <section class="footer-contact" aria-labelledby="footer-contact-title">
+        <p id="footer-contact-title" class="footer-label">Nous joindre</p>
+        <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a>
+        <a href="tel:+33695907919">06 95 90 79 19</a>
+        <span>Les Adrets-de-l’Estérel · France</span>
+      </section>
+
+      <section class="footer-portal" aria-labelledby="footer-portal-title">
+        <p id="footer-portal-title" class="footer-label">Déjà client ?</p>
+        <a href="https://portail.sunelys.fr/login" data-track="cta_footer_portal">
+          <i aria-hidden="true"></i>
+          Accéder au portail
+          <span aria-hidden="true">↗</span>
+        </a>
+        <p>Suivi des dossiers, pièces et prochaines actions.</p>
+      </section>
+
+      <nav class="footer-links" aria-label="Expertises Sunelys">
+        {
+          linkColumns.map((column, index) => (
+            <div>
+              <p class="footer-label">{index === 0 ? "Sunelys" : "Expertises"}</p>
+              {column.map((link) => <a href={link.href}>{link.label}</a>)}
+            </div>
+          ))
+        }
+      </nav>
+    </div>
+
+    <div class="footer-bottom">
+      <p>© {currentYear} Sunelys. Gestion administrative photovoltaïque.</p>
+      <div class="social-links" aria-label="Suivre Sunelys sur LinkedIn">
         <a
           href={founderLinkedinUrl}
           target="_blank"
@@ -28,10 +72,8 @@ const companyLinkedinUrl = "https://www.linkedin.com/company/sunelys/"; // TODO:
           aria-label="LinkedIn de Myriam Zaoui"
           data-track="cta_footer_linkedin_founder"
         >
-          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-            <path d="M6.94 8.98H3.56v10.79h3.38V8.98ZM5.25 4.22c-1.08 0-1.79.72-1.79 1.66 0 .92.69 1.65 1.75 1.65h.02c1.1 0 1.79-.73 1.79-1.65-.02-.94-.69-1.66-1.77-1.66Zm14.3 9.36v6.19h-3.38V14c0-1.45-.52-2.44-1.82-2.44-.99 0-1.58.67-1.84 1.31-.09.23-.12.55-.12.87v6.03H9.01s.04-9.78 0-10.79h3.38v1.53c.45-.69 1.25-1.68 3.04-1.68 2.22 0 4.12 1.45 4.12 4.75Z" />
-          </svg>
-          <span>Myriam Zaoui</span>
+          LinkedIn Myriam
+          <span aria-hidden="true">↗</span>
         </a>
         <a
           href={companyLinkedinUrl}
@@ -40,118 +82,239 @@ const companyLinkedinUrl = "https://www.linkedin.com/company/sunelys/"; // TODO:
           aria-label="LinkedIn Sunelys"
           data-track="cta_footer_linkedin_company"
         >
-          <svg aria-hidden="true" viewBox="0 0 24 24" focusable="false">
-            <path d="M6.94 8.98H3.56v10.79h3.38V8.98ZM5.25 4.22c-1.08 0-1.79.72-1.79 1.66 0 .92.69 1.65 1.75 1.65h.02c1.1 0 1.79-.73 1.79-1.65-.02-.94-.69-1.66-1.77-1.66Zm14.3 9.36v6.19h-3.38V14c0-1.45-.52-2.44-1.82-2.44-.99 0-1.58.67-1.84 1.31-.09.23-.12.55-.12.87v6.03H9.01s.04-9.78 0-10.79h3.38v1.53c.45-.69 1.25-1.68 3.04-1.68 2.22 0 4.12 1.45 4.12 4.75Z" />
-          </svg>
-          <span>Sunelys</span>
+          LinkedIn Sunelys
+          <span aria-hidden="true">↗</span>
         </a>
       </div>
     </div>
-
-    <nav class="footer-secondary" aria-label="Pages SEO">
-      {
-        links.map((link) => (
-          <a href={link.href}>{link.label}</a>
-        ))
-      }
-    </nav>
   </div>
 </footer>
 
 <style>
   .site-footer {
-    border-top: 1px solid color-mix(in srgb, var(--line) 70%, white);
+    overflow: hidden;
     background:
-      linear-gradient(180deg, color-mix(in srgb, var(--bg-soft) 92%, white), color-mix(in srgb, var(--bg) 96%, white));
+      radial-gradient(60% 120% at 0% 100%, rgba(212, 130, 42, 0.16), transparent 62%),
+      radial-gradient(70% 100% at 100% 0%, rgba(54, 98, 227, 0.2), transparent 62%),
+      var(--ink);
+    color: #ffffff;
   }
 
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 1rem;
-    align-items: center;
-    padding: 1.4rem 0 2.2rem;
-  }
-
-  .footer-primary {
+  .footer-cta {
     display: flex;
-    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 2rem;
+    align-items: end;
+    padding: clamp(2rem, 5vw, 4.5rem) 0 clamp(1.5rem, 3vw, 2.5rem);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .footer-brand {
+    display: inline-flex;
     align-items: center;
-    gap: 0.7rem 1.2rem;
-    color: var(--text-muted);
-    font-size: 0.78rem;
+    gap: 0.65rem;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 2.6vw, 2.4rem);
+    font-weight: 800;
     letter-spacing: 0.04em;
-  }
-
-  .footer-primary p {
-    margin: 0;
-  }
-
-  .footer-primary a,
-  .footer-secondary a {
-    color: var(--text);
+    line-height: 1;
     text-decoration: none;
-    transition: color 170ms ease;
+  }
+
+  .footer-brand > span {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 3px;
+    background: var(--accent);
+    box-shadow: 0 0 0 5px rgba(212, 130, 42, 0.12);
+    transform: rotate(12deg);
+  }
+
+  .footer-cta > div > p {
+    max-width: 48ch;
+    margin-top: 0.7rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.82rem;
+  }
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: minmax(220px, 0.75fr) minmax(240px, 0.8fr) minmax(0, 1.45fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    padding: clamp(1.8rem, 4vw, 3.5rem) 0;
+  }
+
+  .footer-contact,
+  .footer-portal,
+  .footer-links > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .footer-label {
+    margin-bottom: 1rem;
+    color: var(--accent);
+    font-size: 0.64rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .footer-contact a,
+  .footer-contact > span,
+  .footer-links a {
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.74rem;
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  .footer-contact a + a,
+  .footer-contact a + span {
+    margin-top: 0.38rem;
+  }
+
+  .footer-contact > span {
+    margin-top: 0.8rem;
+    color: rgba(255, 255, 255, 0.38);
+    font-size: 0.68rem;
+  }
+
+  .footer-portal > a {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.55rem;
+    align-items: center;
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.055);
+    color: rgba(255, 255, 255, 0.86);
+    font-size: 0.75rem;
+    font-weight: 720;
+    text-decoration: none;
+    transition: background-color 160ms ease, border-color 160ms ease;
+  }
+
+  .footer-portal > a:hover,
+  .footer-portal > a:focus-visible {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.09);
+  }
+
+  .footer-portal i {
+    width: 0.48rem;
+    height: 0.48rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  }
+
+  .footer-portal > a > span {
+    color: var(--accent);
+  }
+
+  .footer-portal > p:last-child {
+    max-width: 36ch;
+    margin-top: 0.65rem;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.66rem;
+    line-height: 1.5;
+  }
+
+  .footer-links {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.5rem;
+  }
+
+  .footer-links a + a {
+    margin-top: 0.55rem;
+  }
+
+  .footer-contact a:hover,
+  .footer-contact a:focus-visible,
+  .footer-links a:hover,
+  .footer-links a:focus-visible {
+    color: #ffffff;
+    text-decoration: underline;
+    text-decoration-color: rgba(212, 130, 42, 0.58);
+    text-underline-offset: 0.24rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+    align-items: center;
+    padding: 1rem 0 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-bottom > p {
+    color: rgba(255, 255, 255, 0.34);
+    font-size: 0.64rem;
   }
 
   .social-links {
-    display: inline-flex;
-    align-items: center;
+    display: flex;
     flex-wrap: wrap;
-    gap: 0.44rem;
-  }
-
-  .social-links > span {
-    color: var(--text-muted);
+    gap: 0.8rem;
   }
 
   .social-links a {
     display: inline-flex;
     align-items: center;
-    gap: 0.32rem;
-    min-height: 1.9rem;
-    padding: 0.22rem 0.54rem;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--surface) 92%, white);
-    font-size: 0.72rem;
+    gap: 0.35rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.64rem;
+    font-weight: 680;
+    text-decoration: none;
   }
 
-  .social-links svg {
-    width: 1rem;
-    height: 1rem;
-    flex: 0 0 auto;
-    fill: currentColor;
+  .social-links a span {
+    color: var(--accent);
   }
 
-  .footer-primary a:hover,
-  .footer-primary a:focus-visible,
-  .footer-secondary a:hover,
-  .footer-secondary a:focus-visible {
-    color: #000;
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
+  .social-links a:hover,
+  .social-links a:focus-visible {
+    color: #ffffff;
   }
 
-  .footer-secondary {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem 0.9rem;
-    justify-content: flex-end;
-    font-size: 0.74rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-  }
-
-  @media (max-width: 940px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-      gap: 0.8rem;
+  @media (max-width: 900px) {
+    .footer-main {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .footer-secondary {
-      justify-content: flex-start;
+    .footer-links {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .footer-cta,
+    .footer-bottom {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .footer-cta .btn {
+      width: 100%;
+    }
+
+    .footer-main,
+    .footer-links {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-links {
+      grid-column: 1;
+    }
+
+    .footer-bottom {
+      gap: 0.8rem;
     }
   }
 </style>

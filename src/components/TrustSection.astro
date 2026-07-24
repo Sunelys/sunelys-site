@@ -21,51 +21,28 @@ interface Props {
 
 const { data } = Astro.props;
 const visibleLogos = data.logos.filter((logo) => logo.src);
-
-const parseMetric = (value: string) => {
-  const numeric = value.match(/-?\d+/)?.[0] ?? "0";
-  const number = Number.parseInt(numeric, 10);
-  const prefix = value.slice(0, value.indexOf(numeric)).trim();
-  const suffix = value.slice(value.indexOf(numeric) + numeric.length).trim();
-
-  return {
-    number,
-    prefix,
-    suffix,
-    raw: value,
-  };
-};
 ---
 
 <section class="section-shell trust-section reveal" aria-labelledby="trust-title">
   <div class="trust-head" data-reveal-item>
-    <div class="trust-copy">
+    <div>
       <p class="kicker">{data.kicker}</p>
       <h2 id="trust-title">{data.title}</h2>
     </div>
 
-    <div class="trust-note" aria-label="Confiance Sunelys">
-      <span class="trust-tag">Installateurs accompagnés</span>
-      <p>{data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}</p>
-    </div>
+    <p class="trust-note">
+      {data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}
+    </p>
   </div>
 
-  <div class="trust-metrics" aria-label="Chiffres clés Sunelys">
+  <div class="trust-metrics" aria-label="Chiffres clés Sunelys" data-reveal-item>
     {
-      data.metrics.map((metric, index) => {
-        const parsed = parseMetric(metric.value);
-
-        return (
-          <article class:list={["metric-card", index === 0 && "is-featured"]} data-reveal-item>
-            <p class="metric-value">
-              {parsed.prefix && <span class="metric-prefix">{parsed.prefix}</span>}
-              <span class="metric-number" data-counter-target={parsed.number}>{parsed.number}</span>
-              {parsed.suffix && <span class="metric-suffix">{parsed.suffix}</span>}
-            </p>
-            <p class="metric-label">{metric.label}</p>
-          </article>
-        );
-      })
+      data.metrics.map((metric, index) => (
+        <article class:list={["metric", index === 0 && "is-featured"]}>
+          <strong>{metric.value}</strong>
+          <p>{metric.label}</p>
+        </article>
+      ))
     }
   </div>
 
@@ -73,16 +50,16 @@ const parseMetric = (value: string) => {
     visibleLogos.length > 0 && (
       <div class="logo-wall" aria-label="Clients Sunelys" data-reveal-item>
         <div class="logo-wall-head">
-          <p class="logo-eyebrow">Structures accompagnées</p>
-          <p class="logo-caption">Des installateurs solaires qui délèguent tout ou partie de leur administratif.</p>
+          <p>Structures accompagnées</p>
+          <span>Des installateurs qui nous confient tout ou partie de leur administratif.</span>
         </div>
 
         <div class="logo-row">
           {
             visibleLogos.map((logo) => (
-              <article class="logo-slot" aria-label={logo.name}>
-                <img src={logo.src} alt={logo.name} loading="lazy" />
-              </article>
+              <div class="logo-slot" title={logo.name}>
+                <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" />
+              </div>
             ))
           }
         </div>
@@ -91,247 +68,163 @@ const parseMetric = (value: string) => {
   }
 </section>
 
-<script>
-  const animatedCounters = document.querySelectorAll("[data-counter-target]");
-  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-  const easeOutCubic = (progress) => 1 - Math.pow(1 - progress, 3);
-
-  const animateCounter = (element) => {
-    if (!(element instanceof HTMLElement)) return;
-    if (element.dataset.counterAnimated === "true") return;
-
-    const target = Number(element.dataset.counterTarget || "0");
-    if (!Number.isFinite(target)) {
-      element.textContent = element.dataset.counterTarget || "";
-      return;
-    }
-
-    element.dataset.counterAnimated = "true";
-
-    if (reducedMotion) {
-      element.textContent = String(target);
-      return;
-    }
-
-    const duration = 1500;
-    const start = performance.now();
-
-    const tick = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = easeOutCubic(progress);
-      element.textContent = String(Math.round(target * eased));
-
-      if (progress < 1) {
-        window.requestAnimationFrame(tick);
-      } else {
-        element.textContent = String(target);
-      }
-    };
-
-    window.requestAnimationFrame(tick);
-  };
-
-  if ("IntersectionObserver" in window) {
-    const counterObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          animateCounter(entry.target);
-          observer.unobserve(entry.target);
-        });
-      },
-      { threshold: 0.4 }
-    );
-
-    animatedCounters.forEach((counter) => counterObserver.observe(counter));
-  } else {
-    animatedCounters.forEach((counter) => animateCounter(counter));
-  }
-</script>
-
 <style>
   .trust-section {
-    position: relative;
     display: grid;
-    gap: 0.9rem;
-    padding: clamp(1.15rem, 2.6vw, 2.1rem);
-    border: 1px solid color-mix(in srgb, var(--line) 66%, var(--accent));
+    gap: 1rem;
+    padding: clamp(1.3rem, 3vw, 2.4rem);
+    border: 1px solid var(--line);
     border-radius: var(--radius-xl);
-    background:
-      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 54%, transparent), transparent 58%),
-      linear-gradient(180deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
-    box-shadow: var(--shadow-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
   }
 
   .trust-head {
     display: grid;
-    grid-template-columns: minmax(0, 0.95fr) minmax(300px, 0.95fr);
-    gap: 0.85rem;
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.75fr);
+    gap: clamp(1.2rem, 4vw, 4rem);
     align-items: end;
   }
 
-  .kicker,
-  .logo-eyebrow {
+  .kicker {
     margin: 0;
-    color: var(--text-muted);
+    color: var(--system);
     font-size: 0.72rem;
-    font-weight: 700;
+    font-weight: 760;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
   }
 
   h2 {
-    margin: 0.5rem 0 0;
     max-width: 18ch;
-    font-size: clamp(1.85rem, 3.2vw, 3.2rem);
-    line-height: 1;
+    margin: 0.6rem 0 0;
+    font-size: clamp(2rem, 3.7vw, 3.6rem);
   }
 
   .trust-note {
-    justify-self: end;
-    width: min(100%, 33rem);
-    padding: 1rem 1.05rem;
-    border: 1px solid color-mix(in srgb, var(--line) 74%, var(--accent));
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.68);
-    box-shadow: 0 14px 38px rgba(20, 16, 10, 0.07);
-  }
-
-  .trust-tag {
-    display: inline-flex;
-    align-items: center;
-    min-height: 1.9rem;
-    padding: 0.24rem 0.7rem;
-    border-radius: 999px;
-    border: 1px solid color-mix(in srgb, var(--line) 66%, var(--accent));
-    background: color-mix(in srgb, var(--surface) 92%, white);
-    color: var(--text);
-    font-size: 0.66rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    font-weight: 800;
-  }
-
-  .trust-note p {
-    margin: 0.68rem 0 0;
+    margin: 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
     color: var(--text-muted);
     font-size: 0.96rem;
-    line-height: 1.6;
+    line-height: 1.62;
   }
 
   .trust-metrics {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.72rem;
+    overflow: hidden;
+    border-radius: 16px;
+    background:
+      radial-gradient(60% 140% at 0% 100%, rgba(212, 130, 42, 0.22), transparent 68%),
+      var(--ink);
   }
 
-  .metric-card {
-    min-height: 10rem;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
-    border-radius: 24px;
-    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
-    box-shadow: 0 12px 30px rgba(20, 16, 10, 0.07);
+  .metric {
+    min-height: 9.5rem;
+    padding: 1.2rem;
     display: grid;
     align-content: end;
-    gap: 0.5rem;
+    gap: 0.45rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  .metric-card.is-featured {
-    background:
-      radial-gradient(120% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 52%, transparent), transparent 56%),
-      color-mix(in srgb, var(--surface-elevated) 95%, white);
+  .metric:last-child {
+    border-right: 0;
   }
 
-  .metric-value {
+  .metric strong {
+    color: #ffffff;
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    font-weight: 720;
+    letter-spacing: -0.055em;
+    line-height: 0.95;
+  }
+
+  .metric.is-featured strong {
+    color: var(--accent);
+  }
+
+  .metric p {
+    max-width: 24ch;
     margin: 0;
-    color: var(--text);
-    font-family: var(--font-display);
-    font-size: clamp(2.1rem, 3vw, 3.3rem);
-    line-height: 0.92;
-    display: flex;
-    align-items: baseline;
-    flex-wrap: wrap;
-    gap: 0.2rem;
-  }
-
-  .metric-prefix,
-  .metric-suffix {
-    font-size: 0.9em;
-  }
-
-  .metric-label {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.48;
-    max-width: 22ch;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.78rem;
+    line-height: 1.46;
   }
 
   .logo-wall {
     display: grid;
-    gap: 0.72rem;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--line) 78%, var(--accent));
-    border-radius: 24px;
-    background: rgba(255, 255, 255, 0.66);
-    box-shadow: 0 14px 36px rgba(20, 16, 10, 0.06);
+    gap: 0.8rem;
+    padding-top: 0.2rem;
   }
 
   .logo-wall-head {
-    display: grid;
-    gap: 0.16rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
-  .logo-caption {
+  .logo-wall-head p,
+  .logo-wall-head span {
     margin: 0;
+  }
+
+  .logo-wall-head p {
+    color: var(--text);
+    font-size: 0.76rem;
+    font-weight: 760;
+  }
+
+  .logo-wall-head span {
     color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.46;
+    font-size: 0.74rem;
   }
 
   .logo-row {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 0.68rem;
+    gap: 0.55rem;
   }
 
   .logo-slot {
-    min-height: 4.8rem;
-    padding: 0.82rem 1rem;
+    min-height: 4.3rem;
     display: grid;
     place-items: center;
-    border: 1px solid color-mix(in srgb, var(--line) 72%, white);
-    border-radius: 18px;
-    background:
-      radial-gradient(100% 120% at 100% 0%, color-mix(in srgb, var(--accent-soft) 44%, transparent), transparent 60%),
-      #fffefa;
-    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.06);
+    padding: 0.65rem;
+    border-radius: 11px;
+    background: var(--bg-soft);
   }
 
   .logo-slot img {
     display: block;
     width: auto;
-    max-width: min(76%, 150px);
-    max-height: 40px;
+    max-width: min(72%, 132px);
+    max-height: 34px;
     object-fit: contain;
   }
 
   .logo-slot img[alt="Be Travaux"] {
-    max-width: 118px;
-    max-height: 36px;
+    max-width: 102px;
+    max-height: 32px;
   }
 
-  @media (max-width: 1040px) {
-    .trust-head,
-    .trust-metrics {
+  @media (max-width: 920px) {
+    .trust-head {
       grid-template-columns: 1fr;
     }
 
-    .trust-note {
-      justify-self: stretch;
-      width: 100%;
+    .trust-metrics {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .metric:nth-child(2) {
+      border-right: 0;
+    }
+
+    .metric:nth-child(-n + 2) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
     .logo-row {
@@ -339,13 +232,25 @@ const parseMetric = (value: string) => {
     }
   }
 
-  @media (max-width: 760px) {
-    .logo-row {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+  @media (max-width: 620px) {
+    .trust-section {
+      padding: 1rem;
+      border-radius: 18px;
     }
 
-    .metric-card {
-      min-height: auto;
+    .metric {
+      min-height: 7.8rem;
+      padding: 0.9rem;
+    }
+
+    .logo-wall-head {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .logo-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

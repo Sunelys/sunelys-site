@@ -31,18 +31,25 @@ const structuredData = [
   robots="noindex,follow"
   structuredData={structuredData}
 >
-  <main class="brand-page section-shell">
+  <article class="brand-page section-shell">
     <section class="brand-hero">
-      <p class="eyebrow">Site officiel</p>
-      <h1>Sunelys</h1>
-      <p>
-        Sunelys est une société française dédiée à la gestion administrative photovoltaïque
-        pour les installateurs : déclaration préalable, Consuel, raccordement Enedis et suivi
-        documentaire.
-      </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="/contact">Contacter Sunelys</a>
-        <a class="btn btn-secondary" href="/services">Voir les services</a>
+      <div class="brand-hero-copy">
+        <p class="eyebrow">Site officiel</p>
+        <h1>Sunelys</h1>
+        <p>
+          Société française dédiée à la gestion administrative photovoltaïque pour les installateurs :
+          déclaration préalable, Consuel, raccordement Enedis et suivi documentaire.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary btn-accent" href="/contact">Contacter Sunelys</a>
+          <a class="brand-link" href="/services">Voir les services <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <div class="brand-signature" aria-label="Positionnement Sunelys">
+        <span>SUNELYS</span>
+        <strong>L’administratif solaire, piloté.</strong>
+        <small>France · Installateurs photovoltaïques</small>
       </div>
     </section>
 
@@ -66,17 +73,22 @@ const structuredData = [
     </section>
 
     <section class="brand-copy">
-      <h2>La bonne orthographe est Sunelys</h2>
-      <p>
-        Sunelys s'écrit avec un y. La marque accompagne les professionnels du solaire sur
-        la partie administrative de leurs projets, sans réaliser les installations sur chantier.
-      </p>
-      <p>
-        Le site officiel est sunelys.fr et l'adresse de contact officielle est
-        contact@sunelys.fr.
-      </p>
+      <div>
+        <p class="eyebrow">Repère de marque</p>
+        <h2>La bonne orthographe est Sunelys.</h2>
+      </div>
+      <div>
+        <p>
+          Sunelys s'écrit avec un y. La marque accompagne les professionnels du solaire sur
+          la partie administrative de leurs projets, sans réaliser les installations sur chantier.
+        </p>
+        <p>
+          Le site officiel est sunelys.fr et l'adresse de contact officielle est
+          contact@sunelys.fr.
+        </p>
+      </div>
     </section>
-  </main>
+  </article>
 </BaseLayout>
 
 <style>
@@ -154,6 +166,265 @@ const structuredData = [
   @media (max-width: 760px) {
     .brand-grid {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* Direction visuelle 2026 */
+  .brand-page {
+    display: grid;
+    gap: clamp(3.2rem, 7vw, 6.5rem);
+    padding: 0;
+  }
+
+  .brand-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(18rem, 0.52fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    overflow: hidden;
+    min-height: min(43rem, calc(100vh - 8rem));
+    max-width: none;
+    padding: clamp(2rem, 5vw, 5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 88% 4%, rgba(54, 98, 227, 0.42), transparent 31%),
+      radial-gradient(circle at 5% 100%, rgba(212, 130, 42, 0.24), transparent 32%),
+      var(--ink);
+    color: #ffffff;
+  }
+
+  .brand-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: -8rem;
+    bottom: -13rem;
+    width: clamp(20rem, 36vw, 35rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .brand-hero-copy {
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .brand-hero .eyebrow {
+    color: var(--accent);
+    font-size: 0.7rem;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .brand-hero h1 {
+    color: #ffffff;
+    font-size: clamp(4rem, 10vw, 9rem);
+    letter-spacing: -0.07em;
+    line-height: 0.82;
+  }
+
+  .brand-hero-copy > p:not(.eyebrow) {
+    max-width: 43rem;
+    margin: 0.6rem 0 0;
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.2vw, 1.2rem);
+    line-height: 1.65;
+  }
+
+  .brand-hero .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.8rem 1.2rem;
+    margin-top: 0.8rem;
+  }
+
+  .brand-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .brand-link span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .brand-link:hover span,
+  .brand-link:focus-visible span {
+    transform: translate(0.12rem, -0.12rem);
+  }
+
+  .brand-signature {
+    display: grid;
+    gap: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.22);
+  }
+
+  .brand-signature span {
+    color: #7da1ff;
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.16em;
+  }
+
+  .brand-signature strong {
+    max-width: 12ch;
+    color: #ffffff;
+    font-size: clamp(1.5rem, 2.8vw, 2.6rem);
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+
+  .brand-signature small {
+    color: #aebbcf;
+    font-size: 0.72rem;
+  }
+
+  .brand-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0;
+    margin: 0;
+    border-top: 2px solid var(--ink);
+  }
+
+  .brand-grid article {
+    min-height: 7rem;
+    padding: 1rem clamp(0.8rem, 2vw, 1.3rem);
+    border: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .brand-grid article:last-child {
+    border-right: 0;
+  }
+
+  .brand-grid span {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .brand-grid strong {
+    margin-top: 0.55rem;
+    color: var(--ink);
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+
+  .brand-copy {
+    display: grid;
+    grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    max-width: none;
+    margin: 0;
+    padding: clamp(2rem, 4.5vw, 4rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .brand-copy > div:first-child {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .brand-copy .eyebrow {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+  }
+
+  .brand-copy h2 {
+    max-width: 15ch;
+    color: var(--ink);
+    font-size: clamp(1.85rem, 3.55vw, 3.4rem);
+    letter-spacing: -0.05em;
+    line-height: 1;
+  }
+
+  .brand-copy > div:last-child {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding-top: 1.4rem;
+    border-top: 2px solid var(--ink);
+  }
+
+  .brand-copy p:not(.eyebrow) {
+    margin: 0;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  @media (max-width: 820px) {
+    .brand-hero,
+    .brand-copy {
+      grid-template-columns: 1fr;
+    }
+
+    .brand-hero {
+      min-height: 0;
+    }
+
+    .brand-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .brand-grid article:nth-child(2) {
+      border-right: 0;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .brand-hero {
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .brand-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .brand-grid article {
+      min-height: 0;
+      border-right: 0;
+    }
+
+    .brand-copy {
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .brand-hero .actions,
+    .brand-hero .actions .btn {
+      width: 100%;
+    }
+
+    .brand-link {
+      justify-content: center;
+      width: 100%;
     }
   }
 </style>

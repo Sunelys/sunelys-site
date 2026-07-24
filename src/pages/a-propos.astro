@@ -45,83 +45,187 @@ const structuredData = [
 
 const approachItems = [
   {
-    title: "Cadrage clair",
+    title: "Cadrer avant d’exécuter",
     text:
-      "Chaque collaboration commence par un cadrage du volume, des irritants et des démarches à externaliser. Pas d'engagement avant d'avoir défini ce qui a du sens pour vous.",
+      "Volume, irritants, pièces disponibles et niveau d’urgence sont clarifiés avant de définir le périmètre à reprendre.",
   },
   {
-    title: "Pilotage humain + portail",
+    title: "Rendre le suivi visible",
     text:
-      "Un interlocuteur dédié, un portail qui centralise dossiers, pièces et statuts. La technologie au service de la relation, pas l'inverse.",
+      "Le portail centralise les dossiers, les statuts et les prochaines actions pour éviter les échanges dispersés.",
   },
   {
-    title: "Traçabilité totale",
+    title: "Garder une relation humaine",
     text:
-      "Chaque dossier garde son historique, son statut et sa prochaine étape visibles à tout moment. Vous reprenez la main quand vous voulez.",
+      "Un interlocuteur suit les dossiers, répond aux questions et adapte l’organisation quand votre flux évolue.",
+  },
+];
+
+const metrics = [
+  { value: "1 357", label: "dossiers administratifs pilotés" },
+  { value: "96 %", label: "de DP sans pièce complémentaire" },
+  { value: "48 h", label: "de production sur dossier complet" },
+];
+
+const clientLogos = [
+  { name: "SunWatt France", src: "/images/site/client-sunwatt-france.png" },
+  { name: "Terra ENR", src: "/images/site/client-terra-enr.png" },
+  { name: "Groupe Solarenov", src: "/images/site/client-groupe-solarenov.png" },
+  { name: "Ensol", src: "/images/site/client-ensol.webp" },
+  { name: "Be Travaux", src: "/images/site/client-betravaux.png" },
+];
+
+const commitments = [
+  {
+    label: "Spécialisation",
+    title: "Le photovoltaïque, pas l’administratif généraliste.",
+    text:
+      "La méthode et les contrôles sont construits autour des démarches rencontrées par les installateurs solaires.",
+  },
+  {
+    label: "Continuité",
+    title: "Un dossier reste lisible du premier dépôt à la dernière action.",
+    text:
+      "Chaque statut, complément et relance s’inscrit dans un suivi continu, même lorsque plusieurs organismes interviennent.",
+  },
+  {
+    label: "Souplesse",
+    title: "Un dossier ponctuel peut suffire pour commencer.",
+    text:
+      "La collaboration s’adapte au besoin réel : reprise d’un blocage, pic de charge ou flux récurrent.",
   },
 ];
 ---
 
 <BaseLayout title={title} description={description} structuredData={structuredData}>
-  <section class="about-hero section-shell reveal">
-    <div class="about-copy">
-      <p class="eyebrow">À propos</p>
-      <h1>Qui est derrière Sunelys</h1>
-      <p>
-        Sunelys est née d'un constat simple : sur le terrain, les installateurs photovoltaïques perdent du temps et du chiffre sur l'administratif. La promesse de Sunelys, c'est de leur rendre cette charge mentale, sans approximation et sans rupture de service.
+  <section class="about-hero reveal" aria-labelledby="about-title">
+    <div class="about-copy" data-reveal-item>
+      <p class="eyebrow">À propos de Sunelys</p>
+      <h1 id="about-title">L’administratif solaire mérite une vraie expertise métier.</h1>
+      <p class="hero-intro">
+        Sunelys est née d’un constat simple : les installateurs perdent trop de temps, de visibilité et parfois des
+        chantiers sur des démarches qui devraient être pilotables. Notre rôle est de transformer cette charge en
+        flux clair, traçable et humain.
+      </p>
+
+      <div class="hero-actions">
+        <a class="btn btn-accent" href="/contact?source=a-propos#contact-form" data-track="cta_about_hero_contact">
+          Échanger sur vos dossiers
+          <span aria-hidden="true">→</span>
+        </a>
+        <a
+          class="hero-link"
+          href="https://www.linkedin.com/in/myriam-zaoui-2baa501b9/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-track="cta_about_hero_linkedin"
+        >
+          Voir le profil de Myriam
+          <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <p class="founder-signature">
+        <strong>Myriam Zaoui</strong>
+        Fondatrice de Sunelys
       </p>
     </div>
 
-    <figure class="founder-photo">
-      <div class="photo-frame">
-        <img
-          src="/images/myriam-zaoui.jpg"
-          alt="Myriam Zaoui, fondatrice de Sunelys"
-          width="1024"
-          height="1024"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
-      <figcaption>Myriam Zaoui, fondatrice de Sunelys.</figcaption>
+    <figure class="founder-photo" data-reveal-item>
+      <img
+        src="/images/myriam-zaoui.jpg"
+        alt="Myriam Zaoui, fondatrice de Sunelys, à son bureau"
+        width="1024"
+        height="1024"
+        loading="eager"
+        decoding="async"
+      />
+      <figcaption>
+        <span>Fondatrice</span>
+        <strong>Myriam Zaoui · Sunelys</strong>
+      </figcaption>
     </figure>
   </section>
 
-  <section class="about-section section-shell reveal">
-    <div class="section-head">
-      <p class="eyebrow">Expertise</p>
-      <h2>Une expertise au service des installateurs solaires</h2>
-    </div>
-    <p>
-      Sunelys accompagne aujourd'hui des structures comme SunWatt France, Terra ENR, Groupe Solarenov, Ensol et Be Travaux sur le pilotage de leurs déclarations préalables, dossiers Consuel et raccordements Enedis. L'objectif est toujours le même : des dossiers complets, des délais maîtrisés, une traçabilité totale.
-    </p>
-  </section>
-
-  <section class="founder-section section-shell reveal">
-    <div class="section-head">
-      <p class="eyebrow">Fondatrice</p>
-      <h2>Myriam Zaoui — Fondatrice</h2>
-    </div>
-    <div class="founder-grid">
+  <section class="credibility-section reveal" aria-labelledby="credibility-title">
+    <div class="credibility-head" data-reveal-item>
+      <div>
+        <p class="eyebrow">Preuves terrain</p>
+        <h2 id="credibility-title">Une méthode déjà intégrée aux flux d’installateurs français.</h2>
+      </div>
       <p>
-        Myriam Zaoui dirige Sunelys depuis sa création. Spécialiste de la gestion administrative des projets photovoltaïques en France, elle a structuré une méthode qui s'adapte aux flux réels des installateurs : production sous 48h quand le dossier est complet, suivi sur portail dédié, interlocuteur unique.
+        Sunelys accompagne notamment SunWatt France, Terra ENR, Groupe Solarenov, Ensol et Be Travaux sur leurs
+        démarches photovoltaïques.
       </p>
-      <blockquote>
-        <p>« Mon métier, c'est de transformer un irritant administratif en process fluide. Les installateurs n'ont plus à choisir entre vendre et être en règle. »</p>
-        <cite>— Myriam Zaoui, fondatrice de Sunelys</cite>
-      </blockquote>
+    </div>
+
+    <div class="metric-grid" data-reveal-item>
+      {
+        metrics.map((metric, index) => (
+          <article class:list={[index === 0 && "is-featured"]}>
+            <strong>{metric.value}</strong>
+            <p>{metric.label}</p>
+          </article>
+        ))
+      }
+    </div>
+
+    <div class="logo-row" aria-label="Structures accompagnées par Sunelys" data-reveal-item>
+      {
+        clientLogos.map((logo) => (
+          <div title={logo.name}>
+            <img src={logo.src} alt={logo.name} loading="lazy" decoding="async" />
+          </div>
+        ))
+      }
     </div>
   </section>
 
-  <section class="approach-section section-shell reveal">
-    <div class="section-head">
-      <p class="eyebrow">Méthode</p>
-      <h2>Notre approche</h2>
+  <section class="founder-story reveal" aria-labelledby="founder-title">
+    <div class="story-copy" data-reveal-item>
+      <p class="eyebrow">La fondatrice</p>
+      <h2 id="founder-title">Rendre l’administratif suffisamment clair pour qu’il ne ralentisse plus la croissance.</h2>
+      <p>
+        Myriam Zaoui dirige Sunelys et structure chaque collaboration autour des contraintes réelles des
+        installateurs : volume variable, pièces dispersées, interlocuteurs multiples et délais parfois difficiles
+        à anticiper.
+      </p>
+      <p>
+        L’objectif n’est pas d’ajouter une couche de gestion. Il est de créer un cadre suffisamment simple pour que
+        les équipes commerciales et travaux sachent où en est chaque dossier et ce qu’il reste à faire.
+      </p>
     </div>
+
+    <blockquote data-reveal-item>
+      <p>
+        Mon métier, c’est de transformer un irritant administratif en process fluide. Les installateurs n’ont plus
+        à choisir entre vendre et être en règle.
+      </p>
+      <footer>
+        <span>MZ</span>
+        <div>
+          <strong>Myriam Zaoui</strong>
+          <cite>Fondatrice de Sunelys</cite>
+        </div>
+      </footer>
+    </blockquote>
+  </section>
+
+  <section class="approach-section reveal" aria-labelledby="approach-title">
+    <div class="approach-head" data-reveal-item>
+      <p class="eyebrow">La méthode Sunelys</p>
+      <h2 id="approach-title">De la rigueur, sans rigidité.</h2>
+      <p>
+        Le cadre reste le même quel que soit le volume : comprendre, centraliser, suivre et rendre la prochaine
+        action visible.
+      </p>
+    </div>
+
     <div class="approach-grid">
       {
-        approachItems.map((item) => (
-          <article>
+        approachItems.map((item, index) => (
+          <article data-reveal-item>
+            <span>0{index + 1}</span>
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </article>
@@ -130,239 +234,653 @@ const approachItems = [
     </div>
   </section>
 
-  <section class="contact-direct section-shell reveal">
-    <div>
-      <p class="eyebrow">Contact direct</p>
-      <h2>Un cadrage simple pour savoir quoi déléguer.</h2>
-      <div class="contact-lines">
-        <a href="mailto:contact@sunelys.fr" data-track="cta_about_email">contact@sunelys.fr</a>
-        <a href="tel:+33695907919" data-track="cta_about_phone">06 95 90 79 19</a>
-      </div>
+  <section class="commitments-section reveal" aria-labelledby="commitments-title">
+    <div class="commitments-head" data-reveal-item>
+      <p class="eyebrow">Notre position</p>
+      <h2 id="commitments-title">Ce que Sunelys choisit de faire différemment.</h2>
     </div>
-    <div class="cta-actions">
-      <a class="btn btn-primary btn-accent" href="/contact?source=a-propos#contact-form" data-track="cta_about_contact">
-        Recevoir un cadrage gratuit
+
+    <div class="commitment-list">
+      {
+        commitments.map((item, index) => (
+          <article data-reveal-item>
+            <span>0{index + 1}</span>
+            <p>{item.label}</p>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="contact-direct reveal" aria-labelledby="about-contact-title">
+    <div data-reveal-item>
+      <p class="eyebrow">Contact direct</p>
+      <h2 id="about-contact-title">Parlons du premier dossier à sortir de votre équipe.</h2>
+      <p>
+        Un échange court suffit pour savoir si vous devez déléguer une étape, reprendre un blocage ou structurer un
+        flux complet.
+      </p>
+    </div>
+
+    <div class="contact-panel" data-reveal-item>
+      <a href="mailto:contact@sunelys.fr" data-track="cta_about_email">
+        <span>Email</span>
+        <strong>contact@sunelys.fr</strong>
+        <i aria-hidden="true">→</i>
       </a>
-      <a class="btn btn-secondary" href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_about_booking">
-        Réserver 15 min
+      <a href="tel:+33695907919" data-track="cta_about_phone">
+        <span>Téléphone</span>
+        <strong>06 95 90 79 19</strong>
+        <i aria-hidden="true">→</i>
+      </a>
+      <a href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_about_booking">
+        <span>Calendrier</span>
+        <strong>Réserver 15 minutes</strong>
+        <i aria-hidden="true">↗</i>
+      </a>
+      <a class="contact-cta btn btn-accent" href="/contact?source=a-propos-final#contact-form" data-track="cta_about_contact">
+        Recevoir un cadrage sous 24h
       </a>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .about-hero,
-  .about-section,
-  .founder-section,
-  .approach-section,
-  .contact-direct {
-    border: 1px solid color-mix(in srgb, var(--line) 72%, var(--accent));
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(100% 130% at 100% 0%, color-mix(in srgb, var(--accent-soft) 48%, transparent), transparent 58%),
-      linear-gradient(170deg, color-mix(in srgb, var(--surface-elevated) 95%, white), var(--surface));
-    box-shadow: var(--shadow-md);
-    padding: clamp(1.2rem, 2.8vw, 2.25rem);
-  }
-
   .about-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(260px, 0.42fr);
-    gap: clamp(1rem, 3vw, 2.4rem);
-    align-items: center;
+    grid-template-columns: minmax(0, 0.98fr) minmax(360px, 0.72fr);
+    gap: clamp(1.2rem, 3vw, 2.5rem);
+    align-items: stretch;
+    overflow: hidden;
+    padding: clamp(0.65rem, 1.2vw, 1rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
+      var(--ink);
+    box-shadow: var(--shadow-md);
   }
 
-  .about-copy,
-  .about-section,
-  .founder-section,
-  .approach-section,
-  .contact-direct > div {
-    display: grid;
-    gap: 0.9rem;
+  .about-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    padding: clamp(1.2rem, 3.4vw, 3.4rem);
   }
 
   .eyebrow {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    color: var(--system);
+    font-size: 0.7rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    font-weight: 700;
   }
 
-  h1,
-  h2,
-  h3 {
-    margin: 0;
-    line-height: 1;
+  .about-copy .eyebrow,
+  .contact-direct .eyebrow {
+    color: var(--accent);
   }
 
   h1 {
     max-width: 13ch;
-    font-size: clamp(2.35rem, 5.2vw, 5rem);
+    margin-top: 0.7rem;
+    color: #ffffff;
+    font-size: clamp(2.4rem, 4.8vw, 5rem);
+    line-height: 0.94;
   }
 
-  h2 {
-    max-width: 16ch;
-    font-size: clamp(1.75rem, 3.2vw, 3.15rem);
+  .hero-intro {
+    max-width: 62ch;
+    margin-top: 1.15rem;
+    color: rgba(255, 255, 255, 0.64);
+    font-size: 0.94rem;
+    line-height: 1.65;
   }
 
-  h3 {
-    font-size: clamp(1.15rem, 1.5vw, 1.45rem);
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
   }
 
-  p,
-  figcaption,
-  cite {
-    color: var(--text-muted);
-    line-height: 1.62;
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.76rem;
+    font-weight: 740;
+    text-decoration: underline;
+    text-decoration-color: rgba(255, 255, 255, 0.22);
+    text-underline-offset: 0.28rem;
   }
 
-  .about-copy p,
-  .about-section > p,
-  .founder-grid > p {
-    max-width: 68ch;
-    font-size: var(--step-0);
+  .hero-link span {
+    color: var(--accent);
+  }
+
+  .founder-signature {
+    display: grid;
+    gap: 0.1rem;
+    margin-top: 2rem;
+    color: rgba(255, 255, 255, 0.44);
+    font-size: 0.66rem;
+  }
+
+  .founder-signature strong {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.76rem;
   }
 
   .founder-photo {
+    position: relative;
+    min-height: 38rem;
     margin: 0;
-    display: grid;
-    gap: 0.65rem;
-  }
-
-  .photo-frame {
-    aspect-ratio: 1;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--line) 58%, var(--accent));
-    border-radius: var(--radius-md);
-    background:
-      linear-gradient(160deg, color-mix(in srgb, var(--accent-soft) 56%, white), color-mix(in srgb, var(--surface) 94%, white));
+    border-radius: 17px;
+    background: #dfe2e4;
   }
 
-  .photo-frame img {
+  .founder-photo img {
     display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: 48% center;
   }
 
-  figcaption {
-    font-size: var(--step--1);
+  .founder-photo::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 34%;
+    background: linear-gradient(180deg, transparent, rgba(14, 23, 38, 0.72));
+    pointer-events: none;
   }
 
-  .section-head {
+  .founder-photo::before {
+    content: "Direction · Sunelys";
+    position: absolute;
+    z-index: 3;
+    top: 0.85rem;
+    right: 0.85rem;
+    display: inline-grid;
+    place-items: center;
+    min-width: 8.2rem;
+    min-height: 2.6rem;
+    padding: 0.45rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 999px;
+    background: rgba(14, 23, 38, 0.88);
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.6rem;
+    font-weight: 760;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+  }
+
+  .founder-photo figcaption {
+    position: absolute;
+    z-index: 2;
+    right: 0.8rem;
+    bottom: 0.8rem;
+    left: 0.8rem;
     display: grid;
-    gap: 0.52rem;
+    gap: 0.16rem;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 11px;
+    background: rgba(14, 23, 38, 0.66);
+    backdrop-filter: blur(12px);
   }
 
-  .founder-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr);
-    gap: clamp(1rem, 2.4vw, 1.8rem);
-    align-items: start;
+  .founder-photo figcaption span {
+    color: var(--accent);
+    font-size: 0.6rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
   }
 
-  blockquote {
-    margin: 0;
-    padding: 1rem 1rem 1rem 1.15rem;
-    border-left: 4px solid var(--accent-strong);
-    border-radius: 0 var(--radius-md) var(--radius-md) 0;
-    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
+  .founder-photo figcaption strong {
+    color: #ffffff;
+    font-size: 0.78rem;
+  }
+
+  .credibility-section,
+  .approach-section,
+  .commitments-section {
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-xl);
+    background: var(--surface);
     box-shadow: var(--shadow-sm);
   }
 
-  blockquote p {
-    color: var(--text);
-    font-size: var(--step-0);
+  .credibility-head {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.6fr);
+    gap: clamp(1.3rem, 4vw, 4rem);
+    align-items: end;
+  }
+
+  .credibility-head h2,
+  .story-copy h2,
+  .approach-head h2,
+  .commitments-head h2,
+  .contact-direct h2 {
+    max-width: 18ch;
+    margin-top: 0.6rem;
+    font-size: clamp(2rem, 3.7vw, 3.7rem);
+  }
+
+  .credibility-head > p,
+  .approach-head > p {
+    color: var(--text-muted);
+    font-size: 0.87rem;
+    line-height: 1.62;
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: hidden;
+    margin-top: 1.7rem;
+    border-radius: 16px;
+    background: var(--ink);
+  }
+
+  .metric-grid article {
+    min-height: 9rem;
+    display: grid;
+    align-content: end;
+    gap: 0.4rem;
+    padding: 1.1rem;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .metric-grid article:last-child {
+    border-right: 0;
+  }
+
+  .metric-grid strong {
+    color: #ffffff;
+    font-size: clamp(2.2rem, 3.4vw, 3.5rem);
+    letter-spacing: -0.06em;
+    line-height: 0.92;
+  }
+
+  .metric-grid .is-featured strong {
+    color: var(--accent);
+  }
+
+  .metric-grid p {
+    max-width: 22ch;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.7rem;
+    line-height: 1.45;
+  }
+
+  .logo-row {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 0.55rem;
+    margin-top: 0.8rem;
+  }
+
+  .logo-row > div {
+    min-height: 4.2rem;
+    display: grid;
+    place-items: center;
+    padding: 0.65rem;
+    border-radius: 11px;
+    background: var(--bg-soft);
+  }
+
+  .logo-row img {
+    display: block;
+    width: auto;
+    max-width: min(72%, 130px);
+    max-height: 34px;
+    object-fit: contain;
+  }
+
+  .founder-story {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(320px, 0.7fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: stretch;
+    padding: clamp(1.3rem, 3vw, 2.6rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .story-copy {
+    padding: clamp(0.2rem, 1vw, 0.8rem);
+  }
+
+  .story-copy > p:not(.eyebrow) {
+    max-width: 62ch;
+    margin-top: 1rem;
+    color: var(--text-muted);
+    font-size: 0.87rem;
+    line-height: 1.64;
+  }
+
+  blockquote {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: clamp(1.3rem, 3vw, 2.5rem);
+    border-radius: 16px;
+    background:
+      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.25), transparent 62%),
+      var(--ink);
+  }
+
+  blockquote > p {
+    margin: clamp(1rem, 3vw, 3rem) 0 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: clamp(1.05rem, 1.3vw, 1.3rem);
+    font-weight: 650;
+    line-height: 1.65;
+  }
+
+  blockquote footer {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.7rem;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  blockquote footer > span {
+    display: inline-grid;
+    place-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 800;
+  }
+
+  blockquote footer strong {
+    display: block;
+    color: #ffffff;
+    font-size: 0.78rem;
   }
 
   blockquote cite {
     display: block;
-    margin-top: 0.8rem;
+    margin-top: 0.12rem;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 0.64rem;
     font-style: normal;
-    font-size: var(--step--1);
+  }
+
+  .approach-section {
+    display: grid;
+    grid-template-columns: minmax(280px, 0.65fr) minmax(0, 1.35fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    background: var(--surface);
+  }
+
+  .approach-head > p {
+    max-width: 46ch;
+    margin-top: 1rem;
   }
 
   .approach-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.8rem;
+    border-top: 1px solid var(--line);
+    border-left: 1px solid var(--line);
   }
 
   .approach-grid article {
+    min-height: 22rem;
+    display: flex;
+    flex-direction: column;
+    padding: 1.1rem;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .approach-grid article > span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .approach-grid h3 {
+    max-width: 13ch;
+    margin-top: auto;
+    font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  }
+
+  .approach-grid p {
+    margin-top: 0.7rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    line-height: 1.55;
+  }
+
+  .commitments-section {
     display: grid;
-    gap: 0.55rem;
-    min-height: 12rem;
-    align-content: start;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--line) 78%, white);
-    border-radius: var(--radius-md);
-    background: color-mix(in srgb, var(--surface-elevated) 94%, white);
-    box-shadow: var(--shadow-sm);
+    grid-template-columns: minmax(260px, 0.58fr) minmax(0, 1.42fr);
+    gap: clamp(1.5rem, 5vw, 5rem);
+    background: var(--system-soft);
+  }
+
+  .commitment-list {
+    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .commitment-list article {
+    display: grid;
+    grid-template-columns: auto minmax(100px, 0.38fr) minmax(200px, 0.82fr) minmax(220px, 1fr);
+    gap: 1rem;
+    align-items: center;
+    min-height: 8.2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+  }
+
+  .commitment-list article > span {
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 800;
+  }
+
+  .commitment-list article > p:first-of-type {
+    color: var(--system);
+    font-size: 0.65rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .commitment-list h3 {
+    font-size: 0.98rem;
+    line-height: 1.35;
+  }
+
+  .commitment-list article > p:last-child {
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    line-height: 1.5;
   }
 
   .contact-direct {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 0.68fr);
+    gap: clamp(1.5rem, 4vw, 4rem);
+    align-items: end;
+    overflow: hidden;
+    padding: clamp(1.5rem, 3.5vw, 3.6rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(70% 90% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
+      radial-gradient(70% 100% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
+      var(--ink);
+    box-shadow: var(--shadow-md);
+  }
+
+  .contact-direct h2 {
+    color: #ffffff;
+  }
+
+  .contact-direct > div:first-child > p:last-child {
+    max-width: 62ch;
+    margin-top: 1rem;
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.86rem;
+    line-height: 1.62;
+  }
+
+  .contact-panel {
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .contact-panel > a:not(.contact-cta) {
+    display: grid;
+    grid-template-columns: minmax(70px, auto) 1fr auto;
+    gap: 0.7rem;
     align-items: center;
-  }
-
-  .contact-lines {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem 1rem;
-  }
-
-  .contact-lines a {
-    color: var(--text);
+    min-height: 4.5rem;
+    padding: 0.75rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
     text-decoration: none;
-    font-weight: 700;
   }
 
-  .contact-lines a:hover,
-  .contact-lines a:focus-visible {
-    text-decoration: underline;
-    text-underline-offset: 0.2rem;
+  .contact-panel > a:not(.contact-cta) > span {
+    color: var(--accent);
+    font-size: 0.62rem;
+    font-weight: 780;
+    text-transform: uppercase;
   }
 
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 0.65rem;
+  .contact-panel > a:not(.contact-cta) strong {
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 0.75rem;
   }
 
-  @media (max-width: 920px) {
+  .contact-panel > a:not(.contact-cta) i {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-style: normal;
+  }
+
+  .contact-cta {
+    width: calc(100% - 1rem);
+    margin: 0.5rem;
+  }
+
+  @media (max-width: 1050px) {
     .about-hero,
-    .founder-grid,
-    .approach-grid,
+    .founder-story,
+    .approach-section,
+    .commitments-section,
     .contact-direct {
       grid-template-columns: 1fr;
     }
 
-    h1,
-    h2 {
-      max-width: 18ch;
-    }
-
-    .cta-actions {
-      justify-content: flex-start;
+    .founder-photo {
+      min-height: 34rem;
     }
   }
 
-  @media (max-width: 560px) {
-    .about-hero,
-    .about-section,
-    .founder-section,
-    .approach-section,
-    .contact-direct {
-      border-radius: var(--radius-md);
+  @media (max-width: 820px) {
+    .credibility-head {
+      grid-template-columns: 1fr;
     }
 
-    .cta-actions .btn {
+    .approach-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .approach-grid article {
+      min-height: 14rem;
+    }
+
+    .commitment-list article {
+      grid-template-columns: auto 1fr;
+      align-items: start;
+    }
+
+    .commitment-list h3,
+    .commitment-list article > p:last-child {
+      grid-column: 2;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .about-copy,
+    .credibility-section,
+    .founder-story,
+    .approach-section,
+    .commitments-section,
+    .contact-direct {
+      padding: 1.2rem;
+    }
+
+    .hero-actions {
+      align-items: stretch;
+      flex-direction: column;
+    }
+
+    .hero-actions .btn,
+    .hero-link {
       width: 100%;
+      justify-content: center;
+    }
+
+    .founder-photo {
+      min-height: 28rem;
+    }
+
+    .metric-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .metric-grid article {
+      min-height: 6.8rem;
+      border-right: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .metric-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .logo-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .contact-panel > a:not(.contact-cta) {
+      grid-template-columns: 1fr auto;
+    }
+
+    .contact-panel > a:not(.contact-cta) strong {
+      grid-column: 1;
+    }
+
+    .contact-panel > a:not(.contact-cta) i {
+      grid-column: 2;
+      grid-row: 1 / span 2;
     }
   }
 </style>

@@ -15,35 +15,46 @@ const {
   path,
   navLinks,
   ctaHref = "/contact",
-  ctaLabel = "Diagnostic gratuit",
+  ctaLabel = "Diagnostic sous 24h",
 } = Astro.props;
 ---
 
-<header class="site-header">
+<header class="site-header" data-site-header>
   <div class="container header-row">
-    <a class="brand-link" href="/" aria-label="Sunelys" data-track="nav_brand_home">
+    <a class="brand-link" href="/" aria-label="Sunelys — Accueil" data-track="nav_brand_home">
       <img src="/brand/wordmark.svg" alt="Sunelys" width="136" height="27" loading="eager" decoding="async" />
     </a>
 
-    <nav class="main-nav" aria-label="Navigation principale">
-      <ul>
-        {
-          navLinks.map((link) => {
-            const active = path === link.href;
-            return (
-              <li>
-                <a
-                  class:list={["nav-link", active && "active"]}
-                  href={link.href}
-                  aria-current={active ? "page" : undefined}
-                >
-                  {link.label}
-                </a>
-              </li>
-            );
-          })
-        }
-      </ul>
+    <nav class="main-nav" id="main-navigation" aria-label="Navigation principale">
+      <div class="nav-panel">
+        <ul>
+          {
+            navLinks.map((link) => {
+              const active = path === link.href;
+              return (
+                <li>
+                  <a
+                    class:list={["nav-link", active && "active"]}
+                    href={link.href}
+                    aria-current={active ? "page" : undefined}
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+
+        <a
+          class="mobile-portal-link"
+          href="https://portail.sunelys.fr/login"
+          data-track="cta_header_portal_mobile"
+        >
+          <span>Déjà client ?</span>
+          <strong>Accéder au portail</strong>
+        </a>
+      </div>
     </nav>
 
     <div class="header-actions">
@@ -52,246 +63,329 @@ const {
         href="https://portail.sunelys.fr/login"
         data-track="cta_header_portal"
       >
-        <span>Deja client ?</span>
-        <strong>Acceder au portail</strong>
+        <span class="portal-status" aria-hidden="true"></span>
+        <span>Portail client</span>
       </a>
-      <a class="btn btn-primary btn-accent nav-cta" href={ctaHref} data-track="cta_header_primary">{ctaLabel}</a>
+
+      <a class="btn btn-accent nav-cta" href={ctaHref} data-track="cta_header_primary">
+        <span class="cta-label-full">{ctaLabel}</span>
+        <span class="cta-label-short">Diagnostic</span>
+      </a>
+
+      <button
+        class="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+        aria-label="Ouvrir le menu"
+        data-menu-toggle
+      >
+        <span></span>
+        <span></span>
+      </button>
     </div>
   </div>
 </header>
+
+<script>
+  document.querySelectorAll("[data-site-header]").forEach((header) => {
+    if (!(header instanceof HTMLElement)) return;
+
+    const toggle = header.querySelector("[data-menu-toggle]");
+    const nav = header.querySelector("#main-navigation");
+    if (!(toggle instanceof HTMLButtonElement) || !(nav instanceof HTMLElement)) return;
+
+    const closeMenu = () => {
+      header.removeAttribute("data-menu-open");
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.setAttribute("aria-label", "Ouvrir le menu");
+    };
+
+    const openMenu = () => {
+      header.setAttribute("data-menu-open", "true");
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.setAttribute("aria-label", "Fermer le menu");
+    };
+
+    toggle.addEventListener("click", () => {
+      if (toggle.getAttribute("aria-expanded") === "true") {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", closeMenu));
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closeMenu();
+    });
+
+    window.matchMedia("(min-width: 1081px)").addEventListener?.("change", closeMenu);
+  });
+</script>
 
 <style>
   .site-header {
     position: sticky;
     top: 0;
     z-index: 120;
-    border-bottom: 1px solid color-mix(in srgb, var(--line) 74%, transparent);
-    background: linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--bg-soft) 94%, transparent),
-      color-mix(in srgb, var(--surface) 86%, transparent)
-    );
-    backdrop-filter: blur(18px) saturate(118%);
+    border-bottom: 1px solid color-mix(in srgb, var(--line) 84%, transparent);
+    background: color-mix(in srgb, var(--bg-soft) 92%, transparent);
+    backdrop-filter: blur(18px) saturate(125%);
   }
 
   .header-row {
-    min-height: 4.55rem;
+    min-height: 4.5rem;
     display: grid;
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: auto minmax(0, 1fr) auto;
     align-items: center;
-    gap: 1.25rem;
-    min-width: 0;
+    gap: clamp(1rem, 2.4vw, 2.4rem);
   }
 
   .brand-link {
     display: inline-flex;
     align-items: center;
-    text-decoration: none;
-    position: relative;
-    isolation: isolate;
     min-width: 0;
-    overflow: hidden;
-  }
-
-  .brand-link::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: url("/brand/shape-clean.svg") no-repeat center / contain;
-    opacity: calc(var(--shape-opacity) * 0.36);
-    filter: blur(calc(var(--shape-blur) * 0.42));
-    pointer-events: none;
-    z-index: -1;
-    transform: scale(1.75);
+    text-decoration: none;
   }
 
   .brand-link img {
-    width: clamp(110px, 9.6vw, 136px);
-    height: clamp(22px, 2vw, 30px);
     display: block;
-    object-fit: cover;
-    object-position: center;
+    width: clamp(112px, 9vw, 136px);
+    height: auto;
+    object-fit: contain;
+  }
+
+  .main-nav {
+    min-width: 0;
+  }
+
+  .nav-panel,
+  .main-nav ul {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-panel {
+    justify-content: center;
   }
 
   .main-nav ul {
     list-style: none;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.32rem;
-  }
-
-  .main-nav {
-    min-width: 0;
-    max-width: 100%;
+    gap: 0.12rem;
   }
 
   .nav-link {
     display: inline-flex;
     align-items: center;
-    min-height: 2.15rem;
-    padding: 0.42rem 0.78rem;
+    min-height: 2.35rem;
+    padding: 0.5rem 0.68rem;
     border-radius: 10px;
-    border: 1px solid transparent;
     color: var(--text-muted);
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0;
-    text-transform: uppercase;
+    font-size: 0.82rem;
+    font-weight: 650;
     text-decoration: none;
-    transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
+    transition: color 160ms ease, background-color 160ms ease;
   }
 
   .nav-link:hover,
   .nav-link:focus-visible,
   .nav-link.active {
     color: var(--text);
-    border-color: color-mix(in srgb, var(--line) 82%, white);
-    background: color-mix(in srgb, var(--surface) 88%, white);
-    box-shadow: 0 10px 24px rgba(20, 16, 10, 0.05);
+    background: var(--surface);
+  }
+
+  .nav-link.active {
+    box-shadow: inset 0 0 0 1px var(--line), 0 8px 20px rgba(14, 23, 38, 0.05);
   }
 
   .header-actions {
     display: inline-flex;
     align-items: center;
-    gap: 0.55rem;
+    justify-content: flex-end;
+    gap: 0.72rem;
   }
 
   .portal-link {
     display: inline-flex;
     align-items: center;
-    gap: 0.35rem;
-    min-height: 2.1rem;
-    padding: 0.1rem 0;
-    text-decoration: none;
-    color: var(--text-muted);
-    letter-spacing: 0;
-    text-transform: uppercase;
-    font-size: 0.66rem;
-    font-weight: 600;
-    transition: color 180ms ease, opacity 180ms ease, transform 180ms ease;
-  }
-
-  .portal-link:hover,
-  .portal-link:focus-visible {
+    gap: 0.45rem;
+    min-height: 2.4rem;
     color: var(--text);
-    transform: translateY(-1px);
-  }
-
-  .portal-link span {
-    opacity: 0.72;
-  }
-
-  .portal-link strong {
-    font-size: 0.68rem;
-    letter-spacing: 0;
-  }
-
-  .nav-cta {
-    min-height: 2.35rem;
+    font-size: 0.78rem;
+    font-weight: 650;
+    text-decoration: none;
     white-space: nowrap;
   }
 
-  @media (max-width: 1320px) {
-    .header-row {
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        "brand actions"
-        "nav nav";
-      row-gap: 0.55rem;
-      padding-block: 0.72rem;
-      min-height: auto;
-    }
+  .portal-status {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--success);
+    box-shadow: 0 0 0 4px var(--success-soft);
+  }
 
-    .brand-link {
-      grid-area: brand;
-    }
+  .nav-cta {
+    min-height: 2.7rem;
+    padding-inline: 1rem;
+    white-space: nowrap;
+  }
 
-    .header-actions {
-      grid-area: actions;
-      justify-self: end;
-    }
+  .cta-label-short,
+  .mobile-portal-link,
+  .menu-toggle {
+    display: none;
+  }
 
-    .main-nav {
-      grid-area: nav;
-      min-width: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      contain: paint;
-      padding-bottom: 0.2rem;
-    }
-
-    .main-nav ul {
-      justify-content: flex-start;
-      min-width: max-content;
+  @media (max-width: 1180px) {
+    .portal-link {
+      display: none;
     }
   }
 
-  @media (max-width: 640px) {
+  @media (max-width: 1080px) {
     .header-row {
-      grid-template-columns: auto 1fr;
-      grid-template-areas:
-        "brand actions"
-        "cta cta"
-        "nav nav";
-      gap: 0.48rem 0.8rem;
-      padding-block: 0.62rem 0.58rem;
-    }
-
-    .header-actions {
-      display: contents;
-    }
-
-    .nav-cta {
-      grid-area: cta;
-      width: 100%;
-      min-height: 2.62rem;
-    }
-
-    .portal-link {
-      grid-area: actions;
-      width: auto;
-      justify-content: flex-end;
-      justify-self: end;
-      min-height: 1.8rem;
-      font-size: 0.65rem;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      min-height: 4.15rem;
+      gap: 1rem;
     }
 
     .main-nav {
-      overflow-x: auto;
-      overflow-y: hidden;
-      contain: paint;
-      scrollbar-width: none;
-      padding-bottom: 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 100%;
+      padding: 0 var(--container-padding) 1rem;
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg-soft) 97%, white);
+      box-shadow: 0 24px 48px rgba(14, 23, 38, 0.12);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(-0.5rem);
+      transition: opacity 180ms ease, transform 180ms ease, visibility 180ms ease;
     }
 
-    .main-nav::-webkit-scrollbar {
-      display: none;
+    .site-header[data-menu-open="true"] .main-nav {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .nav-panel {
+      width: min(var(--max-width), 100%);
+      margin-inline: auto;
+      padding-top: 0.75rem;
+      display: grid;
+      gap: 0.75rem;
     }
 
     .main-nav ul {
-      width: 100%;
-      min-width: max-content;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      gap: 0.28rem;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.3rem;
     }
 
     .nav-link {
-      min-height: 1.92rem;
-      padding: 0.32rem 0.54rem;
-      font-size: 0.68rem;
-      letter-spacing: 0;
+      min-height: 2.75rem;
+      justify-content: space-between;
+      padding-inline: 0.85rem;
+      background: var(--surface);
+      box-shadow: inset 0 0 0 1px var(--line);
     }
 
-    .portal-link span {
+    .mobile-portal-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      min-height: 3rem;
+      padding: 0.7rem 0.85rem;
+      border-radius: 10px;
+      background: var(--ink);
+      color: #ffffff;
+      font-size: 0.82rem;
+      text-decoration: none;
+    }
+
+    .mobile-portal-link span {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .menu-toggle {
+      width: 2.7rem;
+      height: 2.7rem;
+      padding: 0;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: var(--surface);
+      display: inline-grid;
+      place-content: center;
+      gap: 0.34rem;
+      color: var(--text);
+      cursor: pointer;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 1.08rem;
+      height: 2px;
+      border-radius: 999px;
+      background: currentColor;
+      transition: transform 180ms ease;
+    }
+
+    .site-header[data-menu-open="true"] .menu-toggle span:first-child {
+      transform: translateY(0.18rem) rotate(45deg);
+    }
+
+    .site-header[data-menu-open="true"] .menu-toggle span:last-child {
+      transform: translateY(-0.18rem) rotate(-45deg);
+    }
+  }
+
+  @media (max-width: 560px) {
+    .header-row {
+      min-height: 3.9rem;
+      gap: 0.65rem;
+    }
+
+    .brand-link img {
+      width: 108px;
+    }
+
+    .header-actions {
+      gap: 0.45rem;
+    }
+
+    .nav-cta {
+      min-height: 2.55rem;
+      padding-inline: 0.82rem;
+    }
+
+    .cta-label-full {
       display: none;
     }
 
-    .brand-link::before {
-      content: none;
+    .cta-label-short {
+      display: inline;
+    }
+
+    .menu-toggle {
+      width: 2.55rem;
+      height: 2.55rem;
+    }
+
+    .main-nav {
+      padding-inline: 0.75rem;
+    }
+
+    .main-nav ul {
+      grid-template-columns: 1fr;
     }
   }
 </style>

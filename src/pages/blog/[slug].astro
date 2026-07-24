@@ -1,7 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import LeadMagnetChecklist from "../../components/LeadMagnetChecklist.astro";
-import MediaFrame from "../../components/MediaFrame.astro";
 import { filterVisibleLinks, getPublicBlogPosts, publicBlogSlugs } from "../../lib/blogPublication";
 
 export async function getStaticPaths() {
@@ -139,93 +137,137 @@ const breadcrumbs = [
   breadcrumbs={breadcrumbs}
 >
   <article class="article-shell">
-    <header class="article-header">
-      <a class="back-link" href="/blog" data-track="cta_article_back_blog">Blog Sunelys</a>
-      <div class="article-meta">
-        <span>{frontmatter.category}</span>
-        <span>{date}</span>
-        {frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate && <span>Mis à jour le {modifiedDate}</span>}
-        <span>{frontmatter.readingTime}</span>
+    <header class="article-hero">
+      <div class="article-hero-copy" data-reveal-item>
+        <a class="back-link" href="/blog" data-track="cta_article_back_blog">
+          <span aria-hidden="true">←</span>
+          Tous les guides
+        </a>
+        <div class="article-meta">
+          <span>{frontmatter.category}</span>
+          <span>{date}</span>
+          <span>{frontmatter.readingTime} de lecture</span>
+        </div>
+        <h1>{frontmatter.title}</h1>
+        <p class="article-lead">{frontmatter.description}</p>
+        <div class="article-actions">
+          <a class="btn btn-primary btn-accent" href={articleContactHref} data-track="cta_article_header_primary" data-track-label={frontmatter.title}>
+            Recevoir un cadrage
+          </a>
+          <a class="article-service-link" href={primaryServiceHref} data-track="cta_article_header_services" data-track-label={frontmatter.title}>
+            {primaryServiceLabel}
+            <span aria-hidden="true">↗</span>
+          </a>
+        </div>
       </div>
-      <h1>{frontmatter.title}</h1>
-      <p>{frontmatter.description}</p>
-      <div class="article-actions">
-        <a class="btn btn-primary" href={articleContactHref} data-track="cta_article_header_primary" data-track-label={frontmatter.title}>Recevoir un cadrage</a>
-        <a class="btn btn-secondary" href={primaryServiceHref} data-track="cta_article_header_services" data-track-label={frontmatter.title}>{primaryServiceLabel}</a>
-      </div>
-      <div class="article-cover">
-        <MediaFrame
+
+      <figure class="article-cover" data-reveal-item>
+        <img
           src={frontmatter.coverImage}
           alt={frontmatter.coverAlt || frontmatter.title}
-          label="Visuel article Sunelys"
-          variant="wide"
+          width="1200"
+          height="760"
           loading="eager"
+          decoding="async"
         />
-      </div>
+        <figcaption>
+          <span>Guide opérationnel</span>
+          <strong>Sunelys — administratif photovoltaïque</strong>
+        </figcaption>
+      </figure>
     </header>
 
-    <div class="article-layout">
-      <aside class="article-aside" aria-label="Action Sunelys">
-        <p class="aside-label">À transformer en action</p>
-        <h2>{frontmatter.businessOutcome || "Remettez l'administratif au service de vos délais chantier."}</h2>
-        <p>Sunelys prend en charge le flux concerné pour donner plus de visibilité à vos équipes et réduire les retours évitables.</p>
-        <div class="aside-actions">
-          <a class="btn btn-primary" href={articleContactHref} data-track="cta_article_sticky" data-track-label={frontmatter.title}>Recevoir un cadrage</a>
-          <a class="btn btn-secondary" href={primaryServiceHref} data-track="cta_article_sticky_service" data-track-label={frontmatter.title}>{primaryServiceLabel}</a>
+    <div class="article-reading-layout">
+      <aside class="article-aside" aria-label="Repères de lecture">
+        <div class="aside-kicker">
+          <span aria-hidden="true">01</span>
+          <p>À retenir</p>
         </div>
+        <p>
+          {frontmatter.businessOutcome || "Remettez l'administratif au service de vos délais chantier."}
+        </p>
+        <dl>
+          <div>
+            <dt>Publié</dt>
+            <dd>{date}</dd>
+          </div>
+          {
+            frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate && (
+              <div>
+                <dt>Actualisé</dt>
+                <dd>{modifiedDate}</dd>
+              </div>
+            )
+          }
+          <div>
+            <dt>Format</dt>
+            <dd>{frontmatter.readingTime}</dd>
+          </div>
+        </dl>
+        <a class="aside-link" href={primaryServiceHref} data-track="cta_article_sticky_service" data-track-label={frontmatter.title}>
+          Voir le service associé
+          <span aria-hidden="true">→</span>
+        </a>
       </aside>
 
-      <div class="article-content">
-        <Content />
+      <div class="article-main">
+        <div class="article-content">
+          <Content />
+        </div>
+
+        <section class="article-author" aria-label="Auteur de l'article">
+          <img src="/images/myriam-zaoui.jpg" alt="Myriam Zaoui, fondatrice de Sunelys" width="128" height="128" loading="lazy" decoding="async" />
+          <div>
+            <p class="section-kicker">L’expertise derrière le guide</p>
+            <h2>{author.name}</h2>
+            <p>
+              Fondatrice de Sunelys, Myriam accompagne les installateurs photovoltaïques dans la préparation,
+              le suivi et la fiabilisation de leurs démarches administratives.
+            </p>
+            <a href={author.url} data-track="cta_article_author_about">Découvrir Sunelys <span aria-hidden="true">→</span></a>
+          </div>
+        </section>
       </div>
     </div>
 
-    <section class="article-business-path" aria-labelledby="article-business-path-title">
-      <div>
-        <p class="aside-label">Parcours recommandé</p>
-        <h2 id="article-business-path-title">Passer du problème lu au flux à piloter</h2>
+    <section class="article-resources" aria-labelledby="article-resources-title">
+      <div class="resources-heading">
+        <p class="section-kicker">Pour aller plus loin</p>
+        <h2 id="article-resources-title">Continuez avec la bonne ressource.</h2>
         <p>
-          Chaque guide doit permettre une action claire : comprendre le blocage, choisir le service adapté,
-          puis cadrer le volume et les priorités avec Sunelys.
+          Service, tarifs ou guide complémentaire : choisissez la suite qui correspond à votre niveau de décision.
         </p>
       </div>
-      <div class="business-path-grid">
+      <div class="resource-links">
         {
-          articleBusinessLinks.map((link) => (
+          articleBusinessLinks.map((link, index) => (
             <a href={link.href} data-track="cta_article_business_path" data-track-label={link.label}>
+              <small>{String(index + 1).padStart(2, "0")}</small>
               <span>{link.label}</span>
-              <small>{link.description}</small>
+              <p>{link.description}</p>
+              <b aria-hidden="true">↗</b>
             </a>
           ))
         }
       </div>
     </section>
 
-    <section class="article-author" aria-label="Auteur de l'article">
-      <img src="/images/myriam-zaoui.jpg" alt="Myriam Zaoui, fondatrice de Sunelys" width="128" height="128" loading="lazy" decoding="async" />
-      <div>
-        <p class="aside-label">Rédigé par</p>
-        <h2>{author.name}</h2>
-        <p>
-          Fondatrice de Sunelys, Myriam accompagne les installateurs photovoltaïques sur la
-          préparation, le suivi et la fiabilisation des démarches administratives solaires.
-        </p>
-        <a href={author.url} data-track="cta_article_author_about">Voir le profil Sunelys</a>
-      </div>
-    </section>
-
-    <LeadMagnetChecklist source={`blog_${frontmatter.slug}_checklist_dp`} />
-
     {
       relatedLinks.length > 0 && (
         <section class="related-guides" aria-labelledby="related-guides-title">
-          <p class="aside-label">À lire aussi</p>
-          <h2 id="related-guides-title">Continuer dans le même sujet</h2>
-          <div class="related-guides-grid">
-            {relatedLinks.map((link) => (
+          <div>
+            <p class="section-kicker">À lire aussi</p>
+            <h2 id="related-guides-title">Continuer dans le même sujet.</h2>
+          </div>
+          <div class="related-guides-list">
+            {relatedLinks.map((link, index) => (
               <a href={link.href} data-track="cta_article_related" data-track-label={link.label}>
-                <span>{link.label}</span>
-                {link.description && <small>{link.description}</small>}
+                <small>{String(index + 1).padStart(2, "0")}</small>
+                <span>
+                  <strong>{link.label}</strong>
+                  {link.description && <em>{link.description}</em>}
+                </span>
+                <b aria-hidden="true">→</b>
               </a>
             ))}
           </div>
@@ -235,19 +277,19 @@ const breadcrumbs = [
 
     <section class="article-conclusion">
       <div class="article-conclusion-copy">
-        <p class="aside-label">Étape suivante</p>
-        <h2>Ne laissez pas le sujet au stade du constat.</h2>
+        <p class="section-kicker">Passer à l’action</p>
+        <h2>Le sujet est clair. Le prochain dossier peut l’être aussi.</h2>
         <p>
-          Si cette friction existe déjà dans vos flux, le bon prochain pas est de cadrer le périmètre à déléguer et
-          le service Sunelys le plus pertinent pour vos dossiers.
+          Sunelys cadre le périmètre, le volume et la première étape à déléguer. Vous recevez une réponse exploitable sous 24h.
         </p>
       </div>
       <div class="article-conclusion-actions">
-        <a class="btn btn-primary" href={secondaryServiceHref} data-track="cta_article_footer_primary" data-track-label={frontmatter.title}>
+        <a class="btn btn-primary btn-accent" href={secondaryServiceHref} data-track="cta_article_footer_primary" data-track-label={frontmatter.title}>
           {secondaryServiceLabel}
         </a>
-        <a class="btn btn-secondary" href={primaryServiceHref} data-track="cta_article_footer_service" data-track-label={frontmatter.title}>
+        <a class="conclusion-link" href={primaryServiceHref} data-track="cta_article_footer_service" data-track-label={frontmatter.title}>
           {primaryServiceLabel}
+          <span aria-hidden="true">↗</span>
         </a>
       </div>
     </section>
@@ -633,6 +675,782 @@ const breadcrumbs = [
   @media (max-width: 640px) {
     .article-author {
       grid-template-columns: 1fr;
+    }
+  }
+
+  /* Direction éditoriale 2026 */
+  .article-shell {
+    display: grid;
+    gap: clamp(3.2rem, 7vw, 6.6rem);
+  }
+
+  .article-hero {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(22rem, 0.7fr);
+    gap: clamp(2rem, 5vw, 5.5rem);
+    align-items: center;
+    overflow: hidden;
+    min-height: min(47rem, calc(100vh - 8rem));
+    padding: clamp(2rem, 5vw, 5rem);
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 86% 8%, rgba(54, 98, 227, 0.34), transparent 31%),
+      radial-gradient(circle at 10% 100%, rgba(212, 130, 42, 0.24), transparent 34%),
+      var(--ink);
+    color: #f8fafc;
+  }
+
+  .article-hero::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    width: clamp(16rem, 33vw, 32rem);
+    aspect-ratio: 1;
+    right: clamp(-9rem, -8vw, -4rem);
+    bottom: clamp(-14rem, -12vw, -7rem);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.025),
+      0 0 0 8rem rgba(255, 255, 255, 0.018);
+  }
+
+  .article-hero-copy {
+    position: relative;
+    z-index: 1;
+    min-width: 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    margin: 0 0 clamp(2.2rem, 5vw, 4.6rem);
+    color: #cdd6e4;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
+  .back-link span {
+    color: var(--accent);
+    font-size: 1rem;
+    transition: transform 160ms ease;
+  }
+
+  .back-link:hover,
+  .back-link:focus-visible {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .back-link:hover span,
+  .back-link:focus-visible span {
+    transform: translateX(-0.2rem);
+  }
+
+  .article-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem 1rem;
+    margin: 0 0 1rem;
+    color: #b7c3d4;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .article-meta span:not(:last-child)::after {
+    content: "";
+    width: 0.22rem;
+    height: 0.22rem;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  .article-hero h1 {
+    max-width: 15ch;
+    color: #ffffff;
+    font-size: clamp(2.45rem, 5.15vw, 5.25rem);
+    line-height: 0.96;
+    letter-spacing: -0.055em;
+  }
+
+  .article-lead {
+    max-width: 42rem;
+    margin-top: 1.35rem;
+    color: #cbd5e1;
+    font-size: clamp(1rem, 1.25vw, 1.22rem);
+    line-height: 1.65;
+  }
+
+  .article-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.9rem 1.25rem;
+    margin-top: 1.7rem;
+  }
+
+  .article-service-link,
+  .conclusion-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .article-service-link span,
+  .conclusion-link span {
+    color: var(--accent);
+    transition: transform 160ms ease;
+  }
+
+  .article-service-link:hover span,
+  .article-service-link:focus-visible span,
+  .conclusion-link:hover span,
+  .conclusion-link:focus-visible span {
+    transform: translate(0.12rem, -0.12rem);
+  }
+
+  .article-cover {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    align-self: stretch;
+    min-height: 28rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-md);
+    background: var(--ink-soft);
+    box-shadow: 0 32px 70px rgba(0, 0, 0, 0.26);
+  }
+
+  .article-cover img {
+    width: 100%;
+    height: 100%;
+    min-height: 28rem;
+    object-fit: cover;
+    filter: saturate(0.84) contrast(1.03);
+  }
+
+  .article-cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 58%, rgba(6, 13, 25, 0.84));
+    pointer-events: none;
+  }
+
+  .article-cover figcaption {
+    position: absolute;
+    z-index: 1;
+    inset: auto 1.2rem 1.15rem;
+    display: grid;
+    gap: 0.2rem;
+    color: #ffffff;
+  }
+
+  .article-cover figcaption span {
+    color: #cbd5e1;
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .article-cover figcaption strong {
+    font-size: 0.9rem;
+  }
+
+  .article-reading-layout {
+    display: grid;
+    grid-template-columns: minmax(13.5rem, 0.34fr) minmax(0, 1fr);
+    gap: clamp(2rem, 6vw, 6.5rem);
+    align-items: start;
+    width: min(70rem, 100%);
+    margin-inline: auto;
+  }
+
+  .article-aside {
+    position: sticky;
+    top: 6.5rem;
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    border: 0;
+    border-top: 3px solid var(--ink);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .aside-kicker {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding-top: 0.85rem;
+  }
+
+  .aside-kicker span,
+  .section-kicker {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .aside-kicker p {
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 850;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .article-aside > p {
+    color: var(--text);
+    font-size: 1.05rem;
+    font-weight: 750;
+    line-height: 1.45;
+  }
+
+  .article-aside dl {
+    display: grid;
+    gap: 0;
+    margin: 0.25rem 0 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .article-aside dl div {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .article-aside dt,
+  .article-aside dd {
+    margin: 0;
+    font-size: 0.76rem;
+  }
+
+  .article-aside dt {
+    color: var(--text-muted);
+  }
+
+  .article-aside dd {
+    color: var(--text);
+    font-weight: 750;
+    text-align: right;
+  }
+
+  .aside-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.35rem;
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-decoration: none;
+  }
+
+  .aside-link span {
+    color: var(--system);
+    transition: transform 160ms ease;
+  }
+
+  .aside-link:hover span,
+  .aside-link:focus-visible span {
+    transform: translateX(0.2rem);
+  }
+
+  .article-main {
+    min-width: 0;
+  }
+
+  .article-content {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .article-content :global(h2) {
+    max-width: 22ch;
+    margin: clamp(3rem, 7vw, 5.5rem) 0 0;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+    color: var(--ink);
+    font-size: clamp(1.75rem, 3vw, 2.8rem);
+    line-height: 1.04;
+    letter-spacing: -0.045em;
+  }
+
+  .article-content :global(h2:first-child) {
+    margin-top: 0;
+    border-top: 0;
+    padding-top: 0;
+  }
+
+  .article-content :global(h3) {
+    margin: 2.35rem 0 0;
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1.12rem;
+    font-weight: 850;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+
+  .article-content :global(p),
+  .article-content :global(li) {
+    color: #3e4b5d;
+    font-size: clamp(1rem, 0.3vw + 0.94rem, 1.1rem);
+    line-height: 1.8;
+  }
+
+  .article-content :global(p) {
+    margin: 1.15rem 0 0;
+  }
+
+  .article-content :global(ul),
+  .article-content :global(ol) {
+    display: grid;
+    gap: 0.62rem;
+    margin: 1.25rem 0 0;
+    padding-left: 1.25rem;
+  }
+
+  .article-content :global(li::marker) {
+    color: var(--system);
+    font-weight: 850;
+  }
+
+  .article-content :global(a) {
+    color: var(--system);
+    font-weight: 750;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.25rem;
+  }
+
+  .article-content :global(blockquote) {
+    margin: 2rem 0;
+    padding: 1.25rem 1.4rem;
+    border: 0;
+    border-left: 4px solid var(--accent);
+    border-radius: 0;
+    background: var(--system-soft);
+  }
+
+  .article-content :global(blockquote p:first-child) {
+    margin-top: 0;
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .article-content :global(table) {
+    display: block;
+    width: 100%;
+    margin: 1.5rem 0 0;
+    overflow-x: auto;
+    border-collapse: collapse;
+    border-top: 2px solid var(--ink);
+    font-size: 0.9rem;
+  }
+
+  .article-content :global(th),
+  .article-content :global(td) {
+    min-width: 10rem;
+    padding: 0.85rem 0.75rem;
+    border-bottom: 1px solid var(--line);
+    color: var(--text-muted);
+    line-height: 1.45;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .article-content :global(th) {
+    color: var(--ink);
+    font-size: 0.72rem;
+    font-weight: 850;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .article-content :global(strong) {
+    color: var(--ink);
+  }
+
+  .article-author {
+    display: grid;
+    grid-template-columns: 5.2rem minmax(0, 1fr);
+    gap: 1.2rem;
+    align-items: center;
+    margin-top: clamp(3.5rem, 8vw, 6.5rem);
+    padding: 1.35rem 0 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .article-author img {
+    width: 5.2rem;
+    height: 5.2rem;
+    border: 0;
+    border-radius: var(--radius-sm);
+    filter: saturate(0.8);
+    object-fit: cover;
+  }
+
+  .article-author div {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .article-author h2 {
+    color: var(--ink);
+    font-size: 1.35rem;
+    line-height: 1.1;
+  }
+
+  .article-author p:not(.section-kicker) {
+    max-width: 54ch;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
+
+  .article-author a {
+    width: fit-content;
+    color: var(--system);
+    font-size: 0.75rem;
+    font-weight: 850;
+    letter-spacing: 0;
+    text-decoration: none;
+    text-transform: none;
+  }
+
+  .article-resources {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding: clamp(2rem, 4vw, 3.6rem);
+    border-radius: var(--radius-xl);
+    background: var(--system-soft);
+  }
+
+  .resources-heading {
+    display: grid;
+    align-content: start;
+    gap: 0.75rem;
+  }
+
+  .resources-heading h2,
+  .related-guides h2 {
+    max-width: 14ch;
+    color: var(--ink);
+    font-size: clamp(1.8rem, 3.1vw, 3rem);
+    line-height: 1;
+  }
+
+  .resources-heading > p:not(.section-kicker) {
+    max-width: 42ch;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .resource-links {
+    display: grid;
+    border-top: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+  }
+
+  .resource-links a {
+    position: relative;
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.75rem;
+    padding: 1.15rem 0;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .resource-links small {
+    grid-row: 1 / 3;
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .resource-links span {
+    font-weight: 850;
+    line-height: 1.2;
+  }
+
+  .resource-links p {
+    grid-column: 2;
+    color: var(--text-muted);
+    font-size: 0.84rem;
+    line-height: 1.45;
+  }
+
+  .resource-links b {
+    grid-column: 3;
+    grid-row: 1 / 3;
+    color: var(--system);
+    transition: transform 160ms ease;
+  }
+
+  .resource-links a:hover b,
+  .resource-links a:focus-visible b {
+    transform: translate(0.12rem, -0.12rem);
+  }
+
+  .related-guides {
+    display: grid;
+    grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.38fr);
+    gap: clamp(2rem, 5vw, 5rem);
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .related-guides > div:first-child {
+    display: grid;
+    align-content: start;
+    gap: 0.7rem;
+  }
+
+  .related-guides-list {
+    display: grid;
+    border-top: 2px solid var(--ink);
+  }
+
+  .related-guides-list a {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr) auto;
+    gap: 0.8rem;
+    align-items: start;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--line);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .related-guides-list small {
+    color: var(--system);
+    font-size: 0.68rem;
+    font-weight: 850;
+  }
+
+  .related-guides-list span {
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  .related-guides-list strong {
+    line-height: 1.25;
+  }
+
+  .related-guides-list em {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    font-style: normal;
+    line-height: 1.45;
+  }
+
+  .related-guides-list b {
+    color: var(--system);
+    transition: transform 160ms ease;
+  }
+
+  .related-guides-list a:hover b,
+  .related-guides-list a:focus-visible b {
+    transform: translateX(0.2rem);
+  }
+
+  .article-conclusion {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: clamp(1.5rem, 5vw, 5rem);
+    align-items: end;
+    padding: clamp(2.2rem, 5vw, 4.5rem);
+    border: 0;
+    border-radius: var(--radius-xl);
+    background:
+      radial-gradient(circle at 90% 0%, rgba(54, 98, 227, 0.35), transparent 34%),
+      var(--ink);
+    box-shadow: none;
+  }
+
+  .article-conclusion-copy {
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .article-conclusion-copy .section-kicker {
+    color: var(--accent);
+  }
+
+  .article-conclusion h2 {
+    max-width: 16ch;
+    color: #ffffff;
+    font-size: clamp(2rem, 4vw, 4.2rem);
+    line-height: 0.98;
+  }
+
+  .article-conclusion-copy p:not(.section-kicker) {
+    max-width: 48ch;
+    margin: 0;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+
+  .article-conclusion-actions {
+    display: grid;
+    gap: 0.85rem;
+    min-width: min(100%, 17rem);
+  }
+
+  .conclusion-link {
+    justify-content: center;
+  }
+
+  @media (max-width: 1040px) {
+    .article-hero {
+      grid-template-columns: 1fr;
+      min-height: 0;
+    }
+
+    .article-cover,
+    .article-cover img {
+      min-height: 22rem;
+    }
+
+    .article-reading-layout {
+      grid-template-columns: 1fr;
+    }
+
+    .article-aside {
+      position: static;
+      grid-template-columns: minmax(0, 1fr) minmax(13rem, 0.55fr);
+      gap: 0.8rem 2rem;
+      order: 0;
+    }
+
+    .aside-kicker,
+    .article-aside > p {
+      grid-column: 1;
+    }
+
+    .article-aside dl {
+      grid-column: 2;
+      grid-row: 1 / 4;
+      margin: 0;
+    }
+
+    .aside-link {
+      grid-column: 1;
+    }
+
+    .article-resources,
+    .related-guides {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 720px) {
+    .article-shell {
+      gap: 3.5rem;
+    }
+
+    .article-hero {
+      margin-inline: calc(var(--container-padding) * -0.35);
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .back-link {
+      margin-bottom: 2.3rem;
+    }
+
+    .article-meta span:not(:last-child)::after {
+      display: none;
+    }
+
+    .article-actions,
+    .article-actions .btn {
+      width: 100%;
+    }
+
+    .article-service-link {
+      justify-content: center;
+    }
+
+    .article-cover,
+    .article-cover img {
+      min-height: 17rem;
+    }
+
+    .article-aside {
+      display: grid;
+      grid-template-columns: 1fr;
+    }
+
+    .aside-kicker,
+    .article-aside > p,
+    .article-aside dl,
+    .aside-link {
+      grid-column: 1;
+      grid-row: auto;
+    }
+
+    .article-author {
+      grid-template-columns: 4.3rem minmax(0, 1fr);
+    }
+
+    .article-author img {
+      width: 4.3rem;
+      height: 4.3rem;
+    }
+
+    .article-resources {
+      padding: 1.4rem;
+      border-radius: var(--radius-md);
+    }
+
+    .article-conclusion {
+      grid-template-columns: 1fr;
+      padding: 1.5rem;
+      border-radius: var(--radius-md);
+    }
+
+    .article-conclusion-actions {
+      width: 100%;
     }
   }
 </style>
