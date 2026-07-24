@@ -91,10 +91,11 @@ export const trustSectionData = {
 };
 
 export const proofSectionData = {
-  kicker: "Retours terrain",
-  title: "Ce que les installateurs gagnent quand le suivi administratif tient la route.",
+  kicker: "Preuves clients",
+  title: "Quand le suivi tient, les chantiers avancent.",
   testimonials: [
     {
+      tabLabel: "SUN WATT FRANCE",
       quote:
         "Nous sommes ravis des services de Sunelys. Les dossiers sont cadrés sérieusement, les déclarations préalables avancent avec un très haut niveau d'acceptation sans pièces complémentaires, et nous gardons la tranquillité d'esprit d'être en règle sur tout l'administratif.",
       author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
@@ -110,6 +111,7 @@ export const proofSectionData = {
       logoAlt: "Sun Watt France",
     },
     {
+      tabLabel: "Be Travaux",
       quote:
         "Nous sommes ravis des délais, du suivi et de la réactivité de Sunelys. Le pilotage est plus fluide, les réponses arrivent vite et cela nous permet d'installer nos chantiers beaucoup plus rapidement.",
       author: "Victorion Brice - gérant, Be Travaux",

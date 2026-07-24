@@ -1358,3 +1358,30 @@ Le dix-huitième lot rompt la répétition visuelle entre les pages Services et 
 - chaque ligne tarifaire mène vers le bon périmètre détaillé ;
 - aucune nouvelle promesse, aucun tarif et aucun chiffre inventés ;
 - identité Sunelys maintenue par l'encre, l'orange solaire, le bleu système et le motif de flux.
+
+## Prototype v19 — dossiers de preuve client
+
+Le dix-neuvième lot transforme les témoignages de la page d'accueil en une expérience de preuve focalisée et plus incarnée.
+
+### Présentation
+
+- anciennes cartes côte à côte remplacées par un seul dossier client visible à la fois ;
+- sélection directe entre SUN WATT FRANCE et Be Travaux ;
+- logo, prestation, bénéfice cité et verbatim réunis dans une même composition ;
+- parcours « besoin, relais, effet cité » conservé et rendu plus lisible ;
+- accord de publication visible sans prendre le dessus sur la parole client.
+
+### Crédibilité
+
+- citations et identités strictement reprises des témoignages déjà autorisés ;
+- aucun volume, délai, pourcentage ou résultat supplémentaire ajouté ;
+- distinction explicite entre l'effet décrit par le client et une promesse commerciale ;
+- traitement éditorial plus fort sans recourir à un portrait non disponible.
+
+### Expérience
+
+- navigation accessible au clavier entre les deux dossiers ;
+- état actif exposé aux technologies d'assistance ;
+- un seul témoignage déployé sur mobile afin de réduire la longueur ;
+- transitions courtes neutralisées lorsque l'utilisateur préfère réduire les mouvements ;
+- consultation du second dossier suivie comme signal d'engagement.
