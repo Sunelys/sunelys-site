@@ -12,6 +12,11 @@ interface ContactPoint {
   track: string;
 }
 
+interface DecisionPoint {
+  label: string;
+  text: string;
+}
+
 interface Props {
   data: {
     kicker: string;
@@ -20,17 +25,43 @@ interface Props {
     primaryCta: ActionItem;
     secondaryCta: ActionItem;
     contactPoints?: ContactPoint[];
+    decisionPoints?: DecisionPoint[];
   };
 }
 
 const { data } = Astro.props;
+const decisionPoints =
+  data.decisionPoints && data.decisionPoints.length > 0
+    ? data.decisionPoints
+    : [
+        { label: "Périmètre", text: "La première brique à reprendre." },
+        { label: "Réponse", text: "Un retour humain sous 24h ouvrées." },
+        { label: "Liberté", text: "Un dossier ponctuel suffit pour commencer." },
+      ];
 ---
 
-<section id="contact" class="section-shell final-section reveal" aria-labelledby="final-title">
+<section
+  id="contact"
+  class="section-shell final-section reveal"
+  aria-labelledby="final-title"
+  data-track-view="homepage_final_cta_view"
+  data-track-label="homepage_final_cta"
+>
   <div class="final-copy" data-reveal-item>
     <p class="kicker">{data.kicker}</p>
     <h2 id="final-title">{data.title}</h2>
     <p class="text">{data.text}</p>
+
+    <div class="decision-strip" aria-label="Ce que Sunelys clarifie après votre demande">
+      {
+        decisionPoints.map((item) => (
+          <article>
+            <strong>{item.label}</strong>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
 
     <div class="actions">
       <a class="btn btn-accent" href={data.primaryCta.href} data-track={data.primaryCta.track}>
@@ -53,7 +84,7 @@ const { data } = Astro.props;
         </div>
         <div class="contact-grid">
           {data.contactPoints.map((item, index) => (
-            <a class="contact-row" href={item.href} data-track={item.track}>
+            <a class="contact-row" href={item.href} data-track={item.track} data-track-label={item.label}>
               <span class="contact-index">0{index + 1}</span>
               <span>
                 <small>{item.label}</small>
@@ -72,29 +103,17 @@ const { data } = Astro.props;
   .final-section {
     position: relative;
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(310px, 0.72fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: end;
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.52fr);
+    gap: 1rem;
+    align-items: stretch;
     overflow: hidden;
-    padding: clamp(1.5rem, 3.5vw, 3.6rem);
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: var(--radius-xl);
     background:
-      radial-gradient(70% 90% at 2% 100%, rgba(212, 130, 42, 0.22), transparent 62%),
-      radial-gradient(70% 110% at 90% 0%, rgba(54, 98, 227, 0.28), transparent 60%),
-      var(--ink);
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(180deg, var(--ink-soft), var(--ink));
     box-shadow: var(--shadow-md);
-  }
-
-  .final-section::after {
-    content: "S";
-    position: absolute;
-    right: -0.05em;
-    bottom: -0.42em;
-    color: rgba(255, 255, 255, 0.025);
-    font-size: clamp(20rem, 42vw, 40rem);
-    font-weight: 800;
-    line-height: 1;
-    pointer-events: none;
   }
 
   .final-copy,
@@ -103,27 +122,69 @@ const { data } = Astro.props;
     z-index: 1;
   }
 
+  .final-copy {
+    display: grid;
+    align-content: center;
+    gap: 1rem;
+    min-width: 0;
+    padding: 2rem;
+  }
+
   .kicker {
+    margin: 0;
     color: var(--accent);
     font-size: 0.72rem;
     font-weight: 780;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
   }
 
   h2 {
     max-width: 17ch;
-    margin-top: 0.7rem;
+    margin: 0;
     color: #ffffff;
-    font-size: clamp(2.2rem, 4.4vw, 4.7rem);
+    font-size: 3.8rem;
+    letter-spacing: 0;
+    line-height: 1.04;
   }
 
   .text {
     max-width: 62ch;
-    margin-top: 1rem;
+    margin: 0;
     color: rgba(255, 255, 255, 0.62);
-    font-size: 0.94rem;
+    font-size: 0.98rem;
     line-height: 1.64;
+  }
+
+  .decision-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin-top: 0.15rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .decision-strip article {
+    display: grid;
+    gap: 0.28rem;
+    min-width: 0;
+    padding: 0.85rem 0.9rem 0.85rem 0;
+  }
+
+  .decision-strip article + article {
+    padding-left: 0.9rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .decision-strip strong {
+    color: #ffffff;
+    font-size: 0.82rem;
+  }
+
+  .decision-strip p {
+    color: rgba(255, 255, 255, 0.58);
+    font-size: 0.72rem;
+    line-height: 1.42;
   }
 
   .actions {
@@ -131,7 +192,7 @@ const { data } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
-    margin-top: 1.5rem;
+    margin-top: 0.2rem;
   }
 
   .secondary-action {
@@ -152,6 +213,9 @@ const { data } = Astro.props;
   }
 
   .contact-panel {
+    align-self: stretch;
+    display: grid;
+    align-content: start;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.13);
     border-radius: 16px;
@@ -240,7 +304,28 @@ const { data } = Astro.props;
 
   @media (max-width: 620px) {
     .final-section {
-      padding: 1.3rem;
+      padding: 0.72rem;
+      border-radius: 18px;
+    }
+
+    .final-copy {
+      padding: 1rem 0.7rem 1.1rem;
+    }
+
+    h2 {
+      font-size: 2.42rem;
+    }
+
+    .decision-strip {
+      grid-template-columns: 1fr;
+      border-bottom: 0;
+    }
+
+    .decision-strip article,
+    .decision-strip article + article {
+      padding: 0.72rem 0;
+      border-left: 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     }
 
     .actions {

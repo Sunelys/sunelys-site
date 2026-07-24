@@ -549,9 +549,23 @@ export const faqSectionData = {
 
 export const finalCtaSectionData = {
   kicker: "Passage à l'action",
-  title: "Faites diagnostiquer vos dossiers administratifs bloqués.",
+  title: "Choisissez le premier dossier à sortir de vos équipes.",
   text:
-    "Expliquez-nous votre volume, vos délais et vos blocages. Nous revenons vers vous avec le premier périmètre à reprendre en priorité, sans vous imposer un flux complet si un dossier ponctuel suffit.",
+    "Expliquez-nous votre volume, vos délais et vos blocages. Sunelys vous répond avec le premier périmètre à reprendre, sans vous imposer un flux complet si un dossier ponctuel suffit.",
+  decisionPoints: [
+    {
+      label: "Périmètre",
+      text: "La brique administrative à reprendre en priorité.",
+    },
+    {
+      label: "Réponse",
+      text: "Un cadrage humain sous 24h ouvrées.",
+    },
+    {
+      label: "Liberté",
+      text: "Un dossier ponctuel suffit pour commencer.",
+    },
+  ],
   primaryCta: {
     label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=final#contact-form",
@@ -565,7 +579,7 @@ export const finalCtaSectionData = {
   contactPoints: [
     {
       label: "Formulaire",
-      value: "Reponse sous 24h ouvrées",
+      value: "Réponse sous 24h ouvrées",
       href: "/contact?source=formulaire-final#contact-form",
       track: "cta_final_form",
     },

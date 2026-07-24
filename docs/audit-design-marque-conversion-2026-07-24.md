@@ -1673,3 +1673,28 @@ Le trentième lot transforme la FAQ de l'accueil en centre d'objections, placé 
 - bloc visuel plus premium, aligné avec les dernières sections de l'accueil ;
 - exposition de la section suivie avec `homepage_faq_view` ;
 - comportement mobile simplifié avec les signaux masqués pour préserver la lisibilité.
+
+## Prototype v31 — dernier CTA orienté première décision
+
+Le trente-et-unième lot retravaille le dernier appel à l'action pour conclure la page avec une décision simple plutôt qu'un simple bloc de contact.
+
+### Message
+
+- titre recentré sur le premier dossier à sortir des équipes ;
+- texte raccourci autour du volume, des délais et des blocages ;
+- promesse maintenue : proposer le premier périmètre à reprendre sans imposer un flux complet ;
+- mention du dossier ponctuel conservée comme élément de réassurance.
+
+### Conversion
+
+- trois repères ajoutés : périmètre, réponse, liberté ;
+- CTA principal vers le diagnostic conservé ;
+- Calendly, formulaire et téléphone conservés comme points d'entrée ;
+- exposition de la section suivie avec `homepage_final_cta_view`.
+
+### Design
+
+- ancien grand bloc sombre simplifié en panneau de décision plus maîtrisé ;
+- suppression de l'effet décoratif massif au profit d'une grille sobre ;
+- panneau de contact conservé mais mieux relié à l'action principale ;
+- version mobile clarifiée avec les repères empilés et les actions pleine largeur.
