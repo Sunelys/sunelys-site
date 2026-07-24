@@ -1,4 +1,6 @@
 ---
+import FormPrivacyNote from "./FormPrivacyNote.astro";
+
 interface Props {
   source?: string;
   kicker?: string;
@@ -94,6 +96,7 @@ const attributionFields = [
       {submitLabel}
     </button>
     <small>Demande enregistrée instantanément. Aucun spam.</small>
+    <FormPrivacyNote />
   </form>
 </section>
 

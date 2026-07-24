@@ -1,4 +1,6 @@
 ---
+import FormPrivacyNote from "./FormPrivacyNote.astro";
+
 interface QuizOption {
   value: string;
   label: string;
@@ -111,6 +113,7 @@ const messages = Object.fromEntries(data.options.map((option) => [option.value, 
       <p class="email-note" id="quiz-email-status" aria-live="polite">
         {data.emailNote}
       </p>
+      <FormPrivacyNote />
     </form>
 
     <div class="result" id="quiz-result" hidden data-reveal-item>

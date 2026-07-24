@@ -1265,3 +1265,42 @@ Le quinzième lot transforme la checklist Déclaration préalable en outil de tr
 - absence de débordement horizontal à 390 px et 1 440 px ;
 - bloc de preuve limité à environ 791 px de haut sur mobile ;
 - retour vers le diagnostic testé avec un dégagement de plus de 30 px sous l'en-tête fixe.
+
+## Prototype v16 — confiance, conformité et consentement
+
+Le seizième lot traite les éléments de réassurance qui entourent la conversion : identité de l'éditeur, transparence des traitements, choix relatif à la mesure et information au point de collecte.
+
+### Informations légales
+
+- page Mentions légales créée avec identité, forme juridique, capital, siège, SIREN, SIRET, RCS, RNE et TVA ;
+- direction de la publication et coordonnées de SUNELYS précisées ;
+- hébergeur Vercel identifié avec son adresse et son contact ;
+- propriété intellectuelle et limites des contenus administratifs clarifiées ;
+- données d'entreprise recoupées avec les informations publiques disponibles au 24 juillet 2026.
+
+### Confidentialité
+
+- page dédiée aux catégories de données, finalités, bases légales, destinataires et durées ;
+- prestataires effectivement utilisés par le parcours de demande identifiés : Vercel, Airtable, Resend et Google ;
+- durée maximale de trois ans indiquée pour les prospects sans contrat ;
+- liens distincts vers les droits, la CNIL et la gestion des cookies ;
+- information concise ajoutée sous chaque formulaire de collecte.
+
+### Consentement à la mesure
+
+- chargement initial des tags Google supprimé ;
+- mesure Google et Matomo éventuelle activées uniquement après un choix positif ;
+- boutons « Tout accepter » et « Tout refuser » présentés au même niveau ;
+- refus sans dégradation des formulaires, du contenu ou de la checklist ;
+- choix conservé six mois, puis redemandé ;
+- retrait possible à tout moment depuis le pied de page ;
+- cookies de mesure connus et attribution locale supprimés lors du retrait.
+
+### Vérifications
+
+- compilation Astro complète réussie ;
+- nouvelles routes présentes dans le sitemap ;
+- aucun script Google tiers présent dans le HTML initial ;
+- notices de confidentialité présentes sur les formulaires principaux et spécialisés ;
+- pages de conformité exclues des sollicitations commerciales flottantes et de la fenêtre de sortie ;
+- contrôle des liens du pied de page et des ancres internes réalisé sur la sortie compilée.

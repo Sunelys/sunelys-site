@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandSignature from "../components/BrandSignature.astro";
+import FormPrivacyNote from "../components/FormPrivacyNote.astro";
 
 const successUrl = "https://sunelys.fr/merci?source=contact_form";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
@@ -253,6 +254,7 @@ const supportCards = [
         <p class="form-note full-width">
           Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
         </p>
+        <FormPrivacyNote />
       </form>
     </div>
   </section>

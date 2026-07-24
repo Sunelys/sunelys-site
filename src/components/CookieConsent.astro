@@ -1,0 +1,219 @@
+<section
+  class="cookie-consent"
+  role="dialog"
+  aria-labelledby="cookie-consent-title"
+  aria-describedby="cookie-consent-description"
+  data-cookie-consent
+  tabindex="-1"
+  hidden
+>
+  <div class="cookie-copy">
+    <p class="cookie-eyebrow">Vos données, votre choix</p>
+    <h2 id="cookie-consent-title">Mesure d'audience et conversions</h2>
+    <p id="cookie-consent-description">
+      Avec votre accord, Sunelys utilise Google pour mesurer la fréquentation et l'efficacité de ses campagnes.
+      Sans accord, aucun outil de mesure tiers n'est chargé.
+    </p>
+    <p class="cookie-current-choice" data-cookie-current-choice hidden></p>
+  </div>
+
+  <div class="cookie-actions">
+    <div>
+      <button class="cookie-button cookie-button-refuse" type="button" data-cookie-choice="denied">
+        Tout refuser
+      </button>
+      <button class="cookie-button cookie-button-accept" type="button" data-cookie-choice="granted">
+        Tout accepter
+      </button>
+    </div>
+    <a href="/politique-confidentialite#cookies">Comprendre l'utilisation des cookies</a>
+  </div>
+</section>
+
+<script>
+  const cookieBanner = document.querySelector("[data-cookie-consent]");
+  const currentChoice = document.querySelector("[data-cookie-current-choice]");
+  let cookieSettingsTrigger = null;
+
+  const readConsent = () => window.getSunelysAnalyticsConsent?.() || null;
+
+  const showCookieBanner = (fromSettings = false) => {
+    if (!(cookieBanner instanceof HTMLElement)) return;
+    const consent = readConsent();
+
+    if (currentChoice instanceof HTMLElement) {
+      currentChoice.hidden = !fromSettings || !consent;
+      currentChoice.textContent =
+        consent?.analytics === true
+          ? "Choix actuel : mesure d'audience autorisée."
+          : "Choix actuel : mesure d'audience refusée.";
+    }
+
+    cookieBanner.hidden = false;
+    cookieBanner.dataset.mode = fromSettings ? "settings" : "initial";
+    if (fromSettings) cookieBanner.focus();
+  };
+
+  const hideCookieBanner = () => {
+    if (!(cookieBanner instanceof HTMLElement)) return;
+    cookieBanner.hidden = true;
+    if (cookieSettingsTrigger instanceof HTMLElement) cookieSettingsTrigger.focus();
+    cookieSettingsTrigger = null;
+  };
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Element)) return;
+
+    const settingsButton = event.target.closest("[data-cookie-settings]");
+    if (settingsButton) {
+      cookieSettingsTrigger = settingsButton;
+      showCookieBanner(true);
+      return;
+    }
+
+    const choiceButton = event.target.closest("[data-cookie-choice]");
+    if (!(choiceButton instanceof HTMLButtonElement)) return;
+
+    const enabled = choiceButton.dataset.cookieChoice === "granted";
+    window.setSunelysAnalyticsConsent?.(enabled);
+    hideCookieBanner();
+  });
+
+  if (!readConsent()) showCookieBanner();
+</script>
+
+<style>
+  .cookie-consent {
+    position: fixed;
+    z-index: 320;
+    left: 50%;
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(19rem, 0.8fr);
+    gap: clamp(1.2rem, 4vw, 3rem);
+    align-items: end;
+    width: min(calc(100% - 2rem), 70rem);
+    padding: clamp(1.2rem, 3vw, 1.8rem);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: var(--radius-md);
+    background:
+      radial-gradient(circle at 100% 0%, rgba(54, 98, 227, 0.32), transparent 42%),
+      var(--ink);
+    box-shadow: 0 28px 80px rgba(14, 23, 38, 0.3);
+    color: #ffffff;
+    transform: translateX(-50%);
+  }
+
+  .cookie-consent[hidden] {
+    display: none;
+  }
+
+  .cookie-copy {
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .cookie-eyebrow {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.64rem;
+    font-weight: 820;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .cookie-copy h2 {
+    margin: 0;
+    color: #ffffff;
+    font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+    letter-spacing: -0.035em;
+    line-height: 1.05;
+  }
+
+  .cookie-copy > p:not(.cookie-eyebrow) {
+    max-width: 64ch;
+    margin: 0;
+    color: #b9c5d5;
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+
+  .cookie-current-choice {
+    color: #ffffff !important;
+    font-weight: 750;
+  }
+
+  .cookie-actions {
+    display: grid;
+    gap: 0.7rem;
+  }
+
+  .cookie-actions > div {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .cookie-button {
+    min-height: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.32);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 0.75rem 1rem;
+  }
+
+  .cookie-button-refuse {
+    background: #ffffff;
+    color: var(--ink);
+  }
+
+  .cookie-button-accept {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--ink);
+  }
+
+  .cookie-button:hover,
+  .cookie-button:focus-visible {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+
+  .cookie-actions > a {
+    justify-self: end;
+    color: #b9c5d5;
+    font-size: 0.7rem;
+    text-decoration-color: rgba(255, 255, 255, 0.32);
+    text-underline-offset: 0.22rem;
+  }
+
+  .cookie-actions > a:hover,
+  .cookie-actions > a:focus-visible {
+    color: #ffffff;
+  }
+
+  @media (max-width: 760px) {
+    .cookie-consent {
+      bottom: max(0.6rem, env(safe-area-inset-bottom, 0px));
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: min(calc(100% - 1rem), 36rem);
+      max-height: calc(100dvh - 1.2rem);
+      overflow-y: auto;
+      padding: 1.1rem;
+    }
+
+    .cookie-actions > a {
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .cookie-actions > div {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

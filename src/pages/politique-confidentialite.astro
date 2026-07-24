@@ -1,0 +1,230 @@
+---
+import LegalDocument from "../components/LegalDocument.astro";
+
+const sections = [
+  { href: "#responsable", label: "Responsable du traitement" },
+  { href: "#donnees", label: "Données traitées" },
+  { href: "#finalites", label: "Finalités et bases légales" },
+  { href: "#destinataires", label: "Destinataires et prestataires" },
+  { href: "#conservation", label: "Durées de conservation" },
+  { href: "#cookies", label: "Cookies et traceurs" },
+  { href: "#droits", label: "Vos droits" },
+];
+---
+
+<LegalDocument
+  title="Politique de confidentialité"
+  description="Politique de confidentialité Sunelys : données collectées, finalités, prestataires, durées, cookies et exercice des droits."
+  eyebrow="Données personnelles"
+  intro="Une présentation transparente des données utilisées par sunelys.fr, de leur utilité et des moyens de garder la maîtrise de vos choix."
+  updatedAt="24 juillet 2026"
+  sections={sections}
+>
+  <section id="responsable">
+    <p class="section-number">01 · Responsable</p>
+    <h2>SUNELYS est responsable des traitements décrits ici.</h2>
+    <p>
+      SUNELYS, SASU dont le siège est situé 49 impasse des Lauriers, 83600 Les Adrets-de-l'Estérel, détermine
+      les finalités et les moyens des traitements réalisés depuis le site.
+    </p>
+    <p>
+      Point de contact : <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a> ·
+      <a href="tel:+33695907919">06 95 90 79 19</a>.
+    </p>
+  </section>
+
+  <section id="donnees">
+    <p class="section-number">02 · Données</p>
+    <h2>Les données dépendent de votre interaction avec Sunelys.</h2>
+    <div class="legal-grid">
+      <div class="legal-card">
+        <h3>Demandes et diagnostics</h3>
+        <p>
+          Nom, prénom, société, adresse électronique professionnelle, téléphone, volume de dossiers, besoin,
+          urgence, étape bloquée, message et informations volontairement communiquées.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>Origine de la demande</h3>
+        <p>
+          Page d'arrivée, référent, paramètres de campagne et identifiants publicitaires présents dans l'URL
+          lorsque vous les transmettez avec un formulaire.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>Navigation avec consentement</h3>
+        <p>
+          Pages consultées, interactions avec les contenus, clics de contact, formulaires commencés ou envoyés
+          et événements de conversion.
+        </p>
+      </div>
+      <div class="legal-card">
+        <h3>Données techniques</h3>
+        <p>
+          Informations nécessaires à l'affichage, à la sécurité et au diagnostic technique du service, pouvant
+          notamment figurer dans les journaux de l'hébergeur.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="finalites">
+    <p class="section-number">03 · Finalités</p>
+    <h2>Chaque usage repose sur une finalité déterminée.</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Finalité</th><th>Base légale</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Répondre à une demande, qualifier un dossier et préparer une proposition</td>
+          <td>Mesures précontractuelles demandées par la personne et intérêt légitime de SUNELYS à gérer ses demandes B2B</td>
+        </tr>
+        <tr>
+          <td>Exécuter et suivre une prestation administrative</td>
+          <td>Exécution du contrat et respect des obligations légales</td>
+        </tr>
+        <tr>
+          <td>Mesurer l'audience, les interactions et les conversions publicitaires</td>
+          <td>Consentement, retirable à tout moment</td>
+        </tr>
+        <tr>
+          <td>Assurer la sécurité, prévenir les abus et diagnostiquer les incidents</td>
+          <td>Intérêt légitime à sécuriser le site et les échanges</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="destinataires">
+    <p class="section-number">04 · Destinataires</p>
+    <h2>Un accès limité aux besoins opérationnels.</h2>
+    <p>
+      Les données sont accessibles aux personnes habilitées au sein de SUNELYS et, dans la limite de leur
+      mission, aux prestataires techniques nécessaires au fonctionnement du service :
+    </p>
+    <ul>
+      <li><strong>Vercel</strong>, pour l'hébergement et la fourniture du site ;</li>
+      <li><strong>Airtable</strong>, pour l'enregistrement et le suivi des demandes entrantes ;</li>
+      <li><strong>Resend</strong>, lorsqu'il est utilisé pour transmettre les notifications internes liées aux demandes ;</li>
+      <li><strong>Google</strong>, uniquement après consentement, pour la mesure d'audience et des conversions publicitaires.</li>
+    </ul>
+    <p>
+      Certains prestataires sont établis ou opèrent hors de l'Espace économique européen. Ces traitements sont
+      encadrés par les mécanismes prévus par le RGPD et par les engagements contractuels applicables des
+      prestataires.
+    </p>
+    <p>
+      Les liens vers Calendly, LinkedIn et le portail client conduisent vers des services distincts, soumis à leurs
+      propres politiques de confidentialité.
+    </p>
+  </section>
+
+  <section id="conservation">
+    <p class="section-number">05 · Conservation</p>
+    <h2>Les données ne sont pas conservées indéfiniment.</h2>
+    <table class="data-table">
+      <thead>
+        <tr><th>Catégorie</th><th>Durée ou critère</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Demandes de prospects sans contrat</td>
+          <td>Jusqu'à 3 ans après la collecte ou le dernier contact émanant du prospect</td>
+        </tr>
+        <tr>
+          <td>Données nécessaires à une relation contractuelle</td>
+          <td>Pendant la relation, puis archivage selon les obligations légales et les délais de prescription applicables</td>
+        </tr>
+        <tr>
+          <td>Documents commerciaux et comptables</td>
+          <td>Selon les durées légales applicables, notamment 5 ans pour les contrats et 10 ans pour les pièces comptables</td>
+        </tr>
+        <tr>
+          <td>Choix relatif aux cookies</td>
+          <td>6 mois, puis le choix est redemandé</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="cookies">
+    <p class="section-number">06 · Cookies</p>
+    <h2>Les outils de mesure tiers sont bloqués sans accord.</h2>
+    <p>
+      Au premier accès, vous pouvez accepter ou refuser avec le même niveau de simplicité. En cas de refus,
+      aucun tag Google de mesure ou de conversion n'est chargé. Le refus n'empêche pas l'utilisation du site,
+      des formulaires ou de la checklist.
+    </p>
+    <table class="data-table">
+      <thead>
+        <tr><th>Stockage</th><th>Finalité</th><th>Durée</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sunelys_consent_v1</td>
+          <td>Mémoriser votre acceptation ou votre refus</td>
+          <td>6 mois</td>
+        </tr>
+        <tr>
+          <td>sunelys_attribution</td>
+          <td>Conserver l'origine d'une visite pour la mesure, uniquement après consentement</td>
+          <td>Supprimé lors du retrait du consentement</td>
+        </tr>
+        <tr>
+          <td>Préférences locales Sunelys</td>
+          <td>Progression de checklist, réponse au mini-diagnostic et limitation des fenêtres répétitives</td>
+          <td>Selon la préférence ou la session concernée</td>
+        </tr>
+        <tr>
+          <td>Google</td>
+          <td>Mesure de fréquentation et de conversion, uniquement après consentement</td>
+          <td>Selon le traceur et les paramètres du service Google</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="legal-callout">
+      Vous pouvez modifier votre choix à tout moment avec le bouton « Gérer les cookies » présent dans le pied de page.
+    </p>
+    <button class="privacy-cookie-button" type="button" data-cookie-settings>Gérer les cookies</button>
+  </section>
+
+  <section id="droits">
+    <p class="section-number">07 · Vos droits</p>
+    <h2>Vous gardez la maîtrise de vos données.</h2>
+    <p>
+      Selon votre situation, vous pouvez demander l'accès, la rectification, l'effacement, la limitation ou la
+      portabilité de vos données, vous opposer à certains traitements et retirer votre consentement à tout moment.
+    </p>
+    <p>
+      Pour exercer un droit, écrivez à <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a> en précisant la
+      demande et l'adresse concernée. Une vérification d'identité peut être demandée en cas de doute raisonnable.
+    </p>
+    <p>
+      Si la réponse ne vous satisfait pas, vous pouvez adresser une réclamation à la
+      <a href="https://www.cnil.fr/fr/plaintes" target="_blank" rel="noopener noreferrer">CNIL</a>.
+    </p>
+  </section>
+</LegalDocument>
+
+<style>
+  .privacy-cookie-button {
+    justify-self: start;
+    min-height: 2.9rem;
+    border: 1px solid var(--ink);
+    border-radius: var(--radius-sm);
+    background: var(--ink);
+    color: #ffffff;
+    cursor: pointer;
+    font: inherit;
+    font-size: 0.76rem;
+    font-weight: 800;
+    padding: 0.75rem 1rem;
+  }
+
+  .privacy-cookie-button:hover,
+  .privacy-cookie-button:focus-visible {
+    background: var(--system);
+    border-color: var(--system);
+  }
+</style>

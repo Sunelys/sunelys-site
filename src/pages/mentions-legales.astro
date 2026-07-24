@@ -1,0 +1,93 @@
+---
+import LegalDocument from "../components/LegalDocument.astro";
+
+const sections = [
+  { href: "#editeur", label: "Éditeur du site" },
+  { href: "#publication", label: "Direction de la publication" },
+  { href: "#hebergement", label: "Hébergement" },
+  { href: "#propriete", label: "Propriété intellectuelle" },
+  { href: "#responsabilite", label: "Responsabilité" },
+  { href: "#contact", label: "Contact" },
+];
+---
+
+<LegalDocument
+  title="Mentions légales"
+  description="Mentions légales du site Sunelys : éditeur, immatriculation, direction de la publication, hébergement et propriété intellectuelle."
+  eyebrow="Confiance & conformité"
+  intro="Les informations d'identification de l'éditeur et de l'hébergeur de sunelys.fr, réunies dans un format clair et vérifiable."
+  updatedAt="24 juillet 2026"
+  sections={sections}
+>
+  <section id="editeur">
+    <p class="section-number">01 · Éditeur</p>
+    <h2>Le site est édité par SUNELYS.</h2>
+    <div class="legal-card">
+      <p><strong>SUNELYS</strong>, société par actions simplifiée unipersonnelle (SASU) au capital social de 1 €.</p>
+      <p>Siège social : 49 impasse des Lauriers, 83600 Les Adrets-de-l'Estérel, France.</p>
+      <p>SIREN : 943 493 759 · SIRET du siège : 943 493 759 00014.</p>
+      <p>Immatriculée au RCS de Fréjus sous le numéro 943 493 759 et au Registre national des entreprises.</p>
+      <p>TVA intracommunautaire : FR46 943493759.</p>
+      <p>
+        Contact : <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a> ·
+        <a href="tel:+33695907919">06 95 90 79 19</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="publication">
+    <p class="section-number">02 · Publication</p>
+    <h2>Direction de la publication.</h2>
+    <p>La directrice de la publication est <strong>Myriam Zaoui</strong>, présidente de SUNELYS.</p>
+  </section>
+
+  <section id="hebergement">
+    <p class="section-number">03 · Hébergement</p>
+    <h2>Le site est hébergé par Vercel.</h2>
+    <div class="legal-card">
+      <p><strong>Vercel Inc.</strong></p>
+      <p>440 N Barranca Avenue #4133, Covina, CA 91723, États-Unis.</p>
+      <p>Téléphone : +1 559 288 7060.</p>
+      <p>
+        Contact et assistance :
+        <a href="https://vercel.com/contact" target="_blank" rel="noopener noreferrer">vercel.com/contact</a>.
+      </p>
+    </div>
+  </section>
+
+  <section id="propriete">
+    <p class="section-number">04 · Propriété intellectuelle</p>
+    <h2>Les contenus Sunelys sont protégés.</h2>
+    <p>
+      La structure du site, les textes, la direction graphique, les éléments de marque et les contenus produits
+      par SUNELYS sont protégés par le droit de la propriété intellectuelle. Toute reproduction, représentation,
+      adaptation ou exploitation substantielle nécessite l'accord préalable écrit de SUNELYS.
+    </p>
+    <p>
+      Les marques, logos, photographies, citations et contenus appartenant à des tiers restent la propriété de
+      leurs titulaires respectifs et sont utilisés dans le respect des droits qui leur sont attachés.
+    </p>
+  </section>
+
+  <section id="responsabilite">
+    <p class="section-number">05 · Responsabilité</p>
+    <h2>Un contenu informatif, sans substitution aux organismes officiels.</h2>
+    <p>
+      SUNELYS apporte le plus grand soin à la fiabilité et à l'actualisation des informations publiées. Les règles,
+      procédures et délais administratifs peuvent toutefois évoluer ou dépendre des organismes compétents.
+    </p>
+    <p class="legal-callout">
+      Les informations du site ne remplacent ni les décisions des administrations, ni les prescriptions des
+      gestionnaires de réseau, ni un conseil juridique adapté à une situation particulière.
+    </p>
+  </section>
+
+  <section id="contact">
+    <p class="section-number">06 · Contact</p>
+    <h2>Signaler une question ou demander une correction.</h2>
+    <p>
+      Pour toute question relative au site ou à son contenu, écrivez à
+      <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a>.
+    </p>
+  </section>
+</LegalDocument>

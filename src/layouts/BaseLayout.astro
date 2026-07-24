@@ -2,6 +2,7 @@
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ExitIntentModal from "../components/ExitIntentModal.astro";
+import CookieConsent from "../components/CookieConsent.astro";
 
 interface BreadcrumbItem {
   name: string;
@@ -48,7 +49,8 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
 const isContactPage = path === "/contact";
-const showLeadCaptureShell = path !== "/merci" && !isNoindex && !isContactPage;
+const isCompliancePage = path === "/mentions-legales" || path === "/politique-confidentialite";
+const showLeadCaptureShell = path !== "/merci" && !isNoindex && !isContactPage && !isCompliancePage;
 const showExitIntent = showLeadCaptureShell && path !== "/";
 
 const routeLabels: Record<string, string> = {
@@ -59,6 +61,8 @@ const routeLabels: Record<string, string> = {
   "/blog": "Blog",
   "/sunelys": "Sunelys",
   "/a-propos": "À propos",
+  "/mentions-legales": "Mentions légales",
+  "/politique-confidentialite": "Politique de confidentialité",
   "/gestion-administrative-photovoltaique": "Gestion administrative photovoltaïque",
   "/declaration-prealable-panneaux-solaires": "Déclaration préalable panneaux solaires",
   "/dossier-consuel-photovoltaique": "Dossier Consuel photovoltaïque",
@@ -208,40 +212,148 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       ))
     }
 
-    {gtagScriptId && <script async src={"https://www.googletagmanager.com/gtag/js?id=" + gtagScriptId}></script>}
-    {
-      gtagScriptId && (
-        <script define:vars={{ ga4Id, googleAdsConversionId }}>
-          window.dataLayer = window.dataLayer || [];
-          window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
+    <script
+      define:vars={{ gtagScriptId, ga4Id, googleAdsConversionId, hasMatomo, matomoUrl, matomoSiteId }}
+    >
+      const consentStorageKey = "sunelys_consent_v1";
+      const consentLifetime = 180 * 24 * 60 * 60 * 1000;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = window.gtag || function gtag(){ window.dataLayer.push(arguments); };
+      window.sunelysAnalyticsEnabled = false;
+
+      const deniedConsent = {
+        analytics_storage: "denied",
+        ad_storage: "denied",
+        ad_user_data: "denied",
+        ad_personalization: "denied",
+      };
+      const grantedConsent = {
+        analytics_storage: "granted",
+        ad_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted",
+      };
+
+      window.gtag("consent", "default", {
+        ...deniedConsent,
+        wait_for_update: 500,
+      });
+
+      const readAnalyticsConsent = () => {
+        try {
+          const savedConsent = JSON.parse(localStorage.getItem(consentStorageKey) || "null");
+          if (!savedConsent || typeof savedConsent.analytics !== "boolean" || !savedConsent.updatedAt) return null;
+
+          const updatedAt = new Date(savedConsent.updatedAt).getTime();
+          if (!Number.isFinite(updatedAt) || Date.now() - updatedAt > consentLifetime) {
+            localStorage.removeItem(consentStorageKey);
+            return null;
+          }
+
+          return savedConsent;
+        } catch (_error) {
+          return null;
+        }
+      };
+
+      const removeAnalyticsCookies = () => {
+        const cookieNames = document.cookie
+          .split(";")
+          .map((cookie) => cookie.split("=")[0]?.trim())
+          .filter((name) => name && (name.startsWith("_ga") || name.startsWith("_gcl") || name === "_gid" || name === "_gat"));
+        const hostname = window.location.hostname;
+        const domains = ["", hostname, `.${hostname}`, ".sunelys.fr"];
+
+        cookieNames.forEach((name) => {
+          domains.forEach((domain) => {
+            document.cookie = `${name}=; Max-Age=0; path=/; SameSite=Lax${domain ? `; domain=${domain}` : ""}`;
+          });
+        });
+      };
+
+      const initializeGoogleMeasurement = () => {
+        if (!gtagScriptId) return;
+
+        window.gtag("consent", "update", grantedConsent);
+        if (!window.sunelysGoogleConfigured) {
           window.gtag("js", new Date());
-          if (ga4Id) {
-            window.gtag("config", ga4Id, { anonymize_ip: true });
-          }
-          if (googleAdsConversionId) {
-            window.gtag("config", googleAdsConversionId);
-          }
-        </script>
-      )
-    }
+          if (ga4Id) window.gtag("config", ga4Id, { anonymize_ip: true });
+          if (googleAdsConversionId) window.gtag("config", googleAdsConversionId);
+          window.sunelysGoogleConfigured = true;
+        }
 
-    {
-      hasMatomo && (
-        <script define:vars={{ matomoUrl, matomoSiteId }}>
-          window._paq = window._paq || [];
-          window._paq.push(["trackPageView"]);
-          window._paq.push(["enableLinkTracking"]);
-          window._paq.push(["setTrackerUrl", matomoUrl + "/matomo.php"]);
-          window._paq.push(["setSiteId", matomoSiteId]);
+        if (!document.querySelector("#sunelys-google-tag")) {
+          const googleScript = document.createElement("script");
+          googleScript.id = "sunelys-google-tag";
+          googleScript.async = true;
+          googleScript.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gtagScriptId)}`;
+          document.head.appendChild(googleScript);
+        }
+      };
 
-          const matomoScript = document.createElement("script");
-          const firstScript = document.getElementsByTagName("script")[0];
-          matomoScript.async = true;
-          matomoScript.src = matomoUrl + "/matomo.js";
-          firstScript.parentNode.insertBefore(matomoScript, firstScript);
-        </script>
-      )
-    }
+      const initializeMatomoMeasurement = () => {
+        if (!hasMatomo || document.querySelector("#sunelys-matomo-tag")) return;
+
+        window._paq = window._paq || [];
+        window._paq.push(["forgetUserOptOut"]);
+        window._paq.push(["trackPageView"]);
+        window._paq.push(["enableLinkTracking"]);
+        window._paq.push(["setTrackerUrl", matomoUrl + "/matomo.php"]);
+        window._paq.push(["setSiteId", matomoSiteId]);
+
+        const matomoScript = document.createElement("script");
+        matomoScript.id = "sunelys-matomo-tag";
+        matomoScript.async = true;
+        matomoScript.src = matomoUrl + "/matomo.js";
+        document.head.appendChild(matomoScript);
+      };
+
+      const disableAnalyticsMeasurement = () => {
+        window.sunelysAnalyticsEnabled = false;
+        window.gtag("consent", "update", deniedConsent);
+        if (Array.isArray(window._paq)) window._paq.push(["optUserOut"]);
+        removeAnalyticsCookies();
+        try {
+          localStorage.removeItem("sunelys_attribution");
+        } catch (_error) {
+          // Le retrait reste effectif même si le stockage local est indisponible.
+        }
+      };
+
+      window.getSunelysAnalyticsConsent = readAnalyticsConsent;
+      window.setSunelysAnalyticsConsent = (enabled) => {
+        const consent = {
+          analytics: Boolean(enabled),
+          updatedAt: new Date().toISOString(),
+        };
+
+        try {
+          localStorage.setItem(consentStorageKey, JSON.stringify(consent));
+        } catch (_error) {
+          // Le choix reste appliqué pour la page courante.
+        }
+
+        window.sunelysAnalyticsEnabled = consent.analytics;
+        if (consent.analytics) {
+          initializeGoogleMeasurement();
+          initializeMatomoMeasurement();
+        } else {
+          disableAnalyticsMeasurement();
+        }
+
+        window.dispatchEvent(new CustomEvent("sunelys:consent-change", { detail: consent }));
+        return consent;
+      };
+
+      const initialConsent = readAnalyticsConsent();
+      if (initialConsent?.analytics === true) {
+        window.sunelysAnalyticsEnabled = true;
+        initializeGoogleMeasurement();
+        initializeMatomoMeasurement();
+      } else {
+        disableAnalyticsMeasurement();
+      }
+    </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
@@ -258,6 +370,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     </main>
 
     <Footer links={footerLinks} />
+    <CookieConsent />
 
     {showExitIntent && <ExitIntentModal action={leadFormAction} path={path} />}
 
@@ -289,6 +402,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       ];
 
       const readStoredAttribution = () => {
+        if (!window.sunelysAnalyticsEnabled) return {};
         try {
           return JSON.parse(localStorage.getItem("sunelys_attribution") || "{}");
         } catch (_error) {
@@ -355,12 +469,24 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         ...incomingAttribution,
       };
 
-      localStorage.setItem("sunelys_attribution", JSON.stringify(attribution));
+      if (window.sunelysAnalyticsEnabled) {
+        localStorage.setItem("sunelys_attribution", JSON.stringify(attribution));
+      }
 
-      window.getSunelysAttribution = () => readStoredAttribution();
+      window.getSunelysAttribution = () =>
+        window.sunelysAnalyticsEnabled ? readStoredAttribution() : attribution;
+
+      window.addEventListener("sunelys:consent-change", (event) => {
+        if (!event.detail?.analytics) return;
+        try {
+          localStorage.setItem("sunelys_attribution", JSON.stringify(attribution));
+        } catch (_error) {
+          // La mesure reste active même si le stockage local est indisponible.
+        }
+      });
 
       const syncSunelysAttributionFields = (root = document) => {
-        const currentAttribution = readStoredAttribution();
+        const currentAttribution = window.getSunelysAttribution();
         const fieldRoot = root instanceof Element || root instanceof Document ? root : document;
         const attributionFieldNames = ["landing_page", "first_referrer", ...attributionKeys];
 
@@ -410,6 +536,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       });
 
       window.trackEvent = (eventName, params = {}) => {
+        if (!window.sunelysAnalyticsEnabled) return;
         const currentAttribution = readStoredAttribution();
         const analyticsPayload = buildAnalyticsPayload(eventName, params, currentAttribution);
 

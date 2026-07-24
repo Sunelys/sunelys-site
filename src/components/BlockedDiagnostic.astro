@@ -1,4 +1,6 @@
 ---
+import FormPrivacyNote from "./FormPrivacyNote.astro";
+
 interface Props {
   source?: string;
   kicker?: string;
@@ -156,6 +158,7 @@ const signals = [
       {submitLabel}
     </button>
     <p class="blocked-diagnostic__note">On vous répond avec le premier périmètre à déléguer, pas avec un questionnaire interminable.</p>
+    <FormPrivacyNote />
   </form>
 </section>
 

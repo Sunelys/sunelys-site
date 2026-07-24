@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import FormPrivacyNote from "../../components/FormPrivacyNote.astro";
 
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const successUrl = "https://sunelys.fr/merci?source=lp_delegation_admin_pv";
@@ -189,6 +190,7 @@ const specialistReasons = [
             </label>
           </div>
         </details>
+        <FormPrivacyNote />
       </form>
     </aside>
   </section>

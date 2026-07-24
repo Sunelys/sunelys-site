@@ -1,4 +1,6 @@
 ---
+import FormPrivacyNote from "./FormPrivacyNote.astro";
+
 interface HeroData {
   kicker: string;
   title: string;
@@ -188,6 +190,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                   {data.secondaryCta.label}
                 </a>
               </div>
+              <FormPrivacyNote />
             </form>
           </div>
         </div>

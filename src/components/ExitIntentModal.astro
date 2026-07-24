@@ -1,4 +1,6 @@
 ---
+import FormPrivacyNote from "./FormPrivacyNote.astro";
+
 interface Props {
   action: string;
   path: string;
@@ -112,6 +114,7 @@ const { action, path } = Astro.props;
       >
         Compléter mon contexte
       </a>
+      <FormPrivacyNote />
     </form>
   </div>
 </div>

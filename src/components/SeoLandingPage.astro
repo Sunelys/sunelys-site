@@ -1,6 +1,7 @@
 ---
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 import BrandSignature from "./BrandSignature.astro";
+import FormPrivacyNote from "./FormPrivacyNote.astro";
 
 interface ProblemItem {
   title: string;
@@ -247,6 +248,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             Recevoir mon plan d'action
           </button>
           <small>Email, volume et blocage. Téléphone optionnel.</small>
+          <FormPrivacyNote />
         </form>
       </article>
     </aside>
@@ -785,6 +787,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       {finalSubmitLabel}
     </button>
     <small>Réponse sous 24h • Sans engagement</small>
+    <FormPrivacyNote />
   </form>
 </section>
 
