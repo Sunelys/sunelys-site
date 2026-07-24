@@ -10,6 +10,10 @@ const pricingOffers = [
     price: "119 €",
     note: "HT / dossier",
     badge: "Garantie zéro pièce complémentaire",
+    ctaLabel: "Sécuriser la DP",
+    ctaHref: "/contact?source=tarif_dp_complete#contact-form",
+    ctaTrack: "cta_tarifs_offre_dp",
+    ctaHint: "Idéal quand un dépôt local est prêt à être présenté en mairie.",
   },
   {
     service: "Raccordement réseau + Consuel",
@@ -17,6 +21,10 @@ const pricingOffers = [
     price: "89 €",
     note: "HT / dossier",
     badge: "",
+    ctaLabel: "Ajouter le raccordement",
+    ctaHref: "/contact?source=tarif_raccordement_consuel#contact-form",
+    ctaTrack: "cta_tarifs_offre_raccordement",
+    ctaHint: "Option réactive quand le chantier est prêt à basculer vers la phase technique.",
   },
   {
     service: "Chaîne administrative complète",
@@ -25,6 +33,10 @@ const pricingOffers = [
     note: "HT / dossier",
     badge: "Le choix des pros",
     highlighted: true,
+    ctaLabel: "Piloter toute la chaîne",
+    ctaHref: "/contact?source=tarif_chaine_complete#contact-form",
+    ctaTrack: "cta_tarifs_offre_chaine",
+    ctaHint: "Parcours recommandé pour sortir du pilotage interne en mode complet.",
   },
 ];
 
@@ -34,12 +46,18 @@ const renovationAidOffers = [
     scope: "Éligibilité, montage conforme, dépôt ANAH et suivi jusqu'au versement.",
     price: "129 €",
     note: "HT / dossier",
+    ctaLabel: "Préparer ce dossier",
+    ctaHref: "/contact?source=tarif_maprimerenov#contact-form",
+    ctaTrack: "cta_tarifs_aide_maprimerenov",
   },
   {
     service: "CEE",
     scope: "Contrôle devis et factures, montage du dossier et suivi jusqu'à validation.",
     price: "99 €",
     note: "HT / dossier",
+    ctaLabel: "Préparer le CEE",
+    ctaHref: "/contact?source=tarif_cee#contact-form",
+    ctaTrack: "cta_tarifs_aide_cee",
   },
   {
     service: "Pack MaPrimeRénov' + CEE",
@@ -47,6 +65,9 @@ const renovationAidOffers = [
     price: "199 €",
     note: "HT / dossier",
     badge: "Le plus demandé",
+    ctaLabel: "Choisir le pack",
+    ctaHref: "/contact?source=tarif_maprimerenov_cee#contact-form",
+    ctaTrack: "cta_tarifs_aide_pack",
   },
 ];
 
@@ -56,6 +77,9 @@ const edfOaOffer = {
     "Activation ou création de l'espace producteur, suivi du dossier et accompagnement jusqu'à la signature électronique du client final.",
   price: "49 €",
   note: "HT / dossier",
+  ctaLabel: "Demander un cadrage EDF OA",
+  ctaHref: "/contact?source=tarif_edf_oa#contact-form",
+  ctaTrack: "cta_tarifs_edf_oa",
 };
 
 const specialistChecks = [
@@ -80,15 +104,29 @@ const pricingSignals = [
 ];
 
 const snapshotPrices = [
-  { need: "Activer le contrat", label: "EDF OA", price: "49 €", href: "#edf-oa" },
-  { need: "Finaliser le réseau", label: "Raccordement + Consuel", price: "89 €", href: "#tarifs-photovoltaique" },
-  { need: "Sécuriser le départ", label: "DP complète", price: "119 €", href: "#tarifs-photovoltaique" },
+  { need: "Activer le contrat", label: "EDF OA", price: "49 €", href: "#edf-oa", ctaTrack: "cta_tarifs_matrix_edf_oa" },
+  {
+    need: "Finaliser le réseau",
+    label: "Raccordement + Consuel",
+    price: "89 €",
+    href: "#tarifs-photovoltaique",
+    ctaTrack: "cta_tarifs_matrix_raccordement",
+  },
+  {
+    need: "Sécuriser le départ",
+    label: "DP complète",
+    price: "119 €",
+    href: "#tarifs-photovoltaique",
+    ctaTrack: "cta_tarifs_matrix_dp",
+  },
   {
     need: "Tout déléguer",
     label: "Chaîne complète",
     price: "199 €",
     href: "#tarifs-photovoltaique",
+    ctaTrack: "cta_tarifs_matrix_chaine",
     highlighted: true,
+    badge: "Option recommandée",
   },
 ];
 
@@ -135,6 +173,14 @@ const structuredData = {
         </a>
       </div>
 
+      <div class="hero-momentum" aria-label="Parcours recommandés">
+        <span>Entrée recommandée</span>
+        <a class="hero-momentum-link" href="#tarifs-photovoltaique" data-track="cta_tarifs_hero_entry_chain">
+          Chaîne complète
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
       <div class="hero-assurance" aria-label="Conditions principales">
         <span><i aria-hidden="true"></i> Dossier ponctuel accepté</span>
         <span><i aria-hidden="true"></i> Réponse sous 24h</span>
@@ -156,7 +202,7 @@ const structuredData = {
             <a
               class:list={["matrix-row", item.highlighted && "is-featured"]}
               href={item.href}
-              data-track="cta_tarifs_hero_matrix"
+              data-track={item.ctaTrack || "cta_tarifs_hero_matrix"}
               data-track-label={item.label}
             >
               <span>0{index + 1}</span>
@@ -165,6 +211,7 @@ const structuredData = {
                 <p>{item.label}</p>
               </div>
               <strong>{item.price}</strong>
+              {item.badge && <span class="matrix-badge">{item.badge}</span>}
               <i aria-hidden="true">→</i>
             </a>
           ))
@@ -214,6 +261,16 @@ const structuredData = {
               <strong>{offer.price}</strong>
               <span>{offer.note}</span>
             </div>
+            <a
+              class="offer-cta btn btn-accent"
+              href={offer.ctaHref}
+              data-track={offer.ctaTrack}
+              data-track-label={offer.service}
+            >
+              {offer.ctaLabel}
+              <span aria-hidden="true">→</span>
+            </a>
+            {offer.ctaHint && <p class="offer-hint">{offer.ctaHint}</p>}
           </article>
         ))
       }
@@ -252,8 +309,12 @@ const structuredData = {
           <strong>{edfOaOffer.price}</strong>
           <span>{edfOaOffer.note}</span>
         </div>
-        <a href="/edf-oa" data-track="cta_edf_oa_tarifs">
+        <a class="complementary-cta-secondary" href="/edf-oa" data-track="cta_edf_oa_tarifs">
           Voir le périmètre EDF OA
+          <span aria-hidden="true">→</span>
+        </a>
+        <a class="complementary-cta btn btn-accent" href={edfOaOffer.ctaHref} data-track={edfOaOffer.ctaTrack}>
+          {edfOaOffer.ctaLabel}
           <span aria-hidden="true">→</span>
         </a>
       </article>
@@ -279,6 +340,10 @@ const structuredData = {
                   <strong>{offer.price}</strong>
                   <span>{offer.note}</span>
                 </div>
+                <a class="aid-cta" href={offer.ctaHref} data-track={offer.ctaTrack}>
+                  {offer.ctaLabel}
+                  <span aria-hidden="true">→</span>
+                </a>
               </article>
             ))
           }
@@ -382,7 +447,10 @@ const structuredData = {
 
   .hero-link,
   .pricing-guidance a,
-  .edf-offer > a {
+  .complementary-cta-secondary,
+  .complementary-cta,
+  .aid-cta,
+  .matrix-row > i {
     display: inline-flex;
     align-items: center;
     gap: 0.52rem;
@@ -400,7 +468,9 @@ const structuredData = {
 
   .hero-link span,
   .pricing-guidance a span,
-  .edf-offer > a span {
+  .complementary-cta span,
+  .complementary-cta-secondary span,
+  .aid-cta span {
     color: var(--accent);
   }
 
@@ -426,6 +496,35 @@ const structuredData = {
     border-radius: 50%;
     background: var(--success);
     box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  }
+
+  .hero-momentum {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.58rem;
+    margin-top: 1.1rem;
+    padding: 0.62rem 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    color: rgba(255, 255, 255, 0.74);
+    font-size: 0.67rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: rgba(255, 255, 255, 0.04);
+  }
+
+  .hero-momentum span {
+    color: rgba(255, 255, 255, 0.46);
+  }
+
+  .hero-momentum-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #ffffff;
+    font-size: 0.67rem;
+    font-weight: 760;
   }
 
   .price-matrix {
@@ -477,7 +576,7 @@ const structuredData = {
 
   .matrix-row {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto auto;
+    grid-template-columns: auto minmax(0, 1fr) auto auto auto;
     gap: 0.85rem;
     align-items: center;
     min-height: 4.55rem;
@@ -531,6 +630,18 @@ const structuredData = {
     color: var(--system);
     font-size: 0.82rem;
     font-style: normal;
+  }
+
+  .matrix-badge {
+    color: var(--success);
+    padding: 0.14rem 0.42rem;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--success) 35%, transparent);
+    font-size: 0.54rem;
+    font-weight: 750;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    white-space: nowrap;
   }
 
   .matrix-row.is-featured {
@@ -662,6 +773,7 @@ const structuredData = {
     min-height: 25rem;
     display: flex;
     flex-direction: column;
+    gap: 0.88rem;
     padding: clamp(1rem, 2.2vw, 1.6rem);
     border-right: 1px solid var(--line);
     border-bottom: 1px solid var(--line);
@@ -749,6 +861,17 @@ const structuredData = {
     color: var(--text-muted);
     font-size: 0.7rem;
     font-weight: 700;
+  }
+
+  .offer-cta {
+    width: fit-content;
+    margin-top: auto;
+  }
+
+  .offer-hint {
+    color: var(--text-muted);
+    font-size: 0.65rem;
+    line-height: 1.45;
   }
 
   .is-highlighted .offer-price strong {
@@ -870,8 +993,20 @@ const structuredData = {
   }
 
   .edf-offer > a {
-    margin-top: 1.2rem;
+    margin-top: 0.86rem;
     color: rgba(255, 255, 255, 0.78);
+  }
+
+  .complementary-cta {
+    max-width: 18rem;
+    margin-top: 0.7rem;
+  }
+
+  .complementary-cta-secondary {
+    color: rgba(255, 255, 255, 0.78);
+    text-decoration: underline;
+    text-underline-offset: 0.2rem;
+    text-decoration-color: rgba(255, 255, 255, 0.2);
   }
 
   .aid-panel {
@@ -896,7 +1031,7 @@ const structuredData = {
 
   .aid-list article {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
     gap: 0.85rem;
     align-items: center;
     min-height: 8.4rem;
@@ -947,6 +1082,7 @@ const structuredData = {
     display: grid;
     justify-items: end;
     gap: 0.1rem;
+    text-align: right;
   }
 
   .aid-price strong {
@@ -959,6 +1095,20 @@ const structuredData = {
     color: var(--text-muted);
     font-size: 0.58rem;
     font-weight: 700;
+  }
+
+  .aid-cta {
+    grid-column: 3 / span 2;
+    align-self: start;
+    justify-self: start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.52rem;
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 760;
+    text-decoration: underline;
+    text-underline-offset: 0.22rem;
   }
 
   .pricing-conditions {
@@ -1101,17 +1251,24 @@ const structuredData = {
     }
 
     .matrix-row {
-      grid-template-columns: auto minmax(0, 1fr) auto;
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
       min-height: 4.2rem;
       padding-inline: 0.85rem;
     }
 
-    .matrix-row > i {
+    .matrix-row > i,
+    .matrix-badge {
       display: none;
     }
 
     .matrix-row strong {
       font-size: 1.12rem;
+    }
+
+    .hero-momentum {
+      flex-wrap: wrap;
+      line-height: 1.6;
+      gap: 0.5rem 0.7rem;
     }
 
     .matrix-foot {
@@ -1142,11 +1299,19 @@ const structuredData = {
     .aid-list article {
       grid-template-columns: auto 1fr;
       align-items: start;
+      gap: 0.6rem 0.85rem;
     }
 
     .aid-price {
       grid-column: 2;
       justify-items: start;
+      justify-self: start;
+      text-align: left;
+    }
+
+    .aid-cta {
+      grid-column: 2;
+      margin-top: 0.45rem;
     }
 
     .collaboration-list {
