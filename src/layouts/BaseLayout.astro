@@ -358,7 +358,11 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
   </head>
-  <body style={brandingVars} data-branding-intensity={BRANDING_INTENSITY}>
+  <body
+    class:list={[showLeadCaptureShell && "has-sticky-lead"]}
+    style={brandingVars}
+    data-branding-intensity={BRANDING_INTENSITY}
+  >
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
     <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic sous 24h" />
@@ -846,18 +850,31 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       }
 
       const stickyBar = document.querySelector(".sticky-lead-bar");
-      const stickyGuardElements = document.querySelectorAll("[data-sticky-guard='hero'], [data-lead-form]");
+      const stickyGuardElements = document.querySelectorAll(
+        ".page-flow > :first-child, [data-sticky-guard='hero'], [data-lead-form], body > footer",
+      );
       const mobileQuery = window.matchMedia("(max-width: 767px)");
       const visibleStickyGuards = new Set();
+      let hasEditableFocus = false;
 
       const syncStickyBar = () => {
         if (!(stickyBar instanceof HTMLElement)) return;
 
         const isMobile = mobileQuery.matches;
-        const hasScrolled = window.scrollY > 24;
+        const hasScrolled = window.scrollY > 80;
         const hasVisibleGuard = visibleStickyGuards.size > 0;
+        const interfaceOverlayOpen =
+          document.documentElement.classList.contains("menu-open") ||
+          document.body.classList.contains("cookie-consent-open");
+        const shouldShow =
+          isMobile &&
+          hasScrolled &&
+          !hasVisibleGuard &&
+          !hasEditableFocus &&
+          !interfaceOverlayOpen;
+
         document.body.classList.toggle("sticky-bar-hero-hidden", isMobile && hasVisibleGuard);
-        document.body.classList.toggle("sticky-bar-visible", isMobile && hasScrolled && !hasVisibleGuard);
+        document.body.classList.toggle("sticky-bar-visible", shouldShow);
       };
 
       if (stickyGuardElements.length > 0 && "IntersectionObserver" in window) {
@@ -880,7 +897,33 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
       window.addEventListener("scroll", syncStickyBar, { passive: true });
       window.addEventListener("resize", syncStickyBar);
+      window.addEventListener("sunelys:cookie-banner-change", syncStickyBar);
       mobileQuery.addEventListener?.("change", syncStickyBar);
+
+      document.addEventListener("focusin", (event) => {
+        if (!(event.target instanceof Element)) return;
+        hasEditableFocus = Boolean(
+          event.target.closest("input, select, textarea, [contenteditable='true']"),
+        );
+        syncStickyBar();
+      });
+
+      document.addEventListener("focusout", () => {
+        window.setTimeout(() => {
+          const activeElement = document.activeElement;
+          hasEditableFocus =
+            activeElement instanceof Element &&
+            Boolean(activeElement.closest("input, select, textarea, [contenteditable='true']"));
+          syncStickyBar();
+        }, 80);
+      });
+
+      const menuObserver = new MutationObserver(syncStickyBar);
+      menuObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ["class"],
+      });
+
       syncStickyBar();
     </script>
   </body>
@@ -1175,7 +1218,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
   }
 
   @media (max-width: 760px) {
-    body {
+    body.has-sticky-lead {
       padding-bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px));
     }
 
@@ -1192,7 +1235,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       bottom: 0;
       z-index: 130;
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
       gap: 0.6rem;
       align-items: center;
       padding: 0.75rem max(1rem, env(safe-area-inset-right, 0px)) calc(0.75rem + env(safe-area-inset-bottom, 0px))
@@ -1212,6 +1255,13 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       pointer-events: auto;
     }
 
+    html.menu-open .sticky-lead-bar,
+    body.cookie-consent-open .sticky-lead-bar {
+      opacity: 0;
+      transform: translateY(110%);
+      pointer-events: none;
+    }
+
     .sticky-lead-primary,
     .sticky-lead-secondary {
       display: inline-flex;
@@ -1223,7 +1273,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0;
-      text-transform: uppercase;
+      text-transform: none;
     }
 
     .sticky-lead-primary {
@@ -1238,6 +1288,16 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       border: 1px solid color-mix(in srgb, var(--line) 76%, var(--accent));
       background: #fafaf7;
       color: var(--text);
+    }
+
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
+
+    [data-scroll-rail] > * {
+      scroll-snap-stop: always;
     }
   }
 

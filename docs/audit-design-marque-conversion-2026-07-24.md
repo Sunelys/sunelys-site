@@ -1385,3 +1385,30 @@ Le dix-neuvième lot transforme les témoignages de la page d'accueil en une exp
 - un seul témoignage déployé sur mobile afin de réduire la longueur ;
 - transitions courtes neutralisées lorsque l'utilisateur préfère réduire les mouvements ;
 - consultation du second dossier suivie comme signal d'engagement.
+
+## Prototype v20 — finition de l'expérience mobile
+
+Le vingtième lot corrige les derniers frottements liés aux éléments fixes, au clavier mobile et aux séquences tactiles.
+
+### Barre d'action intelligente
+
+- affichage repoussé après le premier écran réel de chaque page ;
+- premier bloc de contenu automatiquement traité comme zone protégée ;
+- barre masquée lorsqu'un formulaire ou le pied de page est visible ;
+- barre masquée pendant l'ouverture du menu et du bandeau de consentement ;
+- barre masquée dès qu'un champ, une liste ou une zone de texte reçoit le focus ;
+- action Diagnostic rendue volontairement plus large que l'appel téléphonique.
+
+### Formulaires mobiles
+
+- taille minimale de 16 px appliquée aux champs, listes et zones de texte sur mobile ;
+- suppression du zoom automatique déclenché par Safari iOS sur les petits champs ;
+- barre d'action maintenue hors du chemin lorsque le clavier est utilisé ;
+- libellés de la barre repassés en casse normale.
+
+### Espace et gestes
+
+- espace inférieur réservé uniquement sur les pages qui possèdent réellement une barre d'action ;
+- pages Contact, Merci, légales et sans index débarrassées de l'espace mobile inutile ;
+- arrêt de défilement renforcé sur chaque carte des séquences horizontales ;
+- défilement contenu à l'intérieur du panneau de consentement sur les petits écrans.

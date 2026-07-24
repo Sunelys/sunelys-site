@@ -51,12 +51,16 @@
 
     cookieBanner.hidden = false;
     cookieBanner.dataset.mode = fromSettings ? "settings" : "initial";
+    document.body.classList.add("cookie-consent-open");
+    window.dispatchEvent(new CustomEvent("sunelys:cookie-banner-change", { detail: { open: true } }));
     if (fromSettings) cookieBanner.focus();
   };
 
   const hideCookieBanner = () => {
     if (!(cookieBanner instanceof HTMLElement)) return;
     cookieBanner.hidden = true;
+    document.body.classList.remove("cookie-consent-open");
+    window.dispatchEvent(new CustomEvent("sunelys:cookie-banner-change", { detail: { open: false } }));
     if (cookieSettingsTrigger instanceof HTMLElement) cookieSettingsTrigger.focus();
     cookieSettingsTrigger = null;
   };
@@ -203,6 +207,7 @@
       width: min(calc(100% - 1rem), 36rem);
       max-height: calc(100dvh - 1.2rem);
       overflow-y: auto;
+      overscroll-behavior: contain;
       padding: 1.1rem;
     }
 
