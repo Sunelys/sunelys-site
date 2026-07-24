@@ -27,32 +27,14 @@ export const heroData = {
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
-    submitLabel: "Recevoir mon diagnostic sous 24h",
-    note: "3 informations essentielles. Aucun engagement.",
+    submitLabel: "Recevoir mon cadrage sous 24h",
+    note: "Un périmètre + votre email suffisent.",
   },
   proofs: [
     "1 357 dossiers ENR pilotés",
     "96 % des DP sans pièce complémentaire",
-    "Réponse sous 24h ouvrées",
+    "Tarifs fixes dès 89 € HT / dossier",
   ],
-  portalDemo: {
-    label: "Voir un aperçu du portail →",
-    href: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
-    track: "cta_hero_portal_demo",
-  },
-  preview: {
-    variant: "full",
-    label: "Portail Sunelys",
-    title: "Pilotage administratif en temps réel",
-    projects: [
-      { name: "Projet Martin", progress: "DP déposée", status: "DP validée" },
-      { name: "Projet Dubois", progress: "Consuel en attente", status: "Consuel en cours" },
-      { name: "Projet Leroy", progress: "Raccordement Enedis", status: "Raccordement planifié" },
-    ],
-    timeline: ["Cadrage", "Dépôt DP", "Consuel", "Raccordement", "Mise en service"],
-    documents: ["Plan de masse signé", "Schéma unifilaire", "Attestation installateur", "Photos chantier"],
-    footer: "Dossiers, aides, pièces, statuts et relances centralisés dans un seul espace.",
-  },
 };
 
 export const trustSectionData = {

@@ -1489,3 +1489,37 @@ Le vingt-troisième lot renforce les deux pages de service qui avaient reçu une
 - aucun chiffre, tarif ou résultat supplémentaire inventé ;
 - exposition de l'offre et du formulaire rapide mesurée séparément ;
 - parcours désormais lisible de la vue de l'offre jusqu'au lead confirmé.
+
+## Prototype v24 — accueil orienté décision
+
+Le vingt-quatrième lot retravaille le premier écran à partir des comportements réellement observés sur la page d'accueil entre le 23 juin et le 23 juillet 2026.
+
+### Diagnostic mesuré
+
+- 66 sessions sur l'accueil, dont 51 sur ordinateur et 15 sur mobile ;
+- durée moyenne d'engagement d'environ 47 secondes sur ordinateur contre 14 secondes sur mobile ;
+- seulement 2 démarrages du formulaire d'accueil sur la période ;
+- 23 clics vers le portail réalisés par 7 utilisateurs sur ordinateur, signe d'un usage client réel mais aussi d'une concurrence avec le parcours prospect.
+
+### Décision commerciale immédiate
+
+- aperçu du portail retiré du premier écran, sans supprimer la démonstration complète déjà présente plus bas ;
+- choix direct entre « DP complète », « Raccordement + Consuel » et « Chaîne complète » ;
+- tarifs vérifiés de 119 €, 89 € et 199 € HT par dossier rendus visibles avant la saisie ;
+- bénéfice et niveau de délégation exprimés sur chaque option ;
+- aucun chiffre, résultat ou avantage supplémentaire inventé.
+
+### Friction réduite
+
+- seuls le périmètre choisi et l'adresse email sont obligatoires ;
+- volume mensuel conservé comme qualification facultative ;
+- étape bloquée déduite du choix au lieu d'être redemandée ;
+- bouton reformulé autour d'un cadrage concret sous 24 heures.
+
+### Mesure du nouveau parcours
+
+- exposition du formulaire suivie avec `homepage_hero_form_view` ;
+- exposition des offres suivie avec `homepage_offer_view` ;
+- sélection d'une offre suivie avec `homepage_offer_selected` ;
+- démarrage, tentative, erreur et confirmation serveur conservés dans le tunnel commun ;
+- aucune donnée personnelle transmise aux outils d'audience.

@@ -15,7 +15,6 @@ interface HeroData {
     note: string;
   };
   proofs: string[];
-  portalDemo?: { label: string; href: string; track: string };
   ctaNote?: string;
 }
 
@@ -60,51 +59,18 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     {
       data.leadForm ? (
         <div class="hero-conversion">
-          <div class="portal-snapshot" aria-label="Aperçu du portail client Sunelys">
-            <div class="portal-snapshot-head">
-              <div>
-                <span class="live-dot" aria-hidden="true"></span>
-                <strong>Portail client inclus</strong>
-              </div>
-              <span>Vue en temps réel</span>
-            </div>
-
-            <div class="portal-snapshot-body">
-              <div class="portal-summary">
-                <span>Dossiers pilotés</span>
-                <strong>1 357</strong>
-                <small>Traçabilité centralisée</small>
-              </div>
-
-              <div class="portal-progress" aria-hidden="true">
-                <div>
-                  <span>DP déposée</span>
-                  <i class="progress-track"><i style="--progress: 88%"></i></i>
-                  <em class="status status-success">Validée</em>
-                </div>
-                <div>
-                  <span>Consuel</span>
-                  <i class="progress-track"><i style="--progress: 62%"></i></i>
-                  <em class="status status-system">En cours</em>
-                </div>
-                <div>
-                  <span>Raccordement</span>
-                  <i class="progress-track"><i style="--progress: 38%"></i></i>
-                  <em class="status status-warning">À suivre</em>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="hero-intake-card">
+          <div
+            class="hero-intake-card"
+            data-track-view="homepage_hero_form_view"
+            data-track-label="homepage_hero"
+          >
             <div class="hero-intake-head">
               <div>
-                <p class="hero-intake-kicker">Diagnostic sous 24h</p>
+                <p class="hero-intake-kicker">Choisissez un premier périmètre</p>
                 <span class="no-commitment">Sans engagement</span>
               </div>
               <p class="hero-intake-copy">
-                Indiquez votre volume et votre principal blocage. Nous vous répondons avec le premier périmètre à
-                déléguer.
+                Quel dossier voulez-vous sortir de votre équipe ? Sunelys vous répond avec le premier cadre utile.
               </p>
             </div>
 
@@ -123,9 +89,10 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
               <input type="hidden" name="source_page" value="homepage_hero" />
               <input type="hidden" name="conversion_type" value="form_contact" />
               <input type="hidden" name="lead_stage" value="homepage_hero_form_submitted" />
-              <input type="hidden" name="service_interest" value="Pilotage administratif photovoltaïque" />
+              <input id="hero-service-interest" type="hidden" name="service_interest" />
+              <input id="hero-blocked-stage" type="hidden" name="blocked_stage" />
               <input type="hidden" name="lead_source_detail" value="homepage_hero_form" />
-              <input type="hidden" name="qualification_hint" value="email professionnel, volume mensuel et étape bloquée" />
+              <input type="hidden" name="qualification_hint" value="email professionnel, offre choisie et volume mensuel optionnel" />
               <input type="hidden" name="lead_status" value="Nouveau lead" />
               <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic gratuit" />
               <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -141,6 +108,60 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
               <input type="hidden" name="fbclid" data-hero-attribution="fbclid" />
               <input type="hidden" name="msclkid" data-hero-attribution="msclkid" />
 
+              <fieldset
+                class="hero-offer-options"
+                data-track-view="homepage_offer_view"
+                data-track-label="homepage_hero_offers"
+              >
+                <legend>Que souhaitez-vous déléguer ?</legend>
+                <label>
+                  <input
+                    type="radio"
+                    name="need"
+                    value="Declaration prealable"
+                    data-service-interest="Déclaration préalable panneaux solaires"
+                    data-blocked-stage="Avant dépôt"
+                    data-offer-price="119"
+                    required
+                  />
+                  <span>
+                    <small>Sécuriser le départ</small>
+                    <strong>DP complète</strong>
+                  </span>
+                  <em>119 € <small>HT / dossier</small></em>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="need"
+                    value="Raccordement Enedis + Consuel"
+                    data-service-interest="Raccordement Enedis + Consuel"
+                    data-blocked-stage="Raccordement en attente"
+                    data-offer-price="89"
+                  />
+                  <span>
+                    <small>Finaliser le réseau</small>
+                    <strong>Raccordement + Consuel</strong>
+                  </span>
+                  <em>89 € <small>HT / dossier</small></em>
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="need"
+                    value="Pilotage complet"
+                    data-service-interest="Pilotage complet DP, raccordement et Consuel"
+                    data-blocked-stage="Pilotage global"
+                    data-offer-price="199"
+                  />
+                  <span>
+                    <small>Tout déléguer</small>
+                    <strong>Chaîne complète</strong>
+                  </span>
+                  <em>199 € <small>HT / dossier</small></em>
+                </label>
+              </fieldset>
+
               <div class="hero-form-fields">
                 <label class="email-field">
                   <span>Email professionnel</span>
@@ -148,28 +169,12 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                 </label>
 
                 <label>
-                  <span>Volume mensuel</span>
-                  <select name="volume" required>
-                    <option value="">Sélectionner</option>
-                    <option value="1-10 dossiers">1-10 dossiers</option>
+                  <span>Volume mensuel <em>optionnel</em></span>
+                  <select name="volume">
+                    <option value="">À préciser plus tard</option>
+                    <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
                     <option value="10-30 dossiers">10-30 dossiers</option>
                     <option value="+30 dossiers">+30 dossiers</option>
-                  </select>
-                </label>
-
-                <label>
-                  <span>Étape bloquée</span>
-                  <select name="blocked_stage" required>
-                    <option value="">Sélectionner</option>
-                    <option value="Avant dépôt">Avant dépôt</option>
-                    <option value="Complément mairie">Complément mairie</option>
-                    <option value="Consuel à préparer">Consuel à préparer</option>
-                    <option value="Raccordement en attente">Raccordement en attente</option>
-                    <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
-                    <option value="Prime à suivre">Prime à suivre</option>
-                    <option value="Mise en service bloquée">Mise en service bloquée</option>
-                    <option value="Pilotage global">Pilotage global</option>
-                    <option value="Je ne sais pas encore">Je ne sais pas encore</option>
                   </select>
                 </label>
               </div>
@@ -226,17 +231,48 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
       field.value = attribution[key] || "";
     });
 
+    const serviceInterestField = heroLeadForm.querySelector("#hero-service-interest");
+    const blockedStageField = heroLeadForm.querySelector("#hero-blocked-stage");
+
+    heroLeadForm.querySelectorAll("input[name='need']").forEach((field) => {
+      field.addEventListener("change", () => {
+        if (!(field instanceof HTMLInputElement) || !field.checked) return;
+        if (serviceInterestField instanceof HTMLInputElement) {
+          serviceInterestField.value = field.dataset.serviceInterest || field.value;
+        }
+        if (blockedStageField instanceof HTMLInputElement) {
+          blockedStageField.value = field.dataset.blockedStage || "";
+        }
+
+        window.trackEvent?.("homepage_offer_selected", {
+          category: "form",
+          label: field.value,
+          need: field.value,
+          blocked_stage: field.dataset.blockedStage || "",
+          service_interest: field.dataset.serviceInterest || field.value,
+          value: Number(field.dataset.offerPrice || 0),
+          currency: "EUR",
+          source: "homepage_hero",
+          form_id: "hero-lead-form",
+          form_location: "homepage_hero_form",
+        });
+      });
+    });
+
     heroLeadForm.addEventListener("submit", () => {
       const formData = new FormData(heroLeadForm);
       window.trackEvent?.("lead_hero_form_submit", {
         category: "form",
         label: "Recevoir un diagnostic sous 24h",
         volume: String(formData.get("volume") || ""),
+        need: String(formData.get("need") || ""),
         blocked_stage: String(formData.get("blocked_stage") || ""),
         source: "homepage_hero",
         conversion_type: "form_contact",
         lead_stage: "homepage_hero_form_submitted",
-        service_interest: "Pilotage administratif photovoltaïque",
+        service_interest: String(formData.get("service_interest") || ""),
+        form_id: "hero-lead-form",
+        form_location: "homepage_hero_form",
       });
     });
   }
@@ -392,174 +428,9 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     min-width: 0;
   }
 
-  .portal-snapshot,
   .hero-intake-card {
     border-radius: 18px;
     box-shadow: 0 24px 60px rgba(4, 10, 20, 0.2);
-  }
-
-  .portal-snapshot {
-    padding: 0.95rem;
-    border: 1px solid rgba(255, 255, 255, 0.22);
-    background: var(--system-soft);
-    color: var(--text);
-  }
-
-  .portal-snapshot-head {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding-bottom: 0.72rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--system) 15%, var(--line));
-    font-size: 0.73rem;
-  }
-
-  .portal-snapshot-head div {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.48rem;
-  }
-
-  .portal-snapshot-head > span {
-    color: var(--system);
-    font-weight: 700;
-  }
-
-  .live-dot {
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 4px var(--success-soft);
-    animation: live-pulse 2.4s ease-out infinite;
-  }
-
-  .portal-snapshot-body {
-    display: grid;
-    grid-template-columns: minmax(0, 0.38fr) minmax(0, 1fr);
-    gap: 0.8rem;
-    padding-top: 0.8rem;
-  }
-
-  .portal-summary {
-    display: grid;
-    align-content: center;
-    padding: 0.72rem;
-    border-radius: 12px;
-    background: #ffffff;
-  }
-
-  .portal-summary span,
-  .portal-summary small {
-    color: var(--text-muted);
-    font-size: 0.68rem;
-  }
-
-  .portal-summary strong {
-    margin: 0.05rem 0;
-    font-size: 1.55rem;
-    letter-spacing: -0.04em;
-  }
-
-  .portal-progress {
-    display: grid;
-    gap: 0.36rem;
-  }
-
-  .portal-progress > div {
-    display: grid;
-    grid-template-columns: 5.4rem minmax(2rem, 1fr) auto;
-    align-items: center;
-    gap: 0.5rem;
-    min-height: 2.05rem;
-    padding: 0.38rem 0.48rem;
-    border-radius: 9px;
-    background: rgba(255, 255, 255, 0.72);
-    font-size: 0.65rem;
-    font-weight: 650;
-    animation: portal-row-enter 620ms cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .portal-progress > div:nth-child(2) {
-    animation-delay: 110ms;
-  }
-
-  .portal-progress > div:nth-child(3) {
-    animation-delay: 220ms;
-  }
-
-  .progress-track {
-    position: relative;
-    display: block;
-    height: 0.3rem;
-    overflow: hidden;
-    border-radius: 999px;
-    background: var(--line);
-  }
-
-  .progress-track i {
-    display: block;
-    width: var(--progress);
-    height: 100%;
-    border-radius: inherit;
-    background: var(--system);
-    transform: scaleX(0);
-    transform-origin: left;
-    animation: portal-progress-fill 920ms cubic-bezier(0.22, 1, 0.36, 1) 260ms forwards;
-  }
-
-  .status {
-    padding: 0.24rem 0.38rem;
-    border-radius: 999px;
-    font-size: 0.58rem;
-    font-style: normal;
-    white-space: nowrap;
-  }
-
-  .status-success {
-    background: var(--success-soft);
-    color: #10745a;
-  }
-
-  .status-system {
-    background: #e4eaff;
-    color: #294ebd;
-  }
-
-  .status-warning {
-    background: var(--accent-soft);
-    color: var(--accent-deep);
-  }
-
-  @keyframes portal-row-enter {
-    from {
-      opacity: 0;
-      transform: translateY(0.45rem);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes portal-progress-fill {
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  @keyframes live-pulse {
-    0%,
-    55% {
-      box-shadow: 0 0 0 4px var(--success-soft);
-    }
-
-    85%,
-    100% {
-      box-shadow: 0 0 0 8px transparent;
-    }
   }
 
   .hero-intake-card {
@@ -609,14 +480,91 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     margin-top: 0.9rem;
   }
 
+  .hero-offer-options {
+    display: grid;
+    gap: 0.5rem;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .hero-offer-options legend {
+    margin-bottom: 0.05rem;
+    color: var(--text);
+    font-size: 0.7rem;
+    font-weight: 720;
+  }
+
+  .hero-lead-form .hero-offer-options > label {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1.1rem minmax(0, 1fr) auto;
+    gap: 0.65rem;
+    align-items: center;
+    min-height: 3.55rem;
+    padding: 0.6rem 0.72rem;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    background: var(--bg-soft);
+    cursor: pointer;
+    transition: border-color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .hero-offer-options > label:hover,
+  .hero-offer-options > label:has(input:checked) {
+    border-color: var(--system);
+    background: var(--system-soft);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--system) 12%, transparent);
+  }
+
+  .hero-lead-form .hero-offer-options input[type="radio"] {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--system);
+  }
+
+  .hero-offer-options label > span {
+    display: grid;
+    gap: 0.08rem;
+    min-width: 0;
+  }
+
+  .hero-offer-options label > span small {
+    color: var(--text-muted);
+    font-size: 0.58rem;
+    font-weight: 650;
+    text-transform: uppercase;
+  }
+
+  .hero-offer-options label > span strong {
+    color: var(--text);
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+
+  .hero-offer-options label > em {
+    color: var(--accent-deep);
+    font-size: 0.9rem;
+    font-style: normal;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .hero-offer-options label > em small {
+    font-size: 0.54rem;
+    font-weight: 700;
+  }
+
   .hero-form-fields {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.7fr);
     gap: 0.65rem;
   }
 
   .hero-form-fields .email-field {
-    grid-column: 1 / -1;
+    grid-column: auto;
   }
 
   .hero-lead-form label {
@@ -628,7 +576,14 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     font-weight: 720;
   }
 
-  .hero-lead-form input,
+  .hero-lead-form label > span em {
+    color: var(--text-muted);
+    font-size: 0.62rem;
+    font-style: normal;
+    font-weight: 560;
+  }
+
+  .hero-lead-form input:not([type="radio"]),
   .hero-lead-form select {
     width: 100%;
     min-height: 2.85rem;
@@ -645,11 +600,11 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
   }
 
-  .hero-lead-form input::placeholder {
+  .hero-lead-form input:not([type="radio"])::placeholder {
     color: color-mix(in srgb, var(--text-muted) 72%, white);
   }
 
-  .hero-lead-form input:focus-visible,
+  .hero-lead-form input:not([type="radio"]):focus-visible,
   .hero-lead-form select:focus-visible {
     border-color: var(--system);
     background: #ffffff;
@@ -779,20 +734,6 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
       font-size: 0.74rem;
     }
 
-    .portal-snapshot {
-      padding: 0.78rem;
-      border-radius: 14px;
-    }
-
-    .portal-snapshot-head {
-      padding-bottom: 0;
-      border-bottom: 0;
-    }
-
-    .portal-snapshot-body {
-      display: none;
-    }
-
     .hero-intake-card {
       padding: 1rem;
       border-radius: 14px;
@@ -813,15 +754,4 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .live-dot,
-    .portal-progress > div,
-    .progress-track i {
-      animation: none;
-    }
-
-    .progress-track i {
-      transform: scaleX(1);
-    }
-  }
 </style>
