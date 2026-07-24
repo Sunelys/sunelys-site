@@ -1,5 +1,6 @@
 ---
 slug: "prix-consuel-photovoltaique"
+publicationStatus: "backlog"
 title: "Prix Consuel photovoltaïque : attestation bleue, violette et coûts à prévoir"
 seoTitle: "Prix Consuel photovoltaïque : tarifs 2026"
 description: "Tarifs Consuel photovoltaïque 2026 : attestation bleue ou violette, format papier ou électronique, visites et coûts cachés à anticiper."

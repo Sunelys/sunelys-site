@@ -1,5 +1,6 @@
 ---
 slug: "delai-consuel-photovoltaique"
+publicationStatus: "backlog"
 title: "Délai Consuel photovoltaïque : combien de temps prévoir ?"
 seoTitle: "Délai Consuel photovoltaïque : guide"
 description: "Délai Consuel photovoltaïque : demande de visa, visite, anomalies, visa final et méthode pour éviter les retards de mise en service."

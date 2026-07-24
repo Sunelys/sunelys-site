@@ -35,6 +35,16 @@ const structuredData = [
       name: "France",
     },
     url: canonicalUrl,
+    ...(pageData.conversionOffer
+      ? {
+          offers: {
+            "@type": "Offer",
+            price: pageData.conversionOffer.price.replace(/[^\d]/g, ""),
+            priceCurrency: "EUR",
+            description: pageData.conversionOffer.scope,
+          },
+        }
+      : {}),
   },
 ];
 ---

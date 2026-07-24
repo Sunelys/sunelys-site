@@ -1,5 +1,6 @@
 ---
 slug: "declaration-prealable-ou-permis-construire-photovoltaique"
+publicationStatus: "backlog"
 title: "Déclaration préalable ou permis de construire photovoltaïque : comment choisir ?"
 seoTitle: "DP ou permis de construire photovoltaïque"
 description: "DP ou permis de construire photovoltaïque : toiture, sol, ombrière, maison neuve, secteur protégé et méthode pour éviter les erreurs."

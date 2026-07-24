@@ -1,5 +1,6 @@
 ---
 slug: "delai-declaration-prealable-photovoltaique"
+publicationStatus: "backlog"
 title: "Délai déclaration préalable photovoltaïque : combien de temps prévoir ?"
 seoTitle: "Délai déclaration préalable photovoltaïque"
 description: "Délai d'instruction d'une DP photovoltaïque, cas général, secteur protégé, dossier incomplet et méthode pour éviter les retards."

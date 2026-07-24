@@ -28,6 +28,11 @@ export interface SeoPageData {
     scope: string;
     terms: string[];
   };
+  heroCheckpoint?: {
+    eyebrow: string;
+    title: string;
+    items: Array<{ label: string; status: string }>;
+  };
   quickFormTitle?: string;
   quickFormSubmitLabel?: string;
   quickFormNote?: string;
@@ -73,6 +78,34 @@ export const seoPages: Record<string, SeoPageData> = {
     heroTitle: "Pilotage administratif photovoltaïque pour installateurs",
     heroSubtitle:
       "Sunelys pilote vos démarches DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE dans un flux unique pour sécuriser votre croissance sans recruter.",
+    heroPrimaryLabel: "Recevoir mon plan de pilotage",
+    heroSecondaryCta: {
+      label: "Parler à un expert Sunelys",
+      href: "/contact?source=gestion_administrative_header",
+    },
+    conversionOffer: {
+      eyebrow: "Offre pilotage complet",
+      label: "Gestion administrative complète",
+      price: "199 €",
+      priceNote: "HT / dossier",
+      scope: "Production, dépôt, relances, coordination et suivi jusqu'à validation.",
+      terms: [
+        "Dossier ponctuel accepté",
+        "Aucun abonnement obligatoire",
+        "Facturation au réel",
+      ],
+    },
+    quickFormTitle: "Quel flux voulez-vous reprendre en priorité ?",
+    quickFormSubmitLabel: "Recevoir mon diagnostic pilotage",
+    quickFormNote: "2 informations suffisent pour avoir un point d'action prioritaire sous 24h.",
+    diagnosticLabel: "Blocage principal",
+    diagnosticOptions: [
+      { value: "Relances dispersion", label: "Dossiers dispersés entre équipes et emails" },
+      { value: "Compléments fréquents", label: "Beaucoup de demandes de pièces complémentaires" },
+      { value: "Mise en service bloquée", label: "Point bloquant en mise en service" },
+      { value: "Pilotage global", label: "Je veux un pilotage global" },
+      { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
+    ],
     fitTitle: "Quand vos équipes passent plus de temps à suivre les dossiers qu'à produire.",
     fitIntro:
       "Cette page parle aux installateurs qui veulent retrouver un pilotage propre sans continuer à faire absorber l'administratif par les commerciaux et les conducteurs de travaux.",
@@ -445,6 +478,16 @@ export const seoPages: Record<string, SeoPageData> = {
         "Dossier ponctuel accepté",
         "Aucun abonnement",
         "Facturation au réel",
+      ],
+    },
+    heroCheckpoint: {
+      eyebrow: "Lecture rapide du dossier",
+      title: "Le jalon qui bloque devient visible dès le premier échange.",
+      items: [
+        { label: "Demande réseau", status: "À cadrer" },
+        { label: "Pièces techniques", status: "À vérifier" },
+        { label: "Consuel", status: "À aligner" },
+        { label: "Mise en service", status: "À suivre" },
       ],
     },
     quickFormTitle: "Où votre raccordement bloque-t-il aujourd'hui ?",

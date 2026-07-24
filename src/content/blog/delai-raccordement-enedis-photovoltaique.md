@@ -1,5 +1,6 @@
 ---
 slug: "delai-raccordement-enedis-photovoltaique"
+publicationStatus: "backlog"
 title: "Délai raccordement Enedis photovoltaïque : étapes et points de blocage"
 seoTitle: "Délai raccordement Enedis photovoltaïque"
 description: "Comprendre le délai de raccordement Enedis photovoltaïque : demande complète, proposition, Consuel, mise en service et blocages à éviter."
