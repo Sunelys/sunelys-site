@@ -88,12 +88,32 @@ const specialistReasons = [
 >
   <section class="lp-hero" data-sticky-guard="hero">
     <div class="hero-copy">
-      <p class="eyebrow">Landing Google Ads - installateurs PV</p>
-      <h1>Déléguez vos dossiers DP, Consuel, Enedis et aides sans recruter.</h1>
+      <p class="eyebrow">Installateurs photovoltaïques</p>
+      <h1>
+        <span class="headline-desktop">Déléguez vos dossiers DP, Consuel, Enedis et aides sans recruter.</span>
+        <span class="headline-mobile">Déléguez vos dossiers PV sans recruter.</span>
+      </h1>
       <p class="hero-text">
         Sunelys reprend vos démarches administratives photovoltaïques au dossier, avec prix fixes
         et démarrage possible sur un seul blocage.
       </p>
+      <p class="intent-guard">
+        Service réservé aux installateurs photovoltaïques, bureaux d'études et équipes admin ENR.
+        Sunelys ne vend pas de panneaux et ne traite pas les demandes de pose particuliers.
+      </p>
+
+      <figure class="hero-portal-proof">
+        <img
+          src="/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg"
+          alt="Aperçu anonymisé du portail Sunelys avec statuts de dossiers photovoltaïques"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption>
+          <span>Preuve de pilotage</span>
+          <strong>Vos dossiers, statuts et pièces suivis dans un portail lisible.</strong>
+        </figcaption>
+      </figure>
 
       <ul class="hero-filters" aria-label="Filtres de qualification">
         <li>Installateurs PV uniquement</li>
@@ -391,6 +411,14 @@ const specialistReasons = [
     line-height: 0.92;
   }
 
+  .headline-mobile {
+    display: none;
+  }
+
+  .headline-desktop {
+    display: block;
+  }
+
   h2 {
     max-width: 16ch;
     font-size: clamp(1.55rem, 3vw, 3rem);
@@ -413,6 +441,58 @@ const specialistReasons = [
     max-width: 48rem;
     color: var(--text);
     font-size: clamp(1.02rem, 1vw, 1.18rem);
+  }
+
+  .intent-guard {
+    max-width: 46rem;
+    border-left: 3px solid var(--accent-strong);
+    margin: 0;
+    background: color-mix(in srgb, var(--surface-elevated) 88%, transparent);
+    color: var(--text);
+    font-size: 0.92rem;
+    font-weight: 700;
+    padding: 0.72rem 0.86rem;
+  }
+
+  .hero-portal-proof {
+    display: grid;
+    grid-template-columns: minmax(9.5rem, 0.42fr) minmax(0, 1fr);
+    gap: 0.72rem;
+    align-items: center;
+    max-width: 42rem;
+    margin: 0;
+    border: 1px solid color-mix(in srgb, var(--line) 82%, white);
+    border-radius: 18px;
+    background: color-mix(in srgb, var(--surface-elevated) 96%, white);
+    box-shadow: 0 16px 36px rgba(20, 16, 10, 0.08);
+    overflow: hidden;
+  }
+
+  .hero-portal-proof img {
+    display: block;
+    width: 100%;
+    height: 7.6rem;
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .hero-portal-proof figcaption {
+    display: grid;
+    gap: 0.22rem;
+    padding: 0.76rem 0.86rem 0.76rem 0;
+  }
+
+  .hero-portal-proof span {
+    color: var(--accent-deep);
+    font-size: 0.7rem;
+    font-weight: 900;
+    text-transform: uppercase;
+  }
+
+  .hero-portal-proof strong {
+    color: var(--text);
+    font-size: clamp(0.92rem, 1vw, 1.08rem);
+    line-height: 1.25;
   }
 
   .hero-filters,
@@ -747,17 +827,103 @@ const specialistReasons = [
   }
 
   @media (max-width: 680px) {
+    :global(.site-header .header-row) {
+      grid-template-areas:
+        "brand actions"
+        "cta cta";
+      gap: 0.34rem 0.7rem;
+      padding-block: 0.5rem;
+    }
+
+    :global(.site-header .main-nav) {
+      display: none;
+    }
+
+    :global(.site-header .brand-link img) {
+      width: 106px;
+      height: 22px;
+    }
+
+    :global(.site-header .portal-link) {
+      min-height: 1.4rem;
+      font-size: 0.62rem;
+    }
+
+    :global(.site-header .nav-cta.btn) {
+      min-height: 2.08rem;
+      padding: 0.52rem 0.86rem;
+      font-size: 0.72rem;
+    }
+
     .lp-hero,
     .lp-section,
     .lp-final {
       border-radius: 20px;
     }
 
-    .hero-price-strip,
     .price-grid,
     .specialist-grid,
     .handover-grid {
       grid-template-columns: 1fr;
+    }
+
+    .lp-hero {
+      gap: 0.72rem;
+      padding: 0.9rem;
+    }
+
+    .hero-copy {
+      gap: 0.54rem;
+    }
+
+    h1 {
+      max-width: 9.8ch;
+      font-size: clamp(2.15rem, 11vw, 2.72rem);
+      line-height: 0.96;
+    }
+
+    .headline-desktop {
+      display: none;
+    }
+
+    .headline-mobile {
+      display: block;
+    }
+
+    .hero-text {
+      font-size: 0.94rem;
+      line-height: 1.38;
+    }
+
+    .intent-guard {
+      font-size: 0.77rem;
+      line-height: 1.32;
+      padding: 0.52rem 0.64rem;
+    }
+
+    .hero-portal-proof {
+      grid-template-columns: 4.8rem minmax(0, 1fr);
+      gap: 0.54rem;
+      border-radius: 15px;
+    }
+
+    .hero-portal-proof img {
+      height: 4.72rem;
+    }
+
+    .hero-portal-proof figcaption {
+      padding: 0.5rem 0.62rem 0.5rem 0;
+    }
+
+    .hero-portal-proof strong {
+      font-size: 0.78rem;
+      line-height: 1.18;
+    }
+
+    .hero-filters,
+    .hero-price-strip,
+    .hero-actions {
+      display: none;
     }
 
     .hero-actions,
@@ -766,9 +932,37 @@ const specialistReasons = [
       width: 100%;
     }
 
-    .hero-filters li {
-      width: 100%;
-      text-align: center;
+    .hero-actions .btn-secondary {
+      display: none;
+    }
+
+    .hero-intake {
+      padding: 0.9rem;
+      border-radius: 18px;
+    }
+
+    .hero-intake h2 {
+      max-width: 13ch;
+      margin-top: 0.24rem;
+      font-size: 1.65rem;
+    }
+
+    .lp-form {
+      gap: 0.58rem;
+      margin-top: 0.72rem;
+    }
+
+    .lp-form input,
+    .lp-form select,
+    .lp-form textarea {
+      min-height: 2.58rem;
+      border-radius: 12px;
+      padding: 0.62rem 0.7rem;
+    }
+
+    .lp-form small {
+      font-size: 0.72rem;
+      line-height: 1.35;
     }
 
   }

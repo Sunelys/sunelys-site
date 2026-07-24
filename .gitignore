@@ -15,6 +15,7 @@ pnpm-debug.log*
 # marketing agent generated reports
 reports/marketing-agent/
 reports/google-ads-leads/
+docs/private-assets/
 tmp/
 outputs/
 

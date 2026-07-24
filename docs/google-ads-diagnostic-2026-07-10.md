@@ -302,3 +302,83 @@ Decision:
 - ne pas augmenter le budget tant que les clics tutoriel/bricolage ne sont pas stabilises;
 - verifier les termes de recherche au prochain controle et exclure toute requete schema, cablage, prix maison, carport ou entretien non B2B;
 - garder le suivi prioritaire sur les conversions et les leads reels, pas seulement sur le volume de clics.
+
+## Exclusions intention particulier / pose / impots - 2026-07-24
+
+Motif: le controle du 2026-07-24 a montre que la campagne depense mais ne genere toujours aucun lead paid reel:
+
+- Airtable: `0` lead Google Ads reel sur les 14 derniers jours, `1` test exclu;
+- Google Ads visible sur 30 jours: `23` clics, `248` impressions, `61,44 EUR`, `0` conversion;
+- annonce DP: eligible, efficacite `Excellente`;
+- annonce Consuel/raccordement: eligible, efficacite `Mediocre`;
+- signaux problematiques dans les termes de recherche: `autorisation pour poser des panneaux solaires`, `demande pose panneau solaire`, `declaration panneau solaire`, `faut il declarer ses panneaux photovoltaiques aux impots`, `declarer panneau solaire enedis`.
+
+Action effectuee:
+
+- fichier importe: `docs/google-ads-web-upload/28-particulier-intent-negative-keywords-2026-07-24.csv`;
+- compte Google Ads: `781-087-0154 Sunelys`;
+- campagne concernee: `Search - Delegation admin PV installateurs`;
+- niveau: campagne;
+- apercu Google Ads: `26` modifications, `26` acceptees, `0` erreur;
+- application: operation terminee, `26` lignes de feuille de calcul appliquees.
+
+Exclusions ajoutees:
+
+- variations autour de `autorisation pour poser panneaux solaires`;
+- variations autour de `demande pose panneau solaire`;
+- variations autour de `pose/poser panneaux solaires`;
+- variations autour de `impots/impôts panneaux solaires`;
+- variations autour de `faut il declarer...`;
+- variations autour de `declarer/declaration panneau solaire enedis`;
+- variations autour de `demande de travaux panneau solaire`.
+
+Decision:
+
+- ne pas augmenter le budget apres cette action;
+- verifier les termes de recherche au prochain controle;
+- si le trafic reste particulier, renforcer l'annonce et/ou la landing avec des marqueurs B2B plus visibles avant de rouvrir le volume;
+- surveiller en priorite: premier lead reel, cout par lead qualifie, et evolution de l'annonce Consuel actuellement `Mediocre`.
+
+## Correction annonce Consuel/Raccordement + nettoyage imports - 2026-07-24
+
+Motif: l'annonce `Consuel + raccordement` etait eligible mais notee `Mediocre`, avec `7` clics, `119` impressions, `18,50 EUR` depenses et `0` conversion sur la periode visible. Elle diluait le trafic du groupe `Consuel Raccordement` face a une intention pourtant importante.
+
+Action effectuee:
+
+- ajout d'une nouvelle annonce responsive Search via `docs/google-ads-web-upload/29b-add-consuel-raccordement-rsa-2026-07-24.csv`;
+- apercu Google Ads: `1` modification, `1` acceptee, `0` erreur;
+- application: operation terminee le `2026-07-24`;
+- nouvelle annonce confirmee dans Google Ads:
+  - titres visibles: `Dossier Consuel PV`, `Consuel photovoltaique`, `Raccordement Enedis PV`;
+  - chemin visible: `consuel/raccordement`;
+  - etat: `Eligible`;
+  - efficacite: `Excellente`;
+  - trafic au moment de creation: `0` clic, `0` impression.
+
+Action de securisation:
+
+- ancienne annonce `Consuel + raccordement | 89 EUR HT par dossier | Pour installateurs PV` mise en veille manuellement depuis la table des annonces;
+- etat confirme apres action: `En veille`;
+- la nouvelle annonce `Dossier Consuel PV | Consuel photovoltaique | Raccordement Enedis PV` reste active.
+
+Nettoyage effectue:
+
+- suppression des previews Google Ads en attente, sans application:
+  - `24-cpc-focus-keywords-2026-07-21.csv`;
+  - `21-volume-controle-negative-keywords-2026-07-20.csv`;
+  - `21-pause-performance-max-2026-07-17.csv`;
+  - `09-enable-ad-groups.csv`;
+  - `07-campaign-status-switch.csv`;
+  - `06-campaign-negative-keywords-v3.csv`;
+  - `06-campaign-negative-keywords-v2.csv`;
+  - `06-campaign-negative-keywords.csv`;
+  - `01-campaigns-with-eu-political-api.csv`;
+  - `01-campaigns-with-eu-political.csv`;
+  - `01-campaigns.csv`;
+  - `sunelys-google-ads-search-import-paused.xlsx`.
+
+Decision:
+
+- ne plus appliquer les anciens imports restants depuis l'interface: ils etaient obsoletes, incomplets ou en erreur;
+- surveiller l'annonce Consuel/Raccordement corrigee pendant 48-72 h avant de modifier encore les mots-cles ou le budget;
+- critere de succes court terme: impressions qualifiees sur `consuel photovoltaique`, `dossier consuel photovoltaique`, `raccordement enedis photovoltaique`, sans retour massif de requetes particulier/tutoriel.
