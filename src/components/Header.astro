@@ -33,6 +33,11 @@ const founderName = "Myriam Zaoui";
         <div class="mobile-menu-intro">
           <p>Sunelys</p>
           <strong>Vos dossiers solaires.<br />Enfin sous contrôle.</strong>
+          <div class="mobile-menu-proof" aria-label="Repères rapides Sunelys">
+            <span>PV uniquement</span>
+            <span>Diagnostic 24h</span>
+            <span>1 dossier suffit</span>
+          </div>
           <span>Navigation</span>
         </div>
 
@@ -56,6 +61,17 @@ const founderName = "Myriam Zaoui";
             })
           }
         </ul>
+
+        <div class="mobile-menu-actions" aria-label="Actions rapides Sunelys">
+          <a class="mobile-diagnostic-link" href={ctaHref} data-track="cta_header_mobile_diagnostic">
+            <span>Besoin prioritaire</span>
+            <strong>{ctaLabel}</strong>
+          </a>
+          <a class="mobile-phone-link" href="tel:+33695907919" data-track="cta_header_mobile_phone">
+            <span>Question rapide</span>
+            <strong>Appeler Sunelys</strong>
+          </a>
+        </div>
 
         <a
           class="mobile-portal-link"
@@ -305,6 +321,8 @@ const founderName = "Myriam Zaoui";
 
   .cta-label-short,
   .mobile-menu-intro,
+  .mobile-menu-proof,
+  .mobile-menu-actions,
   .mobile-nav-index,
   .mobile-nav-arrow,
   .mobile-portal-link,
@@ -389,6 +407,30 @@ const founderName = "Myriam Zaoui";
       letter-spacing: -0.045em;
     }
 
+    .mobile-menu-proof {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.42rem;
+      max-width: 18rem;
+      margin-top: 0.25rem;
+    }
+
+    .mobile-menu-proof span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 1.55rem;
+      padding: 0.34rem 0.55rem;
+      border: 1px solid rgba(255, 255, 255, 0.13);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.07);
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.62rem;
+      font-weight: 760;
+      letter-spacing: 0;
+      text-transform: none;
+      backdrop-filter: blur(10px);
+    }
+
     .mobile-menu-intro span {
       margin-top: 1.2rem;
       color: rgba(255, 255, 255, 0.38);
@@ -447,6 +489,59 @@ const founderName = "Myriam Zaoui";
     .mobile-nav-arrow {
       color: var(--system);
       font-size: 1rem;
+    }
+
+    .mobile-menu-actions {
+      display: grid;
+      grid-column: 2;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.65rem;
+      margin-top: 0.95rem;
+    }
+
+    .mobile-diagnostic-link,
+    .mobile-phone-link {
+      display: grid;
+      gap: 0.25rem;
+      align-content: center;
+      min-height: 4.2rem;
+      padding: 0.85rem 0.95rem;
+      border-radius: 14px;
+      text-decoration: none;
+    }
+
+    .mobile-diagnostic-link {
+      background: var(--accent);
+      color: var(--ink);
+      box-shadow: 0 18px 46px rgba(212, 130, 42, 0.18);
+    }
+
+    .mobile-phone-link {
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+    }
+
+    .mobile-diagnostic-link span,
+    .mobile-phone-link span {
+      font-size: 0.62rem;
+      font-weight: 820;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .mobile-diagnostic-link span {
+      color: color-mix(in srgb, var(--ink) 72%, transparent);
+    }
+
+    .mobile-phone-link span {
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    .mobile-diagnostic-link strong,
+    .mobile-phone-link strong {
+      font-size: 0.88rem;
+      line-height: 1.25;
     }
 
     .mobile-portal-link {
@@ -556,6 +651,10 @@ const founderName = "Myriam Zaoui";
       font-size: clamp(1.55rem, 8vw, 2.35rem);
     }
 
+    .mobile-menu-proof {
+      max-width: none;
+    }
+
     .mobile-menu-intro span {
       margin-top: 0.5rem;
     }
@@ -568,6 +667,12 @@ const founderName = "Myriam Zaoui";
     .mobile-portal-link {
       grid-column: 1;
       margin-top: 0.25rem;
+    }
+
+    .mobile-menu-actions {
+      grid-column: 1;
+      grid-template-columns: 1fr;
+      margin-top: 0.15rem;
     }
   }
 
