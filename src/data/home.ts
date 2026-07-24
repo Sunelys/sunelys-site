@@ -434,10 +434,10 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Votre administratif devient visible. Et donc pilotable.",
-  text: "Le portail rend immédiatement lisibles les dossiers, les pièces attendues et la prochaine action. Vous gardez la vue d'ensemble sans relancer Sunelys pour savoir où en est chaque démarche.",
+  title: "Votre administratif devient un tableau de bord.",
+  text: "Le portail rend lisibles les dossiers actifs, les pièces attendues et les prochaines actions. Vous gardez la vue d'ensemble sans relancer Sunelys pour savoir où en est chaque démarche.",
   benefits: [
-    "Priorités visibles en un coup d'œil",
+    "Priorités visibles dès l'ouverture",
     "Pièces et échanges centralisés",
     "Avancement partagé avec vos équipes",
   ],

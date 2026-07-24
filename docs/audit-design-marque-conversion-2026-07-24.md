@@ -1573,3 +1573,28 @@ Le vingt-sixième lot transforme la section « Méthode Sunelys » en une lectur
 - langage de tableau de bord utilisé sans dupliquer la démonstration du portail qui arrive ensuite ;
 - rails mobiles conservés pour les formats et les temps de pilotage ;
 - exposition de la section suivie avec `homepage_method_view`.
+
+## Prototype v27 — portail comme preuve produit premium
+
+Le vingt-septième lot renforce la section « Portail Sunelys » pour en faire une preuve visuelle plus forte, sans la replacer en concurrence avec le formulaire du hero.
+
+### Positionnement
+
+- titre simplifié autour du tableau de bord administratif ;
+- texte raccourci pour faire comprendre dossiers, pièces et prochaines actions plus vite ;
+- promesse limitée à la visibilité et au suivi, sans annoncer une automatisation non démontrée ;
+- accès client conservé comme signal utile mais secondaire.
+
+### Design produit
+
+- ancienne fenêtre portail transformée en console de pilotage plus premium ;
+- vraie capture anonymisée conservée comme visuel principal ;
+- rail latéral ajouté pour rendre les priorités, la vision et les échanges plus concrets ;
+- onglets existants conservés pour passer entre « Vue des priorités » et « Dossiers & étapes ».
+
+### Conversion et mesure
+
+- CTA « Voir comment ça fonctionne » conservé ;
+- bénéfices reformulés autour de l'ouverture, de la centralisation et du partage d'avancement ;
+- événement `portal_demo_view` conservé sur les changements d'onglet ;
+- exposition de la section ajoutée avec `homepage_portal_view`.
