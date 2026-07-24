@@ -81,6 +81,7 @@ const date = new Intl.DateTimeFormat("fr-FR", {
     min-height: 100%;
     overflow: hidden;
     border: 1px solid var(--line);
+    border-radius: 16px;
     background: var(--surface);
     transition: border-color 170ms ease, box-shadow 170ms ease, transform 170ms ease;
   }
@@ -148,7 +149,7 @@ const date = new Intl.DateTimeFormat("fr-FR", {
   .blog-card-body {
     display: flex;
     flex-direction: column;
-    min-height: 21rem;
+    min-height: 19.6rem;
     padding: 1.05rem;
   }
 
@@ -168,9 +169,9 @@ const date = new Intl.DateTimeFormat("fr-FR", {
   }
 
   h2 {
-    margin-top: 1.35rem;
-    font-size: clamp(1.45rem, 2.1vw, 2.05rem);
-    line-height: 1.04;
+    margin-top: 1.05rem;
+    font-size: clamp(1.25rem, 1.65vw, 1.72rem);
+    line-height: 1.08;
   }
 
   h2 a {
@@ -179,9 +180,9 @@ const date = new Intl.DateTimeFormat("fr-FR", {
   }
 
   .blog-card-body > p {
-    margin-top: 0.75rem;
+    margin-top: 0.68rem;
     color: var(--text-muted);
-    font-size: 0.76rem;
+    font-size: 0.74rem;
     line-height: 1.58;
   }
 
@@ -222,7 +223,7 @@ const date = new Intl.DateTimeFormat("fr-FR", {
 
   @media (max-width: 620px) {
     .blog-card-body {
-      min-height: 18rem;
+      min-height: 0;
     }
   }
 </style>

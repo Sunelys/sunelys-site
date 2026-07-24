@@ -1776,3 +1776,30 @@ Le trente-quatrième lot ajuste la page À propos après la mise en production d
 - motif de grille subtil aligné avec Contact et Merci ;
 - rendu mobile conservé avec les repères empilés ;
 - structure existante préservée pour ne pas diluer la preuve humaine déjà en place.
+
+## Prototype v35 — blog transformé en centre de ressources
+
+Le trente-cinquième lot reprend l'index du blog. L'objectif est de réduire l'effet « couverture éditoriale » et de donner plus vite accès au bon guide selon le problème administratif rencontré.
+
+### Message
+
+- titre du hero raccourci et orienté action : « Le bon guide pour faire avancer le dossier. » ;
+- ajout de quatre entrées directes : Déclaration préalable, Consuel, Raccordement et Organisation ;
+- CTA final aligné avec le brief de diagnostic : « Décrire mon dossier » ;
+- bibliothèque enrichie par une répartition lisible des guides publics par catégorie.
+
+### Conversion
+
+- clics sur les entrées de ressources suivis avec `cta_blog_resource_path` ;
+- exposition du hero suivie avec `blog_hero_view` ;
+- exposition de l'article mis en avant suivie avec `blog_featured_view` ;
+- exposition des principes éditoriaux suivie avec `blog_editorial_principles_view` ;
+- exposition de la bibliothèque suivie avec `blog_library_view` ;
+- exposition du CTA final suivie avec `blog_final_cta_view`.
+
+### Design
+
+- H1 réduit et moins monumental ;
+- anciennes catégories en ligne remplacées par une navigation par besoin ;
+- cartes d'articles rendues plus compactes et plus cohérentes avec les autres cartes premium ;
+- motif de grille subtil appliqué au hero et au CTA final pour harmoniser avec Contact, Merci et À propos.

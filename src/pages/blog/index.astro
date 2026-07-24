@@ -11,6 +11,10 @@ const posts = getPublicBlogPosts().sort(
 const featuredPost = posts[0];
 const remainingPosts = posts.slice(1);
 const categories = [...new Set(posts.map((post) => String(post.frontmatter.category)))];
+const categoryCounts = categories.reduce<Record<string, number>>((acc, category) => {
+  acc[category] = posts.filter((post) => post.frontmatter.category === category).length;
+  return acc;
+}, {});
 const featuredDate = featuredPost
   ? new Intl.DateTimeFormat("fr-FR", {
       day: "2-digit",
@@ -18,6 +22,33 @@ const featuredDate = featuredPost
       year: "numeric",
     }).format(new Date(featuredPost.frontmatter.pubDate))
   : "";
+
+const resourcePaths = [
+  {
+    label: "Déclaration préalable",
+    title: "Préparer ou débloquer une DP",
+    text: "Pièces, Cerfa, toiture, erreurs fréquentes et régularisation.",
+    href: "/blog/cerfa-declaration-prealable-panneaux-solaires",
+  },
+  {
+    label: "Consuel",
+    title: "Limiter les retours Consuel",
+    text: "Attestation, préparation du dossier et points à sécuriser.",
+    href: "/blog/attestation-consuel-photovoltaique",
+  },
+  {
+    label: "Raccordement",
+    title: "Suivre Enedis sans perdre le fil",
+    text: "Étapes, pièces et délais pour garder le chantier lisible.",
+    href: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+  },
+  {
+    label: "Organisation",
+    title: "Décider quoi déléguer",
+    text: "Volume, rentabilité et périmètre administratif à externaliser.",
+    href: "/blog/externaliser-administratif-photovoltaique",
+  },
+];
 
 const structuredData = [
   {
@@ -41,17 +72,31 @@ const structuredData = [
   description="Guides pratiques pour installateurs photovoltaïques : gestion administrative solaire, déclaration préalable, Consuel, raccordement Enedis et organisation des dossiers."
   structuredData={structuredData}
 >
-  <section class="blog-hero reveal" aria-labelledby="blog-title">
+  <section
+    class="blog-hero reveal"
+    aria-labelledby="blog-title"
+    data-track-view="blog_hero_view"
+    data-track-label="blog_resource_center_hero"
+  >
     <div class="blog-hero-copy" data-reveal-item>
       <p class="kicker">Ressources photovoltaïques</p>
-      <h1 id="blog-title">L’administratif solaire, expliqué pour agir.</h1>
+      <h1 id="blog-title">Le bon guide pour faire avancer le dossier.</h1>
       <p>
-        Des guides opérationnels pour préparer les bonnes pièces, anticiper les blocages et rendre vos flux DP,
-        Consuel et raccordement plus prévisibles.
+        Des ressources courtes et opérationnelles pour préparer les bonnes pièces, anticiper les blocages et rendre
+        vos flux DP, Consuel et raccordement plus prévisibles.
       </p>
 
-      <div class="category-list" aria-label="Thématiques du blog">
-        {categories.map((category) => <span>{category}</span>)}
+      <div class="resource-paths" aria-label="Entrées rapides du centre de ressources">
+        {
+          resourcePaths.map((item) => (
+            <a href={item.href} data-track="cta_blog_resource_path" data-track-label={item.label}>
+              <span>{item.label}</span>
+              <strong>{item.title}</strong>
+              <p>{item.text}</p>
+              <i aria-hidden="true">→</i>
+            </a>
+          ))
+        }
       </div>
 
       <div class="hero-actions">
@@ -68,7 +113,12 @@ const structuredData = [
 
     {
       featuredPost && (
-        <article class="featured-article" data-reveal-item>
+        <article
+          class="featured-article"
+          data-reveal-item
+          data-track-view="blog_featured_view"
+          data-track-label={featuredPost.frontmatter.slug}
+        >
           <a
             class="featured-visual"
             href={`/blog/${featuredPost.frontmatter.slug}`}
@@ -113,7 +163,12 @@ const structuredData = [
     }
   </section>
 
-  <section class="editorial-strip reveal" aria-label="Principes éditoriaux Sunelys">
+  <section
+    class="editorial-strip reveal"
+    aria-label="Principes éditoriaux Sunelys"
+    data-track-view="blog_editorial_principles_view"
+    data-track-label="blog_editorial_principles"
+  >
     <div data-reveal-item>
       <span>01</span>
       <strong>Écrit pour les installateurs</strong>
@@ -132,7 +187,13 @@ const structuredData = [
     </div>
   </section>
 
-  <section id="guides" class="guide-library reveal" aria-labelledby="library-title">
+  <section
+    id="guides"
+    class="guide-library reveal"
+    aria-labelledby="library-title"
+    data-track-view="blog_library_view"
+    data-track-label="blog_guide_library"
+  >
     <div class="library-head" data-reveal-item>
       <div>
         <p class="kicker">Bibliothèque</p>
@@ -144,12 +205,28 @@ const structuredData = [
       </p>
     </div>
 
+    <div class="library-topics" aria-label="Répartition des guides publics" data-reveal-item>
+      {
+        categories.map((category) => (
+          <span>
+            {category}
+            <strong>{categoryCounts[category]}</strong>
+          </span>
+        ))
+      }
+    </div>
+
     <div class="blog-grid">
       {remainingPosts.map((post, index) => <BlogCard post={post} index={index} />)}
     </div>
   </section>
 
-  <section class="blog-cta reveal" aria-labelledby="blog-cta-title">
+  <section
+    class="blog-cta reveal"
+    aria-labelledby="blog-cta-title"
+    data-track-view="blog_final_cta_view"
+    data-track-label="blog_final_cta"
+  >
     <div data-reveal-item>
       <p class="kicker">Besoin d’aller plus vite ?</p>
       <h2 id="blog-cta-title">Le guide explique. Sunelys peut aussi reprendre le dossier.</h2>
@@ -159,7 +236,7 @@ const structuredData = [
     </div>
     <div class="cta-actions" data-reveal-item>
       <a class="btn btn-accent" href="/contact?source=blog-final#contact-form" data-track="cta_blog_final_contact">
-        Recevoir un diagnostic
+        Décrire mon dossier
         <span aria-hidden="true">→</span>
       </a>
       <a href="/tarifs" data-track="cta_blog_final_pricing">
@@ -172,6 +249,8 @@ const structuredData = [
 
 <style>
   .blog-hero {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 0.92fr) minmax(380px, 0.78fr);
     gap: clamp(1.5rem, 4vw, 4rem);
@@ -184,6 +263,28 @@ const structuredData = [
       radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
       var(--ink);
     box-shadow: var(--shadow-md);
+  }
+
+  .blog-hero::before,
+  .blog-cta::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    mask-image: radial-gradient(68% 76% at 20% 30%, #000 0%, transparent 78%);
+    opacity: 0.42;
+  }
+
+  .blog-hero-copy,
+  .featured-article,
+  .blog-cta > div {
+    position: relative;
+    z-index: 1;
   }
 
   .kicker {
@@ -200,11 +301,11 @@ const structuredData = [
   }
 
   .blog-hero h1 {
-    max-width: 11ch;
+    max-width: 13ch;
     margin-top: 0.7rem;
     color: #ffffff;
-    font-size: clamp(2.6rem, 5.4vw, 5.6rem);
-    line-height: 0.92;
+    font-size: clamp(2.25rem, 4.25vw, 4.7rem);
+    line-height: 0.96;
   }
 
   .blog-hero-copy > p:not(.kicker) {
@@ -215,29 +316,65 @@ const structuredData = [
     line-height: 1.64;
   }
 
-  .category-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.55rem 1rem;
-    margin-top: 1.2rem;
+  .resource-paths {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.72rem;
+    max-width: 48rem;
+    margin-top: 1.35rem;
   }
 
-  .category-list span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: rgba(255, 255, 255, 0.48);
-    font-size: 0.65rem;
-    font-weight: 650;
+  .resource-paths a {
+    position: relative;
+    display: grid;
+    min-height: 8.4rem;
+    padding: 0.88rem 2.3rem 0.88rem 0.88rem;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+    color: #ffffff;
+    text-decoration: none;
+    backdrop-filter: blur(14px);
+    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
   }
 
-  .category-list span::before {
-    content: "";
-    width: 0.4rem;
-    height: 0.4rem;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
+  .resource-paths a:hover,
+  .resource-paths a:focus-visible {
+    border-color: rgba(255, 255, 255, 0.24);
+    background: rgba(255, 255, 255, 0.085);
+    transform: translateY(-2px);
+  }
+
+  .resource-paths span {
+    color: var(--accent);
+    font-size: 0.58rem;
+    font-weight: 820;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .resource-paths strong {
+    display: block;
+    margin-top: 0.48rem;
+    color: #ffffff;
+    font-size: 0.92rem;
+    line-height: 1.18;
+  }
+
+  .resource-paths p {
+    margin-top: 0.46rem;
+    color: rgba(255, 255, 255, 0.54);
+    font-size: 0.67rem;
+    line-height: 1.46;
+  }
+
+  .resource-paths i {
+    position: absolute;
+    right: 0.82rem;
+    bottom: 0.82rem;
+    color: var(--accent);
+    font-style: normal;
+    font-weight: 850;
   }
 
   .hero-actions {
@@ -271,7 +408,7 @@ const structuredData = [
   .featured-article {
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 16px;
+    border-radius: 18px;
     background: #ffffff;
     box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
   }
@@ -309,7 +446,7 @@ const structuredData = [
   }
 
   .featured-copy {
-    padding: 1rem;
+    padding: 1.05rem;
   }
 
   .featured-meta {
@@ -327,9 +464,9 @@ const structuredData = [
   }
 
   .featured-copy h2 {
-    margin-top: 1rem;
-    font-size: clamp(1.4rem, 2vw, 1.9rem);
-    line-height: 1.06;
+    margin-top: 0.86rem;
+    font-size: clamp(1.25rem, 1.75vw, 1.72rem);
+    line-height: 1.08;
   }
 
   .featured-copy h2 a {
@@ -427,6 +564,38 @@ const structuredData = [
     line-height: 1.62;
   }
 
+  .library-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.35rem;
+  }
+
+  .library-topics span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.48rem;
+    padding: 0.48rem 0.65rem;
+    border: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--system-soft) 38%, #ffffff);
+    color: var(--text);
+    font-size: 0.68rem;
+    font-weight: 760;
+  }
+
+  .library-topics strong {
+    display: inline-grid;
+    place-items: center;
+    min-width: 1.35rem;
+    min-height: 1.35rem;
+    border-radius: 999px;
+    background: var(--ink);
+    color: var(--accent);
+    font-size: 0.58rem;
+    line-height: 1;
+  }
+
   .blog-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -435,6 +604,8 @@ const structuredData = [
   }
 
   .blog-cta {
+    position: relative;
+    isolation: isolate;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     gap: clamp(1.5rem, 4vw, 4rem);
@@ -446,6 +617,10 @@ const structuredData = [
       radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
       var(--ink);
     box-shadow: var(--shadow-md);
+  }
+
+  .blog-cta::before {
+    mask-image: radial-gradient(68% 76% at 78% 24%, #000 0%, transparent 76%);
   }
 
   .blog-cta h2 {
@@ -497,6 +672,14 @@ const structuredData = [
     .hero-link {
       width: 100%;
       justify-content: center;
+    }
+
+    .resource-paths {
+      grid-template-columns: 1fr;
+    }
+
+    .resource-paths a {
+      min-height: auto;
     }
 
     .editorial-strip,
