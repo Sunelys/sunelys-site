@@ -32,6 +32,29 @@ const prepItems = [
   "Le volume approximatif et les dossiers les plus urgents.",
   "Les pièces déjà disponibles ou le point exact qui bloque.",
 ];
+
+const briefFallbackItems = [
+  {
+    key: "service",
+    label: "Besoin",
+    value: "À confirmer",
+  },
+  {
+    key: "blocked",
+    label: "Blocage",
+    value: "À qualifier",
+  },
+  {
+    key: "volume",
+    label: "Volume",
+    value: "À préciser",
+  },
+  {
+    key: "urgency",
+    label: "Urgence",
+    value: "À prioriser",
+  },
+];
 ---
 
 <BaseLayout
@@ -82,6 +105,31 @@ const prepItems = [
         }
       </ol>
     </aside>
+
+    <div
+      class="brief-recap"
+      id="brief-recap"
+      aria-labelledby="brief-recap-title"
+      data-track-view="thanks_brief_recap_view"
+      data-track-label="thanks_brief_recap"
+      hidden
+    >
+      <div>
+        <p class="panel-kicker">Brief retenu</p>
+        <h2 id="brief-recap-title">Votre contexte est déjà cadré.</h2>
+        <p>Sunelys relira ces éléments avant de revenir vers vous, pour éviter de repartir de zéro.</p>
+      </div>
+      <dl>
+        {
+          briefFallbackItems.map((item) => (
+            <div>
+              <dt>{item.label}</dt>
+              <dd data-brief-field={item.key}>{item.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
 
     <div
       class="delivery-card"
@@ -144,6 +192,16 @@ const prepItems = [
   const params = new URLSearchParams(window.location.search);
   const source = params.get("source") || "lead_form";
   const checklistDelivery = document.querySelector("#checklist-delivery");
+  const briefRecap = document.querySelector("#brief-recap");
+
+  const setBriefValue = (key, value) => {
+    if (!(briefRecap instanceof HTMLElement) || !value) return;
+
+    const field = briefRecap.querySelector(`[data-brief-field="${key}"]`);
+    if (field instanceof HTMLElement) {
+      field.textContent = value;
+    }
+  };
 
   if (checklistDelivery instanceof HTMLElement && source.toLowerCase().includes("checklist")) {
     checklistDelivery.hidden = false;
@@ -157,6 +215,19 @@ const prepItems = [
   }
 
   if (pendingLead && typeof pendingLead === "object") {
+    const serviceInterest = pendingLead.service_interest || pendingLead.need || pendingLead.service || "";
+    const blockedStage = pendingLead.blocked_stage || pendingLead.blockedStage || "";
+    const volume = pendingLead.volume || "";
+    const urgency = pendingLead.urgency || "";
+
+    if (briefRecap instanceof HTMLElement && (serviceInterest || blockedStage || volume || urgency)) {
+      setBriefValue("service", serviceInterest || "À confirmer");
+      setBriefValue("blocked", blockedStage || "À qualifier");
+      setBriefValue("volume", volume || "À préciser");
+      setBriefValue("urgency", urgency || "À prioriser");
+      briefRecap.hidden = false;
+    }
+
     window.trackLeadSuccess?.({
       ...pendingLead,
       label: pendingLead.label || source,
@@ -402,6 +473,7 @@ const prepItems = [
   }
 
   .thanks-panel,
+  .brief-recap,
   .prep-card {
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: 18px;
@@ -414,6 +486,19 @@ const prepItems = [
     padding: clamp(1rem, 2vw, 1.35rem);
   }
 
+  .brief-recap {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 0.56fr) minmax(0, 1fr);
+    gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
+    padding: clamp(1rem, 2.5vw, 1.45rem);
+  }
+
+  .brief-recap[hidden] {
+    display: none;
+  }
+
   .panel-kicker {
     margin: 0;
     color: #7de0bd;
@@ -424,12 +509,51 @@ const prepItems = [
   }
 
   .thanks-panel h2,
+  .brief-recap h2,
   .prep-card h2 {
     margin: 0.55rem 0 0;
     color: #ffffff;
     font-size: clamp(1.25rem, 2.1vw, 1.95rem);
     line-height: 1.05;
     letter-spacing: -0.035em;
+  }
+
+  .brief-recap p:not(.panel-kicker) {
+    margin: 0.7rem 0 0;
+    color: #cbd5e1;
+    font-size: 0.84rem;
+    line-height: 1.5;
+  }
+
+  .brief-recap dl {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.58rem;
+    margin: 0;
+  }
+
+  .brief-recap dl div {
+    min-width: 0;
+    padding: 0.82rem;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.055);
+  }
+
+  .brief-recap dt {
+    color: #7de0bd;
+    font-size: 0.6rem;
+    font-weight: 850;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+  }
+
+  .brief-recap dd {
+    margin: 0.38rem 0 0;
+    color: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 780;
+    line-height: 1.25;
   }
 
   .thanks-steps {
@@ -564,8 +688,13 @@ const prepItems = [
       min-height: 0;
     }
 
+    .brief-recap,
     .prep-card {
       grid-template-columns: 1fr;
+    }
+
+    .brief-recap dl {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .thanks-steps {
@@ -596,6 +725,10 @@ const prepItems = [
 
     .confirmation-strip li {
       justify-content: center;
+    }
+
+    .brief-recap dl {
+      grid-template-columns: 1fr;
     }
   }
 </style>
