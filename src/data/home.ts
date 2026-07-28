@@ -13,7 +13,7 @@ export const heroData = {
   subtitle:
     "DP, Consuel, raccordement, EDF OA et aides : Sunelys reprend les démarches qui ralentissent vos équipes et vos chantiers.",
   expertLine:
-    "Dossier ponctuel, pic de charge ou flux récurrent, avec un portail et un interlocuteur unique.",
+    "Pour installateurs PV et équipes ENR : dossier ponctuel, pic de charge ou flux récurrent, avec un portail et un interlocuteur unique.",
   primaryCta: {
     label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=hero#contact-form",

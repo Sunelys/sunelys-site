@@ -20,10 +20,12 @@
   <div class="cookie-actions">
     <div>
       <button class="cookie-button cookie-button-refuse" type="button" data-cookie-choice="denied">
-        Tout refuser
+        <span class="cookie-label-long">Tout refuser</span>
+        <span class="cookie-label-short">Refuser</span>
       </button>
       <button class="cookie-button cookie-button-accept" type="button" data-cookie-choice="granted">
-        Tout accepter
+        <span class="cookie-label-long">Tout accepter</span>
+        <span class="cookie-label-short">Accepter</span>
       </button>
     </div>
     <a href="/politique-confidentialite#cookies">Comprendre l'utilisation des cookies</a>
@@ -169,6 +171,10 @@
     padding: 0.62rem 0.82rem;
   }
 
+  .cookie-label-short {
+    display: none;
+  }
+
   .cookie-button-refuse {
     background: #ffffff;
     color: var(--ink);
@@ -202,13 +208,14 @@
   @media (max-width: 760px) {
     .cookie-consent {
       bottom: max(0.6rem, env(safe-area-inset-bottom, 0px));
-      grid-template-columns: 1fr;
-      gap: 0.7rem;
+      grid-template-columns: minmax(0, 1fr) minmax(7.2rem, 0.42fr);
+      gap: 0.68rem;
       width: min(calc(100% - 1rem), 36rem);
-      max-height: calc(100dvh - 1.2rem);
+      max-height: min(calc(100dvh - 1.2rem), 8.8rem);
       overflow-y: auto;
       overscroll-behavior: contain;
-      padding: 0.82rem;
+      padding: 0.72rem 0.78rem;
+      border-radius: 16px;
     }
 
     .cookie-eyebrow {
@@ -216,28 +223,41 @@
     }
 
     .cookie-copy h2 {
-      font-size: 1.02rem;
+      font-size: 0.98rem;
     }
 
     .cookie-copy > p:not(.cookie-eyebrow) {
-      font-size: 0.68rem;
+      display: -webkit-box;
+      overflow: hidden;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      font-size: 0.64rem;
       line-height: 1.34;
     }
 
     .cookie-actions > div {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.48rem;
+      grid-template-columns: 1fr;
+      gap: 0.34rem;
     }
 
     .cookie-button {
-      min-height: 2.36rem;
-      padding: 0.56rem 0.58rem;
-      font-size: 0.7rem;
+      min-height: 2.05rem;
+      padding: 0.42rem 0.5rem;
+      font-size: 0.66rem;
     }
 
     .cookie-actions > a {
-      justify-self: start;
-      font-size: 0.66rem;
+      justify-self: end;
+      font-size: 0.58rem;
+      text-align: right;
+    }
+
+    .cookie-label-long {
+      display: none;
+    }
+
+    .cookie-label-short {
+      display: inline;
     }
   }
 
