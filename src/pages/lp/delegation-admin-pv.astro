@@ -76,23 +76,44 @@ const specialistReasons = [
 >
   <section class="lp-hero" data-sticky-guard="hero">
     <div class="hero-copy">
-      <p class="eyebrow">Installateurs photovoltaïques</p>
+      <p class="eyebrow">Délégation administrative photovoltaïque</p>
       <h1>
-        <span class="headline-desktop">Déléguez vos dossiers DP, Consuel, Enedis et aides sans recruter.</span>
-        <span class="headline-mobile">Déléguez vos dossiers PV sans recruter.</span>
+        <span class="headline-desktop">Sous-traitez vos dossiers administratifs PV sans recruter.</span>
+        <span class="headline-mobile">Sous-traitez vos dossiers PV.</span>
       </h1>
       <p class="hero-text">
-        Sunelys reprend vos démarches administratives photovoltaïques au dossier, avec prix fixes
-        et démarrage possible sur un seul blocage.
+        Sunelys reprend vos dossiers DP, Consuel, raccordement Enedis et aides au dossier,
+        avec prix fixes et démarrage possible sur un seul blocage.
       </p>
       <p class="intent-guard">
-        Service réservé aux installateurs photovoltaïques, bureaux d'études et équipes admin ENR.
-        Sunelys ne vend pas de panneaux et ne traite pas les demandes de pose particuliers.
+        Pour installateurs PV, bureaux d'études et équipes admin ENR qui veulent déléguer.
+        Pas une offre de pose, pas un conseil gratuit pour particuliers.
       </p>
+
+      <div class="hero-price-strip" aria-label="Tarifs principaux">
+        <span><strong>DP complète</strong>119 € HT</span>
+        <span><strong>Raccordement + Consuel</strong>89 € HT</span>
+        <span><strong>Démarrage</strong>1 dossier accepté</span>
+      </div>
+
+      <figure class="hero-portal-proof">
+        <img
+          src="/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif"
+          alt="Aperçu du portail Sunelys avec suivi de dossiers photovoltaïques"
+          width="640"
+          height="360"
+          loading="eager"
+          decoding="async"
+        />
+        <figcaption>
+          <span>Preuve portail</span>
+          <strong>Suivi clair des statuts, blocages, relances et prochaines actions.</strong>
+        </figcaption>
+      </figure>
 
       <div class="hero-actions">
         <a class="btn btn-primary btn-accent" href="#diagnostic" data-track="cta_lp_admin_pv_hero_form">
-          Recevoir mon diagnostic sous 24h
+          Cadrer un dossier à déléguer
         </a>
         <a class="btn btn-secondary" href="#prix" data-track="cta_lp_admin_pv_hero_pricing">
           Voir les prix
@@ -100,15 +121,16 @@ const specialistReasons = [
       </div>
 
       <ul class="hero-filters" aria-label="Filtres de qualification">
-        <li>Installateurs PV uniquement</li>
+        <li>Sous-traitance admin PV</li>
+        <li>DP 119 € HT</li>
+        <li>Consuel + Enedis 89 € HT</li>
         <li>Dossier ponctuel accepté</li>
-        <li>Prix fixes HT</li>
       </ul>
     </div>
 
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
-      <p class="eyebrow">Diagnostic sous 24h</p>
-      <h2>Quel dossier voulez-vous sortir de vos équipes ?</h2>
+      <p class="eyebrow">Cadrage sous 24h</p>
+      <h2>Quel dossier admin voulez-vous déléguer ?</h2>
       <form
         class="lp-form"
         action={leadFormAction}
@@ -163,7 +185,7 @@ const specialistReasons = [
         </label>
 
         <button class="btn btn-primary btn-accent" type="submit" data-track="cta_lp_admin_pv_form_submit">
-          Recevoir mon diagnostic
+          Recevoir mon cadrage
         </button>
         <small>3 champs suffisent pour lancer le cadrage. Les précisions ci-dessous restent optionnelles.</small>
 
@@ -349,7 +371,7 @@ const specialistReasons = [
       </p>
     </div>
     <a class="btn btn-primary btn-accent" href="#diagnostic" data-track="cta_lp_admin_pv_final">
-      Recevoir mon diagnostic sous 24h
+      Cadrer un dossier à déléguer
     </a>
   </section>
 </BaseLayout>
@@ -533,6 +555,8 @@ const specialistReasons = [
   }
 
   .hero-price-strip span {
+    display: grid;
+    gap: 0.16rem;
     border: 1px solid color-mix(in srgb, var(--line) 82%, white);
     border-radius: 14px;
     background: color-mix(in srgb, var(--surface-elevated) 96%, white);
@@ -540,6 +564,13 @@ const specialistReasons = [
     font-weight: 900;
     line-height: 1.2;
     padding: 0.7rem 0.72rem;
+  }
+
+  .hero-price-strip strong {
+    color: var(--text);
+    font-size: 0.66rem;
+    line-height: 1.15;
+    text-transform: uppercase;
   }
 
   .hero-intake {
@@ -921,9 +952,27 @@ const specialistReasons = [
     }
 
     .hero-filters,
-    .hero-price-strip,
     .hero-actions {
       display: none;
+    }
+
+    .hero-price-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.42rem;
+    }
+
+    .hero-price-strip span:nth-child(3) {
+      display: none;
+    }
+
+    .hero-price-strip span {
+      min-height: 0;
+      padding: 0.52rem 0.62rem;
+      font-size: 0.82rem;
+    }
+
+    .hero-price-strip strong {
+      font-size: 0.58rem;
     }
 
     .hero-actions,
@@ -1698,6 +1747,17 @@ const specialistReasons = [
     }
 
     .hero-filters li:not(:last-child)::after {
+      display: none;
+    }
+
+    .hero-price-strip {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 0.1rem;
+    }
+
+    .hero-portal-proof,
+    .hero-filters {
       display: none;
     }
 
