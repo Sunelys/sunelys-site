@@ -133,6 +133,36 @@
       "permanent": true
     },
     {
+      "source": "/blog-actualites/declaration-prealable-projet-solaire",
+      "destination": "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/declaration-prealable-projet-solaire/",
+      "destination": "/blog/declaration-prealable-panneaux-solaires-pieces-delais",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/raccordement-enedis-installation-solaire",
+      "destination": "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/raccordement-enedis-installation-solaire/",
+      "destination": "/blog/raccordement-enedis-photovoltaique-etapes-delais",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/aides-financieres-solaire-2025",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/blog-actualites/aides-financieres-solaire-2025/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
       "source": "/raccordement",
       "destination": "/raccordement-enedis-photovoltaique",
       "permanent": true
@@ -150,6 +180,36 @@
     {
       "source": "/particuliers",
       "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/tarifs-1",
+      "destination": "/tarifs",
+      "permanent": true
+    },
+    {
+      "source": "/tarifs-1/",
+      "destination": "/tarifs",
+      "permanent": true
+    },
+    {
+      "source": "/login",
+      "destination": "https://portail.sunelys.fr/login",
+      "permanent": true
+    },
+    {
+      "source": "/login/",
+      "destination": "https://portail.sunelys.fr/login",
+      "permanent": true
+    },
+    {
+      "source": "/feed",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/feed/",
+      "destination": "/blog",
       "permanent": true
     }
   ]
