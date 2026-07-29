@@ -95,11 +95,11 @@
     left: 50%;
     bottom: max(1rem, env(safe-area-inset-bottom, 0px));
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.44fr);
-    gap: clamp(0.9rem, 3vw, 1.6rem);
+    grid-template-columns: minmax(0, 1fr) minmax(15.8rem, auto);
+    gap: 1rem;
     align-items: center;
-    width: min(calc(100% - 2rem), 58rem);
-    padding: clamp(0.86rem, 2vw, 1.15rem);
+    width: min(calc(100% - 2rem), 52rem);
+    padding: 0.92rem 1rem;
     border: 1px solid rgba(255, 255, 255, 0.16);
     border-radius: var(--radius-md);
     background:
@@ -116,7 +116,7 @@
 
   .cookie-copy {
     display: grid;
-    gap: 0.34rem;
+    gap: 0.22rem;
   }
 
   .cookie-eyebrow {
@@ -131,17 +131,17 @@
   .cookie-copy h2 {
     margin: 0;
     color: #ffffff;
-    font-size: clamp(1.02rem, 1.7vw, 1.34rem);
+    font-size: clamp(1rem, 1.3vw, 1.18rem);
     letter-spacing: 0;
-    line-height: 1.08;
+    line-height: 1.05;
   }
 
   .cookie-copy > p:not(.cookie-eyebrow) {
     max-width: 64ch;
     margin: 0;
     color: #b9c5d5;
-    font-size: 0.72rem;
-    line-height: 1.42;
+    font-size: 0.69rem;
+    line-height: 1.34;
   }
 
   .cookie-current-choice {
@@ -151,24 +151,25 @@
 
   .cookie-actions {
     display: grid;
-    gap: 0.46rem;
+    gap: 0.38rem;
+    min-width: 0;
   }
 
   .cookie-actions > div {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
+    gap: 0.5rem;
   }
 
   .cookie-button {
-    min-height: 2.44rem;
+    min-height: 2.3rem;
     border: 1px solid rgba(255, 255, 255, 0.32);
     border-radius: var(--radius-sm);
     cursor: pointer;
     font: inherit;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 800;
-    padding: 0.62rem 0.82rem;
+    padding: 0.58rem 0.72rem;
   }
 
   .cookie-label-short {
@@ -193,9 +194,9 @@
   }
 
   .cookie-actions > a {
-    justify-self: end;
+    justify-self: start;
     color: #b9c5d5;
-    font-size: 0.7rem;
+    font-size: 0.66rem;
     text-decoration-color: rgba(255, 255, 255, 0.32);
     text-underline-offset: 0.22rem;
   }
@@ -208,48 +209,50 @@
   @media (max-width: 760px) {
     .cookie-consent {
       bottom: max(0.6rem, env(safe-area-inset-bottom, 0px));
-      grid-template-columns: minmax(0, 1fr) minmax(7.2rem, 0.42fr);
-      gap: 0.68rem;
-      width: min(calc(100% - 1rem), 36rem);
-      max-height: min(calc(100dvh - 1.2rem), 8.8rem);
-      overflow-y: auto;
-      overscroll-behavior: contain;
-      padding: 0.72rem 0.78rem;
+      grid-template-columns: 1fr;
+      gap: 0.52rem;
+      width: min(calc(100% - 0.75rem), 34rem);
+      max-height: none;
+      overflow: visible;
+      padding: 0.72rem;
       border-radius: 16px;
     }
 
     .cookie-eyebrow {
-      font-size: 0.58rem;
+      font-size: 0.54rem;
     }
 
     .cookie-copy h2 {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
     }
 
     .cookie-copy > p:not(.cookie-eyebrow) {
       display: -webkit-box;
       overflow: hidden;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
-      font-size: 0.64rem;
-      line-height: 1.34;
+      -webkit-line-clamp: 1;
+      font-size: 0.62rem;
+      line-height: 1.26;
+    }
+
+    .cookie-current-choice {
+      font-size: 0.6rem !important;
     }
 
     .cookie-actions > div {
-      grid-template-columns: 1fr;
-      gap: 0.34rem;
+      gap: 0.42rem;
     }
 
     .cookie-button {
-      min-height: 2.05rem;
-      padding: 0.42rem 0.5rem;
+      min-height: 2.16rem;
+      padding: 0.42rem 0.46rem;
       font-size: 0.66rem;
     }
 
     .cookie-actions > a {
-      justify-self: end;
+      justify-self: start;
       font-size: 0.58rem;
-      text-align: right;
+      text-align: left;
     }
 
     .cookie-label-long {

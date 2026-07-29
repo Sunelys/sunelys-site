@@ -27,7 +27,7 @@ const structuredData = [
     name: homeSeo.title,
     description: homeSeo.description,
     url: "https://sunelys.fr/",
-    dateModified: "2026-07-24",
+    dateModified: "2026-07-29",
     inLanguage: "fr-FR",
   },
   {
@@ -70,12 +70,833 @@ const structuredData = [
 ---
 
 <BaseLayout title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
-  <Hero data={heroData} />
-  <TrustSection data={trustSectionData} />
-  <MethodSection data={methodSectionData} />
-  <PortalSection data={portalSectionData} />
-  <ServicesSection data={servicesSectionData} />
-  <ProofSection data={proofSectionData} />
-  <FAQ data={faqSectionData} />
-  <FinalCTASection data={finalCtaSectionData} />
+  <div class="homepage-redesign">
+    <Hero data={heroData} />
+    <ServicesSection data={servicesSectionData} />
+    <PortalSection data={portalSectionData} />
+    <ProofSection data={proofSectionData} />
+    <TrustSection data={trustSectionData} />
+    <MethodSection data={methodSectionData} />
+    <FAQ data={faqSectionData} />
+    <FinalCTASection data={finalCtaSectionData} />
+  </div>
 </BaseLayout>
+
+<style is:global>
+  /* Homepage direction: editorial bands, functional frames only. */
+  html:has(.homepage-redesign) {
+    scroll-padding-top: 5.2rem;
+  }
+
+  body:has(.homepage-redesign) {
+    background: #f7f6f2;
+  }
+
+  body:has(.homepage-redesign)::before,
+  body:has(.homepage-redesign)::after {
+    opacity: 0.025;
+  }
+
+  body:has(.homepage-redesign) .layout-main {
+    padding-top: 0;
+  }
+
+  body:has(.homepage-redesign) .page-flow {
+    padding-bottom: 3rem;
+  }
+
+  body:has(.homepage-redesign) .site-header {
+    background: rgba(247, 246, 242, 0.94);
+  }
+
+  body:has(.homepage-redesign) .header-row {
+    min-height: 4.15rem;
+  }
+
+  .homepage-redesign {
+    display: grid;
+    gap: 0;
+    width: 100%;
+  }
+
+  html.reveal-ready:has(.homepage-redesign) .homepage-redesign .reveal,
+  html.reveal-ready:has(.homepage-redesign) .homepage-redesign .reveal [data-reveal-item] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .homepage-redesign > .section-shell {
+    width: 100%;
+    max-width: none;
+  }
+
+  .homepage-redesign .hero,
+  .homepage-redesign .portal-section,
+  .homepage-redesign .final-section {
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+  }
+
+  .homepage-redesign .hero {
+    background: #0e1726;
+  }
+
+  .homepage-redesign .hero-stage {
+    width: 100%;
+    max-width: 1440px;
+    min-height: 37rem;
+    margin-inline: auto;
+    padding: 3.8rem max(1.25rem, calc((100vw - var(--max-width)) / 2)) 4.2rem;
+    border: 0;
+    border-radius: 0;
+    background: #0e1726;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .hero-stage::before {
+    display: none;
+  }
+
+  .homepage-redesign .hero-narrative {
+    max-width: 39rem;
+  }
+
+  .homepage-redesign .hero-kicker {
+    color: rgba(255, 255, 255, 0.68);
+    letter-spacing: 0.11em;
+  }
+
+  .homepage-redesign .hero-kicker span {
+    box-shadow: none;
+  }
+
+  .homepage-redesign h1 {
+    max-width: 12ch;
+    margin-top: 1rem;
+    color: #ffffff;
+    font-size: 4.5rem;
+    font-weight: 680;
+    letter-spacing: 0;
+    line-height: 1.01;
+  }
+
+  /* A quieter type hierarchy keeps the premium direction legible. */
+  .homepage-redesign h2 {
+    font-weight: 640 !important;
+  }
+
+  .homepage-redesign h3,
+  .homepage-redesign h4,
+  .homepage-redesign .service-card h3,
+  .homepage-redesign .portal-showcase h3,
+  .homepage-redesign .case-panel h3,
+  .homepage-redesign .handoff-panel h3,
+  .homepage-redesign .panel-head h3,
+  .homepage-redesign .faq-question {
+    font-weight: 650 !important;
+  }
+
+  .homepage-redesign .service-card .benefit,
+  .homepage-redesign .decision-signal strong,
+  .homepage-redesign .assurance-grid strong,
+  .homepage-redesign .decision-path a strong {
+    font-weight: 620 !important;
+  }
+
+  .homepage-redesign .hero-subtitle {
+    max-width: 48ch;
+    margin-top: 1.2rem;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .homepage-redesign .expert-line {
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .homepage-redesign .proof-bar {
+    gap: 0;
+    margin-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .homepage-redesign .proof-bar li {
+    min-height: 4.1rem;
+    padding: 0.85rem 0.8rem 0.85rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.78);
+  }
+
+  .homepage-redesign .proof-bar li + li {
+    padding-left: 0.8rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+  }
+
+  .homepage-redesign .proof-bar li span {
+    width: 0.36rem;
+    height: 0.36rem;
+    margin-top: 0.4rem;
+  }
+
+  .homepage-redesign .founder-hero-visual {
+    min-height: 32rem;
+    border: 0;
+    border-radius: 0;
+    background: #182338;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .founder-hero-visual::after {
+    inset: 42% 0 0;
+  }
+
+  .homepage-redesign .founder-hero-badge {
+    top: 1rem;
+    left: 1rem;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.82);
+    letter-spacing: 0.11em;
+    backdrop-filter: none;
+  }
+
+  .homepage-redesign .founder-hero-visual figcaption {
+    right: 1.1rem;
+    bottom: 1.1rem;
+    left: 1.1rem;
+    max-width: 20ch;
+    font-size: 0.92rem;
+    line-height: 1.45;
+  }
+
+  .homepage-redesign .hero-intake-card {
+    padding: 1.35rem;
+    border: 1px solid rgba(14, 23, 38, 0.1);
+    border-radius: 8px;
+    background: #fffdf9;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .hero-intake-kicker {
+    font-size: 0.9rem;
+  }
+
+  .homepage-redesign .no-commitment,
+  .homepage-redesign .service-card .card-top p,
+  .homepage-redesign .panel-head > span,
+  .homepage-redesign .faq-signal {
+    border-radius: 4px !important;
+  }
+
+  .homepage-redesign .service-card .card-top p {
+    padding: 0 !important;
+    background: transparent !important;
+    color: var(--text-muted) !important;
+    font-size: 0.6rem !important;
+    font-weight: 650 !important;
+    letter-spacing: 0.06em;
+  }
+
+  .homepage-redesign .no-commitment,
+  .homepage-redesign .service-card .card-top > span,
+  .homepage-redesign .panel-head > span,
+  .homepage-redesign .faq-signal {
+    font-weight: 650 !important;
+  }
+
+  .homepage-redesign .hero-intake-copy {
+    max-width: 42ch;
+  }
+
+  .homepage-redesign .hero-lead-form .hero-offer-options > label {
+    border-radius: 6px;
+    background: #fbfaf6;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .hero-lead-form .hero-offer-options > label:has(input:checked) {
+    border-color: var(--ink);
+    background: #f1f4ff;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .hero-human-proof {
+    border-radius: 6px;
+    background: #f1f4ff;
+  }
+
+  .homepage-redesign .btn,
+  .homepage-redesign .method-link,
+  .homepage-redesign .handoff-link {
+    border-radius: 8px;
+  }
+
+  .homepage-redesign .services-section,
+  .homepage-redesign .proof-section,
+  .homepage-redesign .trust-section,
+  .homepage-redesign .method-section,
+  .homepage-redesign .faq-section {
+    gap: 2rem;
+    padding: 5rem 0;
+    overflow: visible;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .services-section {
+    background: #f7f6f2;
+  }
+
+  .homepage-redesign .services-head,
+  .homepage-redesign .proof-head,
+  .homepage-redesign .method-lead {
+    gap: 2rem;
+  }
+
+  .homepage-redesign .services-head {
+    align-items: end;
+  }
+
+  .homepage-redesign .services-section h2,
+  .homepage-redesign .proof-section h2,
+  .homepage-redesign .trust-section h2,
+  .homepage-redesign .method-section h2,
+  .homepage-redesign .faq-section h2 {
+    letter-spacing: 0;
+  }
+
+  .homepage-redesign .pricing-note {
+    min-height: 0;
+    padding: 0.2rem 0 0.2rem 1.25rem;
+    border: 0;
+    border-left: 2px solid var(--accent);
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .pricing-note p {
+    max-width: 34ch;
+    color: var(--text) !important;
+  }
+
+  .homepage-redesign .pricing-note > span {
+    color: var(--accent-strong) !important;
+  }
+
+  .homepage-redesign .pricing-note a {
+    color: var(--ink) !important;
+  }
+
+  .homepage-redesign .services-decision-strip {
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .homepage-redesign .decision-signal {
+    min-height: 5.8rem;
+    padding: 1rem 1rem 1rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .decision-signal + .decision-signal {
+    padding-left: 1rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .homepage-redesign .services-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 0;
+    overflow: hidden;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    background: transparent;
+  }
+
+  .homepage-redesign .service-card,
+  .homepage-redesign .service-card:nth-child(-n + 3),
+  .homepage-redesign .service-card:nth-child(4),
+  .homepage-redesign .service-card:nth-child(5) {
+    grid-column: span 2;
+    min-height: 21rem;
+    padding: 1.25rem;
+    border: 0;
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: #fffdf9;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .service-card:nth-child(3),
+  .homepage-redesign .service-card:last-child {
+    border-right: 0;
+  }
+
+  .homepage-redesign .service-card:nth-child(4),
+  .homepage-redesign .service-card:nth-child(5) {
+    grid-column: span 3;
+  }
+
+  .homepage-redesign .service-card:nth-child(n + 4) {
+    border-bottom: 0;
+  }
+
+  .homepage-redesign .service-card::before {
+    display: none;
+  }
+
+  .homepage-redesign .service-card:hover {
+    transform: none;
+    background: #ffffff;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .service-card-mark span {
+    width: auto;
+    height: auto;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .service-card-mark i {
+    width: 3.6rem;
+  }
+
+  .homepage-redesign .service-commerce {
+    padding: 0.8rem 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .service-foot {
+    padding-top: 0.9rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .homepage-redesign .service-commerce span,
+  .homepage-redesign .service-commerce small {
+    font-weight: 650 !important;
+  }
+
+  .homepage-redesign .portal-section {
+    grid-template-columns: minmax(300px, 0.62fr) minmax(0, 1.38fr);
+    gap: 2.8rem;
+    padding: 5.5rem max(1.25rem, calc((100vw - var(--max-width)) / 2));
+    border: 0;
+    border-radius: 0;
+    background: #0e1726;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .portal-copy {
+    padding: 0;
+  }
+
+  .homepage-redesign .portal-showcase {
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .portal-editorial-strip {
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    padding: 2rem 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .editorial-card {
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .proof-highlights {
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .homepage-redesign .proof-highlights article {
+    padding: 1rem 1rem 1rem 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .proof-highlights article + article {
+    padding-left: 1rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .homepage-redesign .case-experience {
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #fffdf9;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .case-tabs {
+    border-radius: 0;
+    background: #f0efe9;
+  }
+
+  .homepage-redesign .trust-bridge {
+    gap: 3rem;
+  }
+
+  .homepage-redesign .trust-story {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .assurance-grid {
+    gap: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .homepage-redesign .assurance-grid article {
+    padding: 1rem 1rem 1rem 0;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+  }
+
+  .homepage-redesign .assurance-grid article + article {
+    padding-left: 1rem;
+    border-left: 1px solid var(--line);
+  }
+
+  .homepage-redesign .handoff-panel {
+    min-height: 0;
+    padding: 1.8rem;
+    border-radius: 8px;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .decision-path {
+    padding: 1.1rem 0;
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .decision-path a {
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .method-workspace {
+    gap: 1px;
+    background: var(--line);
+  }
+
+  .homepage-redesign .mode-panel,
+  .homepage-redesign .operations-panel {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .mode-panel {
+    padding: 1.5rem;
+    border: 0;
+    background: #fffdf9;
+  }
+
+  .homepage-redesign .operations-panel {
+    padding: 1.5rem;
+  }
+
+  .homepage-redesign .audience-list article,
+  .homepage-redesign .steps-board li {
+    border-radius: 6px;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .faq-section {
+    grid-template-columns: minmax(280px, 0.54fr) minmax(0, 1.46fr);
+  }
+
+  .homepage-redesign .faq-head {
+    padding: 0;
+  }
+
+  .homepage-redesign .faq-decision-card {
+    padding: 0.95rem 0 0.95rem 1rem;
+    border: 0;
+    border-left: 2px solid var(--accent);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .faq-list {
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .homepage-redesign .faq-item {
+    border-bottom: 1px solid var(--line);
+  }
+
+  .homepage-redesign .faq-icon {
+    border-radius: 6px;
+    background: #ffffff;
+  }
+
+  .homepage-redesign .final-section {
+    grid-template-columns: minmax(0, 1fr) minmax(330px, 0.52fr);
+    gap: 2.5rem;
+    padding: 5.5rem max(1.25rem, calc((100vw - var(--max-width)) / 2));
+    border: 0;
+    border-radius: 0;
+    background: #0e1726;
+    box-shadow: none;
+  }
+
+  .homepage-redesign .final-copy {
+    padding: 0;
+  }
+
+  .homepage-redesign .contact-panel {
+    border-radius: 8px;
+  }
+
+  @media (max-width: 1100px) {
+    .homepage-redesign h1 {
+      font-size: 4rem;
+    }
+
+    .homepage-redesign .services-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .homepage-redesign .service-card,
+    .homepage-redesign .service-card:nth-child(-n + 3),
+    .homepage-redesign .service-card:nth-child(4),
+    .homepage-redesign .service-card:nth-child(5) {
+      grid-column: span 1;
+    }
+
+    .homepage-redesign .service-card:nth-child(2n) {
+      border-right: 0;
+    }
+
+    .homepage-redesign .service-card:nth-child(2n + 1) {
+      border-right: 1px solid var(--line);
+    }
+
+    .homepage-redesign .service-card:nth-child(-n + 4) {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .homepage-redesign .service-card:nth-child(n + 5) {
+      border-bottom: 0;
+    }
+
+    .homepage-redesign .service-card:last-child {
+      border-right: 0;
+    }
+  }
+
+  @media (max-width: 820px) {
+    .homepage-redesign .hero-stage {
+      min-height: 0;
+      padding-top: 2.6rem;
+      padding-bottom: 3rem;
+    }
+
+    .homepage-redesign h1 {
+      max-width: 13ch;
+      font-size: 3.25rem;
+    }
+
+    .homepage-redesign .portal-section,
+    .homepage-redesign .final-section {
+      grid-template-columns: 1fr;
+    }
+
+    .homepage-redesign .services-section,
+    .homepage-redesign .proof-section,
+    .homepage-redesign .trust-section,
+    .homepage-redesign .method-section,
+    .homepage-redesign .faq-section {
+      padding-block: 4rem;
+    }
+  }
+
+  @media (max-width: 620px) {
+    .homepage-redesign .hero-stage {
+      padding: 2rem 1rem 2.5rem;
+    }
+
+    .homepage-redesign .hero-intake-card {
+      padding: 0.9rem;
+    }
+
+    .homepage-redesign .hero-intake-head {
+      gap: 0.32rem;
+    }
+
+    .homepage-redesign .hero-intake-copy {
+      font-size: 0.8rem;
+      line-height: 1.4;
+    }
+
+    .homepage-redesign .hero-lead-form {
+      gap: 0.55rem;
+      margin-top: 0.7rem;
+    }
+
+    .homepage-redesign .hero-offer-options {
+      gap: 0.35rem;
+    }
+
+    .homepage-redesign .hero-lead-form .hero-offer-options > label {
+      min-height: 3.05rem !important;
+      padding: 0.46rem 0.58rem !important;
+      gap: 0.5rem;
+    }
+
+    .homepage-redesign .hero-offer-options label > span strong {
+      font-size: 0.75rem;
+    }
+
+    .homepage-redesign .hero-offer-options label > em {
+      font-size: 0.82rem;
+    }
+
+    .homepage-redesign .hero-lead-form.is-mobile-offer-first .hero-form-fields,
+    .homepage-redesign .hero-lead-form.is-mobile-offer-first .hero-submit,
+    .homepage-redesign .hero-lead-form.is-mobile-offer-first .hero-form-footer,
+    .homepage-redesign .hero-lead-form.is-mobile-offer-first .hero-human-proof,
+    .homepage-redesign .hero-lead-form.is-mobile-offer-first .form-privacy-note {
+      display: none;
+    }
+
+    .homepage-redesign .hero-lead-form input:not([type="radio"]),
+    .homepage-redesign .hero-lead-form select {
+      min-height: 2.65rem;
+      padding: 0.56rem 0.68rem;
+    }
+
+    .homepage-redesign h1 {
+      max-width: 100%;
+      font-size: 2.55rem;
+      line-height: 1.04;
+    }
+
+    .homepage-redesign .proof-bar {
+      grid-template-columns: 1fr;
+      margin-top: 0.85rem;
+    }
+
+    .homepage-redesign .expert-line {
+      margin-top: 0.72rem;
+      font-size: 0.78rem;
+      line-height: 1.38;
+    }
+
+    .homepage-redesign .hero .proof-bar li,
+    .homepage-redesign .hero .proof-bar li + li {
+      min-height: 0;
+      padding: 0.5rem 0 !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+    }
+
+    .homepage-redesign .proof-bar li:nth-child(3) {
+      display: none;
+    }
+
+    .homepage-redesign .proof-bar li:last-child {
+      border-bottom: 0;
+    }
+
+    .homepage-redesign .founder-hero-visual {
+      min-height: 20rem;
+    }
+
+    .homepage-redesign .services-section,
+    .homepage-redesign .proof-section,
+    .homepage-redesign .trust-section,
+    .homepage-redesign .method-section,
+    .homepage-redesign .faq-section {
+      padding-block: 3.3rem;
+    }
+
+    .homepage-redesign .services-grid {
+      grid-template-columns: none;
+      background: transparent;
+      border: 0;
+    }
+
+    .homepage-redesign .service-card,
+    .homepage-redesign .service-card:nth-child(-n + 3),
+    .homepage-redesign .service-card:nth-child(4),
+    .homepage-redesign .service-card:nth-child(5) {
+      width: min(82vw, 20.5rem);
+      min-height: 21rem;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .homepage-redesign .decision-signal + .decision-signal,
+    .homepage-redesign .proof-highlights article + article,
+    .homepage-redesign .assurance-grid article + article {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .homepage-redesign .decision-signal,
+    .homepage-redesign .proof-highlights article,
+    .homepage-redesign .assurance-grid article {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .homepage-redesign .decision-signal:last-child,
+    .homepage-redesign .proof-highlights article:last-child,
+    .homepage-redesign .assurance-grid article:last-child {
+      border-bottom: 0;
+    }
+
+    .homepage-redesign .portal-section,
+    .homepage-redesign .final-section {
+      padding-block: 4rem;
+    }
+
+    .homepage-redesign .portal-copy,
+    .homepage-redesign .final-copy {
+      padding: 0;
+    }
+
+    .homepage-redesign .portal-editorial-strip {
+      margin-top: 0.5rem;
+    }
+  }
+</style>

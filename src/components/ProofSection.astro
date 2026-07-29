@@ -41,6 +41,7 @@ const proofHighlights = [
 ---
 
 <section
+  id="client-proof"
   class="section-shell proof-section reveal"
   aria-labelledby="proof-title"
   data-track-view="homepage_client_proof_view"
@@ -250,9 +251,8 @@ const proofHighlights = [
     border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
     border-radius: var(--radius-xl);
     background:
-      linear-gradient(rgba(54, 98, 227, 0.035) 1px, transparent 1px) 0 0 / 34px 34px,
-      linear-gradient(90deg, rgba(54, 98, 227, 0.035) 1px, transparent 1px) 0 0 / 34px 34px,
-      var(--system-soft);
+      radial-gradient(90% 120% at 100% 0%, color-mix(in srgb, var(--system-soft) 64%, transparent), transparent 58%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), color-mix(in srgb, var(--system-soft) 30%, white));
   }
 
   .proof-head {
@@ -338,10 +338,10 @@ const proofHighlights = [
 
   .case-experience {
     overflow: hidden;
-    border: 1px solid rgba(14, 23, 38, 0.12);
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
     border-radius: 20px;
-    background: var(--ink);
-    box-shadow: 0 28px 70px rgba(14, 23, 38, 0.16);
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 24px 58px rgba(14, 23, 38, 0.095);
   }
 
   .case-tabs {
@@ -349,8 +349,9 @@ const proofHighlights = [
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 0.4rem;
     padding: 0.55rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    background: #ffffff;
+    border-bottom: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    background:
+      linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--system-soft) 30%, white));
   }
 
   .case-tab {
@@ -416,7 +417,7 @@ const proofHighlights = [
   .case-panel {
     display: grid;
     grid-template-columns: minmax(270px, 0.78fr) minmax(0, 1.22fr);
-    min-height: 34rem;
+    min-height: 31rem;
     outline: none;
   }
 
@@ -433,7 +434,9 @@ const proofHighlights = [
   .case-context {
     display: flex;
     flex-direction: column;
-    background: #ffffff;
+    background:
+      radial-gradient(110% 90% at 0% 0%, color-mix(in srgb, var(--system-soft) 58%, transparent), transparent 62%),
+      #ffffff;
   }
 
   .case-label {
@@ -581,9 +584,8 @@ const proofHighlights = [
     display: flex;
     flex-direction: column;
     background:
-      radial-gradient(90% 80% at 100% 0%, rgba(54, 98, 227, 0.27), transparent 62%),
-      radial-gradient(75% 90% at 0% 100%, rgba(212, 130, 42, 0.16), transparent 62%),
-      var(--ink);
+      radial-gradient(85% 95% at 100% 0%, color-mix(in srgb, var(--accent-soft) 72%, transparent), transparent 58%),
+      linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent-soft) 20%, white));
   }
 
   .quote-mark {
@@ -594,13 +596,13 @@ const proofHighlights = [
   }
 
   blockquote {
-    max-width: 34ch;
-    margin: clamp(1.4rem, 3vw, 2.5rem) 0;
-    color: rgba(255, 255, 255, 0.94);
-    font-size: clamp(1.22rem, 2vw, 1.78rem);
-    font-weight: 620;
-    letter-spacing: -0.025em;
-    line-height: 1.45;
+    max-width: 39ch;
+    margin: clamp(1rem, 2.4vw, 2rem) 0;
+    color: var(--ink);
+    font-size: clamp(1.12rem, 1.75vw, 1.58rem);
+    font-weight: 680;
+    letter-spacing: -0.018em;
+    line-height: 1.5;
   }
 
   footer {
@@ -610,7 +612,7 @@ const proofHighlights = [
     gap: 1.2rem;
     margin-top: auto;
     padding-top: 1.3rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    border-top: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
   }
 
   .author {
@@ -625,23 +627,23 @@ const proofHighlights = [
     width: 2.6rem;
     height: 2.6rem;
     place-items: center;
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    border: 1px solid color-mix(in srgb, var(--system) 18%, var(--line));
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.07);
-    color: var(--accent);
+    background: color-mix(in srgb, var(--system-soft) 70%, white);
+    color: var(--system);
     font-size: 0.64rem;
     font-weight: 800;
   }
 
   .author strong {
-    color: #ffffff;
+    color: var(--ink);
     font-size: 0.76rem;
   }
 
   .author p {
     max-width: 36ch;
     margin-top: 0.18rem;
-    color: rgba(255, 255, 255, 0.48);
+    color: var(--text-muted);
     font-size: 0.62rem;
     line-height: 1.45;
   }
@@ -651,7 +653,7 @@ const proofHighlights = [
     align-items: center;
     gap: 0.4rem;
     flex: 0 0 auto;
-    color: rgba(255, 255, 255, 0.52);
+    color: var(--text-muted);
     font-size: 0.6rem;
     font-weight: 700;
   }

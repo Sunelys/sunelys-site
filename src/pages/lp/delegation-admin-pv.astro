@@ -1865,4 +1865,70 @@ const specialistReasons = [
       width: 100%;
     }
   }
+
+  /* Harmonisation finale avec la nouvelle home */
+  .lp-hero {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.32), transparent 62%),
+      radial-gradient(65% 82% at 0% 100%, rgba(212, 130, 42, 0.22), transparent 65%),
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 42px 42px,
+      var(--ink);
+    box-shadow: 0 30px 80px rgba(14, 23, 38, 0.18);
+  }
+
+  .lp-hero h1 {
+    letter-spacing: -0.055em;
+  }
+
+  .lp-hero .hero-price-strip span {
+    border-color: rgba(255, 255, 255, 0.14);
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffffff;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+
+  .lp-hero .hero-price-strip strong {
+    color: rgba(255, 255, 255, 0.64);
+  }
+
+  .hero-intake {
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 18px;
+  }
+
+  .lp-proof-band {
+    overflow: hidden;
+    border: 1px solid color-mix(in srgb, var(--system) 11%, var(--line));
+    border-radius: 16px;
+    background:
+      radial-gradient(90% 120% at 0% 0%, color-mix(in srgb, var(--system-soft) 56%, transparent), transparent 62%),
+      linear-gradient(180deg, #ffffff, color-mix(in srgb, var(--accent-soft) 10%, white));
+    box-shadow: var(--shadow-sm);
+  }
+
+  .lp-proof-band div,
+  .lp-proof-band div:first-child {
+    padding-inline: clamp(0.9rem, 2vw, 1.35rem);
+  }
+
+  .visual-media,
+  .portal-preview,
+  .client-proof-section,
+  .pricing-section,
+  .specialist-section,
+  .lp-final {
+    box-shadow: 0 18px 48px rgba(14, 23, 38, 0.065);
+  }
+
+  @media (max-width: 680px) {
+    .lp-hero {
+      border-radius: 18px;
+    }
+
+    .lp-proof-band {
+      border-radius: 14px;
+    }
+  }
 </style>

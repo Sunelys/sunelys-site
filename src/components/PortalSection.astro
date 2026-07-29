@@ -14,6 +14,16 @@ interface PortalView {
   signal: string;
 }
 
+interface EditorialMediaCard {
+  label: string;
+  title: string;
+  text: string;
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
 interface Props {
   data: {
     kicker: string;
@@ -30,7 +40,11 @@ interface Props {
       href: string;
       track: string;
     };
+    editorialKicker: string;
+    editorialTitle: string;
+    editorialText: string;
     views: PortalView[];
+    editorialMedia: EditorialMediaCard[];
   };
 }
 
@@ -183,6 +197,40 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     <div class="demo-footer">
       <p><span aria-hidden="true">✓</span> Exemple anonymisé</p>
       <p>Dossiers · pièces · statuts · relances</p>
+    </div>
+  </div>
+
+  <div class="portal-editorial-strip" data-reveal-item>
+    <div class="editorial-intro">
+      <p>{data.editorialKicker}</p>
+      <h3>{data.editorialTitle}</h3>
+      <span>{data.editorialText}</span>
+    </div>
+
+    <div class="editorial-grid">
+      {
+        data.editorialMedia.map((item) => (
+          <article class="editorial-card">
+            <figure class="editorial-visual">
+              <img
+                src={item.src}
+                alt={item.alt}
+                width={item.width}
+                height={item.height}
+                loading="lazy"
+                decoding="async"
+                fetchpriority="low"
+              />
+            </figure>
+
+            <div class="editorial-copy">
+              <p>{item.label}</p>
+              <h4>{item.title}</h4>
+              <span>{item.text}</span>
+            </div>
+          </article>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -695,6 +743,102 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     color: var(--success);
   }
 
+  .portal-editorial-strip {
+    grid-column: 1 / -1;
+    display: grid;
+    gap: 1rem;
+    margin-top: 0.25rem;
+    padding: 0.45rem;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .editorial-intro {
+    display: grid;
+    gap: 0.45rem;
+    padding: 0.95rem 1rem 0.2rem;
+  }
+
+  .editorial-intro p {
+    margin: 0;
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .editorial-intro h3 {
+    max-width: 18ch;
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.9rem;
+    line-height: 1.05;
+  }
+
+  .editorial-intro span {
+    max-width: 64ch;
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.84rem;
+    line-height: 1.6;
+  }
+
+  .editorial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.8rem;
+  }
+
+  .editorial-card {
+    display: grid;
+    gap: 0.9rem;
+    min-width: 0;
+    padding: 0.9rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .editorial-visual {
+    margin: 0;
+    overflow: hidden;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  .editorial-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .editorial-copy {
+    display: grid;
+    gap: 0.4rem;
+  }
+
+  .editorial-copy p {
+    margin: 0;
+    color: var(--system);
+    font-size: 0.64rem;
+    font-weight: 780;
+    text-transform: uppercase;
+  }
+
+  .editorial-copy h4 {
+    margin: 0;
+    color: #ffffff;
+    font-size: 1.02rem;
+    line-height: 1.18;
+  }
+
+  .editorial-copy span {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.78rem;
+    line-height: 1.58;
+  }
+
   @media (max-width: 1120px) {
     .portal-section {
       grid-template-columns: 1fr;
@@ -735,6 +879,14 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     .benefits li + li {
       border-left: 1px solid rgba(255, 255, 255, 0.11);
     }
+
+    .editorial-intro h3 {
+      max-width: 22ch;
+    }
+
+    .editorial-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   @media (max-width: 860px) {
@@ -749,6 +901,10 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
 
     .rail-cards {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .editorial-grid {
+      grid-template-columns: 1fr;
     }
   }
 
@@ -858,6 +1014,22 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
 
     .demo-footer p:last-child {
       display: none;
+    }
+
+    .portal-editorial-strip {
+      padding: 0.25rem;
+    }
+
+    .editorial-intro {
+      padding: 0.8rem 0.7rem 0.1rem;
+    }
+
+    .editorial-intro h3 {
+      font-size: 1.6rem;
+    }
+
+    .editorial-card {
+      padding: 0.72rem;
     }
   }
 

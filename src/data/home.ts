@@ -33,20 +33,15 @@ export const heroData = {
   proofs: [
     "1 357 dossiers ENR pilotés",
     "96 % des DP sans pièce complémentaire",
-    "Tarifs fixes dès 89 € HT / dossier",
+    "Tarifs fixes dès 49 € HT / dossier",
   ],
-  operationsSnapshot: {
-    eyebrow: "Vue de pilotage",
-    title: "Chaque dossier garde une prochaine action visible.",
-    src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
-    avifSrcset:
-      "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-1280.avif 1280w",
-    alt: "Aperçu anonymisé du portail Sunelys avec synthèse de dossiers photovoltaïques",
-    items: [
-      { label: "DP", status: "Validée" },
-      { label: "Consuel", status: "À relancer" },
-      { label: "Raccordement", status: "Planifié" },
-    ],
+  founderVisual: {
+    src: "/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.png",
+    alt: "Myriam Zaoui, fondatrice de Sunelys, dans un portrait institutionnel premium",
+    label: "Direction Sunelys",
+    title: "Un pilotage humain, précis et lisible pour vos dossiers solaires.",
+    width: 971,
+    height: 1619,
   },
 };
 
@@ -406,7 +401,7 @@ export const servicesSectionData = {
   title: "La bonne brique administrative à déléguer au bon moment.",
   pricing: {
     eyebrow: "Tarifs fixes",
-    text: "Forfaits par dossier à partir de 89 € HT, sans abonnement ni volume minimum.",
+    text: "Forfaits par dossier à partir de 49 € HT, sans abonnement ni volume minimum.",
     href: "/tarifs",
     label: "Comparer les tarifs",
     track: "cta_services_pricing",
@@ -433,6 +428,7 @@ export const servicesSectionData = {
     {
       label: "Service 01",
       title: "Déclaration préalable",
+      code: "DP",
       stage: "Avant dépôt",
       price: "119 € HT",
       priceNote: "par dossier",
@@ -447,6 +443,7 @@ export const servicesSectionData = {
     {
       label: "Service 02",
       title: "Consuel",
+      code: "CO",
       stage: "Mise en service",
       price: "Pack 89 € HT",
       priceNote: "raccordement + Consuel",
@@ -461,6 +458,7 @@ export const servicesSectionData = {
     {
       label: "Service 03",
       title: "Raccordement",
+      code: "EN",
       stage: "Réseau",
       price: "Pack 89 € HT",
       priceNote: "raccordement + Consuel",
@@ -475,6 +473,7 @@ export const servicesSectionData = {
     {
       label: "Service 04",
       title: "EDF OA",
+      code: "OA",
       stage: "Contrat d'achat",
       price: "49 € HT",
       priceNote: "par dossier",
@@ -489,6 +488,7 @@ export const servicesSectionData = {
     {
       label: "Service 05",
       title: "MaPrimeRénov' + CEE",
+      code: "A+",
       stage: "Aides",
       price: "199 € HT",
       priceNote: "pack MPR + CEE",
@@ -505,8 +505,8 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Votre administratif devient un tableau de bord.",
-  text: "Le portail rend lisibles les dossiers actifs, les pièces attendues et les prochaines actions. Vous gardez la vue d'ensemble sans relancer Sunelys pour savoir où en est chaque démarche.",
+  title: "Le portail devient votre preuve de pilotage.",
+  text: "Pas un gadget : une lecture claire des dossiers actifs, des pièces attendues et des prochaines actions. Vos équipes savent ce qui bloque, ce qui avance et ce qu'il faut relancer.",
   benefits: [
     "Priorités visibles dès l'ouverture",
     "Pièces et échanges centralisés",
@@ -522,6 +522,10 @@ export const portalSectionData = {
     href: "https://portail.sunelys.fr/login",
     track: "cta_portal_section_login",
   },
+  editorialKicker: "Preuve métier",
+  editorialTitle: "Du dossier à la mise en service, tout garde la même tenue.",
+  editorialText:
+    "La démonstration reste volontairement concrète : pièces cadrées, terrain raccordé, prochaines actions visibles. Les portraits humains arriveront ensuite avec vos propres photos.",
   views: [
     {
       id: "priorites",
@@ -552,6 +556,35 @@ export const portalSectionData = {
       height: 900,
       sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
       signal: "4 flux centralisés",
+    },
+  ],
+  editorialMedia: [
+    {
+      label: "Pièces cadrées",
+      title: "Le dossier ne flotte pas entre plusieurs boîtes mail.",
+      text: "Checklist, pièces, validation et passage de relais restent lisibles dans une même logique de production.",
+      src: "/linkedin/premium/linkedin-visual-process-dossier.png",
+      alt: "Vue premium de dossier photovoltaïque avec checklist, intercalaires et transfert maîtrisé",
+      width: 1254,
+      height: 1254,
+    },
+    {
+      label: "Pilotage réel",
+      title: "L'administratif reste connecté au terrain.",
+      text: "On parle de vrais dossiers, de vraies pièces et de décisions qui protègent le rythme des installations.",
+      src: "/images/site/solar-admin-coordination-2026.webp",
+      alt: "Professionnel du photovoltaïque consultant des documents administratifs devant une installation solaire",
+      width: 1320,
+      height: 743,
+    },
+    {
+      label: "Flux maîtrisé",
+      title: "Maison, réseau et administratif restent raccordés.",
+      text: "Une lecture plus premium pour montrer que le suivi documentaire sert directement la mise en service.",
+      src: "/linkedin/premium/linkedin-visual-workflow-solaire.png",
+      alt: "Visualisation premium d'un workflow photovoltaïque reliant habitation, réseau et dossier administratif",
+      width: 1254,
+      height: 1254,
     },
   ],
 };
@@ -598,7 +631,7 @@ export const faqSectionData = {
     {
       question: "Comment fonctionne la tarification ?",
       answer:
-        "Les tarifs Sunelys sont fixes par dossier, à partir de 89 € HT selon la démarche. Vous pouvez déléguer une brique précise ou cadrer une chaîne plus complète.",
+        "Les tarifs Sunelys sont fixes par dossier, à partir de 49 € HT selon la démarche. Vous pouvez déléguer une brique précise ou cadrer une chaîne plus complète.",
     },
     {
       question: "Quels types de clients accompagnez-vous ?",

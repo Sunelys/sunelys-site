@@ -1630,4 +1630,88 @@ const structuredData = {
       grid-template-columns: 1fr;
     }
   }
+
+  /* Harmonisation home 2026 */
+  .pricing-hero {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.32), transparent 62%),
+      radial-gradient(65% 82% at 0% 100%, rgba(212, 130, 42, 0.22), transparent 65%),
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 42px 42px,
+      linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px) 0 0 / 42px 42px,
+      var(--ink);
+    box-shadow: 0 30px 80px rgba(14, 23, 38, 0.18);
+  }
+
+  .pricing-hero::after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    right: -9rem;
+    bottom: -13rem;
+    width: clamp(20rem, 38vw, 36rem);
+    aspect-ratio: 1;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+    box-shadow:
+      0 0 0 4rem rgba(255, 255, 255, 0.024),
+      0 0 0 8rem rgba(255, 255, 255, 0.016);
+  }
+
+  .pricing-hero h1 {
+    letter-spacing: -0.055em;
+  }
+
+  .price-matrix {
+    border-color: rgba(255, 255, 255, 0.22);
+    box-shadow: 0 30px 70px rgba(4, 10, 20, 0.24);
+  }
+
+  .matrix-head {
+    background:
+      radial-gradient(95% 120% at 100% 0%, color-mix(in srgb, var(--system-soft) 54%, transparent), transparent 62%),
+      #ffffff;
+  }
+
+  .matrix-row {
+    transition:
+      background-color 160ms ease,
+      transform 160ms ease,
+      box-shadow 160ms ease;
+  }
+
+  .matrix-row:hover,
+  .matrix-row:focus-visible {
+    transform: translateX(3px);
+  }
+
+  .specialist-strip,
+  .pricing-choice-lab,
+  .solar-pricing,
+  .complementary-pricing,
+  .pricing-conditions {
+    box-shadow: 0 18px 48px rgba(14, 23, 38, 0.065);
+  }
+
+  .offer-grid {
+    overflow: hidden;
+    border-radius: 18px;
+    background: #ffffff;
+  }
+
+  @media (max-width: 620px) {
+    .pricing-hero {
+      border-radius: 18px;
+      padding: 1.35rem 0.95rem;
+    }
+
+    .pricing-hero h1 {
+      font-size: clamp(2.28rem, 11vw, 3.15rem);
+    }
+
+    .matrix-row:hover,
+    .matrix-row:focus-visible {
+      transform: none;
+    }
+  }
 </style>

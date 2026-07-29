@@ -40,20 +40,25 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
   data-track-label="homepage_method"
 >
   <div class="method-lead" data-reveal-item>
-    <p class="kicker">{data.kicker}</p>
-    <h2 id="method-title">{data.title}</h2>
-    <p class="intro">{data.text}</p>
-
-    <div class="method-promises" aria-label="Principe de pilotage Sunelys">
-      <span>Vous choisissez le périmètre</span>
-      <span>Sunelys reprend la production</span>
-      <span>Vous gardez la visibilité</span>
+    <div class="method-copy">
+      <p class="kicker">{data.kicker}</p>
+      <h2 id="method-title">{data.title}</h2>
     </div>
 
-    <a class="method-link" href={data.cta.href} data-track={data.cta.track}>
-      {data.cta.label}
-      <span aria-hidden="true">→</span>
-    </a>
+    <div class="method-summary">
+      <p class="intro">{data.text}</p>
+
+      <div class="method-promises" aria-label="Principe de pilotage Sunelys">
+        <span>Vous choisissez le périmètre</span>
+        <span>Sunelys reprend la production</span>
+        <span>Vous gardez la visibilité</span>
+      </div>
+
+      <a class="method-link" href={data.cta.href} data-track={data.cta.track}>
+        {data.cta.label}
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
   </div>
 
   <div class="method-workspace" data-reveal-item>
@@ -130,68 +135,74 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 <style>
   .method-section {
     display: grid;
-    gap: 0.9rem;
-    padding: 1rem;
+    gap: 1.1rem;
     overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    padding: 1.55rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
     border-radius: var(--radius-xl);
     background:
-      linear-gradient(90deg, rgba(14, 23, 38, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
-      linear-gradient(180deg, color-mix(in srgb, var(--surface) 96%, white), color-mix(in srgb, var(--system-soft) 54%, white));
+      radial-gradient(80% 120% at 0% 0%, color-mix(in srgb, var(--system-soft) 32%, transparent), transparent 62%),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.98), color-mix(in srgb, var(--system-soft) 18%, white));
     box-shadow: var(--shadow-sm);
   }
 
   .method-lead {
     display: grid;
-    grid-template-columns: minmax(0, 0.8fr) minmax(360px, 1fr);
-    gap: 1.2rem 2rem;
-    align-items: end;
-    padding: 1.45rem 1.55rem 1rem;
+    grid-template-columns: minmax(0, 0.82fr) minmax(360px, 1.18fr);
+    gap: 1.1rem 1.8rem;
+    align-items: start;
+  }
+
+  .method-copy,
+  .method-summary {
+    display: grid;
+    gap: 0.7rem;
   }
 
   .kicker {
     margin: 0;
     color: var(--system);
-    font-size: 0.72rem;
-    font-weight: 760;
-    letter-spacing: 0;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   h2 {
-    max-width: 18ch;
-    margin: 0.58rem 0 0;
-    font-size: 3rem;
+    max-width: 14ch;
+    margin: 0;
+    font-size: clamp(2.28rem, 3.8vw, 3.04rem);
     letter-spacing: 0;
+    line-height: 1.03;
+    text-wrap: balance;
   }
 
   .intro {
-    max-width: 62ch;
+    max-width: 60ch;
     margin: 0;
     color: var(--text-muted);
-    font-size: 1rem;
-    line-height: 1.62;
+    font-size: 0.99rem;
+    line-height: 1.64;
   }
 
   .method-promises {
-    grid-column: 1 / -1;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.55rem;
   }
 
   .method-promises span {
-    min-width: 0;
-    padding: 0.85rem 1rem;
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.35rem;
+    padding: 0.72rem 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.72);
     color: var(--text);
-    font-size: 0.84rem;
-    font-weight: 740;
-    line-height: 1.35;
-  }
-
-  .method-promises span + span {
-    border-left: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    font-size: 0.8rem;
+    font-weight: 720;
+    line-height: 1.25;
   }
 
   .method-link {
@@ -200,15 +211,16 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     justify-content: space-between;
     gap: 0.75rem;
     width: fit-content;
-    min-height: 2.75rem;
-    padding: 0.72rem 0.95rem;
+    min-height: 2.85rem;
+    padding: 0.78rem 1rem;
     border: 1px solid var(--ink);
-    border-radius: 12px;
+    border-radius: 14px;
     background: var(--ink);
     color: #ffffff;
     font-size: 0.84rem;
-    font-weight: 760;
+    font-weight: 780;
     text-decoration: none;
+    box-shadow: 0 16px 28px rgba(14, 23, 38, 0.09);
   }
 
   .method-link span {
@@ -219,7 +231,7 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
   .method-workspace {
     display: grid;
     grid-template-columns: minmax(300px, 0.72fr) minmax(0, 1.28fr);
-    gap: 0.8rem;
+    gap: 0.85rem;
   }
 
   .mode-panel,
@@ -232,18 +244,19 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     display: grid;
     align-content: start;
     gap: 1rem;
-    padding: 1.2rem;
-    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
-    background: rgba(255, 255, 255, 0.72);
+    padding: 1.3rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.78);
   }
 
   .operations-panel {
     display: grid;
     gap: 1rem;
-    padding: 1.2rem;
+    padding: 1.3rem;
     background:
-      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px) 0 0 / 34px 34px,
-      linear-gradient(180deg, var(--ink-soft), var(--ink));
+      radial-gradient(95% 100% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 60%),
+      linear-gradient(160deg, var(--ink-soft), var(--ink));
     color: #ffffff;
   }
 
@@ -261,27 +274,29 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 
   .panel-head p {
     color: var(--system);
-    font-size: 0.72rem;
-    font-weight: 780;
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
   .panel-head h3 {
-    max-width: 18ch;
+    max-width: 16ch;
     margin-top: 0.38rem;
-    font-size: 1.34rem;
+    font-size: 1.36rem;
     letter-spacing: 0;
-    line-height: 1.12;
+    line-height: 1.15;
+    text-wrap: balance;
   }
 
   .panel-head > span {
     flex: 0 0 auto;
-    padding: 0.33rem 0.55rem;
+    padding: 0.38rem 0.6rem;
     border-radius: 999px;
-    background: var(--system-soft);
+    background: color-mix(in srgb, var(--system-soft) 72%, white);
     color: var(--system);
-    font-size: 0.68rem;
-    font-weight: 760;
+    font-size: 0.66rem;
+    font-weight: 780;
   }
 
   .panel-head-dark p {
@@ -293,29 +308,38 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
   }
 
   .panel-head-dark > span {
-    background: rgba(255, 255, 255, 0.09);
-    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.68);
   }
 
   .audience-list {
     display: grid;
-    gap: 0;
-    border-top: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    gap: 0.7rem;
   }
 
   .audience-list article {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 0.8rem;
+    gap: 0.85rem;
     min-width: 0;
-    padding: 0.9rem 0;
-    border-bottom: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
+    padding: 0.95rem;
+    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
+    border-radius: 16px;
+    background:
+      radial-gradient(95% 110% at 100% 0%, color-mix(in srgb, var(--system-soft) 42%, transparent), transparent 70%),
+      rgba(255, 255, 255, 0.86);
   }
 
   .mode-index {
+    display: inline-grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    border: 1px solid color-mix(in srgb, var(--system) 16%, var(--line));
+    border-radius: 10px;
     color: var(--system);
     font-size: 0.68rem;
-    font-weight: 800;
+    font-weight: 820;
   }
 
   .audience-list h4,
@@ -327,29 +351,30 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     color: var(--text);
     font-size: 0.96rem;
     letter-spacing: 0;
-    line-height: 1.2;
+    line-height: 1.22;
   }
 
   .audience-list strong {
     display: block;
     margin-top: 0.28rem;
     color: var(--accent-deep);
-    font-size: 0.72rem;
-    font-weight: 780;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
   }
 
   .audience-list p {
-    margin-top: 0.28rem;
+    margin-top: 0.32rem;
     color: var(--text-muted);
-    font-size: 0.8rem;
-    line-height: 1.48;
+    font-size: 0.79rem;
+    line-height: 1.5;
   }
 
   .steps-board {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 0.55rem;
+    gap: 0.65rem;
     margin: 0;
     padding: 0;
     list-style: none;
@@ -359,21 +384,22 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     position: relative;
     display: grid;
     align-content: space-between;
-    gap: 1.4rem;
-    min-height: 17rem;
+    gap: 1.2rem;
+    min-height: 16.5rem;
     min-width: 0;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 14px;
+    border-radius: 16px;
     background: rgba(255, 255, 255, 0.055);
+    backdrop-filter: blur(8px);
   }
 
   .steps-board li + li::before {
     content: "";
     position: absolute;
     top: 2.1rem;
-    left: -0.57rem;
-    width: 0.58rem;
+    left: -0.68rem;
+    width: 0.68rem;
     height: 1px;
     background: rgba(255, 255, 255, 0.22);
   }
@@ -388,19 +414,20 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
   .step-meta span {
     display: inline-grid;
     place-items: center;
-    width: 2.1rem;
-    height: 2.1rem;
+    width: 2.15rem;
+    height: 2.15rem;
     border: 1px solid rgba(255, 255, 255, 0.14);
     border-radius: 10px;
     color: var(--accent);
     font-size: 0.68rem;
-    font-weight: 800;
+    font-weight: 820;
   }
 
   .step-meta strong {
     color: rgba(255, 255, 255, 0.62);
-    font-size: 0.7rem;
-    font-weight: 760;
+    font-size: 0.68rem;
+    font-weight: 780;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
   }
 
@@ -411,16 +438,16 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 
   .steps-board h4 {
     color: #ffffff;
-    font-size: 1.05rem;
+    font-size: 1.04rem;
     letter-spacing: 0;
-    line-height: 1.16;
+    line-height: 1.18;
   }
 
   .steps-board p {
     margin-top: 0.42rem;
-    color: rgba(255, 255, 255, 0.64);
+    color: rgba(255, 255, 255, 0.66);
     font-size: 0.8rem;
-    line-height: 1.5;
+    line-height: 1.52;
   }
 
   @media (max-width: 1040px) {
@@ -444,16 +471,13 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 
   @media (max-width: 620px) {
     .method-section {
-      padding: 0.72rem;
+      gap: 1rem;
+      padding: 1rem;
       border-radius: 18px;
     }
 
-    .method-lead {
-      padding: 0.7rem 0.38rem 0.8rem;
-    }
-
     h2 {
-      font-size: 2.12rem;
+      font-size: 2.08rem;
     }
 
     .intro {
@@ -461,15 +485,14 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     }
 
     .method-promises {
-      grid-template-columns: 1fr;
-      border-bottom: 0;
+      display: grid;
     }
 
-    .method-promises span,
-    .method-promises span + span {
-      padding: 0.72rem 0;
-      border-left: 0;
-      border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
+    .method-promises span {
+      min-height: 0;
+      justify-content: center;
+      border-radius: 14px;
+      text-align: center;
     }
 
     .method-link {
@@ -489,7 +512,7 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
     }
 
     .panel-head h3 {
-      font-size: 1.2rem;
+      font-size: 1.18rem;
     }
 
     .audience-list,
@@ -519,30 +542,15 @@ const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
       outline-color: color-mix(in srgb, var(--accent) 64%, transparent);
     }
 
-    .audience-list {
-      gap: 0.65rem;
-      border-top: 0;
-    }
-
     .audience-list article {
-      grid-template-columns: auto 1fr;
-      grid-auto-flow: initial;
       width: min(78vw, 20rem);
-      min-height: 9.6rem;
-      padding: 0.9rem;
-      border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.64);
+      min-height: 10rem;
       scroll-snap-align: start;
-    }
-
-    .steps-board {
-      gap: 0.65rem;
     }
 
     .steps-board li {
       width: min(76vw, 19rem);
-      min-height: 12rem;
+      min-height: 12.1rem;
       scroll-snap-align: start;
     }
   }

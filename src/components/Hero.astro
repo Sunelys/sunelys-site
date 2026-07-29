@@ -23,6 +23,14 @@ interface HeroData {
     alt: string;
     items: Array<{ label: string; status: string }>;
   };
+  founderVisual?: {
+    src: string;
+    alt: string;
+    label: string;
+    title: string;
+    width: number;
+    height: number;
+  };
   ctaNote?: string;
 }
 
@@ -100,6 +108,24 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
         )
       }
     </div>
+
+    {
+      data.founderVisual && (
+        <figure class="founder-hero-visual" data-track-view="homepage_founder_visual_view">
+          <img
+            src={data.founderVisual.src}
+            alt={data.founderVisual.alt}
+            width={data.founderVisual.width}
+            height={data.founderVisual.height}
+            loading="eager"
+            decoding="async"
+            fetchpriority="high"
+          />
+          <span class="founder-hero-badge">{data.founderVisual.label}</span>
+          <figcaption>{data.founderVisual.title}</figcaption>
+        </figure>
+      )
+    }
 
     {
       data.leadForm ? (
@@ -299,6 +325,15 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
 
     const serviceInterestField = heroLeadForm.querySelector("#hero-service-interest");
     const blockedStageField = heroLeadForm.querySelector("#hero-blocked-stage");
+    const mobileHeroQuery = window.matchMedia("(max-width: 620px)");
+
+    const syncMobileHeroStage = () => {
+      const hasOffer = Boolean(heroLeadForm.querySelector("input[name='need']:checked"));
+      heroLeadForm.classList.toggle("is-mobile-offer-first", mobileHeroQuery.matches && !hasOffer);
+    };
+
+    syncMobileHeroStage();
+    mobileHeroQuery.addEventListener?.("change", syncMobileHeroStage);
 
     const syncHeroSelection = (field) => {
       if (!(field instanceof HTMLInputElement) || !field.checked) return;
@@ -313,6 +348,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     heroLeadForm.querySelectorAll("input[name='need']").forEach((field) => {
       field.addEventListener("change", () => {
         syncHeroSelection(field);
+        syncMobileHeroStage();
         if (!(field instanceof HTMLInputElement) || !field.checked) return;
 
         window.trackEvent?.("homepage_offer_selected", {
@@ -360,8 +396,8 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     isolation: isolate;
     overflow: hidden;
     display: grid;
-    grid-template-columns: minmax(0, 1.08fr) minmax(350px, 0.92fr);
-    gap: clamp(2rem, 4.6vw, 4.8rem);
+    grid-template-columns: minmax(0, 1.04fr) minmax(220px, 0.58fr) minmax(330px, 0.88fr);
+    gap: clamp(1.1rem, 2.6vw, 2.3rem);
     align-items: center;
     min-height: 41rem;
     padding: clamp(2rem, 4.4vw, 4.5rem);
@@ -392,6 +428,65 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
   .hero-narrative {
     min-width: 0;
     color: #ffffff;
+  }
+
+  .founder-hero-visual {
+    position: relative;
+    align-self: stretch;
+    min-width: 0;
+    min-height: 34rem;
+    margin: 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 18px;
+    background: #202b3d;
+    box-shadow: 0 22px 44px rgba(4, 10, 20, 0.2);
+  }
+
+  .founder-hero-visual::after {
+    content: "";
+    position: absolute;
+    inset: 38% 0 0;
+    background: linear-gradient(180deg, transparent, rgba(7, 14, 26, 0.88));
+    pointer-events: none;
+  }
+
+  .founder-hero-visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: saturate(0.94) contrast(1.02);
+  }
+
+  .founder-hero-badge {
+    position: absolute;
+    z-index: 1;
+    top: 0.8rem;
+    left: 0.8rem;
+    padding: 0.42rem 0.58rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    background: rgba(7, 14, 26, 0.72);
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 0.58rem;
+    font-weight: 790;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(10px);
+  }
+
+  .founder-hero-visual figcaption {
+    position: absolute;
+    z-index: 1;
+    right: 0.9rem;
+    bottom: 0.9rem;
+    left: 0.9rem;
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 720;
+    line-height: 1.35;
   }
 
   .hero-kicker {
@@ -863,6 +958,22 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
       padding: 2.25rem;
     }
 
+    .hero-narrative {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .founder-hero-visual {
+      grid-column: 1;
+      grid-row: 2;
+      min-height: 18rem;
+    }
+
+    .hero-conversion {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+
     h1 {
       font-size: clamp(2.9rem, 6vw, 4.5rem);
     }
@@ -888,7 +999,27 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     .hero-stage {
       grid-template-columns: 1fr;
       min-height: auto;
-      padding: 2.2rem;
+      gap: 1.55rem;
+      padding: 2rem 1.4rem 1.4rem;
+    }
+
+    .hero-narrative,
+    .hero-conversion,
+    .founder-hero-visual {
+      grid-column: 1;
+    }
+
+    .hero-narrative {
+      grid-row: 1;
+    }
+
+    .hero-conversion {
+      grid-row: 2;
+    }
+
+    .founder-hero-visual {
+      grid-row: 3;
+      min-height: 22rem;
     }
 
     h1 {
@@ -899,13 +1030,21 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
     .proof-bar {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .operations-snapshot {
+      display: none;
+    }
   }
 
   @media (max-width: 620px) {
     .hero-stage {
-      gap: 1.45rem;
-      padding: 1.5rem 1rem 1rem;
+      gap: 1.2rem;
+      padding: 1.35rem 0.95rem 0.95rem;
       border-radius: 18px;
+    }
+
+    .founder-hero-visual {
+      min-height: 19rem;
     }
 
     .hero-kicker {

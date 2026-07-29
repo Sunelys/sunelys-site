@@ -1160,6 +1160,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     position: relative;
   }
 
+  main :is(section[id], form[id]) {
+    scroll-margin-top: 6.4rem;
+  }
+
   h1,
   h2,
   h3,
@@ -1312,6 +1316,10 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
   }
 
   @media (max-width: 760px) {
+    main :is(section[id], form[id]) {
+      scroll-margin-top: 5.1rem;
+    }
+
     body.has-sticky-lead {
       padding-bottom: calc(5.8rem + env(safe-area-inset-bottom, 0px));
     }
