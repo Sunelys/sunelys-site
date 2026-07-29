@@ -35,8 +35,8 @@ const linkColumns = [links.slice(0, Math.ceil(links.length / 2)), links.slice(Ma
     <div class="footer-main">
       <section class="footer-contact" aria-labelledby="footer-contact-title">
         <p id="footer-contact-title" class="footer-label">Nous joindre</p>
-        <span>Responsable commercial</span>
-        <a href="mailto:contact@sunelys.fr" aria-label="Contacter Myriam Zaoui par email">Myriam Zaoui</a>
+        <span>Équipe commerciale</span>
+        <a href="mailto:contact@sunelys.fr" aria-label="Contacter l'équipe Sunelys par email">Équipe Sunelys</a>
         <a href="mailto:contact@sunelys.fr">contact@sunelys.fr</a>
         <a href="tel:+33695907919">06 95 90 79 19</a>
         <span>Les Adrets-de-l’Estérel · France</span>
@@ -75,6 +75,16 @@ const linkColumns = [links.slice(0, Math.ceil(links.length / 2)), links.slice(Ma
       </div>
       <div class="social-links" aria-label="Suivre Sunelys sur LinkedIn">
         <a
+          href={companyLinkedinUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn de Sunelys"
+          data-track="cta_footer_linkedin_company"
+        >
+          LinkedIn Sunelys
+          <span aria-hidden="true">↗</span>
+        </a>
+        <a
           href={founderLinkedinUrl}
           target="_blank"
           rel="noopener noreferrer"
@@ -82,16 +92,6 @@ const linkColumns = [links.slice(0, Math.ceil(links.length / 2)), links.slice(Ma
           data-track="cta_footer_linkedin_founder"
         >
           LinkedIn Myriam
-          <span aria-hidden="true">↗</span>
-        </a>
-        <a
-          href={companyLinkedinUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="LinkedIn Sunelys"
-          data-track="cta_footer_linkedin_company"
-        >
-          LinkedIn Sunelys
           <span aria-hidden="true">↗</span>
         </a>
       </div>
