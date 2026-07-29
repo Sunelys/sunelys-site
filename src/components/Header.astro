@@ -19,7 +19,7 @@ const {
 } = Astro.props;
 
 const contactEmail = "contact@sunelys.fr";
-const founderName = "Myriam Zaoui";
+const contactLabel = "Équipe Sunelys";
 ---
 
 <header class="site-header" data-site-header>
@@ -85,8 +85,8 @@ const founderName = "Myriam Zaoui";
     </nav>
 
     <div class="header-actions">
-      <div class="header-contact-chip" aria-label={`Contact ${founderName}`}>
-        <span>{founderName}</span>
+      <div class="header-contact-chip" aria-label={`Contact ${contactLabel}`}>
+        <span>{contactLabel}</span>
         <a href={`mailto:${contactEmail}`} data-track="header_email">{contactEmail}</a>
       </div>
 
