@@ -162,6 +162,29 @@ const structuredData = [
     max-width: 39rem;
   }
 
+  .homepage-redesign .hero-operations-proof {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    align-self: stretch;
+  }
+
+  .homepage-redesign .hero-operations-proof .operations-snapshot {
+    grid-template-columns: 1fr;
+    width: 100%;
+    max-width: none;
+    margin: 0;
+    padding: 0.62rem;
+  }
+
+  .homepage-redesign .hero-operations-proof .operations-snapshot picture {
+    min-height: 13.5rem;
+  }
+
+  .homepage-redesign .hero-operations-proof .snapshot-copy {
+    padding: 0.15rem 0.1rem 0.05rem;
+  }
+
   .homepage-redesign .hero-kicker {
     color: rgba(255, 255, 255, 0.68);
     letter-spacing: 0.11em;
@@ -729,6 +752,10 @@ const structuredData = [
       padding-bottom: 3rem;
     }
 
+    .homepage-redesign .hero-operations-proof {
+      display: none;
+    }
+
     .homepage-redesign h1 {
       max-width: 13ch;
       font-size: 3.25rem;
@@ -836,10 +863,6 @@ const structuredData = [
 
     .homepage-redesign .proof-bar li:last-child {
       border-bottom: 0;
-    }
-
-    .homepage-redesign .founder-hero-visual {
-      min-height: 20rem;
     }
 
     .homepage-redesign .services-section,

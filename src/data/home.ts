@@ -13,7 +13,7 @@ export const heroData = {
   subtitle:
     "DP, Consuel, raccordement, EDF OA et aides : Sunelys reprend les démarches qui ralentissent vos équipes et vos chantiers.",
   expertLine:
-    "Pour installateurs PV et équipes ENR : dossier ponctuel, pic de charge ou flux récurrent, avec un portail et un interlocuteur unique.",
+    "Pour installateurs PV et équipes ENR : dossier ponctuel, pic de charge ou flux récurrent, avec un cadre de suivi partagé.",
   primaryCta: {
     label: "Recevoir un diagnostic sous 24h",
     href: "/contact?source=hero#contact-form",
@@ -35,13 +35,18 @@ export const heroData = {
     "96 % des DP sans pièce complémentaire",
     "Tarifs fixes dès 49 € HT / dossier",
   ],
-  founderVisual: {
-    src: "/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.png",
-    alt: "Myriam Zaoui, fondatrice de Sunelys, dans un portrait institutionnel premium",
-    label: "Direction Sunelys",
-    title: "Un pilotage humain, précis et lisible pour vos dossiers solaires.",
-    width: 971,
-    height: 1619,
+  operationsSnapshot: {
+    eyebrow: "Portail Sunelys",
+    title: "Un dossier, une prochaine action, un suivi lisible.",
+    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+    avifSrcset:
+      "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
+    alt: "Vue anonymisée du portail Sunelys avec une liste de dossiers photovoltaïques, leur progression et leur prochaine étape",
+    items: [
+      { label: "Pièces", status: "Contrôlées" },
+      { label: "Prochaine action", status: "Visible" },
+      { label: "Relances", status: "Traçables" },
+    ],
   },
 };
 

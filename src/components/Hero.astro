@@ -71,15 +71,18 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
         }
       </ul>
 
-      {
-        data.operationsSnapshot && (
-          <div class="operations-snapshot" data-track-view="homepage_operations_snapshot_view">
+    </div>
+
+    {
+      data.operationsSnapshot && (
+        <div class="hero-operations-proof" data-track-view="homepage_operations_snapshot_view">
+          <div class="operations-snapshot">
             <picture>
               {data.operationsSnapshot.avifSrcset && (
                 <source
                   type="image/avif"
                   srcset={data.operationsSnapshot.avifSrcset}
-                  sizes="(max-width: 820px) 100vw, 34rem"
+                  sizes="(max-width: 820px) 100vw, 20rem"
                 />
               )}
               <img
@@ -105,25 +108,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
               </ul>
             </div>
           </div>
-        )
-      }
-    </div>
-
-    {
-      data.founderVisual && (
-        <figure class="founder-hero-visual" data-track-view="homepage_founder_visual_view">
-          <img
-            src={data.founderVisual.src}
-            alt={data.founderVisual.alt}
-            width={data.founderVisual.width}
-            height={data.founderVisual.height}
-            loading="eager"
-            decoding="async"
-            fetchpriority="high"
-          />
-          <span class="founder-hero-badge">{data.founderVisual.label}</span>
-          <figcaption>{data.founderVisual.title}</figcaption>
-        </figure>
+        </div>
       )
     }
 
