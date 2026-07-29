@@ -40,22 +40,22 @@ const services = [
     description:
       "Nous préparons les pièces, suivons les échanges et pilotons le dossier Consuel jusqu'à validation.",
     points: ["Préparation des pièces", "Gestion des compléments", "Suivi jusqu'à validation"],
-    price: "89 €",
-    priceNote: "pack raccordement + Consuel",
+    price: "Inclus",
+    priceNote: "dans le pack 89 € raccordement + Consuel",
     decisionCue: "Quand la mise en service risque de décrocher faute de suivi clair.",
     href: "/dossier-consuel-photovoltaique",
     guideHref: "/blog/attestation-consuel-photovoltaique",
     guideLabel: "Attestation Consuel",
   },
   {
-    title: "Raccordement Enedis photovoltaïque",
-    shortTitle: "Raccordement Enedis",
-    benefit: "Un suivi réseau centralisé pour mieux tenir les délais de chantier.",
+    title: "Raccordement Enedis + Consuel photovoltaïque",
+    shortTitle: "Raccordement + Consuel",
+    benefit: "Un parcours réseau et conformité suivi dans le même mouvement.",
     description:
-      "Sunelys prend en charge le volet administratif du raccordement et coordonne les jalons pour réduire les angles morts.",
-    points: ["Constitution du dossier", "Suivi des échanges", "Traçabilité des jalons"],
+      "Sunelys coordonne le raccordement Enedis, les pièces techniques et le Consuel pour réduire les angles morts avant mise en service.",
+    points: ["Constitution du dossier", "Suivi Enedis et Consuel", "Traçabilité des jalons"],
     price: "89 €",
-    priceNote: "pack raccordement + Consuel",
+    priceNote: "HT / pack",
     decisionCue: "Quand Enedis, les pièces ou le Consuel doivent avancer ensemble.",
     href: "/raccordement-enedis-photovoltaique",
     guideHref: "/blog/etapes-raccordement-enedis-panneaux-solaires",
@@ -134,9 +134,9 @@ const services = [
   },
 ];
 
-const coreServices = [services[0], services[2], services[3], services[4]];
+const coreServices = [services[0], services[2], services[3]];
 const flowServices = [services[1], services[8]];
-const aidServices = [services[5], services[6], services[7]];
+const complementaryServices = [services[4], services[5], services[6], services[7]];
 
 const delegationModes = [
   {
@@ -212,9 +212,9 @@ const serviceDecisionPaths = [
   {
     label: "Je veux finaliser l'après-chantier",
     title: "EDF OA et aides",
-    text: "Pour traiter contrat d'achat, MaPrimeRénov', CEE ou pack aides selon le dossier.",
+    text: "Pour traiter contrat d'achat, MaPrimeRénov', CEE ou pack aides en complément du parcours principal.",
     price: "Dès 49 € HT",
-    href: "#aid-services-title",
+    href: "#complementary-services-title",
     track: "cta_services_path_aftercare",
   },
 ];
@@ -232,6 +232,11 @@ const visibleCoreServices = coreServices.map((service) => ({
 }));
 
 const visibleFlowServices = flowServices.map((service) => ({
+  ...service,
+  showGuide: Boolean(service.guideHref) && isVisibleHref(service.guideHref, publicBlogSlugs),
+}));
+
+const visibleComplementaryServices = complementaryServices.map((service) => ({
   ...service,
   showGuide: Boolean(service.guideHref) && isVisibleHref(service.guideHref, publicBlogSlugs),
 }));
@@ -431,12 +436,12 @@ const structuredData = {
   <section class="core-services reveal" aria-labelledby="core-services-title">
     <div class="section-head" data-reveal-item>
       <div>
-        <p class="eyebrow">Démarches photovoltaïques</p>
-        <h2 id="core-services-title">Déléguez l’étape qui ralentit vos installations.</h2>
+        <p class="eyebrow">Services essentiels</p>
+        <h2 id="core-services-title">Les étapes qui sécurisent vos installations.</h2>
       </div>
       <p>
-        Chaque service dispose d’un périmètre précis. Vous pouvez commencer par une seule étape avant d’élargir la
-        prise en charge.
+        Commencez par la déclaration préalable ou par le parcours raccordement + Consuel. Chaque périmètre est précis
+        et peut ensuite s’élargir au rythme de vos dossiers.
       </p>
     </div>
 
@@ -466,8 +471,13 @@ const structuredData = {
             </ul>
             {service.decisionCue && <p class="service-decision-cue">{service.decisionCue}</p>}
             <div class="service-actions">
-              <a href={service.href} data-track="cta_services_detail" data-track-label={service.title}>
-                {service.ctaLabel ?? "Voir le service"}
+              <a
+                href={service.href}
+                aria-label={`Voir le périmètre ${service.shortTitle}`}
+                data-track="cta_services_detail"
+                data-track-label={service.title}
+              >
+                Voir le périmètre
                 <span aria-hidden="true">→</span>
               </a>
               {
@@ -527,25 +537,25 @@ const structuredData = {
     </div>
   </section>
 
-  <section class="aid-services reveal" aria-labelledby="aid-services-title">
+  <section class="aid-services reveal" aria-labelledby="complementary-services-title">
     <div class="section-head" data-reveal-item>
       <div>
-        <p class="eyebrow">Aides à la rénovation</p>
-        <h2 id="aid-services-title">MaPrimeRénov’ et CEE, sans dispersion documentaire.</h2>
+        <p class="eyebrow">Compléments selon le projet</p>
+        <h2 id="complementary-services-title">EDF OA et aides, quand le chantier l’exige.</h2>
       </div>
       <p>
-        Éligibilité, devis, factures, dépôt et suivi : les deux aides peuvent être confiées séparément ou pilotées
-        ensemble.
+        Ces périmètres complètent la prise en charge principale : contrat d’achat, éligibilité, devis, factures,
+        dépôt et suivi peuvent être confiés séparément ou regroupés.
       </p>
     </div>
 
-    <div class="aid-grid">
+    <div class="aid-grid" aria-label="Services complémentaires Sunelys">
       {
-        aidServices.map((service, index) => (
-          <article class:list={[index === 2 && "is-featured"]} data-reveal-item>
+        visibleComplementaryServices.map((service, index) => (
+          <article class:list={[index === 3 && "is-featured"]} data-reveal-item>
             <div class="aid-top">
               <span>0{index + 1}</span>
-              {index === 2 && <p>Le plus demandé</p>}
+              {index === 3 && <p>Le plus demandé</p>}
             </div>
             <h3>{service.shortTitle}</h3>
             <p>{service.benefit}</p>
@@ -554,8 +564,13 @@ const structuredData = {
               <strong>{service.price}</strong>
               <span>HT / dossier</span>
             </div>
-            <a href={service.href} data-track="cta_services_aid_detail">
-              {service.ctaLabel}
+            <a
+              href={service.href}
+              aria-label={`Voir le périmètre ${service.shortTitle}`}
+              data-track="cta_services_aid_detail"
+              data-track-label={service.title}
+            >
+              Voir le périmètre
               <span aria-hidden="true">→</span>
             </a>
           </article>
@@ -564,7 +579,7 @@ const structuredData = {
     </div>
 
     <a class="pricing-link" href="/tarifs#aides-renovation" data-track="cta_services_aides_tarifs">
-      Comparer les tarifs des aides
+      Comparer les tarifs complémentaires
       <span aria-hidden="true">↗</span>
     </a>
   </section>
@@ -1548,14 +1563,14 @@ const structuredData = {
 
   .aid-grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin-top: 1.8rem;
     border-top: 1px solid var(--line);
     border-left: 1px solid var(--line);
   }
 
   .aid-grid article {
-    min-height: 22rem;
+    min-height: 18.5rem;
     display: flex;
     flex-direction: column;
     padding: clamp(1rem, 2.2vw, 1.5rem);
@@ -1591,7 +1606,7 @@ const structuredData = {
   }
 
   .aid-grid h3 {
-    margin-top: 2rem;
+    margin-top: 1.35rem;
     font-size: clamp(1.4rem, 2.2vw, 2.1rem);
   }
 
