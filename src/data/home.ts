@@ -38,10 +38,8 @@ export const heroData = {
   operationsSnapshot: {
     eyebrow: "Portail Sunelys",
     title: "Un dossier, une prochaine action, un suivi lisible.",
-    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
-    avifSrcset:
-      "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
-    alt: "Vue anonymisée du portail Sunelys avec une liste de dossiers photovoltaïques, leur progression et leur prochaine étape",
+    src: "/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg",
+    alt: "Vue anonymisée du portail administratif Sunelys avec priorités, pièces reçues et relances à traiter",
     items: [
       { label: "Pièces", status: "Contrôlées" },
       { label: "Prochaine action", status: "Visible" },
@@ -538,14 +536,12 @@ export const portalSectionData = {
       eyebrow: "À traiter maintenant",
       title: "Chaque priorité ressort immédiatement.",
       text: "Les pièces manquantes, les demandes récentes et les dossiers actifs sont réunis dans la même lecture.",
-      src: "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg",
-      avifSrcset:
-        "/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-1280.avif 1280w",
-      alt: "Vue d'ensemble anonymisée du portail Sunelys avec synthèse des dossiers, pièces à transmettre et demandes de documents.",
-      width: 1600,
-      height: 900,
+      src: "/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg",
+      alt: "Vue anonymisée du portail administratif Sunelys avec les priorités, pièces reçues et relances regroupées.",
+      width: 1512,
+      height: 360,
       sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
-      signal: "1 pièce attendue",
+      signal: "Priorités visibles",
     },
     {
       id: "avancement",
@@ -553,14 +549,12 @@ export const portalSectionData = {
       eyebrow: "Suivi partagé",
       title: "L'avancement se comprend sans relance.",
       text: "DP, raccordement, Consuel et aides restent lisibles avec leur statut, leur progression et la prochaine étape.",
-      src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
-      avifSrcset:
-        "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
-      alt: "Liste anonymisée des dossiers dans le portail Sunelys avec progression et prochaine étape visibles.",
-      width: 1600,
-      height: 900,
+      src: "/google-business-profile/sunelys-gbp-portail-urbanisme-2026-07-29.jpg",
+      alt: "Vue anonymisée du portail Sunelys avec l'accès aux portails urbanisme par commune.",
+      width: 1512,
+      height: 744,
       sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
-      signal: "4 flux centralisés",
+      signal: "Accès par commune",
     },
   ],
   editorialMedia: [
