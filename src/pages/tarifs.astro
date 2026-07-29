@@ -110,20 +110,19 @@ const pricingSignals = [
 ];
 
 const snapshotPrices = [
-  { need: "Activer le contrat", label: "EDF OA", price: "49 €", href: "#edf-oa", ctaTrack: "cta_tarifs_matrix_edf_oa" },
-  {
-    need: "Finaliser le réseau",
-    label: "Raccordement + Consuel",
-    price: "89 €",
-    href: "#tarifs-photovoltaique",
-    ctaTrack: "cta_tarifs_matrix_raccordement",
-  },
   {
     need: "Sécuriser le départ",
     label: "DP complète",
     price: "119 €",
     href: "#tarifs-photovoltaique",
     ctaTrack: "cta_tarifs_matrix_dp",
+  },
+  {
+    need: "Finaliser le réseau",
+    label: "Raccordement + Consuel",
+    price: "89 €",
+    href: "#tarifs-photovoltaique",
+    ctaTrack: "cta_tarifs_matrix_raccordement",
   },
   {
     need: "Tout déléguer",
@@ -236,8 +235,8 @@ const structuredData = {
     <aside class="price-matrix" aria-label="Matrice de choix des principaux tarifs" data-reveal-item>
       <div class="matrix-head">
         <div>
-          <p>Matrice de décision</p>
-          <strong>Choisissez selon ce qu'il faut sortir de votre équipe</strong>
+          <p>Offres principales</p>
+          <strong>Choisissez le périmètre à déléguer</strong>
         </div>
         <span>HT / dossier</span>
       </div>
@@ -625,7 +624,7 @@ const structuredData = {
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    padding: 1.05rem 1.15rem;
+    padding: 1.2rem 1.35rem;
     border-bottom: 1px solid var(--line);
     background: #ffffff;
   }
@@ -638,7 +637,7 @@ const structuredData = {
   .matrix-head p,
   .matrix-head > span {
     color: var(--text-muted);
-    font-size: 0.6rem;
+    font-size: 0.62rem;
     font-weight: 700;
   }
 
@@ -651,7 +650,7 @@ const structuredData = {
   .matrix-head strong {
     max-width: 32ch;
     color: var(--text);
-    font-size: 0.88rem;
+    font-size: 1rem;
     line-height: 1.25;
   }
 
@@ -664,8 +663,8 @@ const structuredData = {
     grid-template-columns: auto minmax(0, 1fr) auto auto auto;
     gap: 0.85rem;
     align-items: center;
-    min-height: 4.55rem;
-    padding: 0.65rem 1.15rem;
+    min-height: 5.15rem;
+    padding: 0.78rem 1.35rem;
     border-bottom: 1px solid var(--line);
     color: var(--text);
     text-decoration: none;
@@ -681,7 +680,7 @@ const structuredData = {
 
   .matrix-row > span {
     color: var(--system);
-    font-size: 0.63rem;
+    font-size: 0.68rem;
     font-weight: 800;
   }
 
@@ -692,21 +691,21 @@ const structuredData = {
   .matrix-row small {
     display: block;
     color: var(--text-muted);
-    font-size: 0.57rem;
+    font-size: 0.62rem;
     font-weight: 680;
   }
 
   .matrix-row p {
     margin-top: 0.14rem;
     overflow: hidden;
-    font-size: 0.78rem;
+    font-size: 0.88rem;
     font-weight: 720;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .matrix-row strong {
-    font-size: 1.3rem;
+    font-size: 1.55rem;
     letter-spacing: -0.04em;
     white-space: nowrap;
   }
