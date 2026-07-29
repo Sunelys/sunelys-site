@@ -33,7 +33,7 @@ export const heroData = {
   proofs: [
     "1 357 dossiers ENR pilotés",
     "96 % des DP sans pièce complémentaire",
-    "Tarifs fixes dès 49 € HT / dossier",
+    "Tarifs fixes par dossier, sans abonnement",
   ],
   operationsSnapshot: {
     eyebrow: "Portail Sunelys",
@@ -530,7 +530,7 @@ export const portalSectionData = {
   editorialKicker: "Preuve métier",
   editorialTitle: "Du dossier à la mise en service, tout garde la même tenue.",
   editorialText:
-    "La démonstration reste volontairement concrète : pièces cadrées, terrain raccordé, prochaines actions visibles. Les portraits humains arriveront ensuite avec vos propres photos.",
+    "La démonstration reste volontairement concrète : pièces cadrées, terrain raccordé, prochaines actions visibles. Le portail montre la méthode ; l'équipe Sunelys reste disponible quand une décision doit être prise.",
   views: [
     {
       id: "priorites",
