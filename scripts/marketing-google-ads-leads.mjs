@@ -22,19 +22,45 @@ const options = buildOptions();
 const token = clean(process.env.AIRTABLE_API_KEY || process.env.AIRTABLE_TOKEN || "");
 const baseId = clean(process.env.AIRTABLE_BASE_ID || "");
 const tableName = clean(process.env.AIRTABLE_LEADS_TABLE || "Leads");
+const latestReportPath = path.join(REPORTS_DIR, "latest.json");
 
 if (!token || !baseId) {
   console.error("Missing configuration. Add AIRTABLE_API_KEY and AIRTABLE_BASE_ID.");
   process.exit(1);
 }
 
-const records = await fetchAirtableRecords({
-  token,
-  baseId,
-  tableName,
-  view: options.view,
-  maxRecords: options.maxRecords,
-});
+let records;
+try {
+  records = await fetchAirtableRecords({
+    token,
+    baseId,
+    tableName,
+    view: options.view,
+    maxRecords: options.maxRecords,
+  });
+} catch (error) {
+  const report = buildUnavailableReport({
+    generatedAt: new Date().toISOString(),
+    period: { since: options.since, until: options.until, days: options.days },
+    includeTests: options.includeTests,
+    error: safeErrorMessage(error),
+    lastSuccessfulReport: readLastSuccessfulReport(),
+  });
+  const reportDir = writeReportFiles(report);
+  console.error(
+    JSON.stringify(
+      {
+        status: report.status,
+        report: path.relative(ROOT, reportDir),
+        sourceError: report.sourceError,
+        message: "Lead source unavailable. No zero-lead conclusion was produced.",
+      },
+      null,
+      2,
+    ),
+  );
+  process.exit(2);
+}
 
 const fieldMap = buildFieldMap();
 const leads = records.map((record) => normalizeLeadRecord(record, fieldMap));
@@ -52,11 +78,7 @@ const report = buildReport({
   paidLeads,
 });
 
-const reportDir = path.join(REPORTS_DIR, safeTimestamp(report.generatedAt));
-mkdirSync(reportDir, { recursive: true });
-writeFileSync(path.join(reportDir, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
-writeFileSync(path.join(reportDir, "report.md"), renderMarkdownReport(report));
-writeFileSync(path.join(REPORTS_DIR, "latest.json"), `${JSON.stringify(report, null, 2)}\n`);
+const reportDir = writeReportFiles(report);
 
 console.log(
   JSON.stringify(
@@ -90,6 +112,67 @@ function buildOptions() {
     view: clean(getArgValue("--view") || process.env.MARKETING_LEADS_VIEW || process.env.AIRTABLE_LEADS_VIEW || ""),
     includeTests: hasFlag("--include-tests"),
   };
+}
+
+function buildUnavailableReport({ generatedAt, period, includeTests, error, lastSuccessfulReport }) {
+  return {
+    status: "unavailable",
+    dataAvailable: false,
+    privacy: "No email, phone, name, company name or free-text message is included in this report.",
+    generatedAt,
+    period,
+    includeTests,
+    sourceError: error,
+    fetchedRecords: null,
+    leadsInRange: null,
+    excludedTests: null,
+    totals: null,
+    qualificationGaps: null,
+    byCampaign: [],
+    byLandingPage: [],
+    byAdContent: [],
+    byKeyword: [],
+    byServiceInterest: [],
+    byBlockedStage: [],
+    byVolume: [],
+    byConversionType: [],
+    recentSignals: [],
+    lastSuccessfulReport,
+    recommendations: [
+      "La source Airtable est indisponible. Ne pas conclure a 0 lead tant que la connexion n'est pas retablie.",
+      "Verifier la resolution DNS/API Airtable et le filet de securite formulaire (Resend ou LEAD_FALLBACK_WEBHOOK_URL).",
+      "Reprendre l'analyse paid des que ce rapport repasse en statut ok.",
+    ],
+  };
+}
+
+function writeReportFiles(report) {
+  const reportDir = path.join(REPORTS_DIR, safeTimestamp(report.generatedAt));
+  mkdirSync(reportDir, { recursive: true });
+  writeFileSync(path.join(reportDir, "report.json"), `${JSON.stringify(report, null, 2)}\n`);
+  writeFileSync(path.join(reportDir, "report.md"), renderMarkdownReport(report));
+  writeFileSync(latestReportPath, `${JSON.stringify(report, null, 2)}\n`);
+  return reportDir;
+}
+
+function readLastSuccessfulReport() {
+  if (!existsSync(latestReportPath)) return null;
+  try {
+    const report = JSON.parse(readFileSync(latestReportPath, "utf8"));
+    if (report.status === "unavailable" || report.dataAvailable === false) return null;
+    return {
+      generatedAt: report.generatedAt || null,
+      period: report.period || null,
+      totals: report.totals || null,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function safeErrorMessage(error) {
+  const message = error instanceof Error ? error.message : String(error || "Unknown Airtable error");
+  return clean(message).replace(/Bearer\s+\S+/gi, "Bearer [redacted]").slice(0, 500);
 }
 
 function buildReport({ generatedAt, period, includeTests, excludedTests, fetchedRecords, leadsInRange, paidLeads }) {
@@ -211,8 +294,8 @@ function buildRecommendations(report) {
     }
 
     return [
-      "Aucun lead Google Ads/CPC detecte sur la periode. Garder les campagnes en pause tant que le test formulaire avec UTM et GCLID n'est pas confirme.",
-      "Apres activation, lancer cette commande chaque jour et ne juger que les leads qualifies/hot, pas le volume brut.",
+      "Aucun lead Google Ads/CPC detecte sur la periode. Maintenir la campagne stricte a 3 EUR/jour maximum, sans reactiver les campagnes larges.",
+      "Valider le formulaire avec UTM, GCLID et une source durable avant tout test a 5 EUR/jour.",
       "Verifier que les URLs finales conservent utm_source=google, utm_medium=cpc et utm_campaign dans Airtable.",
     ];
   }
@@ -592,6 +675,27 @@ function renderMarkdownReport(report) {
   lines.push(`Periode: ${report.period.since} -> ${report.period.until}.`);
   lines.push("");
   lines.push(`Confidentialite: ${report.privacy}`);
+
+  if (report.status === "unavailable") {
+    lines.push("");
+    lines.push("## Statut des donnees");
+    lines.push("");
+    lines.push("- Source Airtable: indisponible");
+    lines.push(`- Erreur technique: ${report.sourceError}`);
+    lines.push("- Conclusion: aucun zero lead n'est calcule pendant une panne de source.");
+    if (report.lastSuccessfulReport?.generatedAt) {
+      lines.push(`- Dernier rapport exploitable: ${report.lastSuccessfulReport.generatedAt}`);
+    }
+    lines.push("");
+    lines.push("## Action immediate");
+    lines.push("");
+    for (const recommendation of report.recommendations) {
+      lines.push(`- ${recommendation}`);
+    }
+    lines.push("");
+    return `${lines.join("\n")}\n`;
+  }
+
   lines.push(`Mode test: ${report.includeTests ? "leads test inclus" : "leads test exclus"}.`);
   lines.push("");
   lines.push("## Synthese");
@@ -709,12 +813,24 @@ async function fetchAirtableRecords({ token, baseId, tableName, view, maxRecords
     if (view) url.searchParams.set("view", view);
     if (offset) url.searchParams.set("offset", offset);
 
-    const response = await fetch(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    });
+    let response;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      try {
+        response = await fetchWithTimeout(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+      } catch (error) {
+        if (attempt === 2) throw error;
+        await wait(250 * (attempt + 1));
+        continue;
+      }
+
+      if (response.ok || (response.status < 500 && response.status !== 429) || attempt === 2) break;
+      await wait(250 * (attempt + 1));
+    }
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       throw new Error(`Airtable API ${response.status}: ${JSON.stringify(data).slice(0, 600)}`);
@@ -725,6 +841,21 @@ async function fetchAirtableRecords({ token, baseId, tableName, view, maxRecords
   } while (offset && records.length < maxRecords);
 
   return records.slice(0, maxRecords);
+}
+
+async function fetchWithTimeout(input, init = {}, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 function isLeadInRange(lead, since, until) {

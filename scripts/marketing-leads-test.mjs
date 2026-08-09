@@ -26,7 +26,14 @@ if (!token || !baseId || !tableName) {
   console.log("Missing configuration. Add AIRTABLE_API_KEY, AIRTABLE_BASE_ID and AIRTABLE_LEADS_TABLE before running the full lead report.");
   process.exitCode = 1;
 } else {
-  await testAirtable();
+  try {
+    await testAirtable();
+  } catch (error) {
+    console.log("");
+    console.log(`Airtable API unavailable: ${safeErrorMessage(error)}`);
+    console.log("The credentials are present, but the Airtable endpoint could not be reached.");
+    process.exitCode = 2;
+  }
 }
 
 async function testAirtable() {
@@ -35,7 +42,7 @@ async function testAirtable() {
   url.searchParams.set("maxRecords", "5");
   if (view) url.searchParams.set("view", view);
 
-  const response = await fetch(url, {
+  const response = await fetchWithTimeout(url, {
     headers: {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -59,6 +66,22 @@ async function testAirtable() {
   console.log(`Detected field names: ${fieldNames.length ? fieldNames.join(", ") : "none on first records"}`);
   console.log("");
   console.log("No lead values, emails, names or phone numbers were printed.");
+}
+
+async function fetchWithTimeout(input, init = {}, timeoutMs = 10000) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function safeErrorMessage(error) {
+  const message = error instanceof Error ? error.message : String(error || "Unknown Airtable error");
+  return message.replace(/Bearer\s+\S+/gi, "Bearer [redacted]").slice(0, 500);
 }
 
 async function loadEnvFile(name, { override = false } = {}) {

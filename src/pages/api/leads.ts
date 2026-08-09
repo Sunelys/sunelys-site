@@ -1,10 +1,12 @@
 import type { APIRoute } from "astro";
+import { env as runtimeEnv } from "node:process";
 
 export const prerender = false;
 
 const AIRTABLE_API_URL = "https://api.airtable.com/v0";
 const RESEND_API_URL = "https://api.resend.com";
 const SITE_URL = "https://sunelys.fr";
+const NETWORK_TIMEOUT_MS = 10000;
 
 const SOURCE_LANDING_PATTERNS = [
   { patterns: ["homepage", "home", "quiz-homepage", "hero", "homepage_hero", "homepage-hero", "hero-homepage"], path: "/" },
@@ -358,6 +360,26 @@ function wantsJson(request: Request) {
   return request.headers.get("accept")?.includes("application/json") ?? false;
 }
 
+async function fetchWithTimeout(input: string | URL, init: RequestInit = {}, timeoutMs = NETWORK_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+
+  try {
+    return await fetch(input, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
+function errorMessage(error: unknown) {
+  if (error instanceof Error) return error.message;
+  return String(error || "Unknown network error");
+}
+
+function wait(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 async function notifyLeadFailure(
   env: Record<string, string | undefined>,
   payload: Record<string, unknown>,
@@ -366,7 +388,7 @@ async function notifyLeadFailure(
   if (!webhookUrl) return;
 
   try {
-    await fetch(webhookUrl, {
+    await fetchWithTimeout(webhookUrl, {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -413,11 +435,19 @@ async function notifyNewLead(
     gclid: string;
     message: string;
   },
+  { includeFallbackWebhook = false }: { includeFallbackWebhook?: boolean } = {},
 ) {
-  const webhookUrl = clean(env.LEAD_NOTIFICATION_WEBHOOK_URL ?? "");
+  const webhookUrls = [
+    env.LEAD_NOTIFICATION_WEBHOOK_URL,
+    includeFallbackWebhook ? env.LEAD_FALLBACK_WEBHOOK_URL : "",
+  ]
+    .map(clean)
+    .filter((url, index, urls) => url && urls.indexOf(url) === index);
   const resendApiKey = clean(env.RESEND_API_KEY ?? env.LEAD_NOTIFICATION_RESEND_API_KEY ?? "");
   const from = clean(env.LEAD_NOTIFICATION_FROM ?? "");
   const to = splitList(env.LEAD_NOTIFICATION_TO);
+  let webhookDelivered = false;
+  let emailDelivered = false;
 
   const rows: Array<[string, string]> = [
     ["Nom", payload.displayName],
@@ -439,9 +469,9 @@ async function notifyNewLead(
     ["Airtable record", payload.recordId],
   ].filter(([, value]) => clean(value));
 
-  if (webhookUrl) {
+  for (const webhookUrl of webhookUrls) {
     try {
-      await fetch(webhookUrl, {
+      const response = await fetchWithTimeout(webhookUrl, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -452,12 +482,16 @@ async function notifyNewLead(
           lead: payload,
         }),
       });
+      if (response.ok) webhookDelivered = true;
+      else console.error("Lead notification webhook failed", response.status, await response.text());
     } catch (error) {
       console.error("Lead notification webhook failed", error);
     }
   }
 
-  if (!resendApiKey || !from || to.length === 0) return;
+  if (!resendApiKey || !from || to.length === 0) {
+    return { delivered: webhookDelivered, webhookDelivered, emailDelivered };
+  }
 
   const subjectParts = [
     "Nouveau lead Sunelys",
@@ -487,7 +521,7 @@ async function notifyNewLead(
   `;
 
   try {
-    const response = await fetch(`${RESEND_API_URL}/emails`, {
+    const response = await fetchWithTimeout(`${RESEND_API_URL}/emails`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${resendApiKey}`,
@@ -505,10 +539,16 @@ async function notifyNewLead(
 
     if (!response.ok) {
       console.error("Lead notification email failed", await response.text());
-    }
+    } else emailDelivered = true;
   } catch (error) {
     console.error("Lead notification email failed", error);
   }
+
+  return {
+    delivered: webhookDelivered || emailDelivered,
+    webhookDelivered,
+    emailDelivered,
+  };
 }
 
 function jsonResponse(payload: unknown, status = 200) {
@@ -533,17 +573,32 @@ async function createAirtableLead({
   const removedComputedFields: string[] = [];
 
   for (let attempt = 0; attempt < 4; attempt += 1) {
-    const response = await fetch(`${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(tableName)}`, {
-      method: "POST",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "content-type": "application/json",
-      },
-      body: JSON.stringify({
-        records: [{ fields: writableFields }],
-        typecast: true,
-      }),
-    });
+    let response: Response;
+    try {
+      response = await fetchWithTimeout(`${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(tableName)}`, {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({
+          records: [{ fields: writableFields }],
+          typecast: true,
+        }),
+      });
+    } catch (error) {
+      if (attempt < 3) {
+        await wait(250 * (attempt + 1));
+        continue;
+      }
+
+      return {
+        ok: false as const,
+        status: 0,
+        details: `Airtable network error: ${errorMessage(error)}`,
+        removedComputedFields,
+      };
+    }
 
     if (response.ok) {
       const data = await response.json().catch(() => null);
@@ -597,21 +652,11 @@ function parseRejectedComputedField(details: string) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
-  const env = import.meta.env;
+  // Read private credentials at runtime. `import.meta.env` can inline secrets in a Vercel bundle.
+  const env = runtimeEnv as Record<string, string | undefined>;
   const token = clean(env.AIRTABLE_API_KEY ?? env.AIRTABLE_TOKEN ?? "");
   const baseId = clean(env.AIRTABLE_BASE_ID ?? "");
   const tableName = clean(env.AIRTABLE_LEADS_TABLE ?? "Leads");
-
-  if (!token || !baseId) {
-    return jsonResponse(
-      {
-        ok: false,
-        error:
-          "Airtable is not configured. Set AIRTABLE_API_KEY and AIRTABLE_BASE_ID.",
-      },
-      500,
-    );
-  }
 
   const formData = await request.formData();
   const email = clean(formData.get("email")).toLowerCase();
@@ -752,58 +797,7 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_FOLLOW_UP_SLA", clean(formData.get("follow_up_sla")), env);
   addOptionalField(fields, "AIRTABLE_FIELD_FOLLOW_UP_SEQUENCE", rawFollowUpSequence, env);
 
-  const createResult = await createAirtableLead({
-    token,
-    baseId,
-    tableName,
-    fields,
-  });
-
-  if (!createResult.ok) {
-    console.error("Airtable lead creation failed", createResult.details);
-    await notifyLeadFailure(env, {
-      reason: "airtable_create_failed",
-      airtable_status: createResult.status,
-      airtable_details: createResult.details.slice(0, 2000),
-      removed_computed_fields: createResult.removedComputedFields,
-      lead: {
-        email,
-        firstName,
-        lastName,
-        company: clean(formData.get("company")),
-        phone: clean(formData.get("phone")),
-        volume: normalizeVolume(rawVolume),
-        need: normalizeNeed(rawNeed),
-        team_context: rawTeamContext,
-        urgency: rawUrgency,
-        conversion_type: conversionType,
-        lead_stage: leadStage,
-        blocked_stage: blockedStage,
-        service_interest: inferredServiceInterest || rawNeed,
-        lead_source_detail: leadSourceDetail,
-        qualification_hint: qualificationHint,
-        pipeline: clean(formData.get("lead_pipeline")),
-        owner: clean(formData.get("lead_owner")),
-        follow_up_sla: clean(formData.get("follow_up_sla")),
-        follow_up_sequence: rawFollowUpSequence,
-        source: sourceValue,
-        first_referrer: firstReferrer,
-        landing_page: landingPage,
-        utm_source: utmSource,
-        utm_medium: utmMedium,
-        utm_campaign: clean(formData.get("utm_campaign")),
-        utm_term: clean(formData.get("utm_term")),
-        utm_content: clean(formData.get("utm_content")),
-        gclid,
-        fbclid,
-        msclkid,
-      },
-    });
-    return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);
-  }
-
-  await notifyNewLead(env, {
-    recordId: createResult.recordId,
+  const leadDetails = {
     email,
     firstName,
     lastName,
@@ -830,6 +824,50 @@ export const POST: APIRoute = async ({ request }) => {
     utmContent: clean(formData.get("utm_content")),
     gclid,
     message: rawMessage,
+  };
+
+  const createResult = token && baseId
+    ? await createAirtableLead({ token, baseId, tableName, fields })
+    : {
+        ok: false as const,
+        status: 0,
+        details: "Airtable is not configured.",
+        removedComputedFields: [] as string[],
+      };
+
+  if (!createResult.ok) {
+    console.error("Airtable lead creation failed", createResult.details);
+    const fallbackDelivery = await notifyNewLead(
+      env,
+      { recordId: "airtable_pending", ...leadDetails },
+      { includeFallbackWebhook: true },
+    );
+    await notifyLeadFailure(env, {
+      reason: token && baseId ? "airtable_create_failed" : "airtable_not_configured",
+      airtable_status: createResult.status,
+      airtable_details: createResult.details.slice(0, 2000),
+      removed_computed_fields: createResult.removedComputedFields,
+      fallback_delivered: fallbackDelivery.delivered,
+      fallback_email_delivered: fallbackDelivery.emailDelivered,
+      fallback_webhook_delivered: fallbackDelivery.webhookDelivered,
+      lead: leadDetails,
+    });
+
+    if (fallbackDelivery.delivered) {
+      if (wantsJson(request)) {
+        return jsonResponse({ ok: true, fallback: true, warning: "Lead delivered outside Airtable." });
+      }
+
+      const nextUrl = clean(formData.get("_next")) || "/merci";
+      return Response.redirect(nextUrl, 303);
+    }
+
+    return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);
+  }
+
+  await notifyNewLead(env, {
+    recordId: createResult.recordId,
+    ...leadDetails,
   });
 
   if (wantsJson(request)) return jsonResponse({ ok: true });

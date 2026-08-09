@@ -149,6 +149,17 @@ LEAD_NOTIFICATION_TO=contact@sunelys.fr
 
 `LEAD_NOTIFICATION_TO` accepte plusieurs destinataires separes par des virgules. Le domaine d'envoi doit etre valide dans Resend. Optionnellement, `LEAD_NOTIFICATION_WEBHOOK_URL` peut recevoir le meme evenement en JSON.
 
+### Filet de securite si Airtable est indisponible
+
+Une panne DNS ou API Airtable ne doit pas faire perdre une demande. L'API tente alors une livraison de secours via Resend si les variables ci-dessus sont renseignees, et/ou via un webhook de collecte durable:
+```bash
+LEAD_FALLBACK_WEBHOOK_URL=https://votre-webhook.example.com/leads-fallback
+```
+
+Ce webhook doit enregistrer le JSON recu dans une source durable (Make, n8n, Google Apps Script, CRM ou base de donnees). Le formulaire ne confirme la demande que si Airtable ou au moins un filet de secours a accuse reception. Les alertes de panne sont envoyees via `LEAD_ALERT_WEBHOOK_URL` quand il est configure.
+
+Les secrets Airtable sont lus au runtime par l'endpoint serveur et ne doivent jamais etre exposes dans le bundle public.
+
 ### Reporting leads qualifies
 `npm run marketing:audit` lit aussi Airtable en lecture pour produire un bloc `Lead quality reporting` dans `reports/marketing-agent/latest.md`.
 Le rapport agrège uniquement des données non personnelles: landing page, canal, service demandé, type de conversion, volume, score qualité et trous de qualification.

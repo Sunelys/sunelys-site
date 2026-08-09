@@ -50,6 +50,7 @@ Les connecteurs externes sont optionnels:
 - GA4 via `GA4_PROPERTY_ID`
 - Search Console via `GOOGLE_SEARCH_CONSOLE_SITE_URL`
 - Airtable leads via `AIRTABLE_API_KEY`, `AIRTABLE_BASE_ID` et `AIRTABLE_LEADS_TABLE`
+- filet de securite formulaire via `LEAD_FALLBACK_WEBHOOK_URL` et/ou Resend
 - PageSpeed Insights via `MARKETING_AGENT_PAGESPEED=1`
 - Synthese IA via `OPENAI_API_KEY`
 
@@ -94,6 +95,8 @@ Si elle est vide, l'agent lit la table `AIRTABLE_LEADS_TABLE`.
 La synthese IA recoit uniquement les agrégats du rapport, pas les emails, noms, telephones ou messages individuels.
 Lors de la creation d'un lead, l'API normalise les champs Airtable en listes: besoin principal, source et volume. Cela evite les variantes de libelles qui rendraient le reporting inexploitable.
 Le layout remplit aussi automatiquement les champs caches d'attribution (`landing_page`, referrer, UTM et click IDs) au chargement puis juste avant chaque envoi de formulaire. Si un champ manque cote navigateur, l'API deduit une valeur de secours depuis le referrer, `source_page`, les UTM et les click IDs disponibles.
+
+Si Airtable est indisponible, le formulaire tente une livraison de secours par Resend ou `LEAD_FALLBACK_WEBHOOK_URL`. Le reporting `marketing:ads:leads` produit alors un rapport `status: unavailable` et ne transforme pas la panne de source en faux `0 lead`.
 
 ## Configuration Google
 
