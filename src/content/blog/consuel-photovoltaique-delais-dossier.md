@@ -4,7 +4,7 @@ title: "Consuel photovoltaïque : comment mieux préparer le dossier et limiter 
 seoTitle: "Consuel photovoltaïque : dossier, délais et suivi | Sunelys"
 description: "Comprendre les points de friction du Consuel photovoltaïque et mettre en place un suivi administratif plus fiable pour les installateurs solaires."
 pubDate: "2026-04-23"
-updatedDate: "2026-07-07"
+updatedDate: "2026-08-10"
 category: "Consuel"
 readingTime: "5 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -90,6 +90,12 @@ Avant dépôt, le dossier doit répondre à trois questions simples :
 3. La prochaine action est-elle claire si un complément est demandé ?
 
 Cette logique de contrôle est particulièrement utile quand plusieurs équipes interviennent. Le commercial connaît le client, le chantier connaît la réalité terrain, le bureau d'études connaît les documents techniques, et l'administratif doit rendre l'ensemble exploitable. Sans méthode commune, chacun peut avoir une partie de la réponse sans que le dossier soit réellement prêt.
+
+## Le bon moment pour reprendre le dossier
+
+Il n'est pas nécessaire d'attendre un refus pour remettre le dossier à plat. Une reprise est déjà pertinente lorsque les pièces sont dispersées, que le statut n'est pas lisible ou que la mise en service dépend d'une information encore incertaine.
+
+Le contrôle utile consiste à isoler les pièces manquantes, vérifier la cohérence de la version transmise et définir la prochaine action. Cette lecture simple évite de confondre un dossier réellement en cours avec un dossier qui attend silencieusement une réponse.
 
 ## Comment suivre le dossier après dépôt
 

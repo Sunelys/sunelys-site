@@ -4,7 +4,7 @@ title: "Déclaration préalable panneaux solaires : les erreurs qui ralentissent
 seoTitle: "Erreurs déclaration préalable panneaux solaires"
 description: "Les erreurs fréquentes dans une déclaration préalable panneaux solaires, leurs conséquences pour les installateurs et comment structurer un dossier plus fluide."
 pubDate: "2026-04-23"
-updatedDate: "2026-06-22"
+updatedDate: "2026-08-10"
 category: "Déclaration préalable"
 readingTime: "5 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -81,6 +81,12 @@ Un dossier administratif mieux préparé permet de réduire les allers-retours, 
 5. Informer le client uniquement avec des statuts clairs.
 
 Cette méthode peut être internalisée. Mais dès que le volume augmente, elle demande du temps, de la rigueur et une vraie continuité opérationnelle.
+
+## Les pièces graphiques méritent un contrôle dédié
+
+Les pièces graphiques sont souvent relues trop rapidement parce qu'elles semblent déjà disponibles. Pourtant, une DP6, une DP7 ou une DP8 doit rester cohérente avec l'adresse, la toiture, l'implantation et la description du projet. Une image lisible mais mal contextualisée peut créer autant de friction qu'une pièce absente.
+
+Avant dépôt, vérifiez donc que chaque visuel correspond au bon chantier, qu'il permet de comprendre la modification et qu'il raconte la même version du projet que les autres documents. Ce contrôle ciblé est particulièrement utile lorsque les pièces sont produites par plusieurs interlocuteurs.
 
 ## Quand déléguer la déclaration préalable ?
 
