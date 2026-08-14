@@ -502,6 +502,10 @@ const structuredData = {
         Sunelys peut devenir le relais administratif régulier de vos équipes, sur les seules DP ou sur l’ensemble
         du parcours photovoltaïque.
       </p>
+      <a class="specialist-link" href="/sous-traitance-administrative-photovoltaique-installateur" data-track="cta_services_specialist_seo">
+        Voir l'accompagnement dédié aux installateurs PV
+        <span aria-hidden="true">↗</span>
+      </a>
     </div>
 
     <div class="flow-grid">
@@ -1143,6 +1147,28 @@ const structuredData = {
     color: var(--text-muted);
     font-size: 0.87rem;
     line-height: 1.62;
+  }
+
+  .specialist-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    width: fit-content;
+    margin-top: 1.15rem;
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 820;
+    text-decoration: none;
+  }
+
+  .specialist-link span {
+    color: var(--system);
+    transition: transform 160ms ease;
+  }
+
+  .specialist-link:hover span,
+  .specialist-link:focus-visible span {
+    transform: translate(0.12rem, -0.12rem);
   }
 
   .delegation-list {

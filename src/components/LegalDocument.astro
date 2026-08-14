@@ -13,12 +13,13 @@ interface Props {
   intro: string;
   updatedAt: string;
   sections: SectionLink[];
+  robots?: string;
 }
 
-const { title, description, eyebrow, intro, updatedAt, sections } = Astro.props;
+const { title, description, eyebrow, intro, updatedAt, sections, robots = "index,follow" } = Astro.props;
 ---
 
-<BaseLayout title={`${title} | Sunelys`} description={description}>
+<BaseLayout title={`${title} | Sunelys`} description={description} robots={robots}>
   <header class="legal-hero">
     <div>
       <p class="eyebrow">{eyebrow}</p>
