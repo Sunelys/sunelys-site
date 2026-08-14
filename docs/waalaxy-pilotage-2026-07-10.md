@@ -87,6 +87,22 @@ Decision:
 - Ne pas relancer un nouveau lot tant que les 4 acceptations n'ont pas recu la sequence complete.
 - Preparer ensuite une variante de premier message plus courte et plus orientee dirigeant, a tester sur un nouveau lot separe plutot que de modifier les campagnes en cours.
 
+### Audit du 2026-07-29
+
+Le test initial commence a produire un signal commercial exploitable:
+
+- `Dirigeants PV - Test diagnostic admin - 2026-07-10`: 14 invitations, 4 acceptees (28,6%), 6 messages envoyes et 1 reponse. Waalaxy affiche un taux de reponse de 25%.
+- Parmi les 3 prospects sortis de cette campagne, Eitan Berry est marque `Interesse`; Patrick Cappuccio et Benoit Sabatier ont termine sans reponse.
+- `Dirigeants PV - A-fit strict - Sans note - 2026-07-14`: 12 prospects encore actifs, 2 sortis et un taux de reponse affiche de 66,7%.
+- Les deux reponses A-fit sont exploitables mais de nature differente: Abderrahmane Belouard indique que son projet est "en construction"; Xavier Emeraud indique deja disposer d'une organisation interne et est classe `Pas interesse`.
+
+Decision commerciale:
+
+- Priorite immediate: repondre manuellement a Eitan Berry, puis qualifier le calendrier et le besoin d'Abderrahmane Belouard.
+- Ne pas ajouter un troisieme lot avant ces relances: les deux cohortes ne comptent que 14 profils chacune et 23 prospects poursuivent encore leur sequence.
+- Le ciblage A-fit est prometteur sur la reponse, mais l'echantillon est trop faible pour conclure; conserver les deux campagnes telles quelles et lancer une nouvelle variante de message uniquement apres traitement de ces conversations.
+- Aucun changement de sequence, ajout de prospect ou envoi automatique n'est applique pendant cet audit.
+
 ### Test parallele A-fit strict lance le 2026-07-14
 
 Nom: `Dirigeants PV - A-fit strict - Sans note - 2026-07-14`
