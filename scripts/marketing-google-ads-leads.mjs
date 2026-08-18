@@ -415,7 +415,18 @@ function normalizeLeadRecord(record, fieldMap) {
     leadStage: clean(read("leadStage")),
     status,
     volume: clean(read("volume")) || volumeFromMessage || "unknown",
-    isTest: isTestLead({ email, company, status, source, sourceDetail, message }),
+    isTest: isTestLead({
+      email,
+      company,
+      status,
+      source,
+      sourceDetail,
+      message,
+      leadStage: clean(read("leadStage")),
+      utmCampaign: clean(read("utmCampaign")) || campaignFromMessage,
+      utmTerm,
+      utmContent,
+    }),
     hasEmail: Boolean(clean(read("email"))),
     hasCompany: Boolean(clean(read("company"))),
     hasPhone: Boolean(clean(read("phone"))),
@@ -500,15 +511,35 @@ function isPaidSearchLead(lead) {
   return signal.includes("utm_source google") && signal.includes("utm_medium cpc");
 }
 
-function isTestLead({ email, company, status, source, sourceDetail, message }) {
-  const signal = normalizeText(`${email} ${company} ${status} ${source} ${sourceDetail} ${message}`);
+function isTestLead({
+  email,
+  company,
+  status,
+  source,
+  sourceDetail,
+  message,
+  leadStage = "",
+  utmCampaign = "",
+  utmTerm = "",
+  utmContent = "",
+}) {
+  const signal = normalizeText(
+    `${email} ${company} ${status} ${source} ${sourceDetail} ${message} ${leadStage} ${utmCampaign} ${utmTerm} ${utmContent}`,
+  );
   return (
     signal.includes("test tracking") ||
     signal.includes("tracking test") ||
     signal.includes("ne pas traiter") ||
     signal.includes("google ads test") ||
+    signal.includes("google ads diagnostic") ||
+    signal.includes("diagnostic test") ||
+    signal.includes("test diagnostic") ||
+    signal.includes("diagnostic_test") ||
+    signal.includes("test-diagnostic") ||
+    signal.includes("production diagnostic") ||
     signal.includes("test+google") ||
-    signal.includes("sunelys test")
+    signal.includes("sunelys test") ||
+    signal.includes("sunelys diagnostic")
   );
 }
 
