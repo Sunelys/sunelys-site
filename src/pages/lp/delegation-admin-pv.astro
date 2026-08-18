@@ -134,8 +134,8 @@ const specialistReasons = [
 
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
       <p class="eyebrow">Cadrage sous 24h</p>
-      <h2>Quel dossier admin voulez-vous déléguer ?</h2>
-      <p class="form-audience-note">Réponse humaine · professionnels PV</p>
+      <h2>Quel dossier voulez-vous sortir de vos équipes ?</h2>
+      <p class="form-audience-note">2 champs · réponse humaine · sans engagement</p>
       <form
         class="lp-form"
         action={leadFormAction}
@@ -152,7 +152,7 @@ const specialistReasons = [
         <input type="hidden" name="lead_stage" value="lp_admin_pv_form_submitted" />
         <input type="hidden" name="service_interest" value="Délégation administrative photovoltaïque" />
         <input type="hidden" name="lead_source_detail" value="google_ads_lp_admin_pv" />
-        <input type="hidden" name="qualification_hint" value="landing SEA: besoin, volume, email, téléphone optionnel" />
+        <input type="hidden" name="qualification_hint" value="landing SEA: besoin et email requis; volume, téléphone et blocage optionnels" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Google Ads - Landing delegation admin PV" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -175,9 +175,9 @@ const specialistReasons = [
         </label>
 
         <label>
-          <span>Volume mensuel</span>
-          <select name="volume" required>
-            <option value="">Sélectionner</option>
+          <span>Volume mensuel <em>optionnel</em></span>
+          <select name="volume">
+            <option value="">À préciser plus tard</option>
             <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
             <option value="10-30 dossiers">10-30 dossiers</option>
             <option value="+30 dossiers">+30 dossiers</option>
@@ -185,14 +185,15 @@ const specialistReasons = [
         </label>
 
         <label>
-          <span>Email professionnel</span>
+          <span>Email pour recevoir le cadrage</span>
           <input type="email" name="email" autocomplete="email" inputmode="email" required />
         </label>
 
         <button class="btn btn-primary btn-accent" type="submit" data-track="cta_lp_admin_pv_form_submit">
-          Recevoir mon cadrage
+          Recevoir le cadrage sous 24h
         </button>
-        <small>3 champs suffisent pour lancer le cadrage. Les précisions ci-dessous restent optionnelles.</small>
+        <small>2 champs suffisent pour lancer le cadrage. Les précisions ci-dessous restent optionnelles.</small>
+        <p class="form-reassurance">Prix fixes annoncés avant démarrage · aucun engagement</p>
 
         <details class="form-more">
           <summary>Ajouter un téléphone ou préciser le blocage <span>optionnel</span></summary>
@@ -1230,6 +1231,13 @@ const specialistReasons = [
   .lp-form > small {
     color: var(--text-muted);
     font-size: 0.72rem;
+  }
+
+  .form-reassurance {
+    margin: -0.15rem 0 0;
+    color: var(--text-muted);
+    font-size: 0.7rem;
+    line-height: 1.35;
   }
 
   .form-more {
