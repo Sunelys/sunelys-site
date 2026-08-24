@@ -135,7 +135,7 @@ const specialistReasons = [
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
       <p class="eyebrow">Cadrage sous 24h</p>
       <h2>Quel dossier voulez-vous sortir de vos équipes ?</h2>
-      <p class="form-audience-note">2 champs · réponse humaine · sans engagement</p>
+      <p class="form-audience-note">Quelques repères · réponse humaine · sans engagement</p>
       <form
         class="lp-form"
         action={leadFormAction}
@@ -152,7 +152,7 @@ const specialistReasons = [
         <input type="hidden" name="lead_stage" value="lp_admin_pv_form_submitted" />
         <input type="hidden" name="service_interest" value="Délégation administrative photovoltaïque" />
         <input type="hidden" name="lead_source_detail" value="google_ads_lp_admin_pv" />
-        <input type="hidden" name="qualification_hint" value="landing SEA: besoin et email requis; volume, téléphone et blocage optionnels" />
+        <input type="hidden" name="qualification_hint" value="landing SEA B2B: profil professionnel, besoin, volume et email requis; société, téléphone et blocage optionnels" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Google Ads - Landing delegation admin PV" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -175,9 +175,20 @@ const specialistReasons = [
         </label>
 
         <label>
-          <span>Volume mensuel <em>optionnel</em></span>
-          <select name="volume">
-            <option value="">À préciser plus tard</option>
+          <span>Votre profil professionnel</span>
+          <select name="team_context" required>
+            <option value="">Sélectionner</option>
+            <option value="Installateur photovoltaïque">Installateur photovoltaïque</option>
+            <option value="Entreprise solaire / commercialisateur">Entreprise solaire / commercialisateur</option>
+            <option value="Bureau d'études / équipe administrative ENR">Bureau d'études / équipe administrative ENR</option>
+            <option value="Autre professionnel du solaire">Autre professionnel du solaire</option>
+          </select>
+        </label>
+
+        <label>
+          <span>Volume mensuel</span>
+          <select name="volume" required>
+            <option value="">Sélectionner</option>
             <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
             <option value="10-30 dossiers">10-30 dossiers</option>
             <option value="+30 dossiers">+30 dossiers</option>
@@ -192,12 +203,17 @@ const specialistReasons = [
         <button class="btn btn-primary btn-accent" type="submit" data-track="cta_lp_admin_pv_form_submit">
           Recevoir le cadrage sous 24h
         </button>
-        <small>2 champs suffisent pour lancer le cadrage. Les précisions ci-dessous restent optionnelles.</small>
+        <small>Ces repères nous permettent de vous orienter vers la bonne brique. Société, téléphone et blocage restent optionnels.</small>
         <p class="form-reassurance">Prix fixes annoncés avant démarrage · aucun engagement</p>
 
         <details class="form-more">
           <summary>Ajouter un téléphone ou préciser le blocage <span>optionnel</span></summary>
           <div>
+            <label>
+              <span>Nom de l'entreprise <em>optionnel</em></span>
+              <input type="text" name="company" autocomplete="organization" />
+            </label>
+
             <label>
               <span>Téléphone pour rappel <em>optionnel</em></span>
               <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
@@ -1795,8 +1811,7 @@ const specialistReasons = [
     }
 
     .hero-filters {
-      display: grid;
-      gap: 0.4rem;
+      display: none;
     }
 
     .hero-filters li {

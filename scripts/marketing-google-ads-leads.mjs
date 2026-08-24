@@ -193,6 +193,7 @@ function buildReport({ generatedAt, period, includeTests, excludedTests, fetched
     missingServiceInterest: paidLeads.filter((lead) => lead.serviceInterest === "unknown").length,
     missingBlockedStage: paidLeads.filter((lead) => lead.blockedStage === "unknown").length,
     missingVolume: paidLeads.filter((lead) => lead.volume === "unknown").length,
+    missingTeamContext: paidLeads.filter((lead) => !lead.hasTeamContext).length,
     missingCompany: paidLeads.filter((lead) => !lead.hasCompany).length,
     missingPhone: paidLeads.filter((lead) => !lead.hasPhone).length,
   };
@@ -306,9 +307,9 @@ function buildRecommendations(report) {
     );
   }
 
-  if (report.qualificationGaps.missingVolume > 0 || report.qualificationGaps.missingBlockedStage > 0) {
+  if (report.qualificationGaps.missingVolume > 0 || report.qualificationGaps.missingTeamContext > 0) {
     recommendations.push(
-      "Des signaux de qualification manquent encore. Garder volume et blocage administratif obligatoires sur les formulaires Ads.",
+      "Des signaux de qualification manquent encore. Garder profil professionnel et volume obligatoires sur les formulaires Ads; le blocage administratif peut rester optionnel.",
     );
   }
 
@@ -352,6 +353,7 @@ function normalizeLeadRecord(record, fieldMap) {
   const sourceFromMessage = extractContextValue(message, ["Source detail", "Source detaillee", "Source"]);
   const landingFromMessage = extractContextValue(message, ["Landing page", "Page d'atterrissage", "Landing"]);
   const volumeFromMessage = extractContextValue(message, ["Volume", "Volume mensuel", "Volume dossiers/mois"]);
+  const teamContextFromMessage = extractContextValue(message, ["Situation", "Contexte équipe", "Contexte", "Team context"]);
   const serviceFromMessage = extractContextValue(message, ["Service", "Besoin", "Need"]);
   const campaignFromMessage = extractContextValue(message, ["UTM campaign", "utm_campaign", "Campagne"]);
   const mediumFromMessage = extractContextValue(message, ["UTM medium", "utm_medium"]);
@@ -392,6 +394,7 @@ function normalizeLeadRecord(record, fieldMap) {
     conversionType,
     message,
   });
+  const teamContext = clean(read("teamContext")) || teamContextFromMessage;
 
   const lead = {
     createdAt: parseLeadDate(read("createdAt")) || record.createdTime || "",
@@ -415,6 +418,7 @@ function normalizeLeadRecord(record, fieldMap) {
     leadStage: clean(read("leadStage")),
     status,
     volume: clean(read("volume")) || volumeFromMessage || "unknown",
+    teamContext,
     isTest: isTestLead({
       email,
       company,
@@ -430,6 +434,7 @@ function normalizeLeadRecord(record, fieldMap) {
     hasEmail: Boolean(clean(read("email"))),
     hasCompany: Boolean(clean(read("company"))),
     hasPhone: Boolean(clean(read("phone"))),
+    hasTeamContext: Boolean(teamContext),
     hasNeed: Boolean(clean(read("need"))),
     hasMessage: Boolean(message),
   };
@@ -452,6 +457,7 @@ function buildFieldMap() {
     company: fieldCandidates("AIRTABLE_FIELD_COMPANY", ["Societe", "Société", "Entreprise", "Company"]),
     phone: fieldCandidates("AIRTABLE_FIELD_PHONE", ["Telephone", "Téléphone", "Phone"]),
     volume: fieldCandidates("AIRTABLE_FIELD_VOLUME", ["Volume", "Volume mensuel", "Volume dossiers/mois"]),
+    teamContext: fieldCandidates("AIRTABLE_FIELD_TEAM_CONTEXT", ["Situation", "Contexte équipe", "Contexte", "Team context"]),
     need: fieldCandidates("AIRTABLE_FIELD_NEED", ["Besoin", "Besoin principal", "Need"]),
     message: fieldCandidates("AIRTABLE_FIELD_MESSAGE", ["Message", "Commentaire"]),
     conversionType: fieldCandidates("AIRTABLE_FIELD_CONVERSION_TYPE", [
@@ -610,6 +616,7 @@ function scoreLeadQuality(lead) {
   let score = 0;
   const status = normalizeText(lead.status);
   const volume = normalizeText(lead.volume);
+  const teamContext = normalizeText(lead.teamContext);
   const conversion = normalizeText(lead.conversionType);
   const service = normalizeText(lead.serviceInterest);
   const blockedStage = normalizeText(lead.blockedStage);
@@ -628,6 +635,9 @@ function scoreLeadQuality(lead) {
   else if (volume.includes("1-10") || volume.includes("1 a 10") || volume.includes("moins")) score += 12;
 
   if (service && service !== "unknown") score += 12;
+  if (["installateur", "entreprise solaire", "commercialisateur", "bureau d etudes", "equipe administrative", "professionnel du solaire", "enr"].some((term) => teamContext.includes(term))) {
+    score += 8;
+  }
   if (blockedStage && blockedStage !== "unknown") score += 8;
   if (["complement", "consuel", "raccordement", "mise en service", "bloque", "bloquee"].some((term) => blockedStage.includes(term))) {
     score += 4;
