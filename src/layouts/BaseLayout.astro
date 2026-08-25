@@ -591,8 +591,45 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       };
 
       const confirmedLeadKeys = new Set();
+      const pendingConversionStorageKey = "sunelys_pending_conversion";
+
+      const savePendingLeadConversion = (params = {}) => {
+        try {
+          const attribution = window.getSunelysAttribution?.() || {};
+          const pendingConversion = {
+            ...params,
+            attribution: {
+              utm_source: attribution.utm_source || "",
+              utm_medium: attribution.utm_medium || "",
+              utm_campaign: attribution.utm_campaign || "",
+              utm_term: attribution.utm_term || "",
+              utm_content: attribution.utm_content || "",
+              gclid: attribution.gclid || "",
+              fbclid: attribution.fbclid || "",
+              msclkid: attribution.msclkid || "",
+              landing_page: attribution.landing_page || window.location.pathname,
+              first_referrer: attribution.first_referrer || document.referrer || "direct",
+            },
+          };
+          sessionStorage.setItem(pendingConversionStorageKey, JSON.stringify(pendingConversion));
+        } catch (_error) {
+          // La conversion reste mesurable dès que le consentement est disponible.
+        }
+      };
+
+      const readPendingLeadConversion = () => {
+        try {
+          return JSON.parse(sessionStorage.getItem(pendingConversionStorageKey) || "null");
+        } catch (_error) {
+          return null;
+        }
+      };
+
       window.trackLeadSuccess = (params = {}) => {
-        if (!window.sunelysAnalyticsEnabled) return;
+        if (!window.sunelysAnalyticsEnabled) {
+          savePendingLeadConversion(params);
+          return;
+        }
 
         const successPayload = {
           ...params,
@@ -615,10 +652,32 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         try {
           sessionStorage.setItem("sunelys_form_submitted", "true");
           sessionStorage.removeItem("sunelys_pending_lead");
+          sessionStorage.removeItem(pendingConversionStorageKey);
         } catch (_error) {
           // La confirmation reste mesurée si le stockage de session est indisponible.
         }
       };
+
+      window.addEventListener("sunelys:consent-change", (event) => {
+        if (!event.detail?.analytics) return;
+
+        const pendingConversion = readPendingLeadConversion();
+        if (!pendingConversion || typeof pendingConversion !== "object") return;
+
+        const pendingAttribution = pendingConversion.attribution || {};
+        try {
+          const currentAttribution = readStoredAttribution();
+          localStorage.setItem(
+            "sunelys_attribution",
+            JSON.stringify({ ...currentAttribution, ...pendingAttribution }),
+          );
+        } catch (_error) {
+          // L'événement peut tout de même être envoyé avec la configuration Ads active.
+        }
+
+        const { attribution: _attribution, ...conversionPayload } = pendingConversion;
+        window.trackLeadSuccess?.({ ...conversionPayload, conversion_replayed: true });
+      });
 
       window.trackLeadError = (params = {}) => {
         window.trackEvent?.("form_error", {
@@ -896,10 +955,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             lead_stage: leadStage,
           });
 
-          if (
-            !submittedForm.hasAttribute("data-async-lead-form") &&
-            window.sunelysAnalyticsEnabled
-          ) {
+          if (!submittedForm.hasAttribute("data-async-lead-form")) {
             try {
               sessionStorage.setItem(
                 "sunelys_pending_lead",
