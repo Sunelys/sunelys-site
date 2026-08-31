@@ -758,6 +758,10 @@ export const POST: APIRoute = async ({ request }) => {
     return jsonResponse({ ok: false, error: "Email is required." }, 400);
   }
 
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email)) {
+    return jsonResponse({ ok: false, error: "Enter a valid email address." }, 400);
+  }
+
   const fields: Record<string, string> = {};
   setNamedField(fields, env.AIRTABLE_FIELD_FIRST_NAME || "Prénom", firstName);
   setNamedField(fields, env.AIRTABLE_FIELD_LAST_NAME || "Nom", lastName || displayName);
