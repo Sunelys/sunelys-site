@@ -124,6 +124,12 @@ const specialistReasons = [
         </a>
       </div>
 
+      <div class="hero-direct-contact" aria-label="Contact direct Sunelys">
+        <span>Besoin d'une réponse immédiate&nbsp;?</span>
+        <a href="tel:+33695907919" data-track="cta_lp_admin_pv_hero_phone">Appeler le 06 95 90 79 19</a>
+        <a href="mailto:contact@sunelys.fr" data-track="cta_lp_admin_pv_hero_email">Écrire à contact@sunelys.fr</a>
+      </div>
+
       <ul class="hero-filters" aria-label="Filtres de qualification">
         <li>Sous-traitance admin PV</li>
         <li>DP 119 € HT</li>
@@ -138,9 +144,11 @@ const specialistReasons = [
       <p class="form-audience-note">Quelques repères · réponse humaine · sans engagement</p>
       <form
         class="lp-form"
+        id="lp-admin-pv-form"
         action={leadFormAction}
         method="POST"
         data-lead-form
+        data-async-lead-form
         data-conversion-type="form_contact"
       >
         <input type="hidden" name="_subject" value="Nouveau lead SEA - delegation administrative PV" />
@@ -203,7 +211,8 @@ const specialistReasons = [
         <button class="btn btn-primary btn-accent" type="submit" data-track="cta_lp_admin_pv_form_submit">
           Recevoir le cadrage sous 24h
         </button>
-        <small>Ces repères nous permettent de vous orienter vers la bonne brique. Société, téléphone et blocage restent optionnels.</small>
+        <p class="form-status" role="status" aria-live="polite" hidden></p>
+        <small>Réponse sous 24h ouvrées. Société, téléphone et blocage restent optionnels.</small>
         <p class="form-reassurance">Prix fixes annoncés avant démarrage · aucun engagement</p>
 
         <details class="form-more">
@@ -405,6 +414,80 @@ const specialistReasons = [
     const key = field.dataset.lpAttribution || "";
     field.value = lpAttribution[key] || "";
   });
+
+  const lpLeadForm = document.querySelector("#lp-admin-pv-form");
+  const lpLeadStatus = lpLeadForm?.querySelector(".form-status");
+  const lpSubmitButton = lpLeadForm?.querySelector("button[type='submit']");
+
+  if (
+    lpLeadForm instanceof HTMLFormElement &&
+    lpLeadStatus instanceof HTMLElement &&
+    lpSubmitButton instanceof HTMLButtonElement
+  ) {
+    const setLeadStatus = (message, state) => {
+      lpLeadStatus.hidden = false;
+      lpLeadStatus.textContent = message;
+      lpLeadStatus.dataset.state = state;
+    };
+
+    lpLeadForm.addEventListener("submit", async (event) => {
+      const actionUrl = new URL(lpLeadForm.action, window.location.href);
+      if (actionUrl.origin !== window.location.origin || lpLeadForm.dataset.submitting === "true") return;
+
+      event.preventDefault();
+      lpLeadForm.dataset.submitting = "true";
+      lpSubmitButton.disabled = true;
+      lpSubmitButton.dataset.originalLabel = lpSubmitButton.textContent || "";
+      lpSubmitButton.textContent = "Envoi en cours...";
+      setLeadStatus("Nous transmettons votre cadrage à Sunelys...", "loading");
+
+      const submittedData = new FormData(lpLeadForm);
+
+      try {
+        const response = await fetch(actionUrl, {
+          method: "POST",
+          body: submittedData,
+          headers: { Accept: "application/json" },
+        });
+        const payload = await response.json().catch(() => ({}));
+
+        if (!response.ok || payload?.ok === false) throw new Error("Lead submission failed");
+
+        window.trackLeadSuccess?.({
+          source: String(submittedData.get("source_page") || "lp_delegation_admin_pv"),
+          need: String(submittedData.get("need") || ""),
+          volume: String(submittedData.get("volume") || ""),
+          blocked_stage: String(submittedData.get("blocked_stage") || ""),
+          conversion_type: String(submittedData.get("conversion_type") || "form_contact"),
+          service_interest: String(submittedData.get("service_interest") || "Délégation administrative photovoltaïque"),
+          form_id: lpLeadForm.id,
+          form_location: "lp_admin_pv_hero",
+          lead_source_detail: String(submittedData.get("lead_source_detail") || "google_ads_lp_admin_pv"),
+        });
+
+        setLeadStatus("Demande reçue. Sunelys revient vers vous sous 24h ouvrées.", "success");
+        lpSubmitButton.textContent = "Demande reçue";
+        window.setTimeout(() => {
+          window.location.assign("/merci?source=lp_delegation_admin_pv");
+        }, 700);
+      } catch (_error) {
+        window.trackLeadError?.({
+          source: "lp_delegation_admin_pv",
+          conversion_type: "form_contact",
+          form_id: lpLeadForm.id,
+          form_location: "lp_admin_pv_hero",
+          error_type: "submission_failed",
+        });
+        setLeadStatus(
+          "L'envoi est momentanément indisponible. Appelez le 06 95 90 79 19 ou écrivez à contact@sunelys.fr.",
+          "error",
+        );
+        lpSubmitButton.disabled = false;
+        lpSubmitButton.textContent = lpSubmitButton.dataset.originalLabel || "Recevoir le cadrage sous 24h";
+        lpLeadForm.dataset.submitting = "false";
+      }
+    });
+  }
 </script>
 
 <style>
@@ -595,6 +678,27 @@ const specialistReasons = [
     display: flex;
     flex-wrap: wrap;
     gap: 0.68rem;
+  }
+
+  .hero-direct-contact {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.48rem 0.72rem;
+    color: #b9c5d8;
+    font-size: 0.76rem;
+  }
+
+  .hero-direct-contact a {
+    color: #ffffff;
+    font-weight: 800;
+    text-decoration: underline;
+    text-decoration-color: color-mix(in srgb, var(--accent) 76%, transparent);
+    text-underline-offset: 0.18em;
+  }
+
+  .hero-direct-contact a:hover {
+    color: var(--accent);
   }
 
   .hero-price-strip {
@@ -1072,6 +1176,12 @@ const specialistReasons = [
       line-height: 1.35;
     }
 
+    .hero-direct-contact {
+      display: grid;
+      gap: 0.28rem;
+      font-size: 0.74rem;
+    }
+
   }
 
   /* Direction visuelle 2026 */
@@ -1247,6 +1357,30 @@ const specialistReasons = [
   .lp-form > small {
     color: var(--text-muted);
     font-size: 0.72rem;
+  }
+
+  .form-status {
+    margin: -0.12rem 0 0;
+    border-radius: 10px;
+    padding: 0.62rem 0.72rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    line-height: 1.4;
+  }
+
+  .form-status[data-state="loading"] {
+    background: var(--system-soft);
+    color: var(--system);
+  }
+
+  .form-status[data-state="success"] {
+    background: var(--success-soft);
+    color: #147456;
+  }
+
+  .form-status[data-state="error"] {
+    background: #fff1ef;
+    color: #a53b2d;
   }
 
   .form-reassurance {

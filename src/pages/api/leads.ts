@@ -444,8 +444,8 @@ async function notifyNewLead(
     .map(clean)
     .filter((url, index, urls) => url && urls.indexOf(url) === index);
   const resendApiKey = clean(env.RESEND_API_KEY ?? env.LEAD_NOTIFICATION_RESEND_API_KEY ?? "");
-  const from = clean(env.LEAD_NOTIFICATION_FROM ?? "");
-  const to = splitList(env.LEAD_NOTIFICATION_TO);
+  const from = clean(env.LEAD_NOTIFICATION_FROM ?? "Sunelys <contact@sunelys.fr>");
+  const to = splitList(env.LEAD_NOTIFICATION_TO || "contact@sunelys.fr");
   let webhookDelivered = false;
   let emailDelivered = false;
 
