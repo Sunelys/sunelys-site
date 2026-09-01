@@ -658,11 +658,11 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         }
       };
 
-      window.addEventListener("sunelys:consent-change", (event) => {
-        if (!event.detail?.analytics) return;
+      window.replayPendingLeadConversion = () => {
+        if (!window.sunelysAnalyticsEnabled) return false;
 
         const pendingConversion = readPendingLeadConversion();
-        if (!pendingConversion || typeof pendingConversion !== "object") return;
+        if (!pendingConversion || typeof pendingConversion !== "object") return false;
 
         const pendingAttribution = pendingConversion.attribution || {};
         try {
@@ -677,7 +677,17 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
         const { attribution: _attribution, ...conversionPayload } = pendingConversion;
         window.trackLeadSuccess?.({ ...conversionPayload, conversion_replayed: true });
+        return true;
+      };
+
+      window.addEventListener("sunelys:consent-change", (event) => {
+        if (!event.detail?.analytics) return;
+        window.replayPendingLeadConversion?.();
       });
+
+      // Rejoue une conversion enregistrée avant redirection lorsque le consentement
+      // était déjà accordé sur la page de confirmation.
+      if (window.sunelysAnalyticsEnabled) window.replayPendingLeadConversion();
 
       window.trackLeadError = (params = {}) => {
         window.trackEvent?.("form_error", {
