@@ -14,23 +14,23 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 ## Etat courant
 
-Etat global au 2026-09-14, avant verification du deploiement S3 :
+Etat global au 2026-09-14, apres verification publique :
 
 - Publication S3 preparee dans un worktree isole ; changements locaux hors S3 preserves.
-- S1 et S2 restent publiees ; S3 validee par le message utilisateur « occupe toi en », activee dans le manifeste pour publication. S4 a S8 restent en backlog.
+- S1, S2 et S3 sont publiees et verifiees en HTTP 200. S3 a ete autorisee par le message utilisateur « occupe toi en » puis poussee avec le commit `8f0eff8`. S4 a S8 restent en backlog.
 - S1 est validee, poussee et publiee.
 - Les deux URLs S1 et les deux URLs S2 repondent en `200` sur `https://sunelys.fr`.
 - S2 a ete poussee avec le commit `842572c` et est verifiee en ligne.
-- Attendre la verification publique S3 en 200 avant de considerer S4 comme prochaine semaine.
+- S4 est la prochaine semaine a preparer, lors de la prochaine passe. Ne pas publier S4 sans validation ; ne pas creer S9.
 
 ## Tableau de suivi
 
-| Semaine | Contenus | Etat local | Etat Git au 2026-09-05 | Etat public au 2026-09-05 | Prochaine action |
+| Semaine | Contenus | Etat local | Etat Git (S3 actualisee le 2026-09-14) | Etat public (S1-S3 verifies le 2026-09-14 ; S4-S8 historique) | Prochaine action |
 |---|---|---|---|---|---|
 | S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
 | S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Validee et publiee | Poussee (`842572c`) | 200 / 200 | Terminee |
-| S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Validee, activee dans le manifeste | Commit de publication en preparation | 404 / 404 avant deploiement | Verifier les deux URLs apres deploiement |
-| S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S3 |
+| S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Validee et publiee | Poussee (`8f0eff8`) | 200 / 200 le 2026-09-14 | Terminee |
+| S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Prochaine semaine a preparer ; validation requise |
 | S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S4 |
 | S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S5 |
 | S7 | `declaration-prealable-ou-permis-construire-photovoltaique`, `cout-raccordement-enedis-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S6 |
@@ -65,4 +65,6 @@ Etat global au 2026-09-14, avant verification du deploiement S3 :
 
 ## Publication S3 du 2026-09-14
 
-Validation utilisateur reçue. Deux articles datés du 14 septembre, marqueurs backlog retirés pour aligner l’audit marketing, liens du corps vers S5/S7 retirés, procédure Enedis actuelle ajoutée. Build Node 22.23.0 et audit des 34 pages réussis ; maillage des deux HTML et sitemap vérifiés. S4 à S8 hors manifeste. Aucun changement hors S3 embarqué. Statut public à confirmer après déploiement.
+Validation utilisateur reçue. Deux articles datés du 14 septembre, marqueurs backlog retirés pour aligner l’audit marketing, liens du corps vers S5/S7 retirés, procédure Enedis actuelle ajoutée. Build Node 22.23.0 et audit des 34 pages réussis ; maillage des deux HTML et sitemap vérifiés. S4 à S8 hors manifeste. Aucun changement hors S3 embarqué. Statut public confirmé après déploiement : S1/S2/S3 en 200 et présentes au sitemap ; S4 reste absente du sitemap.
+
+Verification finale : 2026-09-14 10:48:40 CEST. Aucun écart entre suivi, origin/main et site public concernant S3.
