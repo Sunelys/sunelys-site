@@ -10,6 +10,10 @@ export const publicBlogSlugs = [
   "declaration-prealable-panneaux-solaires-pieces-delais",
   "attestation-consuel-photovoltaique",
 
+  // S3
+  "delai-declaration-prealable-photovoltaique",
+  "delai-raccordement-enedis-photovoltaique",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

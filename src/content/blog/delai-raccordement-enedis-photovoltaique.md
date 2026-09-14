@@ -1,11 +1,10 @@
 ---
 slug: "delai-raccordement-enedis-photovoltaique"
-publicationStatus: "backlog"
 title: "Délai raccordement Enedis photovoltaïque : étapes et points de blocage"
 seoTitle: "Délai raccordement Enedis photovoltaïque"
 description: "Comprendre le délai de raccordement Enedis photovoltaïque : demande complète, proposition, Consuel, mise en service et blocages à éviter."
-pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+pubDate: "2026-09-14"
+updatedDate: "2026-09-14"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
@@ -117,7 +116,7 @@ Cela signifie que le raccordement et le Consuel doivent être suivis ensemble. S
 
 Pour sécuriser cette étape, consultez aussi le guide [attestation Consuel photovoltaïque](/blog/attestation-consuel-photovoltaique). Il détaille l'attestation bleue ou violette et le dossier technique SC 144.
 
-## Peut-on produire avant la mise en service ?
+## Peut-on injecter avant la mise en service ?
 
 Non. Enedis indique que l'injection d'énergie avant la mise en service est interdite et ne sera pas rémunérée.
 
@@ -169,7 +168,7 @@ Externaliser devient pertinent quand le raccordement consomme du temps commercia
 
 Sunelys accompagne les installateurs sur le [raccordement Enedis photovoltaïque](/raccordement-enedis-photovoltaique) : dépôt, suivi, relances, coordination avec Consuel et traçabilité des jalons. L'objectif est de rendre chaque dossier plus lisible jusqu'à la mise en service.
 
-Pour le parcours complet, lisez aussi le guide [raccordement Enedis photovoltaïque : étapes et dossier](/blog/raccordement-enedis-photovoltaique-etapes-delais). Pour piloter les statuts au quotidien, gardez la checklist [étapes raccordement Enedis panneaux solaires](/blog/etapes-raccordement-enedis-panneaux-solaires). Pour préparer la discussion client, consultez [coût raccordement Enedis photovoltaïque](/blog/cout-raccordement-enedis-photovoltaique).
+Pour le parcours complet, lisez aussi le guide [raccordement Enedis photovoltaïque : étapes et dossier](/blog/raccordement-enedis-photovoltaique-etapes-delais). Pour piloter les statuts au quotidien et préparer la discussion client, utilisez les étapes et les points de contrôle présentés dans cet article.
 
 ## Sources officielles à vérifier
 
@@ -178,7 +177,7 @@ Avant de figer vos process internes, vérifiez :
 - la page Enedis [installer des panneaux solaires](https://www.enedis.fr/raccordement-installation-production-electrique) ;
 - la page Enedis [installation de production](https://www.enedis.fr/je-raccorde-une-installation-de-production-delectricite) ;
 - la FAQ Enedis [raccorder ses panneaux photovoltaïques](https://www.enedis.fr/faq/autoconsom-mation-produire-et-consommer-son-electricite/comment-raccorder-ses-panneaux) ;
-- la procédure Enedis de traitement des raccordements de production BT jusqu'à 36 kVA.
+- la [procédure Enedis-NMO-RAC_013E de traitement des raccordements de production BT jusqu’à 36 kVA](https://www.enedis.fr/media/2145/download), référence du 15 septembre 2025 remplaçant Enedis-PRO-RAC_20E ; voir notamment le paragraphe 7.2.2.1 pour les délais de proposition.
 
 ## FAQ
 

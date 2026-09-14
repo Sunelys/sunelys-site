@@ -1,6 +1,6 @@
 # Suivi publication SEO Sunelys
 
-Derniere verification : 2026-09-05.
+Derniere verification : 2026-09-14.
 
 Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu avant toute automation ou preparation de nouvelle semaine.
 
@@ -14,14 +14,14 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 ## Etat courant
 
-Etat global au 2026-09-05 :
+Etat global au 2026-09-14, avant verification du deploiement S3 :
 
-- `main` local est aligne avec `origin/main`.
-- S1 et S2 sont publiees ; les contenus S3 a S8 existent localement comme backlog suivi par Git.
+- Publication S3 preparee dans un worktree isole ; changements locaux hors S3 preserves.
+- S1 et S2 restent publiees ; S3 validee par le message utilisateur « occupe toi en », activee dans le manifeste pour publication. S4 a S8 restent en backlog.
 - S1 est validee, poussee et publiee.
 - Les deux URLs S1 et les deux URLs S2 repondent en `200` sur `https://sunelys.fr`.
 - S2 a ete poussee avec le commit `842572c` et est verifiee en ligne.
-- S3 est la prochaine semaine a traiter. Ne pas preparer S9 tant que S3 a S8 ne sont pas progressivement publiees selon la cadence.
+- Attendre la verification publique S3 en 200 avant de considerer S4 comme prochaine semaine.
 
 ## Tableau de suivi
 
@@ -29,7 +29,7 @@ Etat global au 2026-09-05 :
 |---|---|---|---|---|---|
 | S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
 | S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Validee et publiee | Poussee (`842572c`) | 200 / 200 | Terminee |
-| S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Prochaine semaine a valider et publier |
+| S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Validee, activee dans le manifeste | Commit de publication en preparation | 404 / 404 avant deploiement | Verifier les deux URLs apres deploiement |
 | S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S3 |
 | S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S4 |
 | S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S5 |
@@ -62,3 +62,7 @@ Etat global au 2026-09-05 :
 - Ne pas faire de reset, checkout destructif ou suppression de changements existants.
 - Ne pas melanger une semaine de contenu avec des refactors non necessaires.
 - Avant toute verification, confirmer que le depot courant est exactement `/Users/sunelys/Documents/SITE SUNELYS/sunelys-site`, que `git rev-parse --show-toplevel` renvoie ce chemin et que `origin` est configure. Si ce controle echoue, arreter la passe et signaler un blocage de configuration sans modifier le depot.
+
+## Publication S3 du 2026-09-14
+
+Validation utilisateur reçue. Deux articles datés du 14 septembre, marqueurs backlog retirés pour aligner l’audit marketing, liens du corps vers S5/S7 retirés, procédure Enedis actuelle ajoutée. Build Node 22.23.0 et audit des 34 pages réussis ; maillage des deux HTML et sitemap vérifiés. S4 à S8 hors manifeste. Aucun changement hors S3 embarqué. Statut public à confirmer après déploiement.
