@@ -14,6 +14,10 @@ export const publicBlogSlugs = [
   "delai-declaration-prealable-photovoltaique",
   "delai-raccordement-enedis-photovoltaique",
 
+  // S4
+  "delai-consuel-photovoltaique",
+  "sous-traiter-declaration-prealable-photovoltaique",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

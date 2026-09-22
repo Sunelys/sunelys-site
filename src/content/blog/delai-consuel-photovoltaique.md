@@ -1,11 +1,10 @@
 ---
 slug: "delai-consuel-photovoltaique"
-publicationStatus: "backlog"
 title: "Délai Consuel photovoltaïque : combien de temps prévoir ?"
 seoTitle: "Délai Consuel photovoltaïque : guide"
 description: "Délai Consuel photovoltaïque : demande de visa, visite, anomalies, visa final et méthode pour éviter les retards de mise en service."
-pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+pubDate: "2026-09-22"
+updatedDate: "2026-09-22"
 category: "Consuel"
 readingTime: "8 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -127,7 +126,7 @@ Une installation photovoltaïque sans stockage relève de l'attestation bleue. U
 
 Consuel indique qu'un dossier technique SC 144 est à joindre à une attestation bleue ou violette pour les installations de production. Le type de SC 144 dépend de la configuration : micro-onduleurs, stockage, protections côté DC, type de raccordement.
 
-Point d'attention actuel : Consuel indique que la période transitoire liée aux anciennes versions de certains dossiers techniques SC 144 s'achève le 29 juin 2026. À partir de cette date, seules les versions en vigueur référencées par Consuel devront être utilisées. C'est typiquement le genre de détail qui doit être vérifié avant dépôt.
+Point d'attention actuel : Consuel indique que, depuis le 29 juin 2026, les anciennes versions SC144A-4, SC144B-4, SC144C-4, SC144C2-1 et SC144D-4 ne sont plus acceptées. Vérifiez la version en vigueur correspondant au chantier avant le dépôt.
 
 ### Informations incohérentes
 
@@ -139,7 +138,7 @@ Si le dossier Consuel est préparé après la fin du chantier, chaque correction
 
 ### Anomalies après visite
 
-Si Consuel relève une ou plusieurs anomalies, le dossier passe en action requise. Les non-conformités doivent être levées. Consuel peut demander une déclaration de mise en conformité ou le règlement d'une seconde visite. Pour traiter ce cas, consultez le guide [Consuel refusé photovoltaïque](/blog/consuel-refuse-motifs-solutions).
+Si Consuel relève une ou plusieurs anomalies, le dossier passe en action requise. Les non-conformités doivent être levées. Consuel peut demander une déclaration de mise en conformité ou le règlement d'une seconde visite.
 
 ## Méthode installateur pour réduire les retards
 
@@ -162,7 +161,7 @@ Sunelys accompagne les installateurs sur la préparation et le suivi des [dossie
 
 Sunelys ne remplace pas la responsabilité technique de l'installateur. L'auteur des travaux reste responsable de ce qu'il signe. En revanche, Sunelys peut cadrer les pièces, contrôler la cohérence administrative, suivre les statuts et coordonner le Consuel avec le [délai de raccordement Enedis photovoltaïque](/blog/delai-raccordement-enedis-photovoltaique).
 
-Pour sécuriser la base du dossier, lisez aussi le guide [attestation Consuel photovoltaïque](/blog/attestation-consuel-photovoltaique). Pour chiffrer la partie attestation et les reprises possibles, consultez [prix Consuel photovoltaïque](/blog/prix-consuel-photovoltaique).
+Pour sécuriser la base du dossier, lisez aussi le guide [attestation Consuel photovoltaïque](/blog/attestation-consuel-photovoltaique).
 
 ## Sources officielles à vérifier
 

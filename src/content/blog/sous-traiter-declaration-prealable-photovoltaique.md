@@ -1,11 +1,10 @@
 ---
 slug: "sous-traiter-declaration-prealable-photovoltaique"
-publicationStatus: "backlog"
 title: "Sous-traiter ses déclarations préalables photovoltaïques : méthode"
 seoTitle: "Sous-traiter déclaration préalable photovoltaïque"
 description: "Quand et comment sous-traiter les déclarations préalables photovoltaïques : périmètre, sécurité, coûts cachés et méthode installateur."
-pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+pubDate: "2026-09-22"
+updatedDate: "2026-09-22"
 category: "Organisation"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
