@@ -5,6 +5,7 @@ export interface NavLink {
 }
 
 interface Props {
+  design?: string;
   path: string;
   navLinks: NavLink[];
   ctaHref?: string;
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const {
+  design,
   path,
   navLinks,
   ctaHref = "/contact",
@@ -25,7 +27,7 @@ const contactLabel = "Équipe Sunelys";
 <header class="site-header" data-site-header>
   <div class="container header-row">
     <a class="brand-link" href="/" aria-label="Sunelys — Accueil" data-track="nav_brand_home">
-      <img src="/brand/wordmark.svg" alt="Sunelys" width="136" height="27" loading="eager" decoding="async" />
+      <img src={design === "f1" ? "/brand/f1/sunelys-signature-blanc.svg" : "/brand/wordmark.svg"} alt="Sunelys" width={design === "f1" ? 216 : 136} height={design === "f1" ? 48 : 27} loading="eager" decoding="async" />
     </a>
 
     <nav class="main-nav" id="main-navigation" aria-label="Navigation principale">

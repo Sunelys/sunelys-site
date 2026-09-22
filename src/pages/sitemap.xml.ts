@@ -1,7 +1,7 @@
 import { getPublicBlogPosts } from "../lib/blogPublication";
 
 const staticRoutes = [
-  { path: "", lastmod: "2026-07-24" },
+  { path: "", lastmod: "2026-09-22" },
   { path: "/services", lastmod: "2026-08-10" },
   { path: "/parcours", lastmod: "2026-07-24" },
   { path: "/tarifs", lastmod: "2026-07-24" },

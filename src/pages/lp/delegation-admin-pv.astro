@@ -140,13 +140,14 @@ const specialistReasons = [
 
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
       <p class="eyebrow">Cadrage sous 24h</p>
-      <h2>Quel dossier voulez-vous sortir de vos équipes ?</h2>
-      <p class="form-audience-note">Quelques repères · réponse humaine · sans engagement</p>
+      <h2 id="lp-form-heading">Quel dossier voulez-vous sortir de vos équipes ?</h2>
+      <p class="form-audience-note" id="lp-form-reassurance">Quelques repères · réponse humaine · sans engagement</p>
       <form
         class="lp-form"
         id="lp-admin-pv-form"
         action={leadFormAction}
         method="POST"
+        aria-describedby="lp-form-reassurance"
         data-lead-form
         data-async-lead-form
         data-conversion-type="form_contact"
@@ -160,7 +161,7 @@ const specialistReasons = [
         <input type="hidden" name="lead_stage" value="lp_admin_pv_form_submitted" />
         <input type="hidden" name="service_interest" value="Délégation administrative photovoltaïque" />
         <input type="hidden" name="lead_source_detail" value="google_ads_lp_admin_pv" />
-        <input type="hidden" name="qualification_hint" value="landing SEA B2B: profil professionnel, besoin, volume et email requis; société, téléphone et blocage optionnels" />
+        <input type="hidden" name="qualification_hint" value="landing SEA B2B: besoin, volume et email requis; profil professionnel, société, téléphone et blocage optionnels" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Google Ads - Landing delegation admin PV" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -169,6 +170,9 @@ const specialistReasons = [
         {attributionFields.map((fieldName) => (
           <input type="hidden" name={fieldName} data-lp-attribution={fieldName} />
         ))}
+        <div class="form-trap" aria-hidden="true">
+          <label>Ne pas remplir ce champ<input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+        </div>
 
         <label>
           <span>Besoin principal</span>
@@ -183,19 +187,8 @@ const specialistReasons = [
         </label>
 
         <label>
-          <span>Votre profil professionnel</span>
-          <select name="team_context" required>
-            <option value="">Sélectionner</option>
-            <option value="Installateur photovoltaïque">Installateur photovoltaïque</option>
-            <option value="Entreprise solaire / commercialisateur">Entreprise solaire / commercialisateur</option>
-            <option value="Bureau d'études / équipe administrative ENR">Bureau d'études / équipe administrative ENR</option>
-            <option value="Autre professionnel du solaire">Autre professionnel du solaire</option>
-          </select>
-        </label>
-
-        <label>
           <span>Volume mensuel</span>
-          <select name="volume" required>
+          <select name="volume" required aria-describedby="volume-helper">
             <option value="">Sélectionner</option>
             <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
             <option value="10-30 dossiers">10-30 dossiers</option>
@@ -212,12 +205,23 @@ const specialistReasons = [
           Recevoir le cadrage sous 24h
         </button>
         <p class="form-status" role="status" aria-live="polite" hidden></p>
-        <small>Réponse sous 24h ouvrées. Société, téléphone et blocage restent optionnels.</small>
+        <small id="volume-helper">Réponse sous 24h ouvrées. Profil, société, téléphone et blocage restent optionnels.</small>
         <p class="form-reassurance">Prix fixes annoncés avant démarrage · aucun engagement</p>
 
         <details class="form-more">
-          <summary>Ajouter un téléphone ou préciser le blocage <span>optionnel</span></summary>
+          <summary>Ajouter un profil, un téléphone ou préciser le blocage <span>optionnel</span></summary>
           <div>
+            <label>
+              <span>Votre profil professionnel <em>optionnel</em></span>
+              <select name="team_context">
+                <option value="">Installateur PV ou équipe ENR</option>
+                <option value="Installateur photovoltaïque">Installateur photovoltaïque</option>
+                <option value="Entreprise solaire / commercialisateur">Entreprise solaire / commercialisateur</option>
+                <option value="Bureau d'études / équipe administrative ENR">Bureau d'études / équipe administrative ENR</option>
+                <option value="Autre professionnel du solaire">Autre professionnel du solaire</option>
+              </select>
+            </label>
+
             <label>
               <span>Nom de l'entreprise <em>optionnel</em></span>
               <input type="text" name="company" autocomplete="organization" />
@@ -418,6 +422,30 @@ const specialistReasons = [
   const lpLeadForm = document.querySelector("#lp-admin-pv-form");
   const lpLeadStatus = lpLeadForm?.querySelector(".form-status");
   const lpSubmitButton = lpLeadForm?.querySelector("button[type='submit']");
+  const lpNeedSelect = lpLeadForm?.querySelector("select[name='need']");
+  const lpFormHeading = document.querySelector("#lp-form-heading");
+
+  const landingIntents = {
+    dp: {
+      need: "Declaration prealable",
+      heading: "Votre déclaration préalable photovoltaïque, cadrée sous 24h.",
+      sourceDetail: "google_ads_lp_dp",
+    },
+    consuel: {
+      need: "Raccordement Enedis + Consuel",
+      heading: "Votre raccordement et votre Consuel, cadrés sous 24h.",
+      sourceDetail: "google_ads_lp_consuel",
+    },
+  };
+
+  const landingIntentKey = new URLSearchParams(window.location.search).get("offer");
+  const landingIntent = landingIntents[landingIntentKey];
+  if (landingIntent) {
+    if (lpNeedSelect instanceof HTMLSelectElement) lpNeedSelect.value = landingIntent.need;
+    if (lpFormHeading instanceof HTMLElement) lpFormHeading.textContent = landingIntent.heading;
+    const sourceDetailInput = lpLeadForm?.querySelector("input[name='lead_source_detail']");
+    if (sourceDetailInput instanceof HTMLInputElement) sourceDetailInput.value = landingIntent.sourceDetail;
+  }
 
   if (
     lpLeadForm instanceof HTMLFormElement &&
@@ -2055,6 +2083,20 @@ const specialistReasons = [
     border-radius: 18px;
   }
 
+  .form-trap {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .form-trap input {
+    position: absolute;
+    inset: 0;
+  }
+
   .lp-proof-band {
     overflow: hidden;
     border: 1px solid color-mix(in srgb, var(--system) 11%, var(--line));
@@ -2082,6 +2124,34 @@ const specialistReasons = [
   @media (max-width: 680px) {
     .lp-hero {
       border-radius: 18px;
+      gap: 0.9rem;
+      padding: 1rem;
+    }
+
+    .lp-hero .hero-copy {
+      gap: 0.64rem;
+    }
+
+    .lp-hero .hero-intake {
+      margin-top: 0.1rem;
+    }
+
+    .lp-hero .hero-intake h2 {
+      max-width: 18ch;
+      font-size: 1.55rem;
+    }
+
+    .lp-form {
+      gap: 0.56rem;
+    }
+
+    .lp-form input,
+    .lp-form select {
+      min-height: 2.8rem;
+    }
+
+    .lp-form .btn {
+      min-height: 3rem;
     }
 
     .lp-proof-band {

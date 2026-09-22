@@ -3,6 +3,7 @@ import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import ExitIntentModal from "../components/ExitIntentModal.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import "../styles/site-f1.css";
 
 interface BreadcrumbItem {
   name: string;
@@ -17,6 +18,7 @@ const {
   image,
   ogType = "website",
   breadcrumbs,
+  design = "f1",
 } = Astro.props;
 
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
@@ -50,8 +52,11 @@ const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
 const isContactPage = path === "/contact";
 const isCompliancePage = path === "/mentions-legales" || path === "/politique-confidentialite";
-const showLeadCaptureShell = path !== "/merci" && !isNoindex && !isContactPage && !isCompliancePage;
-const showExitIntent = showLeadCaptureShell && path !== "/";
+const isPaidLanding = path === "/lp/delegation-admin-pv";
+const showLeadCaptureShell = path !== "/merci" && !isContactPage && !isCompliancePage && (!isNoindex || isPaidLanding);
+const showExitIntent = showLeadCaptureShell && path !== "/" && !isPaidLanding;
+const stickyLeadHref = isPaidLanding ? "#diagnostic" : "/contact?source=sticky#contact-form";
+const stickyLeadLabel = isPaidLanding ? "Cadrer le dossier" : "Diagnostic 24h";
 
 const routeLabels: Record<string, string> = {
   "/services": "Services",
@@ -187,7 +192,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
-    <meta name="theme-color" content="#0e1726" />
+    <meta name="theme-color" content={design === "f1" ? "#151718" : "#0e1726"} />
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
@@ -359,13 +364,15 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <link rel="icon" href="/favicon.ico" />
   </head>
   <body
+    data-design={design}
+    data-page={path}
     class:list={[showLeadCaptureShell && "has-sticky-lead"]}
     style={brandingVars}
     data-branding-intensity={BRANDING_INTENSITY}
   >
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic sous 24h" />
+    <Header design={design} path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic sous 24h" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">
@@ -389,8 +396,8 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
             <a class="sticky-lead-secondary" href="tel:+33695907919" data-track="cta_sticky_phone">
               Appeler
             </a>
-            <a class="sticky-lead-primary" href="/contact?source=sticky#contact-form" data-track="cta_sticky_form">
-              Diagnostic 24h
+            <a class="sticky-lead-primary" href={stickyLeadHref} data-track="cta_sticky_form">
+              {stickyLeadLabel}
             </a>
           </div>
         </div>
@@ -626,6 +633,16 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       };
 
       window.trackLeadSuccess = (params = {}) => {
+        const confirmationEvent = new CustomEvent("sunelys:lead-confirmed", {
+          detail: {
+            source: params.source || "",
+            form_id: params.form_id || "",
+            conversion_type: params.conversion_type || "form_contact",
+            confirmed_at: new Date().toISOString(),
+          },
+        });
+        window.dispatchEvent(confirmationEvent);
+
         if (!window.sunelysAnalyticsEnabled) {
           savePendingLeadConversion(params);
           return;
