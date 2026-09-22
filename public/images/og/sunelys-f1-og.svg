@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-label="Sunelys, l'administratif photovoltaïque piloté avec précision">
+  <rect width="1200" height="630" fill="#151718"/>
+  <path d="M0 0h16v630H0z" fill="#C18B68"/>
+  <path d="M870 0h330v630H870z" fill="#202324"/>
+  <path d="M870 0v630M980 0v630M1090 0v630" stroke="#414849"/>
+  <path d="M870 210h330M870 420h330" stroke="#414849"/>
+  <circle cx="1035" cy="315" r="112" fill="none" stroke="#C18B68" stroke-width="2"/>
+  <circle cx="1035" cy="315" r="74" fill="none" stroke="#F7F7F5" stroke-opacity=".28"/>
+  <path d="M996 315h78M1035 276v78" stroke="#C18B68" stroke-width="2"/>
+  <text x="88" y="104" fill="#F7F7F5" font-family="Arial, Helvetica, sans-serif" font-size="46" font-weight="400" letter-spacing="8">SUNELYS</text>
+  <text x="88" y="213" fill="#C18B68" font-family="Arial, Helvetica, sans-serif" font-size="20" font-weight="600">GESTION ADMINISTRATIVE PHOTOVOLTAÏQUE</text>
+  <text x="88" y="304" fill="#F7F7F5" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="400">Vos dossiers avancent.</text>
+  <text x="88" y="368" fill="#F7F7F5" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="400">Vos équipes respirent.</text>
+  <text x="88" y="465" fill="#BAC0C1" font-family="Arial, Helvetica, sans-serif" font-size="25">DP · Consuel · Enedis · EDF OA · aides</text>
+  <path d="M88 525h650" stroke="#414849"/>
+  <text x="88" y="573" fill="#F7F7F5" font-family="Arial, Helvetica, sans-serif" font-size="21">Interlocuteur unique · Portail de suivi · Tarifs lisibles</text>
+</svg>

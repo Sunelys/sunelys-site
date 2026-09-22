@@ -178,12 +178,12 @@ export const seoPages: Record<string, SeoPageData> = {
         text: "Quand une DP bloque sur une pièce précise, Sunelys peut reprendre le contrôle documentaire: DP6 ou document graphique, plan de masse, plan de coupe, notice descriptive, insertion paysagère, pièces DP7/DP8 selon les demandes mairie, puis coordination avec Consuel et raccordement si la suite du parcours est concernée.",
       },
       {
-        title: "Garantie zéro pièce complémentaire",
+        title: "Reprise sans frais en cas d'erreur Sunelys",
         text: "Les dossiers DP complets sont préparés pour limiter les demandes de complément. Si une pièce complémentaire est réclamée du fait d'un oubli ou d'une erreur Sunelys sur la formule complète, elle est traitée sans frais selon les conditions de l'offre.",
       },
       {
         title: "Tarif au dossier",
-        text: "La chaîne administrative complète est proposée à 199 EUR HT par dossier. Le prix unitaire est fixe et la facturation mensuelle se base sur les dossiers réellement traités.",
+        text: "Le parcours DP, raccordement Enedis et Consuel est proposé à 199 EUR HT par dossier. Le prix unitaire est fixe et la facturation mensuelle se base sur les dossiers réellement traités.",
       },
     ],
     processSteps: [
@@ -228,10 +228,10 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Quel est le tarif du pilotage complet ?",
         answer:
-          "La chaîne administrative complète DP, raccordement et Consuel est proposée à 199 EUR HT par dossier, avec un prix unitaire fixe.",
+          "Le parcours DP, raccordement Enedis et Consuel est proposé à 199 EUR HT par dossier, avec un prix unitaire fixe.",
       },
       {
-        question: "Que couvre la garantie zéro pièce complémentaire ?",
+        question: "Que se passe-t-il si une erreur Sunelys entraîne un complément ?",
         answer:
           "Elle concerne la formule DP complète avec dépôt et suivi assurés par Sunelys. Si un complément vient d'un oubli ou d'une erreur Sunelys, il est traité sans frais selon les conditions de l'offre.",
       },
@@ -1225,10 +1225,10 @@ export const seoPages: Record<string, SeoPageData> = {
     slug: "tarif_declaration_prealable",
     metaTitle: "Tarif déclaration préalable photovoltaïque | Sunelys",
     metaDescription:
-      "Tarifs DP photovoltaïque Sunelys: formule complète 119 EUR HT, raccordement + Consuel 89 EUR HT, chaîne complète 199 EUR HT.",
+      "Tarifs DP photovoltaïque Sunelys: formule complète 119 EUR HT, raccordement + Consuel 89 EUR HT, parcours DP + réseau 199 EUR HT.",
     heroTitle: "Tarif déclaration préalable photovoltaïque pour installateurs",
     heroSubtitle:
-      "Sunelys propose des tarifs au dossier pour les installateurs: DP complète avec dépôt et suivi, raccordement + Consuel ou chaîne administrative complète DP, raccordement et Consuel.",
+      "Sunelys propose des tarifs au dossier pour les installateurs: DP complète avec dépôt et suivi, raccordement + Consuel ou parcours DP, Enedis et Consuel.",
     fitTitle: "Quand vous voulez un coût clair par DP avant de déléguer.",
     fitIntro:
       "Cette page aide les installateurs à évaluer le budget de sous-traitance DP avant de confier un flux régulier à Sunelys.",
@@ -1245,7 +1245,7 @@ export const seoPages: Record<string, SeoPageData> = {
       highlights: [
         "DP complète à 119 EUR HT / dossier",
         "Raccordement + Consuel à 89 EUR HT / dossier",
-        "Chaîne complète à 199 EUR HT / dossier",
+        "DP + Enedis + Consuel à 199 EUR HT / dossier",
       ],
     },
     problemTitle: "Le vrai coût d'une DP n'est pas seulement le prix de production",
@@ -1272,21 +1272,21 @@ export const seoPages: Record<string, SeoPageData> = {
     scopeItems: [
       "Déclaration préalable complète: 119 EUR HT par dossier",
       "Raccordement réseau + Consuel: 89 EUR HT par dossier",
-      "Chaîne administrative complète DP + raccordement + Consuel: 199 EUR HT par dossier",
+      "Parcours DP + raccordement Enedis + Consuel: 199 EUR HT par dossier",
       "Tarifs unitaires fixes par dossier",
     ],
     detailBlocks: [
       {
         title: "Ce qui influence le prix",
-        text: "Le prix dépend du périmètre confié: DP complète avec dépôt et suivi, raccordement + Consuel ou chaîne administrative complète. Le flux mensuel sert à organiser le traitement, pas à modifier les tarifs unitaires publics.",
+        text: "Le prix dépend du périmètre confié: DP complète avec dépôt et suivi, raccordement + Consuel ou parcours DP, Enedis et Consuel. Le flux mensuel sert à organiser le traitement, pas à modifier les tarifs unitaires publics.",
       },
       {
         title: "Prix par dossier ou accompagnement complet",
-        text: "La DP complète est proposée à 119 EUR HT par dossier, le raccordement + Consuel à 89 EUR HT et la chaîne administrative complète à 199 EUR HT. Cette dernière centralise DP, raccordement et Consuel avec un interlocuteur unique.",
+        text: "La DP complète est proposée à 119 EUR HT par dossier, le raccordement + Consuel à 89 EUR HT et le parcours DP + réseau à 199 EUR HT. Ce dernier centralise DP, raccordement Enedis et Consuel avec un interlocuteur unique.",
       },
       {
         title: "Garantie DP complète",
-        text: "La garantie zéro pièce complémentaire s'applique à la formule DP complète lorsque le dépôt et le suivi sont assurés par Sunelys. Les tarifs publics restent des prix unitaires fixes par dossier.",
+        text: "Si une demande de complément résulte d'un oubli ou d'une erreur Sunelys sur la formule DP complète, sa reprise est assurée sans frais selon les conditions de l'offre. Les décisions de la mairie restent indépendantes.",
       },
     ],
     processSteps: [

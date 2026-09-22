@@ -11,7 +11,7 @@ const pricingOffers = [
     decisionCue: "À choisir avant dépôt, après complément ou pour fiabiliser un flux DP.",
     price: "119 €",
     note: "HT / dossier",
-    badge: "Garantie zéro pièce complémentaire",
+    badge: "96 % observés*",
     ctaLabel: "Sécuriser la DP",
     ctaHref: "/contact?source=tarif_dp_complete#contact-form",
     ctaTrack: "cta_tarifs_offre_dp",
@@ -31,15 +31,15 @@ const pricingOffers = [
     ctaHint: "Option réactive quand le chantier est prêt à basculer vers la phase technique.",
   },
   {
-    service: "Chaîne administrative complète",
-    scope: "DP, raccordement et Consuel avec interlocuteur unique et pilotage intégral de A à Z.",
+    service: "Parcours DP + réseau",
+    scope: "DP, raccordement Enedis et Consuel avec un interlocuteur unique, du dépôt à la mise en service.",
     bestFor: "Installer un relais administratif complet sans recrutement.",
     decisionCue: "À choisir quand le flux entier doit sortir de vos équipes internes.",
     price: "199 €",
     note: "HT / dossier",
     badge: "Le choix des pros",
     highlighted: true,
-    ctaLabel: "Piloter toute la chaîne",
+    ctaLabel: "Déléguer le parcours",
     ctaHref: "/contact?source=tarif_chaine_complete#contact-form",
     ctaTrack: "cta_tarifs_offre_chaine",
     ctaHint: "Parcours recommandé pour sortir du pilotage interne en mode complet.",
@@ -105,7 +105,7 @@ const collaborationItems = [
 const pricingSignals = [
   "Tarifs unitaires en euros HT, TVA 20 % en sus.",
   "Dossier ponctuel accepté avant un éventuel flux récurrent.",
-  "La garantie zéro pièce complémentaire s'applique à la DP complète lorsque le dépôt et le suivi sont assurés par Sunelys.",
+  "* Taux observé sur les DP pilotées par Sunelys ; détail méthodologique communiqué sur demande.",
   "Les décisions des organismes tiers — mairie, Enedis, Consuel, EDF OA, ANAH ou obligés CEE — restent indépendantes de Sunelys.",
 ];
 
@@ -125,8 +125,8 @@ const snapshotPrices = [
     ctaTrack: "cta_tarifs_matrix_raccordement",
   },
   {
-    need: "Tout déléguer",
-    label: "Chaîne complète",
+    need: "Déléguer le parcours principal",
+    label: "DP + Enedis + Consuel",
     price: "199 €",
     href: "#tarifs-photovoltaique",
     ctaTrack: "cta_tarifs_matrix_chaine",
@@ -158,7 +158,7 @@ const decisionPaths = [
     signal: "Je veux sortir le flux complet",
     title: "L'administratif déborde l'équipe.",
     text: "DP, raccordement et Consuel sont pilotés dans une seule chaîne, avec un interlocuteur unique.",
-    recommended: "Chaîne complète",
+    recommended: "DP + Enedis + Consuel",
     price: "199 € HT",
     href: "#tarifs-photovoltaique",
     track: "cta_tarifs_path_chaine",
@@ -221,7 +221,7 @@ const structuredData = {
       <div class="hero-momentum" aria-label="Parcours recommandés">
         <span>Entrée recommandée</span>
         <a class="hero-momentum-link" href="#tarifs-photovoltaique" data-track="cta_tarifs_hero_entry_chain">
-          Chaîne complète
+          DP + Enedis + Consuel
           <span aria-hidden="true">→</span>
         </a>
       </div>
@@ -322,7 +322,7 @@ const structuredData = {
         <h2 id="solar-pricing-title">DP, raccordement et Consuel.</h2>
       </div>
       <p>
-        Choisissez la démarche à sortir de vos équipes ou confiez la chaîne complète à un interlocuteur unique.
+        Choisissez la démarche à sortir de vos équipes ou confiez le parcours DP, Enedis et Consuel à un interlocuteur unique.
       </p>
     </div>
 

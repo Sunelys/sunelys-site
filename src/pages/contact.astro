@@ -86,21 +86,6 @@ const diagnosticDeliverables = [
   },
 ];
 
-const formAssurances = [
-  {
-    title: "Champs ciblés",
-    text: "Le formulaire qualifie le besoin sans imposer un long message.",
-  },
-  {
-    title: "Contact direct",
-    text: "Vous pouvez aussi écrire, appeler ou réserver un échange court.",
-  },
-  {
-    title: "Usage clair",
-    text: "Vos informations servent uniquement à traiter votre demande.",
-  },
-];
-
 const blockedStageOptions = [
   "Dossier bloqué / reprise urgente",
   "Pièce ou complément à sécuriser",
@@ -272,8 +257,8 @@ const supportCards = [
       <p class="eyebrow">Votre contexte</p>
       <h2 id="form-title">Un brief court, une réponse directement exploitable.</h2>
       <p>
-        Le formulaire se concentre sur ce qui permet d’orienter la demande : votre volume, la démarche concernée,
-        l’urgence et le premier blocage à lever.
+        Votre nom, votre email et la démarche concernée suffisent pour commencer. Le volume, l’urgence et le
+        premier blocage restent optionnels si vous souhaitez préciser le contexte.
       </p>
 
       <div class="diagnostic-deliverables" aria-label="Ce que le diagnostic clarifie">
@@ -319,7 +304,7 @@ const supportCards = [
       <div class="form-card-head">
         <div>
           <p>Brief de diagnostic</p>
-          <strong>3 minutes pour cadrer la reprise</strong>
+          <strong>3 champs essentiels pour commencer</strong>
         </div>
         <span><i aria-hidden="true"></i> Disponible</span>
       </div>
@@ -341,7 +326,7 @@ const supportCards = [
         <input type="hidden" name="lead_stage" value="contact_form_submitted" />
         <input type="hidden" name="service_interest" id="service-interest-field" />
         <input type="hidden" name="lead_source_detail" id="lead-source-detail-field" />
-        <input type="hidden" name="qualification_hint" value="brief contact avec volume, besoin, blocage, urgence et message" />
+        <input type="hidden" name="qualification_hint" value="brief contact avec besoin obligatoire et contexte complémentaire optionnel" />
         <input type="hidden" name="lead_status" value="Nouveau lead" />
         <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic administratif" />
         <input type="hidden" name="lead_owner" value="Sunelys commercial" />
@@ -358,23 +343,12 @@ const supportCards = [
         <input type="hidden" name="fbclid" id="fbclid-field" />
         <input type="hidden" name="msclkid" id="msclkid-field" />
 
-        <div class="form-assurances full-width" aria-label="Repères du formulaire">
-          {
-            formAssurances.map((item) => (
-              <article>
-                <strong>{item.title}</strong>
-                <p>{item.text}</p>
-              </article>
-            ))
-          }
-        </div>
-
         <label>
           <span>Nom</span>
           <input type="text" name="name" required autocomplete="name" />
         </label>
         <label>
-          <span>Société</span>
+          <span>Société <em>optionnel</em></span>
           <input type="text" name="company" autocomplete="organization" />
         </label>
         <label>
@@ -386,8 +360,8 @@ const supportCards = [
           <input type="tel" name="phone" autocomplete="tel" />
         </label>
         <label>
-          <span>Volume mensuel</span>
-          <select name="volume" id="volume-field" required>
+          <span>Volume mensuel <em>optionnel</em></span>
+          <select name="volume" id="volume-field">
             <option value="">Sélectionner</option>
             <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
             <option value="10-30">10-30 dossiers</option>
@@ -410,8 +384,8 @@ const supportCards = [
           </select>
         </label>
         <label class="full-width">
-          <span>Où ça bloque aujourd’hui ?</span>
-          <select name="blocked_stage" id="blocked-stage-field" required>
+          <span>Où ça bloque aujourd’hui ? <em>optionnel</em></span>
+          <select name="blocked_stage" id="blocked-stage-field">
             <option value="">Sélectionner</option>
             {
               blockedStageOptions.map((option) => (
@@ -421,8 +395,8 @@ const supportCards = [
           </select>
         </label>
         <label class="full-width">
-          <span>Urgence</span>
-          <select name="urgency" id="urgency-field" required>
+          <span>Urgence <em>optionnel</em></span>
+          <select name="urgency" id="urgency-field">
             <option value="">Sélectionner</option>
             <option value="Sous 48h">Sous 48h</option>
             <option value="Cette semaine">Cette semaine</option>

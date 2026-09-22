@@ -24,7 +24,7 @@ const {
 const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
 const canonical = new URL(path, `${siteUrl}/`).toString();
-const defaultOgImage = new URL("/images/og/sunelys-og.jpg", `${siteUrl}/`).toString();
+const defaultOgImage = new URL("/images/og/sunelys-f1-og.png", `${siteUrl}/`).toString();
 const schemaLogo = new URL("/brand/logo-full.png", `${siteUrl}/`).toString();
 const ogImage = image ? new URL(image, `${siteUrl}/`).toString() : defaultOgImage;
 
@@ -193,6 +193,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta name="theme-color" content={design === "f1" ? "#151718" : "#0e1726"} />
+    {design === "f1" && <link rel="preload" href="/brand/f1/source-sans-3.woff2" as="font" type="font/woff2" crossorigin />}
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
@@ -361,7 +362,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     </script>
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon-64.png" />
   </head>
   <body
     data-design={design}

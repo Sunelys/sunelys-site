@@ -88,7 +88,7 @@ export const trustSectionData = {
   assurances: [
     {
       label: "Dossier ponctuel accepté",
-      text: "Vous pouvez tester sur une DP, un raccordement ou une chaîne complète sans lancer tout un flux.",
+      text: "Vous pouvez tester sur une DP, un raccordement ou le parcours DP + réseau sans lancer tout un flux.",
     },
     {
       label: "Prix annoncé dès le départ",
