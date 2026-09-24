@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 
 const checklistGroups = [
   {
@@ -66,6 +67,7 @@ const checklistItemCount = checklistGroups.reduce((total, group) => total + grou
       <p class="intro">
         Une grille de contrôle simple pour repérer les oublis qui ralentissent le plus souvent les dossiers en mairie.
       </p>
+      <div class="checklist-dossier-image"><DossierVisual kind="urbanisme" compact priority /></div>
     </div>
     <aside class="checklist-toolbox" aria-label="Progression de la checklist">
       <div class="progress-heading">

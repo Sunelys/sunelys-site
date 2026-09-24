@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 
 const structuredData = [
   {
@@ -81,11 +82,7 @@ const brandProofItems = [
         </div>
       </div>
 
-      <div class="brand-signature" aria-label="Positionnement Sunelys">
-        <span>SUNELYS</span>
-        <strong>L’administratif solaire, piloté.</strong>
-        <small>France · Installateurs photovoltaïques</small>
-      </div>
+      <DossierVisual kind="portail" priority />
     </section>
 
     <section class="brand-grid" aria-label="Informations officielles Sunelys">
@@ -122,11 +119,11 @@ const brandProofItems = [
       data-track-label="sunelys_brand_positioning"
     >
       <div class="brand-proof-head" data-reveal-item>
-        <p class="eyebrow">Ce que la marque doit signaler</p>
-        <h2 id="brand-proof-title">Sunelys doit inspirer confiance avant même le premier dossier.</h2>
+        <p class="eyebrow">Notre approche</p>
+        <h2 id="brand-proof-title">Un partenaire dédié à vos dossiers solaires.</h2>
         <p>
-          Quand un installateur vérifie Sunelys, la page doit immédiatement répondre à trois questions :
-          est-ce spécialisé, est-ce sérieux, et est-ce capable de suivre un vrai volume de dossiers ?
+          Des pièces à préparer aux retours des organismes, Sunelys réunit le contrôle documentaire,
+          le suivi des démarches et la visibilité dont votre équipe a besoin pour avancer.
         </p>
       </div>
 

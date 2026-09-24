@@ -52,6 +52,13 @@ const hasAttribute = (tag, attribute, expectedValue) => {
 };
 
 const failures = [];
+const illustratedPages = new Set([
+  "services", "tarifs", "parcours", "sunelys", "checklist-declaration-prealable-solaire",
+  "declaration-prealable-panneaux-solaires", "dossier-consuel-photovoltaique",
+  "raccordement-enedis-photovoltaique", "gestion-administrative-photovoltaique",
+  "sous-traitance-declaration-prealable-solaire", "tarif-declaration-prealable-photovoltaique",
+  "sous-traitance-administrative-photovoltaique-installateur",
+].map((slug) => `/${slug}/index.html`));
 
 for (const file of htmlFiles) {
   const html = await readFile(file, "utf8");
@@ -70,6 +77,12 @@ for (const file of htmlFiles) {
   const links = openingTags(html, "link");
 
   if (h1Count !== 1) report(`${h1Count} titre H1 au lieu d'un`);
+  if (illustratedPages.has(page)) {
+    const mainContent = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
+    if (openingTags(mainContent, "img").length === 0) {
+      report("visuel de contenu absent : le logo de navigation ne suffit pas");
+    }
+  }
 
   images.forEach((tag, index) => {
     if (!hasAttribute(tag, "alt")) report(`image ${index + 1} sans attribut alt`);

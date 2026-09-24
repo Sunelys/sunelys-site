@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 import { isVisibleHref, publicBlogSlugs } from "../lib/blogPublication";
 
 const services = [
@@ -149,12 +150,12 @@ const structuredData = {
       <p>Vous gardez le chantier et la relation client. Nous préparons les dossiers, suivons les échanges et vous signalons les pièces ou décisions attendues.</p>
       <div class="catalogue-actions"><a class="btn btn-accent" href="#prestations" data-track="cta_services_catalogue">Choisir ma prestation <span aria-hidden="true">↓</span></a><a href="/contact?source=services-hero#contact-form" data-track="cta_services_hero_primary">Décrire mon besoin <span aria-hidden="true">→</span></a></div>
     </div>
+    <DossierVisual kind="urbanisme" priority />
+  </section>
     <aside class="catalogue-reperes" aria-label="Le cadre de prise en charge">
-      <p class="eyebrow">Dès un premier dossier</p>
       <dl><div><dt>Engagement</dt><dd>Sans abonnement ni volume minimum</dd></div><div><dt>Tarification</dt><dd>Un forfait par dossier</dd></div><div><dt>Échanges</dt><dd>Une équipe joignable et un portail de suivi</dd></div></dl>
       <a href="/parcours" data-track="cta_services_parcours">Comment se passe la reprise ? <span aria-hidden="true">→</span></a>
     </aside>
-  </section>
 
   <nav class="catalogue-nav" aria-label="Accès direct aux prestations"><a href="#prestations">Photovoltaïque</a><a href="#volume">Dossiers récurrents</a><a href="#complementary-services-title">EDF OA et aides</a></nav>
 
@@ -194,14 +195,15 @@ const structuredData = {
 <style>
   .catalogue-intro a:not(.btn), .catalogue-nav a, .catalogue-section a, .catalogue-volume a { color: var(--text); text-decoration-color: var(--accent-text); }
   .catalogue-intro, .catalogue-section, .catalogue-volume { padding: 64px 32px; border-bottom: 1px solid var(--line); }
-  .catalogue-intro { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr); gap: 64px; align-items: center; }
+  .catalogue-intro { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; }
   .catalogue-intro h1 { font-size: 48px; line-height: 1.1; max-width: 22ch; margin: 16px 0 24px; }
   .catalogue-intro p:not(.eyebrow), .catalogue-volume p:not(.eyebrow), .catalogue-section header > p:not(.eyebrow) { max-width: 65ch; color: var(--text-muted); }
   .catalogue-actions { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; margin-top: 28px; }
   .catalogue-actions > a:not(.btn), .catalogue-reperes > a, .catalogue-link { display: inline-flex; align-items: center; min-height: 44px; gap: 8px; font-size: 16px; }
-  .catalogue-reperes { border-left: 1px solid var(--line); padding-left: 32px; }
-  .catalogue-reperes dl { margin: 12px 0; }
-  .catalogue-reperes dl > div { padding-block: 16px; border-bottom: 1px solid var(--line); }
+  .catalogue-reperes { padding: 20px 32px; border-bottom: 1px solid var(--line); }
+  .catalogue-reperes dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin: 0; }
+  .catalogue-reperes dl > div { padding-block: 8px; }
+  .catalogue-reperes > a { color: var(--text); margin-top: 8px; }
   .catalogue-reperes dt { color: var(--text-muted); font-size: 14px; margin-bottom: 4px; }
   .catalogue-reperes dd { margin: 0; font-size: 18px; }
   .catalogue-nav { display: flex; flex-wrap: wrap; gap: 8px 32px; padding: 16px 32px; border-bottom: 1px solid var(--line); }
@@ -236,7 +238,8 @@ const structuredData = {
     .catalogue-intro, .catalogue-section, .catalogue-volume { padding: 40px 24px; }
     .catalogue-intro, .catalogue-volume { grid-template-columns: 1fr; gap: 32px; }
     .catalogue-intro h1 { font-size: 34px; }
-    .catalogue-reperes { border-left: 0; border-top: 1px solid var(--line); padding: 24px 0 0; }
+    .catalogue-reperes { padding: 16px 24px; }
+    .catalogue-reperes dl { grid-template-columns: 1fr; gap: 0; }
     .catalogue-reperes dl > div { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding-block: 12px; }
     .catalogue-reperes dd { font-size: 16px; }
     .catalogue-nav { gap: 4px 24px; padding: 12px 24px; }

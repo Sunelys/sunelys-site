@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import BrandSignature from "../components/BrandSignature.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 
 const pricingOffers = [
   {
@@ -218,13 +219,7 @@ const structuredData = {
         </a>
       </div>
 
-      <div class="hero-momentum" aria-label="Parcours recommandés">
-        <span>Entrée recommandée</span>
-        <a class="hero-momentum-link" href="#tarifs-photovoltaique" data-track="cta_tarifs_hero_entry_chain">
-          DP + Enedis + Consuel
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
+      <div class="pricing-dossier-image"><DossierVisual kind="coordination" compact priority /></div>
 
       <div class="hero-assurance" aria-label="Conditions principales">
         <span><i aria-hidden="true"></i> Dossier ponctuel accepté</span>

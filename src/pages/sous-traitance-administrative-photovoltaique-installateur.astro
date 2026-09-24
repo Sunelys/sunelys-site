@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import CompactFaqCenter from "../components/CompactFaqCenter.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 
 const canonicalUrl = "https://sunelys.fr/sous-traitance-administrative-photovoltaique-installateur";
 
@@ -146,6 +147,8 @@ const structuredData = [
         <li>Réponse sous 24h</li>
       </ul>
     </div>
+    <div class="subcontract-visual-column">
+      <DossierVisual kind="coordination" priority />
     <aside class="price-panel" aria-label="Tarifs Sunelys" data-reveal-item>
       <div class="price-panel-head">
         <p class="eyebrow">Repères tarifaires</p>
@@ -160,6 +163,7 @@ const structuredData = [
       ))}
       <a href="/tarifs" data-track="cta_subcontract_price_panel">Comparer toutes les offres <span aria-hidden="true">→</span></a>
     </aside>
+    </div>
   </section>
 
   <section class="subcontract-section split-section">

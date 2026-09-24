@@ -1,0 +1,78 @@
+---
+import ResponsiveImage from "./ResponsiveImage.astro";
+
+interface Props {
+  kind: "urbanisme" | "consuel" | "reseau" | "coordination" | "portail";
+  compact?: boolean;
+  priority?: boolean;
+}
+
+const { kind, compact = false, priority = false } = Astro.props;
+const visuals = {
+  urbanisme: {
+    src: "/images/blog/declaration-prealable-solaire-photo.jpg",
+    alt: "Plans de toiture, implantation des panneaux et photographie du projet solaire sur une tablette.",
+    caption: "Plans, implantation et pièces graphiques.",
+  },
+  consuel: {
+    src: "/images/blog/consuel-photovoltaique-dossier-photo.jpg",
+    alt: "Dossier technique photovoltaïque et pièces réunies sur un bureau pour le contrôle documentaire.",
+    caption: "Les pièces techniques, réunies et vérifiées.",
+  },
+  reseau: {
+    src: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg",
+    alt: "Schémas électriques, documents du projet solaire et tableau de suivi sur un ordinateur.",
+    caption: "Le dossier réseau, du montage au suivi.",
+  },
+  coordination: {
+    src: "/images/blog/externalisation-administrative-solaire-photo.jpg",
+    alt: "Dossiers photovoltaïques, plans et documents de suivi regroupés sur un bureau de travail.",
+    caption: "Vos dossiers, préparés et suivis au même endroit.",
+  },
+  portail: {
+    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+    alt: "Exemple anonymisé du portail Sunelys : dossiers DP, Enedis et Consuel avec leurs étapes de suivi.",
+    caption: "Un dossier, un statut, une prochaine action.",
+  },
+};
+const visual = visuals[kind];
+const portal = kind === "portail";
+---
+
+<figure class:list={["dossier-visual", compact && "is-compact", portal && "is-portal"]} data-dossier-visual={kind}>
+  {portal ? (
+    <a class="dossier-image" href={visual.src} target="_blank" rel="noopener" aria-label="Agrandir l'exemple anonymisé du portail Sunelys">
+      <picture>
+        <source type="image/avif" srcset="/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w" sizes="(max-width: 760px) calc(100vw - 48px), 640px" />
+        <img src={visual.src} alt={visual.alt} width="1600" height="900" loading={priority ? "eager" : "lazy"} decoding="async" fetchpriority={priority ? "high" : "auto"} />
+      </picture>
+    </a>
+  ) : (
+    <div class="dossier-image">
+      <ResponsiveImage src={visual.src} alt={visual.alt} width="1672" height="941" loading={priority ? "eager" : "lazy"} fetchpriority={priority ? "high" : "auto"} sizes="(max-width: 760px) calc(100vw - 48px), 640px" />
+    </div>
+  )}
+  <figcaption>
+    <strong>{visual.caption}</strong>
+    <span>{portal ? "Exemple anonymisé · juillet 2026" : "Photographie d’illustration"}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .dossier-visual { margin: 0; width: 100%; min-width: 0; align-self: start; }
+  .dossier-image { display: block; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 4px; background: var(--surface); }
+  .dossier-image :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; filter: none; }
+  .dossier-image picture { display: block; height: 100%; }
+  .is-compact:not(.is-portal) .dossier-image { aspect-ratio: 16 / 7; }
+  .is-portal .dossier-image { background: #fff; }
+  .is-portal .dossier-image img { object-fit: contain; }
+  figcaption { display: flex; justify-content: space-between; align-items: start; gap: 8px 24px; flex-wrap: wrap; padding-top: 14px; }
+  figcaption strong { color: var(--text); font-size: 16px; font-weight: 500; line-height: 1.45; }
+  figcaption span { color: var(--text-muted); font-size: 13px; line-height: 1.5; }
+  @media (max-width: 760px) {
+    .is-compact:not(.is-portal) .dossier-image { aspect-ratio: 16 / 9; }
+    figcaption { gap: 4px; }
+    figcaption span { width: 100%; }
+  }
+  @media print { .dossier-visual { display: none; } }
+</style>

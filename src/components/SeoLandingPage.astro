@@ -3,6 +3,7 @@ import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 import BrandSignature from "./BrandSignature.astro";
 import FormPrivacyNote from "./FormPrivacyNote.astro";
 import LeadFields from "./LeadFields.astro";
+import DossierVisual from "./DossierVisual.astro";
 
 interface ProblemItem {
   title: string;
@@ -273,6 +274,15 @@ const salesContact = {
 
 const visibleInternalLinks = filterVisibleLinks(data.internalLinks, publicBlogSlugs);
 const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
+const serviceVisuals = {
+  gestion_administrative: "coordination",
+  consuel_photovoltaique: "consuel",
+  raccordement_enedis: "reseau",
+  declaration_prealable: "urbanisme",
+  sous_traitance_declaration_prealable: "urbanisme",
+  tarif_declaration_prealable: "urbanisme",
+} as const;
+const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "coordination";
 ---
 
 <section class="seo-section seo-hero section-shell reveal">
@@ -282,9 +292,6 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       <p class="kicker">Service administratif photovoltaïque</p>
       <h1>{data.heroTitle}</h1>
       <p>{data.heroSubtitle}</p>
-      <p class="expert-line">
-        Un pilotage administratif solaire exigeant, pensé pour les installateurs qui veulent grandir sans perdre le contrôle.
-      </p>
 
       {
         data.conversionOffer && (
@@ -311,6 +318,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
           </div>
         )
       }
+
+      <div class="service-dossier-image"><DossierVisual kind={visualKind} compact priority /></div>
 
       {
         data.heroCheckpoint && (
@@ -935,6 +944,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 </script>
 
 <style>
+  .service-dossier-image { margin-block: 24px; max-width: 640px; }
   .service-page-index { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 16px 32px; border-bottom: 1px solid var(--line); }
   .service-page-index a { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; color: var(--text); }
   .service-scope { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 48px; padding: 56px 32px; }

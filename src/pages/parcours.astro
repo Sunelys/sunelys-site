@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
+import DossierVisual from "../components/DossierVisual.astro";
 
 const steps = [
   {
@@ -147,33 +148,7 @@ const guarantees = [
       </div>
     </div>
 
-    <aside class="journey-preview" aria-label="Aperçu du parcours Sunelys" data-reveal-item>
-      <div class="preview-head">
-        <div>
-          <p>Parcours d’un dossier</p>
-          <strong>4 étapes visibles</strong>
-        </div>
-        <span>En continu</span>
-      </div>
-      <ol>
-        {
-          steps.map((step, index) => (
-            <li class:list={[index === 2 && "is-active"]}>
-              <span>0{index + 1}</span>
-              <div>
-                <strong>{step.title}</strong>
-                <p>{step.output}</p>
-              </div>
-              <i aria-hidden="true"></i>
-            </li>
-          ))
-        }
-      </ol>
-      <div class="preview-foot">
-        <span>Portail dédié</span>
-        <span>Interlocuteur humain</span>
-      </div>
-    </aside>
+    <DossierVisual kind="portail" priority />
   </section>
 
   <section class="start-modes reveal" aria-labelledby="start-title">
@@ -337,7 +312,7 @@ const guarantees = [
 <style>
   .journey-hero {
     display: grid;
-    grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
+    grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
     gap: clamp(1.5rem, 4vw, 4.2rem);
     align-items: center;
     overflow: hidden;
