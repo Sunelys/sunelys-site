@@ -1,6 +1,4 @@
 ---
-import SwipeCue from "./SwipeCue.astro";
-
 interface ServiceCard {
   label: string;
   title: string;
@@ -71,75 +69,32 @@ const { data } = Astro.props;
     }
   </div>
 
-  {
-    data.buyingSignals?.length && (
-      <div class="services-decision-strip" aria-label="Repères de décision Sunelys" data-reveal-item>
-        {data.buyingSignals.map((signal) =>
-          signal.href ? (
-            <a class="decision-signal" href={signal.href} data-track={signal.track || "cta_services_decision_signal"}>
-              <span>{signal.label}</span>
-              <strong>{signal.text}</strong>
-              <i aria-hidden="true">→</i>
-            </a>
-          ) : (
-            <div class="decision-signal">
-              <span>{signal.label}</span>
-              <strong>{signal.text}</strong>
-            </div>
-          ),
-        )}
-      </div>
-    )
-  }
-
-  <SwipeCue label="5 briques à parcourir" />
-
-  <div
-    class="services-grid"
-    aria-label="Briques administratives Sunelys — utilisez les flèches horizontales pour les parcourir"
-    tabindex="0"
-    data-scroll-rail
-    data-scroll-label="briques_administratives"
-  >
+  <div class="service-directory">
     {
-      data.cards.map((card, index) => (
-        <article class:list={["service-card", index === 0 && "is-anchor-card"]} data-reveal-item>
-          <div class="service-card-mark" aria-hidden="true">
-            <span>{card.code ?? card.title.slice(0, 2).toUpperCase()}</span>
-            <i></i>
-          </div>
-
-          <div class="card-top">
-            <span>{card.label.replace(/^Service\s*/i, "")}</span>
-            {card.stage && <p>{card.stage}</p>}
-          </div>
-
-          <div class="service-copy">
-            <h3>{card.title}</h3>
+      data.cards.map((card) => (
+        <details class="service-entry" name="home-services">
+          <summary data-track="homepage_service_expand" data-track-label={card.title}>
+            <span class="service-number" aria-hidden="true">{card.label.replace(/^Service\s*/i, "")}</span>
+            <span class="service-entry-title">
+              {card.stage && <small>{card.stage}</small>}
+              <strong>{card.title}</strong>
+            </span>
+            <span class="service-entry-price">
+              <strong>{card.price}</strong>
+              {card.priceNote && <small>{card.priceNote}</small>}
+            </span>
+            <span class="disclosure-symbol" aria-hidden="true">+</span>
+          </summary>
+          <div class="service-entry-details">
             <p class="benefit">{card.benefit}</p>
             <p class="description">{card.description}</p>
-          </div>
-
-          {
-            card.price && (
-              <div class="service-commerce" aria-label={`Repère tarifaire ${card.title}`}>
-                <div>
-                  <span>Repère tarif</span>
-                  <strong>{card.price}</strong>
-                  {card.priceNote && <small>{card.priceNote}</small>}
-                </div>
-                {card.decisionHint && <p>{card.decisionHint}</p>}
-              </div>
-            )
-          }
-
-          <div class="service-foot">
+            {card.decisionHint && <p class="service-decision">{card.decisionHint}</p>}
             <a class="service-link" href={card.href} data-track={card.track} data-track-label={card.title}>
               {card.ctaLabel}
               <span aria-hidden="true">→</span>
             </a>
           </div>
-        </article>
+        </details>
       ))
     }
   </div>

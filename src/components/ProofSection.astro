@@ -23,9 +23,13 @@ interface Props {
     title: string;
     testimonials: Testimonial[];
   };
+  references: {
+    logos: { name: string; src: string; width: number; height: number }[];
+    metrics: { value: string; label: string }[];
+  };
 }
 
-const { data } = Astro.props;
+const { data, references } = Astro.props;
 const getInitials = (name: string) =>
   name
     .split(/\s+/)
@@ -49,10 +53,10 @@ const getInitials = (name: string) =>
       <h2 id="proof-title">{data.title}</h2>
     </div>
 
-    <div class="proof-intro">
-      <p>
-        Ce que les installateurs accompagnés retiennent de leur collaboration avec Sunelys.
-      </p>
+    <div class="proof-logo-row" aria-label="Installateurs accompagnés">
+      {references.logos.filter((logo) => logo.src).map((logo) => (
+        <div class="logo-slot"><img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" decoding="async" /></div>
+      ))}
     </div>
   </header>
 
@@ -111,12 +115,13 @@ const getInitials = (name: string) =>
 
               <div class="case-outcome">
                 {item.service && <p>{item.service}</p>}
-                {item.outcome && <h3>{item.outcome}</h3>}
               </div>
 
               {
                 item.journey && (
-                  <details class="case-journey-details"><summary>Le déroulé de l’accompagnement</summary><ol class="case-journey" aria-label={`Parcours décrit par ${item.tabLabel}`}>
+                  <details class="case-journey-details"><summary>Le déroulé de l’accompagnement</summary>
+                    {item.outcome && <p class="case-outcome-detail">{item.outcome}</p>}
+                    <ol class="case-journey" aria-label={`Parcours décrit par ${item.tabLabel}`}>
                     {item.journey.map((step, stepIndex) => (
                       <li>
                         <span>0{stepIndex + 1}</span>
@@ -152,13 +157,11 @@ const getInitials = (name: string) =>
     </div>
   </div>
 
-  <div class="proof-next" data-reveal-item>
-    <p>Vous avez le même type de blocage administratif ?</p>
-    <a href="/contact?source=client-proof#contact-form" data-track="cta_client_proof_contact">
-      Recevoir un cadrage adapté
-      <span aria-hidden="true">→</span>
-    </a>
-  </div>
+  <dl class="proof-figures" aria-label="Preuves opérationnelles Sunelys">
+    {references.metrics.map((metric) => (
+      <div><dt>{metric.label}</dt><dd>{metric.value}</dd></div>
+    ))}
+  </dl>
 </section>
 
 <script>

@@ -30,14 +30,7 @@ interface Props {
 }
 
 const { data } = Astro.props;
-const decisionPoints =
-  data.decisionPoints && data.decisionPoints.length > 0
-    ? data.decisionPoints
-    : [
-        { label: "Périmètre", text: "La première brique à reprendre." },
-        { label: "Réponse", text: "Un retour humain sous 24h ouvrées." },
-        { label: "Liberté", text: "Un dossier ponctuel suffit pour commencer." },
-      ];
+const phone = data.contactPoints?.find((point) => point.href.startsWith("tel:"));
 ---
 
 <section
@@ -52,17 +45,6 @@ const decisionPoints =
     <h2 id="final-title">{data.title}</h2>
     <p class="text">{data.text}</p>
 
-    <div class="decision-strip" aria-label="Ce que Sunelys clarifie après votre demande">
-      {
-        decisionPoints.map((item) => (
-          <article>
-            <strong>{item.label}</strong>
-            <p>{item.text}</p>
-          </article>
-        ))
-      }
-    </div>
-
     <div class="actions">
       <a class="btn btn-accent" href={data.primaryCta.href} data-track={data.primaryCta.track}>
         {data.primaryCta.label}
@@ -72,29 +54,8 @@ const decisionPoints =
         {data.secondaryCta.label}
         <span aria-hidden="true">↗</span>
       </a>
+      {phone && <a class="secondary-action" href={phone.href} data-track={phone.track}>{phone.value}</a>}
     </div>
   </div>
 
-  {
-    data.contactPoints && data.contactPoints.length > 0 && (
-      <div class="contact-panel" aria-label="Options de contact Sunelys" data-reveal-item>
-        <div class="contact-panel-head">
-          <p>Choisissez votre point d’entrée</p>
-          <span>Réponse humaine</span>
-        </div>
-        <div class="contact-grid">
-          {data.contactPoints.map((item, index) => (
-            <a class="contact-row" href={item.href} data-track={item.track} data-track-label={item.label}>
-              <span class="contact-index">0{index + 1}</span>
-              <span>
-                <small>{item.label}</small>
-                <strong>{item.value}</strong>
-              </span>
-              <i aria-hidden="true">→</i>
-            </a>
-          ))}
-        </div>
-      </div>
-    )
-  }
 </section>

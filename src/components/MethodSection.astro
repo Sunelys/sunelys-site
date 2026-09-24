@@ -1,133 +1,35 @@
 ---
-import SwipeCue from "./SwipeCue.astro";
-
-interface MethodItem {
-  label: string;
-  text: string;
-  signal?: string;
-}
-
-interface StepItem {
-  title: string;
-  text: string;
-  phase?: string;
-}
-
 interface Props {
   data: {
     kicker: string;
     title: string;
-    text: string;
-    audiences: MethodItem[];
-    steps: StepItem[];
-    cta: {
-      label: string;
-      href: string;
-      track: string;
-    };
+    audiences: { label: string; text: string; signal?: string }[];
+    steps: { title: string; text: string; phase?: string }[];
   };
 }
-
 const { data } = Astro.props;
-const fallbackPhases = ["Entrée", "Cadrage", "Production", "Visibilité"];
 ---
 
-<section
-  id="parcours"
-  class="method-section section-shell reveal"
-  aria-labelledby="method-title"
-  data-track-view="homepage_method_view"
-  data-track-label="homepage_method"
->
-  <div class="method-lead" data-reveal-item>
-    <div class="method-copy">
-      <p class="kicker">{data.kicker}</p>
-      <h2 id="method-title">{data.title}</h2>
-    </div>
-
-    <div class="method-summary">
-      <p class="intro">{data.text}</p>
-
-      <div class="method-promises" aria-label="Principe de pilotage Sunelys">
-        <span>Vous choisissez le périmètre</span>
-        <span>Sunelys reprend la production</span>
-        <span>Vous gardez la visibilité</span>
-      </div>
-
-      <a class="method-link" href={data.cta.href} data-track={data.cta.track}>
-        {data.cta.label}
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
+<section id="parcours" class="method-section section-shell reveal" aria-labelledby="method-title" data-track-view="homepage_method_view" data-track-label="homepage_method">
+  <div class="method-heading">
+    <div><p class="kicker">{data.kicker}</p><h2 id="method-title">{data.title}</h2></div>
+    <a class="method-link" href="/parcours" data-track="cta_home_method_details">Découvrir le parcours<span aria-hidden="true">→</span></a>
   </div>
-
-  <div class="method-workspace" data-reveal-item>
-    <div class="mode-panel">
-      <div class="panel-head">
-        <div>
-          <p>Modes de reprise</p>
-          <h3>Trois niveaux, un même cadre.</h3>
-        </div>
-        <span>3 formats</span>
-      </div>
-
-      <SwipeCue label="3 formats de délégation" />
-
-      <div
-        class="audience-list"
-        aria-label="Formats de délégation Sunelys — utilisez les flèches horizontales pour les parcourir"
-        tabindex="0"
-        data-scroll-rail
-        data-scroll-label="formats_delegation"
-      >
-        {
-          data.audiences.map((item, index) => (
-            <article>
-              <span class="mode-index">0{index + 1}</span>
-              <div>
-                <h4>{item.label}</h4>
-                {item.signal && <strong>{item.signal}</strong>}
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
+  <ol class="method-timeline" aria-label="Le parcours Sunelys en quatre étapes">
+    {data.steps.map((step, index) => (
+      <li>
+        <span class="timeline-number" aria-hidden="true">0{index + 1}</span>
+        <h3>{step.title}</h3>
+        <p>{step.text}</p>
+      </li>
+    ))}
+  </ol>
+  <details class="method-formats">
+    <summary>Dossier ponctuel, pic de charge ou flux récurrent<span class="disclosure-symbol" aria-hidden="true">+</span></summary>
+    <div class="method-formats-grid">
+      {data.audiences.map((item) => (
+        <div><h3>{item.label}</h3>{item.signal && <strong>{item.signal}</strong>}<p>{item.text}</p></div>
+      ))}
     </div>
-
-    <div class="operations-panel">
-      <div class="panel-head panel-head-dark">
-        <div>
-          <p>Vue de pilotage</p>
-          <h3>Ce qui avance après le cadrage.</h3>
-        </div>
-        <span>4 temps</span>
-      </div>
-
-      <SwipeCue label="Le parcours en 4 temps" tone="dark" />
-
-      <ol
-        class="steps-board"
-        aria-label="Parcours Sunelys en quatre temps — utilisez les flèches horizontales pour les parcourir"
-        tabindex="0"
-        data-scroll-rail
-        data-scroll-label="parcours_4_temps"
-      >
-        {
-          data.steps.map((step, index) => (
-            <li>
-              <div class="step-meta">
-                <span>0{index + 1}</span>
-                <strong>{step.phase ?? fallbackPhases[index] ?? "Étape"}</strong>
-              </div>
-              <div>
-                <h4>{step.title}</h4>
-                <p>{step.text}</p>
-              </div>
-            </li>
-          ))
-        }
-      </ol>
-    </div>
-  </div>
+  </details>
 </section>

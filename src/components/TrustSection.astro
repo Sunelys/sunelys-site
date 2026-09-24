@@ -1,192 +1,42 @@
 ---
-import SwipeCue from "./SwipeCue.astro";
-
-interface LogoItem {
-  name: string;
-  src: string;
-  width: number;
-  height: number;
-}
-
-interface MetricItem {
-  value: string;
-  label: string;
-}
-
-interface AssuranceItem {
-  label: string;
-  text: string;
-}
-
-interface HandoffItem {
-  label: string;
-  text: string;
-}
-
-interface DecisionPathItem {
-  title: string;
-  text: string;
-  href: string;
-  track: string;
-}
-
 interface Props {
   data: {
     kicker: string;
     title: string;
-    logos: LogoItem[];
-    metrics: MetricItem[];
-    assurances?: AssuranceItem[];
     trustNote?: string;
-    handoff?: {
-      kicker: string;
+    handoff: {
       title: string;
-      items: HandoffItem[];
-      cta: {
-        label: string;
-        href: string;
-        track: string;
-      };
+      items: { label: string; text: string }[];
+      cta: { label: string; href: string; track: string };
     };
-    decisionPath?: DecisionPathItem[];
   };
 }
 
 const { data } = Astro.props;
-const visibleLogos = data.logos.filter((logo) => logo.src);
-const handoff = data.handoff ?? {
-  kicker: "Après votre envoi",
-  title: "Un premier cadrage exploitable, pas un échange flou.",
-  items: [
-    { label: "Périmètre", text: "La démarche à reprendre en priorité." },
-    { label: "Pièces", text: "Les points à vérifier avant dépôt ou relance." },
-    { label: "Suite", text: "Le forfait et le suivi adaptés à votre contexte." },
-  ],
-  cta: {
-    label: "Choisir mon périmètre",
-    href: "#hero-lead-form",
-    track: "cta_trust_bridge_hero_form",
-  },
-};
 ---
 
-<section
-  class="section-shell trust-section reveal"
-  aria-labelledby="trust-title"
-  data-track-view="homepage_trust_bridge_view"
-  data-track-label="homepage_trust_bridge"
->
-  <div class="trust-bridge">
-    <div class="trust-story" data-reveal-item>
-      <p class="kicker">{data.kicker}</p>
-      <h2 id="trust-title">{data.title}</h2>
-
-      <p class="trust-note">
-        {data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}
-      </p>
-
-    </div>
-
-    <aside class="handoff-panel" aria-label="Ce que Sunelys vous renvoie après votre demande" data-reveal-item>
-      <div class="handoff-top">
-        <div>
-          <p class="panel-kicker">{handoff.kicker}</p>
-          <h3>{handoff.title}</h3>
-        </div>
-
-        <ol class="handoff-list">
-          {
-            handoff.items.map((item, index) => (
-              <li>
-                <span>0{index + 1}</span>
-                <div>
-                  <strong>{item.label}</strong>
-                  <p>{item.text}</p>
-                </div>
-              </li>
-            ))
-          }
-        </ol>
-      </div>
-
-      <div class="handoff-bottom">
-        <div class="handoff-signature">
-          <picture class="handoff-portrait">
-            <source
-              type="image/avif"
-              srcset="/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.avif"
-            />
-            <img
-              src="/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.png"
-              alt="Myriam Zaoui, fondatrice de Sunelys"
-              width="971"
-              height="1619"
-              loading="lazy"
-              decoding="async"
-            />
-          </picture>
-
-          <div>
-            <strong>Myriam Zaoui</strong>
-            <p>Fondatrice de Sunelys et interlocutrice unique sur le cadrage initial.</p>
-          </div>
-        </div>
-
-        <a class="handoff-link" href={handoff.cta.href} data-track={handoff.cta.track}>
-          {handoff.cta.label}
-          <span aria-hidden="true">→</span>
-        </a>
-      </div>
-    </aside>
+<section class="section-shell trust-section reveal" aria-labelledby="trust-title" data-track-view="homepage_trust_bridge_view" data-track-label="homepage_trust_bridge">
+  <figure class="team-presence">
+    <picture>
+      <source type="image/avif" srcset="/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.avif" />
+      <img src="/images/site/founder-variants/myriam-zaoui-founder-variant-c-institutional-2026-07-29.png" alt="Myriam Zaoui, fondatrice de Sunelys" width="971" height="1619" loading="lazy" decoding="async" />
+    </picture>
+    <figcaption>
+      <strong>Myriam Zaoui</strong>
+      <span>Fondatrice de Sunelys</span>
+      <span>Votre interlocutrice sur le cadrage initial.</span>
+    </figcaption>
+  </figure>
+  <div class="team-copy">
+    <p class="kicker">{data.kicker}</p>
+    <h2 id="trust-title">{data.title}</h2>
+    <p class="trust-note">{data.trustNote}</p>
+    <details class="handoff-details">
+      <summary>{data.handoff.title}<span class="disclosure-symbol" aria-hidden="true">+</span></summary>
+      <dl>
+        {data.handoff.items.map((item) => (<div><dt>{item.label}</dt><dd>{item.text}</dd></div>))}
+      </dl>
+    </details>
+    <a class="handoff-link" href={data.handoff.cta.href} data-track={data.handoff.cta.track}>{data.handoff.cta.label}<span aria-hidden="true">→</span></a>
   </div>
-
-
-  <SwipeCue label="4 preuves opérationnelles à parcourir" />
-
-  <div
-    class="trust-metrics"
-    aria-label="Preuves opérationnelles Sunelys — utilisez les flèches horizontales pour les parcourir"
-    tabindex="0"
-    data-scroll-rail
-    data-scroll-label="preuves_operationnelles"
-    data-reveal-item
-  >
-    {
-      data.metrics.map((metric, index) => (
-        <article class:list={["metric", index === 0 && "is-featured"]}>
-          <span class="metric-index">0{index + 1}</span>
-          <strong>{metric.value}</strong>
-          <p>{metric.label}</p>
-        </article>
-      ))
-    }
-  </div>
-
-  {
-    visibleLogos.length > 0 && (
-      <div class="logo-wall" aria-label="Clients Sunelys" data-reveal-item>
-        <div class="logo-wall-head">
-          <p>Installateurs accompagnés</p>
-          <span>Des structures qui confient déjà leur administratif solaire à Sunelys.</span>
-        </div>
-
-        <div class="logo-row">
-          {
-            visibleLogos.map((logo) => (
-              <div class="logo-slot" title={logo.name}>
-                <img
-                  src={logo.src}
-                  alt={logo.name}
-                  width={logo.width}
-                  height={logo.height}
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
-            ))
-          }
-        </div>
-      </div>
-    )
-  }
 </section>
