@@ -43,8 +43,13 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
 ---
 
 <section class="hero section-shell" data-sticky-guard="hero">
-  <div class:list={["hero-stage reveal", data.leadForm && "hero-stage-with-form"]}>
-    <div class="hero-narrative">
+  <div class="hero-opening">
+    <picture class="hero-daylight">
+      <source type="image/avif" srcset="/images/site/sunelys-home-lumiere-2026-09-24-640.avif 640w, /images/site/sunelys-home-lumiere-2026-09-24-1280.avif 1280w, /images/site/sunelys-home-lumiere-2026-09-24-1672.avif 1672w" sizes="100vw" />
+      <source type="image/webp" srcset="/images/site/sunelys-home-lumiere-2026-09-24-640.webp 640w, /images/site/sunelys-home-lumiere-2026-09-24-1280.webp 1280w, /images/site/sunelys-home-lumiere-2026-09-24-1672.webp 1672w" sizes="100vw" />
+      <img src="/images/site/sunelys-home-lumiere-2026-09-24-1672.webp" alt="Illustration : une main prépare des plans de toiture solaire sur un bureau éclairé par la lumière du jour." width="1672" height="941" loading="eager" decoding="async" fetchpriority="high" />
+    </picture>
+    <div class="hero-opening-copy">
       <p class="hero-kicker">
         <span aria-hidden="true"></span>
         {data.kicker}
@@ -52,18 +57,21 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
 
       <h1>{data.title}</h1>
       <p class="hero-subtitle">{data.subtitle}</p>
-
+      <div class="hero-primary-actions">
+        <a class="btn btn-accent" href={data.leadForm ? "#hero-lead-form" : data.primaryCta.href} data-track={data.primaryCta.track}>Décrire mon besoin <span aria-hidden="true">→</span></a>
+        <a class="hero-pricing-link" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>Consulter les tarifs <span aria-hidden="true">→</span></a>
+      </div>
+    </div>
+    <span class="hero-image-note">Visuel d’illustration</span>
+  </div>
+  <div class:list={["hero-stage reveal", data.leadForm && "hero-stage-with-form"]}>
+    <div class="hero-narrative">
       {data.expertLine && (
         <p class="expert-line">
           <span aria-hidden="true">✓</span>
           {data.expertLine}
         </p>
       )}
-
-      <div class="hero-primary-actions">
-        <a class="btn btn-accent" href={data.leadForm ? "#hero-lead-form" : data.primaryCta.href} data-track={data.primaryCta.track}>Décrire mon besoin <span aria-hidden="true">→</span></a>
-        <a class="hero-pricing-link" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>Consulter les tarifs <span aria-hidden="true">→</span></a>
-      </div>
       <ul class="proof-bar" aria-label="Preuves Sunelys">
         {
           data.proofs.map((proof) => (
