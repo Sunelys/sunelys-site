@@ -244,13 +244,6 @@ const diagnosticOptions =
     { value: "Je ne sais pas encore", label: "Je ne sais pas encore" },
   ];
 
-const outcomeItems = [
-  "Moins de charge administrative pour vos équipes",
-  "Moins de retours liés aux pièces incomplètes",
-  "Plus de visibilité sur les jalons et les blocages",
-  "Une expérience client plus fluide côté installateur",
-];
-
 const portalProofItems = [
   "Statuts, pièces attendues et prochaines actions visibles au même endroit",
   "DP, raccordement, Consuel et aides suivis dans une logique de dossier",
@@ -443,6 +436,13 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   </div>
 </section>
 
+<nav class="service-page-index" aria-label="Dans cette prestation">
+  <a href={`#scope-${data.slug}`}>Ce qui est pris en charge</a>
+  {Boolean(data.detailBlocks?.length) && <a href={`#details-${data.slug}`}>Pièces et démarches</a>}
+  <a href={`#support-center-${data.slug}`}>Questions fréquentes</a>
+  <a href={`#service-final-${data.slug}`}>Décrire mon dossier</a>
+</nav>
+
 <section class="seo-context section-shell reveal" aria-label="Contexte et preuve">
   <article class="hero-fit-card" data-reveal-item>
     <p class="kicker">Quand ce service vous concerne</p>
@@ -580,88 +580,11 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
   )
 }
 
-<section
-  class="seo-section seo-transformation section-shell reveal"
-  aria-labelledby={`transformation-${data.slug}`}
-  data-track-view="service_transformation_view"
-  data-track-label={data.slug}
->
-  <div class="transformation-head" data-reveal-item>
-    <div>
-      <p class="kicker">Avant / Avec Sunelys</p>
-      <h2 id={`transformation-${data.slug}`}>Le même dossier. Pas la même charge administrative.</h2>
-    </div>
-    <p>
-      <strong>{data.problemTitle}</strong>
-      <span>{data.problemIntro}</span>
-    </p>
-  </div>
-
-  <div class="transformation-stage">
-    <article class="workflow-panel workflow-before" data-reveal-item>
-      <header>
-        <div>
-          <span>Dans votre équipe</span>
-          <strong>Le flux se disperse</strong>
-        </div>
-        <em>Sans relais dédié</em>
-      </header>
-      <ol>
-        {
-          data.problemItems.map((item, index) => (
-            <li>
-              <span>0{index + 1}</span>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-              <i>À traiter</i>
-            </li>
-          ))
-        }
-      </ol>
-    </article>
-
-    <div class="workflow-handoff" aria-hidden="true" data-reveal-item>
-      <span>Sunelys reprend</span>
-      <strong>→</strong>
-    </div>
-
-    <article class="workflow-panel workflow-after" data-reveal-item>
-      <header>
-        <div>
-          <span>Avec Sunelys</span>
-          <strong>Le flux devient piloté</strong>
-        </div>
-        <em><i></i> Suivi actif</em>
-      </header>
-      <ol>
-        {
-          data.scopeItems.map((item, index) => (
-            <li>
-              <span aria-hidden="true">✓</span>
-              <p>{item}</p>
-              <i>{index === data.scopeItems.length - 1 ? "Visible" : "Suivi"}</i>
-            </li>
-          ))
-        }
-      </ol>
-    </article>
-  </div>
-
-  <div class="transformation-outcomes" data-reveal-item>
-    <p>Ce que vos équipes récupèrent</p>
-    <ul>
-      {outcomeItems.map((item) => <li>{item}</li>)}
-    </ul>
-    <a
-      class="btn btn-accent"
-      href={`#service-final-${data.slug}`}
-      data-track={`cta_${data.slug}_transformation`}
-    >
-      Faire reprendre ce flux
-      <span aria-hidden="true">→</span>
-    </a>
+<section id={`scope-${data.slug}`} class="service-scope section-shell" aria-labelledby={`scope-title-${data.slug}`} data-track-view="service_transformation_view" data-track-label={data.slug}>
+  <div class="service-scope-head"><p class="kicker">Votre prestation</p><h2 id={`scope-title-${data.slug}`}>Ce que Sunelys prend en charge.</h2><p>Les démarches ci-dessous sont réalisées dans le périmètre convenu avec votre équipe.</p><a class="btn btn-accent" href={`#service-final-${data.slug}`} data-track={`cta_${data.slug}_transformation`}>Décrire mon dossier <span aria-hidden="true">→</span></a></div>
+  <div class="service-scope-content">
+    <ul class="service-scope-list">{data.scopeItems.map((item) => <li>{item}</li>)}</ul>
+    <details class="service-scope-context"><summary>Les blocages que cet accompagnement permet de traiter</summary><h3>{data.problemTitle}</h3><p>{data.problemIntro}</p><dl>{data.problemItems.map((item) => <div><dt>{item.title}</dt><dd>{item.text}</dd></div>)}</dl></details>
   </div>
 </section>
 
@@ -702,14 +625,12 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       <div class="knowledge-layout">
         <div class="knowledge-intro">
           <p class="kicker">Guide de décision</p>
-          <h2 id={`details-${data.slug}`}>Les points sensibles, sans transformer la page en notice.</h2>
+          <h2 id={`details-${data.slug}`}>Les pièces et démarches à vérifier.</h2>
           <p>
-            Documents, délais, erreurs fréquentes&nbsp;: ouvrez uniquement le point dont vous avez
-            besoin. Le contenu reste complet, la décision devient plus rapide.
+            Documents, délais et points de vigilance pour préparer votre dossier et anticiper les demandes de complément.
           </p>
           <div class="knowledge-meta" aria-label="Format du guide">
             <span><strong>{data.detailBlocks.length}</strong> points à vérifier</span>
-            <span>Lecture à la demande</span>
           </div>
           <a
             class="knowledge-cta"
@@ -796,16 +717,17 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 </section>
 
 <section class="seo-section seo-case section-shell reveal">
-  <p class="kicker">Exemple de flux</p>
+  <p class="kicker">Exemple de besoin</p>
   <div class="case-layout">
     <div>
       <h2>{data.caseStudy.title}</h2>
       <p class="volume">{data.caseStudy.volume}</p>
     </div>
-    <ul>
+    <ul aria-label="Objectifs de l'accompagnement dans cet exemple">
       {data.caseStudy.results.map((result) => <li>{result}</li>)}
     </ul>
   </div>
+  <p class="case-disclaimer">Situation illustrative et objectifs d'accompagnement, pas un résultat client mesuré.</p>
 </section>
 
 <section
@@ -816,8 +738,8 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 >
   <div class="support-center-head">
     <div>
-      <p class="kicker">Centre de décision</p>
-      <h2 id={`support-center-${data.slug}`}>Une réponse claire. Puis le bon prochain pas.</h2>
+      <p class="kicker">Avant de nous confier votre dossier</p>
+      <h2 id={`support-center-${data.slug}`}>Vos questions sur la prise en charge.</h2>
     </div>
     <p>
       Retrouvez les réponses les plus demandées, les guides utiles et les démarches connexes sans
@@ -1013,6 +935,22 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
 </script>
 
 <style>
+  .service-page-index { display: flex; flex-wrap: wrap; gap: 8px 28px; padding: 16px 32px; border-bottom: 1px solid var(--line); }
+  .service-page-index a { display: inline-flex; align-items: center; min-height: 44px; font-size: 16px; color: var(--text); }
+  .service-scope { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 48px; padding: 56px 32px; }
+  .service-scope h2 { margin: 12px 0 16px; }
+  .service-scope-head > p:not(.kicker) { color: var(--text-muted); }
+  .service-scope-head .btn { margin-top: 24px; }
+  .service-scope-list { margin: 0; padding: 0; list-style: none; }
+  .service-scope-list li { padding: 16px 0 16px 24px; position: relative; border-top: 1px solid var(--line); }
+  .service-scope-list li::before { content: ""; position: absolute; top: 26px; left: 0; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .service-scope-context { border-top: 1px solid var(--line); margin-top: 16px; }
+  .service-scope-context summary { padding: 16px 0; cursor: pointer; }
+  .service-scope-context h3 { margin-top: 12px; }
+  .service-scope-context p, .service-scope-context dd { margin: 8px 0 0; color: var(--text-muted); }
+  .service-scope-context dl > div { margin-top: 20px; }
+  .case-disclaimer { color: var(--text-muted); margin-top: 20px; font-size: 14px; }
+  @media (max-width: 760px) { .service-page-index { padding: 12px 24px; } .service-scope { grid-template-columns: 1fr; padding: 40px 24px; gap: 28px; } }
   .seo-section {
     border: 1px solid color-mix(in srgb, var(--line) 88%, white);
     border-radius: var(--radius-xl);

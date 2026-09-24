@@ -193,7 +193,7 @@ const commitments = [
       </div>
     </div>
 
-    <figure class="founder-photo" data-reveal-item>
+    <figure class="founder-photo founder-photo-clean" data-reveal-item>
       <picture>
         <source
           type="image/avif"
@@ -426,6 +426,13 @@ const commitments = [
 </BaseLayout>
 
 <style>
+  .founder-photo.founder-photo-clean { min-height: 0; align-self: start; background: transparent; border-radius: 0; }
+  .founder-photo.founder-photo-clean picture { height: auto; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; }
+  .founder-photo.founder-photo-clean img { object-position: center 25%; }
+  .founder-photo.founder-photo-clean::before, .founder-photo.founder-photo-clean::after { display: none; }
+  .founder-photo.founder-photo-clean figcaption { position: static; background: transparent; border: 0; border-radius: 0; backdrop-filter: none; padding: 20px 0 0; gap: 6px; }
+  .founder-photo.founder-photo-clean figcaption span { color: var(--text-muted); font-size: 15px; }
+  .founder-photo.founder-photo-clean figcaption strong { font-size: 20px; }
   .about-hero {
     position: relative;
     isolation: isolate;

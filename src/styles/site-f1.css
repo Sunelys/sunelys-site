@@ -170,6 +170,24 @@ body[data-design="f1"]:not([data-page="/"]) main :is(.hero-intro,.hero-text,.int
 body[data-design="f1"]:not([data-page="/"]) main :is(.hero-assurance span,.trust-list li,.hero-link,.brand-link,.back-link) { color: var(--text-muted); font-size: 15px; }
 body[data-design="f1"]:not([data-page="/"]) main :is(.eyebrow,.kicker,.section-kicker) { color: var(--accent); font-size: 14px; font-weight: 600; text-transform: none; }
 
+/* Refined catalogue and library use their own compact heading hierarchy. */
+body[data-design="f1"]:not([data-page="/"]) main .journal-heading h1,
+body[data-design="f1"]:not([data-page="/"]) main .catalogue-intro h1 { font-size: 48px !important; }
+body[data-design="f1"]:not([data-page="/"]) main .journal-feature h2 { font-size: 25px !important; }
+body[data-design="f1"]:not([data-page="/"]) main :is(.journal-library-head,.journal-delegation,.catalogue-section,.catalogue-volume) h2 { font-size: 32px !important; }
+body[data-design="f1"]:not([data-page="/"]) main .guide-card h3 { font-size: 23px !important; }
+body[data-design="f1"]:not([data-page="/"]) main :is(.guide-card h3,.journal-feature h2) a { font-size: inherit !important; color: var(--text) !important; }
+@media (max-width: 1000px) {
+  body[data-design="f1"]:not([data-page="/"]) main .journal-heading h1,
+  body[data-design="f1"]:not([data-page="/"]) main .catalogue-intro h1 { font-size: 40px !important; }
+}
+@media (max-width: 760px) {
+  body[data-design="f1"]:not([data-page="/"]) main .journal-heading h1,
+  body[data-design="f1"]:not([data-page="/"]) main .catalogue-intro h1 { font-size: 34px !important; }
+  body[data-design="f1"]:not([data-page="/"]) main :is(.journal-library-head,.journal-delegation,.catalogue-section,.catalogue-volume) h2 { font-size: 28px !important; }
+  body[data-design="f1"]:not([data-page="/"]) main .guide-card h3 { font-size: 21px !important; }
+}
+
 /* Repeated dark hero, editorial band, and offer patterns. */
 body[data-design="f1"] main :is(.services-hero,.pricing-hero,.journey-hero,.contact-hero,.about-hero,.brand-hero,.edf-hero,.blog-hero,.article-hero,.lp-hero,.legal-hero,.thanks-card,.not-found) { background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: none; }
 body[data-design="f1"] main :is(.services-hero,.pricing-hero,.journey-hero,.contact-hero,.about-hero,.brand-hero,.edf-hero,.blog-hero,.article-hero,.lp-hero) { padding-block: clamp(48px, 5vw, 80px); }
@@ -359,6 +377,9 @@ body[data-design="f1"] .exit-modal__panel :is(input,select) { background: var(--
   body[data-design="f1"] .mobile-portal-link { background: var(--surface); color: var(--text); border: 1px solid var(--line); border-radius: 4px; }
   body[data-design="f1"] .mobile-menu-actions a span,
   body[data-design="f1"] .mobile-portal-link > span { color: var(--text-muted); }
+}
+@media (max-width: 980px) {
+  body[data-design="f1"][data-page="/contact"] .contact-main { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
   body[data-design="f1"] { --container-padding: 24px; font-size: 17px; }

@@ -5,6 +5,7 @@ interface Testimonial {
   author: string;
   note: string;
   service?: string;
+  serviceHref?: string;
   outcome?: string;
   logo?: string;
   logoAlt?: string;
@@ -52,7 +53,6 @@ const getInitials = (name: string) =>
       <p>
         Ce que les installateurs accompagnés retiennent de leur collaboration avec Sunelys.
       </p>
-      <span><i aria-hidden="true"></i> Paroles de professionnels accompagnés</span>
     </div>
   </header>
 
@@ -92,11 +92,6 @@ const getInitials = (name: string) =>
             data-client-proof-panel={String(index + 1)}
           >
             <div class="case-context">
-              <div class="case-label">
-                <span>{index === 0 ? "Cas client publié" : "Retour terrain"}</span>
-                <strong>Avec accord</strong>
-              </div>
-
               <div class="company-mark">
                 {
                   item.logo ? (
@@ -148,10 +143,7 @@ const getInitials = (name: string) =>
                     <p>{item.note}</p>
                   </div>
                 </div>
-                <div class="verified">
-                  <i aria-hidden="true">✓</i>
-                  Accord de publication
-                </div>
+                {item.serviceHref && <a class="case-service-link" href={item.serviceHref} data-track="cta_client_proof_service" data-track-label={item.tabLabel}>Voir la prestation concernée <span aria-hidden="true">→</span></a>}
               </footer>
             </div>
           </article>

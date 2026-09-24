@@ -185,6 +185,7 @@ body[data-design="f1"][data-design] {
   .editorial-copy > span { color: var(--text-muted); font-size: 17px; }
 
   .proof-intro { color: var(--text-muted); font-size: 17px; }
+  .case-service-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 16px; }
   .proof-intro > span { display: block; margin-top: 16px; font-size: 14px; color: var(--success); }
   .proof-highlights { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; padding-block: 24px; border-top: 1px solid var(--line); margin-bottom: 24px; }
   .proof-highlights strong { font-size: 20px; }

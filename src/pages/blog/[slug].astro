@@ -271,11 +271,12 @@ const breadcrumbs = [
         <div class="article-meta">
           <span>{frontmatter.category}</span>
           <span>{date}</span>
+          {frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate && <span>Actualisé le {modifiedDate}</span>}
           <span>{frontmatter.readingTime} de lecture</span>
         </div>
         <h1>{frontmatter.title}</h1>
         <p class="article-lead">{frontmatter.description}</p>
-        <div class="article-brief" aria-label="Ce que ce guide permet de faire">
+        <details class="article-brief-toggle"><summary>Les points traités dans ce guide</summary><div class="article-brief" aria-label="Ce que ce guide permet de faire">
           {
             readerBrief.map((item) => (
               <article>
@@ -284,7 +285,7 @@ const breadcrumbs = [
               </article>
             ))
           }
-        </div>
+        </div></details>
         <div class="article-actions">
           <a class="btn btn-primary btn-accent" href={articleContactHref} data-track="cta_article_header_primary" data-track-label={frontmatter.title}>
             Décrire mon dossier
@@ -296,7 +297,7 @@ const breadcrumbs = [
         </div>
       </div>
 
-      <figure class="article-cover" data-reveal-item>
+      <figure class="article-cover article-cover-clean" data-reveal-item>
         <ResponsiveImage
           src={frontmatter.coverImage}
           alt={frontmatter.coverAlt || frontmatter.title}
@@ -388,12 +389,10 @@ const breadcrumbs = [
       </aside>
 
       <div class="article-main">
-        {["cerfa-declaration-prealable-panneaux-solaires", "panneaux-solaires-sans-declaration-prealable"].includes(frontmatter.slug) && (
-          <aside class="article-installateur" aria-label="Accompagnement pour les installateurs">
-            <p><strong>Vous préparez les DP de vos clients ?</strong> Sunelys prend en charge la constitution, le dépôt et le suivi de la déclaration préalable, dès un dossier ponctuel.</p>
-            <a href="/declaration-prealable-panneaux-solaires" data-track="cta_blog_dp_service">Voir la prise en charge DP <span aria-hidden="true">→</span></a>
-          </aside>
-        )}
+        <aside class="article-installateur" aria-label="Accompagnement pour les installateurs">
+          <p><strong>Vous êtes installateur ?</strong> Pour vos dossiers clients, découvrez ce que vous pouvez confier à Sunelys et les pièces à transmettre, dès un dossier ponctuel.</p>
+          <a href={primaryServiceHref} data-track="cta_blog_service" data-track-label={frontmatter.slug}>{primaryServiceLabel} <span aria-hidden="true">→</span></a>
+        </aside>
         <div class="article-content">
           <Content />
         </div>
@@ -579,6 +578,20 @@ const breadcrumbs = [
 </script>
 
 <style>
+  .article-brief-toggle { margin-top: 20px; border-top: 1px solid var(--line); }
+  .article-brief-toggle > summary { min-height: 44px; padding-block: 14px; cursor: pointer; color: var(--text-muted); }
+  .article-brief-toggle .article-brief { margin: 0 0 16px; }
+  @media (max-width: 1040px) {
+    .article-aside > .aside-kicker, .article-aside > p, .article-aside > dl, .article-aside > .aside-decision-card, .article-aside > .aside-link { display: none; }
+    .article-aside { padding-block: 16px; }
+  }
+  .article-cover.article-cover-clean { display: flex; flex-direction: column; align-self: start; min-height: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; overflow: visible; }
+  .article-cover.article-cover-clean :global(.responsive-picture) { height: auto; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; }
+  .article-cover.article-cover-clean :global(img) { min-height: 0; filter: none; }
+  .article-cover.article-cover-clean::after { display: none; }
+  .article-cover.article-cover-clean figcaption { position: static; padding: 16px 0 0; gap: 4px; }
+  .article-cover.article-cover-clean figcaption span { color: var(--text-muted); font-size: 14px; text-transform: none; }
+  .article-cover.article-cover-clean figcaption strong { color: var(--text-muted); font-size: 15px; font-weight: 400; }
   .reading-progress {
     --reading-progress: 0;
     position: fixed;

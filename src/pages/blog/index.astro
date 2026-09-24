@@ -4,907 +4,146 @@ import BlogCard from "../../components/blog/BlogCard.astro";
 import ResponsiveImage from "../../components/ResponsiveImage.astro";
 import { getPublicBlogPosts } from "../../lib/blogPublication";
 
-const posts = getPublicBlogPosts().sort(
-  (a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime(),
-);
-
+const posts = getPublicBlogPosts().sort((a, b) => new Date(b.frontmatter.pubDate).getTime() - new Date(a.frontmatter.pubDate).getTime());
 const featuredPost = posts[0];
-const remainingPosts = posts.slice(1);
 const categories = [...new Set(posts.map((post) => String(post.frontmatter.category)))];
-const categoryCounts = categories.reduce<Record<string, number>>((acc, category) => {
-  acc[category] = posts.filter((post) => post.frontmatter.category === category).length;
-  return acc;
-}, {});
-const featuredDate = featuredPost
-  ? new Intl.DateTimeFormat("fr-FR", {
-      day: "2-digit",
-      month: "long",
-      year: "numeric",
-    }).format(new Date(featuredPost.frontmatter.pubDate))
-  : "";
-
-const resourcePaths = [
-  {
-    label: "Déclaration préalable",
-    title: "Préparer ou débloquer une DP",
-    text: "Pièces, Cerfa, toiture, erreurs fréquentes et régularisation.",
-    href: "/blog/cerfa-declaration-prealable-panneaux-solaires",
-  },
-  {
-    label: "Consuel",
-    title: "Limiter les retours Consuel",
-    text: "Attestation, préparation du dossier et points à sécuriser.",
-    href: "/blog/attestation-consuel-photovoltaique",
-  },
-  {
-    label: "Raccordement",
-    title: "Suivre Enedis sans perdre le fil",
-    text: "Étapes, pièces et délais pour garder le chantier lisible.",
-    href: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
-  },
-  {
-    label: "Organisation",
-    title: "Décider quoi déléguer",
-    text: "Volume, rentabilité et périmètre administratif à externaliser.",
-    href: "/blog/externaliser-administratif-photovoltaique",
-  },
-];
-
-const decisionPaths = [
-  {
-    label: "DP mairie",
-    title: "Le dépôt ou le complément bloque le chantier.",
-    text: "Commencez par vérifier les pièces, les erreurs fréquentes et le bon niveau de reprise.",
-    guideHref: "/blog/declaration-prealable-panneaux-solaires-erreurs",
-    guideLabel: "Lire les erreurs DP",
-    actionHref: "/declaration-prealable-panneaux-solaires",
-    actionLabel: "Voir le service DP",
-  },
-  {
-    label: "Consuel",
-    title: "Le dossier technique doit être fiabilisé.",
-    text: "Clarifiez les points de contrôle avant l’envoi ou la reprise d’un dossier retourné.",
-    guideHref: "/blog/attestation-consuel-photovoltaique",
-    guideLabel: "Lire le guide Consuel",
-    actionHref: "/dossier-consuel-photovoltaique",
-    actionLabel: "Voir le service Consuel",
-  },
-  {
-    label: "Enedis",
-    title: "Le raccordement manque de visibilité.",
-    text: "Identifiez les étapes, les relances et ce qui doit rester visible côté équipe.",
-    guideHref: "/blog/raccordement-enedis-photovoltaique-etapes-delais",
-    guideLabel: "Lire les étapes Enedis",
-    actionHref: "/raccordement-enedis-photovoltaique",
-    actionLabel: "Voir le service raccordement",
-  },
-  {
-    label: "Volume",
-    title: "L’équipe n’absorbe plus l’administratif.",
-    text: "Décidez quoi déléguer en premier sans sortir tout le flux d’un seul coup.",
-    guideHref: "/blog/externalisation-administrative-solaire-volume",
-    guideLabel: "Lire le guide volume",
-    actionHref: "/contact?source=blog-decision-hub#contact-form",
-    actionLabel: "Demander un cadrage",
-  },
-];
-
-const structuredData = [
-  {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    name: "Blog Sunelys",
-    url: "https://sunelys.fr/blog",
-    description:
-      "Conseils sur la gestion administrative photovoltaïque, le Consuel, les déclarations préalables et le raccordement Enedis pour les professionnels du solaire.",
-    publisher: {
-      "@type": "Organization",
-      name: "Sunelys",
-      url: "https://sunelys.fr",
-    },
-  },
-];
+const structuredData = [{
+  "@context": "https://schema.org", "@type": "Blog", name: "Blog Sunelys", url: "https://sunelys.fr/blog",
+  description: "Guides administratifs photovoltaïques pour les installateurs : déclaration préalable, Consuel, raccordement et organisation.",
+  publisher: { "@type": "Organization", name: "Sunelys", url: "https://sunelys.fr" },
+}];
 ---
 
-<BaseLayout
-  title="Blog photovoltaïque administratif | Sunelys"
-  description="Guides pratiques pour installateurs photovoltaïques : gestion administrative solaire, déclaration préalable, Consuel, raccordement Enedis et organisation des dossiers."
-  structuredData={structuredData}
->
-  <section
-    class="blog-hero reveal"
-    aria-labelledby="blog-title"
-    data-track-view="blog_hero_view"
-    data-track-label="blog_resource_center_hero"
-  >
-    <div class="blog-hero-copy" data-reveal-item>
-      <p class="kicker">Ressources photovoltaïques</p>
-      <h1 id="blog-title">Le bon guide pour faire avancer le dossier.</h1>
-      <p>
-        Des ressources courtes et opérationnelles pour préparer les bonnes pièces, anticiper les blocages et rendre
-        vos flux DP, Consuel et raccordement plus prévisibles.
-      </p>
-
-      <div class="resource-paths" aria-label="Entrées rapides du centre de ressources">
-        {
-          resourcePaths.map((item) => (
-            <a href={item.href} data-track="cta_blog_resource_path" data-track-label={item.label}>
-              <span>{item.label}</span>
-              <strong>{item.title}</strong>
-              <p>{item.text}</p>
-              <i aria-hidden="true">→</i>
-            </a>
-          ))
-        }
+<BaseLayout title="Blog photovoltaïque administratif | Sunelys" description="Guides pratiques pour installateurs photovoltaïques : déclaration préalable, Consuel, raccordement Enedis et organisation des dossiers." structuredData={structuredData}>
+  <section class="journal-intro" aria-labelledby="journal-title">
+    <div class="journal-heading">
+      <p class="eyebrow">Ressources Sunelys</p>
+      <h1 id="journal-title">Les guides administratifs du solaire.</h1>
+      <p>Les pièces à préparer, les étapes à suivre et les erreurs à éviter. Pour les professionnels qui veulent faire avancer leurs dossiers photovoltaïques.</p>
+      <div class="journal-links">
+        <a class="btn btn-accent" href="#guides" data-track="cta_blog_hero_guides">Trouver mon guide <span aria-hidden="true">↓</span></a>
+        <a href="/services" data-track="cta_blog_hero_services">Confier un dossier à Sunelys <span aria-hidden="true">→</span></a>
       </div>
-
-      <div class="hero-actions">
-        <a class="btn btn-accent" href="#guides" data-track="cta_blog_hero_guides">
-          Explorer les guides
-          <span aria-hidden="true">↓</span>
+      <p class="journal-count">{posts.length} guides · DP, Consuel, Enedis et organisation</p>
+    </div>
+    {featuredPost && (
+      <article class="journal-feature" data-track-view="blog_featured_view" data-track-label={featuredPost.frontmatter.slug}>
+        <a class="journal-feature-image" href={`/blog/${featuredPost.frontmatter.slug}`} aria-label={`Lire : ${featuredPost.frontmatter.title}`} data-track="cta_blog_featured_visual">
+          <ResponsiveImage src={featuredPost.frontmatter.coverImage} alt={featuredPost.frontmatter.coverAlt || featuredPost.frontmatter.title} width="1280" height="720" loading="eager" fetchpriority="high" sizes="(max-width: 760px) calc(100vw - 48px), 480px" />
         </a>
-        <a class="hero-link" href="/services" data-track="cta_blog_hero_services">
-          Voir les services Sunelys
-          <span aria-hidden="true">↗</span>
-        </a>
-      </div>
-    </div>
-
-    {
-      featuredPost && (
-        <article
-          class="featured-article"
-          data-reveal-item
-          data-track-view="blog_featured_view"
-          data-track-label={featuredPost.frontmatter.slug}
-        >
-          <a
-            class="featured-visual"
-            href={`/blog/${featuredPost.frontmatter.slug}`}
-            data-track="cta_blog_featured_visual"
-            aria-label={`À lire : ${featuredPost.frontmatter.title}`}
-          >
-            {featuredPost.frontmatter.coverImage && (
-              <ResponsiveImage
-                src={featuredPost.frontmatter.coverImage}
-                alt={featuredPost.frontmatter.coverAlt || featuredPost.frontmatter.title}
-                loading="eager"
-                decoding="async"
-                width="1280"
-                height="720"
-                sizes="(max-width: 1040px) 100vw, 42vw"
-                fetchpriority="high"
-              />
-            )}
-            <span>À lire</span>
-          </a>
-          <div class="featured-copy">
-            <div class="featured-meta">
-              <span>{featuredPost.frontmatter.category}</span>
-              <span>{featuredPost.frontmatter.readingTime}</span>
-            </div>
-            <h2>
-              <a href={`/blog/${featuredPost.frontmatter.slug}`} data-track="cta_blog_featured">
-                {featuredPost.frontmatter.title}
-              </a>
-            </h2>
-            <p>{featuredPost.frontmatter.description}</p>
-            <footer>
-              <time datetime={featuredPost.frontmatter.pubDate}>{featuredDate}</time>
-              <a href={`/blog/${featuredPost.frontmatter.slug}`} data-track="cta_blog_featured_read">
-                Lire le guide
-                <span aria-hidden="true">→</span>
-              </a>
-            </footer>
-          </div>
-        </article>
-      )
-    }
+        <div class="journal-feature-meta"><span>Dernière publication</span><span>{featuredPost.frontmatter.readingTime}</span></div>
+        <h2><a href={`/blog/${featuredPost.frontmatter.slug}`} data-track="cta_blog_featured">{featuredPost.frontmatter.title}</a></h2>
+      </article>
+    )}
   </section>
 
-  <section
-    class="editorial-strip reveal"
-    aria-label="Principes éditoriaux Sunelys"
-    data-track-view="blog_editorial_principles_view"
-    data-track-label="blog_editorial_principles"
-  >
-    <div data-reveal-item>
-      <span>01</span>
-      <strong>Écrit pour les installateurs</strong>
+  <section id="guides" class="journal-library" aria-labelledby="library-title" data-guide-library>
+    <header class="journal-library-head">
+      <div><p class="eyebrow">Bibliothèque</p><h2 id="library-title">Une réponse pour chaque étape.</h2></div>
+      <p data-guide-count role="status" aria-live="polite" aria-atomic="true">{posts.length} guides</p>
+    </header>
+    <div class="journal-filters" data-guide-controls hidden>
+      <label for="guide-search">Rechercher un guide
+        <input type="search" id="guide-search" placeholder="Cerfa, pièces, délais…" autocomplete="off" aria-controls="guide-results" />
+      </label>
+      <label for="guide-category">Sujet
+        <select id="guide-category" aria-controls="guide-results">
+          <option value="">Tous les sujets</option>
+          {categories.map((category) => <option value={category}>{category}</option>)}
+        </select>
+      </label>
+      <button class="journal-reset" type="button" data-guide-reset hidden>Effacer les filtres</button>
     </div>
-    <div data-reveal-item>
-      <span>02</span>
-      <strong>Orienté pièces et étapes</strong>
+    <div id="guide-results" class="journal-grid">
+      {posts.map((post) => <BlogCard post={post} />)}
     </div>
-    <div data-reveal-item>
-      <span>03</span>
-      <strong>Des réponses directement applicables</strong>
-    </div>
-    <div data-reveal-item>
-      <span>04</span>
-      <strong>{posts.length} guides publics</strong>
+    <div class="journal-empty" data-guide-empty hidden>
+      <h3>Aucun guide ne correspond à cette recherche.</h3>
+      <p>Essayez un autre terme ou consultez les prestations Sunelys.</p>
+      <a href="/services">Voir les services <span aria-hidden="true">→</span></a>
     </div>
   </section>
 
-  <section
-    class="decision-hub reveal"
-    aria-labelledby="decision-hub-title"
-    data-track-view="blog_decision_hub_view"
-    data-track-label="blog_decision_paths"
-  >
-    <div class="decision-hub-head" data-reveal-item>
-      <p class="kicker">Hub de décision</p>
-      <h2 id="decision-hub-title">Vous savez déjà où ça bloque ? Allez directement au bon chemin.</h2>
-      <p>
-        Le blog sert à comprendre. Mais si un dossier est déjà en cours, l’enjeu est surtout de choisir la prochaine
-        action : lire le bon guide, comparer le service ou demander un cadrage.
-      </p>
-    </div>
-
-    <div class="decision-paths" aria-label="Chemins de décision administratif photovoltaïque">
-      {
-        decisionPaths.map((item, index) => (
-          <article data-reveal-item>
-            <span>{String(index + 1).padStart(2, "0")} · {item.label}</span>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <div>
-              <a href={item.guideHref} data-track="cta_blog_decision_guide" data-track-label={item.label}>
-                {item.guideLabel}
-              </a>
-              <a href={item.actionHref} data-track="cta_blog_decision_action" data-track-label={item.label}>
-                {item.actionLabel}
-                <span aria-hidden="true">↗</span>
-              </a>
-            </div>
-          </article>
-        ))
-      }
-    </div>
-  </section>
-
-  <section
-    id="guides"
-    class="guide-library reveal"
-    aria-labelledby="library-title"
-    data-track-view="blog_library_view"
-    data-track-label="blog_guide_library"
-  >
-    <div class="library-head" data-reveal-item>
-      <div>
-        <p class="kicker">Bibliothèque</p>
-        <h2 id="library-title">Tous les guides Sunelys.</h2>
-      </div>
-      <p>
-        Déclaration préalable, Consuel, raccordement et organisation : choisissez le sujet qui correspond au dossier
-        que vous devez faire avancer.
-      </p>
-    </div>
-
-    <div class="library-topics" aria-label="Répartition des guides publics" data-reveal-item>
-      {
-        categories.map((category) => (
-          <span>
-            {category}
-            <strong>{categoryCounts[category]}</strong>
-          </span>
-        ))
-      }
-    </div>
-
-    <div class="blog-grid">
-      {remainingPosts.map((post, index) => <BlogCard post={post} index={index} />)}
-    </div>
-  </section>
-
-  <section
-    class="blog-cta reveal"
-    aria-labelledby="blog-cta-title"
-    data-track-view="blog_final_cta_view"
-    data-track-label="blog_final_cta"
-  >
-    <div data-reveal-item>
-      <p class="kicker">Besoin d’aller plus vite ?</p>
-      <h2 id="blog-cta-title">Le guide explique. Sunelys peut aussi reprendre le dossier.</h2>
-      <p>
-        Décrivez la démarche, le volume et le blocage. Vous recevez un premier périmètre de délégation sous 24h.
-      </p>
-    </div>
-    <div class="cta-actions" data-reveal-item>
-      <a class="btn btn-accent" href="/contact?source=blog-final#contact-form" data-track="cta_blog_final_contact">
-        Décrire mon dossier
-        <span aria-hidden="true">→</span>
-      </a>
-      <a href="/tarifs" data-track="cta_blog_final_pricing">
-        Voir les tarifs fixes
-        <span aria-hidden="true">↗</span>
-      </a>
-    </div>
+  <section class="journal-delegation" aria-labelledby="journal-delegation-title">
+    <div><p class="eyebrow">Passer à la suite</p><h2 id="journal-delegation-title">Comprendre la démarche. Ou nous la confier.</h2><p>Vous êtes installateur ? Nous pouvons reprendre un dossier ponctuel ou le suivi de plusieurs chantiers.</p></div>
+    <div class="journal-links"><a class="btn btn-accent" href="/contact?source=blog-final#contact-form" data-track="cta_blog_final_contact">Décrire mon dossier <span aria-hidden="true">→</span></a><a href="/tarifs" data-track="cta_blog_final_pricing">Voir les tarifs fixes <span aria-hidden="true">→</span></a></div>
   </section>
 </BaseLayout>
 
+<script>
+  import { matchesGuide } from "../../lib/guide-filter.mjs";
+  const library = document.querySelector<HTMLElement>("[data-guide-library]");
+  if (library) {
+    const search = library.querySelector<HTMLInputElement>("#guide-search");
+    const category = library.querySelector<HTMLSelectElement>("#guide-category");
+    const count = library.querySelector<HTMLElement>("[data-guide-count]");
+    const reset = library.querySelector<HTMLButtonElement>("[data-guide-reset]");
+    const empty = library.querySelector<HTMLElement>("[data-guide-empty]");
+    const controls = library.querySelector<HTMLElement>("[data-guide-controls]");
+    const cards = Array.from(library.querySelectorAll<HTMLElement>("[data-guide-card]"));
+    if (search && category && count && reset && empty && controls) {
+      controls.hidden = false;
+      const filter = () => {
+        let visible = 0;
+        cards.forEach((card) => {
+          const match = matchesGuide({ title: card.dataset.guideTitle, description: card.dataset.guideDescription, category: card.dataset.guideCategory }, search.value, category.value);
+          card.hidden = !match;
+          if (match) visible++;
+        });
+        count.textContent = `${visible} guide${visible > 1 ? "s" : ""}${category.value ? ` · ${category.value}` : ""}`;
+        empty.hidden = visible !== 0;
+        reset.hidden = !search.value && !category.value;
+      };
+      search.addEventListener("input", filter);
+      category.addEventListener("change", filter);
+      reset.addEventListener("click", () => { search.value = ""; category.value = ""; filter(); search.focus(); });
+      filter();
+    }
+  }
+</script>
+
 <style>
-  .blog-hero {
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    grid-template-columns: minmax(0, 0.92fr) minmax(380px, 0.78fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: center;
-    overflow: hidden;
-    padding: clamp(1.5rem, 3.8vw, 4rem);
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
-      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
-      var(--ink);
-    box-shadow: var(--shadow-md);
-  }
-
-  .blog-hero::before,
-  .blog-cta::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
-    background-size: 3rem 3rem;
-    mask-image: radial-gradient(68% 76% at 20% 30%, #000 0%, transparent 78%);
-    opacity: 0.42;
-  }
-
-  .blog-hero-copy,
-  .featured-article,
-  .blog-cta > div {
-    position: relative;
-    z-index: 1;
-  }
-
-  .kicker {
-    color: var(--system);
-    font-size: 0.7rem;
-    font-weight: 780;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .blog-hero-copy .kicker,
-  .blog-cta .kicker {
-    color: var(--accent);
-  }
-
-  .blog-hero h1 {
-    max-width: 13ch;
-    margin-top: 0.7rem;
-    color: #ffffff;
-    font-size: clamp(2.25rem, 4.25vw, 4.7rem);
-    line-height: 0.96;
-  }
-
-  .blog-hero-copy > p:not(.kicker) {
-    max-width: 58ch;
-    margin-top: 1.1rem;
-    color: rgba(255, 255, 255, 0.62);
-    font-size: 0.9rem;
-    line-height: 1.64;
-  }
-
-  .resource-paths {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.72rem;
-    max-width: 48rem;
-    margin-top: 1.35rem;
-  }
-
-  .resource-paths a {
-    position: relative;
-    display: grid;
-    min-height: 8.4rem;
-    padding: 0.88rem 2.3rem 0.88rem 0.88rem;
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.055);
-    color: #ffffff;
-    text-decoration: none;
-    backdrop-filter: blur(14px);
-    transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
-  }
-
-  .resource-paths a:hover,
-  .resource-paths a:focus-visible {
-    border-color: rgba(255, 255, 255, 0.24);
-    background: rgba(255, 255, 255, 0.085);
-    transform: translateY(-2px);
-  }
-
-  .resource-paths span {
-    color: var(--accent);
-    font-size: 0.58rem;
-    font-weight: 820;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .resource-paths strong {
-    display: block;
-    margin-top: 0.48rem;
-    color: #ffffff;
-    font-size: 0.92rem;
-    line-height: 1.18;
-  }
-
-  .resource-paths p {
-    margin-top: 0.46rem;
-    color: rgba(255, 255, 255, 0.54);
-    font-size: 0.67rem;
-    line-height: 1.46;
-  }
-
-  .resource-paths i {
-    position: absolute;
-    right: 0.82rem;
-    bottom: 0.82rem;
-    color: var(--accent);
-    font-style: normal;
-    font-weight: 850;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .hero-link,
-  .featured-copy footer a,
-  .cta-actions > a:not(.btn) {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 0.74rem;
-    font-weight: 740;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.22);
-    text-underline-offset: 0.28rem;
-  }
-
-  .hero-link span,
-  .featured-copy footer a span,
-  .cta-actions > a:not(.btn) span {
-    color: var(--accent);
-  }
-
-  .featured-article {
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 18px;
-    background: #ffffff;
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3);
-  }
-
-  .featured-visual {
-    position: relative;
-    display: block;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--ink);
-  }
-
-  .featured-visual img {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .featured-visual :global(.responsive-picture) {
-    height: 100%;
-  }
-
-  .featured-visual > span {
-    position: absolute;
-    top: 0.75rem;
-    left: 0.75rem;
-    padding: 0.32rem 0.55rem;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--ink);
-    font-size: 0.58rem;
-    font-weight: 800;
-    text-transform: uppercase;
-  }
-
-  .featured-copy {
-    padding: 1.05rem;
-  }
-
-  .featured-meta {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    color: var(--system);
-    font-size: 0.6rem;
-    font-weight: 780;
-    text-transform: uppercase;
-  }
-
-  .featured-meta span:last-child {
-    color: var(--text-muted);
-  }
-
-  .featured-copy h2 {
-    margin-top: 0.86rem;
-    font-size: clamp(1.25rem, 1.75vw, 1.72rem);
-    line-height: 1.08;
-  }
-
-  .featured-copy h2 a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  .featured-copy > p {
-    margin-top: 0.65rem;
-    color: var(--text-muted);
-    font-size: 0.72rem;
-    line-height: 1.55;
-  }
-
-  .featured-copy footer {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1rem;
-    padding-top: 0.8rem;
-    border-top: 1px solid var(--line);
-  }
-
-  .featured-copy time {
-    color: var(--text-muted);
-    font-size: 0.6rem;
-  }
-
-  .featured-copy footer a {
-    color: var(--text);
-    text-decoration-color: var(--line);
-  }
-
-  .editorial-strip {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    overflow: hidden;
-    border: 1px solid var(--line);
-    background: var(--surface);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .editorial-strip > div {
-    min-height: 6.2rem;
-    display: grid;
-    align-content: space-between;
-    gap: 0.6rem;
-    padding: 1rem;
-    border-right: 1px solid var(--line);
-  }
-
-  .editorial-strip > div:last-child {
-    border-right: 0;
-  }
-
-  .editorial-strip span {
-    color: var(--system);
-    font-size: 0.62rem;
-    font-weight: 800;
-  }
-
-  .editorial-strip strong {
-    max-width: 20ch;
-    color: var(--text);
-    font-size: 0.76rem;
-    line-height: 1.42;
-  }
-
-  .decision-hub {
-    display: grid;
-    grid-template-columns: minmax(260px, 0.58fr) minmax(0, 1.42fr);
-    gap: clamp(1.4rem, 4.5vw, 4.8rem);
-    overflow: hidden;
-    padding: clamp(1.35rem, 3.2vw, 3rem);
-    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(90% 120% at 100% 0%, rgba(54, 98, 227, 0.13), transparent 64%),
-      linear-gradient(90deg, rgba(14, 23, 38, 0.035) 1px, transparent 1px) 0 0 / 42px 42px,
-      color-mix(in srgb, var(--surface) 96%, #ffffff);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .decision-hub-head {
-    display: grid;
-    align-content: start;
-    gap: 0.75rem;
-  }
-
-  .decision-hub-head h2 {
-    max-width: 13ch;
-    margin: 0;
-    color: var(--ink);
-    font-size: clamp(2rem, 3.7vw, 3.65rem);
-    letter-spacing: -0.055em;
-    line-height: 0.98;
-  }
-
-  .decision-hub-head > p:not(.kicker) {
-    max-width: 43ch;
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    line-height: 1.65;
-  }
-
-  .decision-paths {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
-  }
-
-  .decision-paths article {
-    display: grid;
-    align-content: space-between;
-    min-height: 16.4rem;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.76);
-    box-shadow: 0 18px 44px rgba(14, 23, 38, 0.055);
-  }
-
-  .decision-paths article > span {
-    color: var(--system);
-    font-size: 0.62rem;
-    font-weight: 850;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .decision-paths h3 {
-    max-width: 18ch;
-    margin-top: 0.8rem;
-    color: var(--ink);
-    font-size: clamp(1.05rem, 1.5vw, 1.32rem);
-    letter-spacing: -0.02em;
-    line-height: 1.13;
-  }
-
-  .decision-paths p {
-    margin-top: 0.58rem;
-    color: var(--text-muted);
-    font-size: 0.74rem;
-    line-height: 1.52;
-  }
-
-  .decision-paths article > div {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 0.46rem;
-    margin-top: 1.05rem;
-  }
-
-  .decision-paths a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.6rem;
-    min-height: 2.45rem;
-    padding: 0.68rem 0.74rem;
-    border-radius: 12px;
-    font-size: 0.7rem;
-    font-weight: 850;
-    line-height: 1.2;
-    text-decoration: none;
-  }
-
-  .decision-paths a:first-child {
-    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
-    background: color-mix(in srgb, var(--system-soft) 38%, #ffffff);
-    color: var(--text);
-  }
-
-  .decision-paths a:last-child {
-    background: var(--ink);
-    color: #ffffff;
-  }
-
-  .decision-paths a span {
-    color: var(--accent);
-  }
-
-  .guide-library {
-    padding: clamp(1.3rem, 3vw, 2.6rem);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-xl);
-    background: var(--surface);
-    box-shadow: var(--shadow-sm);
-    scroll-margin-top: 6rem;
-  }
-
-  .library-head {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.58fr);
-    gap: clamp(1.2rem, 4vw, 4rem);
-    align-items: end;
-  }
-
-  .library-head h2 {
-    max-width: 17ch;
-    margin-top: 0.6rem;
-    font-size: clamp(2rem, 3.7vw, 3.7rem);
-  }
-
-  .library-head > p {
-    color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.62;
-  }
-
-  .library-topics {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.6rem;
-    margin-top: 1.35rem;
-  }
-
-  .library-topics span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.48rem;
-    padding: 0.48rem 0.65rem;
-    border: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-    border-radius: 999px;
-    background: color-mix(in srgb, var(--system-soft) 38%, #ffffff);
-    color: var(--text);
-    font-size: 0.68rem;
-    font-weight: 760;
-  }
-
-  .library-topics strong {
-    display: inline-grid;
-    place-items: center;
-    min-width: 1.35rem;
-    min-height: 1.35rem;
-    border-radius: 999px;
-    background: var(--ink);
-    color: var(--accent);
-    font-size: 0.58rem;
-    line-height: 1;
-  }
-
-  .blog-grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.75rem;
-    margin-top: 1.8rem;
-  }
-
-  .blog-cta {
-    position: relative;
-    isolation: isolate;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: clamp(1.5rem, 4vw, 4rem);
-    align-items: end;
-    padding: clamp(1.5rem, 3.8vw, 3.8rem);
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
-      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.28), transparent 62%),
-      var(--ink);
-    box-shadow: var(--shadow-md);
-  }
-
-  .blog-cta::before {
-    mask-image: radial-gradient(68% 76% at 78% 24%, #000 0%, transparent 76%);
-  }
-
-  .blog-cta h2 {
-    max-width: 18ch;
-    margin-top: 0.6rem;
-    color: #ffffff;
-    font-size: clamp(2rem, 3.7vw, 3.7rem);
-  }
-
-  .blog-cta > div:first-child > p:last-child {
-    max-width: 60ch;
-    margin-top: 0.9rem;
-    color: rgba(255, 255, 255, 0.58);
-    font-size: 0.82rem;
-    line-height: 1.6;
-  }
-
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  @media (max-width: 1050px) {
-    .blog-hero,
-    .decision-hub,
-    .blog-cta {
-      grid-template-columns: 1fr;
-    }
-
-    .blog-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @media (max-width: 720px) {
-    .blog-hero,
-    .decision-hub,
-    .guide-library,
-    .blog-cta {
-      padding: 1.2rem;
-    }
-
-    .hero-actions {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    .hero-actions .btn,
-    .hero-link {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .resource-paths {
-      grid-template-columns: 1fr;
-    }
-
-    .resource-paths a {
-      min-height: auto;
-    }
-
-    .editorial-strip,
-    .decision-paths,
-    .blog-grid,
-    .library-head {
-      grid-template-columns: 1fr;
-    }
-
-    .decision-paths article {
-      min-height: auto;
-    }
-
-    .editorial-strip > div {
-      min-height: 4.7rem;
-      border-right: 0;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .editorial-strip > div:last-child {
-      border-bottom: 0;
-    }
-
-    .cta-actions {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    .cta-actions .btn,
-    .cta-actions > a {
-      width: 100%;
-      justify-content: center;
-    }
+  .journal-intro, .journal-library, .journal-delegation { padding: 64px 32px; border-bottom: 1px solid var(--line); }
+  .journal-intro { display: grid; grid-template-columns: 1.12fr 1fr; gap: 64px; align-items: center; }
+  .journal-heading h1 { font-size: 48px; line-height: 1.08; max-width: 19ch; margin: 16px 0 24px; }
+  .journal-heading > p:not(.eyebrow), .journal-delegation p:not(.eyebrow) { color: var(--text-muted); max-width: 56ch; }
+  .journal-links { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: 28px; }
+  .journal-links > a:not(.btn) { color: var(--text); font-size: 16px; min-height: 44px; display: inline-flex; align-items: center; gap: 8px; }
+  .journal-heading .journal-count { margin-top: 24px; font-size: 14px; }
+  .journal-feature { min-width: 0; }
+  .journal-feature-image { display: block; aspect-ratio: 16 / 10; overflow: hidden; border-radius: 4px; background: var(--surface); }
+  .journal-feature-meta { display: flex; justify-content: space-between; gap: 16px; color: var(--text-muted); font-size: 14px; margin: 18px 0 12px; }
+  .journal-feature-meta > span:first-child { color: var(--accent-text); }
+  .journal-feature h2 { font-size: 25px; line-height: 1.2; }
+  .journal-feature h2 a { text-decoration: none; }
+  .journal-feature h2 a:hover { text-decoration: underline; }
+  .journal-library-head { display: flex; align-items: end; justify-content: space-between; gap: 24px; margin-bottom: 28px; }
+  .journal-library-head h2, .journal-delegation h2 { font-size: 32px; margin-top: 12px; }
+  .journal-library-head > p { color: var(--text-muted); font-size: 15px; flex-shrink: 0; }
+  .journal-filters { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 320px) 150px; gap: 20px; align-items: end; margin-bottom: 32px; }
+  .journal-filters label { display: grid; gap: 8px; font-size: 15px; color: var(--text-muted); }
+  .journal-filters :is(input, select) { width: 100%; min-width: 0; height: 48px; padding: 10px 12px; border: 1px solid #7c8587; border-radius: 4px; background: var(--surface); color: var(--text); font-size: 16px; }
+  .journal-filters input::placeholder { color: var(--text-muted); }
+  .journal-reset { min-height: 48px; padding: 8px; border: 0; background: transparent; color: var(--text); text-decoration: underline; font-size: 15px; cursor: pointer; }
+  .journal-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; }
+  .journal-empty { padding: 32px 0; }
+  .journal-empty p { color: var(--text-muted); margin-block: 12px; }
+  .journal-empty a { color: var(--text); }
+  .journal-delegation { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
+  .journal-delegation .journal-links { flex-direction: column; align-items: start; margin: 0; }
+  .journal-delegation p:not(.eyebrow) { margin-top: 16px; }
+  [hidden] { display: none !important; }
+  @media (max-width: 1000px) { .journal-intro { gap: 32px; } .journal-heading h1 { font-size: 40px; } .journal-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 760px) {
+    .journal-intro, .journal-library, .journal-delegation { padding: 40px 24px; }
+    .journal-intro, .journal-delegation { grid-template-columns: 1fr; gap: 32px; }
+    .journal-heading h1 { font-size: 34px; max-width: 20ch; }
+    .journal-feature-image { aspect-ratio: 16 / 9; }
+    .journal-feature h2 { font-size: 23px; }
+    .journal-library-head { display: block; } .journal-library-head > p { margin-top: 16px; }
+    .journal-library-head h2, .journal-delegation h2 { font-size: 28px; }
+    .journal-filters { grid-template-columns: 1fr; gap: 16px; }
+    .journal-reset { justify-self: start; }
+    .journal-grid { grid-template-columns: 1fr; gap: 0; }
   }
 </style>

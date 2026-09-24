@@ -153,6 +153,7 @@ export const proofSectionData = {
       author: "Damien Guillaume - dirigeant, SUN WATT FRANCE",
       note: "Témoignage nominatif publié avec accord.",
       service: "Déclarations préalables",
+      serviceHref: "/declaration-prealable-panneaux-solaires",
       outcome: "Des dossiers cadrés sérieusement et moins de pièces complémentaires.",
       journey: [
         { label: "Besoin", text: "Fiabiliser les DP" },
@@ -171,6 +172,7 @@ export const proofSectionData = {
       author: "Victorion Brice - gérant, Be Travaux",
       note: "Retour terrain publié avec accord.",
       service: "Pilotage administratif",
+      serviceHref: "/gestion-administrative-photovoltaique",
       outcome: "Un suivi plus fluide pour protéger le rythme des installations.",
       journey: [
         { label: "Besoin", text: "Protéger les délais" },
