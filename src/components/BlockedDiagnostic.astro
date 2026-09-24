@@ -1,5 +1,6 @@
 ---
 import FormPrivacyNote from "./FormPrivacyNote.astro";
+import LeadFields from "./LeadFields.astro";
 
 interface Props {
   source?: string;
@@ -12,8 +13,8 @@ interface Props {
 const {
   source = "diagnostic_dossiers_bloques",
   kicker = "Diagnostic dossiers bloqués",
-  title = "Recevez un plan d'action sous 24h pour votre premier dossier à déléguer.",
-  text = "En quelques champs, Sunelys repère votre volume, l'étape bloquée et le premier périmètre à traiter: dossier ponctuel, pic de charge ou flux récurrent.",
+  title = "Quel dossier souhaitez-vous nous confier ?",
+  text = "Décrivez votre besoin. L’équipe vous répond sous 24h ouvrées pour préciser la prise en charge et les prochaines étapes.",
   submitLabel = "Recevoir mon plan d'action",
 } = Astro.props;
 
@@ -72,7 +73,6 @@ const signals = [
     <input type="hidden" name="lead_stage" value="blocked_diagnostic_form_submitted" />
     <input type="hidden" name="service_interest" value="Pilotage complet" data-diagnostic-service-interest />
     <input type="hidden" name="lead_source_detail" value={`${source}_form`} />
-    <input type="hidden" name="message" value="Demande de diagnostic dossiers bloqués" />
     <input type="hidden" name="qualification_hint" value="diagnostic dossiers bloqués avec téléphone optionnel, volume, besoin, situation, urgence et étape administrative" />
     <input type="hidden" name="lead_status" value="Nouveau lead" />
     <input type="hidden" name="lead_pipeline" value="Site web - Diagnostic dossiers bloqués" />
@@ -83,76 +83,7 @@ const signals = [
       <input type="hidden" name={fieldName} data-diagnostic-attribution={fieldName} />
     ))}
 
-    <label>
-      <span>Email professionnel</span>
-      <input type="email" name="email" autocomplete="email" inputmode="email" required />
-    </label>
-    <label>
-      <span>Téléphone pour rappel <em>optionnel</em></span>
-      <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-    </label>
-    <label>
-      <span>Société</span>
-      <input type="text" name="company" autocomplete="organization" />
-    </label>
-    <label>
-      <span>Volume mensuel</span>
-      <select name="volume" required>
-        <option value="">Sélectionner</option>
-        <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
-        <option value="10-30">10-30 dossiers</option>
-        <option value="+30">+30 dossiers</option>
-      </select>
-    </label>
-    <label>
-      <span>Besoin principal</span>
-      <select name="need" data-diagnostic-need required>
-        <option value="">Sélectionner</option>
-        <option value="Pilotage complet">Pilotage complet</option>
-        <option value="Declaration prealable">Déclaration préalable</option>
-        <option value="Consuel">Consuel</option>
-        <option value="Raccordement Enedis">Raccordement Enedis</option>
-        <option value="MaPrimeRenov">MaPrimeRénov'</option>
-        <option value="CEE">CEE</option>
-        <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
-        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-      </select>
-    </label>
-    <label>
-      <span>Situation</span>
-      <select name="team_context">
-        <option value="">Sélectionner</option>
-        <option value="Dossier ponctuel">Dossier ponctuel</option>
-        <option value="Pic de charge">Pic de charge</option>
-        <option value="Flux récurrent">Flux récurrent</option>
-        <option value="Reprise dossier bloqué">Reprise dossier bloqué</option>
-      </select>
-    </label>
-    <label>
-      <span>Urgence</span>
-      <select name="urgency" required>
-        <option value="">Sélectionner</option>
-        <option value="Sous 48h">Sous 48h</option>
-        <option value="Cette semaine">Cette semaine</option>
-        <option value="Ce mois-ci">Ce mois-ci</option>
-        <option value="Pas urgent">Pas urgent</option>
-      </select>
-    </label>
-    <label>
-      <span>Étape bloquée</span>
-      <select name="blocked_stage" required>
-        <option value="">Sélectionner</option>
-        <option value="Avant dépôt">Avant dépôt</option>
-        <option value="Complément mairie">Complément mairie</option>
-        <option value="Consuel à préparer">Consuel à préparer</option>
-        <option value="Raccordement en attente">Raccordement en attente</option>
-        <option value="Dossier d'aide à déposer">Dossier d'aide à déposer</option>
-        <option value="Prime à suivre">Prime à suivre</option>
-        <option value="Mise en service bloquée">Mise en service bloquée</option>
-        <option value="Pilotage global">Pilotage global</option>
-        <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-      </select>
-    </label>
+    <LeadFields idPrefix={`${formId}-`} />
 
     <button class="btn btn-accent blocked-diagnostic__submit" type="submit" data-track={`cta_${source}_diagnostic_submit`}>
       {submitLabel}

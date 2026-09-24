@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandSignature from "../components/BrandSignature.astro";
 import FormPrivacyNote from "../components/FormPrivacyNote.astro";
+import LeadFields from "../components/LeadFields.astro";
 
 const successUrl = "https://sunelys.fr/merci?source=contact_form";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
@@ -150,7 +151,7 @@ const supportCards = [
               rel="noreferrer"
               data-track="cta_contact_booking_top"
             >
-              Réserver 15 minutes
+              Réserver un échange
               <span aria-hidden="true">↗</span>
             </a>
           )
@@ -183,13 +184,12 @@ const supportCards = [
 
     <aside class="contact-person" aria-label="Votre interlocutrice Sunelys" data-reveal-item>
       <picture>
-        <source srcset="/images/myriam-zaoui.avif" type="image/avif" />
-        <source srcset="/images/myriam-zaoui.webp" type="image/webp" />
+        <source srcset="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.avif" type="image/avif" />
         <img
-          src="/images/myriam-zaoui.jpg"
+          src="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.png"
           alt="Myriam Zaoui, fondatrice de Sunelys"
-          width="768"
-          height="768"
+          width="1054"
+          height="1492"
           loading="eager"
           decoding="async"
           fetchpriority="high"
@@ -343,83 +343,12 @@ const supportCards = [
         <input type="hidden" name="fbclid" id="fbclid-field" />
         <input type="hidden" name="msclkid" id="msclkid-field" />
 
-        <label>
-          <span>Nom</span>
-          <input type="text" name="name" required autocomplete="name" />
-        </label>
-        <label>
-          <span>Société <em>optionnel</em></span>
-          <input type="text" name="company" autocomplete="organization" />
-        </label>
-        <label>
-          <span>Email professionnel</span>
-          <input type="email" name="email" required autocomplete="email" />
-        </label>
-        <label>
-          <span>Téléphone <em>optionnel</em></span>
-          <input type="tel" name="phone" autocomplete="tel" />
-        </label>
-        <label>
-          <span>Volume mensuel <em>optionnel</em></span>
-          <select name="volume" id="volume-field">
-            <option value="">Sélectionner</option>
-            <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
-            <option value="10-30">10-30 dossiers</option>
-            <option value="+30">+30 dossiers</option>
-          </select>
-        </label>
-        <label>
-          <span>Besoin principal</span>
-          <select name="need" id="need-field" required>
-            <option value="">Sélectionner</option>
-            <option value="Declaration prealable">Déclaration préalable</option>
-            <option value="Consuel">Consuel</option>
-            <option value="Raccordement Enedis">Raccordement Enedis</option>
-            <option value="EDF OA – Compte et contrat d’achat">EDF OA</option>
-            <option value="MaPrimeRenov">MaPrimeRénov'</option>
-            <option value="CEE">CEE</option>
-            <option value="MaPrimeRenov + CEE">MaPrimeRénov' + CEE</option>
-            <option value="Pilotage complet">Pilotage complet</option>
-            <option value="Je ne sais pas encore">Je ne sais pas encore</option>
-          </select>
-        </label>
-        <label class="full-width">
-          <span>Où ça bloque aujourd’hui ? <em>optionnel</em></span>
-          <select name="blocked_stage" id="blocked-stage-field">
-            <option value="">Sélectionner</option>
-            {
-              blockedStageOptions.map((option) => (
-                <option value={option}>{option}</option>
-              ))
-            }
-          </select>
-        </label>
-        <label class="full-width">
-          <span>Urgence <em>optionnel</em></span>
-          <select name="urgency" id="urgency-field">
-            <option value="">Sélectionner</option>
-            <option value="Sous 48h">Sous 48h</option>
-            <option value="Cette semaine">Cette semaine</option>
-            <option value="Ce mois-ci">Ce mois-ci</option>
-            <option value="Pas urgent">Pas urgent</option>
-          </select>
-        </label>
-        <label class="full-width">
-          <span>Votre contexte <em>optionnel</em></span>
-          <textarea
-            name="message"
-            rows="5"
-            placeholder="Dossier bloqué, organisation actuelle, délai ou précision utile…"
-          ></textarea>
-        </label>
+        <LeadFields />
 
         <button id="contact-form-submit" class="btn btn-accent submit-btn" type="submit" data-track="cta_contact_form_submit">
           Envoyer mon brief de diagnostic
           <span aria-hidden="true">→</span>
         </button>
-        <p class="form-note full-width">
-          Aucun engagement. Vos informations sont utilisées uniquement pour traiter votre demande.
-        </p>
         <FormPrivacyNote />
       </form>
     </div>
@@ -427,9 +356,11 @@ const supportCards = [
 </BaseLayout>
 
 <script>
+  import { resolveLeadIntent } from "../lib/lead-intent.mjs";
   const params = new URLSearchParams(window.location.search);
   const volumeFromQuery = params.get("volume");
-  const volumeFromStorage = localStorage.getItem("sunelys_volume_range");
+  let volumeFromStorage = "";
+  try { volumeFromStorage = localStorage.getItem("sunelys_volume_range") || ""; } catch { /* Storage may be disabled. */ }
   const sourceFromQuery = params.get("source") || params.get("service") || "";
   const attribution = window.getSunelysAttribution ? window.getSunelysAttribution() : {};
 
@@ -453,40 +384,7 @@ const supportCards = [
   }
 
   if (needField instanceof HTMLSelectElement && sourceFromQuery) {
-    const normalizedSource = sourceFromQuery.toLowerCase();
-    const isEdfOaSource =
-      normalizedSource.includes("edf-oa") ||
-      normalizedSource.includes("edf_oa") ||
-      normalizedSource.includes("edf oa") ||
-      (normalizedSource.includes("edf") && normalizedSource.includes("oa"));
-    if (isEdfOaSource) needField.value = "EDF OA – Compte et contrat d’achat";
-    if (normalizedSource.includes("consuel")) needField.value = "Consuel";
-    if (normalizedSource.includes("raccordement") || normalizedSource.includes("enedis")) {
-      needField.value = "Raccordement Enedis";
-    }
-    if (normalizedSource.includes("maprimerenov") || normalizedSource.includes("ma-prime-renov")) {
-      needField.value = "MaPrimeRenov";
-    }
-    if (normalizedSource.includes("cee")) needField.value = "CEE";
-    if (normalizedSource.includes("pack-maprimerenov-cee") || normalizedSource.includes("aides-renovation")) {
-      needField.value = "MaPrimeRenov + CEE";
-    }
-    if (normalizedSource.includes("declaration") || normalizedSource.includes("prealable")) {
-      needField.value = "Declaration prealable";
-    }
-    if (normalizedSource.includes("gestion") || normalizedSource.includes("administrative")) {
-      needField.value = "Pilotage complet";
-    }
-    if (!needField.value && (
-      normalizedSource.includes("diagnostic") ||
-      normalizedSource.includes("sticky") ||
-      normalizedSource.includes("header")
-    )) {
-      needField.value = "Je ne sais pas encore";
-    }
-    if (normalizedSource.includes("pilotage")) {
-      needField.value = "Pilotage complet";
-    }
+    needField.value = resolveLeadIntent(sourceFromQuery);
   }
 
   const inferBlockedStageFromSource = (source) => {

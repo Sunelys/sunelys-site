@@ -1,0 +1,62 @@
+---
+import { leadNeeds, resolveLeadIntent } from "../lib/lead-intent.mjs";
+interface Props { idPrefix?: string; initialNeed?: string; }
+const { idPrefix = "", initialNeed = "" } = Astro.props;
+const fieldId = (name: string) => `${idPrefix}${name}-field`;
+const selectedNeed = resolveLeadIntent(initialNeed);
+---
+<div class="lead-fields">
+  <div class="lead-trap" aria-hidden="true"><label>Ne pas remplir<input name="website" type="text" tabindex="-1" autocomplete="off" /></label></div>
+  <label class="lead-field lead-field-wide">
+    <span>Votre besoin</span>
+    <select name="need" id={fieldId("need")} required data-diagnostic-need>
+      <option value="">Sélectionner</option>
+      {leadNeeds.map(([value, label]) => <option value={value} selected={value === selectedNeed}>{label}</option>)}
+    </select>
+  </label>
+  <label class="lead-field">
+    <span>Votre nom</span>
+    <input type="text" name="name" required autocomplete="name" />
+  </label>
+  <label class="lead-field">
+    <span>Email professionnel</span>
+    <input type="email" name="email" required autocomplete="email" inputmode="email" />
+  </label>
+  <details class="lead-details">
+    <summary>Ajouter des précisions <span>facultatif</span></summary>
+    <div class="lead-details-grid">
+      <label class="lead-field"><span>Société</span><input type="text" name="company" autocomplete="organization" /></label>
+      <label class="lead-field"><span>Téléphone pour rappel</span><input type="tel" name="phone" autocomplete="tel" inputmode="tel" /></label>
+      <label class="lead-field"><span>Volume mensuel</span><select name="volume" id={fieldId("volume")}><option value="">À préciser</option><option value="1-10 dossiers ou ponctuel">1 à 10 ou dossier ponctuel</option><option value="10-30">10 à 30 dossiers</option><option value="+30">Plus de 30 dossiers</option></select></label>
+      <label class="lead-field"><span>Urgence</span><select name="urgency" id={fieldId("urgency")}><option value="">À préciser</option><option>Sous 48h</option><option>Cette semaine</option><option>Ce mois-ci</option><option>Pas urgent</option></select></label>
+      <label class="lead-field lead-field-wide"><span>Où en est votre dossier ?</span><select name="blocked_stage" id={fieldId("blocked-stage")}><option value="">À préciser</option><option>Dossier bloqué / reprise urgente</option><option>Pièce ou complément à sécuriser</option><option>Volume à absorber</option><option>Suivi organisme à relancer</option><option>Choix du périmètre à déléguer</option><option>Je ne sais pas encore</option></select></label>
+      <label class="lead-field lead-field-wide"><span>Votre contexte</span><textarea name="message" rows="3" placeholder="Démarche, difficulté rencontrée ou question…"></textarea></label>
+    </div>
+  </details>
+</div>
+<script>
+  document.querySelectorAll<HTMLDivElement>(".lead-fields").forEach((fields) => {
+    const form = fields.closest("form");
+    const need = fields.querySelector<HTMLSelectElement>('select[name="need"]');
+    const service = form?.querySelector<HTMLInputElement>('input[name="service_interest"]');
+    const sync = () => { if (service && need?.value) service.value = need.value; };
+    need?.addEventListener("change", sync);
+    form?.addEventListener("submit", sync);
+    sync();
+  });
+</script>
+<style>
+  .lead-fields, .lead-details-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; min-width: 0; }
+  .lead-fields { grid-column: 1 / -1; }
+  .lead-trap { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .lead-field { display: grid; gap: 8px; min-width: 0; color: #f7f7f5; font: 500 14px/1.4 var(--font-sans, Arial); }
+  .lead-field-wide, .lead-details { grid-column: 1 / -1; }
+  .lead-field input, .lead-field select, .lead-field textarea { width: 100%; min-width: 0; box-sizing: border-box; padding: 12px; min-height: 48px; border: 1px solid #687174; border-radius: 4px; background: #151718; color: #f7f7f5; font: 400 16px/1.4 var(--font-sans, Arial); color-scheme: dark; }
+  .lead-field textarea { resize: vertical; }
+  .lead-field input:focus-visible, .lead-field select:focus-visible, .lead-field textarea:focus-visible, summary:focus-visible { outline: 2px solid #dbad8f; outline-offset: 3px; }
+  .lead-field textarea::placeholder { color: #bac0c1; }
+  .lead-details { border-top: 1px solid #414849; }
+  summary { padding: 14px 0; cursor: pointer; color: #f7f7f5; font-size: 14px; }
+  summary span { margin-left: 6px; color: #bac0c1; font-size: 12px; }
+  @media (max-width: 520px) { .lead-fields, .lead-details-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

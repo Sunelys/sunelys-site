@@ -2,6 +2,7 @@
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 import BrandSignature from "./BrandSignature.astro";
 import FormPrivacyNote from "./FormPrivacyNote.astro";
+import LeadFields from "./LeadFields.astro";
 
 interface ProblemItem {
   title: string;
@@ -419,34 +420,11 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
             <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
           ))}
 
-          <label>
-            <span>Email professionnel</span>
-            <input type="email" name="email" autocomplete="email" inputmode="email" required />
-          </label>
-          <label>
-            <span>Téléphone pour rappel <em>optionnel</em></span>
-            <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-          </label>
-          <label>
-            <span>Volume mensuel</span>
-            <select name="volume" required>
-              <option value="">Sélectionner</option>
-              <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
-              <option value="10-30 dossiers">10-30 dossiers</option>
-              <option value="+30 dossiers">+30 dossiers</option>
-            </select>
-          </label>
-          <label>
-            <span>{diagnosticLabel}</span>
-            <select name="blocked_stage" required>
-              <option value="">Sélectionner</option>
-              {diagnosticOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-            </select>
-          </label>
+          <LeadFields idPrefix={`${data.slug}-hero-`} initialNeed={serviceInterest} />
         <button class="btn btn-primary btn-accent" type="submit" data-track={`cta_${data.slug}_hero_form`}>
             {quickSubmitLabel}
           </button>
-          <small>{data.quickFormNote ?? "Email requis. Volume et blocage obligatoires. Téléphone optionnel."}</small>
+          <small>Nom, email et besoin suffisent. Les précisions sont facultatives.</small>
           <FormPrivacyNote />
         </form>
 
@@ -984,44 +962,7 @@ const visibleGuideLinks = filterVisibleLinks(data.guideLinks, publicBlogSlugs);
       <input type="hidden" name={fieldName} data-service-attribution={fieldName} />
     ))}
 
-    <label>
-      <span>Prénom</span>
-      <input type="text" name="first_name" autocomplete="given-name" required />
-    </label>
-    <label>
-      <span>Email professionnel</span>
-      <input type="email" name="email" autocomplete="email" inputmode="email" required />
-    </label>
-    <label>
-      <span>Téléphone pour rappel <em>optionnel</em></span>
-      <input type="tel" name="phone" autocomplete="tel" inputmode="tel" />
-    </label>
-    <label>
-      <span>Volume mensuel</span>
-      <select name="volume" required>
-        <option value="">Sélectionner</option>
-        <option value="1-10 dossiers ou ponctuel">1-10 ou dossier ponctuel</option>
-        <option value="10-30 dossiers">10-30 dossiers</option>
-        <option value="+30 dossiers">+30 dossiers</option>
-      </select>
-    </label>
-    <label>
-      <span>{diagnosticLabel}</span>
-      <select name="blocked_stage" required>
-        <option value="">Sélectionner</option>
-        {diagnosticOptions.map((option) => <option value={option.value}>{option.label}</option>)}
-      </select>
-    </label>
-    <label>
-      <span>Urgence</span>
-      <select name="urgency" required>
-        <option value="">Sélectionner</option>
-        <option value="Sous 48h">Sous 48h</option>
-        <option value="Cette semaine">Cette semaine</option>
-        <option value="Ce mois-ci">Ce mois-ci</option>
-        <option value="Pas urgent">Pas urgent</option>
-      </select>
-    </label>
+    <LeadFields idPrefix={`${data.slug}-final-`} initialNeed={serviceInterest} />
     <button class="btn btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
       {finalSubmitLabel}
     </button>

@@ -1,0 +1,57 @@
+<script>
+  import { safeLeadRedirect } from "../lib/lead-delivery.mjs";
+  document.querySelectorAll<HTMLFormElement>("form[data-lead-form]:not([data-async-lead-form])").forEach((form) => {
+    const action = new URL(form.action, window.location.href);
+    if (action.origin !== window.location.origin || action.pathname !== "/api/leads") return;
+    form.setAttribute("data-async-lead-form", "");
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    if (!button) return;
+    const originalLabel = button.innerHTML;
+    const status = document.createElement("p");
+    status.className = "lead-submit-status";
+    status.setAttribute("role", "alert");
+    status.tabIndex = -1;
+    status.hidden = true;
+    button.before(status);
+    let pending = false;
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      if (pending) return;
+      pending = true;
+      button.disabled = true;
+      button.textContent = "Envoi en cours…";
+      form.setAttribute("aria-busy", "true");
+      status.hidden = true;
+      // Allow form-specific qualification handlers to finish before collecting values.
+      await Promise.resolve();
+      const body = new FormData(form);
+      const payload = {
+        source: String(body.get("source_page") || ""),
+        form_id: form.id || String(body.get("lead_source_detail") || "lead_form"),
+        conversion_type: String(body.get("conversion_type") || "form_contact"),
+        service_interest: String(body.get("service_interest") || body.get("need") || ""),
+      };
+      try {
+        const response = await fetch(action, { method: "POST", headers: { Accept: "application/json" }, body, signal: AbortSignal.timeout(60000) });
+        const result = await response.json();
+        if (!response.ok || result.ok !== true) throw new Error("Lead not confirmed");
+        window.trackLeadSuccess?.(payload);
+        window.location.assign(safeLeadRedirect(body.get("_next"), window.location.origin));
+      } catch {
+        status.textContent = "L’envoi n’a pas pu être confirmé. Vos informations sont conservées dans ce formulaire. Contactez-nous au 06 95 90 79 19 ou à contact@sunelys.fr avant de renouveler votre demande.";
+        status.hidden = false;
+        status.focus();
+        window.trackLeadError?.(payload);
+        pending = false;
+        button.disabled = false;
+        button.innerHTML = originalLabel;
+        form.removeAttribute("aria-busy");
+      }
+    });
+  });
+</script>
+<style is:global>
+  body[data-design="f1"] .lead-submit-status { grid-column: 1 / -1; padding: 16px; border: 1px solid #dbad8f; border-radius: 4px; background: #292d2e; color: #f7f7f5; font-size: 16px; line-height: 1.5; }
+  body[data-design="f1"] .lead-submit-status[hidden] { display: none; }
+  body[data-design="f1"] form[aria-busy="true"] button[type="submit"] { cursor: wait; opacity: 0.75; }
+</style>

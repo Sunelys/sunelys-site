@@ -54,23 +54,6 @@ interface Props {
 
 const { data } = Astro.props;
 const visibleLogos = data.logos.filter((logo) => logo.src);
-const assurances =
-  data.assurances && data.assurances.length > 0
-    ? data.assurances
-    : [
-        {
-          label: "Cadre clair",
-          text: "Vous savez quelle démarche reprendre en priorité avant de lancer la suite.",
-        },
-        {
-          label: "Suivi lisible",
-          text: "Les pièces, les relances et les statuts restent visibles pour vos équipes.",
-        },
-        {
-          label: "Délégation souple",
-          text: "Un dossier ponctuel, un pic de charge ou un flux récurrent peuvent être cadrés.",
-        },
-      ];
 const handoff = data.handoff ?? {
   kicker: "Après votre envoi",
   title: "Un premier cadrage exploitable, pas un échange flou.",
@@ -85,26 +68,6 @@ const handoff = data.handoff ?? {
     track: "cta_trust_bridge_hero_form",
   },
 };
-const decisionPath = data.decisionPath ?? [
-  {
-    title: "Cadrer le blocage",
-    text: "Vous indiquez le dossier ou le flux qui vous ralentit.",
-    href: "#hero-lead-form",
-    track: "cta_trust_path_diagnostic",
-  },
-  {
-    title: "Choisir la reprise",
-    text: "Sunelys identifie le bon niveau de délégation.",
-    href: "#parcours",
-    track: "cta_trust_path_method",
-  },
-  {
-    title: "Lancer le service",
-    text: "DP, Consuel, raccordement ou pilotage complet.",
-    href: "#services",
-    track: "cta_trust_path_services",
-  },
-];
 ---
 
 <section
@@ -122,16 +85,6 @@ const decisionPath = data.decisionPath ?? [
         {data.trustNote ?? "Des dossiers suivis, des pièces mieux cadrées et une visibilité plus claire pour les équipes."}
       </p>
 
-      <div class="assurance-grid" aria-label="Engagements Sunelys">
-        {
-          assurances.map((item) => (
-            <article>
-              <strong>{item.label}</strong>
-              <p>{item.text}</p>
-            </article>
-          ))
-        }
-      </div>
     </div>
 
     <aside class="handoff-panel" aria-label="Ce que Sunelys vous renvoie après votre demande" data-reveal-item>
@@ -187,29 +140,6 @@ const decisionPath = data.decisionPath ?? [
     </aside>
   </div>
 
-  <div class="decision-path" aria-label="Chemin de décision Sunelys" data-reveal-item>
-    <header>
-      <span>Suite naturelle</span>
-      <strong>Du premier blocage au bon service, sans flou ni allers-retours.</strong>
-    </header>
-
-    <ol>
-      {
-        decisionPath.map((item, index) => (
-          <li>
-            <a href={item.href} data-track={item.track}>
-              <span>0{index + 1}</span>
-              <div>
-                <strong>{item.title}</strong>
-                <p>{item.text}</p>
-              </div>
-              <em aria-hidden="true">→</em>
-            </a>
-          </li>
-        ))
-      }
-    </ol>
-  </div>
 
   <SwipeCue label="4 preuves opérationnelles à parcourir" />
 

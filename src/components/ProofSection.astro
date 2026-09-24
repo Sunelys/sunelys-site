@@ -33,11 +33,6 @@ const getInitials = (name: string) =>
     .slice(0, 2)
     .toUpperCase();
 
-const proofHighlights = [
-  { label: `${data.testimonials.length} retours`, text: "publiés avec accord" },
-  { label: "DP + pilotage", text: "deux contextes terrain" },
-  { label: "Effets cités", text: "sans extrapolation" },
-];
 ---
 
 <section
@@ -55,23 +50,12 @@ const proofHighlights = [
 
     <div class="proof-intro">
       <p>
-        Deux retours nominatifs publiés avec accord : le besoin, le relais Sunelys et l’effet décrit par chaque
-        installateur, sans extrapolation.
+        Ce que les installateurs accompagnés retiennent de leur collaboration avec Sunelys.
       </p>
       <span><i aria-hidden="true"></i> Paroles de professionnels accompagnés</span>
     </div>
   </header>
 
-  <div class="proof-highlights" aria-label="Résumé des preuves client" data-reveal-item>
-    {
-      proofHighlights.map((item) => (
-        <article>
-          <strong>{item.label}</strong>
-          <p>{item.text}</p>
-        </article>
-      ))
-    }
-  </div>
 
   <div class="case-experience" data-client-proof data-reveal-item>
     <div class="case-tabs" role="tablist" aria-label="Choisir un retour client Sunelys">
@@ -137,7 +121,7 @@ const proofHighlights = [
 
               {
                 item.journey && (
-                  <ol class="case-journey" aria-label={`Parcours décrit par ${item.tabLabel}`}>
+                  <details class="case-journey-details"><summary>Le déroulé de l’accompagnement</summary><ol class="case-journey" aria-label={`Parcours décrit par ${item.tabLabel}`}>
                     {item.journey.map((step, stepIndex) => (
                       <li>
                         <span>0{stepIndex + 1}</span>
@@ -147,7 +131,7 @@ const proofHighlights = [
                         </div>
                       </li>
                     ))}
-                  </ol>
+                  </ol></details>
                 )
               }
             </div>

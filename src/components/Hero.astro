@@ -60,6 +60,10 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
         </p>
       )}
 
+      <div class="hero-primary-actions">
+        <a class="btn btn-accent" href={data.leadForm ? "#hero-lead-form" : data.primaryCta.href} data-track={data.primaryCta.track}>Décrire mon besoin <span aria-hidden="true">→</span></a>
+        <a class="hero-pricing-link" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>Consulter les tarifs <span aria-hidden="true">→</span></a>
+      </div>
       <ul class="proof-bar" aria-label="Preuves Sunelys">
         {
           data.proofs.map((proof) => (
@@ -126,7 +130,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                 <span class="no-commitment">Sans engagement</span>
               </div>
               <p class="hero-intake-copy">
-                Quel dossier voulez-vous sortir de votre équipe ? Sunelys vous répond avec le premier cadre utile.
+Quel dossier souhaitez-vous nous confier ? Une première réponse sous 24h ouvrées.
               </p>
             </div>
 

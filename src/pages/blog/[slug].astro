@@ -171,7 +171,7 @@ const modifiedDate = new Intl.DateTimeFormat("fr-FR", {
   year: "numeric",
 }).format(new Date(frontmatter.updatedDate ?? frontmatter.pubDate));
 const defaultArticleImage = "https://sunelys.fr/images/og/sunelys-og.jpg";
-const socialImage = frontmatter.ogImage || frontmatter.coverImage;
+const socialImage = `/images/social/${frontmatter.slug}.png`;
 const author = {
   name: "Myriam Zaoui",
   url: "https://sunelys.fr/a-propos",
@@ -217,7 +217,7 @@ const structuredData = [
       name: "Sunelys",
       logo: {
         "@type": "ImageObject",
-        url: "https://sunelys.fr/brand/logo-full.png",
+        url: "https://sunelys.fr/images/social/identite.png",
       },
     },
     mainEntityOfPage: articleUrl,
@@ -388,6 +388,12 @@ const breadcrumbs = [
       </aside>
 
       <div class="article-main">
+        {["cerfa-declaration-prealable-panneaux-solaires", "panneaux-solaires-sans-declaration-prealable"].includes(frontmatter.slug) && (
+          <aside class="article-installateur" aria-label="Accompagnement pour les installateurs">
+            <p><strong>Vous préparez les DP de vos clients ?</strong> Sunelys prend en charge la constitution, le dépôt et le suivi de la déclaration préalable, dès un dossier ponctuel.</p>
+            <a href="/declaration-prealable-panneaux-solaires" data-track="cta_blog_dp_service">Voir la prise en charge DP <span aria-hidden="true">→</span></a>
+          </aside>
+        )}
         <div class="article-content">
           <Content />
         </div>

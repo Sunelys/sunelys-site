@@ -1,8 +1,8 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ExitIntentModal from "../components/ExitIntentModal.astro";
 import CookieConsent from "../components/CookieConsent.astro";
+import LeadFormController from "../components/LeadFormController.astro";
 import "../styles/site-f1.css";
 
 interface BreadcrumbItem {
@@ -25,7 +25,7 @@ const path = Astro.url.pathname.replace(/\/$/, "") || "/";
 const siteUrl = (Astro.site ?? "https://sunelys.fr").toString().replace(/\/$/, "");
 const canonical = new URL(path, `${siteUrl}/`).toString();
 const defaultOgImage = new URL("/images/og/sunelys-f1-og.png", `${siteUrl}/`).toString();
-const schemaLogo = new URL("/brand/logo-full.png", `${siteUrl}/`).toString();
+const schemaLogo = new URL("/images/social/identite.png", `${siteUrl}/`).toString();
 const ogImage = image ? new URL(image, `${siteUrl}/`).toString() : defaultOgImage;
 
 const normalizeGoogleAdsConversionId = (value: string) => {
@@ -48,13 +48,11 @@ const matomoUrl = (import.meta.env.PUBLIC_MATOMO_URL || "").replace(/\/$/, "");
 const matomoSiteId = import.meta.env.PUBLIC_MATOMO_SITE_ID || "";
 const hasMatomo = Boolean(matomoUrl && matomoSiteId);
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
-const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const isNoindex = robots.includes("noindex");
 const isContactPage = path === "/contact";
 const isCompliancePage = path === "/mentions-legales" || path === "/politique-confidentialite";
 const isPaidLanding = path === "/lp/delegation-admin-pv";
 const showLeadCaptureShell = path !== "/merci" && !isContactPage && !isCompliancePage && (!isNoindex || isPaidLanding);
-const showExitIntent = showLeadCaptureShell && path !== "/" && !isPaidLanding;
 const stickyLeadHref = isPaidLanding ? "#diagnostic" : "/contact?source=sticky#contact-form";
 const stickyLeadLabel = isPaidLanding ? "Cadrer le dossier" : "Diagnostic 24h";
 
@@ -383,8 +381,8 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
 
     <Footer links={footerLinks} />
     <CookieConsent />
+    <LeadFormController />
 
-    {showExitIntent && <ExitIntentModal action={leadFormAction} path={path} />}
 
     {
       showLeadCaptureShell && (

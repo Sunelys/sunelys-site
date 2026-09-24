@@ -1,5 +1,8 @@
 import type { APIRoute } from "astro";
 import { env as runtimeEnv } from "node:process";
+import { randomUUID } from "node:crypto";
+import { safeLeadRedirect, sendNotificationEmail, withNotificationStatus } from "../../lib/lead-delivery.mjs";
+import { resolveLeadIntent } from "../../lib/lead-intent.mjs";
 
 export const prerender = false;
 
@@ -521,11 +524,12 @@ async function notifyNewLead(
   `;
 
   try {
-    const response = await fetchWithTimeout(`${RESEND_API_URL}/emails`, {
+    const response = await sendNotificationEmail(`${RESEND_API_URL}/emails`, {
       method: "POST",
       headers: {
         authorization: `Bearer ${resendApiKey}`,
         "content-type": "application/json",
+        "Idempotency-Key": `lead-${payload.recordId === "airtable_pending" ? randomUUID() : payload.recordId}`,
       },
       body: JSON.stringify({
         from,
@@ -658,7 +662,11 @@ export const POST: APIRoute = async ({ request }) => {
   const baseId = clean(env.AIRTABLE_BASE_ID ?? "");
   const tableName = clean(env.AIRTABLE_LEADS_TABLE ?? "Leads");
 
-  const formData = await request.formData();
+  let formData: FormData;
+  try { formData = await request.formData(); } catch { return jsonResponse({ ok: false, error: "Invalid form data." }, 400); }
+  if (clean(formData.get("website"))) {
+    return wantsJson(request) ? jsonResponse({ ok: true }) : Response.redirect(safeLeadRedirect(formData.get("_next")), 303);
+  }
   const email = clean(formData.get("email")).toLowerCase();
   const fullName = clean(formData.get("name"));
   const splitFullName = splitName(fullName);
@@ -684,7 +692,7 @@ export const POST: APIRoute = async ({ request }) => {
   const rawMessage = clean(formData.get("message"));
   const explicitBlockedStage = clean(formData.get("blocked_stage"));
   const serviceHint = firstClean(formData.get("service_interest"), rawNeed);
-  const inferredServiceInterest = normalizeNeed(
+  const inferredServiceInterest = resolveLeadIntent(serviceHint) || normalizeNeed(
     firstClean(
       serviceHint,
       sourcePage,
@@ -773,7 +781,7 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_PHONE", clean(formData.get("phone")), env, "Téléphone");
   addOptionalField(fields, "AIRTABLE_FIELD_VOLUME", normalizeVolume(rawVolume), env, "Volume dossiers/mois");
   addOptionalField(fields, "AIRTABLE_FIELD_NEED", normalizeNeed(rawNeed), env, "Besoin principal");
-  addOptionalField(fields, "AIRTABLE_FIELD_MESSAGE", comment, env, "Commentaire");
+  addOptionalField(fields, "AIRTABLE_FIELD_MESSAGE", withNotificationStatus(comment, "pending"), env, "Commentaire");
   addOptionalField(fields, "AIRTABLE_FIELD_TEAM_CONTEXT", rawTeamContext, env);
   addOptionalField(fields, "AIRTABLE_FIELD_URGENCY", rawUrgency, env);
   addOptionalField(fields, "AIRTABLE_FIELD_STATUS", clean(formData.get("lead_status")), env, "Statut");
@@ -862,20 +870,47 @@ export const POST: APIRoute = async ({ request }) => {
         return jsonResponse({ ok: true, fallback: true, warning: "Lead delivered outside Airtable." });
       }
 
-      const nextUrl = clean(formData.get("_next")) || "/merci";
+      const nextUrl = safeLeadRedirect(formData.get("_next"));
       return Response.redirect(nextUrl, 303);
     }
 
     return jsonResponse({ ok: false, error: "Airtable lead creation failed." }, 502);
   }
 
-  await notifyNewLead(env, {
+  const notification = await notifyNewLead(env, {
     recordId: createResult.recordId,
     ...leadDetails,
   });
 
+  const notificationStatus = notification.emailDelivered ? "email_accepted" : notification.webhookDelivered ? "webhook_accepted_email_unconfirmed" : "failed";
+  const commentField = clean(env.AIRTABLE_FIELD_MESSAGE ?? "Commentaire");
+  if (commentField && !createResult.removedComputedFields.includes(commentField)) {
+    try {
+      const recordUrl = `${AIRTABLE_API_URL}/${baseId}/${encodeURIComponent(tableName)}/${createResult.recordId}`;
+      const headers = { authorization: `Bearer ${token}`, "content-type": "application/json" };
+      const current = await fetchWithTimeout(recordUrl, { headers });
+      if (!current.ok) throw new Error(`Notification status read: ${current.status}`);
+      const record = await current.json();
+      const updated = await fetchWithTimeout(recordUrl, {
+        method: "PATCH", headers,
+        body: JSON.stringify({ fields: { [commentField]: withNotificationStatus(record.fields?.[commentField] || comment, notificationStatus) } }),
+      });
+      if (!updated.ok) throw new Error(`Notification status write: ${updated.status}`);
+    } catch (error) {
+      console.error("Lead notification status persistence failed", createResult.recordId, errorMessage(error));
+    }
+  }
+  if (!notification.emailDelivered) {
+    console.error("Lead stored; email notification unconfirmed", createResult.recordId, notificationStatus);
+    await notifyLeadFailure(env, {
+      event: "sunelys_lead_notification_unconfirmed",
+      reason: notificationStatus,
+      record_id: createResult.recordId,
+    });
+  }
+
   if (wantsJson(request)) return jsonResponse({ ok: true });
 
-  const nextUrl = clean(formData.get("_next")) || "/merci";
+  const nextUrl = safeLeadRedirect(formData.get("_next"));
   return Response.redirect(nextUrl, 303);
 };

@@ -101,31 +101,10 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     <div class="showcase-topbar">
       <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
       <p>portail.sunelys.fr</p>
-      <span class="live-status"><i aria-hidden="true"></i> Suivi actif</span>
+      <span class="live-status">Aperçu du portail</span>
     </div>
 
     <div class="showcase-body">
-      <aside class="console-rail" aria-label="Synthèse de pilotage du portail">
-        <div>
-          <p class="rail-label">Tableau de bord</p>
-          <h3>Les priorités sortent du flux.</h3>
-        </div>
-
-        <div class="rail-cards">
-          <article>
-            <span>Priorité</span>
-            <strong>{firstSignal}</strong>
-          </article>
-          <article>
-            <span>Vision</span>
-            <strong>{secondSignal}</strong>
-          </article>
-          <article>
-            <span>Échanges</span>
-            <strong>Pièces et statuts au même endroit</strong>
-          </article>
-        </div>
-      </aside>
 
       <div class="screen-area">
         <div class="portal-tabs" role="tablist" aria-label="Découvrir les vues du portail Sunelys">
@@ -161,7 +140,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
                 data-portal-panel={view.id}
               >
                 <figure class="portal-visual">
-                  <picture>
+                  <a class="portal-image-link" href={view.src} target="_blank" rel="noopener" aria-label={`Agrandir : ${view.label}`}><picture>
                     {
                       view.avifSrcset && (
                         <source type="image/avif" srcset={view.avifSrcset} sizes={view.sizes} />
@@ -176,7 +155,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
                       decoding="async"
                       fetchpriority="low"
                     />
-                  </picture>
+                  </picture></a>
                   <figcaption class="visual-signal">
                     <span aria-hidden="true"></span>
                     {view.signal}
@@ -196,12 +175,12 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     </div>
 
     <div class="demo-footer">
-      <p><span aria-hidden="true">✓</span> Exemple anonymisé</p>
+      <p>Exemples anonymisés · agrandir pour lire les détails</p>
       <p>Dossiers · pièces · statuts · relances</p>
     </div>
   </div>
 
-  <div class="portal-editorial-strip" data-reveal-item>
+  {data.editorialMedia.length > 0 && <div class="portal-editorial-strip" data-reveal-item>
     <div class="editorial-intro">
       <p>{data.editorialKicker}</p>
       <h3>{data.editorialTitle}</h3>
@@ -236,7 +215,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
         ))
       }
     </div>
-  </div>
+  </div>}
 </section>
 
 <script>

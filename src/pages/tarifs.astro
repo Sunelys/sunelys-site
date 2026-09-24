@@ -281,39 +281,6 @@ const structuredData = {
     }
   </section>
 
-  <section class="pricing-choice-lab reveal" aria-labelledby="choice-lab-title">
-    <div class="choice-lab-head" data-reveal-item>
-      <p class="eyebrow">Choisir sans se tromper</p>
-      <h2 id="choice-lab-title">Partez du blocage, pas de la ligne de prix.</h2>
-      <p>
-        Le tarif devient évident quand on identifie ce qu'il faut sortir de votre équipe :
-        un dépôt mairie, une mise en service, un flux complet ou un dossier complémentaire.
-      </p>
-    </div>
-
-    <div class="choice-paths" aria-label="Parcours de choix des tarifs Sunelys">
-      {
-        decisionPaths.map((path, index) => (
-          <a
-            class:list={["choice-path", path.featured && "is-featured"]}
-            href={path.href}
-            data-track={path.track}
-            data-track-label={path.recommended}
-            data-reveal-item
-          >
-            <span>0{index + 1} · {path.signal}</span>
-            <strong>{path.title}</strong>
-            <p>{path.text}</p>
-            <div>
-              <small>{path.recommended}</small>
-              <b>{path.price}</b>
-              <i aria-hidden="true">→</i>
-            </div>
-          </a>
-        ))
-      }
-    </div>
-  </section>
 
   <section class="solar-pricing reveal" id="tarifs-photovoltaique" aria-labelledby="solar-pricing-title">
     <div class="section-head" data-reveal-item>
@@ -336,11 +303,11 @@ const structuredData = {
             </div>
             <h3>{offer.service}</h3>
             <p class="offer-scope">{offer.scope}</p>
-            <div class="offer-fit" aria-label={`Bon cas d'usage ${offer.service}`}>
-              <span>Bon cas d'usage</span>
+            <details class="offer-fit">
+              <summary>À qui s’adresse cette offre ?</summary>
               <strong>{offer.bestFor}</strong>
               <p>{offer.decisionCue}</p>
-            </div>
+            </details>
             <div class="offer-price">
               <strong>{offer.price}</strong>
               <span>{offer.note}</span>

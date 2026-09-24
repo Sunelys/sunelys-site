@@ -38,8 +38,9 @@ export const heroData = {
   operationsSnapshot: {
     eyebrow: "Portail Sunelys",
     title: "Un dossier, une prochaine action, un suivi lisible.",
-    src: "/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg",
-    alt: "Vue anonymisée du portail administratif Sunelys avec priorités, pièces reçues et relances à traiter",
+    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+    avifSrcset: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
+    alt: "Exemple anonymisé de l’espace client Sunelys : liste des dossiers et étapes administratives",
     items: [
       { label: "Pièces", status: "Contrôlées" },
       { label: "Prochaine action", status: "Visible" },
@@ -50,7 +51,7 @@ export const heroData = {
 
 export const trustSectionData = {
   kicker: "Déjà sur le terrain",
-  title: "La preuve qu'un dossier peut sortir de vos équipes sans perdre le fil.",
+  title: "Un suivi structuré, une équipe accessible.",
   logos: [
     {
       name: "Sunwatt France",
@@ -102,7 +103,7 @@ export const trustSectionData = {
   metrics: [
     { value: "1 357", label: "Dossiers ENR pilotés avec traçabilité" },
     { value: "28", label: "Partenaires et installateurs déjà accompagnés" },
-    { value: "2 jours", label: "Pour cadrer une demande complète et exploitable" },
+    { value: "2 jours", label: "Pour analyser une demande complète, après le premier retour" },
     { value: "96%", label: "De déclarations préalables acceptées sans pièce complémentaire" },
   ],
   handoff: {
@@ -508,8 +509,8 @@ export const servicesSectionData = {
 
 export const portalSectionData = {
   kicker: "Portail Sunelys",
-  title: "Le portail devient votre preuve de pilotage.",
-  text: "Pas un gadget : une lecture claire des dossiers actifs, des pièces attendues et des prochaines actions. Vos équipes savent ce qui bloque, ce qui avance et ce qu'il faut relancer.",
+  title: "Vos dossiers, vos pièces et vos échanges au même endroit.",
+  text: "Vous retrouvez le suivi de vos démarches dans votre espace client. L’équipe Sunelys reste votre contact pour les questions et les décisions.",
   benefits: [
     "Priorités visibles dès l'ouverture",
     "Pièces et échanges centralisés",
@@ -532,23 +533,24 @@ export const portalSectionData = {
   views: [
     {
       id: "priorites",
-      label: "Vue des priorités",
-      eyebrow: "À traiter maintenant",
-      title: "Chaque priorité ressort immédiatement.",
-      text: "Les pièces manquantes, les demandes récentes et les dossiers actifs sont réunis dans la même lecture.",
-      src: "/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg",
-      alt: "Vue anonymisée du portail administratif Sunelys avec les priorités, pièces reçues et relances regroupées.",
-      width: 1512,
-      height: 360,
+      label: "Espace client",
+      eyebrow: "Suivi des démarches",
+      title: "Une vue d’ensemble de vos dossiers.",
+      text: "Exemple anonymisé de l’espace client : chaque démarche dispose de son statut et de son avancement. Capture de juillet 2026 ; l’interface évolue régulièrement.",
+      src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
+      avifSrcset: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w",
+      alt: "Exemple anonymisé de l’espace client Sunelys montrant les démarches DP, Enedis et Consuel",
+      width: 1600,
+      height: 900,
       sizes: "(max-width: 720px) calc(100vw - 3rem), (max-width: 1080px) calc(100vw - 6rem), 58vw",
       signal: "Priorités visibles",
     },
     {
       id: "avancement",
-      label: "Dossiers & étapes",
-      eyebrow: "Suivi partagé",
-      title: "L'avancement se comprend sans relance.",
-      text: "DP, raccordement, Consuel et aides restent lisibles avec leur statut, leur progression et la prochaine étape.",
+      label: "Suivi urbanisme",
+      eyebrow: "Outil de l’équipe Sunelys",
+      title: "Les guichets urbanisme regroupés par commune.",
+      text: "Cet outil interne permet à l’équipe de retrouver les portails des communes pour préparer et suivre les dépôts. Capture anonymisée de juillet 2026.",
       src: "/google-business-profile/sunelys-gbp-portail-urbanisme-2026-07-29.jpg",
       alt: "Vue anonymisée du portail Sunelys avec l'accès aux portails urbanisme par commune.",
       width: 1512,
@@ -557,37 +559,7 @@ export const portalSectionData = {
       signal: "Accès par commune",
     },
   ],
-  editorialMedia: [
-    {
-      label: "Pièces cadrées",
-      title: "Le dossier ne flotte pas entre plusieurs boîtes mail.",
-      text: "Checklist, pièces, validation et passage de relais restent lisibles dans une même logique de production.",
-      src: "/linkedin/premium/linkedin-visual-process-dossier.png",
-      avifSrc: "/linkedin/premium/linkedin-visual-process-dossier.avif",
-      alt: "Vue premium de dossier photovoltaïque avec checklist, intercalaires et transfert maîtrisé",
-      width: 1254,
-      height: 1254,
-    },
-    {
-      label: "Pilotage réel",
-      title: "L'administratif reste connecté au terrain.",
-      text: "On parle de vrais dossiers, de vraies pièces et de décisions qui protègent le rythme des installations.",
-      src: "/images/site/solar-admin-coordination-2026.webp",
-      alt: "Professionnel du photovoltaïque consultant des documents administratifs devant une installation solaire",
-      width: 1320,
-      height: 743,
-    },
-    {
-      label: "Flux maîtrisé",
-      title: "Maison, réseau et administratif restent raccordés.",
-      text: "Une lecture plus premium pour montrer que le suivi documentaire sert directement la mise en service.",
-      src: "/linkedin/premium/linkedin-visual-workflow-solaire.png",
-      avifSrc: "/linkedin/premium/linkedin-visual-workflow-solaire.avif",
-      alt: "Visualisation premium d'un workflow photovoltaïque reliant habitation, réseau et dossier administratif",
-      width: 1254,
-      height: 1254,
-    },
-  ],
+  editorialMedia: [],
 };
 
 export const caseStudySectionData = {
@@ -672,7 +644,7 @@ export const finalCtaSectionData = {
     track: "cta_final_form_primary",
   },
   secondaryCta: {
-    label: "Réserver 15 min en option",
+    label: "Réserver un échange",
     href: bookingUrl,
     track: "cta_final_calendar_secondary",
   },

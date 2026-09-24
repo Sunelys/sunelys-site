@@ -32,7 +32,7 @@ const date = new Intl.DateTimeFormat("fr-FR", {
     href={articleHref}
     data-track="cta_blog_card_visual"
     data-track-label={post.frontmatter.title}
-    aria-label={`Lire : ${post.frontmatter.title}`}
+    aria-label={`${String(index + 1).padStart(2, "0")} · Lire : ${post.frontmatter.title}`}
   >
     {
       post.frontmatter.coverImage ? (
@@ -49,7 +49,7 @@ const date = new Intl.DateTimeFormat("fr-FR", {
         <span aria-hidden="true">SUNELYS</span>
       )
     }
-    <i aria-hidden="true">0{index + 1}</i>
+    <i aria-hidden="true">{String(index + 1).padStart(2, "0")}</i>
   </a>
 
   <div class="blog-card-body">
