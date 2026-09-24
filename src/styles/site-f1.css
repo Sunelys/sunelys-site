@@ -196,6 +196,12 @@ body[data-design="f1"] main .subcontract-hero::after { display: none; }
 body[data-design="f1"] main .subcontract-hero .price-panel { background: var(--surface); border: 1px solid var(--line); border-radius: 6px; box-shadow: none; }
 body[data-design="f1"] main .subcontract-hero .price-panel :is(strong,a) { color: var(--text); }
 body[data-design="f1"] main .subcontract-hero .price-panel-head { border-color: var(--line); }
+body[data-design="f1"] main .handoff-section .handoff-cards article { background: var(--surface); }
+body[data-design="f1"] main .compact-faq-center .compact-faq-list > header,
+body[data-design="f1"] main .compact-faq-center .compact-faq-item > div,
+body[data-design="f1"] main .compact-faq-center .compact-faq-item[open] summary,
+body[data-design="f1"] main .compact-faq-center .compact-faq-item summary:hover,
+body[data-design="f1"] main .compact-faq-center .compact-faq-item summary i { background: var(--surface-elevated); }
 body[data-design="f1"] main .pricing-dossier-image { max-width: 460px; }
 body[data-design="f1"]:not([data-page="/"]) main :is(.pricing-hero,.journey-hero,.seo-hero,.subcontract-hero,.checklist-hero) h1 { font-size: 42px !important; line-height: 1.15; max-width: 26ch; }
 body[data-design="f1"] main .journey-hero { align-items: start; }
