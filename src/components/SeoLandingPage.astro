@@ -540,10 +540,10 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
       <div class="portal-proof-layout">
         <figure class="portal-proof-cover">
           <img
-            src="/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg"
-            alt="Vue anonymisée du portail administratif Sunelys pour le suivi des démarches photovoltaïques"
-            width="1512"
-            height="360"
+            src="/images/portal/portail-client-2026-09-25.jpg"
+            alt="Portail client Sunelys de septembre 2026 : synthèse avec données de démonstration"
+            width="1280"
+            height="720"
             loading="lazy"
             decoding="async"
           />
@@ -552,20 +552,20 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         <div class="portal-proof-stack">
           <figure>
             <img
-              src="/google-business-profile/sunelys-gbp-portail-urbanisme-2026-07-29.jpg"
-              alt="Vue anonymisée du portail Sunelys avec l'accès aux portails urbanisme par commune"
-              width="1512"
-              height="744"
+              src="/images/portal/portail-urbanisme-2026-09-25.jpg"
+              alt="Portail Sunelys de septembre 2026 : accès aux guichets urbanisme par commune, sans données clients"
+              width="1327"
+              height="733"
               loading="lazy"
               decoding="async"
             />
           </figure>
           <figure>
             <img
-              src="/google-business-profile/sunelys-gbp-portail-admin-2026-07-29.jpg"
-              alt="Vue anonymisée du portail administratif Sunelys avec les priorités de traitement"
-              width="1512"
-              height="360"
+              src="/images/portal/portail-suivi-2026-09-25.jpg"
+              alt="Portail Sunelys de septembre 2026 : prochaine action sur un dossier de démonstration"
+              width="1280"
+              height="720"
               loading="lazy"
               decoding="async"
             />
@@ -573,6 +573,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         </div>
 
         <div class="portal-proof-copy">
+          <p>Interface de septembre 2026 · données de démonstration, aucun dossier client.</p>
           <ul>
             {portalProofItems.map((item) => <li>{item}</li>)}
           </ul>
@@ -1434,7 +1435,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
 
   .portal-proof-cover img,
   .portal-proof-stack img {
-    object-fit: cover;
+    object-fit: contain;
   }
 
   .portal-proof-stack {

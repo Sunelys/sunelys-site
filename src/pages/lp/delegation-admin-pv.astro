@@ -102,15 +102,15 @@ const specialistReasons = [
 
       <figure class="hero-portal-proof">
         <img
-          src="/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21-640.avif"
-          alt="Aperçu du portail Sunelys avec suivi de dossiers photovoltaïques"
+          src="/images/portal/portail-client-2026-09-25-640.avif"
+          alt="Nouveau portail Sunelys avec données de démonstration"
           width="640"
           height="360"
           loading="eager"
           decoding="async"
         />
         <figcaption>
-          <span>Preuve portail</span>
+          <span>Portail · démonstration</span>
           <strong>Suivi clair des statuts, blocages, relances et prochaines actions.</strong>
         </figcaption>
       </figure>
@@ -288,10 +288,10 @@ const specialistReasons = [
 
       <div class="portal-preview" aria-label="Aperçu du portail de suivi Sunelys">
         <img
-          src="/google-business-profile/sunelys-gbp-portail-dashboard-propre-2026-07-21.jpg"
-          alt="Aperçu anonymisé du portail Sunelys avec statuts de dossiers photovoltaïques"
-          width="1600"
-          height="900"
+          src="/images/portal/portail-suivi-2026-09-25.jpg"
+          alt="Nouveau portail Sunelys : avancement d’un dossier de démonstration"
+          width="1280"
+          height="720"
           loading="lazy"
           decoding="async"
         />
@@ -1599,8 +1599,10 @@ const specialistReasons = [
   }
 
   .portal-preview img {
-    height: clamp(10rem, 18vw, 15rem);
-    filter: saturate(0.76) contrast(1.02);
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: contain;
+    filter: none;
   }
 
   .client-proof-section {

@@ -30,8 +30,8 @@ const visuals = {
     caption: "Vos dossiers, préparés et suivis au même endroit.",
   },
   portail: {
-    src: "/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21.jpg",
-    alt: "Exemple anonymisé du portail Sunelys : dossiers DP, Enedis et Consuel avec leurs étapes de suivi.",
+    src: "/images/portal/portail-suivi-2026-09-25.jpg",
+    alt: "Nouveau portail Sunelys : avancement et prochaine action sur un dossier de démonstration.",
     caption: "Un dossier, un statut, une prochaine action.",
   },
 };
@@ -41,10 +41,10 @@ const portal = kind === "portail";
 
 <figure class:list={["dossier-visual", compact && "is-compact", portal && "is-portal"]} data-dossier-visual={kind}>
   {portal ? (
-    <a class="dossier-image" href={visual.src} target="_blank" rel="noopener" aria-label="Agrandir l'exemple anonymisé du portail Sunelys">
+    <a class="dossier-image" href={visual.src} target="_blank" rel="noopener" aria-label="Agrandir la démonstration du portail Sunelys">
       <picture>
-        <source type="image/avif" srcset="/google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-640.avif 640w, /google-business-profile/sunelys-gbp-portail-dossiers-propre-2026-07-21-1280.avif 1280w" sizes="(max-width: 760px) calc(100vw - 48px), 640px" />
-        <img src={visual.src} alt={visual.alt} width="1600" height="900" loading={priority ? "eager" : "lazy"} decoding="async" fetchpriority={priority ? "high" : "auto"} />
+        <source type="image/avif" srcset="/images/portal/portail-suivi-2026-09-25-640.avif 640w, /images/portal/portail-suivi-2026-09-25-1280.avif 1280w" sizes="(max-width: 760px) calc(100vw - 48px), 640px" />
+        <img src={visual.src} alt={visual.alt} width="1280" height="720" loading={priority ? "eager" : "lazy"} decoding="async" fetchpriority={priority ? "high" : "auto"} />
       </picture>
     </a>
   ) : (
@@ -54,7 +54,7 @@ const portal = kind === "portail";
   )}
   <figcaption>
     <strong>{visual.caption}</strong>
-    <span>{portal ? "Exemple anonymisé · juillet 2026" : "Photographie d’illustration"}</span>
+    <span>{portal ? "Données de démonstration · septembre 2026" : "Photographie d’illustration"}</span>
   </figcaption>
 </figure>
 
