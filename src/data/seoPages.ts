@@ -88,7 +88,7 @@ export const seoPages: Record<string, SeoPageData> = {
     slug: "gestion_administrative",
     metaTitle: "Pilotage administratif photovoltaïque externalisé",
     metaDescription:
-      "Externalisez DP, Consuel, raccordement photovoltaïque, MaPrimeRénov' et CEE avec Sunelys: interlocuteur unique, production sous 48h et suivi clair.",
+      "Externalisez DP, Consuel, raccordement photovoltaïque, MaPrimeRénov' et CEE avec Sunelys: interlocuteur unique, production sous 48 h ouvrées et suivi clair.",
     heroTitle: "Pilotage administratif photovoltaïque pour installateurs",
     heroSubtitle:
       "Sunelys pilote vos démarches DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE dans un flux unique pour sécuriser votre croissance sans recruter.",
@@ -111,7 +111,7 @@ export const seoPages: Record<string, SeoPageData> = {
     },
     quickFormTitle: "Quel flux voulez-vous reprendre en priorité ?",
     quickFormSubmitLabel: "Recevoir mon diagnostic pilotage",
-    quickFormNote: "2 informations suffisent pour avoir un point d'action prioritaire sous 24h.",
+    quickFormNote: "2 informations suffisent pour avoir un point d'action prioritaire sous 24 h ouvrées.",
     diagnosticLabel: "Blocage principal",
     diagnosticOptions: [
       { value: "Relances dispersion", label: "Dossiers dispersés entre équipes et emails" },
@@ -134,9 +134,9 @@ export const seoPages: Record<string, SeoPageData> = {
       author: "Victorion Brice",
       role: "gérant de Be Travaux",
       highlights: [
-        "96 % de DP sans pièce complémentaire",
-        "Production sous 48h lorsque le dossier est complet",
-        "1 357 dossiers pilotés",
+        "Contrôle documentaire avant dépôt",
+        "Production sous 48 h ouvrées lorsque le dossier est complet",
+        "Suivi partagé dans le portail",
       ],
     },
     problemTitle: "Les démarches administratives ralentissent les installations photovoltaïques",
@@ -165,7 +165,7 @@ export const seoPages: Record<string, SeoPageData> = {
       "Raccordement réseau et dossier Consuel dans un flux coordonné",
       "MaPrimeRénov' et CEE montés et suivis jusqu'à validation",
       "Interlocuteur unique pour centraliser les échanges et les relances",
-      "Production sous 48h lorsque les éléments techniques sont complets",
+      "Production sous 48 h ouvrées lorsque les éléments techniques sont complets",
       "Suivi en temps réel des statuts, blocages et validations",
     ],
     detailBlocks: [
@@ -188,7 +188,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     processSteps: [
       "Transmission des éléments techniques",
-      "Production du dossier sous 48h si complet",
+      "Production du dossier sous 48 h ouvrées si complet",
       "Dépôt, suivi et relances",
       "Validation et suivi en temps réel",
     ],
@@ -202,7 +202,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     caseStudy: {
       title: "Flux installateur",
-      volume: "1 357 dossiers pilotés",
+      volume: "Suivi partagé dans le portail",
       results: [
         "Production administrative structurée sans recrutement dédié",
         "Meilleure visibilité sur chaque étape DP, Consuel et Enedis",
@@ -300,13 +300,13 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   consuel: {
     slug: "consuel_photovoltaique",
-    metaTitle: "Dossier Consuel photovoltaïque : guide complet",
+    metaTitle: "Dossier Consuel pour installateurs PV | Sunelys",
     metaDescription:
-      "Attestation, pièces, délais et motifs de refus du Consuel PV. Réduisez les retours avec Sunelys.",
+      "Déléguez la préparation et le suivi administratif de vos dossiers Consuel photovoltaïques. Pièces techniques, compléments et coordination Enedis.",
     heroTitle: "Consuel photovoltaïque : préparation et suivi des dossiers",
     heroSubtitle:
       "Sunelys prend en charge le volet administratif Consuel pour sécuriser vos dossiers et accélérer la mise en service de vos installations.",
-    heroPrimaryLabel: "Faire cadrer mon Consuel",
+    heroPrimaryLabel: "Faire le point sur mon dossier",
     heroSecondaryCta: {
       label: "Voir le tarif détaillé",
       href: "/tarifs#tarifs-photovoltaique",
@@ -324,8 +324,8 @@ export const seoPages: Record<string, SeoPageData> = {
       ],
     },
     quickFormTitle: "Où votre Consuel bloque-t-il aujourd'hui ?",
-    quickFormSubmitLabel: "Recevoir mon plan Consuel",
-    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier point à reprendre sous 24h.",
+    quickFormSubmitLabel: "Faire le point sur mon dossier",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier point à reprendre sous 24 h ouvrées.",
     diagnosticLabel: "Situation Consuel",
     diagnosticOptions: [
       { value: "Consuel à préparer", label: "Dossier à préparer" },
@@ -344,7 +344,7 @@ export const seoPages: Record<string, SeoPageData> = {
       price: "89 € HT",
       priceNote: "pack raccordement + Consuel",
       cta: {
-        label: "Faire cadrer mon Consuel",
+        label: "Faire le point sur mon dossier",
         href: "#service-quick-consuel_photovoltaique",
         track: "cta_consuel_decision_recap",
       },
@@ -536,9 +536,9 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   raccordementEnedis: {
     slug: "raccordement_enedis",
-    metaTitle: "Raccordement Enedis photovoltaïque : étapes & délais",
+    metaTitle: "Gestion du raccordement Enedis photovoltaïque | Sunelys",
     metaDescription:
-      "Étapes, délais et coûts du raccordement Enedis solaire. Sunelys suit vos dossiers jusqu'à la mise en service.",
+      "Installateurs PV : déléguez la demande de raccordement Enedis, les échanges et le suivi des pièces. Pack Enedis + Consuel, honoraires dès 89 € HT.",
     heroTitle: "Raccordement Enedis photovoltaïque : gestion administrative complète",
     heroSubtitle:
       "Sunelys centralise les étapes administratives du raccordement Enedis pour sécuriser les délais et simplifier le pilotage de vos équipes.",
@@ -607,7 +607,7 @@ export const seoPages: Record<string, SeoPageData> = {
     },
     quickFormTitle: "Où votre raccordement bloque-t-il aujourd'hui ?",
     quickFormSubmitLabel: "Recevoir mon plan de reprise",
-    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier jalon à reprendre sous 24h.",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique le premier jalon à reprendre sous 24 h ouvrées.",
     diagnosticLabel: "Situation raccordement",
     diagnosticOptions: [
       { value: "Raccordement à déposer", label: "Demande à déposer" },
@@ -825,19 +825,19 @@ export const seoPages: Record<string, SeoPageData> = {
         },
         {
           label: "Preuve",
-          title: "96 % de DP sans complément",
+          title: "Pièces vérifiées avant dépôt",
           text: "La méthode vise d'abord la qualité du dossier initial pour éviter les allers-retours évitables.",
         },
         {
           label: "Action",
           title: "Envoyer la situation",
-          text: "Dossier à préparer, complément, refus ou flux régulier : Sunelys indique l'étape à reprendre sous 24h.",
+          text: "Dossier à préparer, complément, refus ou flux régulier : Sunelys indique l'étape à reprendre sous 24 h ouvrées.",
         },
       ],
     },
     quickFormTitle: "Dans quelle situation se trouve votre DP ?",
-    quickFormSubmitLabel: "Recevoir mon cadrage DP",
-    quickFormNote: "3 informations suffisent. Sunelys vous indique les pièces ou l'étape à reprendre sous 24h.",
+    quickFormSubmitLabel: "Faire le point sur mon dossier",
+    quickFormNote: "3 informations suffisent. Sunelys vous indique les pièces ou l'étape à reprendre sous 24 h ouvrées.",
     diagnosticLabel: "Situation de la DP",
     diagnosticOptions: [
       { value: "Avant dépôt", label: "Dossier à préparer" },
@@ -861,7 +861,7 @@ export const seoPages: Record<string, SeoPageData> = {
       author: "Damien Guillaume",
       role: "dirigeant de SUN WATT FRANCE",
       highlights: [
-        "96 % de DP sans pièce complémentaire",
+        "Contrôle documentaire avant dépôt",
         "Dossiers cadrés sérieusement",
         "Témoignage publié avec accord",
       ],
@@ -1370,7 +1370,7 @@ export const seoPages: Record<string, SeoPageData> = {
       { href: "/declaration-prealable-panneaux-solaires", label: "Service déclaration préalable" },
       { href: "/blog/cerfa-declaration-prealable-panneaux-solaires", label: "Cerfa DP panneaux solaires" },
       { href: "/blog/declaration-prealable-panneaux-solaires-pieces-delais", label: "Pièces et délais DP" },
-      { href: "/contact", label: "Recevoir un cadrage" },
+      { href: "/contact", label: "Faire le point sur mon dossier" },
     ],
   },
 };

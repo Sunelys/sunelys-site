@@ -1,0 +1,18 @@
+---
+const { compact = false } = Astro.props;
+---
+<aside class:list={["service-terms", compact && "compact"]} aria-label="Périmètre et délais">
+  <p><strong>Honoraires Sunelys, en euros HT.</strong> Les frais éventuels des organismes (attestation ou visa Consuel, raccordement Enedis) sont à distinguer de notre prestation administrative. Leur montant et leur prise en charge sont précisés lors du cadrage, avant engagement.</p>
+  {!compact && <dl>
+    <div><dt>Premier retour</dt><dd>Sous 24 h ouvrées pour préciser votre besoin et les pièces nécessaires.</dd></div>
+    <div><dt>Préparation</dt><dd>Sous 48 h ouvrées après réception d’un dossier complet, dans le périmètre convenu. Une reprise ou une configuration particulière est cadrée avant de commencer.</dd></div>
+    <div><dt>Décision et mise en service</dt><dd>Selon les délais de la mairie, du Consuel, d’Enedis ou de l’organisme concerné. La préparation Sunelys ne vaut ni accord ni visa.</dd></div>
+  </dl>}
+</aside>
+<style>
+.service-terms { margin: 24px 0; padding: 20px; border-left: 3px solid var(--accent-text, #dbad8f); background: var(--surface, #232728); color: var(--text-muted, #d0d4d3); font-size: 16px; line-height: 1.55; }
+.service-terms strong, dt { color: var(--text, #fff); }
+.service-terms p { margin: 0; }
+dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin: 24px 0 0; } dt { font-weight: 600; } dd { margin: 8px 0 0; }
+@media(max-width:700px){dl{grid-template-columns:1fr;gap:16px;}.service-terms{padding:16px;font-size:15px;}}
+</style>

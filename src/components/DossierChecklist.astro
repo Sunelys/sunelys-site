@@ -1,0 +1,23 @@
+---
+const { kind = "dp" } = Astro.props;
+const consuel = kind === "consuel";
+const items = consuel ? [
+  ["Installation", "Puissance, références exactes des panneaux et onduleurs, stockage éventuel."],
+  ["Documents", "Schéma et pièces techniques cohérents avec le matériel réellement posé."],
+  ["Suivi", "Demande initiale, complément ou visite : conserver le courrier reçu et sa date."],
+] : [
+  ["Projet", "Adresse, références cadastrales et description de la pose envisagée."],
+  ["Pièces", "Plans, photographies et insertion adaptés au projet et à son environnement."],
+  ["Suivi", "Dépôt, récépissé, complément et décision conservés séparément."],
+];
+---
+<section class="dossier-checklist" aria-label="Préparer les éléments du dossier">
+  <header><p class="eyebrow">Exemple de contrôle documentaire</p><h2>{consuel ? "Ce que nous vérifions ensemble pour le Consuel." : "Les éléments pour préparer votre DP."}</h2><p>Repères de préparation, à adapter à votre dossier. Cet exemple pédagogique ne représente pas un dossier client ni une liste réglementaire exhaustive.</p></header>
+  <ol>{items.map(([title, text], i) => <li><span aria-hidden="true">0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
+  <p><strong>Votre rôle :</strong> transmettre les informations exactes et les pièces disponibles. <strong>Notre rôle :</strong> préparer le volet administratif et suivre les échanges. Les validations techniques, signatures et décisions restent celles des intervenants concernés.</p>
+  <p>Déjà une demande de complément ? Joignez-la au dossier avec sa date : la reprise porte sur les points effectivement demandés.</p>
+</section>
+<style>
+.dossier-checklist { margin-block: 40px; padding: clamp(24px,4vw,48px); background:#eee9e1; color:#252b2d; border-radius:6px; }
+.dossier-checklist :is(h2,h3,strong) { color:#252b2d; } .dossier-checklist p { color:#475052;line-height:1.6; } .dossier-checklist .eyebrow { color:#775035; } h2{margin:12px 0 20px;} ol{list-style:none;padding:0;margin:24px 0;display:grid;gap:16px;}li{display:flex;gap:20px;padding-block:16px;border-top:1px solid #c4beb6;} li>span{font-size:24px;color:#775035;}h3{margin:0;font-size:22px;}li p{margin:8px 0 0;}
+</style>

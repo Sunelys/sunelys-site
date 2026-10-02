@@ -10,7 +10,7 @@ const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/c
 const hasBookingUrl = Boolean(bookingUrl);
 
 const trustBullets = [
-  "Réponse sous 24h ouvrées",
+  "Réponse sous 24 h ouvrées",
   "Dossier ponctuel accepté",
   "Aucun engagement",
 ];
@@ -33,59 +33,9 @@ const heroProofPoints = [
   },
 ];
 
-const triagePaths = [
-  {
-    signal: "Dossier bloqué",
-    title: "Je dois reprendre une DP, un Consuel ou un raccordement.",
-    text: "Sunelys identifie le premier point à débloquer et le périmètre réellement utile.",
-    meta: "Réponse orientée dossier",
-    href: "/contact?source=contact_triage_raccordement_consuel#contact-form",
-    track: "cta_contact_triage_blocked",
-  },
-  {
-    signal: "Choix d'offre",
-    title: "Je ne sais pas encore quelle formule choisir.",
-    text: "Vous décrivez la situation, Sunelys vous oriente sans empiler les prestations.",
-    meta: "Cadrage sans engagement",
-    href: "/contact?source=contact_triage_diagnostic#contact-form",
-    track: "cta_contact_triage_diagnostic",
-  },
-  {
-    signal: "Flux récurrent",
-    title: "Je veux sortir l'administratif de mon équipe.",
-    text: "On regarde le volume, les étapes concernées et la façon de reprendre le flux proprement.",
-    meta: "Pilotage complet possible",
-    href: "/contact?source=contact_triage_gestion_administrative#contact-form",
-    track: "cta_contact_triage_flow",
-    featured: true,
-  },
-  {
-    signal: "Après-chantier",
-    title: "EDF OA, MaPrimeRénov' ou CEE restent à suivre.",
-    text: "Le brief permet de distinguer le bon dossier complémentaire à ouvrir ou reprendre.",
-    meta: "Dès 49 € HT selon dossier",
-    href: "/contact?source=contact_triage_edf_oa_aides_renovation#contact-form",
-    track: "cta_contact_triage_aftercare",
-  },
-];
 
-const diagnosticDeliverables = [
-  {
-    tag: "Périmètre",
-    title: "Ce que Sunelys peut reprendre",
-    text: "Démarche, pièces attendues, niveau de délégation possible.",
-  },
-  {
-    tag: "Priorité",
-    title: "Le dossier à traiter d’abord",
-    text: "Selon l’urgence, le blocage et le temps perdu côté équipe.",
-  },
-  {
-    tag: "Suite",
-    title: "Une réponse exploitable",
-    text: "Réponse directe ou échange court si le contexte mérite d’être précisé.",
-  },
-];
+
+
 
 const blockedStageOptions = [
   "Dossier bloqué / reprise urgente",
@@ -120,7 +70,7 @@ const supportCards = [
 
 <BaseLayout
   title="Contact installateurs photovoltaïques | Sunelys"
-  description="Demandez un diagnostic administratif Sunelys sous 24h pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
+  description="Demandez un diagnostic administratif Sunelys sous 24 h ouvrées pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
 >
   <section
     class="contact-hero reveal"
@@ -131,15 +81,14 @@ const supportCards = [
     <BrandSignature variant="human" />
     <div class="hero-copy" data-reveal-item>
       <p class="eyebrow">Diagnostic administratif</p>
-      <h1 id="contact-title">Le bon point d’entrée pour reprendre vos dossiers.</h1>
+      <h1 id="contact-title">Parlons de votre dossier.</h1>
       <p class="hero-text">
-        En quelques minutes, donnez le contexte essentiel. Sunelys vous répond avec le premier périmètre utile à
-        déléguer : dossier ponctuel, reprise d’un blocage ou flux récurrent.
+        Indiquez la démarche à confier. L’équipe Sunelys vous répond sous 24 h ouvrées pour préciser les pièces, le forfait et la prochaine étape.
       </p>
 
       <div class="hero-actions">
         <a class="btn btn-accent" href="#contact-form" data-track="cta_contact_form_top">
-          Décrire mon dossier
+          Faire le point sur mon dossier
           <span aria-hidden="true">→</span>
         </a>
         {
@@ -195,46 +144,8 @@ const supportCards = [
           fetchpriority="high"
         />
       </picture>
-      <figcaption><strong>Myriam Zaoui</strong><span>Fondatrice de Sunelys</span><p>Votre demande est étudiée par l'équipe Sunelys, avec un premier retour sous 24h ouvrées.</p></figcaption>
+      <figcaption><strong>Myriam Zaoui</strong><span>Fondatrice de Sunelys</span><p>Votre demande est étudiée par l'équipe Sunelys, avec un premier retour sous 24 h ouvrées.</p></figcaption>
     </figure>
-  </section>
-
-  <section
-    class="contact-triage reveal"
-    aria-labelledby="contact-triage-title"
-    data-track-view="contact_triage_view"
-    data-track-label="contact_triage_paths"
-  >
-    <div class="triage-head" data-reveal-item>
-      <p class="eyebrow">Orientation rapide</p>
-      <h2 id="contact-triage-title">Vous n’avez pas besoin de tout expliquer pour commencer.</h2>
-      <p>
-        Choisissez la situation la plus proche : le formulaire s’ouvre avec le bon angle de diagnostic,
-        puis Sunelys confirme le périmètre utile sous 24h.
-      </p>
-    </div>
-
-    <div class="triage-grid" aria-label="Situations de contact fréquentes">
-      {
-        triagePaths.map((path, index) => (
-          <a
-            class:list={["triage-card", path.featured && "is-featured"]}
-            href={path.href}
-            data-track={path.track}
-            data-track-label={path.signal}
-            data-reveal-item
-          >
-            <span>0{index + 1} · {path.signal}</span>
-            <strong>{path.title}</strong>
-            <p>{path.text}</p>
-            <small>
-              {path.meta}
-              <i aria-hidden="true">→</i>
-            </small>
-          </a>
-        ))
-      }
-    </div>
   </section>
 
   <section
@@ -250,18 +161,6 @@ const supportCards = [
         Votre nom, votre email et la démarche concernée suffisent pour commencer. Le volume, l’urgence et le
         premier blocage restent optionnels si vous souhaitez préciser le contexte.
       </p>
-
-      <div class="diagnostic-deliverables" aria-label="Ce que le diagnostic clarifie">
-        {
-          diagnosticDeliverables.map((item) => (
-            <article>
-              <span>{item.tag}</span>
-              <strong>{item.title}</strong>
-              <p>{item.text}</p>
-            </article>
-          ))
-        }
-      </div>
 
       <div class="response-flow">
         <p>Après l’envoi</p>
@@ -336,7 +235,7 @@ const supportCards = [
         <LeadFields />
 
         <button id="contact-form-submit" class="btn btn-accent submit-btn" type="submit" data-track="cta_contact_form_submit">
-          Envoyer mon brief de diagnostic
+          Faire le point sur mon dossier
           <span aria-hidden="true">→</span>
         </button>
         <FormPrivacyNote />

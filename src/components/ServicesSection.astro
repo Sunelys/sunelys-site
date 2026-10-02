@@ -71,7 +71,7 @@ const { data } = Astro.props;
 
   <div class="service-directory">
     {
-      data.cards.map((card) => (
+      data.cards.slice(0, 3).map((card) => (
         <details class="service-entry" name="home-services">
           <summary data-track="homepage_service_expand" data-track-label={card.title}>
             <span class="service-number" aria-hidden="true">{card.label.replace(/^Service\s*/i, "")}</span>
@@ -98,4 +98,6 @@ const { data } = Astro.props;
       ))
     }
   </div>
+  <p class="service-extras">Également : <a href="/edf-oa">EDF OA à 49 € HT</a> et <a href="/tarifs#aides-renovation">MaPrimeRénov’ / CEE</a>.</p>
+  <p class="service-extras">Honoraires administratifs. Frais éventuels des organismes à préciser séparément avant engagement. <a href="/tarifs#conditions-title">Conditions et délais</a>.</p>
 </section>

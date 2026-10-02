@@ -25,36 +25,11 @@ const structuredData = [
   },
 ];
 
-const brandProofItems = [
-  {
-    label: "Spécialisation",
-    title: "Une marque concentrée sur le photovoltaïque.",
-    text:
-      "Sunelys ne traite pas l’administratif généraliste : le discours, les contrôles et les priorités restent alignés sur les dossiers solaires.",
-  },
-  {
-    label: "Lisibilité",
-    title: "Un dossier doit être compréhensible à tout moment.",
-    text:
-      "Le bon suivi n’est pas seulement de déposer une pièce : c’est savoir où le dossier en est, ce qui bloque et quelle action vient ensuite.",
-  },
-  {
-    label: "Sérieux",
-    title: "Des promesses cadrées, pas d’effet magique.",
-    text:
-      "Sunelys pilote, relance et structure. Les délais et décisions des organismes restent expliqués clairement, sans promesse floue.",
-  },
-  {
-    label: "Croissance",
-    title: "Une aide pensée pour absorber le volume.",
-    text:
-      "L’objectif est d’éviter que les équipes commerciales ou techniques redeviennent le service administratif dès que les chantiers accélèrent.",
-  },
-];
+
 ---
 
 <BaseLayout
-  title="Sunelys | Site officiel de gestion administrative photovoltaïque"
+  title="SUNELYS : identité et coordonnées officielles"
   description="Sunelys est le site officiel de SUNELYS, société française spécialisée dans la gestion administrative photovoltaïque pour installateurs : DP, Consuel et raccordement Enedis."
   robots="index,follow"
   structuredData={structuredData}
@@ -63,7 +38,7 @@ const brandProofItems = [
     <section class="brand-hero">
       <div class="brand-hero-copy">
         <p class="eyebrow">Site officiel</p>
-        <h1>Sunelys</h1>
+        <h1>SUNELYS : identité et accès officiels</h1>
         <p>
           Société française dédiée à la gestion administrative photovoltaïque pour les installateurs :
           déclaration préalable, Consuel, raccordement Enedis et suivi documentaire.
@@ -112,54 +87,7 @@ const brandProofItems = [
       </article>
     </section>
 
-    <section
-      class="brand-proof reveal"
-      aria-labelledby="brand-proof-title"
-      data-track-view="sunelys_brand_proof_view"
-      data-track-label="sunelys_brand_positioning"
-    >
-      <div class="brand-proof-head" data-reveal-item>
-        <p class="eyebrow">Notre approche</p>
-        <h2 id="brand-proof-title">Un partenaire dédié à vos dossiers solaires.</h2>
-        <p>
-          Des pièces à préparer aux retours des organismes, Sunelys réunit le contrôle documentaire,
-          le suivi des démarches et la visibilité dont votre équipe a besoin pour avancer.
-        </p>
-      </div>
-
-      <div class="brand-proof-grid" aria-label="Preuves de positionnement Sunelys">
-        {
-          brandProofItems.map((item, index) => (
-            <article data-reveal-item>
-              <span>0{index + 1}</span>
-              <strong>{item.label}</strong>
-              <div>
-                <h3>{item.title}</h3>
-                <p>{item.text}</p>
-              </div>
-            </article>
-          ))
-        }
-      </div>
-    </section>
-
-    <section class="brand-copy">
-      <div>
-        <p class="eyebrow">Repère de marque</p>
-        <h2>La bonne orthographe est Sunelys.</h2>
-      </div>
-      <div>
-        <p>
-          Sunelys s'écrit avec un y. La marque accompagne les professionnels du solaire sur
-          la partie administrative de leurs projets, sans réaliser les installations sur chantier.
-        </p>
-        <p>
-          Le site officiel est sunelys.fr et l'adresse de contact officielle est
-          contact@sunelys.fr.
-        </p>
-      </div>
-    </section>
-
+    <section class="brand-copy"><div><p class="eyebrow">Vérifier votre interlocuteur</p><h2>Retrouver le bon contact et le bon espace.</h2></div><div><p>Cette page rassemble les informations d’identification de SUNELYS et ses accès. Les informations complètes sur l’éditeur figurent dans les <a href="/mentions-legales">mentions légales</a>.</p><ul><li><a href="https://portail.sunelys.fr/login">Portail client Sunelys</a> : accès aux dossiers après organisation de votre espace avec l’équipe.</li><li><a href="/contact">Contacter l’équipe</a> : préciser une demande ou transmettre le contexte d’un dossier.</li><li><a href="/a-propos">Myriam Zaoui et la méthode Sunelys</a> : découvrir qui vous accompagne.</li><li><a href="/services">Choisir la démarche adaptée</a> : DP, réseau, conformité, EDF OA ou aides.</li></ul></div></section>
     <section class="brand-decision" aria-labelledby="brand-decision-title">
       <div>
         <p class="eyebrow">Prochaine étape</p>

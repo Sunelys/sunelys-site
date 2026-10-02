@@ -8,14 +8,14 @@ export const homeSeo = {
 };
 
 export const heroData = {
-  kicker: "Cabinet administratif photovoltaïque",
-  title: "Reprenez le contrôle de vos dossiers administratifs PV.",
+  kicker: "Pour les installateurs photovoltaïques",
+  title: "Vos dossiers avancent. Vous gardez le chantier.",
   subtitle:
     "DP, Consuel, raccordement, EDF OA et aides : Sunelys reprend les démarches qui ralentissent vos équipes et vos chantiers.",
   expertLine:
     "Pour installateurs PV et équipes ENR : dossier ponctuel, pic de charge ou flux récurrent, avec un cadre de suivi partagé.",
   primaryCta: {
-    label: "Recevoir un diagnostic sous 24h",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=hero#contact-form",
     track: "cta_hero_primary_contact",
   },
@@ -27,12 +27,12 @@ export const heroData = {
   leadForm: {
     action: leadFormAction,
     successUrl: "https://sunelys.fr/merci?source=homepage_hero_form",
-    submitLabel: "Recevoir mon cadrage sous 24h",
+    submitLabel: "Faire le point sur mon dossier",
     note: "Un périmètre + votre email suffisent.",
   },
   proofs: [
-    "1 357 dossiers ENR pilotés",
-    "96 % des DP sans pièce complémentaire",
+    "Dossiers et échanges centralisés",
+    "Contrôle des pièces avant dépôt",
     "Tarifs fixes par dossier, sans abonnement",
   ],
   operationsSnapshot: {
@@ -55,31 +55,31 @@ export const trustSectionData = {
   logos: [
     {
       name: "Sunwatt France",
-      src: "/images/site/client-sunwatt-france.png",
+      src: "/images/site/client-sunwatt-france-20261002.webp",
       width: 222,
       height: 176,
     },
     {
       name: "Terra ENR",
-      src: "/images/site/client-terra-enr.png",
+      src: "/images/site/client-terra-enr-20261002.webp",
       width: 338,
       height: 216,
     },
     {
       name: "Groupe Solarenov",
-      src: "/images/site/client-groupe-solarenov.png",
+      src: "/images/site/client-groupe-solarenov-20261002.webp",
       width: 486,
       height: 360,
     },
     {
       name: "Ensol",
-      src: "/images/site/client-ensol.webp",
+      src: "/images/site/client-ensol-20261002.webp",
       width: 910,
       height: 323,
     },
     {
       name: "Be Travaux",
-      src: "/images/site/client-betravaux.png",
+      src: "/images/site/client-betravaux-20261002.webp",
       width: 512,
       height: 512,
     },
@@ -101,10 +101,10 @@ export const trustSectionData = {
     },
   ],
   metrics: [
-    { value: "1 357", label: "Dossiers ENR pilotés avec traçabilité" },
-    { value: "28", label: "Partenaires et installateurs déjà accompagnés" },
-    { value: "2 jours", label: "Pour analyser une demande complète, après le premier retour" },
-    { value: "96%", label: "De déclarations préalables acceptées sans pièce complémentaire" },
+    { value: "Portail", label: "Pièces et échanges centralisés" },
+    { value: "Équipe", label: "Un interlocuteur pour vos démarches" },
+    { value: "24 h ouvrées", label: "Premier retour sur votre demande" },
+    { value: "Contrôle", label: "Pièces relues avant dépôt" },
   ],
   handoff: {
     kicker: "Après votre envoi",
@@ -160,7 +160,7 @@ export const proofSectionData = {
         { label: "Relais", text: "Cadrage et dépôt" },
         { label: "Effet cité", text: "Moins de compléments" },
       ],
-      logo: "/images/site/client-sunwatt-france.png",
+      logo: "/images/site/client-sunwatt-france-20261002.webp",
       logoAlt: "Sun Watt France",
       logoWidth: 222,
       logoHeight: 176,
@@ -179,7 +179,7 @@ export const proofSectionData = {
         { label: "Relais", text: "Suivi et réactivité" },
         { label: "Effet cité", text: "Chantiers plus rapides" },
       ],
-      logo: "/images/site/client-betravaux.png",
+      logo: "/images/site/client-betravaux-20261002.webp",
       logoAlt: "Be Travaux",
       logoWidth: 512,
       logoHeight: 512,
@@ -240,7 +240,7 @@ export const solutionSectionData = {
     },
   ],
   cta: {
-    label: "Recevoir un cadrage pilotage complet",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=solution#contact-form",
     track: "cta_solution",
   },
@@ -274,7 +274,7 @@ export const benefitsSectionData = {
     },
   ],
   cta: {
-    label: "Recevoir un cadrage pilotage complet",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=benefices#contact-form",
     track: "cta_benefits",
   },
@@ -302,7 +302,7 @@ export const audienceSectionData = {
   note:
     "Le bon moment pour nous parler : quand les relances, les pièces manquantes ou les statuts flous commencent à ralentir vos ventes, vos chantiers ou vos mises en service.",
   cta: {
-    label: "Recevoir un diagnostic sous 24h",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=audience#contact-form",
     track: "cta_audience_primary",
   },
@@ -337,8 +337,8 @@ export const quizSectionData = {
   },
   emailStepTitle: "Entrez votre email pour recevoir votre cadrage adapté",
   emailLabel: "Email professionnel",
-  emailSubmitLabel: "Recevoir mon cadrage",
-  emailNote: "Réponse sous 24h • Sans engagement",
+  emailSubmitLabel: "Faire le point sur mon dossier",
+  emailNote: "Réponse sous 24 h ouvrées • Sans engagement",
   resultCtaLabel: "Réserver un diagnostic de 15 min →",
   ctaHref: bookingUrl,
   phoneLabel: "Ou on vous rappelle : 06 95 90 79 19",
@@ -394,9 +394,13 @@ export const methodSectionData = {
       text: "Installer une routine administrative fiable, répétable et pilotable dans le temps.",
     },
   ],
-  steps: processSectionData.steps,
+  steps: [
+    { title: "Un premier échange", text: "Vous précisez la démarche et les pièces disponibles. Premier retour sous 24 h ouvrées." },
+    { title: "Un périmètre convenu", text: "Le forfait, les frais éventuels et les documents nécessaires sont confirmés avant de commencer." },
+    { title: "Un dossier suivi", text: "Les pièces, échanges et prochaines actions restent accessibles dans le portail." },
+  ],
   cta: {
-    label: "Recevoir un diagnostic sous 24h",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=method#contact-form",
     track: "cta_method_primary",
   },
@@ -425,7 +429,7 @@ export const servicesSectionData = {
     },
     {
       label: "Décision simple",
-      text: "Vous envoyez le blocage, Sunelys cadre la bonne offre sous 24h.",
+      text: "Vous envoyez le blocage, Sunelys cadre la bonne offre sous 24 h ouvrées.",
       href: "/contact?source=services_decision#contact-form",
       track: "cta_services_signal_contact",
     },
@@ -448,33 +452,21 @@ export const servicesSectionData = {
     },
     {
       label: "Service 02",
-      title: "Consuel",
-      code: "CO",
-      stage: "Mise en service",
-      price: "Pack 89 € HT",
-      priceNote: "raccordement + Consuel",
-      decisionHint: "Pensé pour sortir la phase technique des relances internes.",
-      benefit: "Un suivi structuré pour réduire les retours et accélérer les mises en service.",
-      description:
-        "Préparation du dossier, coordination des pièces, suivi des demandes et accompagnement jusqu'à validation.",
-      ctaLabel: "Voir le service",
-      href: "/dossier-consuel-photovoltaique",
-      track: "cta_service_consuel",
+      title: "Enedis + Consuel",
+      code: "EN", stage: "Réseau et conformité", price: "89 € HT", priceNote: "un seul pack",
+      decisionHint: "Pour préparer le raccordement et suivre le dossier Consuel ensemble.",
+      benefit: "Les échanges réseau et les pièces de conformité réunis dans un même suivi.",
+      description: "Préparation administrative, demandes, compléments et suivi des jalons de mise en service. Les décisions restent celles des organismes.",
+      ctaLabel: "Voir le pack réseau", href: "/raccordement-enedis-photovoltaique", track: "cta_service_enedis",
     },
     {
       label: "Service 03",
-      title: "Raccordement",
-      code: "EN",
-      stage: "Réseau",
-      price: "Pack 89 € HT",
-      priceNote: "raccordement + Consuel",
-      decisionHint: "À activer quand Enedis et les pièces de mise en service doivent avancer ensemble.",
-      benefit: "Une coordination Enedis plus lisible pour mieux maîtriser les délais réseau.",
-      description:
-        "Suivi des étapes, relances, pièces attendues et traçabilité complète du parcours raccordement.",
-      ctaLabel: "Voir le service",
-      href: "/raccordement-enedis-photovoltaique",
-      track: "cta_service_enedis",
+      title: "DP + Enedis + Consuel",
+      code: "PV", stage: "Parcours complet", price: "199 € HT", priceNote: "DP et pack réseau",
+      decisionHint: "199 € au lieu de 208 € pour les deux prestations séparées, soit 9 € de différence.",
+      benefit: "Un interlocuteur pour le dépôt mairie, le réseau et la conformité.",
+      description: "Le pack réunit la DP à 119 € et le réseau + Consuel à 89 €. EDF OA et les aides restent des prestations distinctes.",
+      ctaLabel: "Voir le parcours complet", href: "/gestion-administrative-photovoltaique", track: "cta_service_parcours",
     },
     {
       label: "Service 04",
@@ -634,7 +626,7 @@ export const finalCtaSectionData = {
     },
     {
       label: "Réponse",
-      text: "Un cadrage humain sous 24h ouvrées.",
+      text: "Un cadrage humain sous 24 h ouvrées.",
     },
     {
       label: "Liberté",
@@ -642,7 +634,7 @@ export const finalCtaSectionData = {
     },
   ],
   primaryCta: {
-    label: "Recevoir un diagnostic sous 24h",
+    label: "Faire le point sur mon dossier",
     href: "/contact?source=final#contact-form",
     track: "cta_final_form_primary",
   },
@@ -654,7 +646,7 @@ export const finalCtaSectionData = {
   contactPoints: [
     {
       label: "Formulaire",
-      value: "Réponse sous 24h ouvrées",
+      value: "Réponse sous 24 h ouvrées",
       href: "/contact?source=formulaire-final#contact-form",
       track: "cta_final_form",
     },

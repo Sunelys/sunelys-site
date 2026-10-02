@@ -25,7 +25,7 @@ const primaryServiceHref = frontmatter.primaryServiceHref || "/services";
 const primaryServiceLabel = frontmatter.primaryServiceLabel || "Voir le service associé";
 const secondaryServiceHref =
   frontmatter.secondaryServiceHref || `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
-const secondaryServiceLabel = frontmatter.secondaryServiceLabel || "Recevoir un cadrage";
+const secondaryServiceLabel = frontmatter.secondaryServiceLabel || "Faire le point sur mon dossier";
 const articleContactHref = `/contact?source=${frontmatter.contactSource || "blog-article"}#contact-form`;
 const relatedLinks = filterVisibleLinks(frontmatter.relatedLinks, publicBlogSlugs);
 const pricingLinkByService: Record<string, { href: string; label: string; description: string }> = {
@@ -276,6 +276,14 @@ const breadcrumbs = [
         </div>
         <h1>{frontmatter.title}</h1>
         <p class="article-lead">{frontmatter.description}</p>
+        {frontmatter.slug === "cerfa-declaration-prealable-panneaux-solaires" && (
+          <aside class="official-answer" aria-label="Formulaire officiel">
+            <strong>Le formulaire : Cerfa 16702*03</strong>
+            <p>Référence vérifiée le 2 octobre 2026 pour la déclaration préalable de constructions et travaux. Le formulaire doit être accompagné des pièces adaptées au projet.</p>
+            <a href="https://www.service-public.gouv.fr/particuliers/vosdroits/R2028">Accéder au formulaire officiel et à sa notice →</a>
+            <p>Installateur ? <a href="/sous-traitance-declaration-prealable-solaire">Confier la préparation et le suivi de vos DP à Sunelys</a>.</p>
+          </aside>
+        )}
         <details class="article-brief-toggle"><summary>Les points traités dans ce guide</summary><div class="article-brief" aria-label="Ce que ce guide permet de faire">
           {
             readerBrief.map((item) => (
@@ -288,7 +296,7 @@ const breadcrumbs = [
         </div></details>
         <div class="article-actions">
           <a class="btn btn-primary btn-accent" href={articleContactHref} data-track="cta_article_header_primary" data-track-label={frontmatter.title}>
-            Décrire mon dossier
+            Faire le point sur mon dossier
           </a>
           <a class="article-service-link" href={primaryServiceHref} data-track="cta_article_header_services" data-track-label={frontmatter.title}>
             {primaryServiceLabel}
@@ -348,7 +356,7 @@ const breadcrumbs = [
         </dl>
         <div class="aside-decision-card">
           <span>Dossier en cours ?</span>
-          <strong>Sunelys peut cadrer la prochaine action sous 24h.</strong>
+          <strong>Sunelys peut cadrer la prochaine action sous 24 h ouvrées.</strong>
           <p>Décrivez le blocage, le volume ou la démarche à reprendre.</p>
           <a href={articleContactHref} data-track="cta_article_aside_diagnostic" data-track-label={frontmatter.title}>
             Demander un cadrage
@@ -518,7 +526,7 @@ const breadcrumbs = [
         <p class="section-kicker">Passer à l’action</p>
         <h2>Le sujet est clair. Le prochain dossier peut l’être aussi.</h2>
         <p>
-          Sunelys cadre le périmètre, le volume et la première étape à déléguer. Vous recevez une réponse exploitable sous 24h.
+          Sunelys cadre le périmètre, le volume et la première étape à déléguer. Vous recevez une réponse exploitable sous 24 h ouvrées.
         </p>
       </div>
       <div class="article-conclusion-actions">

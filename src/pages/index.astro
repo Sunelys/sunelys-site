@@ -8,10 +8,8 @@ import ProofSection from "../components/ProofSection.astro";
 import ServicesSection from "../components/ServicesSection.astro";
 import PortalSection from "../components/PortalSection.astro";
 import FAQ from "../components/FAQ.astro";
-import FinalCTASection from "../components/FinalCTASection.astro";
 import {
   faqSectionData,
-  finalCtaSectionData,
   heroData,
   homeSeo,
   methodSectionData,
@@ -28,7 +26,7 @@ const structuredData = [
     name: homeSeo.title,
     description: homeSeo.description,
     url: "https://sunelys.fr/",
-    dateModified: "2026-09-24",
+    dateModified: "2026-10-02",
     inLanguage: "fr-FR",
   },
   {
@@ -72,13 +70,13 @@ const structuredData = [
 
 <BaseLayout design="f1" title={homeSeo.title} description={homeSeo.description} structuredData={structuredData}>
   <div class="homepage-redesign">
-    <Hero data={heroData} />
+    <Hero data={{ ...heroData, operationsSnapshot: undefined }} />
     <ProofSection data={proofSectionData} references={trustSectionData} />
     <ServicesSection data={servicesSectionData} />
     <PortalSection data={portalSectionData} />
     <TrustSection data={trustSectionData} />
     <MethodSection data={methodSectionData} />
     <FAQ data={faqSectionData} />
-    <FinalCTASection data={finalCtaSectionData} />
+
   </div>
 </BaseLayout>

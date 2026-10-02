@@ -1,22 +1,22 @@
 import { getPublicBlogPosts } from "../lib/blogPublication";
 
 const staticRoutes = [
-  { path: "", lastmod: "2026-09-22" },
-  { path: "/services", lastmod: "2026-09-22" },
-  { path: "/parcours", lastmod: "2026-07-24" },
-  { path: "/tarifs", lastmod: "2026-09-22" },
-  { path: "/contact", lastmod: "2026-09-22" },
-  { path: "/blog", lastmod: "2026-07-24" },
-  { path: "/a-propos", lastmod: "2026-09-22" },
-  { path: "/sunelys", lastmod: "2026-09-22" },
-  { path: "/gestion-administrative-photovoltaique", lastmod: "2026-09-22" },
-  { path: "/dossier-consuel-photovoltaique", lastmod: "2026-08-10" },
-  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-07-24" },
+  { path: "", lastmod: "2026-10-02" },
+  { path: "/services", lastmod: "2026-10-02" },
+  { path: "/parcours", lastmod: "2026-10-02" },
+  { path: "/tarifs", lastmod: "2026-10-02" },
+  { path: "/contact", lastmod: "2026-10-02" },
+
+  { path: "/a-propos", lastmod: "2026-10-02" },
+  { path: "/sunelys", lastmod: "2026-10-02" },
+  { path: "/gestion-administrative-photovoltaique", lastmod: "2026-10-02" },
+  { path: "/dossier-consuel-photovoltaique", lastmod: "2026-10-02" },
+  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-10-02" },
   { path: "/edf-oa", lastmod: "2026-07-24" },
-  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-07-24" },
-  { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-07-24" },
+  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-10-02" },
+  { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-10-02" },
   { path: "/sous-traitance-administrative-photovoltaique-installateur", lastmod: "2026-07-24" },
-  { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-07-24" },
+  { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-10-02" },
 ];
 
 const blogPosts = getPublicBlogPosts() as Array<{
@@ -32,6 +32,7 @@ export function GET() {
   const fallbackLastmod = "2026-06-22";
   const routes = [
     ...staticRoutes,
+    { path: "/blog", lastmod: blogPosts.map(post => post.frontmatter.updatedDate ?? post.frontmatter.pubDate ?? fallbackLastmod).sort().at(-1) ?? fallbackLastmod },
     ...blogPosts.map((post) => ({
       path: `/blog/${post.frontmatter.slug}`,
       lastmod: post.frontmatter.updatedDate ?? post.frontmatter.pubDate ?? fallbackLastmod,

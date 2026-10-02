@@ -1,4 +1,5 @@
 ---
+import StartSteps from "../components/StartSteps.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import DossierVisual from "../components/DossierVisual.astro";
@@ -151,6 +152,7 @@ const guarantees = [
     <DossierVisual kind="portail" priority />
   </section>
 
+  <StartSteps />
   <section class="start-modes reveal" aria-labelledby="start-title">
     <div class="start-head" data-reveal-item>
       <p class="eyebrow">Commencer</p>

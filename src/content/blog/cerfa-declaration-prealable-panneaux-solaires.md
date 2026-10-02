@@ -4,7 +4,7 @@ title: "Cerfa déclaration préalable panneaux solaires : quel formulaire et com
 seoTitle: "Cerfa déclaration préalable panneaux solaires : guide"
 description: "Quel Cerfa utiliser pour une DP panneaux solaires, quels champs vérifier et comment éviter les pièces complémentaires en mairie."
 pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-02"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -29,7 +29,7 @@ relatedLinks:
     description: "Les points qui déclenchent le plus de compléments."
 faqItems:
   - question: "Quel Cerfa utiliser pour une déclaration préalable de panneaux solaires ?"
-    answer: "Au 22 juin 2026, Service-Public renvoie au Cerfa 16702*02 pour une déclaration préalable de constructions et travaux non soumis à permis de construire."
+    answer: "Au 2 octobre 2026, Service-Public renvoie au Cerfa 16702*03 pour une déclaration préalable de constructions et travaux non soumis à permis de construire."
   - question: "Une DP est-elle nécessaire pour des panneaux solaires sur toiture ?"
     answer: "Oui, Service-Public indique qu'une déclaration préalable de travaux doit être déposée en mairie pour poser des panneaux photovoltaïques sur un toit."
   - question: "Une entreprise peut-elle déposer une DP papier ?"
@@ -40,13 +40,13 @@ faqItems:
 
 ## La réponse courte
 
-Au 22 juin 2026, pour une déclaration préalable de panneaux solaires en toiture, Service-Public renvoie au formulaire **Cerfa 16702*02** : "Déclaration préalable constructions et travaux non soumis à permis de construire". Pour un installateur, il faut surtout retenir trois choses : une pose photovoltaïque sur toiture modifie l'aspect extérieur du bâtiment, la DP se prépare avec le formulaire et les pièces du bordereau, et une personne morale doit déposer par voie électronique dans les communes de plus de 3 500 habitants.
+Au 2 octobre 2026, pour une déclaration préalable de panneaux solaires en toiture, Service-Public renvoie au formulaire **Cerfa 16702*03** : "Déclaration préalable constructions et travaux non soumis à permis de construire". Pour un installateur, il faut surtout retenir trois choses : une pose photovoltaïque sur toiture modifie l'aspect extérieur du bâtiment, la DP se prépare avec le formulaire et les pièces du bordereau, et une personne morale doit déposer par voie électronique dans les communes de plus de 3 500 habitants.
 
 Le piège n'est pas seulement de choisir le mauvais PDF. Le vrai risque, côté installateur, est de remplir un formulaire avec des informations incohérentes avec le devis, les plans, les photos ou le projet vendu. C'est ce qui déclenche des demandes de complément, des retours client et des chantiers qui glissent.
 
 ## Quel Cerfa utiliser pour des panneaux solaires ?
 
-La page officielle Service-Public dédiée au formulaire de déclaration préalable indique le **Cerfa 16702*02** pour les constructions et travaux non soumis à permis de construire. Ce formulaire sert notamment à déclarer des travaux sur une construction existante.
+La page officielle Service-Public dédiée au formulaire de déclaration préalable indique le **Cerfa 16702*03** pour les constructions et travaux non soumis à permis de construire. Ce formulaire sert notamment à déclarer des travaux sur une construction existante.
 
 Pour les panneaux photovoltaïques sur toiture, c'est cohérent avec la fiche Service-Public consacrée aux panneaux solaires sur toit : elle indique qu'une DP doit être déposée en mairie, car la pose modifie l'aspect extérieur du bâtiment.
 
@@ -162,7 +162,7 @@ Les règles et formulaires peuvent évoluer. Avant de publier un process interne
 
 ### Quel est le Cerfa pour une déclaration préalable de panneaux solaires ?
 
-Au 22 juin 2026, la page Service-Public du formulaire renvoie au Cerfa 16702*02 pour la déclaration préalable de constructions et travaux non soumis à permis de construire.
+Au 2 octobre 2026, la page Service-Public du formulaire renvoie au Cerfa 16702*03 pour la déclaration préalable de constructions et travaux non soumis à permis de construire.
 
 ### Faut-il une DP pour poser des panneaux solaires sur un toit ?
 

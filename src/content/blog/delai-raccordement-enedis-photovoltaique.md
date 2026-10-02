@@ -4,7 +4,7 @@ title: "Délai raccordement Enedis photovoltaïque : étapes et points de blocag
 seoTitle: "Délai raccordement Enedis photovoltaïque"
 description: "Comprendre le délai de raccordement Enedis photovoltaïque : demande complète, proposition, Consuel, mise en service et blocages à éviter."
 pubDate: "2026-09-14"
-updatedDate: "2026-09-14"
+updatedDate: "2026-10-02"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
@@ -46,6 +46,9 @@ faqItems:
   - question: "Peut-on injecter avant la mise en service Enedis ?"
     answer: "Non. Enedis indique que l'injection d'énergie avant la mise en service est interdite et ne sera pas rémunérée."
 ---
+
+Ce guide porte sur la planification et les temps d’attente. Pour savoir quoi déposer et dans quel ordre, retrouvez les [étapes et pièces du raccordement Enedis](/blog/raccordement-enedis-photovoltaique-etapes-delais).
+
 
 ## La réponse courte
 

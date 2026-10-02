@@ -4,7 +4,7 @@ title: "Délai Consuel photovoltaïque : combien de temps prévoir ?"
 seoTitle: "Délai Consuel photovoltaïque : guide"
 description: "Délai Consuel photovoltaïque : demande de visa, visite, anomalies, visa final et méthode pour éviter les retards de mise en service."
 pubDate: "2026-09-22"
-updatedDate: "2026-09-22"
+updatedDate: "2026-10-02"
 category: "Consuel"
 readingTime: "8 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -46,6 +46,9 @@ faqItems:
   - question: "Que se passe-t-il si Consuel relève une anomalie ?"
     answer: "Le dossier passe en action requise dans monespaceconsuel. Les non-conformités doivent être levées et Consuel peut demander une déclaration de mise en conformité ou une seconde visite."
 ---
+
+Ce guide aide à planifier le Consuel et à identifier ce qui fait varier les délais. Pour réunir les pièces avant l’envoi, utilisez le [guide de préparation du dossier Consuel](/blog/consuel-photovoltaique-delais-dossier).
+
 
 ## La réponse courte
 

@@ -1,10 +1,10 @@
 ---
 slug: "raccordement-enedis-photovoltaique-etapes-delais"
-title: "Raccordement Enedis photovoltaïque : étapes, pièces et suivi installateur"
-seoTitle: "Raccordement Enedis photovoltaïque : guide"
+title: "Raccordement photovoltaïque Enedis : procédure et pièces"
+seoTitle: "Raccordement photovoltaïque Enedis : procédure et pièces | Sunelys"
 description: "Guide complet du raccordement Enedis photovoltaïque pour installateurs : demande, pièces, Consuel, délais, suivi et méthode pour limiter les blocages."
 pubDate: "2026-05-15"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-02"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
@@ -37,6 +37,9 @@ relatedLinks:
     label: "Gestion administrative photovoltaïque"
     description: "Piloter tout le parcours dans un même cadre."
 ---
+
+Ce guide suit les démarches et les documents, étape par étape. Pour organiser le calendrier du chantier, consultez les [délais de raccordement Enedis](/blog/delai-raccordement-enedis-photovoltaique).
+
 
 ## Pourquoi le raccordement Enedis bloque souvent les installateurs
 

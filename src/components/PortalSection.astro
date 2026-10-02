@@ -65,17 +65,6 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     <h2 id="portal-title">{data.title}</h2>
     <p class="text">{data.text}</p>
 
-    <ul class="benefits" aria-label="Ce que le portail rend visible">
-      {
-        data.benefits.map((benefit, index) => (
-          <li>
-            <span>0{index + 1}</span>
-            <strong>{benefit}</strong>
-          </li>
-        ))
-      }
-    </ul>
-
     <div class="portal-actions">
       <a class="btn btn-accent" href={data.cta.href} data-track={data.cta.track}>
         {data.cta.label}

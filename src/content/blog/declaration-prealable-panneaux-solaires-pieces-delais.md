@@ -4,7 +4,7 @@ title: "Pièces déclaration préalable panneaux solaires : liste et méthode"
 seoTitle: "Pièces déclaration préalable panneaux solaires"
 description: "Liste des pièces DP panneaux solaires, plans à préparer, délai d'instruction et méthode pour éviter les demandes de complément en mairie."
 pubDate: "2026-05-04"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-02"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -52,7 +52,7 @@ faqItems:
 
 ## La réponse courte
 
-Pour une déclaration préalable de panneaux solaires, les pièces à préparer doivent permettre à la mairie de comprendre trois choses : où se situe le terrain, quelle toiture est modifiée et à quoi ressemblera le bâtiment après la pose. Au 22 juin 2026, Service-Public rappelle qu'une DP est nécessaire pour poser des panneaux photovoltaïques sur un toit, car l'aspect extérieur du bâtiment est modifié.
+Pour une déclaration préalable de panneaux solaires, les pièces à préparer doivent permettre à la mairie de comprendre trois choses : où se situe le terrain, quelle toiture est modifiée et à quoi ressemblera le bâtiment après la pose. Au 2 octobre 2026, Service-Public rappelle qu'une DP est nécessaire pour poser des panneaux photovoltaïques sur un toit, car l'aspect extérieur du bâtiment est modifié.
 
 Dans le bordereau officiel, la pièce toujours obligatoire est **DP1, le plan de situation**. Les autres pièces dépendent du projet. Pour une pose en toiture, les pièces qui reviennent le plus souvent sont **DP4**, plans des façades et des toitures, **DP5**, représentation de l'aspect extérieur si DP4 ne suffit pas, puis **DP6 à DP8** lorsque le projet est visible depuis l'espace public ou situé dans un secteur patrimonial.
 
@@ -155,7 +155,7 @@ Avant de figer un process interne, vérifiez les sources officielles :
 
 - la fiche Service-Public sur les [panneaux solaires sur toiture](https://www.service-public.gouv.fr/particuliers/vosdroits/F36798) ;
 - la fiche Service-Public [Déclaration préalable](https://www.service-public.gouv.fr/particuliers/vosdroits/F17578) ;
-- le formulaire officiel [Cerfa 16702*02](https://www.service-public.fr/particuliers/vosdroits/R2028).
+- le formulaire officiel [Cerfa 16702*03](https://www.service-public.gouv.fr/particuliers/vosdroits/R2028).
 
 ## FAQ
 

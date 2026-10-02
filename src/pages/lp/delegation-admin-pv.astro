@@ -42,9 +42,9 @@ const offers = [
 ];
 
 const proofItems = [
-  "1 357 dossiers pilotés",
-  "Production sous 48h lorsque le dossier est complet",
-  "96 % de DP sans pièce complémentaire",
+  "Suivi partagé dans le portail",
+  "Production sous 48 h ouvrées lorsque le dossier est complet",
+  "Contrôle documentaire avant dépôt",
 ];
 
 const visualProofItems = [
@@ -139,7 +139,7 @@ const specialistReasons = [
     </div>
 
     <aside class="hero-intake" id="diagnostic" aria-label="Diagnostic délégation administrative">
-      <p class="eyebrow">Cadrage sous 24h</p>
+      <p class="eyebrow">Cadrage sous 24 h ouvrées</p>
       <h2 id="lp-form-heading">Quel dossier voulez-vous sortir de vos équipes ?</h2>
       <p class="form-audience-note" id="lp-form-reassurance">Quelques repères · réponse humaine · sans engagement</p>
       <form
@@ -202,10 +202,10 @@ const specialistReasons = [
         </label>
 
         <button class="btn btn-primary btn-accent" type="submit" data-track="cta_lp_admin_pv_form_submit">
-          Recevoir le cadrage sous 24h
+          Recevoir le cadrage sous 24 h ouvrées
         </button>
         <p class="form-status" role="status" aria-live="polite" hidden></p>
-        <small id="volume-helper">Réponse sous 24h ouvrées. Profil, société, téléphone et blocage restent optionnels.</small>
+        <small id="volume-helper">Réponse sous 24 h ouvrées. Profil, société, téléphone et blocage restent optionnels.</small>
         <p class="form-reassurance">Prix fixes annoncés avant démarrage · aucun engagement</p>
 
         <details class="form-more">
@@ -428,12 +428,12 @@ const specialistReasons = [
   const landingIntents = {
     dp: {
       need: "Declaration prealable",
-      heading: "Votre déclaration préalable photovoltaïque, cadrée sous 24h.",
+      heading: "Votre déclaration préalable photovoltaïque, cadrée sous 24 h ouvrées.",
       sourceDetail: "google_ads_lp_dp",
     },
     consuel: {
       need: "Raccordement Enedis + Consuel",
-      heading: "Votre raccordement et votre Consuel, cadrés sous 24h.",
+      heading: "Votre raccordement et votre Consuel, cadrés sous 24 h ouvrées.",
       sourceDetail: "google_ads_lp_consuel",
     },
   };
@@ -470,6 +470,7 @@ const specialistReasons = [
       setLeadStatus("Nous transmettons votre cadrage à Sunelys...", "loading");
 
       const submittedData = new FormData(lpLeadForm);
+      submittedData.set("analytics_consent", window.sunelysAnalyticsEnabled ? "granted" : "denied");
 
       try {
         const response = await fetch(actionUrl, {
@@ -479,9 +480,10 @@ const specialistReasons = [
         });
         const payload = await response.json().catch(() => ({}));
 
-        if (!response.ok || payload?.ok === false) throw new Error("Lead submission failed");
+        if (!response.ok || payload?.ok !== true) throw new Error("Lead submission failed");
 
-        window.trackLeadSuccess?.({
+        await window.trackLeadSuccess?.({
+          lead_id: payload.lead_id, is_test: payload.is_test,
           source: String(submittedData.get("source_page") || "lp_delegation_admin_pv"),
           need: String(submittedData.get("need") || ""),
           volume: String(submittedData.get("volume") || ""),
@@ -493,7 +495,7 @@ const specialistReasons = [
           lead_source_detail: String(submittedData.get("lead_source_detail") || "google_ads_lp_admin_pv"),
         });
 
-        setLeadStatus("Demande reçue. Sunelys revient vers vous sous 24h ouvrées.", "success");
+        setLeadStatus("Demande reçue. Sunelys revient vers vous sous 24 h ouvrées.", "success");
         lpSubmitButton.textContent = "Demande reçue";
         window.setTimeout(() => {
           window.location.assign("/merci?source=lp_delegation_admin_pv");
@@ -511,7 +513,7 @@ const specialistReasons = [
           "error",
         );
         lpSubmitButton.disabled = false;
-        lpSubmitButton.textContent = lpSubmitButton.dataset.originalLabel || "Recevoir le cadrage sous 24h";
+        lpSubmitButton.textContent = lpSubmitButton.dataset.originalLabel || "Recevoir le cadrage sous 24 h ouvrées";
         lpLeadForm.dataset.submitting = "false";
       }
     });

@@ -1,4 +1,6 @@
 ---
+import DossierChecklist from "./DossierChecklist.astro";
+import ServiceTerms from "./ServiceTerms.astro";
 import { filterVisibleLinks, publicBlogSlugs } from "../lib/blogPublication";
 import BrandSignature from "./BrandSignature.astro";
 import FormPrivacyNote from "./FormPrivacyNote.astro";
@@ -127,13 +129,13 @@ const successUrl = `https://sunelys.fr/merci?source=${data.slug}_service_form`;
 const heroBadges = [
   "Pour installateurs photovoltaïques",
   "Dossier ponctuel accepté",
-  "Diagnostic gratuit sous 24h",
+  "Diagnostic gratuit sous 24 h ouvrées",
 ];
 
 const heroBadgesBySlug: Record<string, string[]> = {
   gestion_administrative: [
     "Pilotage opérationnel du flux dossier",
-    "Pilotage sous 48h sur dossier complet",
+    "Pilotage sous 48 h ouvrées sur dossier complet",
     "Moins de points de friction manuels",
   ],
   consuel_photovoltaique: [
@@ -217,10 +219,10 @@ const heroSecondaryCta =
   (isGestionLanding
     ? { label: "Voir les tarifs du pilotage complet", href: "/tarifs" }
     : { label: "Voir les services", href: "/services" });
-const heroPrimaryLabel = data.heroPrimaryLabel ?? "Décrire mon dossier";
-const quickSubmitLabel = data.quickFormSubmitLabel ?? (isGestionLanding ? "Recevoir mon plan d'action" : "Décrire mon dossier");
-const delegationLabel = isGestionLanding ? "Diagnostiquer mon flux administratif" : "Faire le point sur mes blocages";
-const finalSubmitLabel = isGestionLanding ? "Recevoir mon plan d'action" : "Recevoir mon diagnostic";
+const heroPrimaryLabel = "Faire le point sur mon dossier";
+const quickSubmitLabel = "Faire le point sur mon dossier";
+const delegationLabel = "Faire le point sur mon dossier";
+const finalSubmitLabel = "Faire le point sur mon dossier";
 const diagnosticLabel = data.diagnosticLabel ?? "Étape bloquée";
 const serviceBadges = heroBadgesBySlug[data.slug] || heroBadges;
 const decisionStrip = decisionBySlug[data.slug] || [
@@ -311,7 +313,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
                 <span>{data.conversionOffer.priceNote}</span>
               </p>
             </div>
-            <p class="conversion-offer-scope">{data.conversionOffer.scope}</p>
+            <p class="conversion-offer-scope">{data.conversionOffer.scope}</p><ServiceTerms compact />
             <ul>
               {data.conversionOffer.terms.map((term) => <li>{term}</li>)}
             </ul>
@@ -394,7 +396,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         data-track-view="service_quick_form_view"
         data-track-label={data.slug}
       >
-        <p class="kicker">Réponse personnalisée sous 24h</p>
+        <p class="kicker">Réponse personnalisée sous 24 h ouvrées</p>
         <h2>{data.quickFormTitle ?? "Identifiez le premier flux administratif à déléguer."}</h2>
         <form
           class="hero-service-form"
@@ -449,9 +451,10 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
   <a href={`#scope-${data.slug}`}>Ce qui est pris en charge</a>
   {Boolean(data.detailBlocks?.length) && <a href={`#details-${data.slug}`}>Pièces et démarches</a>}
   <a href={`#support-center-${data.slug}`}>Questions fréquentes</a>
-  <a href={`#service-final-${data.slug}`}>Décrire mon dossier</a>
+  <a href={`#service-final-${data.slug}`}>Faire le point sur mon dossier</a>
 </nav>
 
+{["consuel_photovoltaique", "sous_traitance_declaration_prealable"].includes(data.slug) && <DossierChecklist kind={data.slug === "consuel_photovoltaique" ? "consuel" : "dp"} />}
 <section class="seo-context section-shell reveal" aria-label="Contexte et preuve">
   <article class="hero-fit-card" data-reveal-item>
     <p class="kicker">Quand ce service vous concerne</p>
@@ -591,7 +594,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
 }
 
 <section id={`scope-${data.slug}`} class="service-scope section-shell" aria-labelledby={`scope-title-${data.slug}`} data-track-view="service_transformation_view" data-track-label={data.slug}>
-  <div class="service-scope-head"><p class="kicker">Votre prestation</p><h2 id={`scope-title-${data.slug}`}>Ce que Sunelys prend en charge.</h2><p>Les démarches ci-dessous sont réalisées dans le périmètre convenu avec votre équipe.</p><a class="btn btn-accent" href={`#service-final-${data.slug}`} data-track={`cta_${data.slug}_transformation`}>Décrire mon dossier <span aria-hidden="true">→</span></a></div>
+  <div class="service-scope-head"><p class="kicker">Votre prestation</p><h2 id={`scope-title-${data.slug}`}>Ce que Sunelys prend en charge.</h2><p>Les démarches ci-dessous sont réalisées dans le périmètre convenu avec votre équipe.</p><a class="btn btn-accent" href={`#service-final-${data.slug}`} data-track={`cta_${data.slug}_transformation`}>Faire le point sur mon dossier <span aria-hidden="true">→</span></a></div>
   <div class="service-scope-content">
     <ul class="service-scope-list">{data.scopeItems.map((item) => <li>{item}</li>)}</ul>
     <details class="service-scope-context"><summary>Les blocages que cet accompagnement permet de traiter</summary><h3>{data.problemTitle}</h3><p>{data.problemIntro}</p><dl>{data.problemItems.map((item) => <div><dt>{item.title}</dt><dd>{item.text}</dd></div>)}</dl></details>
@@ -898,7 +901,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     <button class="btn btn-accent" type="submit" data-track={`cta_${data.slug}_final_form`}>
       {finalSubmitLabel}
     </button>
-    <small>Réponse sous 24h • Sans engagement</small>
+    <small>Réponse sous 24 h ouvrées • Sans engagement</small>
     <FormPrivacyNote />
   </form>
 </section>

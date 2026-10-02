@@ -17,7 +17,7 @@ const {
   path,
   navLinks,
   ctaHref = "/contact",
-  ctaLabel = "Diagnostic sous 24h",
+  ctaLabel = "Faire le point",
 } = Astro.props;
 
 const contactEmail = "contact@sunelys.fr";
@@ -32,16 +32,8 @@ const contactLabel = "Équipe Sunelys";
 
     <nav class="main-nav" id="main-navigation" aria-label="Navigation principale">
       <div class="nav-panel">
-        <div class="mobile-menu-intro">
-          <p>Sunelys</p>
-          <strong>Vos dossiers solaires.<br />Enfin sous contrôle.</strong>
-          <div class="mobile-menu-proof" aria-label="Repères rapides Sunelys">
-            <span>Installateurs ENR</span>
-            <span>Diagnostic 24h</span>
-            <span>1 dossier suffit</span>
-          </div>
-          <span>Navigation</span>
-        </div>
+        <p class="mobile-menu-intro">Navigation Sunelys</p>
+        <a class="mobile-portal-link" href="https://portail.sunelys.fr/login" data-track="cta_header_portal_mobile"><span>Déjà client ?</span><strong>Portail client →</strong></a>
 
         <ul>
           {
@@ -75,14 +67,7 @@ const contactLabel = "Équipe Sunelys";
           </a>
         </div>
 
-        <a
-          class="mobile-portal-link"
-          href="https://portail.sunelys.fr/login"
-          data-track="cta_header_portal_mobile"
-        >
-          <span>Déjà client ?</span>
-          <strong>Accéder au portail</strong>
-        </a>
+
       </div>
     </nav>
 
@@ -103,7 +88,7 @@ const contactLabel = "Équipe Sunelys";
 
       <a class="btn btn-accent nav-cta" href={ctaHref} data-track="cta_header_primary">
         <span class="cta-label-full">{ctaLabel}</span>
-        <span class="cta-label-short">Diagnostic</span>
+        <span class="cta-label-short">Faire le point</span>
       </a>
 
       <button
@@ -169,7 +154,17 @@ const contactLabel = "Équipe Sunelys";
     nav.querySelectorAll("a").forEach((link) => link.addEventListener("click", () => closeMenu(false)));
 
     document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") closeMenu(true);
+      if (toggle.getAttribute("aria-expanded") !== "true") return;
+      if (event.key === "Escape") closeMenu(true);
+      if (event.key === "Tab") {
+        const links = [...nav.querySelectorAll<HTMLElement>('a[href], button:not([disabled])')].filter(el => el.getClientRects().length);
+        const cycle = [...links, toggle];
+        const current = cycle.indexOf(document.activeElement as HTMLElement);
+        if (current === -1 || (!event.shiftKey && current === cycle.length - 1) || (event.shiftKey && current === 0)) {
+          event.preventDefault();
+          (event.shiftKey ? cycle[cycle.length - 1] : cycle[0])?.focus();
+        }
+      }
     });
 
     window.matchMedia("(min-width: 1081px)").addEventListener?.("change", () => closeMenu(false));

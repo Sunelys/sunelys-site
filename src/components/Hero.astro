@@ -45,6 +45,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
 <section class="hero section-shell" data-sticky-guard="hero">
   <div class="hero-opening">
     <picture class="hero-daylight">
+      <source media="(max-width: 820px)" type="image/avif" srcset="/images/site/sunelys-home-lumiere-2026-09-24-640.avif" />
       <source type="image/avif" srcset="/images/site/sunelys-home-lumiere-2026-09-24-640.avif 640w, /images/site/sunelys-home-lumiere-2026-09-24-1280.avif 1280w, /images/site/sunelys-home-lumiere-2026-09-24-1672.avif 1672w" sizes="100vw" />
       <source type="image/webp" srcset="/images/site/sunelys-home-lumiere-2026-09-24-640.webp 640w, /images/site/sunelys-home-lumiere-2026-09-24-1280.webp 1280w, /images/site/sunelys-home-lumiere-2026-09-24-1672.webp 1672w" sizes="100vw" />
       <img src="/images/site/sunelys-home-lumiere-2026-09-24-1672.webp" alt="Illustration : une main prépare des plans de toiture solaire sur un bureau éclairé par la lumière du jour." width="1672" height="941" loading="eager" decoding="async" fetchpriority="high" />
@@ -58,7 +59,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
       <h1>{data.title}</h1>
       <p class="hero-subtitle">{data.subtitle}</p>
       <div class="hero-primary-actions">
-        <a class="btn btn-accent" href={data.leadForm ? "#hero-lead-form" : data.primaryCta.href} data-track={data.primaryCta.track}>Décrire mon besoin <span aria-hidden="true">→</span></a>
+        <a class="btn btn-accent" href={data.leadForm ? "#hero-lead-form" : data.primaryCta.href} data-track={data.primaryCta.track}>Faire le point sur mon dossier <span aria-hidden="true">→</span></a>
         <a class="hero-pricing-link" href={data.secondaryCta.href} data-track={data.secondaryCta.track}>Consulter les tarifs <span aria-hidden="true">→</span></a>
       </div>
     </div>
@@ -138,7 +139,7 @@ const secondaryIsExternal = /^https?:\/\//.test(data.secondaryCta.href);
                 <span class="no-commitment">Sans engagement</span>
               </div>
               <p class="hero-intake-copy">
-Quel dossier souhaitez-vous nous confier ? Une première réponse sous 24h ouvrées.
+Quel dossier souhaitez-vous nous confier ? Une première réponse sous 24 h ouvrées.
               </p>
             </div>
 
@@ -371,7 +372,7 @@ Quel dossier souhaitez-vous nous confier ? Une première réponse sous 24h ouvr�
       const formData = new FormData(heroLeadForm);
       window.trackEvent?.("lead_hero_form_submit", {
         category: "form",
-        label: "Recevoir un diagnostic sous 24h",
+        label: "Faire le point sur mon dossier",
         volume: String(formData.get("volume") || ""),
         need: String(formData.get("need") || ""),
         blocked_stage: String(formData.get("blocked_stage") || ""),
