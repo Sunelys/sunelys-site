@@ -1,3 +1,4 @@
+import { classifyLead } from "../../lib/lead-reporting.mjs";
 import type { APIRoute } from "astro";
 import { env as runtimeEnv } from "node:process";
 import { randomUUID } from "node:crypto";
@@ -667,6 +668,8 @@ export const POST: APIRoute = async ({ request }) => {
   if (clean(formData.get("website"))) {
     return wantsJson(request) ? jsonResponse({ ok: true }) : Response.redirect(safeLeadRedirect(formData.get("_next")), 303);
   }
+  const leadId = randomUUID();
+  const analyticsConsent = formData.get("analytics_consent") === "granted" ? "granted" : "denied";
   const email = clean(formData.get("email")).toLowerCase();
   const fullName = clean(formData.get("name"));
   const splitFullName = splitName(fullName);
@@ -690,6 +693,7 @@ export const POST: APIRoute = async ({ request }) => {
   const rawUrgency = clean(formData.get("urgency"));
   const rawFollowUpSequence = clean(formData.get("follow_up_sequence"));
   const rawMessage = clean(formData.get("message"));
+  const isTest = classifyLead({ email, message: rawMessage }) === "test";
   const explicitBlockedStage = clean(formData.get("blocked_stage"));
   const serviceHint = firstClean(formData.get("service_interest"), rawNeed);
   const inferredServiceInterest = resolveLeadIntent(serviceHint) || normalizeNeed(
@@ -744,6 +748,9 @@ export const POST: APIRoute = async ({ request }) => {
   const utmSource = firstClean(formData.get("utm_source"), normalizeReferrerSource(firstReferrer));
   const comment = buildComment(clean(formData.get("message")), [
     ["Service", inferredServiceInterest || normalizeNeed(rawNeed)],
+    ["Référence lead", leadId],
+    ["Nature", isTest ? "[SUNELYS_TEST]" : "Demande à qualifier"],
+    ["Consentement analytics", analyticsConsent],
     ["Conversion type", conversionType],
     ["Étape", leadStage],
     ["Blocage", blockedStage],
@@ -867,7 +874,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     if (fallbackDelivery.delivered) {
       if (wantsJson(request)) {
-        return jsonResponse({ ok: true, fallback: true, warning: "Lead delivered outside Airtable." });
+        return jsonResponse({ ok: true, lead_id: leadId, is_test: isTest, fallback: true, warning: "Lead delivered outside Airtable." });
       }
 
       const nextUrl = safeLeadRedirect(formData.get("_next"));
@@ -909,7 +916,7 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 
-  if (wantsJson(request)) return jsonResponse({ ok: true });
+  if (wantsJson(request)) return jsonResponse({ ok: true, lead_id: leadId, is_test: isTest });
 
   const nextUrl = safeLeadRedirect(formData.get("_next"));
   return Response.redirect(nextUrl, 303);

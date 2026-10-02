@@ -54,7 +54,7 @@ const isCompliancePage = path === "/mentions-legales" || path === "/politique-co
 const isPaidLanding = path === "/lp/delegation-admin-pv";
 const showLeadCaptureShell = path !== "/merci" && !isContactPage && !isCompliancePage && (!isNoindex || isPaidLanding);
 const stickyLeadHref = isPaidLanding ? "#diagnostic" : "/contact?source=sticky#contact-form";
-const stickyLeadLabel = isPaidLanding ? "Cadrer le dossier" : "Diagnostic 24h";
+const stickyLeadLabel = "Faire le point";
 
 const routeLabels: Record<string, string> = {
   "/services": "Services",
@@ -191,7 +191,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
     <meta name="description" content={description} />
     <meta name="robots" content={robots} />
     <meta name="theme-color" content={design === "f1" ? "#151718" : "#0e1726"} />
-    {design === "f1" && <link rel="preload" href="/brand/f1/source-sans-3.woff2" as="font" type="font/woff2" crossorigin />}
+    {design === "f1" && <link rel="preload" href="/brand/f1/source-sans-3-latin-20261002.woff2" as="font" type="font/woff2" crossorigin />}
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     <link rel="canonical" href={canonical} />
 
@@ -319,6 +319,8 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         removeAnalyticsCookies();
         try {
           localStorage.removeItem("sunelys_attribution");
+          sessionStorage.removeItem("sunelys_pending_conversion");
+          sessionStorage.removeItem("sunelys_pending_lead");
         } catch (_error) {
           // Le retrait reste effectif même si le stockage local est indisponible.
         }
@@ -371,7 +373,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
   >
     <a class="skip-link" href="#contenu">Aller au contenu</a>
 
-    <Header design={design} path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Diagnostic sous 24h" />
+    <Header design={design} path={path} navLinks={navLinks} ctaHref="/contact?source=header-diagnostic#contact-form" ctaLabel="Faire le point" />
 
     <main id="contenu" class="layout-main">
       <div class="container page-flow">
@@ -388,7 +390,7 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
       showLeadCaptureShell && (
         <div class="sticky-lead-bar" aria-label="Actions rapides de contact">
           <p class="sticky-lead-context">
-            <span>Diagnostic sous 24h</span>
+            <span>Diagnostic sous 24 h ouvrées</span>
             <strong>1 dossier suffit pour commencer</strong>
           </p>
           <div class="sticky-lead-actions">
@@ -543,6 +545,9 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         lead_stage: params.lead_stage || "",
         service_interest: params.service_interest || "",
         form_id: params.form_id || "",
+        lead_id: params.lead_id || "",
+        event_callback: params.event_callback,
+        event_timeout: 800,
         form_location: params.form_location || "",
         lead_source_detail: params.lead_source_detail || "",
         field_name: params.field_name || "",
@@ -596,114 +601,27 @@ const allSchemas = [...baseSchemas, ...(breadcrumbSchema ? [breadcrumbSchema] : 
         }
       };
 
+      // Confirmed server receipts only. No attribution or conversion is retained after refusal.
       const confirmedLeadKeys = new Set();
-      const pendingConversionStorageKey = "sunelys_pending_conversion";
-
-      const savePendingLeadConversion = (params = {}) => {
-        try {
-          const attribution = window.getSunelysAttribution?.() || {};
-          const pendingConversion = {
-            ...params,
-            attribution: {
-              utm_source: attribution.utm_source || "",
-              utm_medium: attribution.utm_medium || "",
-              utm_campaign: attribution.utm_campaign || "",
-              utm_term: attribution.utm_term || "",
-              utm_content: attribution.utm_content || "",
-              gclid: attribution.gclid || "",
-              fbclid: attribution.fbclid || "",
-              msclkid: attribution.msclkid || "",
-              landing_page: attribution.landing_page || window.location.pathname,
-              first_referrer: attribution.first_referrer || document.referrer || "direct",
-            },
-          };
-          sessionStorage.setItem(pendingConversionStorageKey, JSON.stringify(pendingConversion));
-        } catch (_error) {
-          // La conversion reste mesurable dès que le consentement est disponible.
-        }
-      };
-
-      const readPendingLeadConversion = () => {
-        try {
-          return JSON.parse(sessionStorage.getItem(pendingConversionStorageKey) || "null");
-        } catch (_error) {
-          return null;
-        }
-      };
-
       window.trackLeadSuccess = (params = {}) => {
-        const confirmationEvent = new CustomEvent("sunelys:lead-confirmed", {
-          detail: {
-            source: params.source || "",
-            form_id: params.form_id || "",
-            conversion_type: params.conversion_type || "form_contact",
-            confirmed_at: new Date().toISOString(),
-          },
-        });
-        window.dispatchEvent(confirmationEvent);
-
-        if (!window.sunelysAnalyticsEnabled) {
-          savePendingLeadConversion(params);
-          return;
-        }
-
-        const successPayload = {
-          ...params,
-          category: "lead",
-          lead_stage: "lead_confirmed",
-        };
-        const confirmationKey = [
-          successPayload.form_id || "",
-          successPayload.source || "",
-          successPayload.conversion_type || "form_contact",
-        ].join("|");
-
-        if (confirmedLeadKeys.has(confirmationKey)) return;
-        confirmedLeadKeys.add(confirmationKey);
-
+        const leadId = params.lead_id;
+        window.dispatchEvent(new CustomEvent("sunelys:lead-confirmed", { detail: {
+          source: params.source || "", form_id: params.form_id || "", lead_id: leadId || "",
+        } }));
+        try { sessionStorage.removeItem("sunelys_pending_conversion"); sessionStorage.removeItem("sunelys_pending_lead"); } catch {}
+        if (!window.sunelysAnalyticsEnabled || !leadId || params.is_test) return Promise.resolve();
+        const storageKey = `sunelys_converted_${leadId}`;
+        if (confirmedLeadKeys.has(leadId)) return Promise.resolve();
+        try { if (sessionStorage.getItem(storageKey)) return Promise.resolve(); sessionStorage.setItem(storageKey, "1"); } catch {}
+        confirmedLeadKeys.add(leadId);
+        const successPayload = { ...params, category: "lead", lead_stage: "lead_confirmed", transport_type: "beacon" };
         window.trackEvent?.("lead_form_success", successPayload);
-        window.trackEvent?.("generate_lead", successPayload);
-        window.trackEvent?.("lead_converted", successPayload);
-
-        try {
-          sessionStorage.setItem("sunelys_form_submitted", "true");
-          sessionStorage.removeItem("sunelys_pending_lead");
-          sessionStorage.removeItem(pendingConversionStorageKey);
-        } catch (_error) {
-          // La confirmation reste mesurée si le stockage de session est indisponible.
-        }
+        // Let GA queue its request before redirecting. A blocked tracker never blocks contact.
+        return new Promise((resolve) => {
+          const timeout = window.setTimeout(resolve, 900);
+          window.trackEvent?.("generate_lead", { ...successPayload, event_callback: () => { window.clearTimeout(timeout); resolve(); } });
+        });
       };
-
-      window.replayPendingLeadConversion = () => {
-        if (!window.sunelysAnalyticsEnabled) return false;
-
-        const pendingConversion = readPendingLeadConversion();
-        if (!pendingConversion || typeof pendingConversion !== "object") return false;
-
-        const pendingAttribution = pendingConversion.attribution || {};
-        try {
-          const currentAttribution = readStoredAttribution();
-          localStorage.setItem(
-            "sunelys_attribution",
-            JSON.stringify({ ...currentAttribution, ...pendingAttribution }),
-          );
-        } catch (_error) {
-          // L'événement peut tout de même être envoyé avec la configuration Ads active.
-        }
-
-        const { attribution: _attribution, ...conversionPayload } = pendingConversion;
-        window.trackLeadSuccess?.({ ...conversionPayload, conversion_replayed: true });
-        return true;
-      };
-
-      window.addEventListener("sunelys:consent-change", (event) => {
-        if (!event.detail?.analytics) return;
-        window.replayPendingLeadConversion?.();
-      });
-
-      // Rejoue une conversion enregistrée avant redirection lorsque le consentement
-      // était déjà accordé sur la page de confirmation.
-      if (window.sunelysAnalyticsEnabled) window.replayPendingLeadConversion();
 
       window.trackLeadError = (params = {}) => {
         window.trackEvent?.("form_error", {

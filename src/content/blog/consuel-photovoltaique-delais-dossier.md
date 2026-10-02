@@ -1,10 +1,10 @@
 ---
 slug: "consuel-photovoltaique-delais-dossier"
-title: "Consuel photovoltaïque : comment mieux préparer le dossier et limiter les retours"
-seoTitle: "Consuel photovoltaïque : dossier, délais et suivi | Sunelys"
+title: "Dossier Consuel photovoltaïque : pièces et préparation"
+seoTitle: "Dossier Consuel photovoltaïque : pièces et préparation | Sunelys"
 description: "Comprendre les points de friction du Consuel photovoltaïque et mettre en place un suivi administratif plus fiable pour les installateurs solaires."
 pubDate: "2026-04-23"
-updatedDate: "2026-08-10"
+updatedDate: "2026-10-02"
 category: "Consuel"
 readingTime: "5 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -40,6 +40,9 @@ relatedLinks:
     label: "Gestion administrative photovoltaïque"
     description: "Piloter DP, Consuel et raccordement dans un même flux."
 ---
+
+Ce guide se concentre sur la préparation documentaire. Pour planifier les jalons et comprendre les temps d’attente, consultez le [guide des délais Consuel](/blog/delai-consuel-photovoltaique).
+
 
 ## Le Consuel est souvent un révélateur d'organisation
 

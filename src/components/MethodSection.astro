@@ -15,7 +15,7 @@ const { data } = Astro.props;
     <div><p class="kicker">{data.kicker}</p><h2 id="method-title">{data.title}</h2></div>
     <a class="method-link" href="/parcours" data-track="cta_home_method_details">Découvrir le parcours<span aria-hidden="true">→</span></a>
   </div>
-  <ol class="method-timeline" aria-label="Le parcours Sunelys en quatre étapes">
+  <ol class="method-timeline" aria-label="Le parcours Sunelys en trois étapes">
     {data.steps.map((step, index) => (
       <li>
         <span class="timeline-number" aria-hidden="true">0{index + 1}</span>
@@ -24,12 +24,4 @@ const { data } = Astro.props;
       </li>
     ))}
   </ol>
-  <details class="method-formats">
-    <summary>Dossier ponctuel, pic de charge ou flux récurrent<span class="disclosure-symbol" aria-hidden="true">+</span></summary>
-    <div class="method-formats-grid">
-      {data.audiences.map((item) => (
-        <div><h3>{item.label}</h3>{item.signal && <strong>{item.signal}</strong>}<p>{item.text}</p></div>
-      ))}
-    </div>
-  </details>
 </section>

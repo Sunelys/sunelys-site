@@ -1,4 +1,5 @@
 ---
+import ServiceTerms from "../components/ServiceTerms.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import BrandSignature from "../components/BrandSignature.astro";
@@ -12,7 +13,7 @@ const pricingOffers = [
     decisionCue: "À choisir avant dépôt, après complément ou pour fiabiliser un flux DP.",
     price: "119 €",
     note: "HT / dossier",
-    badge: "96 % observés*",
+    badge: "Pièces vérifiées",
     ctaLabel: "Sécuriser la DP",
     ctaHref: "/contact?source=tarif_dp_complete#contact-form",
     ctaTrack: "cta_tarifs_offre_dp",
@@ -38,7 +39,7 @@ const pricingOffers = [
     decisionCue: "À choisir quand le flux entier doit sortir de vos équipes internes.",
     price: "199 €",
     note: "HT / dossier",
-    badge: "Le choix des pros",
+    badge: "DP + réseau",
     highlighted: true,
     ctaLabel: "Déléguer le parcours",
     ctaHref: "/contact?source=tarif_chaine_complete#contact-form",
@@ -71,7 +72,7 @@ const renovationAidOffers = [
     scope: "Les deux dossiers montés et suivis ensemble sur un même chantier.",
     price: "199 €",
     note: "HT / dossier",
-    badge: "Le plus demandé",
+    badge: "Deux démarches réunies",
     ctaLabel: "Choisir le pack",
     ctaHref: "/contact?source=tarif_maprimerenov_cee#contact-form",
     ctaTrack: "cta_tarifs_aide_pack",
@@ -90,14 +91,14 @@ const edfOaOffer = {
 };
 
 const specialistChecks = [
-  "100 % dossiers photovoltaïques",
+  "Photovoltaïque et aides à la rénovation",
   "Sans abonnement",
   "Sans minimum de volume",
   "Facturation au réel",
 ];
 
 const collaborationItems = [
-  "Production sous 48h lorsque le dossier est complet",
+  "Production sous 48 h ouvrées lorsque le dossier est complet",
   "Suivi en temps réel sur un espace dédié",
   "Interlocuteur unique pour vos équipes",
   "Facturation mensuelle des dossiers traités",
@@ -106,7 +107,6 @@ const collaborationItems = [
 const pricingSignals = [
   "Tarifs unitaires en euros HT, TVA 20 % en sus.",
   "Dossier ponctuel accepté avant un éventuel flux récurrent.",
-  "* Taux observé sur les DP pilotées par Sunelys ; détail méthodologique communiqué sur demande.",
   "Les décisions des organismes tiers — mairie, Enedis, Consuel, EDF OA, ANAH ou obligés CEE — restent indépendantes de Sunelys.",
 ];
 
@@ -223,7 +223,7 @@ const structuredData = {
 
       <div class="hero-assurance" aria-label="Conditions principales">
         <span><i aria-hidden="true"></i> Dossier ponctuel accepté</span>
-        <span><i aria-hidden="true"></i> Réponse sous 24h</span>
+        <span><i aria-hidden="true"></i> Réponse sous 24 h ouvrées</span>
       </div>
     </div>
 
@@ -265,6 +265,7 @@ const structuredData = {
     </aside>
   </section>
 
+  <ServiceTerms />
   <section class="specialist-strip reveal" aria-label="Principes de tarification Sunelys">
     {
       specialistChecks.map((item, index) => (
@@ -427,7 +428,7 @@ const structuredData = {
     kicker="Diagnostic tarifaire"
     title="Le bon tarif dépend surtout du premier blocage à sortir de votre équipe."
     text="Indiquez votre volume, votre urgence et le service concerné. Sunelys vous répond avec un périmètre concret, sans abonnement imposé."
-    submitLabel="Recevoir mon cadrage sous 24h"
+    submitLabel="Faire le point sur mon dossier"
   />
 </BaseLayout>
 

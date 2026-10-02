@@ -32,10 +32,15 @@ test("lead API contract with mocked providers only", async (t) => {
     calls = [];
     const result = await POST({ request: formRequest(prospect) });
     assert.equal(result.status, 200);
-    assert.deepEqual(await result.json(), { ok: true });
+    const receipt = await result.json();
+    assert.equal(receipt.ok, true);
+    assert.equal(receipt.is_test, true);
+    assert.match(receipt.lead_id, /^[a-f0-9-]{36}$/);
     const created = JSON.parse(calls.find(c => c.url.includes("airtable") && c.method === "POST").body);
     assert.match(created.records[0].fields.Commentaire, /Raccordement Enedis \+ Consuel/);
     assert.match(created.records[0].fields.Commentaire, /SUNELYS_NOTIFICATION pending/);
+    assert.ok(created.records[0].fields.Commentaire.includes(receipt.lead_id));
+    assert.match(created.records[0].fields.Commentaire, /Consentement analytics: denied/);
     const patch = JSON.parse(calls.find(c => c.method === "PATCH").body);
     assert.match(patch.fields.Commentaire, /Note conservée\n\[SUNELYS_NOTIFICATION email_accepted/);
   });

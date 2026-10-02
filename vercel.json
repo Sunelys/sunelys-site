@@ -212,5 +212,16 @@
       "destination": "/blog",
       "permanent": true
     }
+  ],
+  "headers": [
+    {
+      "source": "/brand/f1/source-sans-3-latin-20261002.woff2",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    }
   ]
 }

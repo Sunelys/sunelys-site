@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { classifyLead, inclusiveDateRange } from "../src/lib/lead-reporting.mjs";
 import { createSign } from "node:crypto";
 import { existsSync } from "node:fs";
 import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
@@ -195,7 +196,7 @@ async function main() {
 
   console.log(`Marketing agent report: ${path.relative(ROOT, path.join(runDir, "audit.md"))}`);
   console.log(`Mode: ${manifest.mode}`);
-  console.log(`Issues found: ${localAudit.issues.length}`);
+  console.log(`Issues found by automated rules: ${localAudit.issues.length}. This is not a full editorial, UX or commercial validation.`);
   console.log(`Priority actions: ${strategy.priority_actions.length}`);
   if (!process.env.OPENAI_API_KEY || options.noAi) {
     console.log("AI synthesis skipped; rule-based strategy generated.");
@@ -661,7 +662,10 @@ async function collectLeadData() {
       endDate,
       recordCount: records.length,
       inRangeCount: leads.length,
-      ...summarizeLeads(leads),
+      excludedTests: leads.filter(lead => lead.recordClass === "test").length,
+      recordsToReview: leads.filter(lead => lead.recordClass === "review").length,
+      qualificationNotice: "Scores indicatifs automatisés, pas une qualification commerciale confirmée. Tests explicites exclus ; marqueurs ambigus conservés et signalés.",
+      ...summarizeLeads(leads.filter(lead => lead.recordClass !== "test")),
     };
   } catch (error) {
     return failed(error.message);
@@ -707,7 +711,7 @@ function buildLeadFieldMap() {
     phone: fieldCandidates("AIRTABLE_FIELD_PHONE", ["Telephone", "Téléphone", "Phone"]),
     volume: fieldCandidates("AIRTABLE_FIELD_VOLUME", ["Volume", "Volume mensuel", "Volume dossiers/mois"]),
     need: fieldCandidates("AIRTABLE_FIELD_NEED", ["Besoin", "Besoin principal", "Need"]),
-    message: fieldCandidates("AIRTABLE_FIELD_MESSAGE", ["Message"]),
+    message: fieldCandidates("AIRTABLE_FIELD_MESSAGE", ["Commentaire", "Message"]),
     conversionType: fieldCandidates("AIRTABLE_FIELD_CONVERSION_TYPE", [
       "Type conversion",
       "Conversion type",
@@ -804,6 +808,7 @@ function normalizeLeadRecord(record, fieldMap) {
     message,
   });
   const lead = {
+    recordClass: classifyLead({ email: read("email"), message, status: read("status"), name: String(fields.Nom || "") }),
     createdAt: parseLeadDate(read("createdAt")) ?? record.createdTime ?? "",
     landingPage: normalizeLandingPage(
       cleanEnv(read("landingPage")) || source || sourceDetail || landingFromMessage || sourceFromMessage,
@@ -1928,14 +1933,7 @@ function base64Url(value) {
 }
 
 function dateRangeForLookback(days, lagDays = 0) {
-  const end = new Date();
-  end.setUTCDate(end.getUTCDate() - lagDays);
-  const start = new Date(end);
-  start.setUTCDate(start.getUTCDate() - Math.max(1, days));
-  return {
-    startDate: start.toISOString().slice(0, 10),
-    endDate: end.toISOString().slice(0, 10),
-  };
+  return inclusiveDateRange(days, lagDays);
 }
 
 function renderMarkdownReport({ manifest, localAudit, externalData, strategy, applied }) {
@@ -2053,7 +2051,7 @@ function renderLeadQualitySection(lines, leads) {
   }
 
   lines.push(`- Period: ${leads.startDate} -> ${leads.endDate}.`);
-  lines.push(`- Leads in range: ${leads.totals.leads}; qualified: ${leads.totals.qualified}; hot: ${leads.totals.hot}; average score: ${leads.totals.averageScore}/100.`);
+  lines.push(`- Leads in range: ${leads.totals.leads}; qualified (score automatique, non validation humaine): ${leads.totals.qualified}; hot: ${leads.totals.hot}; average score: ${leads.totals.averageScore}/100.`);
   lines.push(
     `- Qualification gaps: landing page ${leads.qualificationGaps.missingLandingPage}, channel ${leads.qualificationGaps.missingChannel}, service ${leads.qualificationGaps.missingServiceInterest}, blocked stage ${leads.qualificationGaps.missingBlockedStage}, volume ${leads.qualificationGaps.missingVolume}.`,
   );

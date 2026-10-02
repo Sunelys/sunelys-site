@@ -76,6 +76,9 @@ for (const file of htmlFiles) {
   const metas = openingTags(html, "meta");
   const links = openingTags(html, "link");
 
+  const readable = html.replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "").replace(/<[^>]+>/g, " ");
+  if (/16702(?:\*|&#42;)0[12]/.test(readable)) report("ancienne version du Cerfa présentée dans une page publique (référence revue : 16702*03)");
+  if (/96\s*%|1\s*357\s*dossiers/i.test(readable)) report("chiffre de preuve sans registre méthodologique validé");
   if (h1Count !== 1) report(`${h1Count} titre H1 au lieu d'un`);
   if (illustratedPages.has(page)) {
     const mainContent = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] ?? "";
@@ -129,4 +132,4 @@ if (failures.length > 0) {
   process.exit(1);
 }
 
-console.log(`Audit statique : ${htmlFiles.length} pages conformes.`);
+console.log(`Audit statique : ${htmlFiles.length} pages validées sur les contrôles statiques définis. Revue métier, visuelle et commerciale distinctes.`);

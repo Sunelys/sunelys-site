@@ -1,4 +1,5 @@
 ---
+import ServiceTerms from "../components/ServiceTerms.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BlockedDiagnostic from "../components/BlockedDiagnostic.astro";
 import DossierVisual from "../components/DossierVisual.astro";
@@ -148,7 +149,7 @@ const structuredData = {
       <p class="eyebrow">Services Sunelys</p>
       <h1 id="services-title">Vos démarches photovoltaïques, prises en charge.</h1>
       <p>Vous gardez le chantier et la relation client. Nous préparons les dossiers, suivons les échanges et vous signalons les pièces ou décisions attendues.</p>
-      <div class="catalogue-actions"><a class="btn btn-accent" href="#prestations" data-track="cta_services_catalogue">Choisir ma prestation <span aria-hidden="true">↓</span></a><a href="/contact?source=services-hero#contact-form" data-track="cta_services_hero_primary">Décrire mon besoin <span aria-hidden="true">→</span></a></div>
+      <div class="catalogue-actions"><a class="btn btn-accent" href="#prestations" data-track="cta_services_catalogue">Choisir ma prestation <span aria-hidden="true">↓</span></a><a href="/contact?source=services-hero#contact-form" data-track="cta_services_hero_primary">Faire le point sur mon dossier <span aria-hidden="true">→</span></a></div>
     </div>
     <DossierVisual kind="urbanisme" priority />
   </section>
@@ -157,6 +158,12 @@ const structuredData = {
       <a href="/parcours" data-track="cta_services_parcours">Comment se passe la reprise ? <span aria-hidden="true">→</span></a>
     </aside>
 
+  <section class="catalogue-section" aria-labelledby="choose-service-title"><header><p class="eyebrow">Partir de votre chantier</p><h2 id="choose-service-title">Quelle démarche faut-il reprendre ?</h2></header><div class="catalogue-volume-links">
+  <a href="/declaration-prealable-panneaux-solaires"><strong>Le projet doit être présenté en mairie</strong><span>Préparer la DP, ses plans et son suivi d’instruction →</span></a>
+  <a href="/dossier-consuel-photovoltaique"><strong>Le dossier de conformité est à préparer ou à compléter</strong><span>Identifier les pièces techniques et la demande du Consuel →</span></a>
+  <a href="/raccordement-enedis-photovoltaique"><strong>Le raccordement ou la mise en service reste en attente</strong><span>Reprendre le statut Enedis et les prochaines actions →</span></a>
+  <a href="/edf-oa"><strong>Le compte producteur ou le contrat d’achat bloque</strong><span>Suivre le dossier EDF OA jusqu’à la signature →</span></a>
+  </div><p>Ces démarches peuvent se croiser. Le pack réseau à 89 € HT réunit Enedis et Consuel ; le parcours à 199 € HT ajoute la DP. Les <a href="/tarifs">tarifs</a> détaillent les forfaits ; le <a href="/parcours">parcours</a> explique les responsabilités.</p></section>
   <nav class="catalogue-nav" aria-label="Accès direct aux prestations"><a href="#prestations">Photovoltaïque</a><a href="#volume">Dossiers récurrents</a><a href="#complementary-services-title">EDF OA et aides</a></nav>
 
   <section id="prestations" class="catalogue-section" aria-labelledby="prestations-title">
@@ -171,6 +178,7 @@ const structuredData = {
         </article>
       ))}
     </div>
+    <ServiceTerms compact />
     <p class="catalogue-note">Le périmètre de prise en charge est précisé avant de commencer. Les décisions des organismes restent indépendantes de Sunelys. <a href="/tarifs#tarifs-photovoltaique">Voir les conditions tarifaires</a>.</p>
   </section>
 
@@ -189,7 +197,7 @@ const structuredData = {
     <a class="catalogue-link" href="/tarifs#aides-renovation" data-track="cta_services_aides_tarifs">Comparer les forfaits et ce qui est inclus <span aria-hidden="true">→</span></a>
   </section>
 
-  <BlockedDiagnostic source="services_diagnostic_dossiers_bloques" title="Quelle démarche souhaitez-vous nous confier ?" text="Le besoin, votre nom et votre email suffisent. Nous vous répondons sous 24h ouvrées pour préciser la suite." submitLabel="Recevoir mon cadrage sous 24h" />
+  <BlockedDiagnostic source="services_diagnostic_dossiers_bloques" title="Quelle démarche souhaitez-vous nous confier ?" text="Le besoin, votre nom et votre email suffisent. Nous vous répondons sous 24 h ouvrées pour préciser la suite." submitLabel="Faire le point sur mon dossier" />
 </BaseLayout>
 
 <style>
