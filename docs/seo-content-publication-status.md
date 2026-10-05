@@ -1,6 +1,6 @@
 # Suivi publication SEO Sunelys
 
-Derniere verification : 2026-09-22.
+Derniere verification : 2026-10-05.
 
 Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu avant toute automation ou preparation de nouvelle semaine.
 
@@ -10,28 +10,28 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 - Ne jamais avancer vers une nouvelle semaine tant que la semaine precedente n'est pas validee, poussee et verifiee en ligne.
 - Le statut local "prepare" ne signifie pas "publie".
 - Le statut Git "untracked" ou "modified" signifie que le contenu n'est pas entierement pousse sur `origin/main`.
-- Verifier `https://sunelys.fr` avant de considerer une semaine comme publiee.
+- Verifier les routes canoniques `https://sunelys.fr/blog/<slug>/` et `https://sunelys.fr/sitemap.xml` avant de considerer une semaine comme publiee. Les routes racines `/<slug>/` ne sont pas les URLs des articles.
 
 ## Etat courant
 
-Etat global au 2026-09-22, apres verification publique :
+Etat global au 2026-10-05, apres verification publique :
 
-- S1 a S4 sont publiees et verifiees en HTTP 200. S4 a ete autorisee par le message utilisateur « fais le » puis poussee avec le commit `9423bbb`. S5 a S8 restent en backlog.
+- S1 a S5 sont publiees et verifiees en HTTP 200 sur leurs routes canoniques `/blog/<slug>/`. S5 a ete autorisee par le message utilisateur « publie » puis poussee avec le commit `d3eab6a`. S6 a S8 restent en backlog.
 - S1 est validee, poussee et publiee.
-- Les deux URLs S1 et les deux URLs S2 repondent en `200` sur `https://sunelys.fr`.
+- Les deux URLs S1 et les deux URLs S2 repondent en `200` sur leurs routes canoniques `https://sunelys.fr/blog/<slug>/`.
 - S2 a ete poussee avec le commit `842572c` et est verifiee en ligne.
 - S5 est la prochaine semaine a preparer, lors de la prochaine passe. Ne pas publier S5 sans validation ; ne pas creer S9.
 
 ## Tableau de suivi
 
-| Semaine | Contenus | Etat local | Etat Git (S4 actualisee le 2026-09-22) | Etat public (S1-S4 verifies le 2026-09-22 ; S5-S8 historique) | Prochaine action |
+| Semaine | Contenus | Etat local | Etat Git (S5 actualisee le 2026-10-05) | Etat public (S1-S5 verifies le 2026-10-05 ; S6-S8 historique) | Prochaine action |
 |---|---|---|---|---|---|
 | S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
 | S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Validee et publiee | Poussee (`842572c`) | 200 / 200 | Terminee |
 | S3 | `delai-declaration-prealable-photovoltaique`, `delai-raccordement-enedis-photovoltaique` | Validee et publiee | Poussee (`8f0eff8`) | 200 / 200 le 2026-09-14 | Terminee |
 | S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Validee et publiee | Poussee (`9423bbb`) | 200 / 200 le 2026-09-22 | Terminee |
-| S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Prochaine semaine a preparer ; validation requise |
-| S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S5 |
+| S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Validee et publiee | Poussee (`d3eab6a`) | 200 / 200 le 2026-10-05 | Terminee |
+| S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Prochaine semaine a preparer ; validation requise |
 | S7 | `declaration-prealable-ou-permis-construire-photovoltaique`, `cout-raccordement-enedis-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S6 |
 | S8 | `consuel-refuse-motifs-solutions`, `cout-gestion-administrative-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S7 |
 
@@ -50,7 +50,7 @@ Etat global au 2026-09-22, apres verification publique :
 4. Relire les deux contenus de la semaine et le maillage associe.
 5. Lancer les controles locaux : metadata/assets, `git diff --check`, build Astro, crawl statique, sitemap.
 6. Si la semaine est validee manuellement, preparer le commit/push uniquement pour les fichiers de cette semaine et les dependances strictement necessaires.
-7. Apres deploiement, verifier les URLs publiques en `200`.
+7. Apres deploiement, verifier les URLs publiques canoniques `/blog/<slug>/` en `200` et leur presence dans `/sitemap.xml`.
 8. Mettre ce fichier a jour avec le nouvel etat.
 
 ## Interdictions pour l'automation
@@ -75,3 +75,7 @@ Contrôle du dépôt exact et de `origin` réussi. Après fetch, `main` et `orig
 ## Publication S4 du 2026-09-22
 
 Validation utilisateur « fais le » reçue. Commit `9423bbb` limité aux deux articles S4 et au manifeste public, puis poussé sur `main`. Déploiement Vercel réussi. Build Astro Node 22.23.0, audit statique de 36 pages, `git diff --check` et sitemap conformes. Les deux URLs S4 répondent en HTTP 200 et figurent dans le sitemap public. S1 à S3 restent publiées ; S5 à S8 sont toujours hors manifeste. Aucun écart de publication entre suivi, Git et site public. Changements locaux hors S4 préservés.
+
+## Publication S5 du 2026-10-05
+
+Validation utilisateur « publie » reçue. Commit `d3eab6a` limité aux deux articles S5 et au manifeste public, puis poussé sur `main`. Build Astro Node 22.23.0, 20 tests, audit statique de 38 pages, `git diff --check` et sitemap généré conformes. Les deux routes canoniques S5 répondent en HTTP 200 et figurent dans `https://sunelys.fr/sitemap.xml`. Les anciennes routes racines sans `/blog` et `/sitemap-index.xml` restent en 404 : le suivi distingue désormais explicitement ces anciennes routes des URLs canoniques. Aucun écart entre suivi, Git et site public concernant S5. S6 à S8 restent hors manifeste public.
