@@ -1,11 +1,10 @@
 ---
 slug: "dp-refusee-panneaux-solaires-que-faire"
-publicationStatus: "backlog"
 title: "DP refusée pour panneaux solaires : que faire ?"
 seoTitle: "Déclaration préalable refusée panneaux solaires"
 description: "Que faire après une déclaration préalable refusée pour panneaux solaires : analyser l'arrêté, corriger, redéposer, contester et sécuriser vos dossiers."
-pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+pubDate: "2026-10-05"
+updatedDate: "2026-10-05"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"

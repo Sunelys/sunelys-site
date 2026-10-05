@@ -18,6 +18,10 @@ export const publicBlogSlugs = [
   "delai-consuel-photovoltaique",
   "sous-traiter-declaration-prealable-photovoltaique",
 
+  // S5
+  "dp-refusee-panneaux-solaires-que-faire",
+  "etapes-raccordement-enedis-panneaux-solaires",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

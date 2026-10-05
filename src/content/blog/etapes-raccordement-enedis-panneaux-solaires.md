@@ -1,11 +1,10 @@
 ---
 slug: "etapes-raccordement-enedis-panneaux-solaires"
-publicationStatus: "backlog"
 title: "Étapes raccordement Enedis panneaux solaires : checklist installateur"
 seoTitle: "Étapes raccordement Enedis photovoltaïque"
 description: "Les étapes du raccordement Enedis pour panneaux solaires : projet, dossier, proposition, Consuel, mise en service et checklist installateur."
-pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+pubDate: "2026-10-05"
+updatedDate: "2026-10-05"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
