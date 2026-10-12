@@ -161,7 +161,7 @@ Le barème Consuel métropole prévoit aussi des montants liés aux visites supp
 
 Ces montants rappellent une chose très concrète : un dossier mal préparé ou un chantier indisponible ne coûte pas seulement du temps. Il peut aussi coûter de l'argent.
 
-Pour comprendre les causes de ces reprises, consultez le guide [Consuel refusé photovoltaïque](/blog/consuel-refuse-motifs-solutions).
+Pour structurer les pièces et le suivi avant qu'une reprise ne soit nécessaire, consultez le guide [Consuel : dossier et suivi](/blog/consuel-photovoltaique-delais-dossier).
 
 ### Le coût du retard de mise en service
 

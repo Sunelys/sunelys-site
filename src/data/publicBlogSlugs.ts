@@ -22,6 +22,10 @@ export const publicBlogSlugs = [
   "dp-refusee-panneaux-solaires-que-faire",
   "etapes-raccordement-enedis-panneaux-solaires",
 
+  // S6
+  "prix-consuel-photovoltaique",
+  "gerer-soi-meme-ou-deleguer-administratif-solaire",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

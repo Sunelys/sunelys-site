@@ -134,7 +134,7 @@ Le meilleur modèle n'est pas toujours 100 % interne ou 100 % externe. Beaucoup 
 
 Pour comparer correctement, ne partez pas seulement du coût horaire d'une personne administrative. Ajoutez les temps périphériques.
 
-Le guide [coût gestion administrative photovoltaïque](/blog/cout-gestion-administrative-photovoltaique) détaille une méthode de calcul et les repères tarifaires Sunelys par dossier.
+Le guide [externaliser l'administratif photovoltaïque](/blog/externaliser-administratif-photovoltaique) aide à comparer le périmètre à déléguer et à cadrer la transition.
 
 Sur dix dossiers récents, notez :
 
@@ -214,7 +214,7 @@ Sunelys commence par un cadrage de votre flux administratif : volume, étapes su
 
 Cette approche évite de vendre une solution trop large quand le besoin est précis. Elle permet aussi de démarrer avec un périmètre pilote, puis d'élargir si les résultats sont visibles.
 
-Pour comparer les périmètres, consultez [externaliser l'administratif photovoltaïque](/blog/externaliser-administratif-photovoltaique), la page [services administratifs Sunelys](/services), les [tarifs Sunelys](/tarifs) et le guide [prix gestion administrative photovoltaïque](/blog/cout-gestion-administrative-photovoltaique).
+Pour comparer les périmètres, consultez [externaliser l'administratif photovoltaïque](/blog/externaliser-administratif-photovoltaique), la page [services administratifs Sunelys](/services) et les [tarifs Sunelys](/tarifs).
 
 ## Sources officielles à vérifier
 
