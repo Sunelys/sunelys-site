@@ -2,10 +2,12 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import path from "node:path";
+import { leadDisposition, summarizeLeadDispositions } from "../src/lib/lead-reporting.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const AIRTABLE_API_URL = "https://api.airtable.com/v0";
 const REPORTS_DIR = path.join(ROOT, "reports/google-ads-leads");
+const leadReviews = JSON.parse(readFileSync(new URL("./data/lead-review-register.json", import.meta.url), "utf8"));
 
 const CAMPAIGN_LABELS = new Map([
   ["search_pilotage_admin_pv", "Search - Pilotage admin PV"],
@@ -67,7 +69,7 @@ const leads = records.map((record) => normalizeLeadRecord(record, fieldMap));
 const leadsInRangeRaw = leads.filter((lead) => isLeadInRange(lead, options.since, options.until));
 const excludedTests = options.includeTests ? 0 : leadsInRangeRaw.filter((lead) => lead.isTest).length;
 const leadsInRange = options.includeTests ? leadsInRangeRaw : leadsInRangeRaw.filter((lead) => !lead.isTest);
-const paidLeads = leadsInRange.filter(isPaidSearchLead);
+const paidLeads = leadsInRange.filter((lead) => isPaidSearchLead(lead) && !lead.isTest && lead.disposition !== "non_commercial");
 const report = buildReport({
   generatedAt: new Date().toISOString(),
   period: { since: options.since, until: options.until, days: options.days },
@@ -76,6 +78,7 @@ const report = buildReport({
   fetchedRecords: records.length,
   leadsInRange,
   paidLeads,
+  allSubmissions: leadsInRangeRaw,
 });
 
 const reportDir = writeReportFiles(report);
@@ -93,6 +96,7 @@ console.log(
       qualified: report.totals.qualified,
       hot: report.totals.hot,
       averageScore: report.totals.averageScore,
+      qualification: report.qualification,
       topRecommendations: report.recommendations.slice(0, 4),
     },
     null,
@@ -175,7 +179,7 @@ function safeErrorMessage(error) {
   return clean(message).replace(/Bearer\s+\S+/gi, "Bearer [redacted]").slice(0, 500);
 }
 
-function buildReport({ generatedAt, period, includeTests, excludedTests, fetchedRecords, leadsInRange, paidLeads }) {
+function buildReport({ generatedAt, period, includeTests, excludedTests, fetchedRecords, leadsInRange, paidLeads, allSubmissions }) {
   const totals = {
     leads: paidLeads.length,
     qualified: paidLeads.filter((lead) => lead.qualified).length,
@@ -214,6 +218,9 @@ function buildReport({ generatedAt, period, includeTests, excludedTests, fetched
     excludedTests,
     fetchedRecords,
     leadsInRange: leadsInRange.length,
+    qualification: summarizeLeadDispositions(allSubmissions),
+    qualificationMethod: "Statut CRM explicite ou revue documentee. Le score automatique ne qualifie jamais une demande.",
+    reviewRegisterDate: leadReviews.reviewedAt,
     totals,
     qualificationGaps,
     byCampaign,
@@ -273,6 +280,7 @@ function buildReport({ generatedAt, period, includeTests, excludedTests, fetched
         conversionType: lead.conversionType,
         qualitySegment: lead.qualitySegment,
         qualityScore: lead.qualityScore,
+        disposition: lead.disposition,
       })),
   };
 
@@ -284,22 +292,10 @@ function buildReport({ generatedAt, period, includeTests, excludedTests, fetched
 
 function buildRecommendations(report) {
   const recommendations = [];
-
-  if (report.totals.leads === 0) {
-    if (report.excludedTests > 0) {
-      return [
-        "Tracking Google Ads confirme par lead test. Aucun lead paid reel detecte sur la periode.",
-        "Apres activation, lancer cette commande chaque jour et ne juger que les leads qualifies/hot, pas le volume brut.",
-        "Verifier les termes de recherche des le premier clic pour exclure particuliers, aides, emploi, formation et recherches gratuites.",
-      ];
-    }
-
-    return [
-      "Aucun lead Google Ads/CPC detecte sur la periode. Maintenir la campagne stricte a 3 EUR/jour maximum, sans reactiver les campagnes larges.",
-      "Valider le formulaire avec UTM, GCLID et une source durable avant tout test a 5 EUR/jour.",
-      "Verifier que les URLs finales conservent utm_source=google, utm_medium=cpc et utm_campaign dans Airtable.",
-    ];
-  }
+  if (report.qualification.nonCommercial > 0) recommendations.push(`${report.qualification.nonCommercial} sollicitation(s) ou message(s) non commerciaux exclus des demandes exploitables.`);
+  if (report.qualification.candidates + report.qualification.unreviewed > 0) recommendations.push("Documenter la qualification humaine des demandes candidates et non revues avant toute decision commerciale.");
+  if (report.totals.leads === 0) recommendations.push("Aucune demande paid exploitable identifiee dans cette periode. Ce rapport ne prouve ni le fonctionnement du tracking, ni l'activite ou le cout des campagnes.");
+  recommendations.push("Ne pas reactiver ni augmenter Google Ads sur un score automatique : verifier demandes qualifiees, couts et ventes dans les sources correspondantes.");
 
   if (report.qualificationGaps.missingCampaign > 0) {
     recommendations.push(
@@ -309,7 +305,7 @@ function buildRecommendations(report) {
 
   if (report.qualificationGaps.missingVolume > 0 || report.qualificationGaps.missingTeamContext > 0) {
     recommendations.push(
-      "Des signaux de qualification manquent encore. Garder profil professionnel et volume obligatoires sur les formulaires Ads; le blocage administratif peut rester optionnel.",
+      "Des precisions manquent pour qualifier les demandes. Les completer dans le suivi commercial ; conserver un formulaire court.",
     );
   }
 
@@ -320,16 +316,9 @@ function buildRecommendations(report) {
     );
   }
 
-  const strongCampaign = report.byCampaign.find((row) => row.hot > 0 || row.qualified > 0);
-  if (strongCampaign) {
-    recommendations.push(
-      `${strongCampaign.key} produit les meilleurs signaux actuels (${strongCampaign.qualified} qualifie(s), ${strongCampaign.hot} hot). Proteger cette campagne avant de tester plus large.`,
-    );
-  }
-
   if (report.totals.lowSignal > report.totals.qualified) {
     recommendations.push(
-      "Les leads faibles depassent les leads qualifies. Resserrer les mots-cles en exact/phrase et ajouter les requetes hors cible en negatifs.",
+      "Les champs saisis fournissent peu de signaux. Relire les demandes et leurs sources ; le score seul ne permet pas de conclure sur le ciblage.",
     );
   }
 
@@ -397,6 +386,7 @@ function normalizeLeadRecord(record, fieldMap) {
   const teamContext = clean(read("teamContext")) || teamContextFromMessage;
 
   const lead = {
+    disposition: leadDisposition({ status, recordId: record.id }, leadReviews.records),
     createdAt: parseLeadDate(read("createdAt")) || record.createdTime || "",
     landingPage: normalizeLandingPage(rawLandingPage),
     source,
@@ -443,10 +433,11 @@ function normalizeLeadRecord(record, fieldMap) {
   const quality = scoreLeadQuality(lead);
   return {
     ...lead,
+    isTest: lead.isTest || lead.disposition === "test",
     qualityScore: quality.score,
     qualitySegment: quality.segment,
-    qualified: quality.qualified,
-    disqualified: quality.disqualified,
+    qualified: lead.disposition === "qualified",
+    disqualified: lead.disposition === "non_commercial" || quality.disqualified,
   };
 }
 
@@ -654,8 +645,8 @@ function scoreLeadQuality(lead) {
   const boundedScore = Math.min(score, 100);
   return {
     score: boundedScore,
-    segment: boundedScore >= 75 ? "hot" : boundedScore >= 55 ? "qualified" : boundedScore >= 30 ? "nurture" : "low_signal",
-    qualified: boundedScore >= 55,
+    segment: boundedScore >= 75 ? "hot" : boundedScore >= 55 ? "high_signal" : boundedScore >= 30 ? "nurture" : "low_signal",
+    qualified: lead.disposition === "qualified",
     disqualified: false,
   };
 }
@@ -742,11 +733,13 @@ function renderMarkdownReport(report) {
   lines.push("## Synthese");
   lines.push("");
   lines.push(`- Leads Airtable lus: ${report.fetchedRecords}`);
-  lines.push(`- Leads dans la periode: ${report.leadsInRange}`);
+  lines.push(`- Formulaires hors tests dans la periode (toutes natures): ${report.leadsInRange}`);
+  lines.push(`- Qualification tous canaux: ${JSON.stringify(report.qualification)}`);
+  lines.push(`- Registre de revue: ${report.reviewRegisterDate}. Score automatique distinct d'une qualification humaine.`);
   lines.push(`- Leads test exclus: ${report.excludedTests}`);
   lines.push(`- Leads paid detectes: ${report.totals.leads}`);
-  lines.push(`- Qualifies: ${report.totals.qualified}`);
-  lines.push(`- Hot: ${report.totals.hot}`);
+  lines.push(`- Qualifies humains documentes (paid): ${report.totals.qualified}`);
+  lines.push(`- Signal automatique eleve (paid, non qualification): ${report.totals.hot}`);
   lines.push(`- Score moyen: ${report.totals.averageScore}`);
   lines.push(`- Taux qualifie: ${report.totals.qualifiedRate}%`);
   lines.push("");

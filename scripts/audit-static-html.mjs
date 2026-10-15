@@ -100,6 +100,13 @@ for (const file of htmlFiles) {
 
   anchors.forEach((tag, index) => {
     if (hasAttribute(tag, "href", "")) report(`lien ${index + 1} avec href vide`);
+    const href = tag.match(/\bhref\s*=\s*["']([^"']+)["']/i)?.[1];
+    if (!href) return;
+    let target;
+    try { target = new URL(href.replace(/&amp;/g, "&"), `https://sunelys.fr${page.replace(/index\.html$/, "")}`); } catch { return; }
+    if (target.hostname !== "sunelys.fr" || !/^\/blog\/[^/]+\/?$/.test(target.pathname)) return;
+    const targetFile = path.join(outputRoot, decodeURIComponent(target.pathname), "index.html");
+    if (!htmlFiles.includes(targetFile)) report(`lien vers un article non publié : ${target.pathname}`);
   });
 
   leadForms.forEach((tag, index) => {

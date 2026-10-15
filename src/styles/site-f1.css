@@ -310,6 +310,19 @@ body[data-design="f1"] main .lp-hero :is(.hero-text,.intent-guard,.hero-direct-c
 body[data-design="f1"] main .lp-hero :is(.hero-price-strip,.hero-filters) :is(span,strong,small) { font-size: 14px; }
 
 /* Contact starts with action, then offers secondary orientation. */
+body[data-design="f1"][data-page="/a-propos"] main .expertise-grid article,
+body[data-design="f1"][data-page="/a-propos"] main .expertise-grid article:hover {
+  --text: #252b2d;
+  --text-muted: #475052;
+  --accent: #775035;
+  background: #eee9e1;
+  color: #252b2d;
+  border-color: #bcb5ac;
+}
+body[data-design="f1"][data-page="/a-propos"] main .expertise-grid strong { color: #252b2d; }
+body[data-design="f1"][data-page="/a-propos"] main .expertise-grid p { color: #475052; font-size: 16px; }
+body[data-design="f1"][data-page="/a-propos"] main .expertise-grid > article > span { color: #775035; }
+
 body[data-design="f1"][data-page="/contact"] .contact-hero { order: 1; }
 body[data-design="f1"][data-page="/contact"] .contact-main { order: 2; }
 body[data-design="f1"][data-page="/contact"] .contact-triage { order: 3; }
@@ -464,3 +477,40 @@ body[data-design="f1"] .official-answer a { text-decoration:underline; text-unde
 }
 /* Light editorial surfaces use their own ink, including inherited bold styles. */
 body[data-design="f1"]:not([data-page="/"]) main :is(.official-answer,.dossier-checklist) { --text:#252b2d; --text-muted:#475052; --accent-text:#775035; }
+
+/* Keep the offer in view; secondary detail remains available on demand. */
+body[data-design="f1"][data-page="/tarifs"] main .offer-card h3 { min-height: 0; margin-top: 14px; }
+body[data-design="f1"][data-page="/tarifs"] main .offer-price { margin-top: 0; padding-top: 8px; }
+body[data-design="f1"][data-page="/tarifs"] main .offer-fit { padding-block: 8px; }
+body[data-design="f1"][data-page="/tarifs"] main .offer-cta { margin-top: auto; }
+body[data-design="f1"][data-page="/tarifs"] main details.complementary-pricing { border-block: 1px solid var(--line); }
+body[data-design="f1"][data-page="/tarifs"] main details.complementary-pricing > summary { cursor: pointer; margin: 0; min-height: 64px; }
+body[data-design="f1"][data-page="/tarifs"] main details.complementary-pricing > summary p { color: var(--text-muted); }
+body[data-design="f1"][data-page="/parcours"] main .handoff-results { align-self: start; border-block: 1px solid var(--line); }
+body[data-design="f1"][data-page="/parcours"] main .handoff-results > summary { padding: 18px 0; cursor: pointer; color: var(--text); font-size: 18px; }
+body[data-design="f1"][data-page="/parcours"] main .handoff-results .handoff-cards { margin-block: 16px; }
+body[data-design="f1"] main .article-meta { gap: 8px 16px; }
+body[data-design="f1"] main .article-meta > span { font-weight: 500; text-transform: none; }
+body[data-design="f1"] main .article-content table:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; }
+body[data-design="f1"] main .action-method-details > summary { cursor: pointer; padding-block: 18px; border-block: 1px solid var(--line); color: var(--text); }
+body[data-design="f1"] main .action-method-details[open] > summary { margin-bottom: 24px; }
+@media (max-width: 760px) {
+  body[data-design="f1"][data-page="/tarifs"] main :is(.pricing-hero,.solar-pricing,.complementary-pricing,.pricing-conditions) { padding-block: 32px; }
+  body[data-design="f1"][data-page="/tarifs"] main .pricing-hero { gap: 24px; }
+  body[data-design="f1"][data-page="/tarifs"] main .price-matrix .matrix-row { min-height: 80px; padding-block: 14px; }
+  body[data-design="f1"][data-page="/tarifs"] main .offer-card { padding: 24px; gap: 12px; }
+  body[data-design="f1"][data-page="/tarifs"] main .offer-scope { margin-block: 4px; }
+  body[data-design="f1"][data-page="/tarifs"] main .offer-fit { margin-top: 0; }
+  body[data-design="f1"][data-page="/tarifs"] main .pricing-guidance { margin-top: 24px; }
+  body[data-design="f1"][data-page="/parcours"] main :is(.journey-hero,.start-modes,.handoff-section,.steps-section,.responsibility-section,.guarantees-section) { padding-block: 32px; }
+  body[data-design="f1"][data-page="/parcours"] main .handoff-layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
+  body[data-design="f1"][data-page="/parcours"] main .step-list article { gap: 12px; padding: 20px 0; }
+  body[data-design="f1"][data-page="/parcours"] main .responsibility-grid article { min-height: 0; padding: 20px; }
+  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main :is(.seo-section,.seo-context,.service-scope,.dossier-checklist) { padding-block: 32px; margin-block: 0; }
+  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-layout { gap: 24px; }
+  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-aside { position: static; }
+  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-conversion-offer { padding: 18px; }
+  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .service-page-index { gap: 4px 16px; padding-block: 12px; }
+  body[data-design="f1"] main .article-meta { margin-block: 18px; }
+  body[data-design="f1"] main .article-hero h1 { max-width: 24ch; }
+}

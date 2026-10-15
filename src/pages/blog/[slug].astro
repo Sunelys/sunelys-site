@@ -270,11 +270,10 @@ const breadcrumbs = [
         </a>
         <div class="article-meta">
           <span>{frontmatter.category}</span>
-          <span>{date}</span>
-          {frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate && <span>Actualisé le {modifiedDate}</span>}
+          <span>{frontmatter.updatedDate && frontmatter.updatedDate !== frontmatter.pubDate ? `Actualisé le ${modifiedDate}` : date}</span>
           <span>{frontmatter.readingTime} de lecture</span>
         </div>
-        <h1>{frontmatter.title}</h1>
+        <h1>{frontmatter.displayTitle ?? frontmatter.title}</h1>
         <p class="article-lead">{frontmatter.description}</p>
         {frontmatter.slug === "cerfa-declaration-prealable-panneaux-solaires" && (
           <aside class="official-answer" aria-label="Formulaire officiel">

@@ -209,6 +209,7 @@ const serviceInterestBySlug: Record<string, string> = {
 
 const serviceInterest = serviceInterestBySlug[data.slug] || data.heroTitle;
 const isGestionLanding = data.slug === "gestion_administrative";
+const isConsuelLanding = data.slug === "consuel_photovoltaique";
 const signatureVariant = data.slug.includes("tarif")
   ? "pricing"
   : isGestionLanding
@@ -324,7 +325,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
       <div class="service-dossier-image"><DossierVisual kind={visualKind} compact priority /></div>
 
       {
-        data.heroCheckpoint && (
+        data.heroCheckpoint && !isConsuelLanding && (
           <div
             class="hero-checkpoint"
             aria-label={data.heroCheckpoint.title}
@@ -351,13 +352,13 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         {serviceBadges.map((badge) => <li>{badge}</li>)}
       </ul>
 
-      <div class="hero-fit-card" data-track-view="service_decision_view" aria-label="Point de départ du diagnostic">
+      {!isConsuelLanding && <div class="hero-fit-card" data-track-view="service_decision_view" aria-label="Point de départ du diagnostic">
         <p class="kicker">Décision rapide</p>
         <p>{quickFormPrompt}</p>
         <ul class="hero-badges" aria-label="Questions de cadrage">
           {decisionStrip.map((item) => <li>{item}</li>)}
         </ul>
-      </div>
+      </div>}
 
       {
         isGestionLanding && (
@@ -478,7 +479,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
   </article>
 </section>
 
-<section class="service-pricing-strip section-shell reveal" aria-label="Tarification Sunelys">
+{!isConsuelLanding && <section class="service-pricing-strip section-shell reveal" aria-label="Tarification Sunelys">
   <div data-reveal-item>
     <p class="kicker">Tarifs fixes</p>
     <strong>Dossier ponctuel accepté · aucun abonnement · facturation au réel</strong>
@@ -487,10 +488,10 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     Consulter tous les tarifs
     <span aria-hidden="true">→</span>
   </a>
-</section>
+</section>}
 
 {
-  data.decisionRecap && (
+  data.decisionRecap && !isConsuelLanding && (
     <section
       class="service-decision-recap section-shell reveal"
       aria-labelledby={`service-decision-${data.slug}`}
@@ -699,6 +700,8 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     </p>
   </div>
 
+  <details class="action-method-details" open={!isConsuelLanding}>
+  <summary>Voir les étapes et les responsabilités</summary>
   <div class="action-path-layout">
     <ol class="action-steps">
       {data.processSteps.map((step, index) => (
@@ -727,9 +730,10 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
       </a>
     </aside>
   </div>
+  </details>
 </section>
 
-<section class="seo-section seo-case section-shell reveal">
+{!isConsuelLanding && <section class="seo-section seo-case section-shell reveal">
   <p class="kicker">Exemple de besoin</p>
   <div class="case-layout">
     <div>
@@ -741,7 +745,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     </ul>
   </div>
   <p class="case-disclaimer">Situation illustrative et objectifs d'accompagnement, pas un résultat client mesuré.</p>
-</section>
+</section>}
 
 <section
   class="seo-section seo-support-center section-shell reveal"

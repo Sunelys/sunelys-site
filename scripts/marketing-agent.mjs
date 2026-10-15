@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { classifyLead, inclusiveDateRange } from "../src/lib/lead-reporting.mjs";
+import { classifyLead, inclusiveDateRange, leadDisposition, summarizeLeadDispositions } from "../src/lib/lead-reporting.mjs";
 import { createSign } from "node:crypto";
 import { existsSync } from "node:fs";
 import { mkdir, readFile, readdir, stat, writeFile } from "node:fs/promises";
@@ -11,6 +11,7 @@ const DEFAULT_SITE_URL = "https://sunelys.fr";
 const DEFAULT_MODEL = "gpt-5.5";
 const REPORT_ROOT = path.join(ROOT, "reports", "marketing-agent");
 const AIRTABLE_API_URL = "https://api.airtable.com/v0";
+const leadReviews = JSON.parse(await readFile(new URL("./data/lead-review-register.json", import.meta.url), "utf8"));
 
 const args = process.argv.slice(2);
 
@@ -664,8 +665,9 @@ async function collectLeadData() {
       inRangeCount: leads.length,
       excludedTests: leads.filter(lead => lead.recordClass === "test").length,
       recordsToReview: leads.filter(lead => lead.recordClass === "review").length,
-      qualificationNotice: "Scores indicatifs automatisés, pas une qualification commerciale confirmée. Tests explicites exclus ; marqueurs ambigus conservés et signalés.",
-      ...summarizeLeads(leads.filter(lead => lead.recordClass !== "test")),
+      qualificationNotice: "Qualification issue du statut CRM ou de la revue documentee. Le score automatique reste un signal distinct.",
+      qualification: summarizeLeadDispositions(leads.map(lead => ({...lead,isTest:lead.recordClass === 'test'}))),
+      ...summarizeLeads(leads.filter(lead => lead.recordClass !== "test" && lead.disposition !== "non_commercial")),
     };
   } catch (error) {
     return failed(error.message);
@@ -808,6 +810,7 @@ function normalizeLeadRecord(record, fieldMap) {
     message,
   });
   const lead = {
+    disposition: leadDisposition({status: cleanEnv(read("status")), recordId: record.id}, leadReviews.records),
     recordClass: classifyLead({ email: read("email"), message, status: read("status"), name: String(fields.Nom || "") }),
     createdAt: parseLeadDate(read("createdAt")) ?? record.createdTime ?? "",
     landingPage: normalizeLandingPage(
@@ -841,10 +844,11 @@ function normalizeLeadRecord(record, fieldMap) {
   const quality = scoreLeadQuality(lead);
   return {
     ...lead,
+    recordClass: lead.disposition === 'test' ? 'test' : lead.recordClass,
     qualityScore: quality.score,
     qualitySegment: quality.segment,
-    qualified: quality.qualified,
-    disqualified: quality.disqualified,
+    qualified: lead.disposition === 'qualified',
+    disqualified: lead.disposition === 'non_commercial' || quality.disqualified,
   };
 }
 
@@ -1084,8 +1088,8 @@ function scoreLeadQuality(lead) {
   const boundedScore = Math.min(score, 100);
   return {
     score: boundedScore,
-    segment: boundedScore >= 75 ? "hot" : boundedScore >= 55 ? "qualified" : boundedScore >= 30 ? "nurture" : "low_signal",
-    qualified: boundedScore >= 55,
+    segment: boundedScore >= 75 ? "hot" : boundedScore >= 55 ? "high_signal" : boundedScore >= 30 ? "nurture" : "low_signal",
+    qualified: lead.disposition === 'qualified',
     disqualified: false,
   };
 }
@@ -2051,7 +2055,8 @@ function renderLeadQualitySection(lines, leads) {
   }
 
   lines.push(`- Period: ${leads.startDate} -> ${leads.endDate}.`);
-  lines.push(`- Leads in range: ${leads.totals.leads}; qualified (score automatique, non validation humaine): ${leads.totals.qualified}; hot: ${leads.totals.hot}; average score: ${leads.totals.averageScore}/100.`);
+  lines.push(`- Demandes hors tests/sollicitations connues: ${leads.totals.leads}; qualification humaine documentee: ${leads.totals.qualified}; signal automatique eleve (non qualification): ${leads.totals.hot}; score moyen: ${leads.totals.averageScore}/100.`);
+  lines.push(`- Revue tous canaux: ${JSON.stringify(leads.qualification)}.`);
   lines.push(
     `- Qualification gaps: landing page ${leads.qualificationGaps.missingLandingPage}, channel ${leads.qualificationGaps.missingChannel}, service ${leads.qualificationGaps.missingServiceInterest}, blocked stage ${leads.qualificationGaps.missingBlockedStage}, volume ${leads.qualificationGaps.missingVolume}.`,
   );

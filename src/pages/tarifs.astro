@@ -90,13 +90,6 @@ const edfOaOffer = {
   ctaTrack: "cta_tarifs_edf_oa",
 };
 
-const specialistChecks = [
-  "Photovoltaïque et aides à la rénovation",
-  "Sans abonnement",
-  "Sans minimum de volume",
-  "Facturation au réel",
-];
-
 const collaborationItems = [
   "Production sous 48 h ouvrées lorsque le dossier est complet",
   "Suivi en temps réel sur un espace dédié",
@@ -266,16 +259,6 @@ const structuredData = {
   </section>
 
   <ServiceTerms />
-  <section class="specialist-strip reveal" aria-label="Principes de tarification Sunelys">
-    {
-      specialistChecks.map((item, index) => (
-        <div data-reveal-item>
-          <span>0{index + 1}</span>
-          <strong>{item}</strong>
-        </div>
-      ))
-    }
-  </section>
 
 
   <section class="solar-pricing reveal" id="tarifs-photovoltaique" aria-labelledby="solar-pricing-title">
@@ -298,16 +281,16 @@ const structuredData = {
               {offer.badge && <p>{offer.badge}</p>}
             </div>
             <h3>{offer.service}</h3>
+            <div class="offer-price">
+              <strong>{offer.price}</strong>
+              <span>{offer.note}</span>
+            </div>
             <p class="offer-scope">{offer.scope}</p>
             <details class="offer-fit">
               <summary>À qui s’adresse cette offre ?</summary>
               <strong>{offer.bestFor}</strong>
               <p>{offer.decisionCue}</p>
             </details>
-            <div class="offer-price">
-              <strong>{offer.price}</strong>
-              <span>{offer.note}</span>
-            </div>
             <a
               class="offer-cta btn btn-accent"
               href={offer.ctaHref}
@@ -335,14 +318,14 @@ const structuredData = {
     </div>
   </section>
 
-  <section class="complementary-pricing reveal" aria-labelledby="complementary-title">
-    <div class="section-head" data-reveal-item>
+  <details class="complementary-pricing reveal">
+    <summary class="section-head">
       <div>
         <p class="eyebrow">Dossiers complémentaires</p>
         <h2 id="complementary-title">EDF OA et aides à la rénovation.</h2>
       </div>
-      <p>Deux périmètres distincts, avec la même transparence tarifaire et le même suivi opérationnel.</p>
-    </div>
+      <p>Voir les forfaits EDF OA, MaPrimeRénov’ et CEE <span aria-hidden="true">+</span></p>
+    </summary>
 
     <div class="complementary-layout">
       <article class="edf-offer" id="edf-oa" data-reveal-item>
@@ -397,7 +380,7 @@ const structuredData = {
         </div>
       </div>
     </div>
-  </section>
+  </details>
 
   <section class="pricing-conditions reveal" aria-labelledby="conditions-title">
     <div class="conditions-copy" data-reveal-item>

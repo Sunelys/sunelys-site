@@ -657,6 +657,13 @@ function parseRejectedComputedField(details: string) {
 }
 
 export const POST: APIRoute = async ({ request }) => {
+  const origin = request.headers.get("origin");
+  if (origin && origin !== new URL(request.url).origin && origin !== SITE_URL && origin !== "https://www.sunelys.fr") {
+    return jsonResponse({ ok: false, error: "Veuillez utiliser le formulaire sur sunelys.fr." }, 403);
+  }
+  if (Number(request.headers.get("content-length") || 0) > 32768) {
+    return jsonResponse({ ok: false, error: "Le message est trop long. Contactez-nous par email pour transmettre vos pièces." }, 413);
+  }
   // Read private credentials at runtime. `import.meta.env` can inline secrets in a Vercel bundle.
   const env = runtimeEnv as Record<string, string | undefined>;
   const token = clean(env.AIRTABLE_API_KEY ?? env.AIRTABLE_TOKEN ?? "");
@@ -667,6 +674,12 @@ export const POST: APIRoute = async ({ request }) => {
   try { formData = await request.formData(); } catch { return jsonResponse({ ok: false, error: "Invalid form data." }, 400); }
   if (clean(formData.get("website"))) {
     return wantsJson(request) ? jsonResponse({ ok: true }) : Response.redirect(safeLeadRedirect(formData.get("_next")), 303);
+  }
+  const limits: Record<string, number> = { email: 254, name: 200, first_name: 200, last_name: 200, company: 200, phone: 50, message: 6000 };
+  for (const [key, value] of formData.entries()) {
+    if (typeof value !== "string" || value.length > (limits[key] ?? 2048)) {
+      return jsonResponse({ ok: false, error: "Un champ dépasse la longueur autorisée. Réduisez votre message ou contactez-nous par email." }, 400);
+    }
   }
   const leadId = randomUUID();
   const analyticsConsent = formData.get("analytics_consent") === "granted" ? "granted" : "denied";
@@ -687,7 +700,7 @@ export const POST: APIRoute = async ({ request }) => {
   );
   const leadSourceDetail = firstClean(formData.get("lead_source_detail"), sourcePage);
   const qualificationHint = clean(formData.get("qualification_hint"));
-  const rawNeed = firstClean(formData.get("need"), formData.get("service_interest"), sourcePage);
+  const rawNeed = firstClean(formData.get("need"), formData.get("service_interest"));
   const rawVolume = clean(formData.get("volume"));
   const rawTeamContext = clean(formData.get("team_context"));
   const rawUrgency = clean(formData.get("urgency"));
@@ -695,15 +708,7 @@ export const POST: APIRoute = async ({ request }) => {
   const rawMessage = clean(formData.get("message"));
   const isTest = classifyLead({ email, message: rawMessage }) === "test";
   const explicitBlockedStage = clean(formData.get("blocked_stage"));
-  const serviceHint = firstClean(formData.get("service_interest"), rawNeed);
-  const inferredServiceInterest = resolveLeadIntent(serviceHint) || normalizeNeed(
-    firstClean(
-      serviceHint,
-      sourcePage,
-      leadSourceDetail,
-      sourcePage.includes("/") ? sourcePage : "",
-    ),
-  );
+  const inferredServiceInterest = resolveLeadIntent(rawNeed);
   const leadStage = explicitLeadStage || "form_submitted";
   const firstReferrer = firstClean(formData.get("first_referrer"), requestReferrer, "direct");
   const gclid = clean(formData.get("gclid"));
@@ -776,6 +781,9 @@ export const POST: APIRoute = async ({ request }) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i.test(email)) {
     return jsonResponse({ ok: false, error: "Enter a valid email address." }, 400);
   }
+  if (!inferredServiceInterest) {
+    return jsonResponse({ ok: false, error: "Sélectionnez votre besoin dans la liste, puis renvoyez votre demande." }, 400);
+  }
 
   const fields: Record<string, string> = {};
   setNamedField(fields, env.AIRTABLE_FIELD_FIRST_NAME || "Prénom", firstName);
@@ -791,7 +799,7 @@ export const POST: APIRoute = async ({ request }) => {
   addOptionalField(fields, "AIRTABLE_FIELD_MESSAGE", withNotificationStatus(comment, "pending"), env, "Commentaire");
   addOptionalField(fields, "AIRTABLE_FIELD_TEAM_CONTEXT", rawTeamContext, env);
   addOptionalField(fields, "AIRTABLE_FIELD_URGENCY", rawUrgency, env);
-  addOptionalField(fields, "AIRTABLE_FIELD_STATUS", clean(formData.get("lead_status")), env, "Statut");
+  addOptionalField(fields, "AIRTABLE_FIELD_STATUS", "Nouveau lead", env, "Statut");
   addOptionalField(fields, "AIRTABLE_FIELD_SOURCE", sourceValue, env, "Source");
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_SOURCE", utmSource, env, "UTM source");
   addOptionalField(fields, "AIRTABLE_FIELD_UTM_MEDIUM", utmMedium, env);

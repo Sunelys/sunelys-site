@@ -2,9 +2,9 @@
 slug: "externalisation-administrative-solaire-volume"
 title: "Externalisation administrative solaire : quand devient-elle rentable pour un installateur ?"
 seoTitle: "Externalisation administrative solaire : rentable ?"
-description: "Identifier le bon moment pour déléguer la gestion administrative photovoltaïque : volume, charge interne, retours dossiers et impact commercial."
+description: "Évaluer l'externalisation administrative solaire avec une méthode chiffrée : temps interne, coordination restante et forfait par dossier."
 pubDate: "2026-04-23"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-15"
 category: "Organisation"
 readingTime: "6 min"
 coverImage: "/images/blog/externalisation-administrative-solaire-photo.jpg"
@@ -37,6 +37,41 @@ relatedLinks:
     label: "Tarifs gestion administrative"
     description: "Comprendre les prix unitaires par dossier."
 ---
+
+## Comparer le coût complet, pas seulement le nombre de dossiers
+
+La rentabilité dépend du temps réellement passé et du périmètre confié. Un dossier traité en interne conserve un coût ; un dossier externalisé conserve aussi un temps de coordination. Les deux doivent entrer dans la comparaison.
+
+**Coût interne = nombre de dossiers × heures internes par dossier × coût horaire complet.**
+
+**Coût externalisé = honoraires sur le même périmètre + temps de coordination restant × coût horaire complet.**
+
+Le coût horaire complet est celui de votre organisation, à calculer avec vos charges et votre fonctionnement. Il ne s'agit pas simplement du salaire horaire. Les frais des organismes, travaux et autres dépenses communs aux deux options se comparent séparément.
+
+### Un exemple avec 10 déclarations préalables
+
+Hypothèses pédagogiques, sans mesure client : 10 DP comparables, un coût interne de 35 € par heure et une heure de coordination restante par dossier après délégation. Le forfait Sunelys affiché au 15 octobre 2026 est de 119 € HT par DP, selon le périmètre indiqué dans les [tarifs](/tarifs).
+
+<table tabindex="0" aria-label="Simulation de coût pour dix déclarations préalables">
+  <thead><tr><th scope="col">Hypothèse</th><th scope="col">Gestion interne</th><th scope="col">Honoraires et coordination après délégation</th><th scope="col">Écart</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">2 heures internes par DP</th><td>10 × 2 × 35 = 700 €</td><td>10 × 119 + 10 × 1 × 35 = 1 540 €</td><td>La délégation coûte 840 € de plus dans ce scénario</td></tr>
+    <tr><th scope="row">6 heures internes par DP</th><td>10 × 6 × 35 = 2 100 €</td><td>1 540 €</td><td>La délégation libère 560 € de coût théorique dans ce scénario</td></tr>
+  </tbody>
+</table>
+
+Ces montants sont une simulation de coûts comparables, pas une économie promise. Une capacité libérée n'est pas automatiquement une baisse de dépense ou du chiffre d'affaires supplémentaire. Elle a de la valeur si votre équipe peut effectivement la réaffecter.
+
+### Les quatre données à relever sur votre prochain lot
+
+1. Le temps de préparation initiale, de recherche des pièces et de production.
+2. Le temps des relances et corrections, y compris les dossiers encore ouverts.
+3. Le temps qui restera chez vous après délégation : informations chantier, validations et échanges client.
+4. Le forfait correspondant à la démarche, avec les exclusions et frais distincts.
+
+Quelques dossiers chronométrés donnent un point de départ. Gardez les dossiers simples et complexes séparés pour éviter qu'une moyenne masque vos vrais points de charge. Le volume seul ne donne pas un seuil universel.
+
+Pour choisir un périmètre concret, commencez par les [services administratifs photovoltaïques](/services). Le [guide d'externalisation](/blog/externaliser-administratif-photovoltaique) traite ensuite l'organisation de la passation.
 
 ## L'administratif solaire devient coûteux quand il ralentit le commerce
 
