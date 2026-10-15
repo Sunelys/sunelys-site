@@ -18,9 +18,11 @@
 
 Le registre `scripts/data/lead-review-register.json` conserve les décisions de relecture du 15 octobre, sans nom ni coordonnées. Il n'effectue aucun envoi et ne modifie pas Airtable. Un statut humain plus récent dans le CRM peut faire évoluer une candidature.
 
-Sur les 8 formulaires créés du 15 septembre au 12 octobre : 1 test, 5 messages non commerciaux, 2 candidatures, 0 qualification humaine documentée. Le score automatique de la candidature paid reste 62 ; il ne devient pas une qualification.
+Sur les 8 formulaires créés du 15 septembre au 12 octobre : 1 test, 5 messages non commerciaux, 1 candidature et 1 demande qualifiée devenue une relation client. Le rapprochement final avec Gmail a identifié un échange bilatéral, des dossiers confiés et une facture envoyée ; le CRM affichait encore « Nouveau lead ». La première lecture limitée au statut CRM sous-estimait donc la qualification. Le score automatique de la candidature paid reste 62 ; il ne devient pas une qualification.
 
-Les deux candidatures restent à qualifier dans un échange humain : aucune conversation commerciale ni vente n'a été inventée. Le script utilisé par le suivi quotidien du checkout principal a également été actualisé en conservant son ajout local préexistant. Une copie du fichier antérieur est archivée dans `outputs/chantier-audit-2026-10-15/backups/` à la racine du workspace.
+La candidature paid a reçu une réponse, sans réponse entrante retrouvée dans la recherche ciblée. La relation client est rattachée à la fiche dont la source déclarée est chatgpt.com ; cela ne prouve pas à soi seul l'origine réelle d'acquisition. Les références des preuves sont conservées dans le rapport interne, sans publier les messages ni les données financières sur le site. Une déclaration de virement du client ne vaut pas rapprochement bancaire.
+
+Le script utilisé par le suivi quotidien du checkout principal a également été actualisé en conservant son ajout local préexistant. Une copie du fichier antérieur est archivée dans `outputs/chantier-audit-2026-10-15/backups/` à la racine du workspace.
 
 ## Vérifications avant publication
 
@@ -42,6 +44,8 @@ Captures et résultats : `outputs/chantier-audit-2026-10-15/` à la racine du wo
 - Redirections, ancienne connexion et noindex intentionnels : conservés. Pas de demande globale visant toutes les exclusions.
 
 Une demande d'exploration, une lecture de sitemap et une indexation ne sont pas équivalentes. L'indexation et les positions restent à observer dans Google après la livraison.
+
+Après publication : Google a accepté les trois demandes d'indexation ciblées (Services, guide de préparation Consuel, guide de comparaison interne/externe). Les confirmations et captures sont conservées dans le rapport interne. Contrôle public : 38 pages en HTTP 200, aucun lien ni ancre cassé, 20 contrôles responsive/accessibilité sans anomalie détectée ; l'accueil conserve 99 en performance mobile Lighthouse, LCP laboratoire 1,83 s et CLS 0.
 
 ## Autorité et preuves clients : éléments prêts pour la suite
 
