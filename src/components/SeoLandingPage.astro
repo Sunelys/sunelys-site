@@ -209,7 +209,7 @@ const serviceInterestBySlug: Record<string, string> = {
 
 const serviceInterest = serviceInterestBySlug[data.slug] || data.heroTitle;
 const isGestionLanding = data.slug === "gestion_administrative";
-const isConsuelLanding = data.slug === "consuel_photovoltaique";
+const isCompactService = ["consuel_photovoltaique", "declaration_prealable", "raccordement_enedis"].includes(data.slug);
 const signatureVariant = data.slug.includes("tarif")
   ? "pricing"
   : isGestionLanding
@@ -288,7 +288,7 @@ const serviceVisuals = {
 const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "coordination";
 ---
 
-<section class="seo-section seo-hero section-shell reveal">
+<section class:list={["seo-section seo-hero section-shell reveal", isCompactService && "service-hero-compact"]}>
   <BrandSignature variant={signatureVariant} compact />
   <div class="hero-layout">
     <div class="hero-copy" data-reveal-item>
@@ -314,7 +314,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
                 <span>{data.conversionOffer.priceNote}</span>
               </p>
             </div>
-            <p class="conversion-offer-scope">{data.conversionOffer.scope}</p><ServiceTerms compact />
+            <p class="conversion-offer-scope">{data.conversionOffer.scope}</p><ServiceTerms compact service={data.slug} />
             <ul>
               {data.conversionOffer.terms.map((term) => <li>{term}</li>)}
             </ul>
@@ -325,7 +325,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
       <div class="service-dossier-image"><DossierVisual kind={visualKind} compact priority /></div>
 
       {
-        data.heroCheckpoint && !isConsuelLanding && (
+        data.heroCheckpoint && !isCompactService && (
           <div
             class="hero-checkpoint"
             aria-label={data.heroCheckpoint.title}
@@ -352,7 +352,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         {serviceBadges.map((badge) => <li>{badge}</li>)}
       </ul>
 
-      {!isConsuelLanding && <div class="hero-fit-card" data-track-view="service_decision_view" aria-label="Point de départ du diagnostic">
+      {!isCompactService && <div class="hero-fit-card" data-track-view="service_decision_view" aria-label="Point de départ du diagnostic">
         <p class="kicker">Décision rapide</p>
         <p>{quickFormPrompt}</p>
         <ul class="hero-badges" aria-label="Questions de cadrage">
@@ -456,7 +456,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
 </nav>
 
 {["consuel_photovoltaique", "sous_traitance_declaration_prealable"].includes(data.slug) && <DossierChecklist kind={data.slug === "consuel_photovoltaique" ? "consuel" : "dp"} />}
-<section class="seo-context section-shell reveal" aria-label="Contexte et preuve">
+<section class:list={["seo-context section-shell reveal", isCompactService && "service-context-compact"]} aria-label="Contexte et preuve">
   <article class="hero-fit-card" data-reveal-item>
     <p class="kicker">Quand ce service vous concerne</p>
     <h2>{data.fitTitle}</h2>
@@ -479,7 +479,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
   </article>
 </section>
 
-{!isConsuelLanding && <section class="service-pricing-strip section-shell reveal" aria-label="Tarification Sunelys">
+{!isCompactService && <section class="service-pricing-strip section-shell reveal" aria-label="Tarification Sunelys">
   <div data-reveal-item>
     <p class="kicker">Tarifs fixes</p>
     <strong>Dossier ponctuel accepté · aucun abonnement · facturation au réel</strong>
@@ -491,7 +491,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
 </section>}
 
 {
-  data.decisionRecap && !isConsuelLanding && (
+  data.decisionRecap && !isCompactService && (
     <section
       class="service-decision-recap section-shell reveal"
       aria-labelledby={`service-decision-${data.slug}`}
@@ -616,6 +616,8 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
           entre plusieurs interlocuteurs.
         </p>
       </div>
+      <details class="action-method-details">
+      <summary>Voir les situations prises en charge</summary>
       <div class="use-case-grid">
         {data.useCaseItems.map((item) => (
           <article class="use-case-card">
@@ -624,6 +626,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
           </article>
         ))}
       </div>
+      </details>
     </section>
   )
 }
@@ -658,7 +661,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
 
         <div class="knowledge-accordion">
           {data.detailBlocks.map((block, index) => (
-            <details class="knowledge-item" open={index === 0}>
+            <details class="knowledge-item" open={!isCompactService && index === 0}>
               <summary>
                 <span>0{index + 1}</span>
                 <strong>{block.title}</strong>
@@ -700,7 +703,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     </p>
   </div>
 
-  <details class="action-method-details" open={!isConsuelLanding}>
+  <details class="action-method-details" open={!isCompactService}>
   <summary>Voir les étapes et les responsabilités</summary>
   <div class="action-path-layout">
     <ol class="action-steps">
@@ -733,7 +736,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
   </details>
 </section>
 
-{!isConsuelLanding && <section class="seo-section seo-case section-shell reveal">
+{!isCompactService && <section class="seo-section seo-case section-shell reveal">
   <p class="kicker">Exemple de besoin</p>
   <div class="case-layout">
     <div>

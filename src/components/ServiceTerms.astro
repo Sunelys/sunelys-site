@@ -1,8 +1,14 @@
 ---
-const { compact = false } = Astro.props;
+const { compact = false, service = "" } = Astro.props;
+const serviceNotes: Record<string, string> = {
+  declaration_prealable: "Préparation, dépôt et suivi de l’instruction dans le périmètre convenu. Les délais de décision relèvent de la mairie.",
+  consuel_photovoltaique: "Les frais d’attestation ou de visa Consuel sont distincts de notre prestation. Leur montant et leur prise en charge sont précisés avant engagement.",
+  raccordement_enedis: "Les frais de raccordement Enedis et d’attestation Consuel sont distincts de notre prestation. Leur montant et leur prise en charge sont précisés avant engagement.",
+};
+const feeNote = serviceNotes[service] || "Les frais éventuels des organismes (attestation ou visa Consuel, raccordement Enedis) sont à distinguer de notre prestation administrative. Leur montant et leur prise en charge sont précisés lors du cadrage, avant engagement.";
 ---
 <aside class:list={["service-terms", compact && "compact"]} aria-label="Périmètre et délais">
-  <p><strong>Honoraires Sunelys, en euros HT.</strong> Les frais éventuels des organismes (attestation ou visa Consuel, raccordement Enedis) sont à distinguer de notre prestation administrative. Leur montant et leur prise en charge sont précisés lors du cadrage, avant engagement.</p>
+  <p><strong>Honoraires Sunelys, en euros HT.</strong> {feeNote}</p>
   {!compact && <dl>
     <div><dt>Premier retour</dt><dd>Sous 24 h ouvrées pour préciser votre besoin et les pièces nécessaires.</dd></div>
     <div><dt>Préparation</dt><dd>Sous 48 h ouvrées après réception d’un dossier complet, dans le périmètre convenu. Une reprise ou une configuration particulière est cadrée avant de commencer.</dd></div>

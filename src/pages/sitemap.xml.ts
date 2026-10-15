@@ -1,7 +1,7 @@
 import { getPublicBlogPosts } from "../lib/blogPublication";
 
 const staticRoutes = [
-  { path: "", lastmod: "2026-10-02" },
+  { path: "", lastmod: "2026-10-15" },
   { path: "/services", lastmod: "2026-10-15" },
   { path: "/parcours", lastmod: "2026-10-15" },
   { path: "/tarifs", lastmod: "2026-10-15" },
@@ -11,9 +11,9 @@ const staticRoutes = [
   { path: "/sunelys", lastmod: "2026-10-02" },
   { path: "/gestion-administrative-photovoltaique", lastmod: "2026-10-02" },
   { path: "/dossier-consuel-photovoltaique", lastmod: "2026-10-15" },
-  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-10-02" },
+  { path: "/raccordement-enedis-photovoltaique", lastmod: "2026-10-15" },
   { path: "/edf-oa", lastmod: "2026-07-24" },
-  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-10-02" },
+  { path: "/declaration-prealable-panneaux-solaires", lastmod: "2026-10-15" },
   { path: "/sous-traitance-declaration-prealable-solaire", lastmod: "2026-10-02" },
   { path: "/sous-traitance-administrative-photovoltaique-installateur", lastmod: "2026-07-24" },
   { path: "/tarif-declaration-prealable-photovoltaique", lastmod: "2026-10-02" },
