@@ -6,18 +6,11 @@ import DossierVisual from "../components/DossierVisual.astro";
 
 const steps = [
   {
-    title: "Cadrer le besoin",
+    title: "Cadrer et transmettre",
     description:
-      "Volume, urgence, démarches concernées et pièces disponibles sont clarifiés avant de définir le premier périmètre.",
+      "Nous convenons du périmètre, puis votre équipe transmet le brief et les pièces disponibles. Les éléments manquants sont identifiés avant traitement.",
     owner: "Ensemble",
     output: "Périmètre validé",
-  },
-  {
-    title: "Transmettre le dossier",
-    description:
-      "Votre équipe centralise le brief et les documents disponibles. Sunelys identifie immédiatement les éléments manquants.",
-    owner: "Votre équipe",
-    output: "Dossier exploitable",
   },
   {
     title: "Piloter les démarches",
@@ -201,6 +194,8 @@ const guarantees = [
         </a>
       </article>
 
+      <details class="handoff-results">
+      <summary>Ce que vous retrouvez dans le suivi</summary>
       <div class="handoff-cards" aria-label="Ce que Sunelys rend visible après la mise en route">
         {
           kickoffCards.map((card, index) => (
@@ -213,6 +208,7 @@ const guarantees = [
           ))
         }
       </div>
+      </details>
     </div>
 
     <div class="visibility-strip" aria-label="Signaux de suivi visibles" data-reveal-item>
@@ -225,7 +221,7 @@ const guarantees = [
     <div class="section-head" data-reveal-item>
       <div>
         <p class="eyebrow">La méthode</p>
-        <h2 id="steps-title">Quatre étapes, sans zone grise.</h2>
+        <h2 id="steps-title">Trois étapes, du brief au suivi.</h2>
       </div>
       <p>
         Le dossier n’entre pas dans une boîte noire. Chaque étape produit un résultat concret et rend la suivante

@@ -1,6 +1,7 @@
 ---
 slug: "cerfa-declaration-prealable-panneaux-solaires"
 title: "Cerfa déclaration préalable panneaux solaires : quel formulaire et comment le remplir"
+displayTitle: "Cerfa panneaux solaires : préparer votre DP"
 seoTitle: "Cerfa déclaration préalable panneaux solaires : guide"
 description: "Quel Cerfa utiliser pour une DP panneaux solaires, quels champs vérifier et comment éviter les pièces complémentaires en mairie."
 pubDate: "2026-06-22"

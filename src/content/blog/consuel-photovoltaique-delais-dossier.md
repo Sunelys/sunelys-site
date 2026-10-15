@@ -2,9 +2,9 @@
 slug: "consuel-photovoltaique-delais-dossier"
 title: "Dossier Consuel photovoltaïque : pièces et préparation"
 seoTitle: "Dossier Consuel photovoltaïque : pièces et préparation | Sunelys"
-description: "Comprendre les points de friction du Consuel photovoltaïque et mettre en place un suivi administratif plus fiable pour les installateurs solaires."
+description: "Préparer les pièces du dossier Consuel photovoltaïque : matériel posé, schéma, dossier technique et contrôle de cohérence avant transmission."
 pubDate: "2026-04-23"
-updatedDate: "2026-10-02"
+updatedDate: "2026-10-15"
 category: "Consuel"
 readingTime: "5 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -42,6 +42,36 @@ relatedLinks:
 ---
 
 Ce guide se concentre sur la préparation documentaire. Pour planifier les jalons et comprendre les temps d’attente, consultez le [guide des délais Consuel](/blog/delai-consuel-photovoltaique).
+
+## Les pièces à rassembler et ce qu'il faut comparer
+
+Le bon dossier décrit l'installation effectivement réalisée. La page officielle des [dossiers techniques CONSUEL](https://www.consuel.com/dossiers-techniques/) permet de choisir le modèle correspondant à la configuration, notamment avec ou sans batterie et selon le type d'onduleur. Vérifiez le modèle à sa source plutôt que de réutiliser un ancien PDF.
+
+<table tabindex="0" aria-label="Pièces et contrôles du dossier Consuel">
+  <thead><tr><th scope="col">Élément de départ</th><th scope="col">Contrôle documentaire utile</th><th scope="col">Si l'information manque</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Identité du client et adresse du chantier</th><td>Même bénéficiaire et même installation sur les pièces</td><td>Faire confirmer le rattachement avant de compléter le dossier</td></tr>
+    <tr><th scope="row">Références et quantités du matériel posé</th><td>Panneaux, onduleurs et stockage éventuel cohérents entre liste et schéma</td><td>Demander la référence exacte à l'équipe chantier</td></tr>
+    <tr><th scope="row">Schéma de l'installation</th><td>Version correspondant au matériel et au fonctionnement réels</td><td>Faire corriger ou confirmer par l'intervenant technique compétent</td></tr>
+    <tr><th scope="row">Attestation et dossier technique</th><td>Modèle adapté à la configuration réellement installée</td><td>Vérifier la page officielle et les consignes propres au dossier</td></tr>
+    <tr><th scope="row">Courrier de complément ou de visite déjà reçu</th><td>Points demandés, référence du dossier et échéance identifiés</td><td>Conserver le courrier complet avant de préparer la réponse</td></tr>
+  </tbody>
+</table>
+
+Cette grille sert à préparer la reprise administrative ; elle ne remplace pas les exigences applicables à votre installation ni la validation technique de l'installateur.
+
+## Exemple : la batterie du chantier n'apparaît pas dans le schéma
+
+Prenons une situation illustrative : la liste de matériel mentionne un stockage, mais le schéma reçu décrit une installation sans stockage. Le dossier ne doit pas être complété en choisissant arbitrairement l'une des deux versions.
+
+1. Le point contradictoire est noté dans le suivi, avec la pièce et sa version.
+2. L'installateur confirme la configuration réellement posée et fait vérifier les documents techniques.
+3. Les pièces corrigées sont réunies dans une même version avant transmission.
+4. La réponse envoyée et la prochaine étape sont conservées dans le dossier.
+
+Le livrable utile est alors une liste de pièces contrôlées, une attente attribuée à la bonne personne et un historique de transmission. Cet exemple décrit une méthode, pas un résultat client ni une garantie de visa.
+
+Vous avez déjà reçu un complément ? La [prestation de préparation et de suivi Consuel](/dossier-consuel-photovoltaique) permet de cadrer la reprise à partir du courrier réellement reçu. Les [tarifs](/tarifs) distinguent les honoraires Sunelys des frais des organismes.
 
 
 ## Le Consuel est souvent un révélateur d'organisation

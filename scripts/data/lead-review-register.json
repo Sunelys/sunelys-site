@@ -1,0 +1,14 @@
+{
+  "reviewedAt": "2026-10-15",
+  "method": "Relecture des messages du formulaire lors de l'audit. Une candidature ne constitue pas une qualification humaine ni un client. Aucun contact externe effectue.",
+  "records": {
+    "recEebZk9U14xy7Hi": { "disposition": "candidate", "reason": "Besoin de prestation renseigne ; qualification humaine a documenter." },
+    "recpAdHX6DFizsaRT": { "disposition": "candidate", "reason": "Besoin de prestation renseigne ; qualification humaine a documenter." },
+    "rechvY7rVV7xEfPrV": { "disposition": "test", "reason": "Test technique explicitement marque." },
+    "recIKD8sCCp99ZoM0": { "disposition": "non_commercial", "reason": "Proposition de services publicitaires recue." },
+    "recU8mzs32GMXbWLo": { "disposition": "non_commercial", "reason": "Proposition de services de referencement recue." },
+    "recdoT9QChN63jBsx": { "disposition": "non_commercial", "reason": "Proposition de services de referencement recue." },
+    "recmE4dK7dlRv4AO5": { "disposition": "non_commercial", "reason": "Message generique sans demande commerciale identifiable." },
+    "reco1uEU02TuTF7Zt": { "disposition": "non_commercial", "reason": "Proposition de restauration de sites recue." }
+  }
+}

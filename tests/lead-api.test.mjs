@@ -57,4 +57,17 @@ test("lead API contract with mocked providers only", async (t) => {
     assert.equal((await POST({ request: formRequest({ ...prospect, website: "spam" }) })).status, 200);
     assert.equal(calls.length, 0);
   });
+  await t.test("unknown needs and oversized fields never reach providers", async () => {
+    calls = [];
+    assert.equal((await POST({request:formRequest({...prospect,need:'SEO links for sale'})})).status,400);
+    assert.equal((await POST({request:formRequest({...prospect,message:'x'.repeat(6001)})})).status,400);
+    assert.equal(calls.length,0);
+  });
+  await t.test("a public form cannot claim human qualification", async () => {
+    calls = []; emailStatus = 200;
+    await POST({request:formRequest({...prospect,lead_status:'Client',service_interest:'A forged service'})});
+    const created = JSON.parse(calls.find(c=>c.url.includes('airtable')&&c.method==='POST').body);
+    assert.equal(created.records[0].fields.Statut,'Nouveau lead');
+    assert.match(created.records[0].fields.Commentaire,/Service: Raccordement Enedis \+ Consuel/);
+  });
 });

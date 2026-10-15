@@ -221,7 +221,7 @@ Externaliser le raccordement Enedis devient pertinent quand l'équipe perd plus 
 
 Sunelys accompagne les installateurs sur le [raccordement Enedis photovoltaïque](/raccordement-enedis-photovoltaique) : constitution du dossier, suivi des compléments, relances, coordination Consuel et visibilité sur les jalons. L'objectif n'est pas d'ajouter un intermédiaire opaque. L'objectif est de rendre chaque étape plus lisible.
 
-Pour chiffrer le sujet, consultez aussi [coût raccordement Enedis photovoltaïque](/blog/cout-raccordement-enedis-photovoltaique). Pour un pilotage complet du parcours, consultez la page [gestion administrative photovoltaïque](/gestion-administrative-photovoltaique).
+Pour distinguer les honoraires de suivi des frais facturés par les organismes, consultez les [tarifs de gestion administrative Sunelys](/tarifs). Le coût des travaux de raccordement reste celui indiqué par Enedis pour votre projet. Pour un pilotage complet du parcours, consultez la page [gestion administrative photovoltaïque](/gestion-administrative-photovoltaique).
 
 ## Sources officielles à vérifier
 
