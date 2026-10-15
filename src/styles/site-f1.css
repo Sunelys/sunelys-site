@@ -127,6 +127,7 @@ body[data-design="f1"] .cookie-button-accept { background: var(--accent); border
 /* Keep shared form and price actions legible over legacy page styles. */
 body[data-design="f1"] main .btn.btn-accent,
 body[data-design="f1"] main .btn.btn-accent :is(span,strong) { color: #151718 !important; }
+body[data-design="f1"] main .hero-price-pills span { color:var(--text-muted) !important; }
 body[data-design="f1"] main :is(.decision-recap-head,.blocked-diagnostic__copy) .kicker,
 body[data-design="f1"] main .blocked-diagnostic__kicker { color: #dbad8f; }
 body[data-design="f1"] main .lead-fields :is(label,span,summary) { color: var(--text); }
@@ -136,6 +137,9 @@ body[data-design="f1"] .site-footer :is(.footer-meta p,.footer-meta a,.footer-me
 body[data-design="f1"] main :is(.decision-recap-head,.service-decision-cue,.hero-service-form) :is(.kicker,label) { color: #dbad8f; }
 body[data-design="f1"] .portal-image-link { display: block; background: #fff; }
 body[data-design="f1"] .portal-image-link img { display: block; width: 100%; height: auto; object-fit: contain; filter: none; }
+@media(max-width:600px) {
+  body[data-design="f1"] .homepage-redesign .portal-image-priority picture img { width:200%; max-width:none; height:auto; }
+}
 body[data-design="f1"] .portal-visual .visual-signal { display: none; }
 body[data-design="f1"] main .article-installateur { padding: 22px 0; margin-bottom: 28px; border-block: 1px solid var(--line); }
 body[data-design="f1"] main .article-installateur p { margin: 0 0 14px; }
@@ -506,8 +510,8 @@ body[data-design="f1"] main .action-method-details[open] > summary { margin-bott
   body[data-design="f1"][data-page="/parcours"] main .handoff-layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
   body[data-design="f1"][data-page="/parcours"] main .step-list article { gap: 12px; padding: 20px 0; }
   body[data-design="f1"][data-page="/parcours"] main .responsibility-grid article { min-height: 0; padding: 20px; }
-  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main :is(.seo-section,.seo-context,.service-scope,.dossier-checklist) { padding-block: 32px; margin-block: 0; }
-  body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-layout { gap: 24px; }
+  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"]) main :is(.seo-section,.seo-context,.service-scope,.dossier-checklist) { padding-block: 32px; margin-block: 0; }
+  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"]) main .hero-layout { gap: 24px; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-aside { position: static; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-conversion-offer { padding: 18px; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .service-page-index { gap: 4px 16px; padding-block: 12px; }

@@ -36,7 +36,8 @@
         const response = await fetch(action, { method: "POST", headers: { Accept: "application/json" }, body, signal: AbortSignal.timeout(60000) });
         const result = await response.json();
         if (!response.ok || result.ok !== true) throw new Error("Lead not confirmed");
-        await window.trackLeadSuccess?.({ ...payload, lead_id: result.lead_id, is_test: result.is_test });
+        // A confirmed request stays successful even when a tracker fails.
+        try { await window.trackLeadSuccess?.({ ...payload, lead_id: result.lead_id, is_test: result.is_test }); } catch {}
         window.location.assign(safeLeadRedirect(body.get("_next"), window.location.origin));
       } catch {
         status.textContent = "L’envoi n’a pas pu être confirmé. Vos informations sont conservées dans ce formulaire. Contactez-nous au 06 95 90 79 19 ou à contact@sunelys.fr avant de renouveler votre demande.";

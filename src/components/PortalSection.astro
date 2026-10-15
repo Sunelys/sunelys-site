@@ -120,7 +120,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
                 data-portal-panel={view.id}
               >
                 <figure class="portal-visual">
-                  <a class="portal-image-link" href={view.src} target="_blank" rel="noopener" aria-label={`Agrandir : ${view.label}`}><picture>
+                  <a class:list={["portal-image-link", view.id === data.views[0]?.id && "portal-image-priority"]} href={view.src} target="_blank" rel="noopener" aria-label={`Agrandir : ${view.label}`} data-portal-enlarge data-portal-title={view.label}><picture>
                     {
                       view.avifSrcset && (
                         <source type="image/avif" srcset={view.avifSrcset} sizes={view.sizes} />
@@ -135,7 +135,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
                       decoding="async"
                       fetchpriority="low"
                     />
-                  </picture></a>
+                  </picture><span class="portal-enlarge-label" aria-hidden="true">Agrandir <span>+</span></span></a>
                   <figcaption class="visual-signal">
                     <span aria-hidden="true"></span>
                     {view.signal}
@@ -155,7 +155,7 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     </div>
 
     <div class="demo-footer">
-      <p>Septembre 2026 · données de démonstration, aucun dossier client · agrandir pour lire les détails</p>
+      <p>Septembre 2026 · données de démonstration, aucun dossier client</p>
     </div>
   </div>
 
@@ -197,7 +197,70 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
   </div>}
 </section>
 
+<dialog class="portal-lightbox" aria-labelledby="portal-lightbox-title" data-portal-lightbox>
+  <div class="portal-lightbox-toolbar">
+    <h2 id="portal-lightbox-title">Portail Sunelys</h2>
+    <div class="portal-lightbox-controls">
+      <button type="button" data-portal-fit>Vue complète</button>
+      <button type="button" data-portal-zoom="out" aria-label="Réduire" title="Réduire">−</button>
+      <output data-portal-scale aria-live="polite">100 %</output>
+      <button type="button" data-portal-zoom="in" aria-label="Agrandir" title="Agrandir">+</button>
+      <button type="button" data-portal-close aria-label="Fermer l’aperçu" title="Fermer l’aperçu">×</button>
+    </div>
+  </div>
+  <div class="portal-lightbox-canvas" tabindex="0" role="region" aria-label="Capture du portail" data-portal-canvas>
+    <img alt="" width="1280" height="720" data-portal-full-image />
+  </div>
+  <p class="portal-lightbox-note">Données de démonstration · aucun dossier client.</p>
+</dialog>
+
 <script>
+  const lightbox = document.querySelector<HTMLDialogElement>("[data-portal-lightbox]");
+  const fullImage = lightbox?.querySelector<HTMLImageElement>("[data-portal-full-image]");
+  const canvas = lightbox?.querySelector<HTMLElement>("[data-portal-canvas]");
+  const scaleOutput = lightbox?.querySelector<HTMLOutputElement>("[data-portal-scale]");
+  let trigger: HTMLAnchorElement | null = null;
+  let scale = 1;
+  let previousOverflow = "";
+  const resizeImage = (next: number) => {
+    if (!fullImage || !scaleOutput) return;
+    scale = Math.min(2, Math.max(.25, next));
+    fullImage.style.width = `${fullImage.naturalWidth * scale}px`;
+    scaleOutput.value = `${Math.round(scale * 100)} %`;
+  };
+  document.querySelectorAll<HTMLAnchorElement>("[data-portal-enlarge]").forEach((link) => {
+    link.addEventListener("click", async (event) => {
+      if (!lightbox || !fullImage || !canvas || typeof lightbox.showModal !== "function") return;
+      event.preventDefault();
+      trigger = link;
+      fullImage.src = link.href;
+      fullImage.alt = link.querySelector("img")?.alt || "Portail Sunelys";
+      const title = lightbox.querySelector("h2");
+      if (title) title.textContent = link.dataset.portalTitle || "Portail Sunelys";
+      previousOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      lightbox.showModal();
+      try { await fullImage.decode(); } catch {}
+      fullImage.width = fullImage.naturalWidth || 1280;
+      fullImage.height = fullImage.naturalHeight || 720;
+      resizeImage(window.innerWidth <= 600 ? 1 : Math.min(1, canvas.clientWidth / fullImage.naturalWidth));
+      canvas.scrollTo(0, link.classList.contains("portal-image-priority") && window.innerWidth <= 600 ? 450 : 0);
+    });
+  });
+  lightbox?.querySelector("[data-portal-close]")?.addEventListener("click", () => lightbox.close());
+  lightbox?.querySelector("[data-portal-fit]")?.addEventListener("click", () => {
+    if (!canvas || !fullImage) return;
+    resizeImage(canvas.clientWidth / fullImage.naturalWidth);
+    canvas.scrollTo(0, 0);
+  });
+  lightbox?.querySelectorAll<HTMLElement>("[data-portal-zoom]").forEach((button) => {
+    button.addEventListener("click", () => resizeImage(scale + (button.dataset.portalZoom === "in" ? .25 : -.25)));
+  });
+  lightbox?.addEventListener("click", (event) => { if (event.target === lightbox) lightbox.close(); });
+  lightbox?.addEventListener("close", () => {
+    document.body.style.overflow = previousOverflow;
+    trigger?.focus({ preventScroll: true });
+  });
   document.querySelectorAll("[data-portal-demo]").forEach((demo) => {
     if (!(demo instanceof HTMLElement)) return;
 
@@ -252,3 +315,29 @@ const secondSignal = data.views[1]?.signal ?? "Flux centralisés";
     });
   });
 </script>
+
+<style>
+  .portal-image-link { position:relative; overflow:hidden; }
+  .portal-enlarge-label { position:absolute; right:12px; bottom:12px; display:flex; align-items:center; gap:16px; padding:9px 12px; border:1px solid #414849; border-radius:4px; background:#151718; color:#f7f7f5; font-size:14px; line-height:1.4; }
+  .portal-enlarge-label > span { font-size:20px; }
+  .portal-lightbox { width:min(1440px, calc(100% - 32px)); max-width:none; max-height:calc(100dvh - 32px); padding:0; border:1px solid #687174; border-radius:6px; background:#202324; color:#f7f7f5; }
+  .portal-lightbox::backdrop { background:rgb(0 0 0 / 78%); }
+  .portal-lightbox-toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:12px 16px; border-bottom:1px solid #414849; }
+  .portal-lightbox-toolbar h2 { margin:0; font-size:20px; }
+  .portal-lightbox-controls { display:flex; align-items:center; gap:8px; flex-wrap:wrap; }
+  .portal-lightbox-controls button { min-width:44px; min-height:44px; padding:8px 12px; border:1px solid #687174; border-radius:4px; color:#f7f7f5; background:#292d2e; cursor:pointer; font:inherit; }
+  .portal-lightbox-controls button[data-portal-zoom],.portal-lightbox-controls button[data-portal-close] { padding:0; font-size:24px; }
+  .portal-lightbox-controls output { min-width:54px; text-align:center; font-size:14px; font-variant-numeric:tabular-nums; }
+  .portal-lightbox-canvas { max-height:min(72dvh,900px); overflow:auto; background:#fff; overscroll-behavior:contain; }
+  .portal-lightbox-canvas img { display:block; max-width:none; height:auto; }
+  .portal-lightbox-note { margin:0; padding:10px 16px; color:#bac0c1; font-size:13px; }
+  @media(max-width:600px) {
+    .portal-lightbox { width:calc(100% - 16px); max-height:calc(100dvh - 16px); }
+    .portal-lightbox-toolbar { display:grid; padding:12px; gap:10px; }
+    .portal-lightbox-controls { justify-content:space-between; gap:6px; }
+    .portal-lightbox-controls button { font-size:14px; padding:8px; }
+    .portal-lightbox-canvas { max-height:65dvh; }
+    .portal-image-priority picture { display:block; height:250px; overflow:hidden; }
+    .portal-image-priority picture img { width:200%; max-width:none; height:auto; transform:translateY(-38%); }
+  }
+</style>
