@@ -2,7 +2,7 @@
   "reviewedAt": "2026-10-15",
   "method": "Relecture des messages du formulaire lors de l'audit. Une candidature ne constitue pas une qualification humaine ni un client. Aucun contact externe effectue.",
   "records": {
-    "recEebZk9U14xy7Hi": { "disposition": "candidate", "reason": "Besoin de prestation renseigne ; qualification humaine a documenter." },
+    "recEebZk9U14xy7Hi": { "disposition": "qualified", "lifecycle": "client", "reason": "Rapprochement email relu le 15/10 : echange bilateral, dossiers confies et facture envoyee. Le statut CRM Nouveau lead n'avait pas ete actualise.", "evidenceRef": "email-review-20261015" },
     "recpAdHX6DFizsaRT": { "disposition": "candidate", "reason": "Besoin de prestation renseigne ; qualification humaine a documenter." },
     "rechvY7rVV7xEfPrV": { "disposition": "test", "reason": "Test technique explicitement marque." },
     "recIKD8sCCp99ZoM0": { "disposition": "non_commercial", "reason": "Proposition de services publicitaires recue." },
