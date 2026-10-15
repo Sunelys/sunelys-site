@@ -15,6 +15,10 @@ const { data } = Astro.props;
     <div><p class="kicker">{data.kicker}</p><h2 id="method-title">{data.title}</h2></div>
     <a class="method-link" href="/parcours" data-track="cta_home_method_details">Découvrir le parcours<span aria-hidden="true">→</span></a>
   </div>
+  <figure class="method-daylight">
+    <img src="/images/site/solar-admin-coordination-2026.webp" alt="Illustration : préparation de documents photovoltaïques dans un bureau éclairé par la lumière du jour." width="1320" height="743" loading="lazy" decoding="async" />
+    <figcaption>Visuel d’illustration</figcaption>
+  </figure>
   <ol class="method-timeline" aria-label="Le parcours Sunelys en trois étapes">
     {data.steps.map((step, index) => (
       <li>
