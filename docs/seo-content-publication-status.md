@@ -1,6 +1,6 @@
 # Suivi publication SEO Sunelys
 
-Derniere verification : 2026-10-12.
+Derniere verification : 2026-10-19.
 
 Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu avant toute automation ou preparation de nouvelle semaine.
 
@@ -14,17 +14,17 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 ## Etat courant
 
-Etat global au 2026-10-12, apres verification publique :
+Etat global au 2026-10-19, apres verification publique :
 
-- S1 a S6 sont publiees et verifiees en HTTP 200 sur leurs routes canoniques `/blog/<slug>/`. S6 a ete autorisee par le message utilisateur « ok publie » puis poussee avec le commit `cc34bc0`. S7 et S8 restent en backlog.
+- S1 a S7 sont publiees et verifiees en HTTP 200 sur leurs routes canoniques `/blog/<slug>/`. S6 a ete publiee avec `cc34bc0` et S7 avec `d3484d7`. S8 reste en backlog.
 - S1 est validee, poussee et publiee.
 - Les deux URLs S1 et les deux URLs S2 repondent en `200` sur leurs routes canoniques `https://sunelys.fr/blog/<slug>/`.
 - S2 a ete poussee avec le commit `842572c` et est verifiee en ligne.
-- S7 est la prochaine semaine a preparer, lors de la prochaine passe. Ne pas publier S7 sans validation ; ne pas creer S9.
+- S8 est la prochaine semaine a preparer, lors de la prochaine passe. Ne pas publier S8 sans validation ; ne pas creer S9.
 
 ## Tableau de suivi
 
-| Semaine | Contenus | Etat local | Etat Git (S6 actualisee le 2026-10-12) | Etat public (S1-S6 verifies le 2026-10-12 ; S7-S8 historique) | Prochaine action |
+| Semaine | Contenus | Etat local | Etat Git (S7 actualisee le 2026-10-19) | Etat public (S1-S7 verifies le 2026-10-19 ; S8 historique) | Prochaine action |
 |---|---|---|---|---|---|
 | S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
 | S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Validee et publiee | Poussee (`842572c`) | 200 / 200 | Terminee |
@@ -32,7 +32,7 @@ Etat global au 2026-10-12, apres verification publique :
 | S4 | `delai-consuel-photovoltaique`, `sous-traiter-declaration-prealable-photovoltaique` | Validee et publiee | Poussee (`9423bbb`) | 200 / 200 le 2026-09-22 | Terminee |
 | S5 | `dp-refusee-panneaux-solaires-que-faire`, `etapes-raccordement-enedis-panneaux-solaires` | Validee et publiee | Poussee (`d3eab6a`) | 200 / 200 le 2026-10-05 | Terminee |
 | S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Validee et publiee | Poussee (`cc34bc0`) | 200 / 200 le 2026-10-12 | Terminee |
-| S7 | `declaration-prealable-ou-permis-construire-photovoltaique`, `cout-raccordement-enedis-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Prochaine semaine a preparer ; validation requise |
+| S7 | `declaration-prealable-ou-permis-construire-photovoltaique`, `cout-raccordement-enedis-photovoltaique` | Validee et publiee | Poussee (`d3484d7`) | 200 / 200 le 2026-10-19 | Terminee |
 | S8 | `consuel-refuse-motifs-solutions`, `cout-gestion-administrative-photovoltaique` | Preparee localement, a revalider | Suivis par Git, hors manifeste public | 404 / 404 | Backlog, ne pas publier avant S7 |
 
 ## Definition des statuts
@@ -83,3 +83,7 @@ Validation utilisateur « publie » reçue. Commit `d3eab6a` limité aux deux ar
 ## Publication S6 du 2026-10-12
 
 Validation utilisateur « ok publie » reçue. Commit `cc34bc0` limité aux deux articles S6 et au manifeste public, puis poussé sur `main`. Les liens de corps vers S8, encore non publiée, ont été corrigés ou retirés avant publication. Build Astro Node 22.23.0, 20 tests, audit statique, `git diff --check` et sitemap généré conformes. Les deux routes canoniques S6 répondent en HTTP 200 et figurent dans `https://sunelys.fr/sitemap.xml`. Aucun écart entre suivi, `origin/main` et site public concernant S6. S7 et S8 restent hors manifeste public.
+
+## Publication S7 du 2026-10-19
+
+Validation utilisateur « ok publie » reçue. Commit `d3484d7` limité au manifeste public, les deux contenus S7 et leurs assets étant déjà versionnés et relus. Build Astro Node 22.23.0, 23 tests, audit statique de 42 pages et `git diff --check` conformes. Les deux routes canoniques S7 répondent en HTTP 200 et figurent dans `https://sunelys.fr/sitemap.xml`. Aucun écart entre suivi, `origin/main` et site public concernant S7. S8 reste hors manifeste public.
