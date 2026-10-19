@@ -26,6 +26,10 @@ export const publicBlogSlugs = [
   "prix-consuel-photovoltaique",
   "gerer-soi-meme-ou-deleguer-administratif-solaire",
 
+  // S7
+  "declaration-prealable-ou-permis-construire-photovoltaique",
+  "cout-raccordement-enedis-photovoltaique",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",
