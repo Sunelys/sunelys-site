@@ -86,13 +86,13 @@ export interface SeoPageData {
 export const seoPages: Record<string, SeoPageData> = {
   gestionAdministrative: {
     slug: "gestion_administrative",
-    metaTitle: "Pilotage administratif photovoltaïque externalisé",
+    metaTitle: "Démarches administratives photovoltaïques | Sunelys",
     metaDescription:
-      "Externalisez DP, Consuel, raccordement photovoltaïque, MaPrimeRénov' et CEE avec Sunelys: interlocuteur unique, production sous 48 h ouvrées et suivi clair.",
-    heroTitle: "Pilotage administratif photovoltaïque pour installateurs",
+      "Confiez vos démarches administratives PV : DP, Enedis et Consuel à 199 € HT par dossier. Préparation, dépôt et suivi pour installateurs, sans abonnement.",
+    heroTitle: "Vos démarches administratives photovoltaïques, prises en charge.",
     heroSubtitle:
       "Confiez la déclaration préalable, le raccordement Enedis et le dossier Consuel à une même équipe. Vous gardez la pose et la relation client ; nous préparons les pièces et suivons les échanges.",
-    heroPrimaryLabel: "Recevoir mon plan de pilotage",
+    heroPrimaryLabel: "Confier mes démarches PV",
     heroSecondaryCta: {
       label: "Parler à un expert Sunelys",
       href: "/contact?source=gestion_administrative_header",
@@ -250,6 +250,11 @@ export const seoPages: Record<string, SeoPageData> = {
     finalText:
       "Recevez un cadrage de pilotage complet pour identifier vos points de friction, votre volume et le périmètre à déléguer en priorité.",
     guideLinks: [
+      {
+        href: "/blog/demarches-administratives-photovoltaique",
+        label: "Démarches administratives des panneaux solaires",
+        description: "L'ordre des démarches, les pièces et la prochaine action selon votre dossier.",
+      },
       {
         href: "/blog/externaliser-administratif-photovoltaique",
         label: "Externaliser l'administratif PV",
@@ -776,13 +781,13 @@ export const seoPages: Record<string, SeoPageData> = {
   },
   declarationPrealable: {
     slug: "declaration_prealable",
-    metaTitle: "Déclaration préalable panneaux solaires installateurs",
+    metaTitle: "DP solaire : déclaration préalable panneaux solaires | Sunelys",
     metaDescription:
-      "Externalisez vos déclarations préalables photovoltaïques: pièces, dépôt mairie, suivi et relances pour limiter les compléments.",
-    heroTitle: "Déclaration préalable panneaux solaires pour installateurs",
+      "Confiez votre DP solaire : pièces, dépôt mairie et suivi à 119 € HT par dossier. Déclaration préalable panneaux solaires pour installateurs, sans abonnement.",
+    heroTitle: "DP solaire : votre déclaration préalable panneaux solaires.",
     heroSubtitle:
-      "Sunelys gère le cadrage, les pièces, le dépôt mairie et le suivi des retours pour fiabiliser vos DP photovoltaïques sans charger vos équipes.",
-    heroPrimaryLabel: "Faire cadrer ma déclaration préalable",
+      "Vous êtes installateur ? Sunelys prépare les pièces de votre déclaration préalable photovoltaïque, dépose le dossier en mairie et suit les retours. Vous gardez la pose et la relation client.",
+    heroPrimaryLabel: "Confier ma DP solaire",
     heroSecondaryCta: {
       label: "Voir le tarif détaillé",
       href: "/tarifs#tarifs-photovoltaique",
@@ -960,14 +965,19 @@ export const seoPages: Record<string, SeoPageData> = {
     },
     faqItems: [
       {
+        question: "Qu'est-ce qu'une DP solaire ?",
+        answer:
+          "La DP solaire est la déclaration préalable de travaux liée à un projet de panneaux solaires. Ce dossier d'urbanisme est déposé en mairie. Il ne remplace ni la démarche de raccordement réseau ni les justificatifs de conformité électrique.",
+      },
+      {
         question: "Comment déposer une déclaration préalable pour panneaux solaires ?",
         answer:
-          "Le dépôt repose sur un dossier complet et cohérent. Sunelys prépare les pièces et pilote les échanges administratifs.",
+          "Vérifiez les règles locales, complétez le formulaire en vigueur et joignez les pièces correspondant au projet. Le dépôt s'effectue selon les modalités de la commune. Conservez le récépissé et les retours d'instruction. Sunelys peut préparer, déposer et suivre le dossier pour l'installateur.",
       },
       {
         question: "Combien de temps prend une déclaration préalable photovoltaïque ?",
         answer:
-          "Le délai varie selon les dossiers et les zones, mais la qualité du dépôt initial est un facteur clé.",
+          "Dans le cas général, le délai d'instruction d'une DP complète est d'un mois. Un secteur protégé, une notification de délai différent ou une demande de complément peut modifier ce calendrier. Le délai de préparation Sunelys est distinct du délai d'instruction mairie.",
       },
       {
         question: "Quelles pièces faut-il pour une déclaration préalable solaire ?",
@@ -977,7 +987,7 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Faut-il une déclaration préalable pour des panneaux solaires en toiture ?",
         answer:
-          "Dans de nombreux cas, oui, car les panneaux modifient l'aspect extérieur du bâtiment. Les règles varient selon la commune et la zone.",
+          "Oui, sur une toiture existante, la pose de panneaux photovoltaïques modifie l'aspect extérieur et nécessite une déclaration préalable selon Service Public. Pour une construction neuve ou un projet déjà soumis à permis, vérifiez l'autorisation qui couvre les travaux.",
       },
       {
         question: "Pourquoi externaliser la déclaration préalable ?",
