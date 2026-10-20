@@ -209,7 +209,7 @@ const serviceInterestBySlug: Record<string, string> = {
 
 const serviceInterest = serviceInterestBySlug[data.slug] || data.heroTitle;
 const isGestionLanding = data.slug === "gestion_administrative";
-const isCompactService = ["consuel_photovoltaique", "declaration_prealable", "raccordement_enedis"].includes(data.slug);
+const isCompactService = ["consuel_photovoltaique", "declaration_prealable", "raccordement_enedis", "gestion_administrative", "sous_traitance_declaration_prealable"].includes(data.slug);
 const signatureVariant = data.slug.includes("tarif")
   ? "pricing"
   : isGestionLanding
@@ -360,25 +360,6 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         </ul>
       </div>}
 
-      {
-        isGestionLanding && (
-          <ul class="hero-price-pills" aria-label="Tarifs principaux Sunelys">
-            <li>
-              <span>DP complète</span>
-              <strong>119 € HT</strong>
-            </li>
-            <li>
-              <span>Raccordement + Consuel</span>
-              <strong>89 € HT</strong>
-            </li>
-            <li>
-              <span>Pilotage complet</span>
-              <strong>199 € HT</strong>
-            </li>
-          </ul>
-        )
-      }
-
       <div class="hero-actions">
         <a class="btn btn-accent" href={`#service-quick-${data.slug}`} data-track={`cta_${data.slug}_hero`}>
           {heroPrimaryLabel}
@@ -398,7 +379,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
         data-track-label={data.slug}
       >
         <p class="kicker">Réponse personnalisée sous 24 h ouvrées</p>
-        <h2>{data.quickFormTitle ?? "Identifiez le premier flux administratif à déléguer."}</h2>
+        <h2>{data.slug === "declaration_prealable" ? "Confiez-nous votre déclaration préalable." : data.quickFormTitle ?? "Confiez-nous votre premier dossier."}</h2>
         <form
           class="hero-service-form"
           action={leadFormAction}
@@ -775,7 +756,7 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
       </header>
       {
         data.faqItems.map((item, index) => (
-          <details class="support-faq-item" open={index === 0}>
+          <details class="support-faq-item" open={!isCompactService && index === 0}>
             <summary data-track={`faq_${data.slug}_${index + 1}`}>
               <span>0{index + 1}</span>
               <strong>{item.question}</strong>
@@ -797,6 +778,8 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
     </div>
 
     <aside class="support-resources">
+      <details class="service-resource-drawer" open={!isCompactService}>
+      <summary>Guides pour préparer votre dossier</summary>
       <div class="resource-intro">
         <p class="kicker">Ressources utiles</p>
         <h3>Continuez avec le bon niveau de détail.</h3>
@@ -862,13 +845,14 @@ const visualKind = serviceVisuals[data.slug as keyof typeof serviceVisuals] ?? "
           }
         </div>
       </details>
+      </details>
 
       <a
         class="btn btn-accent support-center-cta"
         href={`#service-final-${data.slug}`}
         data-track={`cta_${data.slug}_support_center`}
       >
-        Obtenir une réponse sur mon dossier
+        Faire le point sur mon dossier
         <span aria-hidden="true">→</span>
       </a>
     </aside>

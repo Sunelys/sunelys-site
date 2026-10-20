@@ -16,8 +16,10 @@ const items = consuel ? [
   <ol>{items.map(([title, text], i) => <li><span aria-hidden="true">0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}</ol>
   <p><strong>Votre rôle :</strong> transmettre les informations exactes et les pièces disponibles. <strong>Notre rôle :</strong> préparer le volet administratif et suivre les échanges. Les validations techniques, signatures et décisions restent celles des intervenants concernés.</p>
   <p>Déjà une demande de complément ? Joignez-la au dossier avec sa date : la reprise porte sur les points effectivement demandés.</p>
+  <a href="/ressources/checklist-dossier-photovoltaique" data-track="cta_service_checklist">Retrouver la checklist de préparation <span aria-hidden="true">→</span></a>
 </section>
 <style>
 .dossier-checklist { margin-block: 40px; padding: clamp(24px,4vw,48px); background:#eee9e1; color:#252b2d; border-radius:6px; }
 .dossier-checklist :is(h2,h3,strong) { color:#252b2d; } .dossier-checklist p { color:#475052;line-height:1.6; } .dossier-checklist .eyebrow { color:#775035; } h2{margin:12px 0 20px;} ol{list-style:none;padding:0;margin:24px 0;display:grid;gap:16px;}li{display:flex;gap:20px;padding-block:16px;border-top:1px solid #c4beb6;} li>span{font-size:24px;color:#775035;}h3{margin:0;font-size:22px;}li p{margin:8px 0 0;}
+.dossier-checklist a { display:inline-flex;align-items:center;gap:12px;min-height:44px;color:#252b2d;text-underline-offset:4px; }
 </style>

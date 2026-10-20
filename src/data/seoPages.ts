@@ -91,25 +91,25 @@ export const seoPages: Record<string, SeoPageData> = {
       "Externalisez DP, Consuel, raccordement photovoltaïque, MaPrimeRénov' et CEE avec Sunelys: interlocuteur unique, production sous 48 h ouvrées et suivi clair.",
     heroTitle: "Pilotage administratif photovoltaïque pour installateurs",
     heroSubtitle:
-      "Sunelys pilote vos démarches DP, Consuel, raccordement Enedis, MaPrimeRénov' et CEE dans un flux unique pour sécuriser votre croissance sans recruter.",
+      "Confiez la déclaration préalable, le raccordement Enedis et le dossier Consuel à une même équipe. Vous gardez la pose et la relation client ; nous préparons les pièces et suivons les échanges.",
     heroPrimaryLabel: "Recevoir mon plan de pilotage",
     heroSecondaryCta: {
       label: "Parler à un expert Sunelys",
       href: "/contact?source=gestion_administrative_header",
     },
     conversionOffer: {
-      eyebrow: "Offre pilotage complet",
-      label: "Gestion administrative complète",
+      eyebrow: "Parcours administratif solaire",
+      label: "DP + Enedis + Consuel",
       price: "199 €",
       priceNote: "HT / dossier",
-      scope: "Production, dépôt, relances, coordination et suivi jusqu'à validation.",
+      scope: "Préparation des trois démarches, dépôt et suivi des échanges. EDF OA, MaPrimeRénov’ et CEE sont des prestations distinctes, hors de ce forfait.",
       terms: [
         "Dossier ponctuel accepté",
         "Aucun abonnement obligatoire",
         "Facturation au réel",
       ],
     },
-    quickFormTitle: "Quel flux voulez-vous reprendre en priorité ?",
+    quickFormTitle: "Confiez-nous votre premier dossier.",
     quickFormSubmitLabel: "Recevoir mon diagnostic pilotage",
     quickFormNote: "2 informations suffisent pour avoir un point d'action prioritaire sous 24 h ouvrées.",
     diagnosticLabel: "Blocage principal",
@@ -163,15 +163,15 @@ export const seoPages: Record<string, SeoPageData> = {
     scopeItems: [
       "Déclaration préalable complète: pièces, dépôt mairie et suivi jusqu'à validation",
       "Raccordement réseau et dossier Consuel dans un flux coordonné",
-      "MaPrimeRénov' et CEE montés et suivis jusqu'à validation",
+      "EDF OA et aides : prestations complémentaires chiffrées séparément, hors forfait à 199 € HT",
       "Interlocuteur unique pour centraliser les échanges et les relances",
       "Production sous 48 h ouvrées lorsque les éléments techniques sont complets",
       "Suivi en temps réel des statuts, blocages et validations",
     ],
     detailBlocks: [
       {
-        title: "Chaîne administrative complète",
-        text: "Sunelys peut piloter DP, raccordement, Consuel, MaPrimeRénov' et CEE dans le même parcours. Cette approche évite de disperser les échanges entre plusieurs interlocuteurs et permet de garder une lecture claire du statut de chaque dossier.",
+        title: "Ce qui est inclus dans les 199 € HT",
+        text: "Le forfait réunit la déclaration préalable, le raccordement Enedis et le dossier Consuel. EDF OA, MaPrimeRénov’ et CEE peuvent être confiés à Sunelys au titre de prestations distinctes, à confirmer et chiffrer séparément avant engagement.",
       },
       {
         title: "Pièces techniques qui bloquent les dossiers",
@@ -228,7 +228,7 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Quel est le tarif du pilotage complet ?",
         answer:
-          "Le parcours DP, raccordement Enedis et Consuel est proposé à 199 EUR HT par dossier, avec un prix unitaire fixe.",
+          "Le forfait de 199 € HT couvre DP + raccordement Enedis + Consuel. EDF OA et les aides MaPrimeRénov’/CEE sont des prestations distinctes. Les frais des organismes sont précisés séparément avant engagement.",
       },
       {
         question: "Que se passe-t-il si une erreur Sunelys entraîne un complément ?",
