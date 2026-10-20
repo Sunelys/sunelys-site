@@ -2,6 +2,8 @@
 // Adding a slug here is the switch that makes an article visible in routes,
 // sitemap, service guides, and internal linking.
 export const publicBlogSlugs = [
+  // Guide transversal des demarches, distinct des articles specialises.
+  "demarches-administratives-photovoltaique",
   // S1
   "cerfa-declaration-prealable-panneaux-solaires",
   "externaliser-administratif-photovoltaique",

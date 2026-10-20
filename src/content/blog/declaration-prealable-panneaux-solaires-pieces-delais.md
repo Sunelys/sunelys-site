@@ -4,7 +4,7 @@ title: "Pièces déclaration préalable panneaux solaires : liste et méthode"
 seoTitle: "Pièces déclaration préalable panneaux solaires"
 description: "Liste des pièces DP panneaux solaires, plans à préparer, délai d'instruction et méthode pour éviter les demandes de complément en mairie."
 pubDate: "2026-05-04"
-updatedDate: "2026-10-02"
+updatedDate: "2026-10-20"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -51,6 +51,8 @@ faqItems:
 ---
 
 ## La réponse courte
+
+La DP solaire est l'étape mairie du projet. Pour situer le dossier parmi les [démarches administratives photovoltaïques](/blog/demarches-administratives-photovoltaique), consultez aussi le parcours complet : urbanisme, réseau, Consuel et contrat d'achat selon votre installation.
 
 Pour une déclaration préalable de panneaux solaires, les pièces à préparer doivent permettre à la mairie de comprendre trois choses : où se situe le terrain, quelle toiture est modifiée et à quoi ressemblera le bâtiment après la pose. Au 2 octobre 2026, Service-Public rappelle qu'une DP est nécessaire pour poser des panneaux photovoltaïques sur un toit, car l'aspect extérieur du bâtiment est modifié.
 

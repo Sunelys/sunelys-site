@@ -60,6 +60,10 @@ const articleBusinessLinks = [
   },
 ].filter((link, index, links) => links.findIndex((candidate) => candidate.href === link.href) === index);
 const categoryBriefs: Record<string, { check: string; action: string }> = {
+  "Démarches photovoltaïques": {
+    check: "Mairie, réseau, conformité électrique et contrat d'achat selon votre projet.",
+    action: "Identifier la prochaine démarche et choisir ce que vous souhaitez déléguer.",
+  },
   "Déclaration préalable": {
     check: "Cerfa, pièces, toiture, dépôt et points qui déclenchent les compléments.",
     action: "Préparer un dépôt plus lisible ou cadrer une reprise DP.",
@@ -82,6 +86,7 @@ const categoryBrief = categoryBriefs[String(frontmatter.category)] ?? {
   action: "Transformer le sujet du guide en prochain dossier cadré.",
 };
 const articleOfferByCategory: Record<string, { price: string; scope: string }> = {
+  "Démarches photovoltaïques": { price: "DP + Enedis + Consuel : 199 € HT par dossier.", scope: "Préparation, dépôt et suivi administratif pour installateurs. EDF OA, aides et frais des organismes sont distincts." },
   "Déclaration préalable": { price: "DP complète : 119 € HT par dossier.", scope: "Sunelys prépare les pièces, dépose en mairie et suit l’instruction dans le périmètre convenu. Un dossier ponctuel suffit pour commencer." },
   Consuel: { price: "Pack Enedis + Consuel : 89 € HT par dossier.", scope: "Préparation administrative, coordination des pièces et suivi des échanges. Les frais des organismes sont précisés séparément." },
   "Raccordement Enedis": { price: "Pack Enedis + Consuel : 89 € HT par dossier.", scope: "Les deux démarches suivies ensemble. Frais des organismes précisés séparément avant engagement." },
