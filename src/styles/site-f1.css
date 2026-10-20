@@ -498,6 +498,19 @@ body[data-design="f1"] main .article-meta > span { font-weight: 500; text-transf
 body[data-design="f1"] main .article-content table:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 4px; }
 body[data-design="f1"] main .action-method-details > summary { cursor: pointer; padding-block: 18px; border-block: 1px solid var(--line); color: var(--text); }
 body[data-design="f1"] main .action-method-details[open] > summary { margin-bottom: 24px; }
+body[data-design="f1"] main .service-resource-drawer > summary { cursor:pointer; min-height:48px; padding:14px 0; color:var(--text); border-block:1px solid var(--line); font-size:17px; }
+body[data-design="f1"] main .service-resource-drawer[open] > summary { margin-bottom:20px; }
+@media (max-width:760px) {
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy { display:contents; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy > .kicker { order:0; margin:0; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy > h1 { order:1; margin:0; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy > p:not(.kicker) { order:2; margin:0; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-conversion-offer { order:3; margin:0; padding:20px; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-aside { order:4; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .service-dossier-image { order:5; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy > .hero-badges { order:6; }
+  body[data-design="f1"]:is([data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .seo-hero .hero-copy > .hero-actions { display:none; }
+}
 @media (max-width: 760px) {
   body[data-design="f1"][data-page="/tarifs"] main :is(.pricing-hero,.solar-pricing,.complementary-pricing,.pricing-conditions) { padding-block: 32px; }
   body[data-design="f1"][data-page="/tarifs"] main .pricing-hero { gap: 24px; }
@@ -510,8 +523,8 @@ body[data-design="f1"] main .action-method-details[open] > summary { margin-bott
   body[data-design="f1"][data-page="/parcours"] main .handoff-layout { grid-template-columns: minmax(0,1fr); gap: 24px; }
   body[data-design="f1"][data-page="/parcours"] main .step-list article { gap: 12px; padding: 20px 0; }
   body[data-design="f1"][data-page="/parcours"] main .responsibility-grid article { min-height: 0; padding: 20px; }
-  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"]) main :is(.seo-section,.seo-context,.service-scope,.dossier-checklist) { padding-block: 32px; margin-block: 0; }
-  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"]) main .hero-layout { gap: 24px; }
+  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"],[data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main :is(.seo-section,.seo-context,.service-scope,.dossier-checklist) { padding-block: 32px; margin-block: 0; }
+  body[data-design="f1"]:is([data-page="/dossier-consuel-photovoltaique"],[data-page="/declaration-prealable-panneaux-solaires"],[data-page="/raccordement-enedis-photovoltaique"],[data-page="/gestion-administrative-photovoltaique"],[data-page="/sous-traitance-declaration-prealable-solaire"]) main .hero-layout { gap: 24px; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-aside { position: static; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .hero-conversion-offer { padding: 18px; }
   body[data-design="f1"][data-page="/dossier-consuel-photovoltaique"] main .service-page-index { gap: 4px 16px; padding-block: 12px; }

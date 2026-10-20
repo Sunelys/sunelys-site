@@ -81,6 +81,12 @@ const categoryBrief = categoryBriefs[String(frontmatter.category)] ?? {
   check: "Pièces, étapes et points de vigilance à contrôler avant d’avancer.",
   action: "Transformer le sujet du guide en prochain dossier cadré.",
 };
+const articleOfferByCategory: Record<string, { price: string; scope: string }> = {
+  "Déclaration préalable": { price: "DP complète : 119 € HT par dossier.", scope: "Sunelys prépare les pièces, dépose en mairie et suit l’instruction dans le périmètre convenu. Un dossier ponctuel suffit pour commencer." },
+  Consuel: { price: "Pack Enedis + Consuel : 89 € HT par dossier.", scope: "Préparation administrative, coordination des pièces et suivi des échanges. Les frais des organismes sont précisés séparément." },
+  "Raccordement Enedis": { price: "Pack Enedis + Consuel : 89 € HT par dossier.", scope: "Les deux démarches suivies ensemble. Frais des organismes précisés séparément avant engagement." },
+};
+const articleOffer = articleOfferByCategory[String(frontmatter.category)];
 const delegationBridgeByCategory: Record<
   string,
   { title: string; intro: string; signals: string[]; href: string; label: string }
@@ -397,8 +403,9 @@ const breadcrumbs = [
 
       <div class="article-main">
         <aside class="article-installateur" aria-label="Accompagnement pour les installateurs">
-          <p><strong>Vous êtes installateur ?</strong> Pour vos dossiers clients, découvrez ce que vous pouvez confier à Sunelys et les pièces à transmettre, dès un dossier ponctuel.</p>
+          <p><strong>Vous êtes installateur ? {articleOffer?.price}</strong> {articleOffer?.scope ?? "Confiez un dossier ponctuel ou le suivi de vos démarches à une équipe administrative dédiée."}</p>
           <a href={primaryServiceHref} data-track="cta_blog_service" data-track-label={frontmatter.slug}>{primaryServiceLabel} <span aria-hidden="true">→</span></a>
+          <a href="/ressources/checklist-dossier-photovoltaique" data-track="cta_article_checklist" data-track-label={frontmatter.slug}>Préparer les pièces avec la checklist <span aria-hidden="true">→</span></a>
         </aside>
         <div class="article-content">
           <Content />

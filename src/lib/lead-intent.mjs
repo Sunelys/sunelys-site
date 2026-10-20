@@ -7,7 +7,7 @@ export const leadNeeds = [
   ["MaPrimeRenov", "MaPrimeRénov'"],
   ["CEE", "CEE"],
   ["MaPrimeRenov + CEE", "MaPrimeRénov' + CEE"],
-  ["Pilotage complet", "Pilotage complet"],
+  ["Pilotage complet", "DP + Enedis + Consuel"],
   ["Je ne sais pas encore", "Je ne sais pas encore"],
 ];
 

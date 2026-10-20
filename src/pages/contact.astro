@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BrandSignature from "../components/BrandSignature.astro";
 import FormPrivacyNote from "../components/FormPrivacyNote.astro";
 import LeadFields from "../components/LeadFields.astro";
 
@@ -8,43 +7,6 @@ const successUrl = "https://sunelys.fr/merci?source=contact_form";
 const leadFormAction = import.meta.env.PUBLIC_LEAD_FORM_ACTION || "/api/leads";
 const bookingUrl = import.meta.env.PUBLIC_BOOKING_URL || "https://calendly.com/contact-sunelys/30min";
 const hasBookingUrl = Boolean(bookingUrl);
-
-const trustBullets = [
-  "Réponse sous 24 h ouvrées",
-  "Dossier ponctuel accepté",
-  "Aucun engagement",
-];
-
-const heroProofPoints = [
-  {
-    label: "Temps",
-    value: "Brief en 3 min",
-    text: "juste le contexte utile pour cadrer la reprise",
-  },
-  {
-    label: "Retour",
-    value: "24h ouvrées",
-    text: "une réponse humaine, orientée dossier",
-  },
-  {
-    label: "Départ",
-    value: "1 dossier suffit",
-    text: "pas besoin d’un flux complet pour commencer",
-  },
-];
-
-
-
-
-
-const blockedStageOptions = [
-  "Dossier bloqué / reprise urgente",
-  "Pièce ou complément à sécuriser",
-  "Volume à absorber",
-  "Suivi organisme à relancer",
-  "Choix du périmètre à déléguer",
-  "Je ne sais pas encore",
-];
 
 const supportCards = [
   {
@@ -72,132 +34,15 @@ const supportCards = [
   title="Contact installateurs photovoltaïques | Sunelys"
   description="Demandez un diagnostic administratif Sunelys sous 24 h ouvrées pour vos dossiers photovoltaïques bloqués ou chronophages : DP, Consuel, raccordement, EDF OA, MaPrimeRénov' et CEE."
 >
-  <section
-    class="contact-hero reveal"
-    aria-labelledby="contact-title"
-    data-track-view="contact_hero_view"
-    data-track-label="contact_diagnostic_hero"
-  >
-    <BrandSignature variant="human" />
-    <div class="hero-copy" data-reveal-item>
-      <p class="eyebrow">Diagnostic administratif</p>
+  <section class="contact-intake" aria-labelledby="contact-title" data-track-view="contact_hero_view" data-track-label="contact_diagnostic_hero">
+    <header class="intake-heading">
+      <p class="eyebrow">Contact Sunelys</p>
       <h1 id="contact-title">Parlons de votre dossier.</h1>
-      <p class="hero-text">
-        Indiquez la démarche à confier. L’équipe Sunelys vous répond sous 24 h ouvrées pour préciser les pièces, le forfait et la prochaine étape.
-      </p>
+      <p class="intake-summary">DP, Consuel, raccordement : indiquez votre besoin. Nous vous répondons sous 24 h ouvrées.</p>
+    </header>
 
-      <div class="hero-actions">
-        <a class="btn btn-accent" href="#contact-form" data-track="cta_contact_form_top">
-          Faire le point sur mon dossier
-          <span aria-hidden="true">→</span>
-        </a>
-        {
-          hasBookingUrl && (
-            <a
-              class="hero-link"
-              href={bookingUrl}
-              target="_blank"
-              rel="noreferrer"
-              data-track="cta_contact_booking_top"
-            >
-              Réserver un échange
-              <span aria-hidden="true">↗</span>
-            </a>
-          )
-        }
-      </div>
-
-      <ul class="trust-list" aria-label="Garanties du diagnostic">
-        {
-          trustBullets.map((item) => (
-            <li>
-              <i aria-hidden="true"></i>
-              {item}
-            </li>
-          ))
-        }
-      </ul>
-
-      <div class="hero-proof-strip" aria-label="Repères du diagnostic">
-        {
-          heroProofPoints.map((point) => (
-            <article>
-              <span>{point.label}</span>
-              <strong>{point.value}</strong>
-              <p>{point.text}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-
-    <figure class="contact-portrait" data-reveal-item>
-      <picture>
-        <source srcset="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.avif" type="image/avif" />
-        <img
-          src="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.png"
-          alt="Myriam Zaoui, fondatrice de Sunelys"
-          width="1054"
-          height="1492"
-          loading="eager"
-          decoding="async"
-          fetchpriority="high"
-        />
-      </picture>
-      <figcaption><strong>Myriam Zaoui</strong><span>Fondatrice de Sunelys</span><p>Votre demande est étudiée par l'équipe Sunelys, avec un premier retour sous 24 h ouvrées.</p></figcaption>
-    </figure>
-  </section>
-
-  <section
-    class="contact-main reveal"
-    aria-labelledby="form-title"
-    data-track-view="contact_intake_view"
-    data-track-label="contact_diagnostic_intake"
-  >
-    <div class="form-intro" data-reveal-item>
-      <p class="eyebrow">Votre contexte</p>
-      <h2 id="form-title">Un brief court, une réponse directement exploitable.</h2>
-      <p>
-        Votre nom, votre email et la démarche concernée suffisent pour commencer. Le volume, l’urgence et le
-        premier blocage restent optionnels si vous souhaitez préciser le contexte.
-      </p>
-
-      <div class="response-flow">
-        <p>Après l’envoi</p>
-        <ol>
-          <li><span>01</span> Lecture de votre demande</li>
-          <li><span>02</span> Identification du périmètre utile</li>
-          <li><span>03</span> Réponse ou proposition d’échange</li>
-        </ol>
-      </div>
-
-      <div class="contact-details">
-        {
-          supportCards.map((item) => (
-            <a
-              href={item.href}
-              data-track={item.track}
-              target={item.href.startsWith("http") ? "_blank" : undefined}
-              rel={item.href.startsWith("http") ? "noreferrer" : undefined}
-            >
-              <span>{item.title}</span>
-              <strong>{item.value}</strong>
-              <i aria-hidden="true">{item.href.startsWith("http") ? "↗" : "→"}</i>
-            </a>
-          ))
-        }
-      </div>
-    </div>
-
-    <div class="form-card" data-reveal-item>
-      <div class="form-card-head">
-        <div>
-          <p>Brief de diagnostic</p>
-          <strong>3 champs essentiels pour commencer</strong>
-        </div>
-        <span><i aria-hidden="true"></i> Disponible</span>
-      </div>
-
+    <div class="intake-form" aria-labelledby="form-title" data-track-view="contact_intake_view" data-track-label="contact_diagnostic_intake">
+      <h2 id="form-title">Votre demande</h2>
       <form
         id="contact-form"
         class="form-grid"
@@ -241,6 +86,38 @@ const supportCards = [
         <FormPrivacyNote />
       </form>
     </div>
+
+    <aside class="intake-info" aria-label="Votre interlocutrice et nos coordonnées">
+    <figure class="intake-portrait" data-reveal-item>
+      <picture>
+        <source srcset="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.avif" type="image/avif" />
+        <img
+          src="/images/site/founder-variants/myriam-zaoui-founder-variant-b-editorial-2026-07-29.png"
+          alt="Myriam Zaoui, fondatrice de Sunelys"
+          width="1054"
+          height="1492"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+      </picture>
+      <figcaption><strong>Myriam Zaoui</strong><span>Fondatrice de Sunelys</span></figcaption>
+    </figure>
+      <div class="intake-details">
+        {hasBookingUrl && (
+          <a class="intake-booking" href={bookingUrl} target="_blank" rel="noreferrer" data-track="cta_contact_booking_top">
+            Réserver un échange <span aria-hidden="true">↗</span>
+          </a>
+        )}
+        {supportCards.map((item) => (
+          <a href={item.href} data-track={item.track}
+            target={item.href.startsWith("http") ? "_blank" : undefined}
+            rel={item.href.startsWith("http") ? "noreferrer" : undefined}>
+            <span>{item.title}</span><strong>{item.value}</strong>
+          </a>
+        ))}
+      </div>
+    </aside>
   </section>
 </BaseLayout>
 
@@ -399,818 +276,71 @@ const supportCards = [
 </script>
 
 <style>
-  .contact-portrait { margin: 0; min-width: 0; max-width: 420px; width: 100%; justify-self: center; }
-  .contact-portrait picture { display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 4px; }
-  .contact-portrait img { width: 100%; height: 100%; display: block; object-fit: cover; object-position: center 25%; }
-  .contact-portrait figcaption { display: grid; gap: 4px; padding: 20px 0 0; }
-  .contact-portrait figcaption strong { font-size: 22px; }
-  .contact-portrait figcaption span { color: var(--text-muted); font-size: 15px; }
-  .contact-portrait figcaption p { color: var(--text-muted); margin-top: 8px; font-size: 16px; }
-  @media (max-width: 760px) {
-    .contact-portrait { max-width: none; display: grid; grid-template-columns: 108px minmax(0, 1fr); align-items: center; gap: 20px; }
-    .contact-portrait picture { aspect-ratio: 3 / 4; }
-    .contact-portrait figcaption { padding: 0; }
-    .contact-portrait figcaption strong { font-size: 20px; }
-    .contact-portrait figcaption p { font-size: 15px; }
-  }
-  .contact-hero {
-    position: relative;
-    isolation: isolate;
+  /* Page-specific specificity keeps shared F1 rules outside this intake untouched. */
+  :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake {
     display: grid;
-    grid-template-columns: minmax(0, 1.06fr) minmax(350px, 0.74fr);
-    gap: clamp(1.5rem, 4vw, 4.2rem);
-    align-items: center;
-    overflow: hidden;
-    padding: clamp(1.5rem, 3.8vw, 4rem);
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(70% 100% at 0% 100%, rgba(212, 130, 42, 0.2), transparent 62%),
-      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.3), transparent 62%),
-      var(--ink);
-    box-shadow: var(--shadow-md);
-  }
-
-  .contact-hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-    background-size: 3.1rem 3.1rem;
-    mask-image: radial-gradient(70% 80% at 18% 30%, #000 0%, transparent 78%);
-    opacity: 0.42;
-  }
-
-  .contact-hero > .hero-copy,
-  .contact-hero > .contact-person {
-    position: relative;
-    z-index: 1;
-  }
-
-  .eyebrow {
-    color: var(--system);
-    font-size: 0.7rem;
-    font-weight: 780;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .hero-copy .eyebrow {
-    color: var(--accent);
-  }
-
-  h1 {
-    max-width: 14ch;
-    margin-top: 0.7rem;
-    color: #ffffff;
-    font-size: clamp(2.4rem, 5vw, 5.15rem);
-    line-height: 0.94;
-  }
-
-  .hero-text {
-    max-width: 61ch;
-    margin-top: 1.15rem;
-    color: rgba(255, 255, 255, 0.64);
-    font-size: 0.96rem;
-    line-height: 1.65;
-  }
-
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
-  }
-
-  .hero-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: rgba(255, 255, 255, 0.76);
-    font-size: 0.76rem;
-    font-weight: 740;
-    text-decoration: underline;
-    text-decoration-color: rgba(255, 255, 255, 0.22);
-    text-underline-offset: 0.28rem;
-  }
-
-  .hero-link span {
-    color: var(--accent);
-  }
-
-  .trust-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem 1.2rem;
-    margin: 1.35rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .trust-list li {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.68rem;
-    font-weight: 650;
-  }
-
-  .trust-list i,
-  .form-card-head > span i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.14);
-  }
-
-  .hero-proof-strip {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.72rem;
-    max-width: 45rem;
-    margin-top: 1.45rem;
-  }
-
-  .hero-proof-strip article {
-    min-height: 8.4rem;
-    padding: 0.9rem;
-    border: 1px solid rgba(255, 255, 255, 0.13);
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.055);
-    backdrop-filter: blur(14px);
-  }
-
-  .hero-proof-strip span {
-    color: var(--accent);
-    font-size: 0.58rem;
-    font-weight: 820;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .hero-proof-strip strong {
-    display: block;
-    margin-top: 0.55rem;
-    color: #ffffff;
-    font-size: 0.92rem;
-    line-height: 1.15;
-  }
-
-  .hero-proof-strip p {
-    margin-top: 0.55rem;
-    color: rgba(255, 255, 255, 0.54);
-    font-size: 0.68rem;
-    line-height: 1.46;
-  }
-
-  .contact-person {
-    position: relative;
-    min-height: 31rem;
-    overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 16px;
-    background: var(--ink-soft);
-    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.28);
-  }
-
-  .contact-person picture,
-  .contact-person img {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-
-  .contact-person picture {
-    position: absolute;
-    inset: 0;
-  }
-
-  .contact-person img {
-    object-fit: cover;
-    object-position: center 28%;
-    filter: saturate(0.9) contrast(1.03);
-  }
-
-  .contact-person::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(180deg, transparent 30%, rgba(6, 13, 25, 0.16) 50%, rgba(6, 13, 25, 0.94) 100%),
-      linear-gradient(90deg, rgba(14, 23, 38, 0.08), transparent 55%);
-  }
-
-  .person-overlay {
-    position: absolute;
-    z-index: 1;
-    inset: auto 1.15rem 1.15rem;
-    display: grid;
-    gap: 0.72rem;
-    color: #ffffff;
-  }
-
-  .person-overlay > span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    width: fit-content;
-    padding: 0.36rem 0.58rem;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    border-radius: 999px;
-    background: rgba(6, 13, 25, 0.56);
-    backdrop-filter: blur(12px);
-    color: rgba(255, 255, 255, 0.72);
-    font-size: 0.62rem;
-    font-weight: 720;
-  }
-
-  .person-overlay > span i {
-    width: 0.42rem;
-    height: 0.42rem;
-    border-radius: 50%;
-    background: var(--success);
-    box-shadow: 0 0 0 3px rgba(29, 155, 117, 0.18);
-  }
-
-  .person-overlay blockquote {
-    max-width: 31ch;
-    margin: 0;
-    color: #ffffff;
-    font-size: clamp(1rem, 1.4vw, 1.3rem);
-    font-weight: 720;
-    line-height: 1.42;
-  }
-
-  .person-overlay > div {
-    padding-top: 0.7rem;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-  }
-
-  .person-overlay strong {
-    display: block;
-    color: #ffffff;
-    font-size: 0.76rem;
-  }
-
-  .person-overlay p {
-    margin-top: 0.12rem;
-    color: rgba(255, 255, 255, 0.54);
-    font-size: 0.64rem;
-  }
-
-  .contact-triage {
-    position: relative;
-    overflow: hidden;
-    display: grid;
-    grid-template-columns: minmax(270px, 0.46fr) minmax(0, 1fr);
-    gap: clamp(1rem, 2.8vw, 1.7rem);
-    padding: clamp(1.2rem, 3vw, 2rem);
-    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(80% 120% at 100% 0%, color-mix(in srgb, var(--system-soft) 78%, transparent), transparent 65%),
-      linear-gradient(90deg, rgba(54, 98, 227, 0.045) 1px, transparent 1px) 0 0 / 40px 40px,
-      color-mix(in srgb, var(--surface) 97%, white);
-    box-shadow: var(--shadow-sm);
-  }
-
-  .contact-triage::before {
-    content: "";
-    position: absolute;
-    inset: 0 0 auto;
-    height: 3px;
-    background: linear-gradient(90deg, var(--system), var(--accent));
-  }
-
-  .triage-head {
-    display: grid;
-    align-content: center;
-    gap: 0.7rem;
-  }
-
-  .triage-head h2 {
-    max-width: 15ch;
-    margin: 0;
-    color: var(--ink);
-    font-size: clamp(2rem, 3.7vw, 3.6rem);
-    line-height: 0.96;
-    letter-spacing: -0.05em;
-  }
-
-  .triage-head > p:not(.eyebrow) {
-    max-width: 45ch;
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.86rem;
-    line-height: 1.62;
-  }
-
-  .triage-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.65rem;
-  }
-
-  .triage-card {
-    min-height: 14.5rem;
-    display: grid;
-    align-content: space-between;
-    gap: 0.75rem;
-    padding: 1rem;
-    border: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
-    border-radius: 16px;
-    background: rgba(255, 255, 255, 0.78);
-    color: var(--text);
-    text-decoration: none;
-    transition:
-      border-color 160ms ease,
-      background-color 160ms ease,
-      transform 160ms ease;
-  }
-
-  .triage-card:hover,
-  .triage-card:focus-visible {
-    border-color: color-mix(in srgb, var(--system) 26%, var(--line));
-    background: #ffffff;
-    transform: translateY(-2px);
-  }
-
-  .triage-card > span {
-    color: var(--system);
-    font-size: 0.62rem;
-    font-weight: 820;
-    letter-spacing: 0;
-    text-transform: uppercase;
-  }
-
-  .triage-card strong {
-    max-width: 20ch;
-    color: var(--ink);
-    font-size: 1.05rem;
-    line-height: 1.16;
-  }
-
-  .triage-card p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 0.75rem;
-    line-height: 1.52;
-  }
-
-  .triage-card small {
-    display: flex;
-    justify-content: space-between;
-    gap: 0.8rem;
-    align-items: center;
-    padding-top: 0.72rem;
-    border-top: 1px solid color-mix(in srgb, var(--system) 10%, var(--line));
-    color: var(--text);
-    font-size: 0.65rem;
-    font-weight: 760;
-  }
-
-  .triage-card i {
-    color: var(--accent-strong);
-    font-style: normal;
-    transition: transform 160ms ease;
-  }
-
-  .triage-card:hover i,
-  .triage-card:focus-visible i {
-    transform: translateX(3px);
-  }
-
-  .triage-card.is-featured {
-    background:
-      radial-gradient(90% 90% at 100% 0%, rgba(212, 130, 42, 0.18), transparent 62%),
-      var(--ink);
-    border-color: color-mix(in srgb, var(--accent) 30%, transparent);
-    color: #ffffff;
-  }
-
-  .triage-card.is-featured > span,
-  .triage-card.is-featured i {
-    color: var(--accent);
-  }
-
-  .triage-card.is-featured strong,
-  .triage-card.is-featured small {
-    color: #ffffff;
-  }
-
-  .triage-card.is-featured p {
-    color: rgba(255, 255, 255, 0.62);
-  }
-
-  .triage-card.is-featured small {
-    border-top-color: rgba(255, 255, 255, 0.12);
-  }
-
-  .contact-main {
-    display: grid;
-    grid-template-columns: minmax(280px, 0.66fr) minmax(0, 1.34fr);
-    gap: clamp(1.5rem, 4vw, 4rem);
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-areas: "heading form" "info form";
     align-items: start;
-    padding: clamp(1.3rem, 3vw, 2.6rem);
-    border-radius: var(--radius-xl);
-    background:
-      radial-gradient(70% 90% at 100% 0%, rgba(54, 98, 227, 0.11), transparent 56%),
-      linear-gradient(135deg, #ffffff 0%, var(--system-soft) 58%, color-mix(in srgb, var(--accent) 8%, #ffffff));
-  }
-
-  .form-intro {
-    position: sticky;
-    top: 6.5rem;
-  }
-
-  .form-intro h2 {
-    max-width: 16ch;
-    margin-top: 0.6rem;
-    font-size: clamp(2rem, 3.7vw, 3.7rem);
-  }
-
-  .form-intro > p:not(.eyebrow) {
-    max-width: 52ch;
-    margin-top: 1rem;
-    color: var(--text-muted);
-    font-size: 0.84rem;
-    line-height: 1.62;
-  }
-
-  .diagnostic-deliverables {
-    display: grid;
-    gap: 0.7rem;
-    margin-top: 1.35rem;
-  }
-
-  .diagnostic-deliverables article {
-    padding: 0.88rem;
-    border: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-    border-radius: 14px;
-    background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 12px 36px rgba(19, 38, 78, 0.06);
-  }
-
-  .diagnostic-deliverables span {
-    color: var(--system);
-    font-size: 0.56rem;
-    font-weight: 820;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .diagnostic-deliverables strong {
-    display: block;
-    margin-top: 0.38rem;
-    color: var(--text);
-    font-size: 0.78rem;
-    line-height: 1.25;
-  }
-
-  .diagnostic-deliverables p {
-    margin-top: 0.38rem;
-    color: var(--text-muted);
-    font-size: 0.68rem;
-    line-height: 1.5;
-  }
-
-  .response-flow {
-    margin-top: 1.5rem;
-    padding-top: 1rem;
-    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-  }
-
-  .response-flow > p {
-    color: var(--system);
-    font-size: 0.64rem;
-    font-weight: 780;
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-  }
-
-  .response-flow ol {
-    display: grid;
-    gap: 0.55rem;
-    margin: 0.8rem 0 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  .response-flow li {
-    display: flex;
-    gap: 0.6rem;
-    color: var(--text);
-    font-size: 0.73rem;
-    font-weight: 680;
-  }
-
-  .response-flow li span {
-    color: var(--system);
-    font-size: 0.63rem;
-    font-weight: 800;
-  }
-
-  .contact-details {
-    display: grid;
-    margin-top: 1.5rem;
-    border-top: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-  }
-
-  .contact-details a {
-    display: grid;
-    grid-template-columns: minmax(70px, auto) 1fr auto;
-    gap: 0.7rem;
-    align-items: center;
-    min-height: 3.8rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--system) 14%, var(--line));
-    color: var(--text);
-    text-decoration: none;
-  }
-
-  .contact-details a > span {
-    color: var(--system);
-    font-size: 0.6rem;
-    font-weight: 780;
-    text-transform: uppercase;
-  }
-
-  .contact-details strong {
-    font-size: 0.7rem;
-    line-height: 1.4;
-  }
-
-  .contact-details i {
-    color: var(--accent);
-    font-size: 0.82rem;
-    font-style: normal;
-  }
-
-  .form-card {
-    overflow: hidden;
-    border: 1px solid color-mix(in srgb, var(--system) 12%, var(--line));
-    border-radius: 20px;
-    background: #ffffff;
-    box-shadow: 0 24px 90px rgba(19, 38, 78, 0.13);
-  }
-
-  .form-card-head {
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-    align-items: center;
-    padding: 1rem 1.2rem;
-    border-bottom: 1px solid var(--line);
-    background:
-      radial-gradient(70% 100% at 100% 0%, color-mix(in srgb, var(--system) 11%, transparent), transparent 68%),
-      linear-gradient(135deg, #ffffff, #f8fafc);
-  }
-
-  .form-card-head > div {
-    display: grid;
-    gap: 0.12rem;
-  }
-
-  .form-card-head p {
-    color: var(--system);
-    font-size: 0.62rem;
-    font-weight: 780;
-    text-transform: uppercase;
-  }
-
-  .form-card-head strong {
-    color: var(--text);
-    font-size: 0.78rem;
-  }
-
-  .form-card-head > span {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45rem;
-    color: var(--success);
-    font-size: 0.62rem;
-    font-weight: 720;
-  }
-
-  .form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.75rem;
-    padding: clamp(1rem, 2.4vw, 1.7rem);
-    scroll-margin-top: 6.5rem;
-  }
-
-  .form-assurances {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 0.65rem;
-    margin-bottom: 0.2rem;
-  }
-
-  .form-assurances article {
-    padding: 0.78rem;
-    border: 1px solid color-mix(in srgb, var(--system) 13%, var(--line));
-    border-radius: 12px;
-    background: color-mix(in srgb, var(--system-soft) 44%, #ffffff);
-  }
-
-  .form-assurances strong {
-    display: block;
-    color: var(--text);
-    font-size: 0.69rem;
-    line-height: 1.25;
-  }
-
-  .form-assurances p {
-    margin-top: 0.32rem;
-    color: var(--text-muted);
-    font-size: 0.62rem;
-    line-height: 1.4;
-  }
-
-  label {
-    display: grid;
-    gap: 0.36rem;
-  }
-
-  label > span {
-    color: var(--text);
-    font-size: 0.68rem;
-    font-weight: 740;
-  }
-
-  label em {
-    color: var(--text-muted);
-    font-size: 0.61rem;
-    font-style: normal;
-    font-weight: 600;
-  }
-
-  input,
-  select,
-  textarea {
-    width: 100%;
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    background: #f8fafc;
-    color: var(--text);
-    padding: 0.72rem 0.8rem;
-    font: inherit;
-    transition: border-color 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-  }
-
-  input,
-  select {
-    min-height: 2.9rem;
-  }
-
-  textarea {
-    resize: vertical;
-  }
-
-  input:focus-visible,
-  select:focus-visible,
-  textarea:focus-visible {
-    border-color: color-mix(in srgb, var(--system) 70%, var(--line));
-    outline: none;
-    background: #ffffff;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--system-soft) 72%, transparent);
-  }
-
-  .full-width,
-  .submit-btn {
-    grid-column: 1 / -1;
-  }
-
-  .submit-btn {
-    width: 100%;
+    gap: 28px 64px;
+    padding: 40px 0 56px;
+    background: transparent;
     border: 0;
-    margin-top: 0.1rem;
+    box-shadow: none;
+    letter-spacing: 0;
   }
-
-  .form-note {
-    color: var(--text-muted);
-    font-size: 0.65rem;
-    line-height: 1.45;
-    text-align: center;
+  .intake-heading { grid-area: heading; min-width: 0; }
+  .eyebrow { margin: 0 0 12px; color: var(--accent); }
+  :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake h1 {
+    max-width: 14ch;
+    margin: 0;
+    font-size: 48px !important;
+    line-height: 1.08;
+    letter-spacing: 0;
   }
-
-  @media (max-width: 980px) {
-    .contact-hero,
-    .contact-triage,
-    .contact-main {
-      grid-template-columns: 1fr;
-    }
-
-    .form-intro {
-      position: static;
-      order: 2;
-    }
-
-    .form-card {
-      order: 1;
-    }
+  .intake-summary { max-width: 42ch; margin: 20px 0 0; color: var(--text-muted); }
+  .intake-form {
+    grid-area: form;
+    min-width: 0;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    background: var(--surface);
   }
-
-  @media (max-width: 620px) {
-    .contact-hero,
-    .contact-triage,
-    .contact-main {
-      padding: 1.2rem;
+  :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake h2 {
+    margin: 0 0 20px;
+    font-size: 22px !important;
+    line-height: 1.2;
+    letter-spacing: 0;
+  }
+  .form-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; padding: 0; }
+  .submit-btn { width: 100%; min-height: 48px; margin: 0; border: 0; }
+  .intake-form :global(.form-privacy-note) { grid-column: 1 / -1; color: var(--text-muted); }
+  .intake-info { grid-area: info; min-width: 0; }
+  .intake-portrait { display: grid; grid-template-columns: 80px minmax(0, 1fr); gap: 16px; align-items: center; margin: 0; }
+  .intake-portrait picture { display: block; height: 100px; overflow: hidden; border-radius: 4px; }
+  .intake-portrait img { display: block; width: 80px; height: 100px; object-fit: cover; object-position: center 25%; }
+  .intake-portrait figcaption { display: grid; gap: 4px; }
+  .intake-portrait figcaption span { color: var(--text-muted); font-size: 14px; }
+  .intake-details { display: grid; margin-top: 24px; }
+  .intake-details a { display: grid; gap: 4px; padding: 12px 0; border-bottom: 1px solid var(--line); text-decoration: none; overflow-wrap: anywhere; }
+  .intake-details a > span { color: var(--text-muted); font-size: 14px; }
+  .intake-details strong { font-size: 15px; font-weight: 500; }
+  .intake-details .intake-booking { display: flex; justify-content: space-between; gap: 12px; color: var(--accent); }
+  .intake-details a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  @media (max-width: 900px) {
+    :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake { gap: 24px 32px; }
+    :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake h1 { font-size: 40px !important; }
+  }
+  @media (max-width: 700px) {
+    :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: "heading" "form" "info";
+      padding: 24px 0 40px;
+      gap: 24px;
     }
-
-    .hero-actions {
-      align-items: stretch;
-      flex-direction: column;
-    }
-
-    .hero-actions .btn,
-    .hero-link {
-      width: 100%;
-      justify-content: center;
-    }
-
-    .hero-proof-strip,
-    .triage-grid,
-    .form-assurances {
-      grid-template-columns: 1fr;
-    }
-
-    .triage-card {
-      min-height: 12rem;
-    }
-
-    .hero-proof-strip article {
-      min-height: auto;
-    }
-
-    .contact-person {
-      min-height: 11rem;
-    }
-
-    .contact-person picture {
-      width: 42%;
-    }
-
-    .contact-person img {
-      object-position: center 24%;
-    }
-
-    .contact-person::after {
-      background:
-        linear-gradient(90deg, transparent 22%, rgba(6, 13, 25, 0.82) 48%, rgba(6, 13, 25, 0.98) 100%),
-        linear-gradient(180deg, transparent, rgba(6, 13, 25, 0.34));
-    }
-
-    .person-overlay {
-      inset: 1rem 1rem 1rem 38%;
-      align-content: center;
-      gap: 0.46rem;
-    }
-
-    .person-overlay > span {
-      padding: 0;
-      border: 0;
-      background: transparent;
-      backdrop-filter: none;
-    }
-
-    .person-overlay blockquote {
-      font-size: 0.86rem;
-      line-height: 1.38;
-    }
-
-    .person-overlay > div {
-      padding-top: 0.45rem;
-    }
-
-    .form-grid {
-      grid-template-columns: 1fr;
-      padding: 1rem;
-    }
-
-    .full-width,
-    .submit-btn {
-      grid-column: 1;
-    }
-
-    .contact-details a {
-      grid-template-columns: 1fr auto;
-      padding: 0.6rem 0;
-    }
-
-    .contact-details strong {
-      grid-column: 1;
-    }
-
-    .contact-details i {
-      grid-column: 2;
-      grid-row: 1 / span 2;
-    }
+    :global(body[data-design="f1"][data-page="/contact"]) :global(main) .contact-intake h1 { max-width: 16ch; font-size: 36px !important; }
+    .intake-summary { margin-top: 12px; }
+    .intake-form { padding: 20px 16px; }
   }
 </style>

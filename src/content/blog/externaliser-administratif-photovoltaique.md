@@ -4,7 +4,7 @@ title: "Externaliser l'administratif photovoltaïque : quoi déléguer et commen
 seoTitle: "Externaliser l'administratif photovoltaïque : guide"
 description: "Que déléguer, quand le faire et comment réussir l'externalisation administrative photovoltaïque sans perdre la maîtrise des dossiers."
 pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-20"
 category: "Organisation"
 readingTime: "8 min"
 coverImage: "/images/blog/externalisation-administrative-solaire-photo.jpg"
@@ -46,6 +46,22 @@ faqItems:
 Externaliser l'administratif photovoltaïque consiste à confier tout ou partie des démarches qui entourent un projet solaire : déclaration préalable, dossier Consuel, raccordement Enedis, suivi des pièces, relances et traçabilité des statuts. L'objectif n'est pas de sortir un sujet de l'entreprise pour ne plus le voir. L'objectif est de retrouver du temps commercial, de réduire les retours évitables et de garder une vision claire sur l'avancement des dossiers.
 
 Pour un installateur, la bonne question n'est donc pas seulement "combien coûte un prestataire ?". La vraie question est : combien coûte aujourd'hui un dossier qui attend une pièce, une mairie qui demande un complément, un Consuel incomplet ou un raccordement mal suivi ?
+
+## Organiser la passation d’un premier dossier
+
+Le premier dossier permet de vérifier une méthode de travail sur un périmètre précis. Avant transmission, préparez une fiche de passation commune à l’installateur et au prestataire :
+
+| Point de passation | Élément à consigner | Responsable à identifier |
+|---|---|---|
+| Projet | Adresse, parcelle, configuration prévue et documents disponibles | Référent installateur |
+| Mission | DP, raccordement, Consuel ou autre prestation, avec exclusions explicites | Installateur et prestataire |
+| État de départ | Démarche non engagée, demande déposée, complément ou décision déjà reçu | Référent du dossier |
+| Prochaine action | Pièce à obtenir ou démarche à effectuer, personne chargée et échéance connue | Personne désignée pour cette action |
+| Trace de réalisation | Version transmise, preuve de dépôt, courrier ou retour reçu | Personne chargée du suivi |
+
+Un statut « en cours » ne suffit pas : il doit permettre de retrouver la prochaine action et son responsable. Les données techniques restent confirmées par les intervenants compétents ; le prestataire administratif prépare et suit le volet convenu. Le dépôt, la décision de l’organisme et la mise en service restent des étapes distinctes.
+
+La [checklist de préparation d’un dossier photovoltaïque](/ressources/checklist-dossier-photovoltaique) fournit une trame libre pour réunir les premiers éléments. Le [parcours Sunelys](/parcours) précise ensuite comment organiser les échanges et le suivi.
 
 ## Ce que l'on peut externaliser dans un projet photovoltaïque
 
