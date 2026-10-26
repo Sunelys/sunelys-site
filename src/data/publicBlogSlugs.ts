@@ -32,6 +32,10 @@ export const publicBlogSlugs = [
   "declaration-prealable-ou-permis-construire-photovoltaique",
   "cout-raccordement-enedis-photovoltaique",
 
+  // S8
+  "consuel-refuse-motifs-solutions",
+  "cout-gestion-administrative-photovoltaique",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",
