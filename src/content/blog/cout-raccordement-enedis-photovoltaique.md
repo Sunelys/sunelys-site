@@ -5,7 +5,7 @@ title: "Coût raccordement Enedis photovoltaïque : devis, travaux et points à 
 seoTitle: "Coût raccordement Enedis photovoltaïque"
 description: "Coût d'un raccordement Enedis photovoltaïque : devis, barème, travaux réseau, surplus, injection totale et coûts cachés côté installateur."
 pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+updatedDate: "2026-10-27"
 category: "Raccordement Enedis"
 readingTime: "8 min"
 coverImage: "/images/blog/raccordement-enedis-photovoltaique-photo.jpg"
@@ -78,9 +78,26 @@ Les facteurs principaux sont :
 
 Deux projets de même puissance peuvent donc avoir deux coûts très différents.
 
+## Quatre cas concrets pour préparer le budget
+
+Ces exemples servent à qualifier le dossier, pas à remplacer une offre de raccordement. La puissance des panneaux en **kWc** ne doit pas être confondue avec la puissance de raccordement en injection demandée à Enedis, exprimée en **kVA**.
+
+| Situation du chantier | Ce qu'il faut vérifier avant de chiffrer | Ce qu'on peut annoncer au client |
+|---|---|---|
+| Maison existante, autoconsommation sans injection | Point de livraison existant, puissance, dispositif de non-injection, déclaration et CACSI | Pas de vente d'électricité. Ne pas présenter l'absence d'injection comme une dispense de déclaration ni comme la gratuité de tout le projet. |
+| Maison existante, autoconsommation avec vente du surplus | Puissance d'injection, branchement et comptage existants, éventuels travaux demandés par Enedis | Le compteur existant ne suffit pas à garantir l'absence de frais. Le dossier doit distinguer les travaux éventuels, les formalités et le Consuel. |
+| Bâtiment avec vente de toute la production | Raccordement de production, puissance, emplacement des ouvrages et travaux nécessaires | Le budget doit être établi pour cette configuration : ne pas reprendre celui d'une installation en surplus. |
+| Bâtiment neuf ou projet nécessitant une extension du réseau | Demandes consommation et production, tracé, limites public/privé et offre Enedis | Séparer les coûts des différents travaux et les prestations privées ; attendre le chiffrage propre au projet avant de promettre un total. |
+
+Pour chaque dossier, demandez la référence de la proposition Enedis, sa date, son périmètre et son montant **HT/TTC**. Vérifiez également ce qui reste à la charge du client hors proposition : travaux privés, attestation Consuel et accompagnement administratif. Un poste nul ne signifie pas que l'ensemble du raccordement est gratuit.
+
+Sources consultées le **27 octobre 2026** : [démarches de raccordement photovoltaïque Enedis](https://www.enedis.fr/raccordement-installation-production-electrique), [autoconsommation sans injection](https://www.enedis.fr/autoconsommer-la-totalite-de-lenergie-produite-par-vos-panneaux) et [vente du surplus](https://www.enedis.fr/je-vends-le-surplus-de-ma-production-consommee).
+
 ## Ce que dit le barème Enedis
 
 Le barème officiel Enedis de facturation des raccordements au Réseau Public de Distribution, version 7.2, a été approuvé par la Commission de Régulation de l'Énergie le 17 avril 2025 et est entré en vigueur le 17 juillet 2025.
+
+**Attention au périmètre :** ce document comporte des chapitres de production explicitement intitulés « non ENR ». Leurs tableaux ne constituent pas une grille de prix photovoltaïque à copier. Pour une installation renouvelable, il faut vérifier les dispositions applicables au projet dans la documentation technique de référence d'Enedis et dans son offre de raccordement. C'est pourquoi nous ne publions pas ici de forfait national en euros qui pourrait être inapplicable à votre chantier.
 
 Ce barème ne doit pas être lu comme une grille commerciale simplifiée. Il définit les règles de calcul, les composants facturés et les cas où le coût est déterminé par formule ou sur devis.
 
