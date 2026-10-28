@@ -1057,6 +1057,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     internalLinks: [
       { href: "/checklist-declaration-prealable-solaire", label: "Checklist déclaration préalable solaire" },
+      { href: "/ressources/checklist-dossier-photovoltaique", label: "Checklist complète : DP, Enedis et Consuel" },
       { href: "/sous-traitance-declaration-prealable-solaire", label: "Sous-traitance DP solaire" },
       { href: "/tarif-declaration-prealable-photovoltaique", label: "Tarif DP photovoltaïque" },
       { href: "/services", label: "Voir les services" },
