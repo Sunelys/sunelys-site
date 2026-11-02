@@ -1,6 +1,6 @@
 # Suivi publication SEO Sunelys
 
-Derniere verification : 2026-10-26.
+Derniere verification : 2026-11-02.
 
 Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu avant toute automation ou preparation de nouvelle semaine.
 
@@ -14,17 +14,17 @@ Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu a
 
 ## Etat courant
 
-Etat global au 2026-10-26, apres verification publique :
+Etat global au 2026-11-02, apres verification publique :
 
 - S1 a S8 sont publiees et verifiees en HTTP 200 sur leurs routes canoniques `/blog/<slug>/`. S6 a ete publiee avec `cc34bc0`, S7 avec `d3484d7` et S8 avec `13676bf`.
 - S1 est validee, poussee et publiee.
 - Les deux URLs S1 et les deux URLs S2 repondent en `200` sur leurs routes canoniques `https://sunelys.fr/blog/<slug>/`.
 - S2 a ete poussee avec le commit `842572c` et est verifiee en ligne.
-- S8 est validee, poussee et publiee. Ne pas creer S9 sans nouveau contenu et validation explicite.
+- S9 est validee et publiee avec `1857027` : deux revisions d'articles existants verifiees en ligne le 2 novembre. S10 est le prochain lot a valider ; S10 a S12 restent prepares sans publication.
 
 ## Tableau de suivi
 
-| Semaine | Contenus | Etat local | Etat Git (S8 actualisee le 2026-10-26) | Etat public (S1-S8 verifies le 2026-10-26) | Prochaine action |
+| Semaine | Contenus | Etat local | Etat Git verifie le 2026-11-02 | Etat public verifie le 2026-11-02 | Prochaine action |
 |---|---|---|---|---|---|
 | S1 | `cerfa-declaration-prealable-panneaux-solaires`, `externaliser-administratif-photovoltaique` | Validee | Poussee sur `origin/main` | 200 / 200 | Terminee |
 | S2 | `declaration-prealable-panneaux-solaires-pieces-delais`, `attestation-consuel-photovoltaique` | Validee et publiee | Poussee (`842572c`) | 200 / 200 | Terminee |
@@ -34,6 +34,40 @@ Etat global au 2026-10-26, apres verification publique :
 | S6 | `prix-consuel-photovoltaique`, `gerer-soi-meme-ou-deleguer-administratif-solaire` | Validee et publiee | Poussee (`cc34bc0`) | 200 / 200 le 2026-10-12 | Terminee |
 | S7 | `declaration-prealable-ou-permis-construire-photovoltaique`, `cout-raccordement-enedis-photovoltaique` | Validee et publiee | Poussee (`d3484d7`) | 200 / 200 le 2026-10-19 | Terminee |
 | S8 | `consuel-refuse-motifs-solutions`, `cout-gestion-administrative-photovoltaique` | Validee et publiee | Poussee (`13676bf`) | 200 / 200 le 2026-10-26 | Terminee |
+
+## Préparation S9 à S12 du 2 novembre 2026
+
+Demande explicite : « fais un audit seo complet et prepare les prochaines semaines ». Cette demande autorise la préparation groupée de quatre semaines ; elle n'autorise pas leur publication. La règle de publication séquentielle et de validation explicite reste applicable. Deux interventions maximum par semaine, dont deux révisions pour S9.
+
+La vérification du 2 novembre confirme S1-S8 en HTTP 200 et présentes dans le sitemap. Le suivi distant à `e656618` confirme les publications S6 `cc34bc0`, S7 `d3484d7`, S8 `13676bf`. HTTP 200 ne signifie pas indexation : 34 des 40 URLs du sitemap sont indexées selon les inspections Google de cette passe.
+
+| Lot | Contenus | Préparation locale | État Git | État public | Prochaine action |
+|---|---|---|---|---|---|
+| S9 | `cerfa-declaration-prealable-panneaux-solaires`, `consuel-photovoltaique-delais-dossier` | Révisions validées et publiées | Poussées (`1857027`) | 200 / 200 ; nouveaux textes et métadonnées vérifiés le 2026-11-02 | Terminée ; S10 à valider |
+| S10 | `pieces-complementaires-dp-photovoltaique`, `mise-en-service-photovoltaique-apres-consuel` | Deux nouveaux textes rédigés et contrôlés | Non suivis, hors manifeste | Non publiés | Après S9, validation du lot puis publication |
+| S11 | `cacsi-autoconsommation-sans-injection-demarches`, `dossier-edf-oa-incomplet-documents` | Deux nouveaux textes rédigés et contrôlés | Non suivis, hors manifeste | Non publiés | Après S10, validation du lot puis publication |
+| S12 | `photos-declaration-prealable-panneaux-solaires`, `tableau-suivi-dossiers-photovoltaiques-installateur` | Deux nouveaux textes rédigés et contrôlés | Non suivis, hors manifeste | Non publiés | Après S11, validation du lot puis publication |
+
+Emplacement exact des textes préparés : `/Users/sunelys/Documents/SITE SUNELYS/sunelys-site-seo-novembre-20261102/src/content/blog/`. Ce worktree est basé sur `origin/main=e656618`. Le checkout principal reste à `525e9e8`, trente commits derrière, avec ses modifications préexistantes conservées. Ne pas publier les anciennes copies du checkout principal à la place de ces versions.
+
+- [Audit complet](</Users/sunelys/Documents/SITE SUNELYS/sunelys-site-seo-novembre-20261102/docs/audit-seo-complet-2026-11-02.md>).
+- [Calendrier, textes et lots de fichiers](</Users/sunelys/Documents/SITE SUNELYS/sunelys-site-seo-novembre-20261102/docs/seo-calendrier-s9-s12-2026-11-02.md>).
+- Contrôles : Node 22.23.0, 23 tests, build normal/audit de 46 pages ; prévisualisation temporaire/audit de 52 pages ; HTTP local, assets, liens et métadonnées des huit contenus conformes.
+- Le manifeste final est identique à origin/main. Les six nouvelles routes ne sont pas générées dans le build final et ne figurent pas dans son sitemap.
+- Écart explicitement conservé : contenu local préparé ≠ Git poussé ≠ site public. Aucun commit, push ou publication pendant cette préparation.
+- Avant publication, fixer les dates réelles, intégrer les liens entrants prévus et contrôler la semaine précédente. Pour S9, vérifier les nouvelles métadonnées et le texte public, pas seulement le code HTTP.
+
+## Publication S9 du 2026-11-02
+
+Validation explicite reçue : « ok pour s9 ». Commit de publication `1857027` poussé sur `main`, limité aux deux articles Cerfa et dossier technique Consuel. Aucun changement du manifeste ni publication de S10-S12.
+
+Vérification publique finale : 2026-11-02 10:05:40 CET. Les deux URLs répondent en HTTP 200, avec les nouveaux titres, descriptions, sections ajoutées et date de modification du 2 novembre dans les données structurées. Canonicals, sitemap et six références d'images contrôlés. Le statut Vercel du commit est `success`.
+
+Contrôles avant publication : Node 22.23.0, 23 tests réussis, build Astro et audit statique de 46 pages ; `git diff --check` conforme. Les seize routes S1-S8 ont été revérifiées en 200 et présentes dans le sitemap avant publication.
+
+État : S9 validée, poussée et publiée. S10 est le prochain lot, à valider séparément. Les six brouillons S10-S12 restent locaux, hors manifeste et non publiés. Le checkout principal ancien reste à `525e9e8`, avec ses changements préexistants ; seul son suivi est synchronisé. Aucun écart entre Git distant, suivi et site public concernant S9. Le travail non publié reste dans le worktree de préparation indiqué ci-dessus.
+
+Preuve détaillée : `/Users/sunelys/Documents/SITE SUNELYS/outputs/audit-seo-2026-11-02/data/publication-s9.json`.
 
 ## Definition des statuts
 
