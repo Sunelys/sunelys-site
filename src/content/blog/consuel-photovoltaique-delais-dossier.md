@@ -1,16 +1,16 @@
 ---
 slug: "consuel-photovoltaique-delais-dossier"
 title: "Dossier Consuel photovoltaïque : pièces et préparation"
-seoTitle: "Dossier Consuel photovoltaïque : pièces et préparation | Sunelys"
-description: "Préparer les pièces du dossier Consuel photovoltaïque : matériel posé, schéma, dossier technique et contrôle de cohérence avant transmission."
+seoTitle: "Dossier technique Consuel photovoltaïque : SC 144 et pièces"
+description: "Préparez le dossier technique Consuel photovoltaïque : choix du SC 144, version à jour, schéma, matériel posé et vérifications avant transmission."
 pubDate: "2026-04-23"
-updatedDate: "2026-10-15"
+updatedDate: "2026-11-02"
 category: "Consuel"
-readingTime: "5 min"
+readingTime: "7 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
 coverAlt: "Dossier Consuel photovoltaïque préparé sur un bureau professionnel avec documents et panneau solaire."
 ogImage: "/images/og/consuel-photovoltaique-delais-dossier.png"
-keywords: "Consuel photovoltaïque, dossier Consuel solaire, administratif photovoltaïque, installateur solaire"
+keywords: "dossier technique consuel, dossier technique SC 144, pièces Consuel photovoltaïque, préparation dossier Consuel"
 primaryServiceHref: "/dossier-consuel-photovoltaique"
 primaryServiceLabel: "Service dossier Consuel"
 secondaryServiceHref: "/contact"
@@ -42,6 +42,30 @@ relatedLinks:
 ---
 
 Ce guide se concentre sur la préparation documentaire. Pour planifier les jalons et comprendre les temps d’attente, consultez le [guide des délais Consuel](/blog/delai-consuel-photovoltaique).
+
+## Dossier technique SC 144 : partir de la configuration réelle
+
+Le formulaire d'attestation et le dossier technique remplissent deux fonctions distinctes. Le SC 144 décrit l'installation ; il ne constitue pas à lui seul une attestation visée. Pour les installations de production concernées, CONSUEL demande le dossier technique associé à l'attestation bleue ou violette.
+
+**Source vérifiée le 2 novembre 2026 :** la [page officielle des dossiers techniques](https://www.consuel.com/dossiers-techniques/) précise que les anciennes versions SC144A-4, SC144B-4, SC144C-4, SC144C2-1 et SC144D-4 ne sont plus acceptées depuis le 29 juin 2026. Reprenez la version et l'aide au remplissage proposées pour votre configuration au moment de la préparation.
+
+Avant de sélectionner le document, faites confirmer par l'installateur quatre informations : type d'onduleur, présence de stockage, architecture de raccordement et protections réellement mises en œuvre. Le nom commercial d'un kit ne suffit pas pour répondre à ces questions. Selon le cas de raccordement, un complément SC 144E et des pièces associées peuvent être nécessaires : vérifiez les instructions officielles avec l'intervenant technique.
+
+## La fiche de collecte à envoyer à l'équipe chantier
+
+Cette méthode de collecte est une proposition d'organisation, pas un formulaire CONSUEL supplémentaire :
+
+| À faire confirmer | Preuve à demander | Responsable de la réponse |
+|---|---|---|
+| Modules et onduleurs réellement posés | Références exactes et fiches techniques correspondantes | Équipe chantier ou référent technique |
+| Stockage présent ou absent | Référence de la batterie et architecture validée, le cas échéant | Installateur |
+| Raccordement et protections | Schéma final validé par la personne compétente | Référent technique |
+| Identification de l'installation | Adresse et référence réseau ou dossier disponible | Responsable administratif |
+| Modification depuis le devis | Liste des écarts et documents révisés | Chef de chantier |
+
+Une information non confirmée doit rester marquée « à confirmer ». Évitez de remplir une rubrique technique à partir d'un chantier voisin ou d'une référence ressemblante. Demandez ensuite au référent de valider la même version du schéma et de la fiche matériel : cette vérification évite de transmettre deux descriptions incompatibles de l'installation.
+
+Pour le choix de l'attestation, utilisez le [guide bleue ou violette](/blog/attestation-consuel-photovoltaique). Pour une anomalie déjà notifiée, partez du [rapport et des actions à organiser](/blog/consuel-refuse-motifs-solutions). Ces trois lectures répondent à des étapes différentes du dossier.
 
 ## Les pièces à rassembler et ce qu'il faut comparer
 

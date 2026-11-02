@@ -2,10 +2,10 @@
 slug: "cerfa-declaration-prealable-panneaux-solaires"
 title: "Cerfa déclaration préalable panneaux solaires : quel formulaire et comment le remplir"
 displayTitle: "Cerfa panneaux solaires : préparer votre DP"
-seoTitle: "Cerfa déclaration préalable panneaux solaires : guide"
-description: "Quel Cerfa utiliser pour une DP panneaux solaires, quels champs vérifier et comment éviter les pièces complémentaires en mairie."
+seoTitle: "Cerfa panneaux solaires : PDF officiel et exemple de DP"
+description: "Accédez au Cerfa officiel de DP panneaux solaires, puis vérifiez les champs à remplir avec un exemple fictif et une grille de contrôle avant dépôt."
 pubDate: "2026-06-22"
-updatedDate: "2026-10-02"
+updatedDate: "2026-11-02"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -44,6 +44,29 @@ faqItems:
 Au 2 octobre 2026, pour une déclaration préalable de panneaux solaires en toiture, Service-Public renvoie au formulaire **Cerfa 16702*03** : "Déclaration préalable constructions et travaux non soumis à permis de construire". Pour un installateur, il faut surtout retenir trois choses : une pose photovoltaïque sur toiture modifie l'aspect extérieur du bâtiment, la DP se prépare avec le formulaire et les pièces du bordereau, et une personne morale doit déposer par voie électronique dans les communes de plus de 3 500 habitants.
 
 Le piège n'est pas seulement de choisir le mauvais PDF. Le vrai risque, côté installateur, est de remplir un formulaire avec des informations incohérentes avec le devis, les plans, les photos ou le projet vendu. C'est ce qui déclenche des demandes de complément, des retours client et des chantiers qui glissent.
+
+## Où télécharger le PDF officiel du Cerfa ?
+
+**Vérification du 2 novembre 2026 :** la [page officielle du formulaire de déclaration préalable](https://www.service-public.gouv.fr/particuliers/vosdroits/R2028) indique toujours le **Cerfa 16702*03**. Son bouton « Remplir le formulaire » donne accès au document officiel. Utilisez cette page comme point de départ : un PDF récupéré dans un ancien dossier peut avoir été remplacé.
+
+Le téléchargement du formulaire ne constitue pas un dépôt. Après préparation, utilisez le canal accepté par la commune et conservez la preuve de transmission. Pour déterminer les annexes, consultez notre [liste des pièces d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais).
+
+## Exemple de description pour une toiture existante
+
+Exemple fictif destiné à montrer le niveau de précision, à adapter aux plans et au matériel du projet :
+
+> Pose en surimposition de 12 modules photovoltaïques noirs sur le versant sud de la toiture existante. L'implantation, les dimensions et l'aspect après travaux sont représentés sur les plans joints. La couverture existante est conservée hors interventions nécessaires à la pose.
+
+Ce texte ne doit être repris que si chaque information correspond au chantier. Il ne constitue ni un modèle de dossier accepté ni une autorisation. Si le nombre de panneaux, leur couleur ou le versant change, la description et les pièces graphiques doivent être corrigées ensemble.
+
+| Information à renseigner | Document à comparer | Erreur à éviter |
+|---|---|---|
+| Identité et qualité du demandeur | Mandat ou autorisation et identité concernée | Remplacer automatiquement le déclarant par le propriétaire |
+| Adresse et parcelle | Plan de situation et données cadastrales du projet | Recopier l'adresse de facturation |
+| Nombre et implantation des modules | Plan de toiture et implantation validée | Utiliser une ancienne variante commerciale |
+| Aspect et dimensions visibles | Fiche module, fixation et représentation après travaux | Décrire une pose intégrée si le projet est en surimposition |
+
+Pour préparer la collecte au sein de votre équipe, la [checklist du dossier photovoltaïque](/ressources/checklist-dossier-photovoltaique) complète ce guide. Si le dossier doit être repris, transmettez le formulaire actuel et la liste des pièces disponibles lors de votre [demande de cadrage DP](/contact?source=blog-cerfa-dp-panneaux-solaires#contact-form).
 
 ## Quel Cerfa utiliser pour des panneaux solaires ?
 
