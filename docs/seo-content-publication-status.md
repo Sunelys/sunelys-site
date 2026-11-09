@@ -125,3 +125,8 @@ Validation utilisateur « ok publie » reçue. Commit `d3484d7` limité au manif
 ## Publication S8 du 2026-10-26
 
 Validation utilisateur « publi » reçue. Commit `13676bf` limité au manifeste public, les deux contenus S8 et leurs assets étant déjà versionnés et relus. Build Astro Node 22.23.0, 23 tests, audit statique de 46 pages et `git diff --check` conformes. Les deux routes canoniques S8 répondent en HTTP 200 et figurent dans `https://sunelys.fr/sitemap.xml`. Aucun écart entre suivi, `origin/main` et site public concernant S8. Aucun contenu S9 n'a été créé.
+
+
+## Publication S10 — 2026-11-09T09:17:09.615196+01:00
+
+Validation explicite « publie » reçue. Commit `3042704` poussé sur main : deux nouveaux articles S10 datés du 9 novembre, manifeste et deux liens entrants, cinq fichiers uniquement. S1-S9 revérifiées en HTTP 200 avant publication. Sources Service-Public et Enedis relues. Node 22.23.0, tests inclus dans le build, build Astro et audit statique de 48 pages conformes ; diff indexé conforme. Les deux routes S10 répondent en HTTP 200, canonical présent et URLs présentes au sitemap public. Aucun contenu S11/S12 publié. S10 est validée, poussée et publiée ; S11 attend une validation distincte. Écart conservé : checkout principal ancien et modifié, brouillons S11/S12 locaux ; suivi, Git distant et public concordent sur S10. HTTP local non effectué.
