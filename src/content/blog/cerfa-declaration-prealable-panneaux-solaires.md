@@ -5,7 +5,7 @@ displayTitle: "Cerfa panneaux solaires : préparer votre DP"
 seoTitle: "Cerfa panneaux solaires : PDF officiel et exemple de DP"
 description: "Accédez au Cerfa officiel de DP panneaux solaires, puis vérifiez les champs à remplir avec un exemple fictif et une grille de contrôle avant dépôt."
 pubDate: "2026-06-22"
-updatedDate: "2026-11-02"
+updatedDate: "2026-11-09"
 category: "Déclaration préalable"
 readingTime: "8 min"
 coverImage: "/images/blog/declaration-prealable-solaire-photo.jpg"
@@ -170,6 +170,8 @@ Cette méthode est simple, mais elle demande de la continuité. Quand plusieurs 
 La délégation devient pertinente quand vos équipes savent vendre et poser, mais perdent du temps à remplir, vérifier, déposer et relancer des DP. Un formulaire mal rempli n'est pas seulement un détail administratif : il peut repousser la suite du projet et créer une tension client.
 
 Sunelys prend en charge la constitution, le contrôle et le suivi des déclarations préalables panneaux solaires pour les installateurs. L'objectif est de rendre chaque dépôt plus lisible, de limiter les demandes de complément et de garder une traçabilité claire jusqu'au retour mairie.
+
+Si vous souhaitez aussi déléguer la suite du dossier, notre [service de gestion administrative photovoltaïque pour installateurs](/gestion-administrative-photovoltaique) réunit DP, démarches Enedis et dossier Consuel. Le périmètre, les pièces à fournir et les frais sont précisés avant intervention ; la pose et la relation client restent entre vos mains.
 
 Pour cadrer le sujet, consultez la page [Déclaration préalable panneaux solaires](/declaration-prealable-panneaux-solaires), le guide sur les [pièces et délais d'une DP solaire](/blog/declaration-prealable-panneaux-solaires-pieces-delais), ou l'article sur les [erreurs fréquentes en déclaration préalable](/blog/declaration-prealable-panneaux-solaires-erreurs).
 

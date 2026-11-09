@@ -86,12 +86,12 @@ export interface SeoPageData {
 export const seoPages: Record<string, SeoPageData> = {
   gestionAdministrative: {
     slug: "gestion_administrative",
-    metaTitle: "Démarches administratives photovoltaïques | Sunelys",
+    metaTitle: "Gestion administrative photovoltaïque | Sunelys",
     metaDescription:
-      "Confiez vos démarches administratives PV : DP, Enedis et Consuel à 199 € HT par dossier. Préparation, dépôt et suivi pour installateurs, sans abonnement.",
-    heroTitle: "Vos démarches administratives photovoltaïques, prises en charge.",
+      "Installateurs : déléguez la gestion administrative photovoltaïque, DP, Enedis et Consuel. 199 € HT par dossier, hors frais des organismes, sans abonnement.",
+    heroTitle: "Gestion administrative photovoltaïque : déléguez vos dossiers.",
     heroSubtitle:
-      "Confiez la déclaration préalable, le raccordement Enedis et le dossier Consuel à une même équipe. Vous gardez la pose et la relation client ; nous préparons les pièces et suivons les échanges.",
+      "Installateurs photovoltaïques, confiez vos déclarations préalables, démarches Enedis et dossiers Consuel à une même équipe. Vous gardez la pose et la relation client ; Sunelys prépare les pièces et suit les échanges.",
     heroPrimaryLabel: "Confier mes démarches PV",
     heroSecondaryCta: {
       label: "Parler à un expert Sunelys",
@@ -122,7 +122,7 @@ export const seoPages: Record<string, SeoPageData> = {
     ],
     fitTitle: "Quand vos équipes passent plus de temps à suivre les dossiers qu'à produire.",
     fitIntro:
-      "Cette page parle aux installateurs qui veulent retrouver un pilotage propre sans continuer à faire absorber l'administratif par les commerciaux et les conducteurs de travaux.",
+      "Un dossier ponctuel, une étape à reprendre ou plusieurs chantiers à suivre : Sunelys intervient en complément de votre équipe, selon le périmètre convenu avant intervention.",
     fitItems: [
       "Vous traitez plusieurs dossiers chaque mois avec des statuts dispersés.",
       "Les relances clients, mairies, Consuel ou Enedis vivent dans plusieurs boîtes mail.",
@@ -161,12 +161,12 @@ export const seoPages: Record<string, SeoPageData> = {
       },
     ],
     scopeItems: [
-      "Déclaration préalable complète: pièces, dépôt mairie et suivi jusqu'à validation",
-      "Raccordement réseau et dossier Consuel dans un flux coordonné",
+      "Déclaration préalable : préparation des pièces, dépôt et suivi des retours de la mairie",
+      "Démarches Enedis et coordination documentaire Consuel, selon la configuration du projet",
       "EDF OA et aides : prestations complémentaires chiffrées séparément, hors forfait à 199 € HT",
       "Interlocuteur unique pour centraliser les échanges et les relances",
       "Production sous 48 h ouvrées lorsque les éléments techniques sont complets",
-      "Suivi en temps réel des statuts, blocages et validations",
+      "Suivi partagé des pièces attendues, retours reçus et prochaines actions",
     ],
     detailBlocks: [
       {
@@ -174,23 +174,23 @@ export const seoPages: Record<string, SeoPageData> = {
         text: "Le forfait réunit la déclaration préalable, le raccordement Enedis et le dossier Consuel. EDF OA, MaPrimeRénov’ et CEE peuvent être confiés à Sunelys au titre de prestations distinctes, à confirmer et chiffrer séparément avant engagement.",
       },
       {
-        title: "Pièces techniques qui bloquent les dossiers",
-        text: "Quand une DP bloque sur une pièce précise, Sunelys peut reprendre le contrôle documentaire: DP6 ou document graphique, plan de masse, plan de coupe, notice descriptive, insertion paysagère, pièces DP7/DP8 selon les demandes mairie, puis coordination avec Consuel et raccordement si la suite du parcours est concernée.",
+        title: "Comment nous reprenons un dossier",
+        text: "Vous transmettez les pièces disponibles et les derniers retours reçus. Sunelys vérifie la cohérence des informations, identifie les éléments manquants et précise la prochaine action. Le suivi distingue ensuite préparation, transmission, demande de complément et décision de l'organisme : un dépôt ne vaut pas accord.",
       },
       {
         title: "Reprise sans frais en cas d'erreur Sunelys",
         text: "Les dossiers DP complets sont préparés pour limiter les demandes de complément. Si une pièce complémentaire est réclamée du fait d'un oubli ou d'une erreur Sunelys sur la formule complète, elle est traitée sans frais selon les conditions de l'offre.",
       },
       {
-        title: "Tarif au dossier",
-        text: "Le parcours DP, raccordement Enedis et Consuel est proposé à 199 EUR HT par dossier. Le prix unitaire est fixe et la facturation mensuelle se base sur les dossiers réellement traités.",
+        title: "Qui valide quoi ?",
+        text: "Sunelys prend en charge le suivi administratif convenu. Votre équipe fournit et valide les informations techniques du chantier ; l'installateur conserve sa responsabilité sur les travaux. Les décisions et délais d'instruction relèvent de la mairie, d'Enedis et du Consuel, pas de Sunelys.",
       },
     ],
     processSteps: [
       "Transmission des éléments techniques",
       "Production du dossier sous 48 h ouvrées si complet",
       "Dépôt, suivi et relances",
-      "Validation et suivi en temps réel",
+      "Retours reçus et prochaines actions partagés",
     ],
     signalTitle: "Les signaux qui montrent que l'administratif freine déjà votre croissance",
     signalIntro:
@@ -213,7 +213,7 @@ export const seoPages: Record<string, SeoPageData> = {
       {
         question: "Qu'est-ce que la gestion administrative photovoltaïque ?",
         answer:
-          "C'est l'organisation complète des démarches nécessaires au bon déroulement d'un projet solaire: montage des dossiers, échanges administratifs et suivi des validations.",
+          "Ce service réunit la préparation des dossiers, le suivi des échanges avec la mairie, Enedis et le Consuel, et la centralisation des pièces et des retours. L'installateur conserve la pose, la relation client et la validation des informations techniques.",
       },
       {
         question: "À qui s'adresse ce service ?",
@@ -221,9 +221,9 @@ export const seoPages: Record<string, SeoPageData> = {
           "Aux installateurs photovoltaïques qui veulent externaliser l'administratif pour se concentrer sur la vente, la production et la relation client.",
       },
       {
-        question: "Sunelys peut-il gérer des volumes élevés de dossiers ?",
+        question: "Puis-je confier un seul dossier ou une seule démarche ?",
         answer:
-          "Oui. La méthode Sunelys est pensée pour des flux réguliers et pour des organisations multi-agences.",
+          "Oui, un dossier ponctuel est accepté, sans abonnement obligatoire. Vous pouvez aussi déléguer uniquement une DP, les démarches Enedis ou le dossier Consuel. Le périmètre et le tarif de cette prestation ciblée sont précisés avant intervention ; le forfait à 199 € HT correspond aux trois démarches réunies.",
       },
       {
         question: "Quel est le tarif du pilotage complet ?",
@@ -236,19 +236,19 @@ export const seoPages: Record<string, SeoPageData> = {
           "Elle concerne la formule DP complète avec dépôt et suivi assurés par Sunelys. Si un complément vient d'un oubli ou d'une erreur Sunelys, il est traité sans frais selon les conditions de l'offre.",
       },
       {
-        question: "Quels bénéfices concrets pour un installateur ?",
+        question: "Les 48 h ouvrées incluent-elles l'accord des organismes ?",
         answer:
-          "Moins de charge interne, des dossiers mieux cadrés, une meilleure maîtrise des délais et une expérience client plus fluide.",
+          "Non. Le délai de préparation annoncé s'applique lorsque le dossier est complet. Il ne correspond ni au délai d'instruction de la mairie, ni au délai d'Enedis ou du Consuel, ni à une date garantie de mise en service.",
       },
       {
         question: "Comment démarrer avec Sunelys ?",
         answer:
-          "Un échange de cadrage permet d'analyser vos flux administratifs et de définir le niveau de prise en charge adapté.",
+          "Indiquez la démarche à déléguer et où en est votre dossier dans le formulaire. Nous précisons avec vous le périmètre, le tarif et les pièces nécessaires avant intervention. Pour une reprise, les derniers retours de l'organisme permettent d'éviter de recommencer ce qui a déjà été fait.",
       },
     ],
-    finalTitle: "Externalisez votre pilotage administratif complet.",
+    finalTitle: "Quel dossier souhaitez-vous nous confier ?",
     finalText:
-      "Recevez un cadrage de pilotage complet pour identifier vos points de friction, votre volume et le périmètre à déléguer en priorité.",
+      "Une démarche précise ou le parcours DP, Enedis et Consuel : indiquez votre besoin. Nous définissons avec vous la prise en charge et les pièces nécessaires avant de commencer.",
     guideLinks: [
       {
         href: "/blog/demarches-administratives-photovoltaique",

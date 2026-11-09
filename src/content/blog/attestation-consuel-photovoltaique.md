@@ -4,7 +4,7 @@ title: "Attestation Consuel photovoltaïque : bleue, violette et dossier à pré
 seoTitle: "Attestation Consuel photovoltaïque : guide"
 description: "Quelle attestation Consuel choisir pour une installation photovoltaïque, quelles pièces joindre et comment éviter les retours avant mise en service."
 pubDate: "2026-06-22"
-updatedDate: "2026-06-22"
+updatedDate: "2026-11-09"
 category: "Consuel"
 readingTime: "8 min"
 coverImage: "/images/blog/consuel-photovoltaique-dossier-photo.jpg"
@@ -77,6 +77,8 @@ Consuel distingue les attestations selon l'installation électrique réalisée.
 | Installation de production avec stockage | Attestation de conformité violette, Cerfa 15524*01 | Photovoltaïque avec batterie |
 
 Cette distinction paraît simple, mais elle doit être vérifiée à chaque dossier. Un projet peut évoluer entre la vente et la pose : ajout de stockage, modification technique, changement de puissance, raccordement différent, matériel remplacé.
+
+Pour préparer votre budget, consultez le [prix du Consuel photovoltaïque](/blog/prix-consuel-photovoltaique) : ce guide distingue le coût de l'attestation, les éventuels frais complémentaires et les honoraires d'accompagnement administratif.
 
 Le bon réflexe est de figer la configuration réellement posée avant d'envoyer l'attestation. Si l'attestation ne correspond pas au chantier, le dossier peut revenir ou nécessiter des corrections.
 
