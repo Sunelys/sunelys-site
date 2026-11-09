@@ -36,6 +36,10 @@ export const publicBlogSlugs = [
   "consuel-refuse-motifs-solutions",
   "cout-gestion-administrative-photovoltaique",
 
+  // S10
+  "pieces-complementaires-dp-photovoltaique",
+  "mise-en-service-photovoltaique-apres-consuel",
+
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

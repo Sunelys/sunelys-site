@@ -249,3 +249,5 @@ Oui. Si l'installateur agit pour le client, le mandat fait partie des pièces à
 ### Pourquoi relier Enedis et Consuel dans le même suivi ?
 
 Parce que le Consuel peut conditionner la mise en service. Si les deux flux sont séparés, le raccordement peut rester bloqué sur une pièce que personne ne suit clairement.
+
+Après le visa, [vérifiez les actions encore attendues avant la mise en service](/blog/mise-en-service-photovoltaique-apres-consuel).

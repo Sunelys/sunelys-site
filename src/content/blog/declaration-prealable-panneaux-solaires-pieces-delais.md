@@ -176,3 +176,5 @@ Le délai d'instruction d'un dossier complet est en principe d'un mois. Si la ma
 ### Pourquoi les mairies demandent-elles des compléments ?
 
 Les compléments viennent souvent d'un dossier peu lisible : photos insuffisantes, état après projet absent, adresse incohérente, plan toiture imprécis ou mauvais canal de dépôt. Un contrôle avant dépôt réduit fortement ce risque.
+
+Une notification est déjà arrivée ? Voici comment [organiser la réponse aux pièces complémentaires](/blog/pieces-complementaires-dp-photovoltaique).
