@@ -40,6 +40,9 @@ export const publicBlogSlugs = [
   "pieces-complementaires-dp-photovoltaique",
   "mise-en-service-photovoltaique-apres-consuel",
 
+  // S11 published November 16, 2026
+  "cacsi-autoconsommation-sans-injection-demarches",
+  "dossier-edf-oa-incomplet-documents",
   // Already-live supporting articles
   "consuel-photovoltaique-delais-dossier",
   "declaration-prealable-panneaux-solaires-erreurs",

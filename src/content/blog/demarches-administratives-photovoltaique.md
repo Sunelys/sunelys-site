@@ -84,6 +84,8 @@ Pour déléguer cette étape, la [prestation de déclaration préalable panneaux
 
 ## 2. Réseau : déclaration sans injection ou raccordement
 
+En autoconsommation totale, [préparez le dossier CACSI](/blog/cacsi-autoconsommation-sans-injection-demarches).
+
 L'absence de vente d'électricité ne signifie pas absence de démarche réseau. [Enedis précise que l'autoconsommation totale doit être déclarée, même sans injection](https://www.enedis.fr/autoconsommer-la-totalite-de-lenergie-produite-par-vos-panneaux). Le choix technique doit donc être défini avant de remplir le dossier.
 
 Pour un projet avec injection, la demande doit correspondre au mode retenu : vente du surplus ou vente totale. Le gestionnaire compétent peut être Enedis ou une entreprise locale de distribution. La demande est adressée au gestionnaire du réseau de la commune, pas simplement au fournisseur figurant sur la facture d'électricité.
