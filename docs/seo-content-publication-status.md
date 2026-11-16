@@ -1,6 +1,16 @@
 # Suivi publication SEO Sunelys
 
-Derniere verification : 2026-11-02.
+Derniere verification : 2026-11-16.
+
+## État actualisé au 16 novembre 2026
+
+S1 à S11 sont publiées. S10 a été publiée avec `3042704` et S11 avec `f6f1b19`. Les tableaux historiques ci-dessous décrivent la préparation du 2 novembre et ne constituent plus l'état courant de S10/S11. S12 est désormais la prochaine semaine à valider séparément.
+
+La validation explicite « si elle est top publiue » a autorisé S11. Les deux guides CACSI et dossier EDF OA incomplet, datés du 16 novembre, ainsi que leur manifeste et leurs deux liens entrants ont été poussés (cinq fichiers). Sources Enedis et EDF OA relues. Node 22.23.0, tests, build Astro, audit statique de 50 pages et diff indexé conformes.
+
+Vérification publique du 16 novembre : les deux routes S11 répondent HTTP 200, sont présentes au sitemap et exposent canonical et date du 16 novembre. Les routes publiées précédemment ont été revérifiées en 200 avant publication. Aucun contenu S12 publié.
+
+Écart conservé : le checkout principal ancien et modifié n'a pas été réinitialisé. Le worktree de publication est `sunelys-site-s11-20261116`. Git distant et public concordent sur S11 ; les anciens tableaux de ce document sont historiques.
 
 Ce fichier sert de garde-fou pour le calendrier editorial SEO. Il doit etre lu avant toute automation ou preparation de nouvelle semaine.
 
